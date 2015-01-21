@@ -17,8 +17,9 @@ def get_datetime(date_field):
 class res_partner(models.Model):
     _name = 'res.partner'
     _inherit = 'res.partner'
-    
+
     maintenance_installations = fields.One2many('maintenance.installation', 'partner_id', string='Maintenance installations')
+    
     
 res_partner()
 

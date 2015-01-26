@@ -233,23 +233,6 @@
 
 
 		<!-- MAINTENANCE INTERVENTION -->
-
-
-		<record id="action_maintenance_intervention" model="ir.actions.act_window">
-			<field name="name">Maintenance interventions</field>
-			<field name="search_view_id" ref="view_maintenance_intervention_search" />
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">maintenance.intervention</field>
-			<field name="context">{'maintenance_intervention':True}</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
-			<field name="context">{'search_default_future': 1}</field>
-			<field name="help">All maintenance interventions</field>
-		</record>
-
-		<menuitem action="action_maintenance_intervention" id="menu_maintenance_intervention"
-			parent="menu_maintenance" />
-			
 		<record id="view_maintenance_intervention_search" model="ir.ui.view">
             <field name="name">maintenance.intervention.search</field>
             <field name="model">maintenance.intervention</field>
@@ -268,7 +251,7 @@
 						<field name="partner_id" />
 						<field name="state" />
 						<field name="task_state" />
-						<field name="sale_order_id" />
+						<!--<field name="sale_order_id" />-->
                     </group>
                     <newline/>
                     <group expand="0" string="Group By...">
@@ -282,6 +265,23 @@
                 </search>
             </field>
         </record>
+
+		<record id="action_maintenance_intervention" model="ir.actions.act_window">
+			<field name="name">Maintenance interventions</field>
+			<field name="search_view_id" ref="maintenance.view_maintenance_intervention_search" />
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.intervention</field>
+			<field name="context">{'maintenance_intervention':True}</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_future': 1}</field>
+			<field name="help">All maintenance interventions</field>
+		</record>
+
+		<menuitem action="action_maintenance_intervention" id="menu_maintenance_intervention"
+			parent="menu_maintenance" />
+			
+		
 		
 
 		<record id="view_maintenance_intervention_tree" model="ir.ui.view">

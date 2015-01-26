@@ -7,9 +7,10 @@ Created on 11 juil. 2012
 from openerp import models,fields
 import re
 import time
-from tools.translate import _
+from openerp.tools.translate import _
 from datetime import datetime, timedelta
-import netsvc
+#import netsvc
+from openerp import api
 
 def get_datetime(date_field):
     return datetime.strptime(date_field[:19], '%Y-%m-%d %H:%M:%S')
@@ -19,7 +20,6 @@ class res_partner(models.Model):
     _inherit = 'res.partner'
 
     maintenance_installations = fields.One2many('maintenance.installation', 'partner_id', string='Maintenance installations')
-    
     
 res_partner()
 
@@ -45,64 +45,58 @@ class maintenance_installation(models.Model):
         'active':True  
         }
     
-    def installation_draft(self, cr, uid, ids):
-        self.write(cr, uid, ids,{'state':'draft'})
-        return True
+    @api.one
+    def installation_draft(self):
+        self.state = 'draft'
     
-    
+    @api.one
     def installation_active(self, cr, uid, ids):
-        self.write(cr, uid, ids,{'state':'active'})
-        return True
+        self.state='active'
     
-    
-    def installation_inactive(self, cr, uid, ids):
-        self.write(cr, uid, ids,{'state':'inactive'})
-        return True
-    
-    def name_search(self, cr, user, name, args=None, operator='ilike', context=None, limit=100):
+    @api.one
+    def installation_inactive(self):
+        self.state='inactive'
+        
+    def name_search(self,name, args=None, operator='ilike', context=None, limit=100):
         if not args:
             args = []
         if name:
-            addresses = self.pool.get("res.partner.address").search(cr, user, ['|','|',('name',operator,name),('zip',operator,name),('city',operator,name)], context=context)
-            partners = self.pool.get("res.partner").search(cr, user, ['|',('ref',operator,name),('name',operator,name)], context=context)
-            installations = self.pool.get("maintenance.installation").search(cr, user, ['|',('code',operator,name),('name',operator,name)], context=context)
-            ids = self.search(cr, user, ['|','|','|',('id','in',installations),('address_id', 'in', addresses),('contact_address_id','in',addresses),('partner_id','in',partners)]+ args, limit=limit, context=context)
+            addresses = self.env["res.partner.address"].search(['|','|',('name',operator,name),('zip',operator,name),('city',operator,name)])
+            partners = self.env["res.partner"].search(['|',('ref',operator,name),('name',operator,name)])
+            installations = self.en["maintenance.installation"].search(['|',('code',operator,name),('name',operator,name)], context=context)
+            ids = self.search(['|','|','|',('id','in',installations.mapped('id')),('address_id', 'in', addresses.mapped('id')),('contact_address_id','in',addresses.mapped('id')),('partner_id','in',partners.mapped('id'))]+ args, limit=limit)
         else:
-            return super(maintenance_installation, self).name_search(cr, user, name, args, operator, context, limit)
+            return super(maintenance_installation, self).name_search(name, args, operator, limit)
         
-        return self.name_get(cr, user, ids, context)
+        return ids.name_get()
     
-    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
-        res = super(maintenance_installation, self).search(cr, uid, args, offset, limit, order, context, count)
+    
+    def search(self, args, offset=0, limit=None, order=None, context=None, count=False):
+        res = super(maintenance_installation, self).search(args, offset, limit, order, count)
         return res
     
-    def name_get(self, cr, uid, ids, context=None):
-        if not ids:
-            return []
+    @api.one
+    def name_get(self):
+        
         res = []
-        for record in self.browse(cr, uid, ids, context=context):
-            name = ""
-            if record.address_id and record.address_id.name:
-                name = name + "["+record.address_id.name+"] "
-            elif record.partner_id and record.partner_id.name:
-                name = name + "["+record.partner_id.name+"] "
-            if record.name:
-                name = name + record.name
-            res.append((record.id,name))
+        
+        name = ""
+        if self.address_id and self.address_id.name:
+            name = name + "["+self.address_id.name+"] "
+        elif self.partner_id and self.partner_id.name:
+            name = name + "["+self.partner_id.name+"] "
+        if self.name:
+            name = name + self.name
+        res.append((self.id,name))
         return res
     
-    
-    def on_change_partner_id(self, cr, uid, ids, partner_id, invoice_address_id, address_id, context=None):
-        if context is None:
-            context = {}
-        result = {}
+    @api.onchange('partner_id')
+    def on_change_partner_id(self):
         
         if partner_id:
-            addr = self.pool.get('res.partner').address_get(cr, uid, [partner_id], ['invoice', 'delivery', 'contact'])
-            result['invoice_address_id'] = addr['invoice']
-            result['address_id'] = addr['delivery']
-            #result['contact_address_id'] = addr['contact']
-        return {'value': result}
+            addr = self.env['res.partner'].address_get(self.partner_id,['invoice', 'delivery', 'contact'])
+            self.address_id = addr['delivery']
+            self.invoice_address_id = addr['invoice']
     
 maintenance_installation()
 
@@ -119,22 +113,22 @@ intervention_type()
 class maintenance_intervention(models.Model):
     _name = 'maintenance.intervention'
     
-    def copy(self, cr, uid, id, default=None, context=None):
-        new_id = super(maintenance_intervention, self).copy(cr, uid, id, default, context)
-        new_code = self.pool.get('ir.sequence').get(cr, uid, 'maintenance.intervention')
-        self.write(cr, uid, [new_id], {'code':new_code}, context=context)
-        return new_id
+    def copy(self,default=None):
+        new_intervention = super(maintenance_intervention, self).copy(default)
+        new_code = self.env['ir.sequence'].get('maintenance.intervention')
+        new_intervention.code = new_code
+        return new_intervention
     
-    def name_get(self, cr, uid, ids, context=None):
-        if not ids:
-            return []
+    @api.one
+    def name_get(self):
         result = []
-        for me in self.browse(cr, uid, ids, context=context):
-            if me.name:
-                result.append((me.id, me.code+' - '+me.name))
-            else:
-                result.append((me.id, me.code))
+        if self.name:
+                result.append((self.id, self.code+' - '+self.name))
+        else:
+            result.append((self.id, self.code))
+        
         return result
+    
     
     def _get_intervention_from_task(self, cr, uid, ids, context):
         return [task.intervention_id.id for task in self.pool.get("maintenance.intervention.task").browse(cr, uid, ids, context)]
@@ -218,7 +212,7 @@ class maintenance_intervention(models.Model):
     name = fields.Text("Description", select=True)
     #partner_id = fields.Related("installation_id", "partner_id", type="many2one", relation="res.partner", readonly=True, string="Customer", store=True)
     partner_id = fields.Many2one("res.partner",string="Customer",related="installation_id.partner_id",store=True)
-    address_id = fields.Many2one("res.partner.address",string="Adress",related="installation_id.address_id",store=True)
+    address_id = fields.Many2one("res.partner",string="Adress",related="installation_id.address_id",store=True)
     installation_id = fields.Many2one('maintenance.installation', string='Installation', required=True) 
     state = fields.Selection([('cancel','Cancel'), ('draft','Draft'), ('confirmed', 'Confirmed'), ('done', 'Done')], string="Intervention State", readonly=True)
     task_state = fields.Selection(compute="_get_task_fields", method=True, type="selection", size=255, readonly=True, string="Task state", store={'maintenance.intervention.task':(_get_intervention_from_task,['user_id','date_start','to_plan'],10)}, multi='task', selection=[('to_plan','To plan'), ('planned', 'Planned')])
@@ -226,8 +220,8 @@ class maintenance_intervention(models.Model):
     int_comment = fields.Text("Internal comment")
     ext_comment = fields.Text("External comment")  
     maint_type = fields.Many2one('maintenance.intervention.type', string='Type', required=True)
-    contact_address_id = fields.Many2one('res.partner.address', string='Contact')
-    contact_phone = fields.Text(related="contact_address_id.phone", string="Contact phone")
+    contact_address_id = fields.Many2one('res.partner', string='Contact')
+    contact_phone = fields.Char(related="contact_address_id.phone", string="Contact phone")
     technicians = fields.Char(compute="_get_task_fields", method=True, size=255, string="Technician", store={'maintenance.intervention.task':(_get_intervention_from_task,['user_id'],10)}, multi='task')
     to_plan = fields.Boolean(computed="_get_task_fields", method=True, string="To plan", store={'maintenance.intervention.task':(_get_intervention_from_task, ['to_plan'],10)}, multi='task')
     date_start = fields.Datetime(compute="_get_task_fields", method=True, string="Beginning",store={'maintenance.intervention.task':(_get_intervention_from_task, ['date_start'],10)}, multi='task')
@@ -244,26 +238,25 @@ class maintenance_intervention(models.Model):
     
     _order = 'date_start,id desc'
     
-    def on_change_installation_id(self, cr, uid, ids, installation_id):        
-        if installation_id:
-            installation = self.pool.get("maintenance.installation").browse(cr, uid, [installation_id])[0]
-            return {'value': {'partner_id': installation.partner_id.id,'contact_address_id': installation.contact_address_id.id}}
-        return {}
-    
-    def action_cancel(self, cr, uid, ids, context=None):
-        #cancel interventions
-        self.write(cr, uid, ids, {'state': 'cancel'}, context=context)        
-        return True
-    
-    def action_done(self, cr, uid, ids, context=None):
-        interventions = self.browse(cr, uid, ids, context)
-
-        #update interventions
-        self.write(cr, uid, ids, {'state': 'done'}, context=context)
+    @api.onchange('installation_id')
+    def on_change_installation_id(self):        
+        if self.installation_id:
+            self.partner_id = self.installation_id.partner_id.id
+            self.contact_address_id = self.installation_id.contact_address_id.id
             
-        return True
+    @api.one
+    def action_cancel(self):
+        self.state = 'cancel'
     
-    def action_confirm(self, cr, uid, ids, context=None):      
+    @api.one
+    def action_done(self):
+        self.state = 'done'
+    
+    @api.one
+    def action_confirm(self):    
+        self.state = 'confirmed'
+        
+        '''  
         logger = netsvc.Logger()
           
         project_pool = self.pool.get("project.project")
@@ -285,6 +278,7 @@ class maintenance_intervention(models.Model):
             except:
                 ''
         return True
+        '''
 
 maintenance_intervention()
 
@@ -298,15 +292,14 @@ class maintenance_element(models.Model):
         self.write(cr, uid, [new_id], {'code':new_code}, context=context)
         return new_id
     
-    def name_get(self, cr, uid, ids, context=None):
-        if not ids:
-            return []
+    @api.one
+    def name_get(self):
+        
         result = []
-        for me in self.browse(cr, uid, ids, context=context):
-            if me.serial_number:
-                result.append((me.id, me.name+' - ['+me.serial_number+']'))
-            else:
-                result.append((me.id, me.name))
+        if self.serial_number:
+            result.append((self.id, self.name+' - ['+self.serial_number+']'))
+        else:
+            result.append((self.id, self.name))
         return result
     
     #add search on code
@@ -324,7 +317,7 @@ class maintenance_element(models.Model):
     
     installation_id = fields.Many2one('maintenance.installation', 'Installation', select=True)
     code = fields.Char("Code", size=255, select=True)
-    partner_id = fields.Many2one("res.partner",related="installation_id.partner_id", readonly=True, string="Customer", store=True),
+    partner_id = fields.Many2one("res.partner",related="installation_id.partner_id", readonly=True, string="Customer", store=True)
     name = fields.Char("Name", size=255, select=True) 
     product_id = fields.Many2one('product.product', 'Product', select=True)
     serial_number = fields.Char("Serial Number", size=255, select=True) 
@@ -334,7 +327,7 @@ class maintenance_element(models.Model):
     location = fields.Char("Location", size=255) 
     suivi_tmi = fields.Text("Suivi TMI")
     piece_tmi = fields.Text("Piece TMI", readonly=True)        
-    address_id = fields.Many2one("res.partner.address", related="installation_id.address_id", readonly=True, string="Address")
+    address_id = fields.Many2one("res.partner", related="installation_id.address_id", readonly=True, string="Address")
     serialnumber_required = fields.Boolean("Serial number required")
     visible_for_intervention = fields.Boolean("Visible for interventions")
     active = fields.Boolean("Active")
@@ -382,19 +375,19 @@ class maintenance_intervention_task(models.Model):
         'to_plan': True,  
     }
     
-    def write(self, cr, uid, ids, vals, context=None):
+    @api.one
+    def write(self, vals):
         if 'state' in vals and 'date_end' in vals and 'date_start' not in vals and vals['state'] == 'cancelled':
             vals['date_start'] = vals['date_end']
         
-        result = super(maintenance_intervention_task,self).write(cr, uid, ids, vals, context=context)
+        result = super(maintenance_intervention_task,self).write(vals)
         return result    
     
-    
-    def on_change_date_end(self, cr, uid, ids, date_start,date_end,break_time):  
-        if date_start and date_end:
-            delta = get_datetime(date_end) - get_datetime(date_start) - timedelta(hours=break_time)
-            return {'value':{'planned_hours':delta.seconds/3600.}} 
-        return {}       
+    @api.onchange('date_end')
+    def on_change_date_end(self):  
+        if self.date_start and self.date_end:
+            delta = get_datetime(self.date_end) - get_datetime(self.date_start) - timedelta(hours=self.break_time)
+            self.planned_hours = delta.seconds/3600.
   
 maintenance_intervention_task()
 

@@ -51,7 +51,7 @@
 					<field name="product_id" />
 					<field name="installation_date" />
 					<field name="warranty_date" />
-					<field name="shop_id" widget="selection" />
+					<field name="warehouse_id" widget="selection" />
 					<newline/>
                     <group expand="0" string="Group By...">
                     	<filter string="Installation"
@@ -134,7 +134,7 @@
 					<field name="address_id" />
 					<field name="partner_id" />
 					<field name="contact_address_id" />
-					<field name="shop_id" />
+					<field name="warehouse_id" />
 				</search>
 			</field>
 		</record>
@@ -160,7 +160,7 @@
 					<field name="name" />
 					<field name="address_id" />
 					<field name="partner_id" />
-					<field name="shop_id" />
+					<field name="warehouse_id" />
 				</tree>
 			</field>
 		</record>
@@ -177,7 +177,7 @@
 					<field name="address_id" domain="[('partner_id','=',partner_id), ('type','in', ('default','delivery'))]" />
 					<field name="invoice_address_id" domain="[('partner_id','=',partner_id), ('type','in', ('default','invoice'))]" />
 					<field name="contact_address_id" domain="[('type','in', ('default','contact'))]" />
-					<field name="shop_id" widget="selection" />
+					<field name="warehouse_id" widget="selection" />
 					<field name="active" />
 					<newline />
 					<notebook colspan="4">

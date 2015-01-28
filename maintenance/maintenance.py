@@ -30,13 +30,14 @@ class maintenance_installation(models.Model):
     code = fields.Char("Code", size=255, select=True)
     name = fields.Char("Identification", size=255, select=True)
     partner_id = fields.Many2one('res.partner', string='Customer', select=True)
-    address_id = fields.Many2one('res.partner.address', string='Address', select=True)
-    invoice_address_id = fields.Many2one('res.partner.address', string='Invoice address', select=True)
-    contact_address_id = fields.Many2one('res.partner.address', string='Contact address', select=True)
+    address_id = fields.Many2one('res.partner', string='Address', select=True)
+    invoice_address_id = fields.Many2one('res.partner', string='Invoice address', select=True)
+    contact_address_id = fields.Many2one('res.partner', string='Contact address', select=True)
     elements = fields.One2many('maintenance.element', 'installation_id', "Elements")
     interventions = fields.One2many('maintenance.intervention', 'installation_id', "Interventions", domain=[('state','=','done')]) 
     usability_degree = fields.Char(string="Usability degree", size=255) 
-    shop_id = fields.Many2one('sale.shop', 'Shop') 
+    #shop_id = fields.Many2one('sale.shop', 'Shop')
+    warehouse_id = fields.Many2one('stock.warehouse','Warehouse')
     active = fields.Boolean("Active")
     state = fields.Selection([('active', 'Active'), ('inactive','Inactive')], string="State", readonly=True)
     
@@ -331,7 +332,8 @@ class maintenance_element(models.Model):
     serialnumber_required = fields.Boolean("Serial number required")
     visible_for_intervention = fields.Boolean("Visible for interventions")
     active = fields.Boolean("Active")
-    shop_id = fields.Many2one('sale.shop',related='installation_id.shop_id', string="Shop")
+    #shop_id = fields.Many2one('sale.shop',related='installation_id.shop_id', string="Shop")
+    warehouse_id = fields.Many2one('stock.warehouse',related='installation_id.warehouse_id', string="Warehouse")
     
     _defaults = {
         'code': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'maintenance.element'),

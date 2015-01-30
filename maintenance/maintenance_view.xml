@@ -4,7 +4,10 @@
 		<!-- MAIN MAINTENANCE MENU -->
 		<menuitem icon="terp-partner" id="menu_maintenance" name="Maintenance"
 			sequence="10" groups="group_maintenance_user" />
-			
+		
+		<menuitem  id="menu_maintenance_maintenance" name="Maintenance" groups="group_maintenance_user"
+			parent="menu_maintenance" />
+					
 		<!-- MAINTENANCE CONFIGURATION MENU -->
 		<menuitem id="menu_maintenance_config" parent="menu_maintenance" 
 			name="Configuration" sequence="20" groups="group_maintenance_user" />
@@ -73,7 +76,7 @@
 			<field name="help">All maintenance elements</field>
 		</record>
 		<menuitem action="action_maintenance_element" id="menu_maintenance_element"
-			parent="menu_maintenance" />
+			parent="menu_maintenance_maintenance" />
 		<record id="view_maintenance_element_tree" model="ir.ui.view">
 			<field name="name">maintenance.element.tree</field>
 			<field name="model">maintenance.element</field>
@@ -149,7 +152,7 @@
 		</record>
 
 		<menuitem action="action_maintenance_installation" id="menu_maintenance_installation"
-			parent="menu_maintenance" />
+			parent="menu_maintenance_maintenance" />
 		<record id="view_maintenance_installation_tree" model="ir.ui.view">
 			<field name="name">maintenance.installation.tree</field>
 			<field name="model">maintenance.installation</field>
@@ -279,7 +282,7 @@
 		</record>
 
 		<menuitem action="action_maintenance_intervention" id="menu_maintenance_intervention"
-			parent="menu_maintenance" />
+			parent="menu_maintenance_maintenance" />
 			
 		
 		

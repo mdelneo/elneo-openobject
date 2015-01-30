@@ -120,7 +120,7 @@ class maintenance_intervention(models.Model):
         new_intervention.code = new_code
         return new_intervention
     
-    @api.one
+    
     def name_get(self):
         result = []
         if self.name:
@@ -130,11 +130,13 @@ class maintenance_intervention(models.Model):
         
         return result
     
+    @api.one
+    def _get_intervention_from_task(self):
+        return [task.intervention_id.id for task in self.env['maintenance.intervention.task'].browse]
     
-    def _get_intervention_from_task(self, cr, uid, ids, context):
-        return [task.intervention_id.id for task in self.pool.get("maintenance.intervention.task").browse(cr, uid, ids, context)]
-    
-    def _get_task_fields(self, cr, uid, ids, field_names, args, context=None):
+    @api.multi
+    @api.depends('maintenance.intervention.task.user_id')
+    def _get_task_fields(self,field_names, args):
         result = {}
         
         for intervention in self.browse(cr, uid, ids, context):
@@ -208,6 +210,8 @@ class maintenance_intervention(models.Model):
                     result[intervention.id]['task_state'] = 'to_plan'
                 
         return result
+   
+       
     
     code = fields.Char("Code", size=255, select=True, required=True)
     name = fields.Text("Description", select=True)

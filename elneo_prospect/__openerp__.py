@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 {
     'name': 'Elneo prospect',
     'version': '0.1',
@@ -8,10 +7,8 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': [],
-    "data" : [
-        ],
+    'data' : ['elneo_prospect_view.xml'],
     'installable': True,
     'auto_install': False,
     'application': True,
-
 }

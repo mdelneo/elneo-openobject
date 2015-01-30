@@ -1,7 +1,37 @@
 <?xml version="1.0"?>
 <openerp>
 	<data>
-		
+		<record id="view_order_tree_elneo_sale" model="ir.ui.view">
+            <field name="name">view.sale.order.tree.elneo.sale</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//tree/field[@name='partner_id']" position="after">
+            		<field name="client_order_ref"/>
+            	</xpath>
+            	<xpath expr="//tree/field[@name='amount_total']" position="before">
+            		<field name="margin"/>
+            		<field name="amount_untaxed"/>
+            	</xpath>
+            </field>
+        </record>
+        <record id="view_quotation_tree_elneo_sale" model="ir.ui.view">
+            <field name="name">view.sale.order.tree.elneo.sale</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='partner_id']" position="after">
+            		<field name="client_order_ref"/>
+            		
+            	</xpath>
+            	<xpath expr="//tree/field[@name='amount_total']" position="before">
+            		<field name="margin"/>
+            		<field name="amount_untaxed"/>
+            	</xpath>
+            </field>
+        </record>
 		<record id="view_order_form_elneo_sale" model="ir.ui.view">
             <field name="name">view.sale.order.form.elneo.sale</field>
             <field name="model">sale.order</field>

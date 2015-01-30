@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		
+		<record id="view_order_form_elneo_sale" model="ir.ui.view">
+            <field name="name">view.sale.order.form.elneo.sale</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='project_id']" position="replace"/>
+			</field>
+        </record>
+        
+        <record model="ir.ui.view" id="sale_view_inherit123_elneo_sale">
+            <field name="name">sale.order.inherit.elneo.sale</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_crm.sale_view_inherit123"/>
+            <field name="arch" type="xml">
+
+                	<xpath expr="//field[@name='campaign_id']" position="replace"/>
+                   	<xpath expr="//field[@name='medium_id']" position="replace"/>
+                    <xpath expr="//field[@name='source_id']" position="replace"/>             
+            </field>
+        </record>
+            
+	</data>
+	
+	
+</openerp>

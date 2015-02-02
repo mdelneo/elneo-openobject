@@ -7,7 +7,7 @@
     'description': "List of Consumer price index (CPI) daily downloaded from economie.fgov.be",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': [],
+    'depends': ['account'],
     "data" : [
         'cpi_be_view.xml',
         'cpi_be_data.xml',

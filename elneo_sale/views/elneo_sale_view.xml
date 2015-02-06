@@ -32,11 +32,15 @@
             	</xpath>
             </field>
         </record>
+        
 		<record id="view_order_form_elneo_sale" model="ir.ui.view">
             <field name="name">view.sale.order.form.elneo.sale</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+            	<xpath expr="//field[@name='partner_id']" position="attributes">
+            		<attribute name="on_change">1</attribute>
+            	</xpath>
             	<xpath expr="//field[@name='project_id']" position="replace"/>
 			</field>
         </record>

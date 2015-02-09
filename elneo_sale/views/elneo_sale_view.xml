@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+	
+        <menuitem id="sale.menu_sale_order" parent="base.menu_sales" sequence="2"/>
+        <menuitem id="sale.menu_sale_quotations" parent="base.menu_sales" sequence="1"/>
+        <menuitem id="base.menu_partner_form" parent="base.menu_sales" sequence="3"/>
+        <menuitem id="sales_team.menu_sales_team_act" name="Sales Teams" parent="base.menu_sales" sequence="4" />
+             
 		<record id="view_order_tree_elneo_sale" model="ir.ui.view">
             <field name="name">view.sale.order.tree.elneo.sale</field>
             <field name="model">sale.order</field>

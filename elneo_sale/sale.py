@@ -10,23 +10,19 @@ class sale_order(models.Model):
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
         
-        # BEGIN - TO SUPPRESS - WHEN SALE.ORDER SUPPORTS NEW API 
-        if not self.partner_id:
-            self.partner_invoice_id = False
-            self.partner_shipping_id = False
-            self.payment_term = False
-            self.fiscal_position = False
-        else:
-            addr = self.partner_id.address_get(['delivery', 'invoice', 'contact'])
-            
-            self.partner_shipping_id = addr['delivery']
-            self.partner_invoice_id = addr['invoice']
-            self.payment_term = self.partner_id.property_payment_term.id
-            self.user_id = self.partner_id.user_id.id or self.env.uid
-            if self.partner_id.property_product_pricelist and self.partner_id.property_product_pricelist.id:
-                self.pricelist_id = self.partner_id.property_product_pricelist.id
+        res = super(sale_order,self).onchange_partner_id(self.partner_id.id)
+        
+        #TO DELETE WHEN onchange_partner_id WILL BE WITH NEW API
+        self.fiscal_position = res['value']['fiscal_position']
+        self.partner_shipping_id = res['value']['partner_shipping_id']
+        self.partner_invoice_id = res['value']['partner_invoice_id']
+        self.payment_term = res['value']['payment_term']
+        self.user_id = res['value']['user_id']
+        self.pricelist_id = res['value']['pricelist_id']
+        #END TO DELETE WHEN onchange_partner_id WILL BE WITH NEW API
+        
+        if self.partner_id:
             self.sale_note = super(sale_order,self).get_salenote(self.partner_id.id)
-        # END - TO SUPPRESS    
             
 
     @api.onchange('partner_order_id')

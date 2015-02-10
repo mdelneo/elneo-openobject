@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from openerp import models,fields
 
 class user_dept_zip(models.Model):

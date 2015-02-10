@@ -22,11 +22,29 @@
               </p>
             </field>
         </record>
+        
+        <record id="action_partner_form_elneo_contacts" model="ir.actions.act_window">
+            <field name="name">Contacts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <!--  <field name="inherit_id" ref="base.action_partner_form"/>-->
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{"search_default_customer":1}</field>
+            <field name="domain">[('is_company','=','False'),('parent_id','!=','False')]</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                Odoo helps you easily track all activities related to
+                a customer; discussions, history of business opportunities,
+                documents, etc.
+              </p>
+            </field>
+        </record>
 	
-        <menuitem id="sale.menu_sale_order" parent="base.menu_sales" sequence="2"/>
-        <menuitem id="sale.menu_sale_quotations" parent="base.menu_sales" sequence="1"/>
-        <menuitem id="menu_partner_form_elneo" parent="base.menu_sales" action="action_partner_form_elneo" sequence="3"/>
-        <menuitem id="sales_team.menu_sales_team_act" name="Sales Teams" parent="base.menu_sales" sequence="4" />
+        
 
         
         
@@ -89,6 +107,13 @@
                     <xpath expr="//field[@name='source_id']" position="replace"/>             
             </field>
         </record>
+        
+        <menuitem id="sale.menu_sale_order" parent="base.menu_sales" sequence="2"/>
+        <menuitem id="sale.menu_sale_quotations" parent="base.menu_sales" sequence="1"/>
+        <delete model="ir.ui.menu" id="base.menu_partner_form"/>
+        <menuitem id="menu_partner_form_elneo" parent="base.menu_sales" action="action_partner_form_elneo" sequence="3"/>
+        <menuitem id="menu_partner_form_elneo_contacts" parent="base.menu_sales" action="action_partner_form_elneo_contacts" sequence="4"/>
+        <menuitem id="sales_team.menu_sales_team_act" name="Sales Teams" parent="base.menu_sales" sequence="5" />
             
 	</data>
 	

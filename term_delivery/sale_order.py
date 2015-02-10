@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from openerp import models, api
 
 class sale_order(models.Model):

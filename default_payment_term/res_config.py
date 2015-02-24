@@ -33,6 +33,21 @@ class res_config(models.TransientModel):
     def set_payment_term_partner(self):
         
         self.env['ir.config_parameter'].set_param('default_payment_term.payment_term_partner',repr(self.payment_term_partner.id))
+        
+    @api.multi
+    def get_default_payment_term_customer(self):
+        res = {}
+        term = safe_eval(self.env['ir.config_parameter'].get_param('default_payment_term.payment_term_customer','False'))
+        if term:
+            res.update({'payment_term_customer':term})
+        #test = self.payment_term_partner
+        
+        return res
+    
+    @api.multi
+    def set_payment_term_customer(self):
+        
+        self.env['ir.config_parameter'].set_param('default_payment_term.payment_term_customer',repr(self.payment_term_customer.id))
       
 
 res_config()

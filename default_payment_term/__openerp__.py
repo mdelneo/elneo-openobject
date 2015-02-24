@@ -7,7 +7,7 @@
     'description': "Manage default payment term for partners or customers",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['base','account'],
+    'depends': ['base'],
     "data" : ['views/res_config_view.xml'
         ],
     'installable': True,

@@ -9,7 +9,6 @@
             <field name="view_type">form</field>
             <!--  <field name="inherit_id" ref="base.action_partner_form"/>-->
             <field name="view_mode">kanban,tree,form</field>
-            <field name="context">{"search_default_customer":1}</field>
             <field name="domain">[('is_company','=',True)]</field>
             <!-- <field name="search_view_id" ref="base.view_res_partner_filter"/> -->
             <field name="help" type="html">
@@ -30,7 +29,6 @@
             <field name="view_type">form</field>
             <!--  <field name="inherit_id" ref="base.action_partner_form"/>-->
             <field name="view_mode">tree,form,kanban</field>
-            <field name="context">{"search_default_customer":1}</field>
             <field name="domain">[('is_company','=',False)]</field>
             <!-- <field name="search_view_id" ref="base.view_res_partner_filter"/> -->
             <field name="help" type="html">
@@ -116,6 +114,39 @@
         <menuitem id="menu_partner_form_elneo" parent="base.menu_sales" action="action_partner_form_elneo" sequence="3"/>
         <menuitem id="menu_partner_form_elneo_contacts" parent="base.menu_sales" action="action_partner_form_elneo_contacts" sequence="2"/>
         <menuitem id="sales_team.menu_sales_team_act" name="Sales Teams" parent="base.menu_sales" sequence="5" />
+        
+        
+        <!-- Menu CRM -->
+        <menuitem 
+        	id="crm"
+        	name="Crm" 
+        	sequence="15"        
+        	/>
+        	
+        <menuitem 
+        	id="crm_partners"
+        	parent = 'crm'
+        	name="Partners" 
+        	sequence="15"        
+        	/>
+        	
+        <menuitem 
+        	id="crm_partners_companies"
+        	parent = 'crm_partners'
+        	name="Companies" 
+        	action="action_partner_form_elneo"        	
+        	sequence="10"        
+        	/>
+        	
+        <menuitem 
+        	id="crm_partners_contacts"
+        	parent = 'crm_partners'
+        	name="Contacts" 
+        	action="action_partner_form_elneo_contacts"
+        	sequence="20"        
+        	/>
+        
+        
             
 	</data>
 	

@@ -1,1 +1,1 @@
-import sale
+import elneo_sale

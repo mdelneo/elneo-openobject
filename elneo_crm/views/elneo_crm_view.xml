@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="action_partner_form_elneo" model="ir.actions.act_window">
+            <field name="name">Companies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('is_company','=',True)]</field>
+            <field name="context">{'force_is_company':True}</field>
+        </record>
+        
+        <record id="action_partner_form_elneo_contacts" model="ir.actions.act_window">
+            <field name="name">Contacts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[('is_company','=',False)]</field>
+        </record>
+        
+        <!-- Menu CRM -->
+        <menuitem 
+        	id="crm"
+        	name="Crm" 
+        	sequence="15"        
+        	/>
+        	
+        <menuitem 
+        	id="crm_partners"
+        	parent = 'crm'
+        	name="Partners" 
+        	sequence="15"        
+        	/>
+        	
+        <menuitem 
+        	id="crm_partners_companies"
+        	parent = 'crm_partners'
+        	name="Companies" 
+        	action="action_partner_form_elneo"        	
+        	sequence="10"        
+        	/>
+        	
+        <menuitem 
+        	id="crm_partners_contacts"
+        	parent = 'crm_partners'
+        	name="Contacts" 
+        	action="action_partner_form_elneo_contacts"
+        	sequence="20"        
+        	/>
+	</data>
+</openerp>

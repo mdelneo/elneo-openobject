@@ -78,16 +78,16 @@
             <field name="act_window_id" ref="act_partner_sale_exception"/>
         </record>
         
-        <menuitem id="base.menu_sale_config_areas"
-            parent="base.menu_base_config" name="Areas"
+        <menuitem id="menu_sale_config_areas"
+            parent="base.menu_base_config" name="Seller Areas" groups="base.group_user"
             />
             
-         <menuitem parent="base.menu_sale_config_areas"
-            id="menu_zip_user_correspondances" name="Seller Areas"
+         <menuitem parent="menu_sale_config_areas"
+            id="menu_zip_user_correspondances" name="Seller Areas" groups="base.group_user"
             action="act_correspondance"/>
             
-         <menuitem parent="base.menu_sale_config_areas"
-            id="menu_partner_sale_exception" name="Customer Exceptions"
+         <menuitem parent="menu_sale_config_areas"
+            id="menu_partner_sale_exception" name="Customer Exceptions" groups="base.group_user"
             action="act_partner_sale_exception"/>
     </data>
 </openerp>

@@ -48,9 +48,7 @@
             <field name="act_window_id" ref="act_correspondance"/>
         </record>
         
-         <menuitem parent="base.menu_sale_config_sales"
-            id="menu_zip_user_correspondances"
-            action="act_correspondance"/>
+        
             
         <record model="ir.ui.view" id="view_partner_sale_exception_tree">
             <field name="name">res.partner.sale.exception.tree</field>
@@ -67,7 +65,7 @@
         </record> 
         
         <record model="ir.actions.act_window" id="act_partner_sale_exception">
-            <field name="name">Seller areas : customer exception</field>
+            <field name="name">Customer Exceptions</field>
             <field name="res_model">res.partner.sale.exception</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -80,8 +78,16 @@
             <field name="act_window_id" ref="act_partner_sale_exception"/>
         </record>
         
-         <menuitem parent="base.menu_sale_config_sales"
-            id="menu_partner_sale_exception"
+        <menuitem id="base.menu_sale_config_areas"
+            parent="base.menu_base_config" name="Areas"
+            />
+            
+         <menuitem parent="base.menu_sale_config_areas"
+            id="menu_zip_user_correspondances" name="Seller Areas"
+            action="act_correspondance"/>
+            
+         <menuitem parent="base.menu_sale_config_areas"
+            id="menu_partner_sale_exception" name="Customer Exceptions"
             action="act_partner_sale_exception"/>
     </data>
 </openerp>

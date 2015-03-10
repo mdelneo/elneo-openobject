@@ -6,14 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-02 09:23+0000\n"
-"PO-Revision-Date: 2015-02-02 10:32+0100\n"
-"Last-Translator: Denis Roussel <denis.roussel@elneo.com>\n"
+"POT-Creation-Date: 2015-03-10 09:36+0000\n"
+"PO-Revision-Date: 2015-03-10 10:38+0100\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.7.4\n"
 "Language: fr_BE\n"
 
 #. module: seller_area
@@ -35,9 +36,15 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: seller_area
+#: model:ir.actions.act_window,name:seller_area.act_partner_sale_exception
+#: model:ir.ui.menu,name:seller_area.menu_partner_sale_exception
+msgid "Customer Exceptions"
+msgstr "Exceptions Clients"
+
+#. module: seller_area
 #: view:res.partner.sale.exception:seller_area.view_partner_sale_exception_tree
-msgid "Exception client pour secteur de vente"
-msgstr "Exception client pour secteur de vente"
+msgid "Customer exception for Sales Area"
+msgstr "Exception client pour les secteurs de Vente"
 
 #. module: seller_area
 #: field:res.partner.sale.exception,id:0 field:res.user.zip.rel,id:0
@@ -57,33 +64,16 @@ msgid "Last Updated on"
 msgstr "Dernière Modification le"
 
 #. module: seller_area
-#: field:res.user.zip.rel,department:0
-msgid "Sales Team"
-msgstr "Equipe commerciale"
+#: model:ir.model,name:seller_area.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
 
 #. module: seller_area
-#: field:res.user.zip.rel,user:0
-msgid "Seller"
-msgstr "Vendeur"
-
-#. module: seller_area
-#: model:ir.actions.act_window,name:seller_area.act_correspondance
 #: model:ir.ui.menu,name:seller_area.menu_zip_user_correspondances
-msgid "Seller areas"
+msgid "Seller Areas"
 msgstr "Secteurs de Vente"
 
 #. module: seller_area
-#: model:ir.actions.act_window,name:seller_area.act_partner_sale_exception
-#: model:ir.ui.menu,name:seller_area.menu_partner_sale_exception
-msgid "Seller areas : customer exception"
-msgstr "Secteurs de ventes : exception client"
-
-#. module: seller_area
-#: field:res.user.zip.rel,zip_max:0
-msgid "Zip max"
-msgstr "Code Postal max"
-
-#. module: seller_area
-#: field:res.user.zip.rel,zip_min:0
-msgid "Zip min"
-msgstr "Code Postal min"
+#: model:ir.actions.act_window,name:seller_area.act_correspondance
+msgid "Seller areas"
+msgstr "Secteurs de Vente"

@@ -20,6 +20,16 @@
             <field name="domain">[('is_company','=',False)]</field>
         </record>
         
+        
+        <record model="ir.ui.view" id="res_partner_opt_out_search_elneo">
+            <field name="name">res.partner.opt_out.search.elneo</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="email_template.res_partner_opt_out_search"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//filter[@name='not_opt_out']" position="remove"/>
+            </field>
+        </record>
+        
         <!-- Menu CRM -->
         <menuitem 
         	id="crm"

@@ -92,7 +92,13 @@
             	<xpath expr="//field[@name='partner_id']" position="attributes">
             		<attribute name="on_change">1</attribute>
             		<attribute name="domain">[('is_company','=',True)]</attribute>
-            		<attribute name="context">{'show_address':1}</attribute>
+            	</xpath>
+            	<xpath expr="//field[@name='partner_invoice_id']" position="attributes">
+            		<attribute name="context">{'show_address':1,'show_ref_inline':1}</attribute>
+            		<attribute name="options">{'always_reload': True}</attribute>
+            	</xpath>
+            	<xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+            		<attribute name="context">{'show_address':1,'show_ref_inline':1}</attribute>
             	</xpath>
             	<xpath expr="//field[@name='project_id']" position="replace"/>
 			</field>
@@ -108,45 +114,69 @@
             </field>
         </record>
         
-        <menuitem id="sale.menu_sale_order" parent="base.menu_sales" sequence="2"/>
-        <menuitem id="sale.menu_sale_quotations" parent="base.menu_sales" sequence="1"/>
+        
+        <!-- search by Salesteams -->
+        <record id="view_sales_order_filter_elneo" model="ir.ui.view">
+            <field name="name">sale.order.list.select.elneo</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//filter[@string='My']" position="after">
+            		<filter string="My Team" domain="[('section_id.member_ids','in',[uid])]" name="my_sale_team_orders_filter"/>
+            	</xpath>
+            </field>
+        </record>
+        
+        
+        <record id="action_orders_salesteams_elneo" model="ir.actions.act_window">
+            <field name="name">Sales Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="view_sales_order_filter_elneo"/>
+            <field name="domain">[('state','not in',('draft','sent','cancel'))]</field>
+            <field name="context">{'search_default_my_sale_team_orders_filter':1}
+            </field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation that can be converted into a sales
+                order.
+              </p><p>
+                Odoo will help you efficiently handle the complete sales flow:
+                quotation, sales order, delivery, invoicing and payment.
+              </p>
+            </field>
+        </record>
+        
+        <record id="action_quotations_salesteams_elneo" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="view_sales_order_filter_elneo"/>
+            <field name="domain">[('state','in',('draft','sent','cancel'))]</field>
+            <field name="context">{'search_default_my_sale_team_orders_filter':1}
+            </field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation that can be converted into a sales
+                order.
+              </p><p>
+                Odoo will help you efficiently handle the complete sales flow:
+                quotation, sales order, delivery, invoicing and payment.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="sale.menu_sale_order" name="Sales" parent="base.menu_sales" action="action_orders_salesteams_elneo" sequence="2"/>
+        <menuitem id="sale.menu_sale_quotations" name="Quotations" parent="base.menu_sales" action="action_quotations_salesteams_elneo" sequence="1"/>
         <delete model="ir.ui.menu" id="base.menu_partner_form"/>
         <menuitem id="menu_partner_form_elneo" parent="base.menu_sales" action="action_partner_form_elneo" sequence="3"/>
         <menuitem id="menu_partner_form_elneo_contacts" parent="base.menu_sales" action="action_partner_form_elneo_contacts" sequence="2"/>
         <menuitem id="sales_team.menu_sales_team_act" name="Sales Teams" parent="base.menu_sales" sequence="5" />
-        
-        
-        <!-- Menu CRM -->
-        <menuitem 
-        	id="crm"
-        	name="Crm" 
-        	sequence="15"        
-        	/>
-        	
-        <menuitem 
-        	id="crm_partners"
-        	parent = 'crm'
-        	name="Partners" 
-        	sequence="15"        
-        	/>
-        	
-        <menuitem 
-        	id="crm_partners_companies"
-        	parent = 'crm_partners'
-        	name="Companies" 
-        	action="action_partner_form_elneo"        	
-        	sequence="10"        
-        	/>
-        	
-        <menuitem 
-        	id="crm_partners_contacts"
-        	parent = 'crm_partners'
-        	name="Contacts" 
-        	action="action_partner_form_elneo_contacts"
-        	sequence="20"        
-        	/>
-        
-        
+
             
 	</data>
 	

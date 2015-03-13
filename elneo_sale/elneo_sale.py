@@ -5,7 +5,7 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Order address for current sales order.")
-    quotation_address_id = fields.Many2one('res.partner', 'Quotation Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Quotation address for current sales order.")
+    quotation_address_id = fields.Many2one('res.partner', 'Quotation Address', readonly=True, required=False, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Quotation address for current sales order.")
     
     @api.onchange('partner_id')
     def _onchange_partner_id(self):

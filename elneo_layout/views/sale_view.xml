@@ -5,8 +5,12 @@
 		   <field name="name">view.sale.order.form.elneo.layout</field>
 		   <field name="model">sale.order</field>
 		   <field name="inherit_id" ref="sale.view_order_form"/>
-		   <field name="arch" type="xml">
+		   <field name="arch" type="xml"> 
+		   	<xpath expr="//sheet" position="attributes">
+			   		<attribute name="class"></attribute>
+			   	</xpath>
 			   	<xpath expr="//sheet" position="attributes">
+			   		<attribute name="class">{}</attribute>
 			   		<attribute name="class">oe_form_sheet_larger_width</attribute>
 			   	</xpath>
 			</field>

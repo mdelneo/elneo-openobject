@@ -1,19 +1,10 @@
 @charset "utf-8";
 
-.openerp .oe_form_sheetbg {
-	padding: 16px 0;
-	max-width: none !important
-}
 
-
-.openerp .oe_form_sheet_width {
+/*
+.openerp .oe_form_sheet_width .oe_form_sheet_width_larger {
 	min-width: 50%;
 	max-width: 90%;
 	margin: 0 auto;
 }
-
-.openerp .oe_form_sheet_larger_width {
-	min-width: 50%;
-	max-width: 90%;
-	margin: 0 auto;
-}
+*/

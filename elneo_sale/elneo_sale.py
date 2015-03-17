@@ -4,8 +4,72 @@ from openerp import models,fields,api
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
+    @api.one
+    @api.depends('invoice_ids.state','force_is_invoiced')
+    def _get_is_invoiced(self):
+        result = {}  
+        
+        self.is_invoiced = False
+        
+        # if is force_is_invoice
+        if self.force_is_invoiced:
+            self.is_invoiced = True
+            
+        # Maintenance Order
+        # V8 : TO PUT IN A SEPARATE MODULE#
+        #if order.intervention_id and (len(order.invoice_ids) > 0):
+        #    is_invoiced = True
+    
+        
+        if not self.is_invoiced:
+            has_invoice_line = False
+            has_order_line = False
+            all_order_line_is_invoiced = True
+            for order_line in self.order_line:
+                if order_line.state == 'cancel':
+                    continue
+                
+                has_order_line = True
+                quantityInInvoiceLine = 0
+                for invoice_line in order_line.invoice_lines:
+                    if invoice_line.invoice_id.state != "draft" and invoice_line.invoice_id.state != "cancel" and invoice_line.invoice_id.type == "out_invoice":
+                        has_invoice_line = True
+                        quantityInInvoiceLine += invoice_line.quantity
+                if quantityInInvoiceLine != order_line.product_uom_qty:
+                    all_order_line_is_invoiced = False
+                    break
+            self.is_invoiced = all_order_line_is_invoiced and has_invoice_line and has_order_line
+
+        # if linked invoice
+        if not self.is_invoiced:
+            invoiceAmounts = {}
+            saleAmounts = {}
+            for invoice in self.invoice_ids:
+                if invoice.state != "draft" and invoice.state != "cancel" and invoice.type == "out_invoice":
+                    if not invoice.id in invoiceAmounts:
+                        invoiceAmounts[invoice.id] = invoice.amount_total
+                        for sale in invoice.sale_order_ids:
+                            if not sale.id in saleAmounts:
+                                saleAmounts[sale.id] = sale.amount_total
+                           
+            sumInvoice = 0
+            sumSale = 0
+            for key in invoiceAmounts.keys():
+                sumInvoice += invoiceAmounts[key]
+                
+            for key in saleAmounts.keys():
+                sumSale += saleAmounts[key]
+
+            if (sumInvoice != 0 or sumSale != 0) and sumInvoice >= sumSale:
+                self.is_invoiced = True
+       
+    
     partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Order address for current sales order.")
     quotation_address_id = fields.Many2one('res.partner', 'Quotation Address', readonly=True, required=False, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Quotation address for current sales order.")
+    
+    is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced")
+    force_is_invoiced = fields.Boolean("Force is invoiced",help="Force the 'invoiced' state for this sale order")
+    
     
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
@@ -69,5 +133,8 @@ class sale_order(models.Model):
                 self.partner_shipping_id = addr['delivery']
                 self.partner_invoice_id = addr['invoice']
                 
+                
+    
+    
     
 sale_order()

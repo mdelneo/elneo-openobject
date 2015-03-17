@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_order_form_sale_delivery_date" model="ir.ui.view">
+			<field name="name">view.sale.order.form.sale.delivery.date</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale_order_dates.view_sale_orderfor"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/sheet/group" position="after">
+	           		<group colspan="6" col="8">
+	           			<field name="delivery_date" />
+	           			<button name="button_change_confirmed_delivery_date" string="=>" type="object" colspan="2" />
+	           			<field name="confirmed_delivery_date" />
+	           		</group>
+	           	</xpath>
+	           	
+	           	<field name="effective_date" position="before">
+	           		<field name="create_date" />
+	           		<field name="date_confirm" />
+	           	</field>
+			</field>
+		</record>
+	</data>
+</openerp>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_order_tree_advanced" model="ir.ui.view">
+            <field name="name">view.sale.order.tree.advanced</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//tree/field[@name='state']" position="before">
+            		<field name="picked_rate" widget="progressbar"/>
+            		<field name="invoiced_rate" widget="progressbar"/>
+            	</xpath>
+            </field>
+        </record>
+        
+            
+	</data>
+	
+	
+</openerp>

@@ -128,6 +128,9 @@
             	<xpath expr="//filter[@string='My']" position="after">
             		<filter string="My Team" domain="[('section_id.member_ids','in',[uid])]" name="my_sale_team_orders_filter"/>
             	</xpath>
+            	<xpath expr="//filter[@string='To Invoice']" position="after">
+            		<filter string="Invoiced" domain="[('is_invoiced','in',[True])]" name="orders_invoiced_filter"/>
+            	</xpath>
             </field>
         </record>
         
@@ -157,6 +160,7 @@
             <field name="name">Quotations</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.order</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar,graph</field>
             <field name="search_view_id" ref="view_sales_order_filter_elneo"/>

@@ -4,7 +4,9 @@
     'name': 'Sales Advanced',
     'version': '0.1',
     'category': 'Sale',
-    'description': "Add functionalities to Sale Orders",
+    'description': '''Add functionalities to Sale Orders : 
+            - Picked rate / Invoiced rate    
+    ''',
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['sale'],

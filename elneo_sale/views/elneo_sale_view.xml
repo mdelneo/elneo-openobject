@@ -127,7 +127,8 @@
             	</xpath>
             	<xpath expr="//field[@name='project_id']" position="replace"/>
 
-            	<field name="invoiced" position="before">
+	           	
+				<field name="invoiced" position="before">
             		<field name="force_is_invoiced"/>
             		<field name="is_invoiced"/>
             	</field>

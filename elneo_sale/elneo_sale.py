@@ -110,10 +110,6 @@ class sale_order(models.Model):
     def onchange_order_lines(self):
         self.order_line.compute_stock()
     
-    is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced",store=True)
-    force_is_invoiced = fields.Boolean("Force is invoiced",help="Force the 'invoiced' state for this sale order")
-    
-    
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
         

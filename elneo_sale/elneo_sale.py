@@ -1,5 +1,35 @@
 # -*- coding: utf-8 -*-
 from openerp import models,fields,api
+from openerp.tools.float_utils import float_compare, float_round
+
+class sale_order_line(models.Model):
+    _inherit = 'sale.order.line'
+    
+    def compute_stock(self):
+        self._qty_virtual_stock()
+        self._qty_real_stock()
+    
+    @api.multi
+    @api.onchange('product_id')
+    def _qty_virtual_stock(self):
+        for sol in self:
+            if sol.product_id:
+                sol.virtual_stock = sol.product_id.with_context(location=sol.order_id.warehouse_id.lot_stock_id.id).virtual_available
+            else:
+                sol.virtual_stock = 0 
+    
+    @api.multi
+    @api.onchange('product_id')
+    def _qty_real_stock(self):
+        for sol in self:
+            if sol.product_id:
+                sol.real_stock = sol.product_id.with_context(location=sol.order_id.warehouse_id.lot_stock_id.id).qty_available
+            else:
+                sol.real_stock = 0 
+        
+    virtual_stock = fields.Float('Virtual stock', compute=_qty_virtual_stock)
+    real_stock = fields.Float('Real stock', compute=_qty_real_stock)
+    
 
 class sale_order(models.Model):
     _inherit = 'sale.order'
@@ -66,6 +96,19 @@ class sale_order(models.Model):
     
     partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Order address for current sales order.")
     quotation_address_id = fields.Many2one('res.partner', 'Quotation Address', readonly=True, required=False, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Quotation address for current sales order.")
+    carrier_id = fields.Many2one('delivery.carrier', 'Delivery Method', required=True, help="Complete this field if you plan to invoice the shipping based on picking.")
+    is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced",store=True)
+    force_is_invoiced = fields.Boolean("Force is invoiced",help="Force the 'invoiced' state for this sale order")
+    
+    #function to rewrite when odoo core will be migrated to new api
+    def onchange_warehouse_id(self, cr, uid, ids, warehouse_id, context=None):
+        res = super(sale_order, self).onchange_warehouse_id(cr, uid, ids, warehouse_id, context)
+        self.browse(cr, uid, ids, context).order_line.compute_stock()
+        return res
+    
+    @api.onchange('order_line')
+    def onchange_order_lines(self):
+        self.order_line.compute_stock()
     
     is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced",store=True)
     force_is_invoiced = fields.Boolean("Force is invoiced",help="Force the 'invoiced' state for this sale order")
@@ -136,5 +179,10 @@ class sale_order(models.Model):
                 
     
     
-    
 sale_order()
+
+class pricelist_partnerinfo(models.Model):
+    _inherit = 'pricelist.partnerinfo'
+    
+    brut_price = fields.Float('Brut price')
+    discount = fields.Float('Discount')

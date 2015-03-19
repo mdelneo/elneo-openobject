@@ -2,6 +2,23 @@
 <openerp>
 	<data>
 	
+	<!-- 
+		Product supplier info FORM : 
+			- add brut_price and discount 
+	-->
+	<record id="product_supplierinfo_form_view_elneo_sale_inherit" model="ir.ui.view">
+		<field name="name">view.sale.order.tree.elneo.sale</field>
+		<field name="model">product.supplierinfo</field>
+		<field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+		<field name="arch" type="xml">
+			<field name="min_quantity" position="after">
+				<field name="brut_price" />
+				<field name="discount" />
+			</field>
+		</field>
+	</record>
+	
+	
 	 <record id="action_partner_form_elneo" model="ir.actions.act_window">
             <field name="name">Companies</field>
             <field name="type">ir.actions.act_window</field>
@@ -78,14 +95,22 @@
             </field>
         </record>
         
+        
+        <!-- 
+			Inherit of view sale_order_form to:
+				- add virtual and real stock
+		 -->
+        
+        
 		<record id="view_order_form_elneo_sale" model="ir.ui.view">
             <field name="name">view.sale.order.form.elneo.sale</field>
             <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
             <field name="arch" type="xml">
             	<xpath expr="//field[@name='partner_invoice_id']" position="before">
             		<field name="partner_order_id"/>
             	</xpath>
+            	
             	<xpath expr="//field[@name='partner_shipping_id']" position="after">
             		<field name="quotation_address_id"/>
             	</xpath>
@@ -101,10 +126,16 @@
             		<attribute name="context">{'show_address':1,'show_ref_inline':1}</attribute>
             	</xpath>
             	<xpath expr="//field[@name='project_id']" position="replace"/>
+
             	<field name="invoiced" position="before">
             		<field name="force_is_invoiced"/>
             		<field name="is_invoiced"/>
             	</field>
+	           	<xpath expr="//notebook/page/field/form/group/group/field[@name='product_id']" position="after">
+	           		<field name="virtual_stock" />
+	           		<field name="real_stock" />
+	           	</xpath>
+
 			</field>
         </record>
         <record model="ir.ui.view" id="sale_view_inherit123_elneo_sale">

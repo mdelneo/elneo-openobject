@@ -1,2 +1,1 @@
 import elneo_sale
-import partner

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- PARTNER VIEW INHERITANCE (Discount exceptions) -->
+		<record id="view_partner_elneo_autocompute_webshop_inherit" model="ir.ui.view">
+			<field name="name">view.partner.elneo.autocompute.webshop.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="elneo_autocompute_saleprice.view_partner_elneo_sale_price_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//form/field[@name='categ_id']">
+					<field name="product_group_id" />
+				</xpath>
+				<xpath expr="//tree/field[@name='categ_id']">
+					<field name="product_group_id" />
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- DISCOUNT TYPE VIEWS -->
+		<record id="view_product_discount_type_form_webshop_inherit" model="ir.ui.view">
+			<field name="name">product.discount.type.form.webshop.inherit</field>
+			<field name="model">product.discount.type</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="elneo_autocompute_saleprice.view_product_discount_type_form" />
+			<field name="arch" type="xml">
+				<field name="discounts" position="after">
+					<separator string="Product group discounts" colspan="4" />
+					<field name="product_group_discounts" nolabel="1" colspan="4">
+						<form string="Values">
+							<field name="product_group_id" />
+							<field name="discount" />
+						</form>
+						<tree string="Values">
+							<field name="product_group_id" />
+							<field name="discount" />
+						</tree>
+					</field>
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>			

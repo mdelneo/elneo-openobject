@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- PRODUCT VIEW -->
+		<record id="elneo_product_sale_price_webshop_form_view" model="ir.ui.view">
+			<field name="name">elneo.product.sale.price.webshop.form.view</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="elneo_autocompute_saleprice.elneo_product_sale_price_form_view" />
+			<field name="priority">100</field>
+			<field name="arch" type="xml">
+				<field name="active" position="after">
+					<field name="product_group_id" />
+				</field>
+			
+				<xpath expr="//field[@name='sale_price_seller']" position="after">
+					<field name="web_shop_product" />
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- PRICELIST -->
+		<record model="ir.ui.view" id="partner_form_view_elneo_webshop_inherit">
+			<field name="name">partner.form.view.elneo.webshop.inherit</field>
+			<field name="model">product.supplierinfo</field>
+			<field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='pricelist_ids']/tree/field[@name='price']" position="after">
+					<field name="public_price" />
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- COEFFICIENTS -->
+		<record model="ir.ui.view" id="category_coefficientlist_tree_view">
+			<field name="name">category_coefficientlist.tree</field>
+			<field name="model">elneo_autocompute_saleprice.category_coefficientlist</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="categ_id" />
+					<field name="partner_id" />
+					<field name="coefficient" />
+					<field name="is_brutprice" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="category_coefficientlist_form_view">
+			<field name="name">category_coefficientlist.form</field>
+			<field name="model">elneo_autocompute_saleprice.category_coefficientlist</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Coefficient" col="4">
+					<group>
+						<field name="categ_id" />
+						<field name="partner_id" />
+						<field name="coefficient" attrs="{'readonly':[('is_brutprice', '!=', False)]}" />
+						<field name="is_brutprice" on_change="on_change_is_brutprice(is_brutprice)" />
+						<button name="action_update_product_sale_price"
+							string="Update" 
+							type="object" 
+							icon="gtk-execute"
+							colspan="2"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+	
+		<record model="ir.actions.act_window" id="action_category_coefficientlist_form">
+			<field name="name">Coefficient</field>
+			<field name="res_model">elneo_autocompute_saleprice.category_coefficientlist</field>
+			<field name="view_type">form</field>
+    		<field name="view_mode">tree,form</field>
+    		<field name="view_id" ref="category_coefficientlist_tree_view"/>
+		</record>
+
+		<menuitem name="Coefficient" parent="product.prod_config_main" id="category_coefficientlist_menuitem" sequence="15" action="action_category_coefficientlist_form"/>
+		
+<!-- 		<act_window id="action_category_coefficientlist_form_multi" -->
+<!--                 name="Update Product Price" -->
+<!--                 res_model="elneo_autocompute_saleprice.confirm_update_wizard" -->
+<!--                 src_model="elneo_autocompute_saleprice.category_coefficientlist" -->
+<!--                 view_mode="form" view_type="form" -->
+<!--                 target="new" key2="client_action_multi" /> -->
+		
+		
+		<!-- PRODUCT GROUP VIEWS -->
+		<record id="view_product_group_form" model="ir.ui.view">
+			<field name="name">product.group.form</field>
+			<field name="model">product.group</field>
+			<field name="arch" type="xml">
+				<form string="Product group">
+					<field name="name" />
+					<field name="description" />
+					<field name="coeff_sale_price" />
+					<field name="min_margin_coef" />
+					<field name="web_shop_price_base" />
+				</form>
+			</field>
+		</record>
+
+		<record id="view_product_group_tree" model="ir.ui.view">
+			<field name="name">product.group.tree</field>
+			<field name="model">product.group</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Product group">
+					<field name="name" />
+					<field name="coeff_sale_price" />
+					<field name="min_margin_coef" />
+					<field name="web_shop_price_base" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_product_group" model="ir.actions.act_window">
+			<field name="name">Product group</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">product.group</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem action="action_product_group" id="menu_product_group"
+			parent="product.prod_config_main" sequence="2" />
+		
+	</data>
+</openerp>

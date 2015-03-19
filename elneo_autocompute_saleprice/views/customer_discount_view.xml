@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- PARTNER VIEW INHERITANCE (Discount exceptions) -->
+		<record id="view_partner_elneo_sale_price_form" model="ir.ui.view">
+			<field name="name">res.partner.elneo_sale_price.form.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="product.view_partner_property_form" />
+			<field name="arch" type="xml">
+				<field name="property_product_pricelist" position="after">
+					<field name="discount_type_id" />
+					<separator string="Discount exceptions" colspan="4" />
+					<field name="discount_exceptions" colspan="4" nolabel="1">
+						<form string="Discount exceptions">
+							<field name="categ_id" />
+<!-- 							<field name="product_group_id" /> -->
+							<field name="discount" />
+						</form>
+						<tree string="Discount exceptions">
+							<field name="categ_id" />
+<!-- 							<field name="product_group_id" /> -->
+							<field name="discount" />
+						</tree>
+					</field>
+				</field>
+			</field>
+		</record>
+		
+		<!-- SALE ORDER VIEW INHERITANCE -->
+		<record model="ir.ui.view" id="view_order_form_elneo_sale_price">
+			<field name="name">view.order.form.elneo.sale.price</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+			<field name="arch" type="xml">
+				<field name="client_order_ref" position="after">
+					<field name="discount_type_id" />
+				</field>
+				
+				<field name="product_id" position="attributes">
+					<attribute name="on_change">product_id_change(parent.pricelist_id, product_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, parent.discount_type_id, context)</attribute>
+				</field>
+				<field name="product_uom_qty" position="attributes">
+					<attribute name="on_change">product_id_change(parent.pricelist_id, product_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, parent.discount_type_id, context)</attribute>
+				</field>
+			</field>
+		</record>
+		
+
+		<!-- DISCOUNT TYPE VIEWS -->
+		<record id="view_product_discount_type_form" model="ir.ui.view">
+			<field name="name">product.discount.type.form</field>
+			<field name="model">product.discount.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Product group">
+					<field name="name" />
+					<newline />
+					<separator string="Discounts" colspan="4" />
+					<field name="discounts" colspan="4" nolabel="1">
+						<form string="Values">
+							<field name="margin_min" />
+							<field name="margin_max" />
+							<field name="discount_percent" />
+						</form>
+						<tree string="Values">
+							<field name="margin_min" />
+							<field name="margin_max" />
+							<field name="discount_percent" />
+						</tree>
+					</field>
+					
+					<!--
+					
+					TO COPY IN A NEW MODULE
+					 
+					<separator string="Product group discounts" colspan="4" />
+					<field name="product_group_discounts" nolabel="1" colspan="4">
+						<form string="Values">
+							<field name="product_group_id" />
+							<field name="discount" />
+						</form>
+						<tree string="Values">
+							<field name="product_group_id" />
+							<field name="discount" />
+						</tree>
+					</field>
+					 -->
+					 
+				</form>
+			</field>
+		</record>
+
+		<record id="view_product_discount_type_tree" model="ir.ui.view">
+			<field name="name">product.discount.type.tree</field>
+			<field name="model">product.discount.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Product group">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_product_discount_type" model="ir.actions.act_window">
+			<field name="name">Discount types</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">product.discount.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem action="action_product_discount_type" id="menu_product_discount_type"
+			parent="product.prod_config_main" sequence="2" />
+			
+	</data>
+</openerp>			

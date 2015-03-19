@@ -15,12 +15,10 @@
 					<field name="discount_exceptions" colspan="4" nolabel="1">
 						<form string="Discount exceptions">
 							<field name="categ_id" />
-<!-- 							<field name="product_group_id" /> -->
 							<field name="discount" />
 						</form>
 						<tree string="Discount exceptions">
 							<field name="categ_id" />
-<!-- 							<field name="product_group_id" /> -->
 							<field name="discount" />
 						</tree>
 					</field>

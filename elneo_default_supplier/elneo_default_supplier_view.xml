@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="product_template_kanban_elneo_default_supplier">
+            <field name="name">product.template.kanban.elneo.default.supplier</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view"/>
+            <field name="arch" type="xml">
+				<data>
+	                <ul position="inside">
+	                    <li>Default supplier : <field name="default_supplier_id"/></li>
+	                </ul>
+            	</data>
+            </field>
+        </record>
+
+<!-- 		<record model="ir.ui.view" id="sale_order_form_elneo_default_supplier"> -->
+<!-- 			<field name="name">sale.order.form.elneo.default.supplier</field> -->
+<!-- 			<field name="type">form</field> -->
+<!-- 			<field name="model">sale.order</field> -->
+<!-- 			<field name="inherit_id" ref="sale.view_order_form"/> -->
+<!-- 			<field name="arch" type="xml"> -->
+<!-- 				<field name="product_uom_qty" position="after"> -->
+<!-- 					<field name="default_supplier_id" /> -->
+<!-- 				</field> -->
+<!-- 			</field> -->
+<!-- 		</record> -->
+
+	</data>
+</openerp>

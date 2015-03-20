@@ -14,16 +14,13 @@
 					<newline />
 				</field>
 				<field name="list_price" position="after">
-					<field name="compute_sale_price"
-						on_change="onchange_compute_sale_price(compute_sale_price, sale_price_fixed, sale_price_seller, web_shop_product)" />
+					<field name="compute_sale_price" />
 					<!-- groups="technofluid_interne.group_supermanager" -->
 					
-					<field name="sale_price_fixed"
-						on_change="onchange_compute_sale_price(compute_sale_price, sale_price_fixed, sale_price_seller, web_shop_product)" />
+					<field name="sale_price_fixed" />
 					<!-- groups="technofluid_interne.group_supermanager" -->
 					
-					<field name="sale_price_seller"
-						on_change="onchange_compute_sale_price(compute_sale_price, sale_price_fixed, sale_price_seller, web_shop_product)" />
+					<field name="sale_price_seller" />
 				</field>
 			</field>
 		</record>

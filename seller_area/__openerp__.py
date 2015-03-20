@@ -8,7 +8,7 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['sale','crm','sales_team'],
-    "data" : ['views/seller_area_view.xml','views/sale_view.xml','security/ir.model.access.csv'],
+    "data" : ['security/ir.model.access.csv','views/seller_area_view.xml','views/sale_view.xml'],
     'installable': True,
     'auto_install': False,
     'application': True,

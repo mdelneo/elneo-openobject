@@ -7,9 +7,9 @@
     'summary': '',
     'description': "",
     'author': 'Elneo',
-    'depends': ['sale', 'purchase', 'elneo_default_supplier', 'sale_stock'],
+    'depends': ['elneo_cost_price', 'elneo_default_supplier'],
     'data': [
-        'views/elneo_autocompute_saleprice_view.xml','views/customer_discount_view.xml'
+        'security/ir.model.access.csv','views/elneo_autocompute_saleprice_view.xml','views/customer_discount_view.xml'
     ],
     'installable': True,
     'auto_install': False,

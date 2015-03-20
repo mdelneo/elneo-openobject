@@ -84,5 +84,6 @@
         	action="action_partner_form_elneo_contacts"
         	sequence="20"        
         	/>
+        	
 	</data>
 </openerp>

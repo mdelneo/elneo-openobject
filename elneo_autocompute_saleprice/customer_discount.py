@@ -47,8 +47,8 @@ class sale_order(models.Model):
     discount_type_id  = fields.Many2one('product.discount.type', 'Discount type', states={'draft': [('readonly', False)]})
     
     
-    def onchange_partner_id(self, cr, uid, ids, part):
-        result = super(sale_order, self).onchange_partner_id(cr, uid, ids, part)
+    def onchange_partner_id(self, cr, uid, ids, part, context=None):
+        result = super(sale_order, self).onchange_partner_id(cr, uid, ids, part, context)
         if not result:
             result = {'value':{}}
         elif not result.has_key('value'):
@@ -64,7 +64,6 @@ sale_order()
 
 class res_partner(models.Model):
     _inherit = 'res.partner' 
-    
     discount_type_id = fields.Many2one('product.discount.type', string='Discount type')
     discount_exceptions = fields.One2many('customer.discount.exception','partner_id','Discount exceptions')
 res_partner()
@@ -76,8 +75,9 @@ class sale_order_line(models.Model):
     def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, discount_type_id=False, context=None):
-        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty, uom, qty_uos, uos, name, partner_id, lang, update_tax, date_order, packaging, 
-                                                             fiscal_position, flag, context)
+        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty=qty,
+                uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
+                lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, context=context)
         if res.has_key('value') and res['value'].has_key('price_unit') and res['value'].has_key('purchase_price'):
             res['value']['price_unit'] = self.pool.get('product.product').browse(cr, uid, product, context).get_customer_sale_price(discount_type_id, res['value']['price_unit'], res['value']['purchase_price'], qty)
         

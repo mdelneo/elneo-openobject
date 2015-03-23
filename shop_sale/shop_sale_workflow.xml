@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<record id="trans_confirmed_done_shop_sale" model="workflow.transition">
+			<field name="act_from" ref="sale.act_ship" />
+			<field name="act_to" ref="sale.act_ship_end" />
+			<field name="condition">shop_sale_ship()</field>
+		</record>		
+<!-- 		<record id="trans_draft_open_shop_sale" model="workflow.transition"> -->
+<!--             <field name="act_from" ref="account.act_draft"/> -->
+<!--             <field name="act_to" ref="account.act_open"/> -->
+<!--             <field name="condition">test_shop_sale()</field> -->
+<!--         </record> -->
+        
+        <record id="trans_wait_invoice_invoice_shop_sale" model="workflow.transition">
+            <field name="act_from" ref="sale.act_wait_invoice"/>
+            <field name="act_to" ref="sale.act_invoice"/>
+            <field name="condition">test_shop_sale()</field>
+        </record>
+        
+        
+        <record id="trans_draft_open_shop_sale" model="workflow.transition">
+			<field name="act_from" ref="account.act_draft" />
+			<field name="act_to" ref="account.act_open" />
+			<field name="condition">shop_sale_invoice()</field>
+		</record>		
+        
+	</data>
+</openerp>

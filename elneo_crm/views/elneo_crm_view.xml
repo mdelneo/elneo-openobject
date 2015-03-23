@@ -20,6 +20,31 @@
             <field name="domain">[('is_company','=',False)]</field>
         </record>
         
+        <!-- PARTNER TREE -->
+        <record id="view_partner_tree_elneo" model="ir.ui.view">
+            <field name="name">res.partner.tree.elneo</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+            	<field name="display_name" position="after">
+            		<field name="ref"/>
+            	</field>
+            </field>
+       	</record>
+       	
+        <record id="view_partner_form_elneo" model="ir.ui.view">
+            <field name="name">res.partner.form.elneo</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//page[@name='sales_purchases']/group/group/field[@name='ref']" position="replace"/>
+            	<xpath expr="//label[@for='street']" position="before">
+            		<field name="ref"/>
+            	</xpath>
+            </field>
+            
+        </record>
+        
         
         <record model="ir.ui.view" id="res_partner_opt_out_search_elneo">
             <field name="name">res.partner.opt_out.search.elneo</field>

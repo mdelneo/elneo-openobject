@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<act_window name="Purchase Validation"
+			res_model="purchase.validation.wizard" src_model="purchase.order"
+			view_mode="form" target="new" multi="True" key2="client_action_multi"
+			groups="purchase.group_purchase_user" id="action_view_purchase_validation_wizard" />
+
+		<record id="view_purchase_validation_wizard" model="ir.ui.view">
+            <field name="name">Purchase update</field>
+            <field name="model">purchase.validation.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Purchase update">
+                    <label string="Provide product prices and reception dates :" />
+                    <group>
+                        <field name="purchase_validation_lines" nolabel="1"/>
+                    </group>
+                     <footer>
+                        <button special="cancel" string="_Cancel" />
+                    	<button name="update_purchase" string="Confirm" type="object" class="oe_highlight" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_purchase_validation_line_wizard_tree" model="ir.ui.view">
+            <field name="name">view.purchase.validation.line.wizard.tree</field>
+            <field name="model">purchase.validation.line.wizard</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Purchase line">
+                    <field name="name"/>
+                    <field name="new_price" />
+                    <field name="new_date_planned" />
+                    <field name="update_product" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_purchase_validation_line_wizard_form" model="ir.ui.view">
+            <field name="name">view.purchase.validation.line.wizard.form</field>
+            <field name="model">purchase.validation.line.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" />
+	                    <field name="new_price" />
+	                    <field name="new_date_planned" />
+	                    <field name="update_product" />
+                    </group>
+                 </form>
+            </field>
+        </record>   
+
+	</data>
+</openerp>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="purchase_order_form_inherit_purchase_validation">
+			<field name="name">purchase.order.form.inherit.purchase.validation
+			</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//form/header/button[@name='purchase_confirm']" position="after">
+					<button name="%(purchase_validation.action_view_purchase_validation_wizard)d"
+						string="Purchase validation" type="action" icon="gtk-execute"
+						states="invoice_except,shipping_except,progress,manual,approved,done" />
+				</xpath>
+				<field name="picking_type_id" position="after">
+					<field name="validated" />
+				</field>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="purchase_order_tree_inherit_purchase_validation">
+			<field name="name">purchase.order.tree.inherit.purchase.validation
+			</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_tree" />
+			<field name="arch" type="xml">
+				<field name="origin" position="after">
+					<field name="validated" />
+				</field>
+			</field>
+		</record>
+		
+		<record id="purchase_rfq_simple" model="ir.actions.act_window">
+            <field name="name">purchase.rfq.simple</field>
+            <field name="res_model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_rfq"/>
+            <field name="view_id" ref="purchase.purchase_order_tree"/>
+        </record>
+
+		<record id="view_purchase_order_filter_inherit_purchase_validation" model="ir.ui.view">
+			<field name="name">purchase.order.list.select.inherit.purchase.validation</field>
+			<field name="inherit_id" ref="purchase.view_purchase_order_filter" />
+			<field name="model">purchase.order</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<filter name="approved" position="after">
+					<filter icon="terp-check" name="validated" string="Validated" domain="[('validated','=',True)]" separator="1" help="Validated purchase order"/>
+				</filter>
+			</field>
+		</record>
+	</data>
+</openerp>

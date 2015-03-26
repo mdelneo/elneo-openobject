@@ -182,3 +182,5 @@ class pricelist_partnerinfo(models.Model):
     
     brut_price = fields.Float('Brut price')
     discount = fields.Float('Discount')
+    
+pricelist_partnerinfo()

@@ -33,7 +33,7 @@ class product_template(models.Model):
                 min_price = purchase_price*self.product_group_id.min_margin_coef
                 res = max(sale_price, min_price)
         else:
-            res = super(product_template, self).get_customer_sale_price(discount_type_id, sale_price, cost_price)
+            res = super(product_template, self).get_customer_sale_price(discount_type_id, sale_price, cost_price, quantity)
         
         return res
 

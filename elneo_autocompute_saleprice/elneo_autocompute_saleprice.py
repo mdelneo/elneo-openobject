@@ -171,56 +171,55 @@ class product_template(models.Model):
         res = self.env['product.product'].search([('product_tmpl_id','=',self.id)])
         return res
     
-    #When cost_price computation will be ok, we can use cost_price instead of standard_price
+    @api.one
     def get_sale_price(self, quantity=0):
-        for product in self:
-            product_p = self.get_product_product()
-            if product_p:
-                product_p = product_p[0]
-                
-            sale_price_computed = 0
+        product_p = self.get_product_product()
+        if product_p:
+            product_p = product_p[0]
             
-            if product.compute_sale_price:
-                #Get Coefficient List ID
-                category = product.categ_id
-                category_coefficientlist = False
-    
-                while category:
-                    if product_p.default_supplier_id:
-                        result = self.env['elneo_autocompute_saleprice.category_coefficientlist'].search([('categ_id','=',category.id),('partner_id','=',product_p.default_supplier_id.id)])
-                        if len(result) > 0:
-                            category_coefficientlist = result[0]
-                            break
-                    result = self.env['elneo_autocompute_saleprice.category_coefficientlist'].search([('categ_id','=',category.id),('partner_id','=',False)])
+        sale_price_computed = 0
+        
+        if self.compute_sale_price:
+            #Get Coefficient List ID
+            category = self.categ_id
+            category_coefficientlist = False
+
+            while category:
+                if product_p.default_supplier_id:
+                    result = self.env['elneo_autocompute_saleprice.category_coefficientlist'].search([('categ_id','=',category.id),('partner_id','=',product_p.default_supplier_id.id)])
                     if len(result) > 0:
                         category_coefficientlist = result[0]
                         break
-                    category = category.parent_id
-                    
-                if not category_coefficientlist:            
-                    result = self.env['elneo_autocompute_saleprice.category_coefficientlist'].search([('categ_id','=',False), ('partner_id','=',False)])
-                    if len(result) > 0:
-                        category_coefficientlist = result[0]
+                result = self.env['elneo_autocompute_saleprice.category_coefficientlist'].search([('categ_id','=',category.id),('partner_id','=',False)])
+                if len(result) > 0:
+                    category_coefficientlist = result[0]
+                    break
+                category = category.parent_id
                 
-                #no rules : coeff = 1.3
-                if not category_coefficientlist:
-                    coeff = 1.3
-                #rule only for category
+            if not category_coefficientlist:            
+                result = self.env['elneo_autocompute_saleprice.category_coefficientlist'].search([('categ_id','=',False), ('partner_id','=',False)])
+                if len(result) > 0:
+                    category_coefficientlist = result[0]
+            
+            #no rules : coeff = 1.3
+            if not category_coefficientlist:
+                coeff = 1.3
+            #rule only for category
+            else:
+                coeff = category_coefficientlist.coefficient
+            
+            if category_coefficientlist and category_coefficientlist.is_brutprice:
+                if quantity:
+                    pricelists = self.default_supplierinfo_id.pricelist_ids.filtered(key=lambda r:r.min_quantity == quantity)
                 else:
-                    coeff = category_coefficientlist.coefficient
+                    pricelists = self.default_supplierinfo_id.pricelist_ids.sorted(key=lambda r:r.min_quantity)
+                if pricelists and pricelists[0].discount != 0:
+                    sale_price_computed = pricelists[0].brut_price
+            else:
+                sale_price_computed = self.cost_price * coeff
                 
-                if category_coefficientlist and category_coefficientlist.is_brutprice:
-                    if quantity:
-                        pricelists = product.default_supplierinfo_id.pricelist_ids.filtered(key=lambda r:r.min_quantity == quantity)
-                    else:
-                        pricelists = product.default_supplierinfo_id.pricelist_ids.sorted(key=lambda r:r.min_quantity)
-                    if pricelists and pricelists[0].discount != 0:
-                        sale_price_computed = pricelists[0].brut_price
-                else:
-                    sale_price_computed = product_p.standard_price * coeff
-                    
-            product.list_price = max(sale_price_computed, product.sale_price_seller, product.sale_price_fixed)
-        return 
+        self.list_price = max(sale_price_computed, self.sale_price_seller, self.sale_price_fixed)
+        return self.list_price
     
     
     
@@ -237,9 +236,9 @@ class product_template(models.Model):
                 pass
         return list(result)
     
-    @api.depends('categ_id','standard_price')
+    @api.depends('categ_id','cost_price','sale_price_fixed','compute_sale_price','sale_price_seller')
     def _get_list_price(self):
-        sale_price = self.get_sale_price(0)
+        sale_price = self.get_sale_price(0)[0]
         discount_type = self._context.get("discount_type")
         if discount_type:
             sale_price = self.get_customer_sale_price(discount_type, sale_price)
@@ -277,12 +276,5 @@ class product_product(models.Model):
                         'compute_sale_price':True})
         
         return super(product_product, self).copy(cr, uid, ids, default, context=context)
-    
-    def onchange_compute_sale_price(self, cr, uid, ids,compute_sale_price = True, sale_price_fixed = 0, sale_price_seller = 0, web_shop_product=False):
-        if len(ids) == 1:
-            productTemplate = self.browse(cr, uid, ids[0]).product_tmpl_id
-            return {'value': {'list_price':self.pool.get("product.template")._get_list_price(cr, uid, [productTemplate.id],args={'compute_sale_price':compute_sale_price, 'sale_price_fixed':sale_price_fixed, 'sale_price_seller':sale_price_seller, 'web_shop_product':web_shop_product})[productTemplate.id]}}
-        return {}
-    
 
 product_product()

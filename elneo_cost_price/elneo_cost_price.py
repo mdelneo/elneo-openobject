@@ -61,7 +61,7 @@ class sale_order_line(models.Model):
 
 
 class res_partner(models.Model):
-    _inherit = 'res.partner'  
+    _inherit = 'res.partner'
     
     cost_price_product_pricelist = fields.Many2one('product.pricelist', string='Cost Pricelist', company_dependent=True, help="This pricelist is used to set the cost price of a product based on the pricelist of the prefered supplier for this product")
     

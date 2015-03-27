@@ -35,7 +35,7 @@ Processes purchases validation to confirm supplier prices and delivery dates
     'data': ['wizard/purchase_validation_wizard_view.xml',
              'views/purchase_view.xml',
              'data/purchase_validation_data.xml',
-             'views/res_config.xml'
+             'views/res_config.xml',
     ],
     
     'installable': True,

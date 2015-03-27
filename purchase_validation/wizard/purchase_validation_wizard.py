@@ -1,13 +1,7 @@
 from openerp import models, fields, _, api
-from exceptions import Warning
+from openerp.exceptions import Warning
 from openerp.tools.safe_eval import safe_eval
-
-'''
-from osv import osv, fields
 from datetime import datetime
-from tools.translate import _ 
-import decimal_precision as dp
-'''
 
 class purchase_validation_wizard(models.TransientModel):
     _name = 'purchase.validation.wizard'
@@ -45,8 +39,8 @@ class purchase_validation_wizard(models.TransientModel):
         for move in purchase_validation_line.purchase_line.move_ids:
             current_stock_move = move
             while current_stock_move:
-                if current_stock_move.sale_line_id:
-                    sale_lines.append(current_stock_move.sale_line_id)
+                if current_stock_move.procurement_id.sale_line_id:
+                    sale_lines.append(current_stock_move.procurement_id.sale_line_id)
                 current_stock_move = current_stock_move.move_dest_id
         return sale_lines
     
@@ -55,24 +49,32 @@ class purchase_validation_wizard(models.TransientModel):
         result = super(purchase_validation_wizard, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
         if self.env.context and self.env.context.has_key('step') and self.env.context['step'] == 'warning':
             result['arch'] = '<form string="Warning">'
+            result['arch'] += '<header><h3>Warning</h3></header>'
             
             for message in self.env.context.get('warning_message'):
+                result['arch'] +='<p>'
                 result['arch'] += '<label string="%s" colspan="4"/>'%(message.replace("\"", "&quot;"))
                 result['arch'] += '<br />'
-            result['arch'] += '<button special="cancel" string="Ok" icon="gtk-cancel"/></form>'
+                result['arch'] +='</p>'
+            
+            result['arch'] += '<footer>'
+            result['arch'] += '<button special="cancel" string="Ok" class="oe_highlight"/></footer></form>'
             
             
         if self.env.context and self.env.context.has_key('step') and self.env.context['step'] == 'warning_email':
             result['arch'] = '<form string="Warning">'
-            
+            result['arch'] += '<header><h3>Warning</h3></header>'
             for message in self.env.context.get('warning_message'):
+                result['arch'] +='<p>'
                 result['arch'] += '<label string="%s" colspan="4"/>'%(message.replace("\"", "&quot;"))
                 result['arch'] += '<br />'
-            result['arch'] += '<button special="cancel" string="Close" icon="gtk-cancel"/><button name="send_mail" type="object" string="Send email" icon="gtk-ok"/></form>'
+                result['arch'] +='</p>'
+            result['arch'] += '<footer>'
+            result['arch'] += '<button special="cancel" string="Close"/><button name="send_mail" type="object" string="Send email" class="oe_highlight"/></footer></form>'
             
         return result
     
-    
+    @api.multi
     def send_mail(self):
         
         if self.env.context.has_key("order_email"):
@@ -81,210 +83,97 @@ class purchase_validation_wizard(models.TransientModel):
             
             if not email_template:
                 raise Warning(_("No Email Template is defined. Contact your Administrator"))
+            
+            user = self.env['res.users'].browse(self.env.user)
+            if not user.user_email:
+                raise Warning(_("Please fill an email for user %s")%(user.name,))
         
             for order in self.env['sale.order'].browse(self.env.context.get('order_email')):
                 order.confirmed_delivery_date = order.delivery_date
-                res = self.env['email.template'].generate_email_batch(self,email_template, [order.id],fields=None)
-                print res
+                values = self.env['email.template'].generate_email_batch(email_template.id, [order.id])
+                values[order.id]['email_to']=order.partner_order_id.email
+                values[order.id]['recipient_ids']=[(4, pid) for pid in values.get('partner_ids', list())]
+                msg_id = self.env['mail.mail'].create(values[order.id])
         
-        
-        
-        '''
-        email_template_ids = self.pool.get("email.template").search(cr, uid, [('name','=','Delivery date modification')], context=context)
-        if not email_template_ids:
-            raise osv.except_osv(_("Error"), _("Impossible to find email template named 'Delivery date modification'. Contact your Administrator"))
-        email_template = self.pool.get("email.template").browse(cr, uid, email_template_ids[0], context)
-        if context.has_key("order_email"):
-            for order in self.pool.get("sale.order").browse(cr, uid, context['order_email']):
-                self.pool.get("sale.order").write(cr, uid, [order.id], {'confirmed_delivery_date':order.delivery_date}, context=context)
-                mailbox_id = self.pool.get("email.template")._generate_mailbox_item_from_template(cr,uid,email_template,order.id,context=None)
-                mailbox = self.pool.get("email_template.mailbox").browse(cr, uid, mailbox_id, context)
-                user = self.pool.get("res.users").browse(cr, uid, uid, context)
-                account_ids = self.pool.get("email_template.account").search(cr, uid, [('user','=',user.id)], context=context)
-                if not user.user_email:
-                    raise osv.except_osv(_("Error"), _("Please fill an email for user %s")%(user.name,))
-                self.pool.get("email_template.mailbox").write(cr, uid, [mailbox_id], {'folder':'outbox', 'email_from':user.user_email}, context)
-                if account_ids:
-                    self.pool.get("email_template.mailbox").write(cr, uid, [mailbox_id], {'account_id':account_ids[0]}, context)
-        
-        return {'type': 'ir.actions.act_window_close'}
-    '''
                 
-                
-    @api.one            
-    def update_purchase(self):
-        # INIT #
-        purchase_order_to_update = set()
+        return True
+    
+    # Check if a price update is needed
+    def _is_update_needed(self,line):
         
-        
-        for purchase_validation_line in self.purchase_validation_lines:
-            purchase_order_to_update.add(purchase_validation_line.purchase_line.order_id.id)
-            
-            
-            #check if update is needed:
-            need_update = True
-            supplier_id = purchase_validation_line.purchase_line.order_id.partner_id.id
-            for supplierinfo in purchase_validation_line.purchase_line.product_id.product_tmpl_id.seller_ids:
-                if supplierinfo.name.id == supplier_id:
-                    for pricelist in supplierinfo.displayed_pricelist_ids: #depends technofluid_interne module, else use .pricelist_ids
-                        if round(purchase_validation_line.new_price,4) == round(purchase_validation_line.purchase_line.price_unit,4) and\
-                            purchase_validation_line.price_quantity == pricelist.min_quantity and \
-                            round(purchase_validation_line.new_price,4) == round(pricelist.price,4) and \
-                            (not purchase_validation_line.new_discount or round(purchase_validation_line.new_discount,4) == round(pricelist.discount,4)) and \
-                            (not purchase_validation_line.new_brut_price or round(purchase_validation_line.new_brut_price,4) == round(pricelist.brut_price,4)):
-                            need_update = False
-                            break
-                if not need_update:
-                    break 
-        
-        
-        
-        
-        
-        if warning_message and warning_message != '':
-            if delivery_date_changes_email:
-                context['step'] = 'warning_email'
-            else:
-                context['step'] = 'warning'
-            context['warning_message'] = warning_message
-            return { 
-                'view_type' : 'form', 
-                'view_mode' : 'form', 
-                'res_model' : 'purchase.validation.wizard', 
-                'type' : 'ir.actions.act_window', 
-                'target' : 'new', 
-                'context' : context, 
-            } 
-        else:
-            return {'type': 'ir.actions.act_window_close'}    
-            
-    '''            
-    def update_purchase(self, cr, uid, ids, context=None):
-        purchase_validations = self.browse(cr, uid, ids, context)
-        purchase_order_line_pool = self.pool.get("purchase.order.line")
-        account_invoice_line_pool = self.pool.get("account.invoice.line")
-        purchase_order_pool = self.pool.get("purchase.order")
-        product_pool = self.pool.get("product.product")
-        invoice_line_pool = self.pool.get("account.invoice.line")
-        invoice_pool = self.pool.get("account.invoice")
-        sale_order_line_pool = self.pool.get("sale.order.line")
-        sale_order_pool = self.pool.get("sale.order")
-        stock_move_pool = self.pool.get("stock.move")
-        stock_picking_pool = self.pool.get("stock.picking")
-        sale_order_to_update = set()
-        stock_picking_to_update = set()
-        purchase_order_to_update = set()
+        #check if update is needed:
+        need_update = True
+        supplier_id = line.purchase_line.order_id.partner_id.id
+        for supplierinfo in line.purchase_line.product_id.product_tmpl_id.seller_ids:
+            if supplierinfo.name.id == supplier_id:
+                for pricelist in supplierinfo.pricelist_ids: #depends technofluid_interne module, else use .pricelist_ids
+                    if round(line.new_price,4) == round(line.purchase_line.price_unit,4) and\
+                        line.price_quantity == pricelist.min_quantity and \
+                        round(line.new_price,4) == round(pricelist.price,4) and \
+                        (not line.new_discount or round(line.new_discount,4) == round(pricelist.discount,4)) and \
+                        (not line.new_brut_price or round(line.new_brut_price,4) == round(pricelist.brut_price,4)):
+                        need_update = False
+                        break
+            if not need_update:
+                break
+    
+        return need_update
+    
+    def _update_delivery_date(self,line):
+        #UPDATE DATE
         old_sale_order_delivery_date = {}
-        warning_message = []
-        
-        
-        for purchase_validation in purchase_validations:        
-            for purchase_validation_line in purchase_validation.purchase_validation_lines:
-                sale_lines = None
-                
-                #update purchase order
-                purchase_order_to_update.add(purchase_validation_line.purchase_line.order_id.id)
-                
-                #check if update is needed:
-                need_update = True
-                supplier_id = purchase_validation_line.purchase_line.order_id.partner_id.id
-                for supplierinfo in purchase_validation_line.purchase_line.product_id.product_tmpl_id.seller_ids:
-                    if supplierinfo.name.id == supplier_id:
-                        for pricelist in supplierinfo.displayed_pricelist_ids: #depends technofluid_interne module, else use .pricelist_ids
-                            if round(purchase_validation_line.new_price,4) == round(purchase_validation_line.purchase_line.price_unit,4) and\
-                                purchase_validation_line.price_quantity == pricelist.min_quantity and \
-                                round(purchase_validation_line.new_price,4) == round(pricelist.price,4) and \
-                                (not purchase_validation_line.new_discount or round(purchase_validation_line.new_discount,4) == round(pricelist.discount,4)) and \
-                                (not purchase_validation_line.new_brut_price or round(purchase_validation_line.new_brut_price,4) == round(pricelist.brut_price,4)):
-                                need_update = False
-                                break
-                    if not need_update:
-                        break 
-                        
-                
-                #UPDATE PRICE
-                if need_update:
-                    #Update price in purchase order line
-                    purchase_order_line_pool.write(cr, uid, purchase_validation_line.purchase_line.id, {'price_unit':purchase_validation_line.new_price}, context)
-                    
-                    #Update price in invoice lines
-                    #account_invoice_line_pool.write(cr, uid, [invoice_line.id for invoice_line in purchase_validation_line.purchase_line.invoice_lines if invoice_line.invoice_id.state == 'draft'], {'price_unit':purchase_validation_line.new_price}, context)
-                    
-                    #Update price in product
-                    old_supplier_prices = product_pool.update_price_for_supplier(cr, uid, [purchase_validation_line.purchase_line.product_id.id], purchase_validation_line.purchase_line.order_id.partner_id.id, purchase_validation_line.new_price, purchase_validation_line.update_product,purchase_validation_line.new_brut_price,purchase_validation_line.new_discount, purchase_validation_line.price_quantity, ignore_history=(not purchase_validation_line.update_product), context=context)                    
+        stock_picking_to_update = set()
+        sale_order_to_update=set()
+        if line.new_date_planned != line.purchase_line.date_planned:
             
-                    #Update price on invoice line
-                    for purchase_invoice in purchase_validation_line.purchase_line.order_id.invoice_ids:
-                        if purchase_invoice.state == 'draft':
-                            for purchase_invoice_line in purchase_invoice.invoice_line:
-                                if purchase_invoice_line.product_id.id == purchase_validation_line.purchase_line.product_id.id and purchase_invoice_line.quantity == purchase_validation_line.purchase_line.product_qty:
-                                    invoice_line_pool.write(cr, uid, purchase_invoice_line.id, {'price_unit':purchase_validation_line.new_price})
-                                    invoice_pool.button_reset_taxes(cr, uid, [purchase_invoice.id])
-                                
-                    #Update sale_order_line
-                    sale_order_to_update = set()
-                    sale_lines = self._get_sale_order_lines(purchase_validation_line)
-                    
-                    #compute cost price of sale order
-                    for sale_line in sale_lines:
-                        sale_order_to_update.add(sale_line.order_id.id)
-                        product_cost_price = product_pool._get_cost_price(cr, uid, [sale_line.product_id.id], args={'compute_cost_price':sale_line.product_id.compute_cost_price, 'cost_price_fixed':sale_line.product_id.cost_price_fixed})[sale_line.product_id.id]
-                        new_cost_price = sale_order_line_pool.compute_cost_price(cr, uid, ids, sale_line.product_id.id, sale_line.order_id.partner_id.id, product_cost_price)
-                        sale_order_line_pool.write(cr, uid, [sale_line.id], {"purchase_price":new_cost_price})
-                        for invoice_line in sale_line.invoice_lines:
-                            self.pool.get("account.invoice.line").write(cr, uid, [invoice_line.id], {"cost_price":new_cost_price})
-                    
-                    #reset old product supplier price
-                    if not purchase_validation_line.update_product and old_supplier_prices:
-                        product_pool.update_price_for_supplier(cr, uid, [purchase_validation_line.purchase_line.product_id.id], purchase_validation_line.purchase_line.order_id.partner_id.id, old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][0], purchase_validation_line.update_product, old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][1],old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][2], old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][3], ignore_history=True, context=context)
-                    else:
-                        warning_message.append(_("Product '%s' price has been updated from %s to %s.")%(purchase_validation_line.purchase_line.product_id.name, old_supplier_prices[purchase_validation_line.purchase_line.product_id.id] and old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][0] or '0', purchase_validation_line.new_price))
-                
-                #UPDATE DATE
-                if purchase_validation_line.new_date_planned != purchase_validation_line.purchase_line.date_planned:
-                    #compute difference between new date_planned and old date_planned
-                    difference = datetime.strptime(purchase_validation_line.new_date_planned, '%Y-%m-%d') - datetime.strptime(purchase_validation_line.purchase_line.date_planned, '%Y-%m-%d')
-                    
-                    #Update purchase_order_line
-                    purchase_order_line_pool.write(cr, uid, purchase_validation_line.purchase_line.id, {'date_planned':purchase_validation_line.new_date_planned}, context)
-                    
-                    #Update reception
-                    stock_move_ids = stock_move_pool.search(cr, uid, [('purchase_line_id', '=', purchase_validation_line.purchase_line.id)], context=context)
-                    stock_moves = stock_move_pool.browse(cr, uid, stock_move_ids, context)
-                    stock_picking_to_update.update([stock_move.picking_id.id for stock_move in stock_moves])
-                    stock_move_pool.write(cr, uid, stock_move_ids, {'date_expected':purchase_validation_line.new_date_planned})
-                    
-                    #update sale_order_line delay
-                    if not sale_lines:
-                        sale_lines = self._get_sale_order_lines(purchase_validation_line)
-                    for sale_line in sale_lines:                        
-                        sale_order_line_pool.write(cr, uid, [sale_line.id for sale_line in sale_lines], {'delay':sale_line.delay + difference.days}, context = context)
-                        sale_order_to_update.add(sale_line.order_id.id)
-                        old_sale_order_delivery_date[sale_line.order_id.id] = sale_line.order_id.delivery_date
-                        
-                    #update delivery
-                    for move in stock_moves:
-                        current_stock_move = move
-                        while current_stock_move:
-                            if current_stock_move.picking_id.type == 'out':
-                                new_date = datetime.strptime(current_stock_move.date_expected, '%Y-%m-%d %H:%M:%S') + difference
-                                stock_move_pool.write(cr, uid, current_stock_move.id, {'date_expected':new_date.strftime('%Y-%m-%d %H:%M:%S'),'date':new_date.strftime('%Y-%m-%d %H:%M:%S')})
-                                stock_picking_to_update.add(current_stock_move.picking_id.id)
-                            current_stock_move = current_stock_move.move_dest_id
-                
-        if sale_order_to_update:
-            sale_order_pool.button_dummy(cr, uid, list(sale_order_to_update), context)
-        if stock_picking_to_update:    
-            stock_picking_pool.write(cr, uid, list(stock_picking_to_update), {})
-        if purchase_order_to_update:
-            purchase_order_pool.write(cr, uid, list(purchase_order_to_update), {'validated':True})
+            #compute difference between new date_planned and old date_planned
+            difference = datetime.strptime(line.new_date_planned, '%Y-%m-%d') - datetime.strptime(line.purchase_line.date_planned, '%Y-%m-%d')
             
+            #Update purchase_order_line
+            line.purchase_line.write({'date_planned':line.new_date_planned})
+            
+            #Update reception
+            stock_moves = self.env['stock.move'].search([('purchase_line_id', '=', line.purchase_line.id)])
+            
+            #stock_picking_to_update.update([stock_move.picking_id.id for stock_move in stock_moves])
+            stock_moves.write({'date_expected':fields.Datetime.to_string(fields.Datetime.from_string(line.new_date_planned))})
+            
+            #update sale_order_line delay
+            
+            for sale_line in  self._get_sale_order_lines(line):                        
+                sale_line.write({'delay':sale_line.delay + difference.days})
+                sale_order_to_update.add(sale_line.order_id)
+                old_sale_order_delivery_date[sale_line.order_id.id] = sale_line.order_id.delivery_date
+                
+                
+            #update delivery
+            for move in stock_moves:
+                current_stock_move = move
+                while current_stock_move:
+                    if current_stock_move.picking_id.picking_type_id.code == 'outgoing':
+                        new_date = datetime.strptime(current_stock_move.date_expected, '%Y-%m-%d %H:%M:%S') + difference
+                        current_stock_move.write({'date_expected':new_date.strftime('%Y-%m-%d %H:%M:%S'),'date':new_date.strftime('%Y-%m-%d %H:%M:%S')})
+                        stock_picking_to_update.add(current_stock_move.picking_id)
+                    current_stock_move = current_stock_move.move_dest_id
+            
+            for picking in stock_picking_to_update:
+                picking.write({})
+                
+        return old_sale_order_delivery_date, sale_order_to_update
+    
+    def _get_date_message(self,old_dates={},warning_message=None,context=None):
         #check sale_order delivery date update :
         delivery_date_changes_email = []
         delivery_date_changes_noemail = []
-        for sale_order in sale_order_pool.browse(cr, uid, old_sale_order_delivery_date.keys(), context=context):
-            if sale_order.delivery_date and datetime.strptime(sale_order.delivery_date, '%Y-%m-%d') > datetime.strptime(old_sale_order_delivery_date[sale_order.id], '%Y-%m-%d'):
-                date_from_string = datetime.strptime(old_sale_order_delivery_date[sale_order.id], '%Y-%m-%d').strftime('%d/%m/%Y')
+        if warning_message is None :
+            warning_message=[]
+        
+        if context is None:
+            context={}
+        
+        for sale_order in self.env['sale.order'].browse(old_dates.keys()):
+            if sale_order.delivery_date and datetime.strptime(sale_order.delivery_date, '%Y-%m-%d') > datetime.strptime(old_dates[sale_order.id], '%Y-%m-%d'):
+                date_from_string = datetime.strptime(old_dates[sale_order.id], '%Y-%m-%d').strftime('%d/%m/%Y')
                 date_to_string = datetime.strptime(sale_order.delivery_date, '%Y-%m-%d').strftime('%d/%m/%Y')
                 warning_message.append(_("Delivery date of the sale order %s was postponed from %s to %s.")%(sale_order.name, date_from_string, date_to_string))
             if sale_order.confirmed_delivery_date and datetime.strptime(sale_order.confirmed_delivery_date, '%Y-%m-%d') < datetime.strptime(sale_order.delivery_date, '%Y-%m-%d'):
@@ -305,7 +194,63 @@ class purchase_validation_wizard(models.TransientModel):
                 warning_message.append(_('Do you want send an email to following customers about theses modifications :')+'\r\n')
                 for sale_order in delivery_date_changes_email:
                     warning_message.append('  - '+sale_order.partner_id.name+' - '+sale_order.name+' - '+datetime.strptime(sale_order.delivery_date, '%Y-%m-%d').strftime('%d/%m/%Y')+' - '+sale_order.partner_order_id.email+'\r\n')
-                    context['order_email'].append(sale_order.id)                    
+                    context['order_email'].append(sale_order.id)     
+        
+        return warning_message, delivery_date_changes_email, context
+                    
+    @api.multi         
+    def update_purchase(self):
+        # INIT #
+        purchase_order_to_update = set()
+        old_sale_order_delivery_date = {}
+        sale_orders_to_update = set()
+        warning_message = []
+        
+        for purchase_validation in self:
+            for purchase_validation_line in purchase_validation.purchase_validation_lines:
+                purchase_order_to_update.add(purchase_validation_line.purchase_line.order_id.id)
+                
+                sale_lines = None
+                
+                #UPDATE PRICE
+                if self._is_update_needed(purchase_validation_line):
+                    #Update price in purchase order line
+                    line = self.env['purchase.order.line'].browse([purchase_validation_line.purchase_line.id])
+                    line.write({'price_unit':purchase_validation_line.new_price})
+                    
+                    
+                    #Update price in invoice lines
+                    #account_invoice_line_pool.write(cr, uid, [invoice_line.id for invoice_line in purchase_validation_line.purchase_line.invoice_lines if invoice_line.invoice_id.state == 'draft'], {'price_unit':purchase_validation_line.new_price}, context)
+                    
+                    #Update price in product
+                    products = self.env['product.product'].browse([purchase_validation_line.purchase_line.product_id.id])
+                    old_supplier_prices = products.update_price_for_supplier(purchase_validation_line.purchase_line.order_id.partner_id.commercial_partner_id.id, purchase_validation_line.new_price, purchase_validation_line.update_product,purchase_validation_line.new_brut_price, purchase_validation_line.price_quantity)                    
+            
+                    #Update price on invoice line
+                    for purchase_invoice in purchase_validation_line.purchase_line.order_id.invoice_ids:
+                        if purchase_invoice.state == 'draft':
+                            for purchase_invoice_line in purchase_invoice.invoice_line:
+                                if purchase_invoice_line.product_id.id == purchase_validation_line.purchase_line.product_id.id and purchase_invoice_line.quantity == purchase_validation_line.purchase_line.product_qty:
+                                    purchase_invoice_line.write({'price_unit':purchase_validation_line.new_price})
+                                    purchase_invoice.button_reset_taxes()
+                   
+                                                    
+                    #reset old product supplier price
+                    if not purchase_validation_line.update_product and old_supplier_prices:
+                        products.update_price_for_supplier( purchase_validation_line.purchase_line.order_id.partner_id.id, old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][0], purchase_validation_line.update_product, old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][1],old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][2], old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][3], ignore_history=True)
+                    else:
+                        warning_message.append(_("Product '%s' price has been updated from %s to %s.")%(purchase_validation_line.purchase_line.product_id.name, old_supplier_prices[purchase_validation_line.purchase_line.product_id.id] and old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][0] or '0', purchase_validation_line.new_price))
+                        
+                old_dates, order_to_update = self._update_delivery_date(purchase_validation_line)
+                sale_orders_to_update.update(order_to_update)
+                old_sale_order_delivery_date.update(old_dates)
+                
+               
+        context = self._context.copy()
+        
+        warning_message, delivery_date_changes_email, ctx = self._get_date_message(old_sale_order_delivery_date,warning_message, context)
+        
+        context.update(ctx)
         
         if warning_message and warning_message != '':
             if delivery_date_changes_email:
@@ -322,8 +267,9 @@ class purchase_validation_wizard(models.TransientModel):
                 'context' : context, 
             } 
         else:
-            return {'type': 'ir.actions.act_window_close'}
-    '''
+            return {'type': 'ir.actions.act_window_close'}    
+            
+        
 purchase_validation_wizard()
 
 class purchase_validation_line_wizard(models.TransientModel):

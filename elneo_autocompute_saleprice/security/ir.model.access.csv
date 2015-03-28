@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_product_discount_type","product.discount.type","model_product_discount_type","base.group_user",1,1,1,1
+"access_discount_type_discount","discount.type.discount","model_discount_type_discount","base.group_user",1,1,1,1
+"access_customer_discount_exception","customer.discount.exception","model_customer_discount_exception","base.group_user",1,1,1,1
+"access_elneo_autocompute_saleprice_category_coefficientlist","elneo_autocompute_saleprice.category_coefficientlist","model_elneo_autocompute_saleprice_category_coefficientlist","base.group_user",1,1,1,1

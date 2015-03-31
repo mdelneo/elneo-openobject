@@ -7,11 +7,13 @@
     'description': "Adapt accounting flows to elneo specifics",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['base','account'],
-    "data" : ['views/elneo_account_view.xml'
+    'depends': ['base','account','sale'],
+    "data" : ['views/elneo_account_view.xml',
+              'views/sale_view.xml',
+              'views/purchase_view.xml'
         ],
     'installable': True,
     'auto_install': False,
-    'application': True,
+    'application': False,
 
 }

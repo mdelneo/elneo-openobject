@@ -33,35 +33,46 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             	<form string="Supplier Price List History Lines">
-            		<field name="product_code" attrs="{'readonly':[('state','in',('updated',))]}" />
-            		<field name="quantity" attrs="{'readonly':[('state','in',('updated',))]}" />
+            		<field name="state" invisible="True" />
             		
-            		<field name="min_quantity" attrs="{'readonly':[('state','in',('updated',))]}" />
-            		<field name="weight" attrs="{'readonly':[('state','in',('updated',))]}" />
-            		<field name="pack" attrs="{'readonly':[('state','in',('updated',))]}" />
-            		<field name="product_category_id" />
+            		<group>
+	            		<field name="product_code" attrs="{'readonly':[('state','in',('updated',))]}" />
+	            		<field name="quantity" attrs="{'readonly':[('state','in',('updated',))]}" />
+	            		<field name="min_quantity" attrs="{'readonly':[('state','in',('updated',))]}" />
+	            		<field name="weight" attrs="{'readonly':[('state','in',('updated',))]}" />
+	            		<field name="pack" attrs="{'readonly':[('state','in',('updated',))]}" />
+	            		<field name="product_category_id" />
+            		</group>
             		
             		<notebook colspan="4">
             			<page string="Prices">
-            				<field name="brut_price" attrs="{'readonly':[('state','in',('updated',))]}" />
-		            		<field name="discount" attrs="{'readonly':[('state','in',('updated',))]}" />
-		            		<field name="net_price" attrs="{'readonly':[('state','in',('updated',))]}" />
-		            		<field name="multiply" attrs="{'readonly':[('state','in',('updated',))]}" />
-		            		<field name="public_price" attrs="{'readonly':[('state','in',('updated',))]}" />
+            				<group>
+	            				<field name="brut_price" attrs="{'readonly':[('state','in',('updated',))]}" />
+			            		<field name="discount" attrs="{'readonly':[('state','in',('updated',))]}" />
+			            		<field name="net_price" attrs="{'readonly':[('state','in',('updated',))]}" />
+			            		<field name="multiply" attrs="{'readonly':[('state','in',('updated',))]}" />
+			            		<field name="public_price" attrs="{'readonly':[('state','in',('updated',))]}" />
+		            		</group>
             			</page>
             			<page string="Products">
-	            			<field name="product_ids" attrs="{'readonly':[('state','in',('updated',))]}" />
-            				<field name="suppinfo_ids" attrs="{'readonly':[('state','in',('updated',))]}" />
+            				<group>
+		            			<field name="product_ids" attrs="{'readonly':[('state','in',('updated',))]}" />
+	            				<field name="suppinfo_ids" attrs="{'readonly':[('state','in',('updated',))]}" />
+            				</group>
             			</page>
             			<page string="Translations">
-	            			<field name="name_tmpl" attrs="{'readonly':[('state','in',('updated',))]}" />
-	            			<field name="name_fr" attrs="{'readonly':[('state','in',('updated',))]}" />
-	            			<field name="name_nl" attrs="{'readonly':[('state','in',('updated',))]}" />
-	            			<field name="name_de" attrs="{'readonly':[('state','in',('updated',))]}" />
-	            			<field name="name_en" attrs="{'readonly':[('state','in',('updated',))]}" />
+            				<group>
+		            			<field name="name_tmpl" attrs="{'readonly':[('state','in',('updated',))]}" />
+		            			<field name="name_fr" attrs="{'readonly':[('state','in',('updated',))]}" />
+		            			<field name="name_nl" attrs="{'readonly':[('state','in',('updated',))]}" />
+		            			<field name="name_de" attrs="{'readonly':[('state','in',('updated',))]}" />
+		            			<field name="name_en" attrs="{'readonly':[('state','in',('updated',))]}" />
+	            			</group>
             			</page>
             			<page string="Landefeld specifics">
-            				<field name="product_group" />
+            				<group>
+            					<field name="product_group" />
+            				</group>
             			</page>
             		</notebook>
             		
@@ -119,7 +130,7 @@
             			</group>
             		<notebook colspan="4">
             			<page string="Original Lines">
-            				<field name="line_ids" nolabel="1" colspan="4">
+            				<field name="line_ids_display" nolabel="1" colspan="4">
             					<tree string="Supplier Price List History Lines" colors="blue:(state=='draft');darkgreen:(state=='updated')">
 				            		<field name="product_code"/>
 				            		<field name="product_category_id"/>
@@ -138,18 +149,18 @@
             				</field>
             			</page>
             			<page string="To Update">
-            				<field name="percent_operation_update" colspan="4" widget="progressbar"/>
-            				<field name="lines_to_update" nolabel="1" colspan="4"/>
             				<button name="action_updating_purchase_prices" string="Update Purchase Prices" icon="gtk-ok" states="computed" type="object"/>
             				<button name="action_updating" string="Update Sale Prices" icon="gtk-ok" states="updated_pps" type="object"/>
+            				<field name="percent_operation_update" colspan="4" widget="progressbar"/>
+            				<field name="lines_to_update_display" nolabel="1" colspan="4"/>
             			</page>
             			<page string="Products Sold Last Year">
             				<field name="increase_price" colspan="4" widget="progressbar"/>
-            				<field name="lines_sold" nolabel="1" colspan="4"/>
+            				<field name="lines_sold_display" nolabel="1" colspan="4"/>
             			</page>
             			<page string="To Create">
             				<field name="percent_operation_create" colspan="4" widget="progressbar"/>
-            				<field name="lines_to_create" nolabel="1" colspan="4">
+            				<field name="lines_to_create_display" nolabel="1" colspan="4">
             					<tree string="Supplier Price List History Lines" colors="blue:(state=='draft');darkgreen:(state=='created');red:(state=='error_create');grey:(state=='create_cancel'))">
 				            		<field name="product_code"/>
 				            		<field name="product_category_id"/>

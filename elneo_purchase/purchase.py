@@ -29,7 +29,23 @@ class purchase_order(models.Model):
                                     on procurement_order.sale_line_id = sale_order_line.id
                                 on sale_order_line.order_id = sale_order.id
                                 where sale_order.state != 'cancel' and purchase_order.id in %s''',(tuple(self.mapped('id')),))
-        for (purchase_id, sale_id) in self.env.cr.fetchall():
+        res = self.env.cr.fetchall()
+        
+        # IF NO STOCK MOVE, MAYBE A DROPSHIPPING (PROCUREMENT IS THE SAME FOR SALE AND PURCHASE)
+        if len(res) == 0:
+            self.env.cr.execute('''select distinct purchase_order.id, sale_order.id
+                                    from sale_order 
+                                    left join sale_order_line
+                                        left join procurement_order
+                                            left join purchase_order_line
+                                            left join purchase_order on purchase_order_line.order_id = purchase_order.id
+                                            on procurement_order.purchase_line_id = purchase_order_line.id 
+                                        on procurement_order.sale_line_id = sale_order_line.id
+                                    on sale_order_line.order_id = sale_order.id
+                                    where sale_order.state != 'cancel' and purchase_order.id in %s''',(tuple(self.mapped('id')),))
+            res = self.env.cr.fetchall()
+        
+        for (purchase_id, sale_id) in res:
             self.sale_orders=[sale_id]
             
     

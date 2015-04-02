@@ -14,7 +14,6 @@ class purchase_order(models.Model):
     _inherit='purchase.order'
     
     def _get_sale_orders(self):
-        result = {}
        
         self.env.cr.execute('''select distinct purchase_order.id, sale_order.id
                                 from sale_order 

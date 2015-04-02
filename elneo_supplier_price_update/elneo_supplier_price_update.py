@@ -167,7 +167,6 @@ class elneo_supplier_price_update(models.Model):
     # Standard : Columns must match the object column names but only required columns (required=True in the object) are mandatory
     @api.one
     def _import_csv(self):
-        res=True
         update = None
         try:
             att_obj = self.env['ir.attachment']
@@ -204,7 +203,8 @@ class elneo_supplier_price_update(models.Model):
                 if (valid):
                     lines_pool = self.env['elneo.supplier.price.update.line']
                     lines_to_delete = lines_pool.search([('import_id','=',update.id)])
-                    lines_pool.unlink(lines_to_delete)
+                    if lines_to_delete:
+                        lines_to_delete.unlink()
                     for row in rows:
                         if update.type == 'elneo_standard':
                             value = self._get_elneo_standard(row,columns)
@@ -213,7 +213,7 @@ class elneo_supplier_price_update(models.Model):
                             
                         if value :
                             value['import_id']=update.id
-                            result = self.pool.get('elneo.supplier.price.update.line').create(value)
+                            result = self.env['elneo.supplier.price.update.line'].create(value)
                 else:
                     self._message(_('ERROR : The csv file is not in the expected format'))
                 
@@ -221,17 +221,8 @@ class elneo_supplier_price_update(models.Model):
             # We raise Exception but we stay in 'Draft' state - just log the message
             self._message(_('ERROR : ') + unicode(e.message))
             raise Warning('Import Error','Unknown error during import!' + unicode(e))
-        finally:
-            try:                
-                self._cr.commit()
-            except Exception:
-                pass
-            try:                
-                self._cr.close()
-            except Exception:
-                pass
 
-        return res
+        return True
     
     #for big pricelists, use sql copy method from file already in filesystem  
     @api.one
@@ -339,7 +330,7 @@ from pricelist_landefeld_full;""")
         return res
         
     # If the file type is 'elneo_standard'
-    @api.one 
+    @api.multi 
     def _get_elneo_standard(self,row,header): 
         res = {}
         
@@ -349,7 +340,7 @@ from pricelist_landefeld_full;""")
         if col and (len(col) == len (header)):
             i=0
             for head in header :
-                if (line_obj._columns[head]._type) == 'Float':
+                if (line_obj._columns[head]._type) in ['Float','float']:
                     res[head]=col[i].replace(",",".")
                 else:
                     res[head]=col[i]
@@ -385,15 +376,13 @@ from pricelist_landefeld_full;""")
     # Function that launch the thread to import
     @api.one
     def import_lines(self):
-        res=True
         '''
         thread_import = threading.Thread(target=self._import_csv,args=(cr, uid, ids, context))
         thread_import.start()
         '''
-        
         self._import_csv()
+        return True
 
-        return res
     
     # Get Product old properties to fill the columns
     def _get_product_pricelist_properties(self,cr,uid,id,context=None):

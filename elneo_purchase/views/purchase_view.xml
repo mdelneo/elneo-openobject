@@ -13,6 +13,15 @@
 				<field name="partner_id" position="after">
 					<field name="purchase_type_id"/>
 				</field>
+				<xpath expr="//tree[@string='Purchase Order Lines']/field[@name='state']" position="replace">
+					<field name="state"/>
+				</xpath>
+				<xpath expr="//field[@name='minimum_planned_date']/.." position="attributes">
+					<attribute name="string">Delivery</attribute>
+				</xpath>
+				<xpath expr="//field[@name='invoice_method']/.." position="attributes">
+					<attribute name="string">Accounting</attribute>
+				</xpath>
 				<!--  TO ADD IF USABILITY IS IMPROVED
 				<xpath expr="//form/sheet/notebook/page[@string='Deliveries &amp; Invoices']" position="after">
 					<page string="History">

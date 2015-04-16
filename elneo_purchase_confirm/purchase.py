@@ -4,14 +4,11 @@ class purchase_order(models.Model):
     _inherit = 'purchase.order'
 
     @api.one
-    def purchase_confirm_elneo(self):
+    def elneo_purchase_confirm(self):
         
         
-        
-        wf_service = netsvc.LocalService("workflow")
-        wf_service.trg_validate('purchase.order', self.id, 'purchase_confirm')
-        
-        
+        self.signal_workflow('purchase_confirm')
+
         return True
 
 purchase_order()

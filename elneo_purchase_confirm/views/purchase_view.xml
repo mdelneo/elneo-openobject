@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="purchase_order_form_elneo_confirm" model="ir.ui.view">
+            <field name="name">purchase.order.form.elneo.confirm</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//button[@id='draft_confirm']" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</xpath>
+            	<xpath expr="//button[@id='bid_confirm']" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</xpath>
+            	<xpath expr="//button[@id='draft_confirm']" position="after">
+            		<button name="elneo_purchase_confirm" type="object" states="draft" string="Confirm Order" id="elneo_draft_confirm"/>
+            	</xpath>
+            	<xpath expr="//button[@id='bid_confirm']" position="after">            		
+                    <button name="elneo_purchase_confirm" type="object" states="bid" string="Confirm Order" class="oe_highlight" id="elneo_bid_confirm"/>
+            	</xpath>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

@@ -10,7 +10,6 @@
             	<xpath expr="//field[@name='shipped']/../../group" position="after">
             		<group string="Unblocking" groups="purchase.group_purchase_manager">
             			<group>
-            				<field name="amount_unblocked" groups="purchase.group_purchase_manager"/>
             				<field name="user_amount_unblocked" groups="purchase.group_purchase_manager"/>
             				<field name="date_amount_unblocked" groups="purchase.group_purchase_manager"/>
             			</group>

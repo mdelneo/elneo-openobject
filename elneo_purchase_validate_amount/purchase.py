@@ -6,7 +6,6 @@ class purchase_order(models.Model):
     
     _inherit='purchase.order'
     
-    amount_unblocked = fields.Boolean('Unblocked (on Amount)',readonly=False, states={'done':[('readonly',True)]},help='If the order is blocked on amount, unblock it')
     user_amount_unblocked = fields.Many2one('res.users','Unblocked on Amount user',readonly=True)
     date_amount_unblocked=fields.Datetime('Unblocked on Amount date',readonly=True)
     
@@ -78,12 +77,13 @@ class purchase_order(models.Model):
     
     @api.one
     def write(self,vals):
-        if vals.has_key('amount_unblocked') and vals['amount_unblocked']:
+        
+        if vals.has_key('state') and vals['state'] == 'approved':
             self.user_amount_unblocked = self.env.user
             self.date_amount_unblocked = datetime.now()
         
         return super(purchase_order,self).write(vals)
-    
+            
     
     @api.multi
     def elneo_purchase_confirm(self):

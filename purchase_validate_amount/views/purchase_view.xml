@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<record id="purchase_order_form_amount" model="ir.ui.view">
+            <field name="name">purchase.order.form.amount</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='shipped']/../../group" position="after">
+            		<group string="Unblocking" groups="purchase.group_purchase_manager">
+            			<group>
+            				<field name="amount_unblocked" groups="purchase.group_purchase_manager"/>
+            				<field name="user_amount_unblocked" groups="purchase.group_purchase_manager"/>
+            				<field name="date_amount_unblocked" groups="purchase.group_purchase_manager"/>
+            			</group>
+            		</group>
+            	</xpath>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="purchase_order_search_inherit">
+        <field name="name">purchase.order.list.select.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='draft']" position="after">
+                <filter icon="terp-gtk-jump-to-ltr" name="to_approve" string="To Approve" domain="[('state','in',('wait','confirmed'))]" help="Purchase orders which are not approved yet."/>
+            </xpath>
+        </field>
+    </record>
+	</data>
+</openerp>

@@ -1,0 +1,46 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+{
+    'name' : 'Validation on Purchase Amount',
+    'version' : '1.0',
+    'author' : 'Elneo',
+    'category' : 'Purchases',
+    'description' : """
+Purchases Management.
+====================================
+
+
+Block the Purchase when the amount is too big
+    """,
+    'website': 'https://www.elneo.com',
+    'depends' : ['purchase','purchase_double_validation','elneo_purchase_confirm'],
+    'data': ['views/purchase_view.xml',
+             'views/res_config.xml',
+            'purchase_workflow.xml',
+            'wizard/purchase_amount_wizard_view.xml'
+    ],
+    
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -13,13 +13,13 @@
             <field name="arch" type="xml">
                 <form string="Purchase update">
                 	<label string="The Amount of the purchase order is too high and need a validation."/>
+                	<br/><br/>
                 	<label string="Pick one or more purchase managers to send them a mail."/>
-                
-                    <label string="Provide product prices and reception dates :" />
                     <group>
                     	<field name="group_id" invisible="True"/>
                         <field name="users_to_warn" domain="[('groups_id','in',[group_id])]" widget="many2many_tags" required="1"/>
                     </group>
+                    <br/><br/><br/><br/>
                      <footer>
                         <button special="cancel" string="_Cancel" />
                     	<button name="send_mail" string="Send mail" type="object" class="oe_highlight" />

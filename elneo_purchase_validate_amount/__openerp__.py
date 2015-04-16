@@ -35,7 +35,8 @@ Block the Purchase when the amount is too big
     'data': ['views/purchase_view.xml',
              'views/res_config.xml',
             'purchase_workflow.xml',
-            'wizard/purchase_amount_wizard_view.xml'
+            'wizard/purchase_amount_wizard_view.xml',
+            'data/purchase_amount_data.xml',
     ],
     
     'installable': True,

@@ -8,11 +8,10 @@ class purchase_amount_wizard(models.TransientModel):
     _description = 'Purchase amount wizard'
     
     
-    users_to_warn=fields.Many2many('res.users',string='Users To Warn')
+    users_to_warn=fields.Many2many('res.users',string='Users To Warn',required=True)
     group_id=fields.Many2one('res.groups','Administrative Group')
     
 
-    
     @api.model
     def default_get(self,fields):
         """
@@ -70,27 +69,24 @@ class purchase_amount_wizard(models.TransientModel):
         
         if len(self.users_to_warn) > 0:
             
-            email_template = self.env.ref('puchase_validate_amount.email_template_purchase_amount_validate')
+            email_template = self.env.ref('elneo_purchase_validate_amount.email_template_purchase_amount_validate')
             #email_template = self.browse(safe_eval(self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.email_template_id','False')))
         
             
             if not email_template:
                 raise Warning(_("No Email Template is defined. Contact your Administrator"))
             
-            user = self.env['res.users'].browse(self.env.user)
-            if not user.user_email:
-                raise Warning(_("Please fill an email for user %s")%(user.name,))
+            if not self.env.user.partner_id.email:
+                raise Warning(_("Please fill an email for user %s")%(self.user.name,))
         
-            for order in self.env['sale.order'].browse(self.env.context.get('order_email')):
+            for order in self.env['sale.order'].browse(self.env.context.get('active_ids')):
                 order.confirmed_delivery_date = order.delivery_date
                 values = self.env['email.template'].generate_email_batch(email_template.id, [order.id])
-                values[order.id]['email_to']=order.partner_order_id.email
-                values[order.id]['recipient_ids']=[(4, pid) for pid in values.get('partner_ids', list())]
+                values[order.id]['email_to']=','.join(self.users_to_warn.mapped('partner_id.email'))
+                values[order.id]['recipient_ids']=[(4, pid) for pid in self.users_to_warn.mapped('partner_id.id')]
                 msg_id = self.env['mail.mail'].create(values[order.id])
         
                 
         return True
-    
-            
-        
+ 
 purchase_amount_wizard()

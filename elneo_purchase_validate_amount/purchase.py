@@ -15,7 +15,7 @@ class purchase_order(models.Model):
     def check_amount_great(self):
         res = True
         
-        purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.elneo_purchase_validate_amount',False)
+        purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_amount',False)
         
         if purchase_validate_amount:
             amount=int(purchase_validate_amount)
@@ -34,7 +34,7 @@ class purchase_order(models.Model):
     def check_amount_low(self):
         res = False
         
-        purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.elneo_purchase_validate_amount',False)
+        purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_amount',False)
         
         if purchase_validate_amount:
             amount=int(purchase_validate_amount)
@@ -52,7 +52,7 @@ class purchase_order(models.Model):
     
     def warn_amount(self):
         
-        purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.elneo_purchase_validate_amount',False)
+        purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_amount',False)
         
         if purchase_validate_amount:
             amount=int(purchase_validate_amount)
@@ -62,21 +62,19 @@ class purchase_order(models.Model):
             
         if self.amount_untaxed and amount:
             if self.amount_untaxed >= amount:
-                res =  {
-    "type": "ir.actions.act_window",
-    "res_model": "purchase.amount.wizard",
-    "views": [[False, "form"]],
-    
-    "target": "new",
-}
+                return  {
+                        "name":_("Purchase Amount Too High!"),
+                    "type": "ir.actions.act_window",
+                    "view_mode":"form",
+                    "view_type":"form",
+                    "res_model": "purchase.amount.wizard",
+                    #"res_id":wizard_id,
+                    "target": "new",
+                    'nodestroy': True,
+                    'active_ids':[self.id],
+                        }
                 
-                
-                
-                
-                return res
-                raise Warning('The amount of this order is too high to be confirmed by you. Ask your manager to do it.',_('Purchase Order Amount too high'))
-        
-        
+        return True
     
     @api.one
     def write(self,vals):
@@ -85,5 +83,14 @@ class purchase_order(models.Model):
             self.date_amount_unblocked = datetime.now()
         
         return super(purchase_order,self).write(vals)
+    
+    
+    @api.multi
+    def elneo_purchase_confirm(self):
+        res = False
+        
+        res = super(purchase_order,self).elneo_purchase_confirm()
+
+        return  self.warn_amount()
 
 purchase_order()

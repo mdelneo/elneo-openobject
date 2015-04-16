@@ -4,13 +4,13 @@ from openerp import fields, models, api
 class res_config(models.TransientModel):
     _inherit = 'purchase.config.settings'
 
-    purchase_validate_amount = fields.Integer('Amount Validation',help='The purchase amount level to block the purchase and wait for validation')
+    purchase_validate_amount = fields.Integer('Amount Validation',default=10000,help='The purchase amount level to block the purchase and wait for validation')
     purchase_validate_group = fields.Many2one('res.groups','Group')
     
     @api.multi
     def set_purchase_validate_amount(self):
         
-        self.env['ir.config_parameter'].set_param('elneo_purchase_validate_amount.elneo_purchase_validate_amount',repr(self.purchase_validate_amount))
+        self.env['ir.config_parameter'].set_param('elneo_purchase_validate_amount.purchase_validate_amount',repr(self.purchase_validate_amount))
         
     @api.multi
     def set_purchase_validate_group(self):
@@ -21,10 +21,10 @@ class res_config(models.TransientModel):
     @api.model
     def get_default_values(self,fields):
         
-        purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.elneo_purchase_validate_amount',False)
+        purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_amount',False)
         purchase_validate_group = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_group',False)
 
-        return {'elneo_purchase_validate_amount':int(purchase_validate_amount),
+        return {'purchase_validate_amount':int(purchase_validate_amount),
                 'purchase_validate_group':int(purchase_validate_group),
                 }
       

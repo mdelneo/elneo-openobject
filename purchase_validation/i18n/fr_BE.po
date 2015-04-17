@@ -1,0 +1,290 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_validation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-17 09:51+0000\n"
+"PO-Revision-Date: 2015-04-17 12:01+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.7.4\n"
+
+#. module: purchase_validation
+#: model:email.template,body_html:purchase_validation.email_template_delivery_date_change
+msgid ""
+"\n"
+"\t\t\tDear customer,<br/>\n"
+"<br/>\n"
+"The delivery date of your order (${object.client_order_ref} - ${object.name}), has been modified to ${object.confirmed_delivery_date}.<br/>\n"
+"You can call us if you want a partial delivery of products.<br/>\n"
+"<br/>\n"
+"Sorry for the inconvenience,<br/>\n"
+"\t\t\t"
+msgstr ""
+"\n"
+"\t\t\tCher client,<br/>\n"
+"<br/>\n"
+"La date de livraison de votre commande (${object.client_order_ref} - ${object.name}) a été modifiée au ${object.confirmed_delivery_date}.<br/>\n"
+"Vous pouvez nous appeler si vous désirez une livraison partielle des produits.<br/>\n"
+"<br/>\n"
+"Recevez toutes nos excuses pour ces désagréments,<br/>\n"
+"\t\t\t"
+
+#. module: purchase_validation
+#: view:purchase.validation.settings:purchase_validation.view_purchase_validation_settings
+msgid "Apply"
+msgstr "Appliquer"
+
+#. module: purchase_validation
+#: view:purchase.validation.settings:purchase_validation.view_purchase_validation_settings
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: purchase_validation
+#: view:purchase.validation.settings:purchase_validation.view_purchase_validation_settings
+msgid "Configure Purchase Validation"
+msgstr "Configurer la Validation des Achats"
+
+#. module: purchase_validation
+#: model:ir.actions.act_window,name:purchase_validation.action_purchase_validation_config
+msgid "Configure Validation"
+msgstr "Configurer la Validation"
+
+#. module: purchase_validation
+#: view:purchase.validation.wizard:purchase_validation.view_purchase_validation_wizard
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,create_uid:0
+#: field:purchase.validation.settings,create_uid:0
+#: field:purchase.validation.wizard,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,create_date:0
+#: field:purchase.validation.settings,create_date:0
+#: field:purchase.validation.wizard,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: purchase_validation
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:181
+#, python-format
+msgid "Delivery date confirmed to the customer (%s) for order %s is no longer correct."
+msgstr "La date de livraison confirmée au client (%s) pour la commande %s n'est plus correcte."
+
+#. module: purchase_validation
+#: model:email.template,subject:purchase_validation.email_template_delivery_date_change
+msgid "Delivery date modification"
+msgstr "Modification de la date de livraison"
+
+#. module: purchase_validation
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:178
+#, python-format
+msgid "Delivery date of the sale order %s was postponed from %s to %s."
+msgstr "La date d'envoi de la commande de vente %s est reportée du %s au %s."
+
+#. module: purchase_validation
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:194
+#, python-format
+msgid "Do you want send an email to following customers about theses modifications :"
+msgstr "Voulez vous envoyer un email aux clients suivants afin de les informer des modifications :"
+
+#. module: purchase_validation
+#: field:purchase.validation.settings,email_template_id:0
+msgid "Email Template"
+msgstr "Email Template"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,id:0
+#: field:purchase.validation.settings,id:0
+#: field:purchase.validation.wizard,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,write_uid:0
+#: field:purchase.validation.settings,write_uid:0
+#: field:purchase.validation.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,write_date:0
+#: field:purchase.validation.settings,write_date:0
+#: field:purchase.validation.wizard,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,new_brut_price:0
+msgid "New Brut Price"
+msgstr "Nouveau Prix Brut"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,new_discount:0
+msgid "New Discount"
+msgstr "Nouvelle remise"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,new_price:0
+msgid "New Price"
+msgstr "Nouveau prix"
+
+#. module: purchase_validation
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:85
+#, python-format
+msgid "No Email Template is defined. Contact your Administrator"
+msgstr "Aucun modèle d'email n'est défini. Contactez votre Administrateur"
+
+#. module: purchase_validation
+#: code:addons/purchase_validation/product.py:49
+#, python-format
+msgid "Operation canceled"
+msgstr "Opération annulée"
+
+#. module: purchase_validation
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:89
+#, python-format
+msgid "Please fill an email for user %s"
+msgstr "Merci de remplir l'adresse email de l'utilisateur %s"
+
+#. module: purchase_validation
+#: model:ir.model,name:purchase_validation.model_product_product
+msgid "Product"
+msgstr "Produit"
+
+#. module: purchase_validation
+#: code:addons/purchase_validation/product.py:49
+#, python-format
+msgid "Product '%s' has not supplier '%s' configured. Please complete it before."
+msgstr "Le produit '%s' n'a pas le fournisseur '%s' de configuré. Merci de le compléter."
+
+#. module: purchase_validation
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:242
+#, python-format
+msgid "Product '%s' price has been updated from %s to %s."
+msgstr "Le prix du produit '%s' a été mis à jour de %s à %s."
+
+#. module: purchase_validation
+#: view:purchase.validation.wizard:purchase_validation.view_purchase_validation_wizard
+msgid "Provide product prices and reception dates :"
+msgstr "Fournissez les prix des produits et les dates de réception :"
+
+#. module: purchase_validation
+#: model:ir.model,name:purchase_validation.model_purchase_order
+msgid "Purchase Order"
+msgstr "Achat"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,purchase_line:0
+msgid "Purchase Order Line"
+msgstr "Ligne d'achat"
+
+#. module: purchase_validation
+#: model:ir.actions.act_window,name:purchase_validation.action_view_purchase_validation_wizard
+msgid "Purchase Validation"
+msgstr "Validation d'Achat"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,purchase_validation_updater_id:0
+msgid "Purchase Validation Wizard"
+msgstr "Assistant de Validation d'Achat"
+
+#. module: purchase_validation
+#: view:purchase.validation.line.wizard:purchase_validation.view_purchase_validation_line_wizard_tree
+msgid "Purchase line"
+msgstr "Lignes d'achat"
+
+#. module: purchase_validation
+#: view:purchase.validation.wizard:purchase_validation.view_purchase_validation_wizard
+msgid "Purchase update"
+msgstr "Mise à jour de l'achat"
+
+#. module: purchase_validation
+#: model:ir.model,name:purchase_validation.model_purchase_validation_line_wizard
+msgid "Purchase updater line wizard"
+msgstr "Assistant de mise à jour des lignes d'Achat"
+
+#. module: purchase_validation
+#: view:purchase.order:purchase_validation.purchase_order_form_inherit_purchase_validation
+msgid "Purchase validation"
+msgstr "Validation de l'achat"
+
+#. module: purchase_validation
+#: model:ir.model,name:purchase_validation.model_purchase_validation_wizard
+msgid "Purchase validation wizard"
+msgstr "Assistant de validation des achats"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,price_quantity:0
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,new_date_planned:0
+msgid "Scheduled Date"
+msgstr "Date prévue"
+
+#. module: purchase_validation
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:188
+#, python-format
+msgid "Some of customer have a delivery date that has changed, but order address has no email "
+msgstr "Des clients ont leur date de livraison qui a changé, mais le partenaire de livraison n'a pas de mail"
+
+#. module: purchase_validation
+#: field:purchase.validation.line.wizard,update_product:0
+msgid "Update Product Price ?"
+msgstr "Mettre à jour le prix du produit ?"
+
+#. module: purchase_validation
+#: field:purchase.validation.wizard,purchase_validation_lines:0
+msgid "Updated Lines"
+msgstr "Lignes mises à jour"
+
+#. module: purchase_validation
+#: view:purchase.order:purchase_validation.view_purchase_order_filter_inherit_purchase_validation
+#: field:purchase.order,validated:0
+msgid "Validated"
+msgstr "Validée"
+
+#. module: purchase_validation
+#: view:purchase.order:purchase_validation.view_purchase_order_filter_inherit_purchase_validation
+msgid "Validated purchase order"
+msgstr "Achat validé"
+
+#. module: purchase_validation
+#: model:ir.ui.menu,name:purchase_validation.menu_purchase_validation_config
+#: model:ir.ui.menu,name:purchase_validation.menu_purchase_validation_validation_config
+msgid "Validation"
+msgstr "Validation"
+
+#. module: purchase_validation
+#: view:purchase.validation.wizard:purchase_validation.view_purchase_validation_wizard
+msgid "_Cancel"
+msgstr "_Annuler"
+
+#. module: purchase_validation
+#: view:purchase.validation.settings:purchase_validation.view_purchase_validation_settings
+msgid "or"
+msgstr "ou"
+
+#. module: purchase_validation
+#: model:ir.actions.act_window,name:purchase_validation.purchase_rfq_simple
+msgid "purchase.rfq.simple"
+msgstr "purchase.rfq.simple"

@@ -31,7 +31,7 @@ Purchases Management.
 Block the Purchase when the amount is too big
     """,
     'website': 'https://www.elneo.com',
-    'depends' : ['purchase','purchase_double_validation','elneo_purchase_confirm'],
+    'depends' : ['purchase','elneo_purchase_confirm'],
     'data': ['views/purchase_view.xml',
              'views/res_config.xml',
             'purchase_workflow.xml',

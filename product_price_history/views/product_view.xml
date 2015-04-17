@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="product_supplierinfo_form_view_history" model="ir.ui.view">
+            <field name="name">product.supplierinfo.form.view.history</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+            <field name="arch" type="xml">
+            	<field name="pricelist_ids" position="after">
+            	<separator string="History"/>
+	            	<field groups="product.group_purchase_pricelist" name="pricelist_history_ids" string="History">
+                        <tree string="Pricelist History">
+                            <field name="min_quantity"/>
+                            <field name="brut_price"/>
+                            <field name="price"/>
+                            <field name="discount"/>
+                            <field name="date"/>
+                            <field name="update_method"/>
+                        </tree>
+	                </field>
+                </field>
+      		</field>
+     </record>
+	</data>
+</openerp>

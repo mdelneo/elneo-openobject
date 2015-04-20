@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
             <field name="arch" type="xml">
             	<field name="pricelist_ids" position="after">
-            	<separator string="History"/>
+            		<separator string="History"/>
 	            	<field groups="product.group_purchase_pricelist" name="pricelist_history_ids" string="History">
                         <tree string="Pricelist History">
                             <field name="min_quantity"/>
@@ -20,6 +20,17 @@
 	                </field>
                 </field>
       		</field>
-     </record>
+     	</record>
+     
+	     <record id="product_supplierinfo_tree_view_history" model="ir.ui.view">
+            <field name="name">product.supplierinfo.tree.view.history</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                	<field name="net_unit_price" />
+                </field>
+            </field>
+        </record>
 	</data>
 </openerp>

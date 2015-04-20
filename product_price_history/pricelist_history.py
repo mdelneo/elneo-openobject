@@ -136,7 +136,15 @@ pricelist_partnerinfo()
 
 class product_supplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
-
+    
     pricelist_history_ids = fields.One2many('pricelist.partnerinfo.history','suppinfo_id',string='Pricelist History',readonly=True)
+    net_unit_price = fields.Float(string='Net unit price', compute='get_price_for_one')
+    
+    @api.one
+    def get_price_for_one(self):
+        for pricelist in self.pricelist_ids:
+            if pricelist.min_quantity == 1:
+                self.net_unit_price = pricelist.price
+                return
     
 product_supplierinfo()

@@ -7,7 +7,7 @@
     'description': "Adapt product flows to elneo specifics",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['product','stock'],
+    'depends': ['product','stock','elneo_account'],
     "data" : ['views/product_view.xml'
         ],
     'installable': True,

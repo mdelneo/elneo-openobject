@@ -51,9 +51,11 @@ product_template()
 
 
 class sale_order(models.Model):
-    _inherit = 'sale.order'
+    _inherit = 'sale.order.line'
     
-    default_supplier_id = fields.Many2one(related='product_id.default_supplier_id')
+    #'default_supplier_id':fields.related("product_id","product_tmpl_id", "default_supplier_id", type="many2one", relation="res.partner", string="Default supplier", readonly=True),
+    
+    default_supplier_id = fields.Many2one('res.partner',related='product_id.product_tmpl_id.default_supplier_id',readonly=True,string='Default Supplier')
     
 sale_order()
     

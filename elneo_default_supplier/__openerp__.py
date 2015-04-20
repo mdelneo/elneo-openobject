@@ -8,7 +8,7 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['product','sale'],
-    "update_xml" : [
+    "data" : [
                     "elneo_default_supplier_view.xml",
                     ],
     'installable': True,

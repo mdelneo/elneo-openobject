@@ -61,6 +61,7 @@ class product_template(models.Model):
         return {'purchase_price':purchase_price,'public_price':public_price}
     
     #When cost_price computation will be ok, we can use cost_price instead of standard_price
+    @api.one
     def get_sale_price(self, quantity=0):
         res = 0
         

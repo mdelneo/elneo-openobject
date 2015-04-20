@@ -10,7 +10,8 @@
     'depends': ['base','account','sale'],
     "data" : ['views/elneo_account_view.xml',
               'views/sale_view.xml',
-              'views/purchase_view.xml'
+              'views/purchase_view.xml',
+              'views/product_view.xml'
         ],
     'installable': True,
     'auto_install': False,

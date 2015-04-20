@@ -237,8 +237,9 @@ class product_template(models.Model):
         return list(result)
     
     @api.depends('categ_id','cost_price','sale_price_fixed','compute_sale_price','sale_price_seller')
+    @api.one
     def _get_list_price(self):
-        sale_price = self.get_sale_price(0)[0]
+        sale_price = self.get_sale_price(0)[0][0]
         discount_type = self._context.get("discount_type")
         if discount_type:
             sale_price = self.get_customer_sale_price(discount_type, sale_price)

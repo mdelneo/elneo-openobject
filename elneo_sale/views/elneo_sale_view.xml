@@ -114,7 +114,6 @@
 						</button>
 					</div>
                 </xpath>
-<<<<<<< Upstream, based on branch '8.0' of https://github.com/Elneo-group/elneo-openobject
 	           	<xpath expr="//field[@name='product_id']" position="attributes">
                 	<attribute name="on_change">1</attribute>
                 </xpath>
@@ -126,8 +125,6 @@
                 <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
                 	<field name="brut_sale_price"/>
                 </xpath>
-=======
->>>>>>> 0e71414 vue des ventes : ajout du tab historique et raccourcis en haut à droite
 			</field>
         </record>
         <record model="ir.ui.view" id="sale_view_inherit123_elneo_sale">

@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-
+		<record id="product_template_search_view_supplier" model="ir.ui.view">
+            <field name="name">product.template.search.supplier</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                	<field name="default_supplier_id" filter_domain="[('name','ilike',self)]"/>
+                </field>
+            </field>
+        </record>
+        
 		<record model="ir.ui.view" id="product_template_kanban_elneo_default_supplier">
             <field name="name">product.template.kanban.elneo.default.supplier</field>
             <field name="model">product.template</field>

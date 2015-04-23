@@ -37,8 +37,29 @@ class purchase_order(models.Model):
                                     where sale_order.state != 'cancel' and purchase_order.id in %s''',(tuple(self.mapped('id')),))
             res = self.env.cr.fetchall()
         
+        # No procurement and no drop shipping, use stock_move
+        if len(res) == 0 :
+            self.env.cr.execute('''select distinct po.id, so.id
+                                    from purchase_order po
+                                        left join purchase_order_line pol
+                                            left join stock_move sm
+                                                left join stock_move sm2
+                                                    left join sale_order_line sol
+                                                        left join sale_order so on sol.order_id = so.id
+                                                    on sm2.sale_line_id = sol.id
+                                                on sm.move_dest_id = sm2.id
+                                            on pol.id = sm.purchase_line_id
+                                        on po.id = pol.order_id
+                                    where po.id in %s''',(tuple(self.mapped('id')),))
+        
+            res = self.env.cr.fetchall()
+   
+        orders=[]
         for (purchase_id, sale_id) in res:
-            self.sale_orders=[sale_id]
+            orders.append(sale_id)
+            
+        self.sale_orders=orders
+        
             
     
     @api.depends('sale_orders')
@@ -57,7 +78,7 @@ class purchase_order(models.Model):
         '''
         
         mod_obj = self.env['ir.model.data']
-        dummy, action_id = tuple(mod_obj.get_object_reference('sale', 'action_order_tree'))
+        dummy, action_id = tuple(mod_obj.get_object_reference('sale', 'action_orders'))
         action_obj = self.env['ir.actions.act_window'].browse(action_id)
         action = action_obj.read()[0]
         
@@ -66,7 +87,7 @@ class purchase_order(models.Model):
         action['context'] = {}
         #choose the view_mode accordingly
         if self.sale_count > 1:
-            action['domain'] = "[('id','in',[" + ','.join(map(str, self.sale_order.mapped('id'))) + "])]"
+            action['domain'] = "[('id','in',[" + ','.join(map(str, self.sale_orders.mapped('id'))) + "])]"
         else:
             res = mod_obj.get_object_reference('sale', 'view_order_form')
             action['views'] = [(res and res[1] or False, 'form')]

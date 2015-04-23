@@ -47,22 +47,5 @@
 
             </field>
         </record>
-		
-		<record id="purchase_order_form_elneo_button" model="ir.ui.view">
-            <field name="name">purchase.order.form.elneo.button</field>
-            <field name="model">purchase.order</field>
-            <field name="inherit_id" ref="purchase.purchase_order_2_stock_picking"/>
-            <field name="arch" type="xml">
-            	<xpath expr="//div[contains(@class, 'oe_button_box')]" position="inside">
-                        <button type="object"
-                            name="view_sale"
-                            class="oe_stat_button"
-                            icon="fa-strikethrough"
-                            attrs="{'invisible': [('sale_count', '=', 0)]}">
-                            <field name="sale_count" widget="statinfo" string="Sale Orders" help="Sale Orders"/>
-                        </button>
-                </xpath>
-            </field>
-        </record>
 	</data>
 </openerp>

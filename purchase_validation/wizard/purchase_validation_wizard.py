@@ -84,9 +84,9 @@ class purchase_validation_wizard(models.TransientModel):
             if not email_template:
                 raise Warning(_("No Email Template is defined. Contact your Administrator"))
             
-            user = self.env['res.users'].browse(self.env.user)
-            if not user.user_email:
-                raise Warning(_("Please fill an email for user %s")%(user.name,))
+            
+            if not self.env.user.partner_id.email:
+                raise Warning(_("Please fill an email for user %s")%(self.env.user.name,))
         
             for order in self.env['sale.order'].browse(self.env.context.get('order_email')):
                 order.confirmed_delivery_date = order.delivery_date
@@ -140,7 +140,10 @@ class purchase_validation_wizard(models.TransientModel):
             
             #update sale_order_line delay
             
-            for sale_line in  self._get_sale_order_lines(line):                        
+            #for sale_line in  self._get_sale_order_lines(line):
+            
+                    
+            for sale_line in  self._get_sale_order_lines(line):
                 sale_line.write({'delay':sale_line.delay + difference.days})
                 sale_order_to_update.add(sale_line.order_id)
                 old_sale_order_delivery_date[sale_line.order_id.id] = sale_line.order_id.delivery_date

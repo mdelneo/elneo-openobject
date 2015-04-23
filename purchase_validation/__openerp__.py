@@ -31,7 +31,7 @@ Purchases Validation Management.
 Processes purchases validation to confirm supplier prices and delivery dates
     """,
     'website': 'https://www.elneo.com',
-    'depends' : ['purchase','sale','product','sale_delivery_date'],
+    'depends' : ['purchase','sale','purchase_sale','product','sale_delivery_date'],
     'data': ['wizard/purchase_validation_wizard_view.xml',
              'views/purchase_view.xml',
              'data/purchase_validation_data.xml',

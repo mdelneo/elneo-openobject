@@ -29,6 +29,7 @@ class sale_order_line(models.Model):
         
     virtual_stock = fields.Float('Virtual stock', compute=_qty_virtual_stock)
     real_stock = fields.Float('Real stock', compute=_qty_real_stock)
+    brut_sale_price = fields.Float(related='product_id.product_tmpl_id.list_price', string="Brut sale price", readonly=True)
     
 
 class sale_order(models.Model):
@@ -99,6 +100,7 @@ class sale_order(models.Model):
     carrier_id = fields.Many2one('delivery.carrier', 'Delivery Method', required=True, help="Complete this field if you plan to invoice the shipping based on picking.")
     is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced",store=True)
     force_is_invoiced = fields.Boolean("Force is invoiced",help="Force the 'invoiced' state for this sale order")
+    order_policy = fields.Selection(string='Create Invoice')
     
     #function to rewrite when odoo core will be migrated to new api
     def onchange_warehouse_id(self, cr, uid, ids, warehouse_id, context=None):

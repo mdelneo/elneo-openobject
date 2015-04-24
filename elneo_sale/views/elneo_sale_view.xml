@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+
+                
 	
 	<!-- 
 		Product supplier info FORM : 
@@ -93,6 +95,17 @@
 	           		<field name="real_stock" />
 	           	</xpath>
 
+	           	<xpath expr="//field[@name='product_id']" position="attributes">
+                	<attribute name="on_change">1</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
+                	<field name="brut_sale_price"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                	<field name="brut_sale_price"/>
+                </xpath>
 			</field>
         </record>
         <record model="ir.ui.view" id="sale_view_inherit123_elneo_sale">

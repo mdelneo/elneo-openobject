@@ -1,0 +1,128 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-17 09:20+0000\n"
+"PO-Revision-Date: 2015-03-17 10:22+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.7.4\n"
+
+#. module: elneo_sale
+#: model:ir.actions.act_window,help:elneo_sale.action_partner_form_elneo
+#: model:ir.actions.act_window,help:elneo_sale.action_partner_form_elneo_contacts
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a contact in your address book.\n"
+"              </p><p>\n"
+"                Odoo helps you easily track all activities related to\n"
+"                a customer; discussions, history of business opportunities,\n"
+"                documents, etc.\n"
+"              </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a contact in your address book.\n"
+"              </p><p>\n"
+"                Odoo helps you easily track all activities related to\n"
+"                a customer; discussions, history of business opportunities,\n"
+"                documents, etc.\n"
+"              </p>\n"
+"            "
+
+#. module: elneo_sale
+#: model:ir.actions.act_window,help:elneo_sale.action_orders_salesteams_elneo
+#: model:ir.actions.act_window,help:elneo_sale.action_quotations_salesteams_elneo
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a quotation that can be converted into a sales\n"
+"                order.\n"
+"              </p><p>\n"
+"                Odoo will help you efficiently handle the complete sales flow:\n"
+"                quotation, sales order, delivery, invoicing and payment.\n"
+"              </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"Cliquez pour créer un devis qui pourra être converti en bon de commande.\n"
+"</p><p>\n"
+"Odoo vous aidera à gérer efficacement le flux de vente complet:\n"
+"devis, bon de commande, livraison, facturation et paiement.\n"
+"</p>\n"
+"            "
+
+#. module: elneo_sale
+#: model:ir.actions.act_window,name:elneo_sale.action_partner_form_elneo
+#: model:ir.ui.menu,name:elneo_sale.menu_partner_form_elneo
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: elneo_sale
+#: model:ir.actions.act_window,name:elneo_sale.action_partner_form_elneo_contacts
+#: model:ir.ui.menu,name:elneo_sale.menu_partner_form_elneo_contacts
+msgid "Contacts"
+msgstr "Contacts"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_sales_order_filter_elneo
+msgid "Invoiced"
+msgstr "Facturé"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_sales_order_filter_elneo
+msgid "My Team"
+msgstr "Mon Département"
+
+#. module: elneo_sale
+#: model:ir.model,name:elneo_sale.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: elneo_sale
+#: field:sale.order,quotation_address_id:0
+msgid "Quotation Address"
+msgstr "Addresse de l'Offre"
+
+#. module: elneo_sale
+#: help:sale.order,quotation_address_id:0
+msgid "Quotation address for current sales order."
+msgstr "Addresse de l'offre pour la vente actuelle."
+
+#. module: elneo_sale
+#: model:ir.actions.act_window,name:elneo_sale.action_quotations_salesteams_elneo
+msgid "Quotations"
+msgstr "Devis"
+
+#. module: elneo_sale
+#: model:ir.model,name:elneo_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
+
+#. module: elneo_sale
+#: model:ir.actions.act_window,name:elneo_sale.action_orders_salesteams_elneo
+msgid "Sales Orders"
+msgstr "Ventes"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "[('is_company','=',True)]"
+msgstr "[('is_company','=',True)]"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "{'always_reload': True}"
+msgstr "{'always_reload': True}"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "{'show_address':1,'show_ref_inline':1}"
+msgstr "{'show_address':1,'show_ref_inline':1}"

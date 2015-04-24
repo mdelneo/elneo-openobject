@@ -8,3 +8,11 @@ class purchase_order_type(models.Model):
     
 
 purchase_order_type()
+
+class purchase_order(models.Model):
+    
+    _inherit='purchase.order'
+    
+    purchase_type_id = fields.Many2one('purchase.order.type','Purchase Type')
+    
+purchase_order()

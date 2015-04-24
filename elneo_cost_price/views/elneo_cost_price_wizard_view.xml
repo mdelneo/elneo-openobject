@@ -15,7 +15,15 @@
 				</form>
 			</field>
 		</record>
-		
+		<act_window
+			id="action_res_partner_compute_cost_price" 
+			name="Compute cost price"
+            src_model="res.partner"
+            res_model="res.partner.cost.price"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            />
 		<record id="view_partner_elneo_cost_price_wizard_form" model="ir.ui.view">
 			<field name="name">res.partner.elneo.cost.price.wizard.form.inherit</field>
 			<field name="model">res.partner</field>
@@ -30,14 +38,6 @@
 			</field>
 		</record>
 		
-		<act_window
-			id="action_res_partner_compute_cost_price" 
-			name="Compute cost price"
-            src_model="res.partner"
-            res_model="res.partner.cost.price"
-            view_mode="form"
-            target="new"
-            key2="client_action_multi"
-            />
+		
     </data>
 </openerp>

@@ -6,6 +6,15 @@ class res_partner(models.Model):
     
     ref = fields.Char('Reference', size=10,select=1, required=True)
     
+    
+    def init(self,cr):
+        #UPDATE DATABASE TO AVOID NULL PROBLEMS
+        query="UPDATE res_partner SET ref = 'TO CORRECT' WHERE ref IS NULL"
+        
+        cr.execute(query)
+        
+        
+    
     def _get_default_is_company(self):
         return self._context.get('force_is_company', False)
         

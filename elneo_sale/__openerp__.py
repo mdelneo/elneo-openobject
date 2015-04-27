@@ -7,7 +7,7 @@
     'description': "Adapt sales flows to elneo specifics",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['base','sale','delivery','sale_margin','sale_crm','sales_team','elneo_crm','product'],
+    'depends': ['base','sale','delivery','sale_margin','sale_crm','sales_team','elneo_crm','product','sale_stock'],
     "data" : ['views/elneo_sale_view.xml'
         ],
     'installable': True,

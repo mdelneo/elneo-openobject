@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-
-                
 	
 	<!-- 
 		Product supplier info FORM : 
@@ -84,7 +82,6 @@
             		<attribute name="context">{'show_address':1,'show_ref_inline':1}</attribute>
             	</xpath>
             	<xpath expr="//field[@name='project_id']" position="replace"/>
-
 	           	
 				<field name="invoiced" position="before">
             		<field name="force_is_invoiced"/>
@@ -94,7 +91,29 @@
 	           		<field name="virtual_stock" />
 	           		<field name="real_stock" />
 	           	</xpath>
-
+	           	
+	           	<xpath expr="//notebook/page[@string='Other Information']" position="after">
+	           		<page string="History">
+	           			<label for="purchase_ids" string="Purchases" widget="one2many_list"/>
+	           			<field name="purchase_ids" />
+	           			<label for="invoice_ids" string="Invoices" widget="one2many_list"/>
+						<field name="invoice_ids"/>
+						<label for="picking_ids" string="Pickings" widget="one2many_list"/>
+						<field name="picking_ids"/>
+	           		</page>
+	           	</xpath>
+	           	
+	           	<xpath expr="//h1" position="before">
+                    <div class="oe_right oe_button_box" name="buttons">
+						<button type="object"
+						    name="view_purchase"
+						    class="oe_stat_button"
+						    icon="fa-strikethrough"
+						    >
+						    <field name="purchase_count" widget="statinfo" string="Purchase orders" help="Purchase orders"/>
+						</button>
+					</div>
+                </xpath>
 	           	<xpath expr="//field[@name='product_id']" position="attributes">
                 	<attribute name="on_change">1</attribute>
                 </xpath>

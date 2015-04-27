@@ -6,7 +6,7 @@ import time
 import shlex,subprocess
 import os
 import sys
-from openerp import models,fields,api, pooler, netsvc
+from openerp import models,fields,api, pooler, netsvc, sql_db, _
 from openerp.exceptions import Warning
 import logging
 
@@ -51,86 +51,93 @@ class elneo_supplier_price_update(models.Model):
           
     code = fields.Char('Code',size=30,help='The Import Code',readonly=True)
     supplier_id = fields.Many2one('res.partner',string="Supplier",domain=[('supplier','=','True')],required=True)
-    date = fields.Datetime('Date',help='Date of Import')
+    date = fields.Datetime('Date',help='Date of Import', default=lambda *a : datetime.today().strftime('%Y-%m-%d %H:%M:%S'))
     type = fields.Selection([('landefeld','Landefeld'),('elneo_standard','Standard')],string="Type",required=True,help='The type of input will determine which kind of file structure can be imported.')
     save_in_sale_price_fixed = fields.Boolean('Save in Sale Price')
     complete_list_price = fields.Boolean('Complete Price List')
     pricelist_file = fields.Binary('Pricelist File')
+    state = fields.Selection([('draft','Draft'),('computing','Computing'),('computing_error','Computing Error'),('computed','Computed'),('updating_pps','Updating Purchase Prices'),('updated_pps','Purchase Prices Updated'),('updating','Updating'),('updating_error','Updating Error'),('done','Done'),('cancel','Canceled')],string='State',readonly=True, default='draft')
     line_ids = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines')
-    state = fields.Selection([('draft','Draft'),('computing','Computing'),('computing_error','Computing Error'),('computed','Computed'),('updating_pps','Updating Purchase Prices'),('updated_pps','Purchase Prices Updated'),('updating','Updating'),('updating_error','Updating Error'),('done','Done'),('cancel','Canceled')],string='State',readonly=True)
     lines_to_update = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines to Update',domain=[('state','in',('to_update','updating_error','updated_pp','updated'))])
     lines_to_create = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines to Create',domain=[('state','in',('to_create','error_create','created','create_cancel'))])
     lines_sold = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines Sold',domain=[('state','in',('to_update','updating_error','updated_pp','updated')),('year_sold_quantity','!=',0)])
+    line_ids_display = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines', limit=999)
+    lines_to_update_display = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines to Update',domain=[('state','in',('to_update','updating_error','updated_pp','updated'))], limit=999)
+    lines_to_create_display = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines to Create',domain=[('state','in',('to_create','error_create','created','create_cancel'))], limit=999)
+    lines_sold_display = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines Sold',domain=[('state','in',('to_update','updating_error','updated_pp','updated')),('year_sold_quantity','!=',0)], limit=999)
     messages = fields.One2many('elneo.supplier.price.update.message','import_id',string='Import Messages')
     increase_price = fields.Float(string='Increase Percent',_compute='_get_increase_percent',help='This is the increase percent from product sold quantities',store=True)
     
-    percent_operation_update = fields.Float('Update Operation Progress')
-    percent_operation_create = fields.Float('Create Operation Progress')
+    percent_operation_update = fields.Float('Update Operation Progress', default=0.0)
+    percent_operation_create = fields.Float('Create Operation Progress', default=0.0)
     
-    _defaults={
-               'date':lambda *a : datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
-               'state':'draft',
-               'percent_operation_update':0.0,
-               'percent_operation_create':0.0,
-               }
     
     _rec_name = 'code'
     
     _order='date desc'
     
-    
-    def action_draft(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'draft'})
-        line_ids = self.pool.get("elneo.supplier.price.update.line").search(cr, uid, [('import_id','in',ids)], context=context)
-        self.pool.get("elneo.supplier.price.update.line").action_draft(cr, uid, line_ids, context=context)
+    @api.one
+    def action_draft(self):
+        self.state = 'draft'
+        lines = self.env["elneo.supplier.price.update.line"].search([('import_id','in',[r.id for r in self])])
+        lines.action_draft()
         return True
     
-    def action_compute_draft(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'draft'})
+    @api.one
+    def action_compute_draft(self):
+        self.state = 'draft'
         return True
     
-    def action_computing(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'computing'})
-        self.compute_lines(cr, uid, ids, context)
-        
+    @api.one
+    def action_computing(self):
+        self.state = 'computing'
+        self.compute_lines()
         return True
     
-    def action_computing_error(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'computing_error'})
+    @api.one
+    def action_computing_error(self):
+        self.state = 'computing_error'
         return True
     
-    def action_computed(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'computed'})
+    @api.one
+    def action_computed(self):
+        self.state = 'computed'
         return True
     
-    def action_updating_purchase_prices(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'updating_pps'})
-        self.update_price_lines(cr, uid, ids, context=context)
+    @api.one
+    def action_updating_purchase_prices(self):
+        self.state = 'updating_pps'
+        self.update_price_lines()
         return True
     
-    def action_updated_purchase_prices(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'updated_pps'})
+    @api.one
+    def action_updated_purchase_prices(self):
+        self.state = 'updated_pps'
         return True
     
-    def action_updating(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'updating'})
-        self.update_sale_price_lines(cr, uid, ids, context=context)
+    @api.one
+    def action_updating(self):
+        self.state = 'updating'
+        self.update_sale_price_lines()
         return True
     
-    def action_updating_error(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'updating_error'})
+    @api.one
+    def action_updating_error(self):
+        self.state = 'updating_error'
         return True
     
-    def action_cancel(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'cancel'})
+    @api.one
+    def action_cancel(self):
+        self.state = 'cancel'
         return True
     
-    def action_done(self,cr,uid,ids,context=None):
+    @api.one
+    def action_done(self):
         res = False
-        if self._update_supplierinfo(cr,uid,ids,context):
+        if self._update_supplierinfo():
             res=True
-        if self._check_done(cr, uid, ids, context):
-            self.write(cr,uid,ids,{'state':'done'})
+        if self._check_done():
+            self.state = 'done'
             res = True
         return res
     
@@ -158,26 +165,25 @@ class elneo_supplier_price_update(models.Model):
     # Funcion to import supplier pricelist in CSV
     # Two kind of file structure : Landefeld or Standard
     # Standard : Columns must match the object column names but only required columns (required=True in the object) are mandatory
-    def _import_csv(self,cr,uid,ids,context=None):
-        res=True
+    @api.one
+    def _import_csv(self):
         update = None
         try:
-            update_obj = self.pool.get('elneo.supplier.price.update')
-            att_obj = self.pool.get('ir.attachment')
-            for update in update_obj.browse(cr,uid,ids,context=context):
+            att_obj = self.env['ir.attachment']
+            for update in self:
                 
                 #if not update.pricelist_file :
                     #self._message(cr, uid, [update.id], _('Impossible to import. The Csv file is not defined!'), context)
                 
-                att_ids = att_obj.search(cr, uid, [('res_model', '=', 'elneo.supplier.price.update'), ('res_id', '=', update.id)])
+                att_ids = att_obj.search([('res_model', '=', 'elneo.supplier.price.update'), ('res_id', '=', update.id)])
                 
                 if att_ids:
-                    pricelist_file = att_obj.browse(cr,uid,att_ids,context=context)[0]
+                    pricelist_file = att_ids[0]
                 else:
-                    return self._import_csv_big(cr, uid, ids, context)
+                    return self._import_csv_big()
                 
                 if not pricelist_file:
-                    self._message(cr, uid, [update.id], _('Impossible to import. The Csv file is not defined!'), context)
+                    self._message(_('Impossible to import. The Csv file is not defined!'))
                 csvfile = base64.decodestring(pricelist_file.datas)
                 rows = csvfile.split("\r\n")
                 total = len(rows)
@@ -186,7 +192,7 @@ class elneo_supplier_price_update(models.Model):
                 
                 valid = False
                 if update.type == 'elneo_standard':
-                    valid = self._validate_columns(cr, uid, update.id,columns, context=context)
+                    valid = self._validate_columns(columns)
                 elif update.type == 'landefeld':
                     if (len(columns) == 25):
                         valid = True
@@ -195,42 +201,36 @@ class elneo_supplier_price_update(models.Model):
                 rows.pop(0)
                 
                 if (valid):
-                    lines_to_delete = self.pool.get('elneo.supplier.price.update.line').search(cr,uid,[('import_id','=',update.id)],context=context)
-                    self.pool.get('elneo.supplier.price.update.line').unlink(cr,uid,lines_to_delete,context=context)
+                    lines_pool = self.env['elneo.supplier.price.update.line']
+                    lines_to_delete = lines_pool.search([('import_id','=',update.id)])
+                    if lines_to_delete:
+                        lines_to_delete.unlink()
                     for row in rows:
                         if update.type == 'elneo_standard':
-                            value = self._get_elneo_standard(cr, uid,row,columns, context)
+                            value = self._get_elneo_standard(row,columns)
                         elif update.type == 'landefeld':
-                            value = self._get_landefeld(cr, uid,ids,row, context)
+                            value = self._get_landefeld(row)
                             
                         if value :
                             value['import_id']=update.id
-                            result = self.pool.get('elneo.supplier.price.update.line').create(cr,uid,value,context=context)
+                            result = self.env['elneo.supplier.price.update.line'].create(value)
                 else:
-                    self._message(cr, uid, ids, _('ERROR : The csv file is not in the expected format'), context)
+                    self._message(_('ERROR : The csv file is not in the expected format'))
                 
         except Exception,e:
             # We raise Exception but we stay in 'Draft' state - just log the message
-            self._message(cr, uid, ids, _('ERROR : ') + unicode(e.message), context)
+            self._message(_('ERROR : ') + unicode(e.message))
             raise Warning('Import Error','Unknown error during import!' + unicode(e))
-        finally:
-            try:                
-                cr.commit()
-            except Exception:
-                pass
-            try:                
-                cr.close()
-            except Exception:
-                pass
 
-        return res
+        return True
     
     #for big pricelists, use sql copy method from file already in filesystem  
-    def _import_csv_big(self,cr,uid,ids,context=None):
+    @api.one
+    def _import_csv_big(self):
         
-        cr.execute("drop table if exists pricelist_landefeld_full");
+        self._cr.execute("drop table if exists pricelist_landefeld_full");
         
-        cr.execute("""
+        self._cr.execute("""
         CREATE TABLE pricelist_landefeld_full
     (
       "Artikelnummer" Character varying(255),
@@ -263,15 +263,17 @@ class elneo_supplier_price_update(models.Model):
       OIDS=FALSE
     );""")
         
-        cr.execute("set client_encoding to 'latin1';")
-        cr.execute('truncate table pricelist_landefeld_full;')
-        cr.execute("copy pricelist_landefeld_full from '/home/openerp/landefeld_pricelist/pricelist.csv' with header delimiter ';' quote '\"' CSV;")
-        cr.execute("set client_encoding to 'UTF8';")
-        cr.execute("DELETE FROM elneo_supplier_price_update_line WHERE import_id = "+str(ids[0]))
-        cr.execute("""INSERT INTO elneo_supplier_price_update_line(
+        ids = [r.id for r in self]
+        
+        self._cr.execute("set client_encoding to 'latin1';")
+        self._cr.execute('truncate table pricelist_landefeld_full;')
+        self._cr.execute("copy pricelist_landefeld_full from '/home/elneo/landefeld_pricelist/pricelist.csv' with header delimiter ';' quote '\"' CSV;")
+        self._cr.execute("set client_encoding to 'UTF8';")
+        self._cr.execute("DELETE FROM elneo_supplier_price_update_line WHERE import_id = "+str(ids[0]))
+        self._cr.execute("""INSERT INTO elneo_supplier_price_update_line(
             create_uid, create_date, write_date, write_uid, import_id, 
             product_code, name_tmpl, quantity, public_price, brut_price, net_price, multiply, 
-            discount, product_group, weight)
+            discount, product_group, weight,state)
 select 1, now(), now(), 1, """+str(ids[0])+""", 
 "Artikelnummer", "Bezeichnung1", 
 to_number(replace(NULLIF("AbMenge",' '),',','.'),'999999999.99'), 
@@ -281,12 +283,14 @@ case when to_number(replace(NULLIF("Preisfaktor",' '),',','.'),'999999999.99') !
 to_number(replace(NULLIF("Preisfaktor",' '),',','.'),'999999999.99'),
 to_number(replace(NULLIF("Rabatt",' '),',','.'),'999999999.99'),
 "Produktgruppe",
-to_number(NULLIF(replace(replace("Gewicht in kg",',','.'),' ',''),''),'999999999.99')
+to_number(NULLIF(replace(replace("Gewicht in kg",',','.'),' ',''),''),'999999999.99'),
+'draft'
 from pricelist_landefeld_full;""")
         return True
         
     
-    def _get_landefeld(self,cr,uid,ids,row,context=None):
+    @api.one
+    def _get_landefeld(self,row):
         res = {}
         
         col = self._get_columns(row)
@@ -319,14 +323,15 @@ from pricelist_landefeld_full;""")
                 res=None
         
         except Exception,e:
-            self._message(cr, uid, ids, _('ERROR : During getting data from Landefeld Line :' + unicode(e)), context)
+            self._message(_('ERROR : During getting data from Landefeld Line :' + unicode(e)))
             res=None
             pass
             
         return res
         
-    # If the file type is 'elneo_standard' 
-    def _get_elneo_standard(self,cr,uid,row,header,context=None): 
+    # If the file type is 'elneo_standard'
+    @api.multi 
+    def _get_elneo_standard(self,row,header): 
         res = {}
         
         col = self._get_columns(row)
@@ -335,7 +340,7 @@ from pricelist_landefeld_full;""")
         if col and (len(col) == len (header)):
             i=0
             for head in header :
-                if (line_obj._columns[head]._type) == 'Float':
+                if (line_obj._columns[head]._type) in ['Float','float']:
                     res[head]=col[i].replace(",",".")
                 else:
                     res[head]=col[i]
@@ -355,29 +360,29 @@ from pricelist_landefeld_full;""")
         return res
     
     # Function to get required columns and to reject file that does not contain these columns
-    def _validate_columns(self,cr,uid,id,columns,context=None):
+    @api.one
+    def _validate_columns(self,columns):
         res = True
         line_obj = self.pool.get('elneo.supplier.price.update.line')
         # We parse the update line object and we must find the required columns in the imported file
         for (column,value) in line_obj._columns.iteritems():
             if (value.required and column not in columns):
-                self._message(cr, uid, [id.id], _('Impossible to import. Required fields are not present in the file!'), context)
+                self._message(_('Impossible to import. Required fields are not present in the file!'))
                 res = False
                 
         return res
     
     
     # Function that launch the thread to import
-    def import_lines(self,cr,uid,ids,context=None):
-        res=True
+    @api.one
+    def import_lines(self):
         '''
         thread_import = threading.Thread(target=self._import_csv,args=(cr, uid, ids, context))
         thread_import.start()
         '''
-        
-        self._import_csv(cr, uid, ids, context)
+        self._import_csv()
+        return True
 
-        return res
     
     # Get Product old properties to fill the columns
     def _get_product_pricelist_properties(self,cr,uid,id,context=None):
@@ -400,7 +405,7 @@ from pricelist_landefeld_full;""")
         new_date = new_date.strftime('%Y-%m-%d')
         quantity = 0
         for id in ids:
-            cr.execute("SELECT ail.quantity FROM account_invoice_line ail JOIN account_invoice ai ON ail.invoice_id = ai.id WHERE ail.product_id = " + str(id) + " AND ai.date_invoice >= '" + str(new_date) + "' AND ai.type = 'out_invoice'")
+            self._cr.execute("SELECT ail.quantity FROM account_invoice_line ail JOIN account_invoice ai ON ail.invoice_id = ai.id WHERE ail.product_id = " + str(id) + " AND ai.date_invoice >= '" + str(new_date) + "' AND ai.type = 'out_invoice'")
             for tmp in map(lambda x: x[0], cr.fetchall()):
                 quantity = quantity + tmp
         #line_ids = self.pool.get('account.invoice.line').search(cr,uid,[('product_id','in',ids),('invoice_id.date_invoice','>=',new_date),('invoice_id.type','=','out_invoice')])
@@ -412,28 +417,31 @@ from pricelist_landefeld_full;""")
     
     # Search Method to find products based on supplier product code or on product default code if supplier is the same
     # SQL version to optimize performances
-    def _get_supplierinfo(self,cr,uid,line,context=None):
-        cr.execute("SELECT id FROM product_supplierinfo WHERE product_code = '" + str(line.product_code) + "' AND name = " + str(line.import_id.supplier_id.id))
+    @api.one
+    def _get_supplierinfo(self):
+        self._cr.execute("SELECT id FROM product_supplierinfo WHERE product_code = '" + str(self.product_code) + "' AND name = " + str(self.import_id.supplier_id.id))
         
-        res = map(lambda x: x[0], cr.fetchall())
+        res = map(lambda x: x[0], self._cr.fetchall())
         
         if len(res) == 0 :
-            cr.execute("SELECT ps.id FROM product_supplierinfo ps JOIN product_template pt ON ps.product_id = pt.id JOIN product_product pp ON pp.product_tmpl_id = pt.id WHERE pp.default_code = '" + line.product_code + "'")
-            res = map(lambda x: x[0], cr.fetchall())
+            self._cr.execute("SELECT ps.id FROM product_supplierinfo ps JOIN product_template pt ON ps.product_id = pt.id JOIN product_product pp ON pp.product_tmpl_id = pt.id WHERE pp.default_code = '" + self.product_code + "'")
+            res = map(lambda x: x[0], self._cr.fetchall())
         
         return res
     
-    def _get_product_ids(self,cr,uid,ids,context=None):
+    @api.multi
+    def _get_product_ids(self):
         res = []
         
-        for supplierinfo in self.pool.get('product.supplierinfo').browse(cr,uid,ids,context=context):     
-            cr.execute("SELECT pp.id FROM product_product pp WHERE pp.product_tmpl_id = " + str(supplierinfo.product_id.id))       
-            for id in map(lambda x: x[0], cr.fetchall()):
+        for supplierinfo in self:     
+            self._cr.execute("SELECT pp.id FROM product_product pp WHERE pp.product_tmpl_id = " + str(supplierinfo.product_id.id))       
+            for id in map(lambda x: x[0], self._cr.fetchall()):
                 res.append(id)
 
         return res
     
-    def _update_lines(self,cr,uid,ids,properties,context=None):
+    
+    def _update_lines(self,properties):
         res = True
         
         tmp=""
@@ -446,68 +454,445 @@ from pricelist_landefeld_full;""")
                 tmp=tmp + sep + str(property) + " = '" + str(properties[property]) +"'"
                 i+=1
         
-        for id in ids :
+        for id in self :
             sql = "UPDATE elneo_supplier_price_update_line SET " + tmp + " WHERE id="+str(id)
-            cr.execute(sql)  
+            self._cr.execute(sql)  
                 
         
         
         return res
     
-    def _link_products(self,cr,uid,line,product_ids,context=None):
+    def _link_products(self,line,product_ids):
         res = True
         
         sql = "DELETE FROM elneo_supplier_price_update_line_product_rel WHERE update_line_id = " + str(line.id)
         
-        cr.execute(sql)
+        self._cr.execute(sql)
         unique_ids=[]
         [unique_ids.append(item) for item in product_ids if item not in unique_ids]
         for product_id in unique_ids:
             sql = "INSERT INTO elneo_supplier_price_update_line_product_rel(update_line_id,product_id) VALUES (" + str(line.id) + "," + str(product_id) + ")"
-            cr.execute(sql)
+            self._cr.execute(sql)
         
         return res
         
+        
+    # Function that :
+    # - Makes the link between supplier codes and products
+    # - If product exists, change the line state to 'To Update'
+    # - If not, change the line state to 'To Create'
+    @api.multi
+    def _compute(self):
+        
+        def compute_part(line_ids):
+            
+            line_ids._set_suppinfos()
+                
+            line_ids._set_products()
+            
+            line_ids.update_lines()
+            
+            self.env.cr.commit()
+
+            
+            line_obj = self.env['elneo.supplier.price.update.line']
+            lines_to_create = line_obj.search([('id','in',[line.id for line in line_ids]),('suppinfo_ids','=',False)])
+            lines_to_update = line_obj.search([('id','in',[line.id for line in line_ids]),('suppinfo_ids','!=',False)])
+            
+            lines_to_update.action_to_update()
+            lines_to_create.action_to_create()
+            
+            self.env.cr.commit()        
+            
+            return True
+                    
+        res = True
+        cr2 = sql_db.db_connect(self.env.cr.dbname).cursor()
+        uid, context = self.env.uid, self.env.context
+        with api.Environment.manage():
+            self.env = api.Environment(cr2, uid, context)
+            update = None
+            try:
+                for update in self:
+                    
+                    all_line_ids = self.env["elneo.supplier.price.update.line"].search([('import_id','=',update.id),('state','=','draft')])
+                    all_line_ids_len = len(all_line_ids)
+                    i = 0
+                    while i < all_line_ids_len:
+                        current_line_ids = all_line_ids[i:i+100]
+                        compute_part(current_line_ids)
+                        i = i+100
+    
+                    self.action_computed()
+                
+            except Exception,e:
+                self._message(_('ERROR : During Import lines - ') + unicode(e.message))
+                self.action_computing_error()
+                raise Warning('ERROR',_('ERROR : During Import lines - ') + unicode(e.message))
+            finally:
+                try:                
+                    self.env.cr.commit()
+                except Exception:
+                    pass
+                try:                
+                    self.env.cr.close()
+                except Exception:
+                    pass
+            
+        return res
+    
+    # Main function to launch the compute thread
+    @api.multi
+    def compute_lines(self):
+        res=True
+        
+        if self._context and self._context.get('no_thread',False):
+            return self._compute()
+        else:
+            thread_compute = threading.Thread(target=self._compute,args=())
+            thread_compute.start()
+        
+        return res
+        
+    # The thread that update the pruchase prices (INSERT)
+    @api.one
+    def _update_purchase_prices(self):
+        res=True
+        
+        cr = sql_db.db_connect(self.env.cr.dbname).cursor()
+        uid, context = self.env.uid, self.env.context
+        with api.Environment.manage():
+            self.env = api.Environment(cr, uid, context)
+            try:
+                self.write({'percent_operation_update':0.0})
+                i=0
+                complete = len(self.lines_to_update)
+                percent = 0.0
+                
+                jump = 100
+                lines = self.lines_to_update[i:jump]
+                
+                while lines:
+                    self._cr.execute("""
+                        INSERT INTO pricelist_partnerinfo (min_quantity, price, suppinfo_id, brut_price, discount, update_methode, public_price, date) 
+                        SELECT quantity, net_price,sr.suppinfo_id, brut_price, discount, 'price_list_file', public_price, CURRENT_TIMESTAMP 
+                        FROM elneo_supplier_price_update_line ul JOIN elneo_supplier_price_update_line_suppinfo_rel sr ON ul.id=sr.update_line_id 
+                        WHERE ul.id in %s AND state='to_update'""",(tuple([line.id for line in lines]),))
+                    lines.action_updated_purchase_price()
+                    i=i+jump
+                    percent = (i / complete) * 100.
+                    self.write({'percent_operation_update':percent})
+                    cr.commit()
+                    lines = self.lines_to_update[i:i+jump]
+                    
+                self.action_updated_purchase_prices()
+                
+            except Exception,e:
+                self._message(_('ERROR : During Purchase Price Update lines - ') + unicode(e))
+                self.action_updating_error()
+            finally:
+                try:                
+                    cr.commit()
+                except Exception:
+                    pass
+                try:                
+                    cr.close()
+                except Exception:
+                    pass
+        
+        return res
+  
+    # Main function that launches the update purchase price thread 
+    def update_price_lines(self):
+        res=True
+        
+        if self._context and self._context.get('no_thread',False):
+            return self._update_purchase_prices()
+        else:
+            thread_compute = threading.Thread(target=self._update_purchase_prices,args=())
+            thread_compute.start()
+        
+        return res
+    
+    @api.one
+    def _update_sale_prices(self):
+        cr = sql_db.db_connect(self.env.cr.dbname).cursor()
+        uid, context = self.env.uid, self.env.context
+        with api.Environment.manage():
+            self.env = api.Environment(cr, uid, context)
+            try:
+                self.write({'percent_operation_update':0.0})
+                i=0
+                complete = len(self.lines_to_update)
+                percent = 0.0
+                
+                jump = 100
+                lines = self.lines_to_update[i:jump]
+                
+                while lines:
+                    #find all product_ids
+                    self._cr.execute("select product_id from elneo_supplier_price_update_line_product_rel rel left join elneo_supplier_price_update_line line on rel.update_line_id = line.id where line.id in %s and line.state = 'updated_pp'",(tuple([line.id for line in lines]),))
+                    product_ids = [product_id for (product_id,) in cr.fetchall()]
+                    #for each product, write it to compute sale price, and update line state
+                    for product in self.env['product.product'].browse(product_ids):
+                        product.product_tmpl_id._get_list_price()
+                    lines.action_updated()
+                    i=i+jump
+                    percent = (i / float(complete)) * 100.
+                    self.percent_operation_update = percent
+                    cr.commit()
+                    lines = self.lines_to_update[i:i+jump]
+                
+                #finally update import state
+                self.action_done()
+                cr.commit()
+                    
+            except Exception,e:
+                self._message(_('ERROR : During Purchase Price Update lines - ') + unicode(e))
+                self.action_updating_error()
+            finally:
+                try:                
+                    cr.commit()
+                except Exception:
+                    pass
+                try:                
+                    cr.close()
+                except Exception:
+                    pass
+        
+    
+    def update_sale_price_lines(self):
+        res=True
+        
+        if self._context and self._context.get('no_thread',False):
+            return self._update_sale_prices()
+        else:
+            thread_compute = threading.Thread(target=self._update_sale_prices,args=())
+            thread_compute.start()
+        
+        return res
+    
+    def _link_suppinfos(self,line,pricelists):
+        res = False
+        
+        suppinfo_ids = []
+        for pricelist in pricelists:
+            suppinfo_ids.append(pricelist.suppinfo_id.id)
+        
+        line.write({'suppinfo_ids':[(6,0,suppinfo_ids)]})
+        
+        
+        return res
+    
+    # Take all the lines in 'to_create' state and create the corresponding products
+    @api.multi
+    def _create_lines(self):
+        res = True
+        
+        cr = pooler.get_db(self._cr.dbname).cursor()
+        try:
+            for update in self:
+                # Initialize the operation percent
+                update.write({'percent_operation_create':0.0})
+                i=0.0
+                complete = len(update.lines_to_create)
+                for line in update.lines_to_create:
+                    try:
+                        # We take only lines to create
+                        if line.state =='to_create':
+                            values = update._get_values_to_insert()
+                            
+                            product_created = self.env['product.product'].create(values)
+                            if product_created:
+                                template = product_created.product_tmpl_id.id
+                                if template:
+                                    template._update_translations(line)
+                                # Make the link with the product to keep history
+                                self._link_products(line, [product_created.id])
+                                # Creates the pricelist line for the created product for the quantity
+                                pricelist = self._create_pricelist(line)
+                                if not pricelist:
+                                    raise Exception('Error when creating pricelist for the product : ' + str(product_created.id))
+                                else:
+                                    self._link_suppinfos(line, [pricelist])
+                                line.action_created() 
+                                cr.commit()
+                        
+                    except Exception,e:
+                        self._message(_('ERROR : During Create lines - ') + unicode(e))
+                        line.action_error_create()
+
+                    i= i + 1.0
+                    percent = (i / complete) * 100
+                    update.write({'percent_operation_create':percent})
+                    cr.commit()
+                    
+                        
+        except Exception,e:
+            _logger.warning('Purchase prices create error')
+        finally:
+            try:                
+                cr.commit()
+                _logger.warning('Purchase prices create')
+            except Exception:
+                pass
+            try:                
+                cr.close()
+            except Exception:
+                pass
+
+        return res
+    
+    # For each language, update or create translations
+    def _update_translations(self,line):
+        res=True
+        line_obj = self.pool.get('elneo.supplier.price.update.line')
+        if line.name_tmpl:
+            if line.name_fr:
+                line_obj._update_product_translations(line.name_tmpl,line.name_fr, self.id,'fr_BE')
+            if line.name_nl:
+                line_obj._update_product_translations(line.name_tmpl,line.name_nl, self.id,'nl_BE')
+            if line.name_de:
+                line_obj._update_product_translations(line.name_tmpl,line.name_de, self.id,'de')
+            if line.name_en:
+                line_obj._update_product_translations(line.name_tmpl,line.name_en, self.id,'en_US')
+        
+        
+        return res
+    
+    # Create the product pricelist information
+    def _create_pricelist(self,line):
+        res = None
+        for product in line.product_ids:
+            value = {}
+            
+            # Set every supplierinfo values
+            value['product_id']=product.product_tmpl_id.id
+            value['name']=line.import_id.supplier_id.id
+            if line.min_quantity:
+                value['min_qty']=line.min_quantity
+            else:
+                value['min_qty']=1
+                
+            if line.name_tmpl:
+                value['product_name']=line.name_tmpl
+            if line.product_code:
+                value['product_code']=line.product_code
+            
+            value['pack']=line.pack
+            
+            suppinfo_id = self.env['product.supplierinfo'].create(value)
+            
+            #Set every pricelist values
+            if suppinfo_id:
+                value = {}
+                value['suppinfo_id']=suppinfo_id
+                value['min_quantity']=line.quantity
+                value['brut_price']=line.brut_price
+                value['discount']=line.discount
+                value['public_price']=line.public_price
+                value['price']=line.net_price
+                value['update_methode']='price_list_file'
+                value['date'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                
+
+                pricelist_id = self.env['pricelist.partnerinfo'].create(value)
+                res = pricelist_id
+                if not pricelist_id:
+                    res = False
+            else:
+                res = False    
+                
+            break
+        
+        
+        return res
+    
+    # Launch product lines creation thread
+    def create_lines(self,cr,uid,ids,context=None):
+        res= True
+        
+        thread_compute = threading.Thread(target=self._create_lines,args=(cr, uid, ids, context))
+        thread_compute.start()
+        
+        return res
+    
+    # Construct the data for the new created product
+    @api.one
+    def _get_values_to_insert(self):
+        res={}
+        
+        if self.product_code:
+            res['default_code']=self.product_code
+            res['list_price']=self.public_price
+            res['public_price']=self.public_price
+        if self.product_category_id:
+            res['categ_id']=self.product_category_id.id
+        if self.name_tmpl:
+            res['name']=self.name_tmpl
+        if self.weight:
+            res['weight_net']=self.weight
+ 
+        return res
+   
+    @api.one
+    def _message(self,message):
+        self.env['elneo.supplier.price.update.message'].create({'import_id':self.id,'message':message,'date':datetime.now()})
+    
+    def create(self, cr, uid, vals, context=None):
+        sequence=self.pool.get('ir.sequence').get(cr, uid, 'elneo.supplier.price.update')
+        vals['code']=sequence
+        return super(elneo_supplier_price_update, self).create(cr, uid, vals, context=context)
+        
+elneo_supplier_price_update()
+
+class CsvImportError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
+
+class elneo_supplier_price_update_line(models.Model):
+    _name='elneo.supplier.price.update.line'
     
     
-    
-    
-    def _set_products(self,cr,uid,line_ids,context=None):
+    def _set_products(self):
         #insert values in many2many between products and update_line
         #WARNING : this function must be called after _set_suppinfos
         
         res = True
         
-        if not id:
-            return False
+        line_ids = [r.id for r in self]
         
         sql =  "delete from elneo_supplier_price_update_line_product_rel where update_line_id in %s"
         
-        cr.execute(sql,(tuple(line_ids),))
+        self._cr.execute(sql,(tuple(line_ids),))
         
-        cr.commit()
+        self._cr.commit()
         
         sql = """
             insert into elneo_supplier_price_update_line_product_rel 
         select distinct line.id, p.id from elneo_supplier_price_update_line_suppinfo_rel rel
         left join elneo_supplier_price_update_line line on line.id = rel.update_line_id
         left join product_supplierinfo ps 
-        left join product_product p on p.product_tmpl_id = ps.product_id
+        left join product_product p on p.product_tmpl_id = ps.product_tmpl_id
         on ps.id = rel.suppinfo_id
         where line.id in %s"""
         
-        cr.execute(sql,(tuple(line_ids),))
+        self._cr.execute(sql,(tuple(line_ids),))
 
         return res
     
-    def _set_suppinfos(self,cr,uid,line_ids, context=None):
+    @api.multi
+    def _set_suppinfos(self):
         res = True
         
         sql =  "delete from elneo_supplier_price_update_line_suppinfo_rel where update_line_id in %s"
+        line_ids = [r.id for r in self]
+        self._cr.execute(sql,(tuple(line_ids),))
         
-        cr.execute(sql,(tuple(line_ids),))
-        
-        cr.commit()
+        self._cr.commit()
         
         sql = """
         insert into elneo_supplier_price_update_line_suppinfo_rel 
@@ -517,22 +902,23 @@ from pricelist_landefeld_full;""")
                 from elneo_supplier_price_update_line line
                     left join elneo_supplier_price_update import on import.id = line.import_id
                     left join product_product product_meth2 on (UPPER(product_meth2.default_code) = UPPER(line.product_code))
-                    left join product_supplierinfo suppinfo_meth2 on ((suppinfo_meth2.product_code is null or suppinfo_meth2.product_code = '') and suppinfo_meth2.product_id = product_meth2.product_tmpl_id and suppinfo_meth2.name = import.supplier_id and product_meth2.active)
+                    left join product_supplierinfo suppinfo_meth2 on ((suppinfo_meth2.product_code is null or suppinfo_meth2.product_code = '') and suppinfo_meth2.product_tmpl_id = product_meth2.product_tmpl_id and suppinfo_meth2.name = import.supplier_id and product_meth2.active)
                     left join product_supplierinfo suppinfo 
                 left join product_template suppinfo_product_tmpl 
                     left join product_product suppinfo_product on (suppinfo_product_tmpl.id = suppinfo_product.product_tmpl_id)
-                on suppinfo.product_id = suppinfo_product_tmpl.id
+                on suppinfo.product_tmpl_id = suppinfo_product_tmpl.id
                     on (UPPER(suppinfo.product_code) = UPPER(line.product_code) and suppinfo.name = import.supplier_id)
                 where line.id in %s and (suppinfo_product.active or suppinfo_product.active is null) and (product_meth2.active or product_meth2 is null)
                 order by line.id) suppinfo_not_null WHERE suppinfo_id IS NOT NULL
         """
         
-        cr.execute(sql,(tuple(line_ids),))
+        self._cr.execute(sql,(tuple(line_ids),))
 
         return res
     
-    def update_lines(self,cr,uid,line_ids,context=None):
+    def update_lines(self):
         res=True
+        line_ids = [r.id for r in self]
         
         sql = """
         
@@ -572,7 +958,7 @@ from pricelist_landefeld_full;""")
                     left join elneo_supplier_price_update import on import.id = line.import_id
                     left join elneo_supplier_price_update_line_suppinfo_rel rel_suppinfo 
                     left join product_supplierinfo ps 
-                        left join product_product p on p.product_tmpl_id = ps.product_id
+                        left join product_product p on p.product_tmpl_id = ps.product_tmpl_id
                     on ps.id = rel_suppinfo.suppinfo_id
                     on rel_suppinfo.update_line_id = line.id                    
                     where line.id in %s
@@ -594,402 +980,29 @@ from pricelist_landefeld_full;""")
                 where req3.id = elneo_supplier_price_update_line.id
         """
         
-        cr.execute(sql,(tuple(line_ids),))
+        self._cr.execute(sql,(tuple(line_ids),))
         
         return res
-        
-    # Function that :
-    # - Makes the link between supplier codes and products
-    # - If product exists, change the line state to 'To Update'
-    # - If not, change the line state to 'To Create'
-    def _compute(self,cr,uid,ids,context=None):
-        
-        def compute_part(line_ids):
-            self._set_suppinfos(cr,uid,line_ids,context=context)
-                
-            self._set_products(cr,uid,line_ids,context=context)
-            
-            self.update_lines(cr,uid,line_ids,context=context)
-            
-            cr.commit()
-
-            line_obj = self.pool.get('elneo.supplier.price.update.line')
-            
-            lines_to_create = line_obj.search(cr,uid,[('id','in',line_ids),('suppinfo_ids','=',False)],context=context)
-            lines_to_update = line_obj.search(cr,uid,[('id','in',line_ids),('suppinfo_ids','!=',False)],context=context)
-            
-            line_obj.action_to_update(cr, uid, lines_to_update, context)
-            line_obj.action_to_create(cr,uid,lines_to_create,context=context)
-            
-            cr.commit()        
-            
-            return True
-                    
-        res = True
-        cr = pooler.get_db(self._cr.dbname).cursor()
-        update = None
-        try:
-            for update in self.pool.get('elneo.supplier.price.update').browse(cr,uid,ids,context=context):
-                
-                all_line_ids = self.pool.get("elneo.supplier.price.update.line").search(cr, uid, [('import_id','=',update.id),('state','=','draft')], context=context)
-                all_line_ids_len = len(all_line_ids)
-                i = 0
-                while i < all_line_ids_len:
-                    current_line_ids = all_line_ids[i:i+100]
-                    compute_part(current_line_ids)
-                    i = i+100
-
-                self.action_computed(cr, uid, update.id, context)
-            
-        except Exception,e:
-            self._message(cr, uid, ids, _('ERROR : During Import lines - ') + unicode(e.message), context)
-            self.action_computing_error(cr, uid, ids, context)
-            raise Warning('ERROR',_('ERROR : During Import lines - ') + unicode(e.message))
-        finally:
-            try:                
-                cr.commit()
-            except Exception:
-                pass
-            try:                
-                cr.close()
-            except Exception:
-                pass
-            
-        return res
-    
-    # Main function to launch the compute thread
-    def compute_lines(self,cr,uid,ids,context=None):
-        res=True
-        
-        if context and context.get('no_thread',False):
-            return self._compute(cr, uid, ids, context)
-        else:
-            thread_compute = threading.Thread(target=self._compute,args=(cr, uid, ids, context))
-            thread_compute.start()
-        
-        return res
-        
-    # The thread that update the pruchase prices (INSERT)
-    def _update_purchase_prices(self,cr,uid,ids,context=None):
-        res=True
-        cr = pooler.get_db(self._cr.dbname).cursor()
-        
-        if not (isinstance(ids,list)):
-            ids = [ids]
-            
-        for id in ids :
-            try:
-                self.pool.get('elneo.supplier.price.update').write(cr,uid,id,{'percent_operation_update':0.0})
-                i=0.0
-                complete = len(self.pool.get('elneo.supplier.price.update').browse(cr,uid,id).lines_to_update)
-                percent = 0.0
-                cr.execute("INSERT INTO pricelist_partnerinfo (min_quantity, price, suppinfo_id, brut_price, discount, update_methode, public_price, date) SELECT quantity, net_price,sr.suppinfo_id, brut_price, discount, 'price_list_file', public_price, CURRENT_TIMESTAMP FROM elneo_supplier_price_update_line ul JOIN elneo_supplier_price_update_line_suppinfo_rel sr ON ul.id=sr.update_line_id WHERE import_id = " + str(id) + " AND state='to_update'")
-                
-                for line in self.browse(cr,uid,id,context=context).lines_to_update:
-                    line.action_updated_purchase_price()
-                    i=i+1.0
-                    percent = (i / complete) * 100
-                    self.pool.get('elneo.supplier.price.update').write(cr,uid,id,{'percent_operation_update':percent})
-                    cr.commit()
-                    
-                self.action_updated_purchase_prices(cr, uid, id, context)
-                
-            except Exception,e:
-                self._message(cr, uid, ids, _('ERROR : During Purchase Price Update lines - ') + unicode(e), context)
-                self.action_updating_error(cr, uid, ids, context)
-            finally:
-                try:                
-                    cr.commit()
-                except Exception:
-                    pass
-                try:                
-                    cr.close()
-                except Exception:
-                    pass
-        
-        return res
-  
-    # Main function that launches the update purchase price thread 
-    def update_price_lines(self,cr,uid,ids,context=None):
-        res=True
-        
-        if context and context.get('no_thread',False):
-            return self._update_purchase_prices(cr, uid, ids, context)
-        else:
-            thread_compute = threading.Thread(target=self._update_purchase_prices,args=(cr, uid, ids, context))
-            thread_compute.start()
-        
-        return res
-    
-    def _update_sale_prices(self,cr,uid,ids,context=None):
-        res = True
-        
-        cr = pooler.get_db(self._cr.dbname).cursor()
-        line_obj = self.pool.get('elneo.supplier.price.update.line')
-        
-        try:
-            for update in self.browse(cr,uid,ids,context=context):
-                self.write(cr,uid,update.id,{'percent_operation_update':0.0})
-                
-                #find all product_ids
-                cr.execute("select product_id, line.id from elneo_supplier_price_update_line_product_rel rel left join elneo_supplier_price_update_line line on rel.update_line_id = line.id where line.import_id = %s and line.state = 'updated_pp'",(update.id,))
-                product_lines = [{'product_id':product_id, 'line_id':line_id} for (product_id,line_id) in cr.fetchall()]
-                
-                total = len(product_lines)
-                i = 0
-                
-                
-                #for each product, write it to compute sale price, and update line state
-                for product_line in product_lines:
-                    self.pool.get('product.product').write(cr,uid,product_line['product_id'],{},context=context)
-                    
-                    line_obj.action_updated(cr,uid, product_line['line_id'], context=context)
-                    
-                    i = i+1
-                    percent = (i / float(total)) * 100.
-                    self.pool.get('elneo.supplier.price.update').write(cr,uid,update.id,{'percent_operation_update':percent})
-                    
-                    
-                    cr.commit()
-                
-                #finally update import state
-                update.action_done()
-                cr.commit()
-                    
-        except Exception,e:
-            self._message(cr, uid, ids, _('ERROR : During Purchase Price Update lines - ') + unicode(e), context)
-            self.action_updating_error(cr, uid, ids, context)
-        finally:
-            try:                
-                cr.commit()
-            except Exception:
-                pass
-            try:                
-                cr.close()
-            except Exception:
-                pass
-        
-        return res
-    
-    def update_sale_price_lines(self,cr,uid,ids,context=None):
-        res=True
-        
-        if context and context.get('no_thread',False):
-            return self._update_sale_prices(cr, uid, ids, context)
-        else:
-            thread_compute = threading.Thread(target=self._update_sale_prices,args=(cr, uid, ids, context))
-            thread_compute.start()
-        
-        return res
-    
-    def _link_suppinfos(self,cr,uid,line,pricelist_ids,context=None):
-        res = False
-        
-        suppinfo_ids = []
-        for pricelist in self.pool.get('pricelist.partnerinfo').browse(cr,uid,pricelist_ids,context=context):
-            suppinfo_ids.append(pricelist.suppinfo_id.id)
-        
-        self.pool.get('elneo.supplier.price.update.line').write(cr,uid,line.id,{'suppinfo_ids':[(6,0,suppinfo_ids)]})
-        
-        
-        return res
-    
-    # Take all the lines in 'to_create' state and create the corresponding products
-    def _create_lines(self,cr,uid,ids,context=None):
-        res = True
-        
-        cr = pooler.get_db(self._cr.dbname).cursor()
-        try:
-            for update in self.browse(cr,uid,ids,context=context):
-                # Initialize the operation percent
-                update.write({'percent_operation_create':0.0})
-                i=0.0
-                complete = len(update.lines_to_create)
-                for line in update.lines_to_create:
-                    try:
-                        # We take only lines to create
-                        if line.state =='to_create':
-                            values = self._get_values_to_insert(cr,uid,line,context=context)
-                            
-                            product_created_id = self.pool.get('product.product').create(cr,uid,values,context=context)
-                            if product_created_id:
-                                template_id = self.pool.get('product.product').browse(cr,uid,product_created_id,context=context).product_tmpl_id.id
-                                if template_id:
-                                    self._update_translations(cr, uid, line,template_id, context)
-                                # Make the link with the product to keep history
-                                self._link_products(cr, uid, line, [product_created_id], context)
-                                # Creates the pricelist line for the created product for the quantity
-                                pricelist_id = self._create_pricelist(cr, uid, line, context)
-                                if not pricelist_id:
-                                    raise Exception('Error when creating pricelist for the product : ' + str(product_created_id))
-                                else:
-                                    self._link_suppinfos(cr, uid, line, [pricelist_id], context)
-                                line.action_created() 
-                                cr.commit()
-                        
-                    except Exception,e:
-                        self._message(cr, uid, ids, _('ERROR : During Create lines - ') + unicode(e), context)
-                        self.pool.get('elneo.supplier.price.update.line').browse(cr,uid,line.id,context=context).action_error_create()
-
-                    i= i + 1.0
-                    percent = (i / complete) * 100
-                    update.write({'percent_operation_create':percent})
-                    cr.commit()
-                    
-                        
-        except Exception,e:
-            _logger.warning('Purchase prices create error')
-        finally:
-            try:                
-                cr.commit()
-                _logger.warning('Purchase prices create')
-            except Exception:
-                pass
-            try:                
-                cr.close()
-            except Exception:
-                pass
-
-        return res
-    
-    # For each language, update or create translations
-    def _update_translations(self,cr,uid,line,template_id,context=None):
-        res=True
-        line_obj = self.pool.get('elneo.supplier.price.update.line')
-        if line.name_tmpl:
-            if line.name_fr:
-                line_obj._update_product_translations(cr,uid,line.name_tmpl,line.name_fr, template_id,'fr_BE')
-            if line.name_nl:
-                line_obj._update_product_translations(cr,uid,line.name_tmpl,line.name_nl, template_id,'nl_BE')
-            if line.name_de:
-                line_obj._update_product_translations(cr,uid,line.name_tmpl,line.name_de, template_id,'de')
-            if line.name_en:
-                line_obj._update_product_translations(cr,uid,line.name_tmpl,line.name_en, template_id,'en_US')
-        
-        
-        return res
-    
-    # Create the product pricelist information
-    def _create_pricelist(self,cr,uid,line,context=None):
-        res = None
-        for product in self.pool.get('elneo.supplier.price.update.line').browse(cr,uid,line.id,context=context).product_ids:
-            value = {}
-            
-            # Set every supplierinfo values
-            value['product_id']=product.product_tmpl_id.id
-            value['name']=line.import_id.supplier_id.id
-            if line.min_quantity:
-                value['min_qty']=line.min_quantity
-            else:
-                value['min_qty']=1
-                
-            if line.name_tmpl:
-                value['product_name']=line.name_tmpl
-            if line.product_code:
-                value['product_code']=line.product_code
-            
-            value['pack']=line.pack
-            
-            suppinfo_id = self.pool.get('product.supplierinfo').create(cr,uid,value,context=context)
-            
-            #Set every pricelist values
-            if suppinfo_id:
-                value = {}
-                value['suppinfo_id']=suppinfo_id
-                value['min_quantity']=line.quantity
-                value['brut_price']=line.brut_price
-                value['discount']=line.discount
-                value['public_price']=line.public_price
-                value['price']=line.net_price
-                value['update_methode']='price_list_file'
-                value['date'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                
-
-                pricelist_id = self.pool.get('pricelist.partnerinfo').create(cr,uid,value,context=context)
-                res = pricelist_id
-                if not pricelist_id:
-                    res = False
-            else:
-                res = False    
-                
-            break
-        
-        
-        return res
-    
-    # Launch product lines creation thread
-    def create_lines(self,cr,uid,ids,context=None):
-        res= True
-        
-        thread_compute = threading.Thread(target=self._create_lines,args=(cr, uid, ids, context))
-        thread_compute.start()
-        
-        return res
-    
-    # Construct the data for the new created product
-    def _get_values_to_insert(self,cr,uid,line,context=None):
-        res={}
-        
-        if line.product_code:
-            res['default_code']=line.product_code
-            res['list_price']=line.public_price
-            res['public_price']=line.public_price
-        if line.product_category_id:
-            res['categ_id']=line.product_category_id.id
-        if line.name_tmpl:
-            res['name']=line.name_tmpl
-        if line.weight:
-            res['weight_net']=line.weight
- 
-        return res
-   
-    def _message(self,cr,uid,ids,message,context=None):
-        res = True
-        
-        for update in self.pool.get('elneo.supplier.price.update').browse(cr,uid,ids,context=context):
-            self.pool.get('elneo.supplier.price.update.message').create(cr,uid,{'import_id':update.id,'message':message,'date':datetime.now()})
-            
-        return res
-    
-    def create(self, cr, uid, vals, context=None):
-        sequence=self.pool.get('ir.sequence').get(cr, uid, 'elneo.supplier.price.update')
-        vals['code']=sequence
-        return super(elneo_supplier_price_update, self).create(cr, uid, vals, context=context)
-        
-elneo_supplier_price_update()
-
-class CsvImportError(Exception):
-    def __init__(self, value):
-        self.value = value
-    def __str__(self):
-        return repr(self.value)
-
-
-class elneo_supplier_price_update_line(models.Model):
-    _name='elneo.supplier.price.update.line'
     
     #Update products translations
-    def _update_product_translations(self, cr, uid,name_tpl, translation, product_template_id,lang, context=None):
+    def _update_product_translations(self, name_tpl, translation, product_template_id,lang, context=None):
         if not context:
             context = {}
         
-        ir_translation_ids = self.pool.get('ir.translation').search(cr,uid,[('lang','=',lang),('name','=','product.template,name'),('res_id','=',product_template_id)])
+        ir_translations = self.env['ir.translation'].search([('lang','=',lang),('name','=','product.template,name'),('res_id','=',product_template_id)])
         
-        if ir_translation_ids:
-            for ir_translation_id in ir_translation_ids:
-                self.pool.get('ir.translation').write(cr, uid, ir_translation_id, {
-                                                                                   'src':name_tpl,
-                                                                                   'value':translation,
-                                                                                   }, context)
+        if ir_translations:
+            ir_translations.src = name_tpl
+            ir_translations.value = translation
         else:
-            self.pool.get('ir.translation').create(cr, uid, {
-                                                             'name':'product.template,name',
-                                                             'lang':lang,
-                                                             'src':name_tpl,
-                                                             'res_id':product_template_id,
-                                                             'type':'model',
-                                                             'value':translation,
-                                                             }, context)
+            self.env['ir.translation'].create({
+                 'name':'product.template,name',
+                 'lang':lang,
+                 'src':name_tpl,
+                 'res_id':product_template_id,
+                 'type':'model',
+                 'value':translation,
+            })
         return True
     
     def _get_products(self, cr, uid, ids, name, args, context=None):
@@ -1080,44 +1093,54 @@ class elneo_supplier_price_update_line(models.Model):
              
     _rec_name='product_code'
     
-    def action_draft(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'draft'})
+    @api.one
+    def action_draft(self):
+        self.state = 'draft'
         return True
     
-    def action_to_update(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'to_update'})
+    @api.one
+    def action_to_update(self):
+        self.state = 'to_update'
         return True
     
-    def action_to_create(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'to_create'})
+    @api.one
+    def action_to_create(self):
+        self.state = 'to_create'
         return True
     
-    def action_error_create(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'error_create'})
+    @api.one
+    def action_error_create(self):
+        self.state = 'error_create'
         return True
     
-    def action_error_update(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'error_update'})
+    @api.one
+    def action_error_update(self):
+        self.state = 'error_update'
         return True
     
-    def action_updating(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'updating'})
+    @api.one
+    def action_updating(self):
+        self.state = 'updating'
         return True
     
-    def action_created(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'created'})
+    @api.one
+    def action_created(self):
+        self.state = 'created'
         return True
     
-    def action_updated_purchase_price(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'updated_pp'})
+    @api.one
+    def action_updated_purchase_price(self):
+        self.state = 'updated_pp'
         return True
     
-    def action_updated(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'updated'})
+    @api.one
+    def action_updated(self):
+        self.state = 'updated'
         return True
     
-    def action_create_cancel(self,cr,uid,ids,context=None):
-        self.write(cr,uid,ids,{'state':'create_cancel'})
+    @api.one
+    def action_create_cancel(self):
+        self.state = 'create_cancel'
         return True
 
 elneo_supplier_price_update_line()

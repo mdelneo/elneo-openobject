@@ -1,6 +1,16 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
+    	<act_window
+			id="action_res_partner_compute_cost_price" 
+			name="Compute cost price"
+            src_model="res.partner"
+            res_model="res.partner.cost.price"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            />
+    
         <record model="ir.ui.view" id="view_supplier_compute_cost_price">
 			<field name="name">res.partner.cost_price.compute</field>
 			<field name="model">res.partner.cost.price</field>

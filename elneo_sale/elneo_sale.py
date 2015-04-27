@@ -102,6 +102,39 @@ class sale_order(models.Model):
     force_is_invoiced = fields.Boolean("Force is invoiced",help="Force the 'invoiced' state for this sale order")
     order_policy = fields.Selection(string='Create Invoice')
     
+    purchase_ids = fields.Many2many('purchase.order', 'purchase_invoice_rel', 'invoice_id', 'purchase_id', 'Purchases')
+    
+    
+    @api.depends('purchase_ids')
+    def _count_all(self):
+        self.purchase_count=len(self.purchase_ids)
+    
+    purchase_count = fields.Integer(compute=_count_all, method=True)
+    
+    @api.multi
+    def view_purchase(self):
+        '''
+        This function returns an action that display existing purchase orders of given purchase order ids.
+        It load the tree or the form according to the number of purchase orders
+        '''
+        
+        mod_obj = self.env['ir.model.data']
+        dummy, action_id = tuple(mod_obj.get_object_reference('purchase', 'purchase_form_action'))
+        action_obj = self.env['ir.actions.act_window'].browse(action_id)
+        action = action_obj.read()[0]
+        
+
+        #override the context to get rid of the default filtering on picking type
+        action['context'] = {}
+        #choose the view_mode accordingly
+        if self.purchase_count > 1:
+            action['domain'] = "[('id','in',[" + ','.join(map(str, self.purchase_order.mapped('id'))) + "])]"
+        else:
+            res = mod_obj.get_object_reference('purchase', 'view_order_form')
+            action['views'] = [(res and res[1] or False, 'form')]
+            action['res_id'] = self.purchase_orders.mapped('id')[0] or False
+        return action
+    
     #function to rewrite when odoo core will be migrated to new api
     def onchange_warehouse_id(self, cr, uid, ids, warehouse_id, context=None):
         res = super(sale_order, self).onchange_warehouse_id(cr, uid, ids, warehouse_id, context)

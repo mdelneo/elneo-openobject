@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 from openerp import models,fields,api
-from openerp.tools.float_utils import float_compare, float_round
+from openerp.exceptions import ValidationError
 
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
+    
+    def init(self,cr):
+        #UPDATE DATABASE TO AVOID NULL PROBLEMS
+        query="UPDATE sale_order_line SET name = '.' WHERE name IS NULL"
+        
+        cr.execute(query)
     
     def compute_stock(self):
         self._qty_virtual_stock()
@@ -30,10 +36,12 @@ class sale_order_line(models.Model):
     virtual_stock = fields.Float('Virtual stock', compute=_qty_virtual_stock)
     real_stock = fields.Float('Real stock', compute=_qty_real_stock)
     brut_sale_price = fields.Float(related='product_id.product_tmpl_id.list_price', string="Brut sale price", readonly=True)
-    
+
+sale_order_line()   
 
 class sale_order(models.Model):
     _inherit = 'sale.order'
+    
     
     @api.one
     @api.depends('invoice_ids.state','force_is_invoiced')
@@ -97,13 +105,18 @@ class sale_order(models.Model):
     
     partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Order address for current sales order.")
     quotation_address_id = fields.Many2one('res.partner', 'Quotation Address', readonly=True, required=False, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Quotation address for current sales order.")
-    carrier_id = fields.Many2one('delivery.carrier', 'Delivery Method', required=True, help="Complete this field if you plan to invoice the shipping based on picking.")
+    carrier_id = fields.Many2one('delivery.carrier', 'Delivery Method', help="Complete this field if you plan to invoice the shipping based on picking.")
     is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced",store=True)
     force_is_invoiced = fields.Boolean("Force is invoiced",help="Force the 'invoiced' state for this sale order")
     order_policy = fields.Selection(string='Create Invoice')
     
     purchase_ids = fields.Many2many('purchase.order', 'purchase_invoice_rel', 'invoice_id', 'purchase_id', 'Purchases')
     
+    @api.constrains('carrier_id','shop_sale')
+    @api.one
+    def _check_carrier_id(self):
+        if not self.shop_sale and not self.carrier_id:
+            raise ValidationError("A delivery method has to be chosen")
     
     @api.depends('purchase_ids')
     def _count_all(self):

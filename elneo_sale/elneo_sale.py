@@ -112,7 +112,6 @@ class sale_order(models.Model):
     
     purchase_ids = fields.Many2many('purchase.order', 'purchase_invoice_rel', 'invoice_id', 'purchase_id', 'Purchases')
     
-    
     @api.constrains('carrier_id','shop_sale')
     @api.one
     def _check_carrier_id(self):

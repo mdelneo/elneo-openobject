@@ -35,12 +35,13 @@ class purchase_validation_wizard(models.TransientModel):
         return res
     
     def _get_sale_order_lines(self, purchase_validation_line):
-        sale_lines = []
+        sale_lines = self.env['sale.order.line']
         for move in purchase_validation_line.purchase_line.move_ids:
             current_stock_move = move
             while current_stock_move:
                 if current_stock_move.procurement_id.sale_line_id:
-                    sale_lines.append(current_stock_move.procurement_id.sale_line_id)
+                    sale_lines = sale_lines | current_stock_move.procurement_id.sale_line_id
+                    #sale_lines.append(current_stock_move.procurement_id.sale_line_id)
                 current_stock_move = current_stock_move.move_dest_id
         return sale_lines
     
@@ -123,7 +124,7 @@ class purchase_validation_wizard(models.TransientModel):
         #UPDATE DATE
         old_sale_order_delivery_date = {}
         stock_picking_to_update = set()
-        sale_order_to_update=set()
+        sale_order_to_update=self.env['sale.order']
         if line.new_date_planned != line.purchase_line.date_planned:
             
             #compute difference between new date_planned and old date_planned
@@ -145,7 +146,8 @@ class purchase_validation_wizard(models.TransientModel):
                     
             for sale_line in  self._get_sale_order_lines(line):
                 sale_line.write({'delay':sale_line.delay + difference.days})
-                sale_order_to_update.add(sale_line.order_id)
+                sale_order_to_update | sale_line.order_id
+                #sale_order_to_update.add(sale_line.order_id)
                 old_sale_order_delivery_date[sale_line.order_id.id] = sale_line.order_id.delivery_date
                 
                 
@@ -206,7 +208,7 @@ class purchase_validation_wizard(models.TransientModel):
         # INIT #
         purchase_order_to_update = set()
         old_sale_order_delivery_date = {}
-        sale_orders_to_update = set()
+        sale_orders_to_update = self.env['sale.order']
         warning_message = []
         
         for purchase_validation in self:
@@ -244,10 +246,18 @@ class purchase_validation_wizard(models.TransientModel):
                     else:
                         warning_message.append(_("Product '%s' price has been updated from %s to %s.")%(purchase_validation_line.purchase_line.product_id.name, old_supplier_prices[purchase_validation_line.purchase_line.product_id.id] and old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][0] or '0', purchase_validation_line.new_price))
                         
+                    sale_lines = self._get_sale_order_lines(purchase_validation_line)
+                    sale_orders_to_update = sale_orders_to_update |  sale_lines.mapped('order_id')
+                        
                 old_dates, order_to_update = self._update_delivery_date(purchase_validation_line)
-                sale_orders_to_update.update(order_to_update)
-                old_sale_order_delivery_date.update(old_dates)
                 
+                
+                sale_orders_to_update = sale_orders_to_update | order_to_update
+                old_sale_order_delivery_date.update(old_dates)
+        
+        
+        for sale_order_to_update in sale_orders_to_update:
+            sale_order_to_update.write({})       
                
         context = self._context.copy()
         

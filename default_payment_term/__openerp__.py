@@ -8,7 +8,7 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['base','account'],
-    "data" : ['views/res_config_view.xml'
+    "data" : ['views/res_config_view.xml',
         ],
     'installable': True,
     'auto_install': False,

@@ -33,7 +33,7 @@ add a cost price based on a pricelist
     'init_xml': [
     ],
 
-    'update_xml': [
+    'data': [
         'views/elneo_cost_price_view.xml','views/elneo_cost_price_wizard_view.xml',  
     ],
     'demo_xml': [

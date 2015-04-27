@@ -85,7 +85,7 @@ class product_template(models.Model):
     '''    
     
     
-    @api.depends('compute_cost_price','cost_price_fixed','seller_ids')
+    @api.depends('compute_cost_price','cost_price_fixed','seller_ids.pricelist_ids.price')
     def _get_cost_price(self):
         for product in self:
             

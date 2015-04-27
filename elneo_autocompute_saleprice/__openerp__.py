@@ -5,7 +5,7 @@
     'website' : 'http://elneo.com',
     'category': '',
     'summary': '',
-    'description': "",
+    'description': "Adapt To Elneo specifics to calculate Sale Price",
     'author': 'Elneo',
     'depends': ['elneo_cost_price', 'elneo_default_supplier'],
     'data': [

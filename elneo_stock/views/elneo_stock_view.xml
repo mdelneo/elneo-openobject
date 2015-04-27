@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<!-- 
+			Product supplier info FORM : 
+				- add brut_price and discount 
+		-->
+		<record id="view_picking_internal_search_elneo_stock" model="ir.ui.view">
+			<field name="name">view.picking.internal.search.elneo.stock</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_internal_search" />
+			<field name="arch" type="xml">
+				<field name="name" position="before">
+					<field name="origin" />
+				</field>
+			</field>
+		</record>
+		
+	        
+	</data>
+	
+	
+</openerp>

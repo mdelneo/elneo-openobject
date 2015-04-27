@@ -2,6 +2,25 @@ from openerp import models,fields,api
 from openerp.tools.float_utils import float_compare, float_round
 
 
+class purchase_validation_wizard(models.TransientModel):
+    _inherit = "purchase.validation.wizard"
+    
+    @api.multi
+    def update_purchase(self):
+
+        for purchase_validation in self:
+            for purchase_validation_line in purchase_validation.purchase_validation_lines:
+                if self._is_update_needed(purchase_validation_line):
+                    sale_lines = self._get_sale_order_lines(purchase_validation_line)
+                    sale_lines.purchase_price = purchase_validation_line.new_price
+        
+        res = super(purchase_validation_wizard,self).update_purchase()
+        
+        return res
+
+purchase_validation_wizard()
+        
+
 class sale_order_line(models.Model):
     _inherit = "sale.order.line"
     

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+	
+		<!-- WAREHOUSE FORM VIEW : add group to warehouse to manage view of warehousemen -->
 		<record id="view_warehouse_elneo_rights" model="ir.ui.view">
 			<field name="name">stock.warehouse.elneo.rights</field>
 			<field name="model">stock.warehouse</field>
@@ -13,5 +15,11 @@
 				</xpath>
 			</field>
 		</record>
+		
+		<!-- Stock picking type view (All operations) : filter view by right groups -->
+		<record id="stock.action_picking_type_form" model="ir.actions.act_window">
+            <field name="domain">[('warehouse_id.group_id.users','in',[uid])]</field>
+        </record>
+
 	</data>
 </openerp>

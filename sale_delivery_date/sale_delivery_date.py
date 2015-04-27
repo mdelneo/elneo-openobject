@@ -6,6 +6,7 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     @api.depends('order_line.delay')
+    @api.one
     def _get_delivery_date(self):
         dates_list = []
         reference_date = (self.date_confirm and datetime.strptime(self.date_confirm, '%Y-%m-%d')) or datetime.now()

@@ -1,4 +1,11 @@
 from openerp import models, fields, api
+from pygments.lexer import _inherit
+
+
+class stock_picking(models.Model):
+    _inherit = 'stock.picking'
+    
+stock_picking()
 
 class product_template(models.Model):
     _inherit = 'product.template'

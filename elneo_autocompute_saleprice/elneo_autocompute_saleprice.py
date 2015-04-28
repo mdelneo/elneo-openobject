@@ -239,19 +239,22 @@ class product_template(models.Model):
     @api.depends('categ_id','cost_price','sale_price_fixed','compute_sale_price','sale_price_seller')
     @api.one
     def _get_list_price(self):
-        sale_prices = self.get_sale_price()
-        if sale_prices:
-            sale_price = sale_prices[0]
-        else:
+        sale_price = self.get_sale_price()
+        if not sale_price:
             sale_price = 0
         discount_type = self._context.get("discount_type")
         if discount_type:
             sale_price = self.get_customer_sale_price(discount_type, sale_price)
+        
+        #format sale price
+        if type(sale_price) is list:
+            sale_price = sale_price[0]
+            if type(sale_price) is list:
+                sale_price = sale_price[0]    
+        
         self.list_price = sale_price
         return sale_price
         
-        
-    
     list_price = fields.Float('Sale Price', compute='_get_list_price', help="Base price for computing the customer price. Sometimes called the catalog price.")
     sale_price_fixed = fields.Float('Sale price fixed')
     sale_price_seller = fields.Float('Sale price seller')

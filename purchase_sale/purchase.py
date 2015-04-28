@@ -44,16 +44,10 @@ class purchase_order(models.Model):
             orders.append(sale_id)
             
         self.sale_orders=orders
-        
-            
     
     @api.depends('sale_orders')
     def _count_all(self):
-        
         self.sale_count=len(self.sale_orders)
-    
-    sale_orders = fields.Many2many(comodel_name='sale.order',compute=_get_sale_orders,string='Sale Orders',method=True)
-    sale_count = fields.Integer(compute=_count_all, method=True)
     
     @api.multi
     def view_sale(self):
@@ -78,5 +72,9 @@ class purchase_order(models.Model):
             action['views'] = [(res and res[1] or False, 'form')]
             action['res_id'] = self.sale_orders.mapped('id')[0] or False
         return action
+    
+    
+    sale_orders = fields.Many2many(comodel_name='sale.order',compute=_get_sale_orders,string='Sale Orders',method=True)
+    sale_count = fields.Integer(compute=_count_all, method=True)
     
 purchase_order()

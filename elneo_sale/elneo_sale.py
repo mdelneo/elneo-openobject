@@ -7,8 +7,7 @@ class sale_order_line(models.Model):
     
     def init(self,cr):
         #UPDATE DATABASE TO AVOID NULL PROBLEMS
-        query="UPDATE sale_order_line SET name = '.' WHERE name IS NULL"
-        
+        query="""UPDATE sale_order_line SET name = '.' WHERE name IS NULL"""
         cr.execute(query)
     
     def compute_stock(self):
@@ -42,6 +41,11 @@ sale_order_line()
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
+    def init(self,cr):
+        #UPDATE DATABASE TO AVOID NULL PROBLEMS
+        query="""UPDATE sale_order SET partner_order_id = partner_id WHERE partner_order_id IS NULL"""
+        
+        cr.execute(query)
     
     @api.one
     @api.depends('invoice_ids.state','force_is_invoiced')
@@ -108,7 +112,12 @@ class sale_order(models.Model):
     carrier_id = fields.Many2one('delivery.carrier', 'Delivery Method', help="Complete this field if you plan to invoice the shipping based on picking.")
     is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced",store=True)
     force_is_invoiced = fields.Boolean("Force is invoiced",help="Force the 'invoiced' state for this sale order")
-    order_policy = fields.Selection(string='Create Invoice')
+    order_policy = fields.Selection([
+                ('manual', 'On Demand'),
+                ('picking', 'On Delivery Order'),
+                ('prepaid', 'Before Delivery'),
+            ],string='Create Invoice', required=True, readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
+            help="""On demand: A draft invoice can be created from the sales order when needed. \nOn delivery order: A draft invoice can be created from the delivery order when the products have been delivered. \nBefore delivery: A draft invoice is created from the sales order and must be paid before the products can be delivered.""")
     
     purchase_ids = fields.Many2many('purchase.order', 'purchase_invoice_rel', 'invoice_id', 'purchase_id', 'Purchases')
     
@@ -219,16 +228,18 @@ class sale_order(models.Model):
                 addr = self.partner_id.address_get(['delivery', 'invoice', 'contact'])
                 self.partner_shipping_id = addr['delivery']
                 self.partner_invoice_id = addr['invoice']
-                
-                
-    
-    
-sale_order()
+
 
 class pricelist_partnerinfo(models.Model):
     _inherit = 'pricelist.partnerinfo'
     
     brut_price = fields.Float('Brut price')
     discount = fields.Float('Discount')
+
+
+
+class account_invoice(models.Model):
+    _inherit = 'account.invoice'
     
-pricelist_partnerinfo()
+    sale_order_ids =fields.Many2many('sale.order', 'sale_order_invoice_rel', 'invoice_id', 'order_id', string='Sale orders')
+

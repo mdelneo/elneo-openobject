@@ -5,7 +5,7 @@ from datetime import datetime
 
 class purchase_validation_wizard(models.TransientModel):
     _name = 'purchase.validation.wizard'
-    _description = 'Purchase validation wizard'
+    #_description = 'Purchase validation wizard'
     
     purchase_validation_lines = fields.One2many('purchase.validation.line.wizard','purchase_validation_updater_id','Updated Lines')
     
@@ -206,14 +206,14 @@ class purchase_validation_wizard(models.TransientModel):
     @api.multi         
     def update_purchase(self):
         # INIT #
-        purchase_order_to_update = set()
+        purchase_orders_to_update = self.env['purchase.order']
         old_sale_order_delivery_date = {}
         sale_orders_to_update = self.env['sale.order']
         warning_message = []
         
         for purchase_validation in self:
             for purchase_validation_line in purchase_validation.purchase_validation_lines:
-                purchase_order_to_update.add(purchase_validation_line.purchase_line.order_id.id)
+                purchase_orders_to_update = purchase_orders_to_update | purchase_validation_line.purchase_line.order_id
                 
                 sale_lines = None
                 
@@ -258,7 +258,10 @@ class purchase_validation_wizard(models.TransientModel):
         
         for sale_order_to_update in sale_orders_to_update:
             sale_order_to_update.write({})       
-               
+        
+        purchase_orders_to_update.validated=True
+        
+        
         context = self._context.copy()
         
         warning_message, delivery_date_changes_email, ctx = self._get_date_message(old_sale_order_delivery_date,warning_message, context)

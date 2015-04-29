@@ -1,6 +1,14 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data>
+	
+		<!-- Purchase-related subtypes for messaging / Chatter -->
+        <record id="mt_purchase_validated" model="mail.message.subtype">
+            <field name="name">Purchase validated</field>
+            <field name="default" eval="False"/>
+            <field name="res_model">purchase.order</field>
+        </record>
+
 		<record id="email_template_delivery_date_change" model="email.template">
 			<field name="name">Delivery date modification</field>
 			<field name="email_from">${(object.user_id.email or object.company_id.email or 'noreply@localhost')|safe}</field>

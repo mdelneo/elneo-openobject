@@ -14,17 +14,12 @@ class sale_order(models.Model):
         cursor = self.env.cr
         cursor.execute('''SELECT
                 so.id, sum(m.product_qty), mp.state as mp_state
-            FROM
-                stock_move m
-            LEFT JOIN
-        sale_order_line sol on (sol.id=m.sale_line_id)
-        LEFT JOIN
-        sale_order so on (sol.order_id=so.id)
-        LEFT JOIN
-                stock_picking p on (p.id=m.picking_id)
-            LEFT JOIN
-                procurement_order mp on (mp.move_dest_id=m.id)
-            WHERE
+            FROM stock_move m
+        LEFT JOIN procurement_order mp on (mp.move_dest_id=m.id)
+            LEFT JOIN sale_order_line sol on (sol.id=mp.sale_line_id)
+                LEFT JOIN sale_order so on (sol.order_id=so.id)
+                    LEFT JOIN stock_picking p on (p.id=m.picking_id)
+    WHERE
                 mp.id is not null and so.id = %s GROUP BY mp.state, so.id''', (tuple([self.id]),))
         
         for oid, nbr, mp_state in cursor.fetchall():

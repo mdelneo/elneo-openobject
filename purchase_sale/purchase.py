@@ -38,22 +38,7 @@ class purchase_order(models.Model):
             res = self.env.cr.fetchall()
         
         # No procurement and no drop shipping, use stock_move
-        if len(res) == 0 :
-            self.env.cr.execute('''select distinct po.id, so.id
-                                    from purchase_order po
-                                        left join purchase_order_line pol
-                                            left join stock_move sm
-                                                left join stock_move sm2
-                                                    left join sale_order_line sol
-                                                        left join sale_order so on sol.order_id = so.id
-                                                    on sm2.sale_line_id = sol.id
-                                                on sm.move_dest_id = sm2.id
-                                            on pol.id = sm.purchase_line_id
-                                        on po.id = pol.order_id
-                                    where po.id in %s''',(tuple(self.mapped('id')),))
         
-            res = self.env.cr.fetchall()
-   
         orders=[]
         for (purchase_id, sale_id) in res:
             orders.append(sale_id)

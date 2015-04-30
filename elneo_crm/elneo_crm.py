@@ -13,7 +13,16 @@ class res_partner(models.Model):
         
         cr.execute(query)
         
+    @api.model
+    def create(self,vals):
         
+        if not vals.get('ref') or vals.get('ref') == '':
+            vals.update({'ref': 'TO CORRECT'})
+        
+        partner = super(res_partner,self).create(vals)
+        
+        return partner
+           
     
     def _get_default_is_company(self):
         return self._context.get('force_is_company', False)

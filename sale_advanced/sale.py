@@ -40,6 +40,7 @@ class sale_order(models.Model):
         if self.shipped:
             self.picked_rate = 100.0
     
+    '''
     @api.one
     def _invoiced_rate(self):
         
@@ -56,5 +57,9 @@ class sale_order(models.Model):
         else:
             self.invoiced_rate = 0.0
  
+    
+    
+    '''
+            
     picked_rate = fields.Float("Picked Rate",compute=_picked_rate,help="The picking movements that are done")
-    invoiced_rate = fields.Float("Invoiced Rate",compute=_invoiced_rate,store=True,help="The Invoice Lines corresponding to the Sale Order Lines")
+    #invoiced_rate = fields.Float("Invoiced Rate",compute=_invoiced_rate,store=True,help="The Invoice Lines corresponding to the Sale Order Lines")

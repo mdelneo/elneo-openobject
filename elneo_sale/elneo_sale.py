@@ -224,16 +224,18 @@ class sale_order(models.Model):
                 addr = self.partner_id.address_get(['delivery', 'invoice', 'contact'])
                 self.partner_shipping_id = addr['delivery']
                 self.partner_invoice_id = addr['invoice']
-                
-                
-    
-    
-sale_order()
+
 
 class pricelist_partnerinfo(models.Model):
     _inherit = 'pricelist.partnerinfo'
     
     brut_price = fields.Float('Brut price')
     discount = fields.Float('Discount')
+
+
+
+class account_invoice(models.Model):
+    _inherit = 'account.invoice'
     
-pricelist_partnerinfo()
+    sale_order_ids =fields.Many2many('sale.order', 'sale_order_invoice_rel', 'invoice_id', 'order_id', string='Sale orders')
+

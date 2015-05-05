@@ -7,8 +7,7 @@ class sale_order_line(models.Model):
     
     def init(self,cr):
         #UPDATE DATABASE TO AVOID NULL PROBLEMS
-        query="UPDATE sale_order_line SET name = '.' WHERE name IS NULL"
-        
+        query="""UPDATE sale_order_line SET name = '.' WHERE name IS NULL"""
         cr.execute(query)
     
     def compute_stock(self):
@@ -44,7 +43,7 @@ class sale_order(models.Model):
     
     def init(self,cr):
         #UPDATE DATABASE TO AVOID NULL PROBLEMS
-        query="UPDATE sale_order SET partner_order_id = partner_id WHERE partner_order_id IS NULL"
+        query="""UPDATE sale_order SET partner_order_id = partner_id WHERE partner_order_id IS NULL"""
         
         cr.execute(query)
     

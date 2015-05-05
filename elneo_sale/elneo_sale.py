@@ -42,6 +42,11 @@ sale_order_line()
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
+    def init(self,cr):
+        #UPDATE DATABASE TO AVOID NULL PROBLEMS
+        query="UPDATE sale_order SET partner_order_id = partner_id WHERE partner_order_id IS NULL"
+        
+        cr.execute(query)
     
     @api.one
     @api.depends('invoice_ids.state','force_is_invoiced')

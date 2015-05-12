@@ -111,7 +111,7 @@ product_discount_type()
 
 class customer_discount_exception(models.Model):
     _name = 'customer.discount.exception'
-    _order = 'partner_id, categ_id, product_group_id, discount'
+    _order = 'partner_id, categ_id, discount'
     
     partner_id = fields.Many2one('res.partner', 'Partner')
     categ_id = fields.Many2one('product.category', 'Product category')

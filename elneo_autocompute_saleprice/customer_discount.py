@@ -116,7 +116,6 @@ class customer_discount_exception(models.Model):
     partner_id = fields.Many2one('res.partner', 'Partner')
     categ_id = fields.Many2one('product.category', 'Product category')
     discount = fields.Float('Discount')
-    
     #product_group_id = fields.Many2one('product.group', 'Product group')
     #to copy in new module
     

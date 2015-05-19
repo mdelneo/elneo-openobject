@@ -1,7 +1,24 @@
 from openerp import models, fields,api
 
+class product_product(models.Model):
+    _inherit = 'product.product'
+    
+    alias = fields.Char("Alias", 255, translate=False)
+    
+    def _auto_init(self,cr,args):
+        res = super(product_template, self)._auto_init(cr, args)
+        cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'product_product_alias_ext_name_index\'')
+        if not cr.fetchone():
+            cr.execute('CREATE INDEX product_product_alias_ext_name_index ON product_product (alias, default_code)')
+            
+        return res
+
 class product_template(models.Model):
     _inherit = 'product.template'
+    
+    type = fields.Selection([('product', 'Stockable Product'),('consu', 'Consumable'),('service','Service')], 'Product Type', required=True,default='product', help="Consumable are product where you don't manage stock, a service is a non-material product provided by a company or an individual.")
+    
+    ext_name = fields.Text(compute=get_ext_name, method=True, string='Advanced search', search=search_ext_name)
     
     def _auto_init(self,cr,args):
         res = super(product_template, self)._auto_init(cr, args)
@@ -9,10 +26,7 @@ class product_template(models.Model):
         if not cr.fetchone():
             cr.execute('CREATE INDEX product_template_ext_name_index ON product_template (name)')
             
-        cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'product_product_alias_ext_name_index\'')
-        if not cr.fetchone():
-            cr.execute('CREATE INDEX product_product_alias_ext_name_index ON product_product (alias, default_code)')
-            
+        '''
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'product_supplierinfo_name_code_ext_name_index\'')
         if not cr.fetchone():
             cr.execute('CREATE INDEX product_supplierinfo_name_code_ext_name_index ON product_supplierinfo (product_name,product_code)')
@@ -20,6 +34,8 @@ class product_template(models.Model):
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'ir_translation_value_ext_name_index\'')
         if not cr.fetchone():
             cr.execute('CREATE INDEX ir_translation_value_ext_name_index ON ir_translation (value) WHERE name = \'product.template,name\'  ')
+            
+        '''
             
         return res
     
@@ -61,10 +77,4 @@ class product_template(models.Model):
         
         result[self.id] = new_name
                 
-        return result 
-
-    type = fields.Selection([('product', 'Stockable Product'),('consu', 'Consumable'),('service','Service')], 'Product Type', required=True,default='product', help="Consumable are product where you don't manage stock, a service is a non-material product provided by a company or an individual.")
-    
-    ext_name = fields.Text(compute=get_ext_name, method=True, string='Advanced search', search=search_ext_name)
-    
-product_template()
+        return result

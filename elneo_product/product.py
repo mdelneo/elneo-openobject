@@ -6,7 +6,7 @@ class product_product(models.Model):
     alias = fields.Char(string="Alias", size=255, translate=False)
     
     def _auto_init(self,cr,args):
-        res = super(product_template, self)._auto_init(cr, args)
+        res = super(product_product, self)._auto_init(cr, args)
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'product_product_alias_ext_name_index\'')
         if not cr.fetchone():
             cr.execute('CREATE INDEX product_product_alias_ext_name_index ON product_product (alias, default_code)')

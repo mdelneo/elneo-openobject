@@ -47,6 +47,8 @@ class sale_order(models.Model):
         query="""UPDATE sale_order SET partner_order_id = partner_id WHERE partner_order_id IS NULL"""
         
         cr.execute(query)
+        
+        return res
     
     @api.one
     @api.depends('invoice_ids.state','force_is_invoiced')

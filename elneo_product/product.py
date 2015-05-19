@@ -3,7 +3,7 @@ from openerp import models, fields,api
 class product_product(models.Model):
     _inherit = 'product.product'
     
-    alias = fields.Char("Alias", 255, translate=False)
+    alias = fields.Char(string="Alias", size=255, translate=False)
     
     def _auto_init(self,cr,args):
         res = super(product_template, self)._auto_init(cr, args)
@@ -15,10 +15,6 @@ class product_product(models.Model):
 
 class product_template(models.Model):
     _inherit = 'product.template'
-    
-    type = fields.Selection([('product', 'Stockable Product'),('consu', 'Consumable'),('service','Service')], 'Product Type', required=True,default='product', help="Consumable are product where you don't manage stock, a service is a non-material product provided by a company or an individual.")
-    
-    ext_name = fields.Text(compute=get_ext_name, method=True, string='Advanced search', search=search_ext_name)
     
     def _auto_init(self,cr,args):
         res = super(product_template, self)._auto_init(cr, args)
@@ -78,3 +74,7 @@ class product_template(models.Model):
         result[self.id] = new_name
                 
         return result
+    
+    type = fields.Selection([('product', 'Stockable Product'),('consu', 'Consumable'),('service','Service')], 'Product Type', required=True,default='product', help="Consumable are product where you don't manage stock, a service is a non-material product provided by a company or an individual.")
+    
+    ext_name = fields.Text(compute=get_ext_name, method=True, string='Advanced search', search=search_ext_name)

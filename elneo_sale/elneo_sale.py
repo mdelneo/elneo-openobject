@@ -42,11 +42,13 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     def _auto_init(self,cr,args):
-        res = super(sale_order, self)._auto_init(cr, args)
+        
         
         query="""UPDATE sale_order SET partner_order_id = partner_id WHERE partner_order_id IS NULL"""
         
         cr.execute(query)
+        
+        res = super(sale_order, self)._auto_init(cr, args)
         
         return res
     

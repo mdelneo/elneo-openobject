@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
 from openerp import models,fields,api
 from openerp.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
@@ -41,14 +44,27 @@ sale_order_line()
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
-    def _auto_init(self,cr,args):
+    def _auto_init(self,cr,context=None):
         
+        res = super(sale_order, self)._auto_init(cr, context=context)
+        
+        self._columns['partner_order_id'].required = False
         
         query="""UPDATE sale_order SET partner_order_id = partner_id WHERE partner_order_id IS NULL"""
         
         cr.execute(query)
         
-        res = super(sale_order, self)._auto_init(cr, args)
+        try:
+            cr.execute('ALTER TABLE %s ALTER COLUMN alias_id SET NOT NULL' % (self._table))
+        except Exception:
+            _logger.warning("Table '%s': unable to set a NOT NULL constraint on column '%s' !\n"\
+                            "If you want to have it, you should update the records and execute manually:\n"\
+                            "ALTER TABLE %s ALTER COLUMN %s SET NOT NULL",
+                            self._table, 'partner_order_id', self._table, 'partner_order_id')
+
+        # set back the unique alias_id constraint
+        self._columns['partner_order_id'].required = True
+
         
         return res
     

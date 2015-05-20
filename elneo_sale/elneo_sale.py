@@ -44,7 +44,7 @@ sale_order_line()
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
-    partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},change_default=True, help="Order address for current sales order.")
+    partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},default=lambda rec: rec.partner_id, help="Order address for current sales order.")
     
     @api.one
     @api.depends('invoice_ids.state','force_is_invoiced')

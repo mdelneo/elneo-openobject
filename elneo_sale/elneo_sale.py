@@ -44,29 +44,13 @@ sale_order_line()
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
-    def _auto_init(self,cr,context=None):
-        
-        res = super(sale_order, self)._auto_init(cr, context=context)
-        
-        self._columns['partner_order_id'].required = False
-        
-        query="""UPDATE sale_order SET partner_order_id = partner_id WHERE partner_order_id IS NULL"""
+    partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Order address for current sales order.")
+    
+    def init(self,cr):
+        #UPDATE DATABASE TO AVOID NULL PROBLEMS
+        query="UPDATE sale_order SET partner_order_id = partner_id WHERE partner_order_id IS NULL"
         
         cr.execute(query)
-        
-        try:
-            cr.execute('ALTER TABLE %s ALTER COLUMN alias_id SET NOT NULL' % (self._table))
-        except Exception:
-            _logger.warning("Table '%s': unable to set a NOT NULL constraint on column '%s' !\n"\
-                            "If you want to have it, you should update the records and execute manually:\n"\
-                            "ALTER TABLE %s ALTER COLUMN %s SET NOT NULL",
-                            self._table, 'partner_order_id', self._table, 'partner_order_id')
-
-        # set back the unique alias_id constraint
-        self._columns['partner_order_id'].required = True
-
-        
-        return res
     
     @api.one
     @api.depends('invoice_ids.state','force_is_invoiced')
@@ -128,7 +112,7 @@ class sale_order(models.Model):
                 self.is_invoiced = True
        
     
-    partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Order address for current sales order.")
+    
     quotation_address_id = fields.Many2one('res.partner', 'Quotation Address', readonly=True, required=False, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Quotation address for current sales order.")
     carrier_id = fields.Many2one('delivery.carrier', 'Delivery Method', help="Complete this field if you plan to invoice the shipping based on picking.")
     is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced",store=True)

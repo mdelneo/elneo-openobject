@@ -1,1 +1,0 @@
-import elneo_default_supplier

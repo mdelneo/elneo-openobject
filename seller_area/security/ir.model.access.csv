@@ -1,4 +1,0 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_res_partner_sale_exception","res.partner.sale.exception","model_res_partner_sale_exception","base.group_user",1,1,1,1
-"access_res_user_zip_rel","res.user.zip.rel","model_res_user_zip_rel","base.group_user",1,1,1,1
-

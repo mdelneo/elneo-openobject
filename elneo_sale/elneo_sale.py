@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
 from openerp import models,fields,api
 from openerp.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
@@ -43,11 +46,7 @@ sale_order_line()
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
-    def init(self,cr):
-        #UPDATE DATABASE TO AVOID NULL PROBLEMS
-        query="""UPDATE sale_order SET partner_order_id = partner_id WHERE partner_order_id IS NULL"""
-        
-        cr.execute(query)
+    partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},default=lambda rec: rec.partner_id, help="Order address for current sales order.")
     
     @api.one
     @api.depends('invoice_ids.state','force_is_invoiced')
@@ -109,7 +108,7 @@ class sale_order(models.Model):
                 self.is_invoiced = True
        
     
-    partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Order address for current sales order.")
+    
     quotation_address_id = fields.Many2one('res.partner', 'Quotation Address', readonly=True, required=False, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Quotation address for current sales order.")
     carrier_id = fields.Many2one('delivery.carrier', 'Delivery Method', help="Complete this field if you plan to invoice the shipping based on picking.")
     is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced",store=True)

@@ -33,7 +33,15 @@ class sale_order_line(models.Model):
             if sol.product_id:
                 sol.real_stock = sol.product_id.with_context(location=sol.order_id.warehouse_id.lot_stock_id.id).qty_available
             else:
-                sol.real_stock = 0 
+                sol.real_stock = 0
+                
+                
+    @api.multi
+    def copy(self, default=None):
+        if not default:
+            default = {}
+        default['purchase_line_ids'] = None
+        return super(sale_order_line, self).copy(default) 
         
     virtual_stock = fields.Float('Virtual stock', compute=_qty_virtual_stock)
     real_stock = fields.Float('Real stock', compute=_qty_real_stock)
@@ -46,7 +54,12 @@ sale_order_line()
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
-    partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},default=lambda rec: rec.partner_id, help="Order address for current sales order.")
+    @api.multi
+    def copy(self, default=None):
+        if not default:
+            default = {}
+        default['purchase_ids'] = None
+        return super(sale_order, self).copy(default)
     
     @api.one
     @api.depends('invoice_ids.state','force_is_invoiced')
@@ -108,7 +121,7 @@ class sale_order(models.Model):
                 self.is_invoiced = True
        
     
-    
+    partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},default=lambda rec: rec.partner_id, help="Order address for current sales order.")
     quotation_address_id = fields.Many2one('res.partner', 'Quotation Address', readonly=True, required=False, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Quotation address for current sales order.")
     carrier_id = fields.Many2one('delivery.carrier', 'Delivery Method', help="Complete this field if you plan to invoice the shipping based on picking.")
     is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced",store=True)

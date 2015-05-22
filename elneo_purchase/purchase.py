@@ -15,12 +15,27 @@ class purchase_order(models.Model):
     
     purchase_type_id = fields.Many2one('purchase.order.type','Purchase Type')
     sale_ids = fields.Many2many('sale.order', 'purchase_sale_rel', 'purchase_id', 'sale_id', 'Sales')
+    
+    @api.multi
+    def copy(self, default=None):
+        if not default:
+            default = {}
+        default['sale_ids'] = None
+        return super(purchase_order, self).copy(default)
+    
 purchase_order()
 
 class purchase_order_line(models.Model):
     _inherit='purchase.order.line'
     
     sale_line_ids = fields.Many2many('sale.order.line', 'purchase_line_sale_line_rel', 'purchase_line_id', 'sale_line_id', 'Sale lines')
+    
+    @api.multi
+    def copy(self, default=None):
+        if not default:
+            default = {}
+        default['sale_line_ids'] = None
+        return super(purchase_order_line, self).copy(default)    
     
 purchase_order_line()
 

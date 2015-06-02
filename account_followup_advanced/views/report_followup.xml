@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_followup_advanced" inherit_id="account_followup.report_followup">
+	<xpath expr="//t[@t-as='cur_lines']" position="replace">
+		<t t-foreach="getLines(o)" t-as="cur_lines">
+                        <table class="table table-condensed" style="margin-top: 50px;">
+                            <thead>
+                                <tr>
+                                    <th>Invoice Date</th>
+                                    <th>Description</th>
+                                    <th class="text-center">Ref</th>
+                                    <th class="text-center">Maturity Date</th>
+                                    <th class="text-right">Amount</th>
+                                    <th t-if="not data['form'].has_key('no_litigation') or not data['form']['no_litigation']" class="text-center">Litigation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="cur_lines['line']" t-as="line">
+                                	<div t-if="(not data['form'].has_key('no_litigation') or not data['form']['no_litigation'] or not line['blocked'])">
+                                    <td><span t-esc="formatLang(line['date'],date = True)"/></td>
+                                    <td><span t-esc="line['name']"/></td>
+                                    <td><span t-esc="line['ref']"/></td>
+                                    <td class="text-center"><span t-esc="line['date_maturity'] and formatLang(line['date_maturity'], date=True)"/></td>
+                                    <td class="text-right"><span t-esc="formatLang(line['balance'], currency_obj=line['currency_id'])"/></td>
+                                    <td class="text-center" t-if="not data['form'].has_key('no_litigation') or not data['form']['no_litigation']"><span t-esc="line['blocked'] and 'X' or ''"/></td>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <t t-if="data['form'].has_key('no_litigation') and data['form']['no_litigation']" t-set="total" t-value="reduce(lambda x,y: x+y['balance'],(line for line in cur_lines['line'] if not line['blocked']) if (data['form'].has_key('no_litigation') and data['form']['no_litigation']) else cur_lines['line'], 0.00)"/>
+                        <p>Total: <span t-esc="formatLang(total, currency_obj=cur_lines['currency'])"/></p>
+                    </t>
+	</xpath>
+</template>
+</data>
+</openerp>

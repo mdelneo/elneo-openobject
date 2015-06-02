@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<record id="action_customer_followup_semi" model="ir.actions.act_window">
+            <field name="name">Semi Automatic Followups</field>
+            <field name="res_model">account_followup.semi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <record id="action_customer_followup_litigations" model="ir.actions.act_window">
+            <field name="name">Litigations</field>
+            <field name="res_model">account.move.line</field>
+            <field name="domain">['&amp;', ('reconcile_id', '=', False), '&amp;', ('account_id.active','=', True), '&amp;', ('account_id.type', '=', 'receivable'), ('state', '&lt;&gt;', 'draft'),('blocked','=',True)]</field>
+            <field name="context">{'group_by':'partner_id'}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+        
+		<!-- Menus about followup of customers -->
+        <menuitem id="account_followup_semi" action="action_customer_followup_semi" 
+            parent="account_followup.menu_finance_followup" name="Semi Automatic Followups" sequence="2"/>
+            
+            
+        <menuitem id="account_followup_litigations" action="action_customer_followup_litigations" 
+            parent="account_followup.menu_finance_followup" name="Litigations" sequence="4"/>
+            
+    </data>
+</openerp>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<record id="view_account_followup_semi" model="ir.ui.view">
+            <field name="name">account.followup_semi.form</field>
+            <field name="model">account_followup.semi</field>
+            <field name="arch" type="xml">
+            <form string="Send follow-ups">
+                <group col="4">
+                    <field name="followup_id" groups="base.group_multi_company"/>
+                    <field name="date" groups="base.group_no_one"/>
+                </group>
+                	<p class ="oe_grey">
+                        This action will send follow-up emails, print the letters and
+                        set the manual actions per customer, according to the follow-up levels defined. 
+                    </p>
+                    <footer>
+                        <button name="do_continue" string="Continue" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+            </form>
+           </field>
+        </record>
+     
+        <!-- TO AVOID DEFAULT FOLLOWUP MENU TO CALL THE NEW VIEW -->
+        <record id="action_account_followup_print2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_followup.view_account_followup_print"/>
+            <field name="act_window_id" ref="account_followup.action_account_followup_print"/>
+        </record>
+        
+         
+         <record id="view_account_followup_print_semi" model="ir.ui.view">
+            <field name="name">account.followup.print.semi.form</field>
+            <field name="model">account_followup.print</field>
+            <field name="arch" type="xml">
+            <form string="Send follow-ups">
+             <group col="4">
+                    <field name="followup_id" groups="base.group_multi_company"/>
+                    <field name="date" groups="base.group_no_one" readonly="True"/>
+                </group>
+               <group>
+                    <field name="no_lit" groups="base.group_no_one"/>
+                </group>
+                <group>
+                	<button name="clear_partners" string="Clear Partners" type="object" groups="base.group_no_one"/>
+                </group>
+            	<group>
+                    <field name="partner_ids" groups="base.group_no_one"/>
+                </group>
+                	
+                    <footer>
+                        <button name="do_process" string="Send emails and generate letters" type="object" class="oe_highlight"/>
+                        <button name="do_print" string="Print Letters (No Level change)" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+            </form>
+           </field>
+        </record>
+        
+        <record id="account_followup_stat_by_partner_advanced_search" model="ir.ui.view">
+            <field name="name">account_followup.stat.by.partner.search</field>
+            <field name="model">account_followup.stat.by.partner</field>
+            <field name="inherit_id" ref="account_followup.account_followup_stat_by_partner_search"/>
+            <field name="arch" type="xml">
+                <search string="Partner to Remind" position="inside">
+                    <group expand="0" string="Group By">
+                        <filter string="Level" context="{'group_by': 'max_followup_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</openerp>

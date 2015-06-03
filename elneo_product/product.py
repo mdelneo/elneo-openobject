@@ -77,4 +77,4 @@ class product_template(models.Model):
     
     type = fields.Selection([('product', 'Stockable Product'),('consu', 'Consumable'),('service','Service')], 'Product Type', required=True,default='product', help="Consumable are product where you don't manage stock, a service is a non-material product provided by a company or an individual.")
     
-    ext_name = fields.Text(compute=get_ext_name, method=True, string='Advanced search', search=search_ext_name)
+    '''ext_name = fields.Text(compute=get_ext_name, method=True, string='Advanced search', search=search_ext_name)'''

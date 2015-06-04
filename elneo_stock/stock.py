@@ -24,7 +24,7 @@ class stock_move(models.Model):
         #when a move is assigned, if it's an autovalidate move, end it        
         res = super(stock_move, self).force_assign()
         for move in self:
-            if move.auto_validate_dest_move:
+            if move.auto_validate_dest_move and move.move_dest_id:
                 move.move_dest_id.action_done()
         return res
     

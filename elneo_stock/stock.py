@@ -7,11 +7,34 @@ class stock_picking(models.Model):
     
 stock_picking()
 
+class procurement_rule(models.Model):
+    _inherit = 'procurement.rule'
+    
+    autovalidate_dest_move = fields.Boolean('Auto-validate destination move')
+
+procurement_rule()
+
+class stock_move(models.Model):
+    _inherit = 'stock.move'
+    
+    auto_validate_dest_move = fields.Boolean('Auto validate', related='procurement_id.rule_id.autovalidate_dest_move', help='If this move is "autovalidate", when it became assigned, it is automatically set as done.')
+    
+    @api.multi
+    def force_assign(self):
+        #when a move is assigned, if it's an autovalidate move, end it        
+        res = super(stock_move, self).force_assign()
+        for move in self:
+            if move.auto_validate_dest_move:
+                move.move_dest_id.action_done()
+        return res
+    
+stock_move()
+
 class product_template(models.Model):
     _inherit = 'product.template'
     
 
-    #Update default product route to add Make to stock
+    #Update default product route to add Make to order
     def _get_buy_route(self):
         res=[]
         res = super(product_template,self)._get_buy_route()

@@ -26,5 +26,4 @@ class product_template(models.Model):
         return [('id', 'in', [x[0] for x in res])]
     
     search_field_layout = fields.Char(compute='get_ext_name', search=search_ext_name, size=4096, string='Advanced search')
-
 product_product()

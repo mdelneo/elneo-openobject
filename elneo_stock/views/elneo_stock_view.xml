@@ -17,6 +17,20 @@
 			</field>
 		</record>
 		
+		
+		
+		<!-- Add auto_validate in procurement rule -->
+		<record model="ir.ui.view" id="view_procurement_rule_form_elneo_stock">
+            <field name="name">view.procurement.rule.form.elneo.stock</field>
+            <field name="model">procurement.rule</field>
+            <field name="inherit_id" ref="stock.view_procurement_rule_form_stock_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="autovalidate_dest_move"/>
+                </xpath>
+            </field>
+        </record>
+		
 	        
 	</data>
 	

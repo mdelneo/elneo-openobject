@@ -1,5 +1,4 @@
 from openerp import models, fields, api
-from pygments.lexer import _inherit
 
 
 class stock_picking(models.Model):
@@ -20,9 +19,9 @@ class stock_move(models.Model):
     auto_validate_dest_move = fields.Boolean('Auto validate', related='procurement_id.rule_id.autovalidate_dest_move', help='If this move is "autovalidate", when it became assigned, it is automatically set as done.')
     
     @api.multi
-    def force_assign(self):
+    def action_done(self):
         #when a move is assigned, if it's an autovalidate move, end it        
-        res = super(stock_move, self).force_assign()
+        res = super(stock_move, self).action_done()
         for move in self:
             if move.auto_validate_dest_move and move.move_dest_id:
                 move.move_dest_id.action_done()
@@ -32,7 +31,6 @@ stock_move()
 
 class product_template(models.Model):
     _inherit = 'product.template'
-    
 
     #Update default product route to add Make to order
     def _get_buy_route(self):

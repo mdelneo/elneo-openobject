@@ -20,12 +20,12 @@ procurement_rule()
 class procurement_rule_procure_method(models.Model):
     _name = 'procurement.rule.procure.method'
     
-    @api.one
+    @api.model
     def _run_move_create(self, procurement, qty, qty_uos):
         vals = procurement._run_move_create(procurement)
         vals['product_uom_qty'] = qty
         vals['product_uos_qty'] = qty_uos
-        vals['location_id'] = self.location_src_id
+        vals['location_id'] = self.location_src_id.id
         vals['procure_method'] = self.procure_method
         return vals
     
@@ -53,25 +53,33 @@ class procurement_order(models.Model):
         if procurement.rule_id and procurement.rule_id.action == 'moves':
             remaining_qty = procurement.product_qty
             for procure_method in procurement.rule_id.procure_methods:
-                
-                #find remaining quantity for the product in specified location
-                qty_in_stock = 0.0
-                self._context.update({
-                    'states': ['done'],
-                    'what': ('in', 'out'),
-                    'location':procure_method.location_src_id,
-                })
-                avail_product_details = procurement.product_id.get_product_available()
-                if avail_product_details.values():
-                    qty_in_stock = avail_product_details.values()[0]
-                
-                qty_from_stock = min(qty_in_stock,remaining_qty)
-                
-                move_dict = procure_method._run_move_create(procurement, qty_from_stock, qty_from_stock)
-                self.env['stock.move'].sudo().create(move_dict)
-                
-                remaining_qty = remaining_qty - qty_from_stock
+                if remaining_qty > 0:
+                    #find remaining quantity for the product in specified location
+                    if procure_method.procure_method == 'make_to_stock':
+                        qty_in_stock = 0.0
+                        qty_in_stock = procurement.product_id.with_context({'location':procure_method.location_src_id.id})._product_available()[procurement.product_id.id]['virtual_available']
+                        move_qty = min(qty_in_stock,remaining_qty)
+                    elif procure_method.procure_method == 'make_to_order':
+                        move_qty = remaining_qty
+                        
+                    if move_qty <= 0:
+                        continue
+                        
+                    move_dict = procure_method._run_move_create(procurement, move_qty, move_qty)
+                    move_id = self.env['stock.move'].sudo().create(move_dict)
+                    remaining_qty = remaining_qty - move_qty
             return True
         return super(procurement_order, self)._run(procurement)
+    
+    @api.multi
+    def run(self):
+        res = super(procurement_order, self).run()
+        move_to_confirm = []
+        for procurement in self:
+            if procurement.state == "running" and procurement.rule_id and procurement.rule_id.action == "moves":
+                move_to_confirm += [m for m in procurement.move_ids if m.state == 'draft']
+        for m in move_to_confirm:
+            m.action_confirm()
+        return res
     
 procurement_order

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="product_template_form_view_elneo_storage_policy" model="ir.ui.view">
+            <field name="name">product.template.elneo.storage.policy</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+        		<group name="inventory" position="inside">
+					<group name="warehouse_detail" string="Warehouse detail">
+						<field name="warehouse_detail">
+							<form>
+								<group>
+									<field name="warehouse_id"></field>
+									<field name="stock_real"></field>
+									<field name="stock_virtual"></field>
+									<field name="aisle"></field>
+									<field name="storage_policy"></field>
+									<field name="depreciation_policy"></field>
+									<field name="warehouse_description"></field>
+								</group>
+							</form>
+							<tree>
+								<field name="warehouse_id"></field>
+								<field name="stock_real"></field>
+								<field name="stock_virtual"></field>
+								<field name="aisle"></field>
+								<field name="storage_policy"></field>
+								<field name="depreciation_policy"></field>
+								<field name="warehouse_description"></field>
+							</tree>
+						</field>
+						
+					</group>
+				</group>
+        	</field>
+       	</record>
+       	
+	</data>
+</openerp>

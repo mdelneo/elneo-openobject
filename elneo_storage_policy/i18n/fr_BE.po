@@ -1,0 +1,97 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* elneo_storage_policy
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2013-03-07 16:27+0000\n"
+"PO-Revision-Date: 2013-03-07 16:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: elneo_storage_policy
+#: model:ir.model,name:elneo_storage_policy.model_product_product
+msgid "Product"
+msgstr "Produit"
+
+#. module: elneo_storage_policy
+#: constraint:product.product:0
+#: sql_constraint:product.product:0
+msgid "Reference has to be unique. There is an other product with the same reference."
+msgstr "La réference du produit doit être unique. Il y a un autre produit avec la même réference."
+
+#. module: elneo_storage_policy
+#: selection:product.product,depreciation_policy_awans:0
+#: selection:product.product,depreciation_policy_wetteren:0
+#: selection:product.product,storage_policy_awans:0
+#: selection:product.product,storage_policy_wetteren:0
+msgid "Drop"
+msgstr "Abandonné"
+
+#. module: elneo_storage_policy
+#: selection:product.product,storage_policy_awans:0
+#: selection:product.product,storage_policy_wetteren:0
+msgid "Stocked"
+msgstr "Stocké"
+
+#. module: elneo_storage_policy
+#: field:product.product,depreciation_policy_awans:0
+msgid "Depreciation policy Awans"
+msgstr "Politique de dévalorisation à Awans"
+
+#. module: elneo_storage_policy
+#: field:product.product,warehouse_description_wetteren:0
+msgid "Warehouse description Wetteren"
+msgstr "Description magasin Wetteren"
+
+#. module: elneo_storage_policy
+#: selection:product.product,depreciation_policy_awans:0
+#: selection:product.product,depreciation_policy_wetteren:0
+msgid "Not downgraded"
+msgstr "Non dévalorisé"
+
+#. module: elneo_storage_policy
+#: selection:product.product,storage_policy_awans:0
+#: selection:product.product,storage_policy_wetteren:0
+msgid "Not stocked"
+msgstr "Non stocké"
+
+#. module: elneo_storage_policy
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr "Erreur: code EAN invalide"
+
+#. module: elneo_storage_policy
+#: field:product.product,warehouse_description_awans:0
+msgid "Warehouse description Awans"
+msgstr "Description magasin Awans"
+
+#. module: elneo_storage_policy
+#: field:product.product,depreciation_policy_wetteren:0
+msgid "Depreciation policy Wetteren"
+msgstr "Politique de dévalorisation à Wetteren"
+
+#. module: elneo_storage_policy
+#: field:product.product,storage_policy_awans:0
+msgid "Storage Policy Awans"
+msgstr "Politique de stockage à Awans"
+
+#. module: elneo_storage_policy
+#: selection:product.product,depreciation_policy_awans:0
+#: selection:product.product,depreciation_policy_wetteren:0
+#: selection:product.product,storage_policy_awans:0
+#: selection:product.product,storage_policy_wetteren:0
+msgid "Downgraded"
+msgstr "Dévalorisé"
+
+#. module: elneo_storage_policy
+#: field:product.product,storage_policy_wetteren:0
+msgid "Storage Policy Wetteren"
+msgstr "Politique de stockage à Wetteren"
+

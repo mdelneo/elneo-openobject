@@ -8,8 +8,8 @@
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
         		<group name="inventory" position="inside">
-					<group name="warehouse_detail" string="Warehouse detail">
-						<field name="warehouse_detail">
+					<group name="warehouse_detail" string="Warehouse detail" colspan='4'>
+						<field name="warehouse_detail" nolabel='1' colspan='4'>
 							<form>
 								<group>
 									<field name="warehouse_id"></field>

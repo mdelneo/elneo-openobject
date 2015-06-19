@@ -7,6 +7,47 @@ from datetime import datetime, timedelta
 from openerp import models, fields, api
 from openerp.osv.fields import related
 
+class procurement_order(models.Model):
+    _inherit = 'procurement.order'
+    
+    def use_procure_method(self, procurement, procure_method, remaining_qty):
+        res = super(procurement_order, self).use_procure_method(procurement, procure_method, remaining_qty)
+        if not res:
+            return res
+        if procurement.product_id:
+            #find good warehouse detail
+            warehouse_detail = None
+            for detail in procurement.product_id.warehouse_detail:
+                if detail.warehouse_id.id == procurement.rule_id.warehouse_id.id:
+                    warehouse_detail = detail
+            if not warehouse_detail:
+                return res
+            
+            #check storage policy
+            if warehouse_detail.storage_policy in ([policy.name for policy in procure_method.storage_policies]):
+                return True
+            else:
+                return False
+        return res
+         
+             
+    
+procurement_order()
+
+class procurement_rule_procure_method(models.Model):
+    _inherit = 'procurement.rule.procure.method'
+    
+    storage_policies = fields.One2many('procurement.rule.procure.method.storage.policy', 'procure_method_id', string='Storage policies')
+    
+procurement_rule_procure_method()
+
+class procurement_rule_procure_method_storage_policy(models.Model):
+    _name = 'procurement.rule.procure.method.storage.policy'
+    
+    procure_method_id = fields.Many2one('procurement.rule.procure.method', 'Procure method')
+    name = fields.Selection([('stocked', 'Stocked'),('not_stocked','Not stocked'),('downgraded','Downgraded'),('drop','Drop')], string='Storage policy')
+    
+procurement_rule_procure_method_storage_policy()    
 
 class product_warehouse_detail(models.Model):
     _name = 'product.warehouse.detail'

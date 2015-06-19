@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-		
-		<!-- 
-			Product supplier info FORM : 
-				- add brut_price and discount 
-		-->
+
+		<!-- Product supplier info FORM : - add brut_price and discount -->
 		<record id="view_picking_internal_search_elneo_stock" model="ir.ui.view">
 			<field name="name">view.picking.internal.search.elneo.stock</field>
 			<field name="model">stock.picking</field>
@@ -16,23 +13,36 @@
 				</field>
 			</field>
 		</record>
-		
-		
-		
+
+
+
 		<!-- Add auto_validate in procurement rule -->
 		<record model="ir.ui.view" id="view_procurement_rule_form_elneo_stock">
-            <field name="name">view.procurement.rule.form.elneo.stock</field>
-            <field name="model">procurement.rule</field>
-            <field name="inherit_id" ref="stock.view_procurement_rule_form_stock_inherit"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='picking_type_id']" position="after">
-                    <field name="autovalidate_dest_move"/>
-                </xpath>
-            </field>
-        </record>
+			<field name="name">view.procurement.rule.form.elneo.stock</field>
+			<field name="model">procurement.rule</field>
+			<field name="inherit_id" ref="stock.view_procurement_rule_form_stock_inherit" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='picking_type_id']" position="after">
+					<field name="autovalidate_dest_move" />
+				</xpath>
+			</field>
+		</record>
+
 		
-	        
+		<!-- Inherit onchange of product for new API -->
+		<record id="view_order_form_elneo_stock" model="ir.ui.view">
+			<field name="name">view.sale.order.form.elneo.stock</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale_stock.view_order_form_inherit" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='product_id']" position="attributes">
+					<attribute name="on_change">1</attribute>
+				</xpath>
+			</field>
+		</record>
+
+
 	</data>
-	
-	
+
+
 </openerp>

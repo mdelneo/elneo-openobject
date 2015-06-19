@@ -19,6 +19,7 @@ procurement_rule()
 
 class procurement_rule_procure_method(models.Model):
     _name = 'procurement.rule.procure.method'
+    _order = 'sequence'
     
     @api.model
     def _run_move_create(self, procurement, qty, qty_uos):
@@ -27,6 +28,8 @@ class procurement_rule_procure_method(models.Model):
         vals['product_uos_qty'] = qty_uos
         vals['location_id'] = self.location_src_id.id
         vals['procure_method'] = self.procure_method
+        if self.sub_route_id:
+            vals['route_ids'] = [(4,self.sub_route_id.id)]
         return vals
     
     rule_id = fields.Many2one('procurement.rule', 'Rule')
@@ -35,6 +38,8 @@ class procurement_rule_procure_method(models.Model):
     sequence = fields.Integer(string='Sequence', help="First procure method will be applied first.")
     partner_address_id = fields.Many2one('res.partner', 'Partner address')
     delay = fields.Integer('Delay (days)')
+    sub_route_id = fields.Many2one('stock.location.route', 'Sub-route')
+    sub_route_quantity_check_location_id = fields.Many2one('stock.location', 'Location for quantity check')
     
 procurement_rule_procure_method()
 
@@ -47,20 +52,28 @@ stock_move()
 
 class procurement_order(models.Model):
     _inherit = 'procurement.order'
+    
+    def use_procure_method(self, procurement, procure_method, remaining_qty):
+        return remaining_qty > 0
 
     @api.model
     def _run(self, procurement):
         if procurement.rule_id and procurement.rule_id.action == 'moves':
             remaining_qty = procurement.product_qty
             for procure_method in procurement.rule_id.procure_methods:
-                if remaining_qty > 0:
+                if self.use_procure_method(procurement, procure_method, remaining_qty):
                     #find remaining quantity for the product in specified location
                     if procure_method.procure_method == 'make_to_stock':
                         qty_in_stock = 0.0
                         qty_in_stock = procurement.product_id.with_context({'location':procure_method.location_src_id.id})._product_available()[procurement.product_id.id]['virtual_available']
                         move_qty = min(qty_in_stock,remaining_qty)
                     elif procure_method.procure_method == 'make_to_order':
-                        move_qty = remaining_qty
+                        if procure_method.sub_route_quantity_check_location_id:
+                            qty_in_stock = 0.0
+                            qty_in_stock = procurement.product_id.with_context({'location':procure_method.sub_route_quantity_check_location_id.id})._product_available()[procurement.product_id.id]['virtual_available']
+                            move_qty = min(qty_in_stock,remaining_qty)
+                        else:
+                            move_qty = remaining_qty
                         
                     if move_qty <= 0:
                         continue

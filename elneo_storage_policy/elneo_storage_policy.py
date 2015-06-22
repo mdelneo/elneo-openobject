@@ -10,18 +10,21 @@ from openerp.osv.fields import related
 class procurement_order(models.Model):
     _inherit = 'procurement.order'
     
-    def use_procure_method(self, procurement, procure_method, remaining_qty):
-        res = super(procurement_order, self).use_procure_method(procurement, procure_method, remaining_qty)
-        if not res:
-            return res
+    def use_procure_method(self, procurement, procure_method, requested_quantity, qty_in_stock):
+        res = super(procurement_order, self).use_procure_method(procurement, procure_method, requested_quantity, qty_in_stock)
+        
+        if procure_method.use_if_enough_stock and qty_in_stock > requested_quantity:
+            return True
+        
         if procurement.product_id:
             #find good warehouse detail
             warehouse_detail = None
+            
             for detail in procurement.product_id.warehouse_detail:
-                if detail.warehouse_id.id == procurement.rule_id.warehouse_id.id:
+                if detail.warehouse_id.id == procure_method.warehouse_src_id.id:
                     warehouse_detail = detail
             if not warehouse_detail:
-                return res
+                return True
             
             #check storage policy
             if warehouse_detail.storage_policy in ([policy.name for policy in procure_method.storage_policies]):
@@ -46,7 +49,6 @@ class procurement_rule_procure_method_storage_policy(models.Model):
     
     procure_method_id = fields.Many2one('procurement.rule.procure.method', 'Procure method')
     name = fields.Selection([('stocked', 'Stocked'),('not_stocked','Not stocked'),('downgraded','Downgraded'),('drop','Drop')], string='Storage policy')
-    
 procurement_rule_procure_method_storage_policy()    
 
 class product_warehouse_detail(models.Model):

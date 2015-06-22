@@ -14,11 +14,13 @@
                         		<group>
 	                        		<field name="procure_method" />
 		                        	<field name="location_src_id" required="1"  domain="[('usage','!=','view')]" />
+		                        	<field name="warehouse_src_id" />
 			                        <field name="partner_address_id" groups="stock.group_adv_location" context="{'show_address': 1}" options="{'always_reload': 1}"/>
 			                        <label for="delay" string="Delay"  groups="stock.group_adv_location"/>
 			                        <div groups="stock.group_adv_location">
 			                           <field name="delay" class="oe_inline"/>days
 			                        </div>
+			                        <field name="use_if_enough_stock" />
 			                        <field name="sub_route_id" />
 			                        <field name="sub_route_quantity_check_location_id" />
 			                        <field name="sequence" />
@@ -27,8 +29,10 @@
 	                        <tree>
 	                        	<field name="procure_method" />
 	                        	<field name="location_src_id" />
+	                        	<field name="warehouse_src_id" />
 		                        <field name="partner_address_id" groups="stock.group_adv_location" context="{'show_address': 1}" options="{'always_reload': 1}"/>
 		                        <field name="delay" />
+		                        <field name="use_if_enough_stock" />
 		                        <field name="sub_route_id" />
 		                        <field name="sub_route_quantity_check_location_id" />
 		                        <field name="sequence" />

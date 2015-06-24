@@ -33,7 +33,7 @@
 		</record>
 			
 		<record id="action_maintenance_intervention_type" model="ir.actions.act_window">
-			<field name="name">Maintenance intervention type</field>
+			<field name="name">Intervention Type</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">maintenance.intervention.type</field>
 			<field name="view_type">form</field>
@@ -41,7 +41,7 @@
 		</record>
 		
 		<menuitem action="action_maintenance_intervention_type" id="menu_maintenance_intervention_type"
-			parent="menu_maintenance_config" />
+			parent="menu_maintenance_config" sequence="5"/>
 
 		<!-- MAINTENANCE ELEMENTS -->
 		<record id="search_maintenance_element" model="ir.ui.view">
@@ -74,7 +74,7 @@
 
 
 		<record id="action_maintenance_element" model="ir.actions.act_window">
-			<field name="name">Maintenance elements</field>
+			<field name="name">Elements</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">maintenance.element</field>
 			<field name="view_type">form</field>
@@ -82,7 +82,8 @@
 			<field name="help">All maintenance elements</field>
 		</record>
 		<menuitem action="action_maintenance_element" id="menu_maintenance_element"
-			parent="menu_maintenance_maintenance" />
+			parent="menu_maintenance_maintenance" sequence="20"/>
+			
 		<record id="view_maintenance_element_tree" model="ir.ui.view">
 			<field name="name">maintenance.element.tree</field>
 			<field name="model">maintenance.element</field>
@@ -168,7 +169,7 @@
 		</record>
 
 		<record id="action_maintenance_installation" model="ir.actions.act_window">
-			<field name="name">Maintenance installations</field>
+			<field name="name">Installations</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">maintenance.installation</field>
 			<field name="view_type">form</field>
@@ -177,7 +178,8 @@
 		</record>
 
 		<menuitem action="action_maintenance_installation" id="menu_maintenance_installation"
-			parent="menu_maintenance_maintenance" />
+			parent="menu_maintenance_maintenance" sequence="15"/>
+			
 		<record id="view_maintenance_installation_tree" model="ir.ui.view">
 			<field name="name">maintenance.installation.tree</field>
 			<field name="model">maintenance.installation</field>
@@ -197,7 +199,12 @@
 			<field name="model">maintenance.installation</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="Maintenance installation">
+				<form string="Installation">
+					<header>
+						<button name="installation_active" string="Activate" type="object" states="inactive" groups="maintenance.group_maintenance_manager" class="oe_highlight"/>
+						<button name="installation_inactive" string="Deactivate" type="object" states="active" groups="maintenance.group_maintenance_manager" class="oe_highlight"/>
+						<field name="state" widget="statusbar" statusbar_visible="active,inactive"/>
+					</header>
 					<sheet>
 						<h1>
 	                        <label string="Installation "/>
@@ -273,11 +280,6 @@
 							<field name="interventions" nolabel='1' colspan="4" />
 						</page>
 					</notebook>
-					<group name="transitions" colspan="4" col="4">
-						<button name="installation_active" states="inactive" string="Activate" colspan="2" icon="gtk-apply" />
-						<button name="installation_inactive" states="active" string="Deactivate" colspan="2" icon="gtk-cancel" />
-					</group>
-					<field name="state" colspan="2" />
 					</sheet>
 					<div class="oe_chatter">
 	                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
@@ -294,7 +296,7 @@
             <field name="model">maintenance.intervention</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
-                <search string="Maintenance intervention">
+                <search string="Interventions">
                     <group col="8" colspan="4">
 
                         <field name="code" />
@@ -327,7 +329,7 @@
         </record>
 
 		<record id="action_maintenance_intervention" model="ir.actions.act_window">
-			<field name="name">Maintenance interventions</field>
+			<field name="name">Interventions</field>
 			<field name="search_view_id" ref="view_maintenance_intervention_search" />
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">maintenance.intervention</field>
@@ -339,10 +341,7 @@
 		</record>
 
 		<menuitem action="action_maintenance_intervention" id="menu_maintenance_intervention"
-			parent="menu_maintenance_maintenance" />
-			
-		
-		
+			parent="menu_maintenance_maintenance" sequence="5"/>
 
 		<record id="view_maintenance_intervention_tree" model="ir.ui.view">
 			<field name="name">maintenance.intervention.tree</field>
@@ -368,7 +367,7 @@
 			<field name="model">maintenance.intervention</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="Maintenance intervention">
+				<form string="Intervention">
 					<header>
 						<button name="action_cancel" type="object" string="Cancel" states="draft,confirmed" groups="maintenance.group_maintenance_manager" colspan="2" />
 						<button name="action_confirm" type="object" string="Confirm" states="draft" groups="maintenance.group_maintenance_manager" class="oe_highlight" colspan="2" />
@@ -393,6 +392,10 @@
 								<field name="partner_id" invisible="True" />
 								<field name="contact_address_id"/>
 							</group>
+							<group>
+									<separator string="Description" colspan="2"/>
+									<field name="name" nolabel="1"/>
+								</group>
 						</group>
 						<notebook colspan="4">
 							<page string="Achievement">
@@ -430,10 +433,6 @@
 								<group colspan="2" col="2">
 									<separator string="Internal comment" colspan="2"/>
 									<field name="int_comment" colspan="2" nolabel="1"/>
-								</group>
-								<group colspan="2" col="2">
-									<separator string="Description" colspan="2"/>
-									<field name="name" nolabel="1"/>
 								</group>
 							</page>
 						</notebook>

@@ -18,6 +18,15 @@ class maintenance_installation(models.Model):
     _order = 'name'
     _inherit=['mail.thread']
     
+    @api.multi
+    def _get_last_interventions(self):
+        res = {}
+        
+        for installation in self:
+            installation.last_interventions = self.env['maintenance.intervention'].search([("installation_id",'=',installation.id),("state","=","done")], limit=2, order='date_start desc').mapped('id')
+            
+        return res
+    
     code = fields.Char("Code", size=255, select=True,help="The Maintenance Installation Code",default=lambda obj: obj.env['ir.sequence'].get('maintenance.installation'))
     name = fields.Char("Identification", size=255)
     partner_id = fields.Many2one('res.partner', string='Customer',help="The partner linked to this maintenance installation")
@@ -26,19 +35,22 @@ class maintenance_installation(models.Model):
     contact_address_id = fields.Many2one('res.partner', string='Contact address', domain=[('type','=','contact')],help="The contact for this installation")
     elements = fields.One2many('maintenance.element', 'installation_id', "Elements",help="The elements contained in this installation")
     interventions = fields.One2many('maintenance.intervention', 'installation_id', "Interventions", help="The interventions linked to this installation")
+    last_interventions = fields.One2many(compute=_get_last_interventions, string="Last interventions", comodel_name="maintenance.intervention", method=True)
     #usability_degree = fields.Char(string="Usability degree", size=255, ), 
     warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse',help="The Warehouse linked to this Installation")
     #active = fields.Boolean("Active",help="If this installation is active or not") 
     state = fields.Selection([('active', 'Active'), ('inactive','Inactive')], string="State", readonly=True,help="The installation can take two states<br/> -active <br/> -inactive")
     
-    @api.one
+    @api.multi
     def installation_active(self):
-        self.state = 'active'
+        for installation in self:
+            installation.state = 'active'
         return True
     
-    
+    @api.multi
     def installation_inactive(self):
-        self.state = 'inactive'
+        for installation in self:
+            installation.state = 'inactive'
         return True
     
     @api.model
@@ -121,7 +133,7 @@ class maintenance_intervention(models.Model):
     def copy(self,default=None):
         new_id = super(maintenance_intervention, self).copy(default)
         new_code = self.env['ir.sequence'].get('maintenance.intervention')
-        self.write([new_id], {'code':new_code})
+        new_id.code = new_code
         return new_id
     
     def name_get(self, cr, uid, ids, context=None):

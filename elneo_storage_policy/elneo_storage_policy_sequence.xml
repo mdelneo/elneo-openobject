@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Sequences for barcode -->
+        <record id="seq_type_product_barcode" model="ir.sequence.type">
+            <field name="name">Product barcode</field>
+            <field name="code">product.barcode</field>
+        </record>
+
+        <record id="seq_product_barcode" model="ir.sequence">
+            <field name="name">Product barcode</field>
+            <field name="code">product.barcode</field>
+            <field name="prefix"></field>
+            <field name="padding">7</field>
+        </record>
+
+    </data>
+</openerp>

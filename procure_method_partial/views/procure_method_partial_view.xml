@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Add procure_methods -->
+		<record model="ir.ui.view" id="view_procurement_rule_form_procure_partial">
+            <field name="name">view.procurement.rule.form.procure.partial</field>
+            <field name="model">procurement.rule</field>
+            <field name="inherit_id" ref="procurement.view_procurement_rule_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='propagation_group']" position="before">
+                    <group attrs="{'invisible': [('action', '!=', 'moves')]}" string="Moving Options" colspan="4">
+                        <field name="procure_methods" groups="stock.group_adv_location" nolabel="1" colspan="4">
+                        	<form string="Procure Methods">
+                        		<group>
+	                        		<field name="procure_method" />
+		                        	<field name="location_src_id" required="1"  domain="[('usage','!=','view')]" />
+		                        	<field name="warehouse_src_id" />
+			                        <field name="partner_address_id" groups="stock.group_adv_location" context="{'show_address': 1}" options="{'always_reload': 1}"/>
+			                        <label for="delay" string="Delay"  groups="stock.group_adv_location"/>
+			                        <div groups="stock.group_adv_location">
+			                           <field name="delay" class="oe_inline"/>days
+			                        </div>
+			                        <field name="use_if_enough_stock" />
+			                        <field name="sub_route_id" />
+			                        <field name="sub_route_quantity_check_location_id" />
+			                        <field name="sequence" />
+		                        </group>
+	                        </form>
+	                        <tree>
+	                        	<field name="procure_method" />
+	                        	<field name="location_src_id" />
+	                        	<field name="warehouse_src_id" />
+		                        <field name="partner_address_id" groups="stock.group_adv_location" context="{'show_address': 1}" options="{'always_reload': 1}"/>
+		                        <field name="delay" />
+		                        <field name="use_if_enough_stock" />
+		                        <field name="sub_route_id" />
+		                        <field name="sub_route_quantity_check_location_id" />
+		                        <field name="sequence" />
+	                        </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+		
+	</data>
+</openerp>

@@ -7,7 +7,7 @@
     'description': "Adapt stock flows to elneo specifics",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['stock','purchase'],
+    'depends': ['stock','purchase', 'sale_margin'],
     "data" : ['views/elneo_stock_view.xml'],
     'installable': True,
     'auto_install': False,

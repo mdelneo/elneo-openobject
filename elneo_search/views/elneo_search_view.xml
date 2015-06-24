@@ -8,6 +8,7 @@
            <field name="arch" type="xml">
 				<field name="name" position="before">
                		<field name="search_field_layout" />
+               		<field name="search_default_code_layout" />
                	</field>
           	</field>
        </record>
@@ -19,6 +20,7 @@
            <field name="arch" type="xml">
 				<field name="name" position="before">
                		<field name="search_field_layout" />
+               		<field name="search_default_code_layout" />
                	</field>
           	</field>
        </record>

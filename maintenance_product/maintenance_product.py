@@ -396,11 +396,17 @@ class maintenance_intervention(models.Model):
                         move_qty = products_of_moves.filtered(lambda r:r.intervention_product_id.id==intervention_product.id).product_qty
                         interv_qty = intervention_product.quantity
                         if move_qty != interv_qty:
-                            products_of_moves.filtered(lambda r:r.intervention_product_id.id==intervention_product.id).sudo().write({'product_qty':interv_qty, 'product_uos_qty':interv_qty})
+                            ''' FRAMEWORK ERROR IN stock.move.write() (in stock module) : DONT TEST SUPERUSER_ID TO BYPASS product changes'''
+                            intervention_moves_done = products_of_moves.filtered(lambda r:r.intervention_product_id.id==intervention_product.id).filtered(lambda r:r.state=='done')
+                            if self.env.context.get('intervention_force_done',False) and intervention_moves_done:
+                                intervention_moves_done.state='assigned'
+                            products_of_moves.filtered(lambda r:r.intervention_product_id.id==intervention_product.id).sudo().write({'product_uom_qty':interv_qty, 'product_uos_qty':interv_qty})
+                            intervention_moves_done.state='done'
+                            ''' END OF MODIFICATION '''
                             original_qty = 0
                             if intervention_product and intervention_product.sale_order_line_id:
                                 original_qty = intervention_product.sale_order_line_id.product_uom_qty
-                            diff_qty.append((products_of_moves.filtered(lambda r:r.intervention_product_id.id==intervention_product.id), interv_qty-original_qty, products_of_moves[intervention_product.id].sale_line_id.id))    
+                            diff_qty.append((products_of_moves.filtered(lambda r:r.intervention_product_id.id==intervention_product.id), interv_qty-original_qty, products_of_moves.filtered(lambda r:r.intervention_product_id.id==intervention_product.id).procurement_id.sale_line_id.id))    
                         
             
                         

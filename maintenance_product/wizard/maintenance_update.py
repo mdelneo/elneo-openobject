@@ -67,7 +67,7 @@ class maintenance_update_invoice(models.TransientModel):
         maintenance_intervention_pool = self.env['maintenance.intervention']
         
         interventions = maintenance_intervention_pool.browse(self.env.context.get('active_id',False))
-        interventions.with_context(intervention_force_done=True).action_done()
+        interventions.sudo().with_context(intervention_force_done=True).action_done()
             
         return {'type': 'ir.actions.act_window_close'} 
 

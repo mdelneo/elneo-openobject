@@ -28,8 +28,6 @@
 			            	<div t-if="user.lang=='nl_BE'"><span>Elneo (Technofluid NV)</span></div>
 			            	<div t-field="company.partner_id.street"/>
 			            	<div><span t-field="company.partner_id.zip"/> <span t-field="company.partner_id.city"/></div>
-			                <!--  <div t-field="company.partner_id" 
-			                    t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>-->
 			            </div>
 			            <div class="col-xs-3">
 			            	<div>Tel : <span t-field="company.partner_id.phone"/></div>

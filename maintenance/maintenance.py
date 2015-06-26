@@ -292,6 +292,7 @@ class maintenance_element(models.Model):
         return result
     
     #add search on code
+    @api.model
     def name_search(self,name='', args=None, operator='ilike', limit=100):
         res = super(maintenance_element, self).name_search(name, args, operator, limit)
         if res:

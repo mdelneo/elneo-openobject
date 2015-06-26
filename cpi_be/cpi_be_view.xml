@@ -80,8 +80,14 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Update">
-					<button string="Update" type="object" name="action_update" />
-					<button string="Cancel" special="cancel" />
+					<p class="oe_grey">
+                        Through clicking on update, you will check the CPI on the Belgian Government website
+                        and get it back on database.
+                    </p>
+                    <footer>
+						<button string="Update" type="object" name="action_update" help="Get CPI data from Belgian Government"/>
+						<button string="Cancel" special="cancel" />
+					</footer>
 				</form>
 			</field>
 		</record>

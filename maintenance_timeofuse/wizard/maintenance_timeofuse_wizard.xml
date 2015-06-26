@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_maintenance_timeofuse_intervention_confirm_wizard" model="ir.ui.view">
+			<field name="name">Maintenance intervention confirm wizard</field>
+			<field name="model">maintenance.timeofuse.intervention.confirm.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Confirm">
+					<separator
+						string="You have not filled time counter(s) ! Continue ?" />
+					<footer>
+						<button special="cancel" string="Fill time counter" class="oe_highlight"/>
+						<button name="confirm" string="Confirm intervention without fill time counter" type="object"  />
+					</footer>
+				</form>
+			</field>
+		</record>
+	</data>
+</openerp>

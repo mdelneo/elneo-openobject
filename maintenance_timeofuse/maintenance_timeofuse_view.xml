@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_maintenance_intervention_form_timeofuse_inherit" model="ir.ui.view">
+			<field name="name">view.maintenance.intervention.form.timeofuse.inherit</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="maintenance_product.view_maintenance_intervention_maintenance_product_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/sheet/notebook" position="inside">
+					<page string="Hour counters">
+						<field name="intervention_timeofuse" nolabel="1">
+							<tree string="Hour counters">
+								<field name="maintenance_element_id" />
+								<field name="time_of_use" />								
+							</tree>
+							<form>
+								<group>
+									<field name="maintenance_element_id"/>
+									<field name="time_of_use" />
+								</group>								
+							</form>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+		
+		<record id="view_maintenance_element_form_timeofuse_inherit" model="ir.ui.view">
+			<field name="name">view.maintenance.element.form.timeofuse.inherit</field>
+			<field name="model">maintenance.element</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_element_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//form/sheet/group/group/field[@name='installation_id']"
+					position="before">
+					<field name="timeofuse_required" />
+					<field name="time_of_use" />
+				</xpath>
+				<xpath expr="//form/sheet/group/field[@name='partner_id']/.." position="after">
+					<separator string="Time of use history"/>
+					<group>
+						<field name="timeofuse_history" nolabel="1">
+							
+							<tree>
+								<field name="date" />
+								<field name="time_of_use" />
+								<field name="intervention_id" />
+							</tree>
+ 
+							<form>
+								<field name="date" />
+								<field name="time_of_use" />
+								<field name="intervention_id" />
+							</form>
+
+						</field>
+					</group>
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- 
+		<record id="view_maintenance_installation_form_timeofuse_inherit" model="ir.ui.view">
+			<field name="name">view.maintenance.installation.form.timeofuse.inherit</field>
+			<field name="model">maintenance.installation</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_installation_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/sheet/group/group/field[@name='partner_id']"
+					position="before">
+					<field name="timeofuse_required" />
+				</xpath>
+			</field>
+		</record>
+		 -->
+	</data>
+</openerp>

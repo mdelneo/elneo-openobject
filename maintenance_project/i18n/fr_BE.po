@@ -1,0 +1,286 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* maintenance_project
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-30 10:10+0000\n"
+"PO-Revision-Date: 2015-06-30 12:17+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: maintenance_project
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "Activate"
+msgstr "Activer"
+
+#. module: maintenance_project
+#: view:maintenance.project:maintenance_project.view_maintenance_project_account_search
+msgid "Active"
+msgstr "Actif"
+
+#. module: maintenance_project
+#: field:maintenance.element,expected_time_of_use:0
+msgid "Annual expected hour of use"
+msgstr "Heures d'utilisation prévues"
+
+#. module: maintenance_project
+#: view:maintenance.element:maintenance_project.view_maintenance_element_search_inherit
+msgid "Assets purchased in current month"
+msgstr "Biens achetés dans le mois en cours"
+
+#. module: maintenance_project
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "Budget"
+msgstr "Budget"
+
+#. module: maintenance_project
+#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
+msgid "Budget Rules"
+msgstr "Règles de budget"
+
+#. module: maintenance_project
+#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_budget_line_type
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_budget_line_type
+msgid "Budget line type"
+msgstr "Type de ligne de budget"
+
+#. module: maintenance_project
+#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
+msgid "Budget rules"
+msgstr "règles de Budget"
+
+#. module: maintenance_project
+#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "Create/update sale"
+msgstr "Créer/mettre à jour la vente"
+
+#. module: maintenance_project
+#: field:maintenance.project,create_uid:0
+#: field:maintenance.project.budget.line,create_uid:0
+#: field:maintenance.project.budget.line.type,create_uid:0
+#: field:maintenance.project.budget.rule,create_uid:0
+#: field:maintenance.project.delay,create_uid:0
+#: field:maintenance.project.type,create_uid:0
+#: field:maintenance.project.type.line,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: maintenance_project
+#: field:maintenance.project,create_date:0
+#: field:maintenance.project.budget.line,create_date:0
+#: field:maintenance.project.budget.line.type,create_date:0
+#: field:maintenance.project.budget.rule,create_date:0
+#: field:maintenance.project.delay,create_date:0
+#: field:maintenance.project.type,create_date:0
+#: field:maintenance.project.type.line,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: maintenance_project
+#: view:maintenance.project:maintenance_project.view_maintenance_project_account_search
+msgid "Current Accounts"
+msgstr "Current Accounts"
+
+#. module: maintenance_project
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "Disable"
+msgstr "Désactiver"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_installation
+#: model:ir.model,name:maintenance_project.model_maintenance_intervention
+msgid "Email Thread"
+msgstr "Discussion par courriel"
+
+#. module: maintenance_project
+#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "General"
+msgstr "Général"
+
+#. module: maintenance_project
+#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "History"
+msgstr "Historique"
+
+#. module: maintenance_project
+#: field:maintenance.project,id:0 field:maintenance.project.budget.line,id:0
+#: field:maintenance.project.budget.line.type,id:0
+#: field:maintenance.project.budget.rule,id:0
+#: field:maintenance.project.delay,id:0 field:maintenance.project.type,id:0
+#: field:maintenance.project.type.line,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Ligne de facture"
+
+#. module: maintenance_project
+#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
+msgid "Invoiced Categories"
+msgstr "Catégories facturées"
+
+#. module: maintenance_project
+#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
+msgid "Invoiced categories"
+msgstr "Catégories facturées"
+
+#. module: maintenance_project
+#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "Invoices"
+msgstr "Factures"
+
+#. module: maintenance_project
+#: field:maintenance.project,write_uid:0
+#: field:maintenance.project.budget.line,write_uid:0
+#: field:maintenance.project.budget.line.type,write_uid:0
+#: field:maintenance.project.budget.rule,write_uid:0
+#: field:maintenance.project.delay,write_uid:0
+#: field:maintenance.project.type,write_uid:0
+#: field:maintenance.project.type.line,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: maintenance_project
+#: field:maintenance.project,write_date:0
+#: field:maintenance.project.budget.line,write_date:0
+#: field:maintenance.project.budget.line.type,write_date:0
+#: field:maintenance.project.budget.rule,write_date:0
+#: field:maintenance.project.delay,write_date:0
+#: field:maintenance.project.type,write_date:0
+#: field:maintenance.project.type.line,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: maintenance_project
+#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "Maintenance elements"
+msgstr "Éléments de maintenance"
+
+#. module: maintenance_project
+#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project
+#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
+#: field:maintenance.intervention,maintenance_project_id:0
+#: view:maintenance.project:maintenance_project.view_maintenance_project_account_search
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+#: view:maintenance.project:maintenance_project.view_maintenance_project_tree
+msgid "Maintenance project"
+msgstr "Projet de maintenance"
+
+#. module: maintenance_project
+#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_delay
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_delay
+#: view:maintenance.project.delay:maintenance_project.view_maintenance_project_delay_form
+#: view:maintenance.project.delay:maintenance_project.view_maintenance_project_delay_tree
+msgid "Maintenance project delay"
+msgstr "Délais d'intervention"
+
+#. module: maintenance_project
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+#: view:maintenance.project.budget.line:maintenance_project.view_maintenance_project_budget_line_form
+#: view:maintenance.project.budget.line.type:maintenance_project.view_maintenance_project_budget_line_type_form
+msgid "Maintenance project line"
+msgstr "Ligne de projet de maintenance"
+
+#. module: maintenance_project
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+#: view:maintenance.project.budget.line:maintenance_project.view_maintenance_project_budget_line_tree
+#: view:maintenance.project.budget.line.type:maintenance_project.view_maintenance_project_budget_line_type_tree
+msgid "Maintenance project lines"
+msgstr "Lignes de projet de maintenance"
+
+#. module: maintenance_project
+#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_type
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_type
+#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
+#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_tree
+msgid "Maintenance project type"
+msgstr "Type de projet de maintenance"
+
+#. module: maintenance_project
+#: field:maintenance.element,maintenance_projects:0
+#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
+msgid "Maintenance projects"
+msgstr "Projets de maintenance"
+
+#. module: maintenance_project
+#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "Notes"
+msgstr "Notes"
+
+#. module: maintenance_project
+#: code:addons/maintenance_project/maintenance_project.py:124
+#, python-format
+msgid "Please disable maintenance project %s before delete it."
+msgstr "Veuillez désactiver le projet de maintenance %s avant de le supprimer"
+
+#. module: maintenance_project
+#: field:maintenance.intervention,maintenance_project_type:0
+msgid "Project type"
+msgstr "Type de projet"
+
+#. module: maintenance_project
+#: field:maintenance.installation,maintenance_projects:0
+msgid "Projects"
+msgstr "Projets"
+
+#. module: maintenance_project
+#: code:addons/maintenance_project/maintenance_project.py:223
+#, python-format
+msgid "Sale order is already confirmed."
+msgstr "La vente est déjà confirmée"
+
+#. module: maintenance_project
+#: field:maintenance.intervention,date_scheduled:0
+msgid "Scheduled date"
+msgstr "Date prévue"
+
+#. module: maintenance_project
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "Set to Draft"
+msgstr "Mettre en Brouillon"
+
+#. module: maintenance_project
+#: code:addons/maintenance_project/maintenance_project.py:183
+#, python-format
+msgid "Several maintenance projects are enable during the same period"
+msgstr "Plusieurs projets de maintenance sont actifs durant la même période"
+
+#. module: maintenance_project
+#: view:maintenance.project:maintenance_project.view_maintenance_project_tree
+msgid "Status"
+msgstr "Statut"
+
+#. module: maintenance_project
+#: view:maintenance.element:maintenance_project.view_maintenance_element_search_inherit
+#: field:maintenance.element,with_project:0
+msgid "Under contract"
+msgstr "Sous contrat"
+
+#. module: maintenance_project
+#: code:addons/maintenance_project/maintenance_project.py:124
+#, python-format
+msgid "UserError"
+msgstr "Erreur utilisateur"

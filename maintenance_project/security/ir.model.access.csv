@@ -1,0 +1,8 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_maint_project_maintenance_user","maintenance.project","model_maintenance_project","maintenance.group_maintenance_user",1,1,1,1
+"access_maint_project_delay_maintenance_user","maintenance.project.delay","model_maintenance_project_delay","maintenance.group_maintenance_user",1,1,1,1
+"access_maint_project_type_maintenance_user","maintenance.project.type","model_maintenance_project_type","maintenance.group_maintenance_user",1,1,1,1
+"access_maint_project_type_line_maintenance_user","maintenance.project.type.line","model_maintenance_project_type_line","maintenance.group_maintenance_user",1,1,1,1
+"access_maint_project_budget_line_maintenance_user","maintenance.project.budget.line","model_maintenance_project_budget_line","maintenance.group_maintenance_user",1,1,1,1
+"access_maint_project_budget_line_type_maintenance_user","maintenance.project.budget.line.type","model_maintenance_project_budget_line_type","maintenance.group_maintenance_user",1,1,1,1
+"access_maint_project_budget_rule_maintenance_user","maintenance.project.budget.rule","model_maintenance_project_budget_rule","maintenance.group_maintenance_user",1,1,1,1

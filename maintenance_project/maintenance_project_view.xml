@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Maintenance intervention inheritance -->
+		<record id="view_maintenance_intervention_form_maintenance_project_inherit" model="ir.ui.view">
+			<field name="name">maintenance.intervention.form.maintenance.project.inherit</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="maintenance_product.view_maintenance_intervention_maintenance_product_form" />
+			<field name="arch" type="xml">
+				<field name="sale_order_id" position="after">
+					<field name="maintenance_project_id" invisible="True" />
+					<field name="maintenance_project_type" />
+				</field>
+				<field name="time_planned" position="after">
+					<field name="date_scheduled" />
+				</field>
+			</field>
+		</record>
+		
+		<record id="view_maintenance_intervention_tree_maintenance_project_inherit" model="ir.ui.view">
+			<field name="name">maintenance.intervention.tree.maintenance.project.inherit</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="maintenance_product.view_maintenance_intervention_maintenance_product_tree" />
+			<field name="arch" type="xml">
+				<field name="date_start" position="after">
+					<field name="date_scheduled" />
+				</field>
+			</field>
+		</record>
+		
+		
+		
+		<!-- Maintenance element inheritance -->
+		<record
+			id="view_maintenance_element_form_maintenance_project_inherit"
+			model="ir.ui.view">
+			<field name="name">maintenance.element.form.maintenance.project.inherit</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_element_form" />
+			<field name="model">maintenance.element</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="warranty_date" position="after">
+					<field name="expected_time_of_use" />
+					<field name="time_of_use" />
+				</field>
+			</field>
+		</record>
+		
+		<record
+			id="view_maintenance_element_form_maintenance_project_inherit"
+			model="ir.ui.view">
+			<field name="name">maintenance.element.form.maintenance.project.inherit</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_element_form" />
+			<field name="model">maintenance.element</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="warranty_date" position="after">
+					<field name="expected_time_of_use" />
+					<field name="time_of_use" />
+				</field>
+			</field>
+		</record>
+		
+		
+		<record id="view_maintenance_element_search_inherit" model="ir.ui.view">
+            <field name="name">maintenance.element.search.inherit</field>
+            <field name="model">maintenance.element</field>
+            <field name="inherit_id" ref="maintenance.search_maintenance_element" />
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+	            <field name="code" position="before">
+	                <filter string="Under contract" name="with_project"
+	                        domain="[('with_project','=',True)]"
+	                        help="Assets purchased in current month"/>
+	                <!-- TO MOVE IN MAINTENANCE MODEL MODULE...
+	                <filter string="Without model" icon="terp-go-month" name="without_model"
+	                        domain="[('element_model_id','=',False)]"
+	                        help="Assets purchased in current month"/>
+	                 -->
+	            </field>
+            </field>
+        </record>
+	
+		<!-- Maintenance installation inheritance -->
+		<record
+			id="view_maintenance_installation_form_maintenance_project_inherit"
+			model="ir.ui.view">
+			<field name="name">maintenance.installation.form.maintenance.project</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_installation_form" />
+			<field name="model">maintenance.installation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//form/sheet/notebook//page/field/tree/field[@name='warranty_date']" position="after">
+					<field name="expected_time_of_use" />
+					<field name="time_of_use" />
+				</xpath>
+				
+				<xpath expr="//form/sheet/notebook//page/field/form/group/group/field[@name='warranty_date']" position="after">
+					<field name="expected_time_of_use" />
+					<field name="time_of_use" />
+				</xpath>
+				
+				<notebook colspan="4" position="inside">
+					<page string="Maintenance projects">
+						<field name="maintenance_projects" nolabel="1">
+							<tree string="Maintenance projects">
+								<field name="code" />
+								<field name="project_type_id" />
+								<field name="date_start" />
+								<field name="date_end" />
+								<field name="enable" />
+							</tree>
+							<form string="Maintenance project">
+								<field name="code" />
+								<field name="project_type_id" widget="selection" />
+								<field name="intervention_delay_id" widget="selection" />
+								<field name="date_start" />
+								<field name="date_end" />
+								<notebook colspan="4">
+									<page string="General">
+										<separator string="Maintenance elements" colspan="4" />
+										<field name="maintenance_elements" nolabel="1" colspan="4" domain="[('installation_id','=',installation_id)]">
+											<tree string="Maintenance elements">
+												<field name="code" />
+												<field name="name" />
+												<field name="serial_number" />
+												<field name="installation_date" />
+												<field name="warranty_date" />
+											</tree>
+										</field>
+										
+										<group colspan="2" col="2">
+											<separator string="Notes" colspan="2" />
+											<field name="note" nolabel="1" colspan="2" />
+										</group>
+									</page>
+									<page string="Invoices">
+										<field name="invoices" nolabel="1" colspan="4"  context="{'form_view_ref':'account.invoice_form'}" />
+										<separator colspan="4" />
+										<field name="sale_order_id" />
+									</page>
+									<page string="History">
+										<field name="interventions" nolabel="1" colspan="4" />
+									</page>
+								</notebook>
+								<button name="action_create_update_sale_order" type='object'
+									string='Create/update sale' icon="gtk-execute"
+									colspan="2" />
+								<field name="enable" />					
+							</form>
+						</field>
+					</page>
+				</notebook>
+			</field>
+		</record>
+		
+	
+	
+		<!-- Project type -->
+		
+		<record id="view_maintenance_project_type_tree" model="ir.ui.view">
+			<field name="name">maintenance.project.type.tree</field>
+			<field name="model">maintenance.project.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Maintenance project type">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+			
+		<record id="view_maintenance_project_type_form" model="ir.ui.view">
+			<field name="name">maintenance.project.type.form</field>
+			<field name="model">maintenance.project.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Maintenance project type">
+					<group>
+						<field name="name" />
+						<field name="product_id" />
+					</group>
+					<separator string="Budget Rules"/>
+					<field name="budget_rules">
+						<form string="Budget rules">
+							<group>
+								<field name="intervention_type_id" />
+								<field name="budget_line_type_id" />
+								<field name="included" />
+							</group>
+						</form>
+						<tree string="Budget rules">
+							<field name="intervention_type_id" />
+							<field name="budget_line_type_id" />
+							<field name="included" />
+						</tree>
+					</field>
+					<separator string="Invoiced Categories"/>
+					<field name="project_type_lines" colspan="4">
+						<form string="Invoiced categories">
+							<group>
+								<field name="product_category_id" />
+								<field name="intervention_type_id" />
+								<field name="invoiced_percent" />
+							</group>
+						</form>
+						<tree>
+							<field name="product_category_id" />
+							<field name="intervention_type_id" />
+							<field name="invoiced_percent" />
+						</tree>
+					</field>
+				</form>
+			</field>
+		</record>
+			
+		<record id="action_maintenance_project_type" model="ir.actions.act_window">
+			<field name="name">Maintenance project type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.project.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem action="action_maintenance_project_type" id="menu_maintenance_project_type"
+			parent="maintenance.menu_maintenance_config" sequence="10" />
+			
+			
+		<!-- Project delay -->
+		<record id="view_maintenance_project_delay_tree" model="ir.ui.view">
+			<field name="name">maintenance.project.delay.tree</field>
+			<field name="model">maintenance.project.delay</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Maintenance project delay">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+			
+		<record id="view_maintenance_project_delay_form" model="ir.ui.view">
+			<field name="name">maintenance.project.delay.form</field>
+			<field name="model">maintenance.project.delay</field>
+			<field name="delay">form</field>
+			<field name="arch" type="xml">
+				<form string="Maintenance project delay">
+					<group>
+						<field name="name" />
+					</group>
+				</form>
+			</field>
+		</record>
+			
+		<record id="action_maintenance_project_delay" model="ir.actions.act_window">
+			<field name="name">Maintenance project delay</field>
+			<field name="delay">ir.actions.act_window</field>
+			<field name="res_model">maintenance.project.delay</field>
+			<field name="view_delay">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem action="action_maintenance_project_delay" id="menu_maintenance_project_delay"
+			parent="maintenance.menu_maintenance_config" sequence="10" />
+			
+			
+		<!-- Project -->
+		<record id="view_maintenance_project_account_search" model="ir.ui.view">
+            <field name="name">maintenance.project.search</field>
+            <field name="model">maintenance.project</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Maintenance project">
+                    <group col="8" colspan="4">
+                        <!-- <filter icon="terp-camera_test" name="enable" string="Enable" domain="['|',('enable','=',True),('sale_order_id','=',False)]" help="Current Accounts"/>-->
+                        <filter name="state" string="Active" domain="[('state','=','active')]" help="Current Projects"/>
+                        <separator orientation="vertical"/>
+                        <field name="code" />
+                        <field name="installation_id" />
+                        <field name="project_type_id" widget="selection" />
+                        <field name="warehouse_id" widget="selection" />
+                    </group>
+                </search>
+            </field>
+        </record>
+		
+		
+		
+		<record id="view_maintenance_project_tree" model="ir.ui.view">
+			<field name="name">maintenance.project.tree</field>
+			<field name="model">maintenance.project</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Maintenance project">
+					<field name="code" />
+					<field name="installation_id" />
+					<field name="project_type_id" />
+					<field name="sale_order_id" />
+					<field name="date_start" />
+					<field name="date_end" />
+					<field name="enable" />
+					<field name="state" sum="Status" />
+				</tree>
+			</field>
+		</record>
+			
+		<record id="view_maintenance_project_form" model="ir.ui.view">
+			<field name="name">maintenance.project.form</field>
+			<field name="model">maintenance.project</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Maintenance project">
+					<header>
+						<button name="draft" string="Set to Draft" states="disabled" class="oe_highlight"/>
+						<button name="active" string="Activate" states="draft" class="oe_highlight"/>
+						<button name="disabled" string="Disable" states="active"/>
+						<button name="action_create_update_sale_order" type='object' string='Create/update sale'/>
+                    	<field name="state" widget="statusbar" statusbar_visible="draft,active,disabled"/>
+                	</header>
+                	<group>
+                		<group>
+							<field name="code" />
+							<field name="installation_id" />
+							<field name="project_type_id" widget="selection" />
+							<field name="intervention_delay_id" widget="selection" />
+						</group>
+						<group>
+							<field name="date_start" />
+							<field name="date_end" />
+						</group>
+					</group>
+					<notebook colspan="4">
+						<page string="General">
+							<separator string="Maintenance elements" colspan="4" />
+							<field name="maintenance_elements" nolabel="1" domain="[('installation_id','=',installation_id)]">
+								<tree string="Maintenance elements">
+									<field name="code" />
+									<field name="name" />
+									<field name="expected_time_of_use" />
+									<field name="serial_number" />
+									<field name="installation_date" />
+									<field name="warranty_date" />
+								</tree>
+							</field>
+							
+							<group colspan="2" col="2">
+								<separator string="Notes" colspan="2" />
+								<field name="note" nolabel="1" colspan="2" />
+							</group>
+						</page>
+						<page string="Invoices">
+							<group>
+								<field name="sale_order_id" />
+							</group>
+							<field name="invoices" nolabel="1" colspan="4"  context="{'form_view_ref':'account.invoice_form'}" />
+						</page>
+						<page string="History">
+							<field name="interventions" nolabel="1" colspan="4" />
+						</page>
+						<page string="Budget">
+							<field name="budget_lines" nolabel="1" colspan="4">
+								<form string="Maintenance project line">
+									<group>
+										<field name="name" />
+										<field name="element_id" />
+										<field name="product_id" />
+										<field name="quantity" />
+										<field name="sale_price" />
+										<field name="cost_price" />
+										<field name="budget_line_type_id" />
+										<field name="maintenance_product_id" />
+										<field name="included" />
+										<field name="intervention_id" />
+										<field name="time_of_use" />
+										<field name="intervention_type_id" />
+									</group>
+								</form>
+								<tree string="Maintenance project lines">
+									<field name="name" />
+									<field name="element_id" />
+									<field name="quantity" />
+									<field name="sale_price" />
+									<field name="cost_price" />
+									<field name="budget_line_type_id" />
+									<field name="maintenance_product_id" />
+									<field name="included" />
+									<field name="intervention_code" />
+									<field name="time_of_use" />
+									<field name="intervention_type_id" />
+								</tree>
+							</field>
+						</page>
+					</notebook>
+							
+				</form>
+			</field>
+		</record>
+			
+		<record id="action_maintenance_project" model="ir.actions.act_window">
+			<field name="name">Maintenance project</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.project</field>
+			<field name="view">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_maintenance_project_account_search"/>
+			<field name="context">{"search_default_enable":1}</field>
+		</record>
+		
+		
+		<!-- Project Lines -->
+		
+		<record id="view_maintenance_project_budget_line_form" model="ir.ui.view">
+			<field name="name">maintenance.project.budget.line.form</field>
+			<field name="model">maintenance.project.budget.line</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Maintenance project line">
+					<group>
+						<field name="project_id" />
+						<field name="element_id" />
+						<field name="intervention_id" />
+						<field name="maintenance_product_id" />
+						<field name="product_id" />
+						<field name="quantity" />
+						<field name="sale_price" />
+						<field name="cost_price" />
+						<field name="budget_line_type_id" />
+						<field name="intervention_type_id" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		
+		<record id="view_maintenance_project_budget_line_tree" model="ir.ui.view">
+			<field name="name">maintenance.project.budget.line.tree</field>
+			<field name="model">maintenance.project.budget.line</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Maintenance project lines">
+					<field name="project_id" />
+					<field name="product_id" />
+					<field name="quantity" />
+					<field name="sale_price" />
+					<field name="cost_price" />
+					<field name="budget_line_type_id" />
+				</tree>
+			</field>
+		</record>
+		
+		
+		<!-- Project line type -->
+		 <record id="view_maintenance_project_budget_line_type_form" model="ir.ui.view">
+			<field name="name">maintenance.project.budget.line.type.form</field>
+			<field name="model">maintenance.project.budget.line.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Maintenance project line">
+					<group>
+						<field name="name" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		
+		<record id="view_maintenance_project_budget_line_type_tree" model="ir.ui.view">
+			<field name="name">maintenance.project.budget.line.type.tree</field>
+			<field name="model">maintenance.project.budget.line.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Maintenance project lines">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		
+		
+		
+			
+			
+			
+		<record id="action_maintenance_project_budget_line_type" model="ir.actions.act_window">
+			<field name="name">Budget line type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.project.budget.line.type</field>
+			<field name="view">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{"search_default_enable":1}</field>
+		</record>
+		
+		<menuitem action="action_maintenance_project_budget_line_type" id="menu_maintenance_project_budget_line_type"
+			parent="maintenance.menu_maintenance_config" sequence="10" />
+			
+			
+		<menuitem action="action_maintenance_project" id="menu_maintenance_project"
+			parent="maintenance.menu_maintenance_maintenance" sequence="20" />
+
+	</data>
+</openerp>

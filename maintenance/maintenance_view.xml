@@ -127,20 +127,26 @@
 								<field name="location" />
 							</group>
 						</group>
-						<separator string="Product"/>
-						<group>
-							<field name="product_id" />
-							<field name="serialnumber_required" />
-							<field name="serial_number" />
-						</group>
-						<group>
-							<field name="description" colspan="4" />
-						</group>
-						<separator string="Contact Information"/>
-						<group>
-							<field name="partner_id" />
-							<field name="address_id" domain="[('parent_id','=',partner_id)]" />
-						</group>
+						<notebook>
+							<page string="Product">
+								<separator string="Product"/>
+								<group>
+									<field name="product_id" />
+									<field name="serialnumber_required" />
+									<field name="serial_number" />
+								</group>
+								<group>
+									<field name="description" colspan="4" />
+								</group>
+							</page>
+							<page string="Contact">
+								<separator string="Contact Information"/>
+								<group>
+									<field name="partner_id" />
+									<field name="address_id" domain="[('parent_id','=',partner_id)]" />
+								</group>
+							</page>
+						</notebook>
 					</sheet>
 				</form>
 			</field>
@@ -211,75 +217,79 @@
 	                        <!-- <field name="name" class="oe_inline" readonly="1"/> -->
 	                        <field name="code" class="oe_inline"/>
 	                    </h1>
-					<group>
 						<group>
-							<field name="name" />
-							<field name="partner_id"/>
-							<field name="warehouse_id" widget="selection" />
+							<group>
+								<field name="name" />
+								<field name="partner_id"/>
+								<field name="warehouse_id" widget="selection" />
+							</group>
+						<group>
+						
+						<field name="address_id" domain="[('parent_id','=',partner_id), ('type','in', ('default','delivery'))]" />
+						<field name="invoice_address_id" domain="[('parent_id','=',partner_id), ('type','in', ('default','invoice'))]" />
+						<field name="contact_address_id" domain="[('type','in', ('default','contact'))]" />
 						</group>
-					<group>
-					
-					<field name="address_id" domain="[('parent_id','=',partner_id), ('type','in', ('default','delivery'))]" />
-					<field name="invoice_address_id" domain="[('parent_id','=',partner_id), ('type','in', ('default','invoice'))]" />
-					<field name="contact_address_id" domain="[('type','in', ('default','contact'))]" />
-					</group>
-					</group>
-					
-					<!-- <field name="active" /> -->
-					<newline />
-					<notebook colspan="4">
-						<page string="Content">
-							<separator string="Elements" colspan="4" />
-							<field name="elements" nolabel='1' colspan="4">
-								<tree string="Maintenance Element">
-									<field name="code" />
-									<field name="name" />
-									<field name="serial_number" />
-									<field name="product_id" />
-									<field name="installation_date" />
-									<field name="warranty_date" />
-								</tree>
-								
-								<form string="Maintenance Element">
-									<group>
-
-									<group>
+						</group>
+						
+						<!-- <field name="active" /> -->
+						<newline />
+						<notebook colspan="4">
+							<page string="Content">
+								<separator string="Elements" colspan="4" />
+								<field name="elements" nolabel='1' colspan="4">
+									<tree string="Maintenance Element">
 										<field name="code" />
 										<field name="name" />
-										<field name="active" />
-										<field name="visible_for_intervention" />
-									</group>
-
-									<group>
+										<field name="serial_number" />
+										<field name="product_id" />
 										<field name="installation_date" />
 										<field name="warranty_date" />
-										<field name="location" />
-									</group>
-									</group>
-									<separator string="Product"/>
-									<group>
-										<field name="product_id" />
-										<field name="serialnumber_required" />
-										<field name="serial_number" />
-									</group>
-									<group>
-										<field name="description" colspan="4" />
-									</group>
-									<separator string="Contact Information"/>
-									<group>
-										<field name="partner_id" />
-										<field name="address_id" domain="[('parent_id','=',partner_id)]" />
-									</group>
+									</tree>
 									
-									<!-- <field name="suivi_tmi" colspan="4" /> -->
-								</form>
-							</field>
-						</page>
-						<page string="History">
-							<separator string="Interventions" colspan="4" />
-							<field name="interventions" nolabel='1' colspan="4" />
-						</page>
-					</notebook>
+									<form string="Maintenance Element">
+										<group>
+	
+										<group>
+											<field name="code" />
+											<field name="name" />
+											<field name="active" />
+											<field name="visible_for_intervention" />
+										</group>
+	
+										<group>
+											<field name="installation_date" />
+											<field name="warranty_date" />
+											<field name="location" />
+										</group>
+										</group>
+										<separator string="Product"/>
+										<group>
+											<field name="product_id" />
+											<field name="serialnumber_required" />
+											<field name="serial_number" />
+										</group>
+										<group>
+											<field name="description" colspan="4" />
+										</group>
+										<separator string="Contact Information"/>
+										<group>
+											<field name="partner_id" />
+											<field name="address_id" domain="[('parent_id','=',partner_id)]" />
+										</group>
+										
+										<!-- <field name="suivi_tmi" colspan="4" /> -->
+									</form>
+								</field>
+							</page>
+							<page string="History">
+								<separator string="Interventions" colspan="4" />
+								<field name="interventions" nolabel='1' colspan="4" />
+							</page>
+							<page string="Additional Information">
+								<separator string="Notes" />
+								<field name="note" />
+							</page>
+						</notebook>
 					</sheet>
 					<div class="oe_chatter">
 	                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>

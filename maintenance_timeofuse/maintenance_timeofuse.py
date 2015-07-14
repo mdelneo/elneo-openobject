@@ -10,53 +10,48 @@ import time
 
 from openerp import models, fields, api, _
 
-class maintenance_intervention_timeofuse(models.Model):
-    _name = 'maintenance.intervention.timeofuse'
-    
-    _rec_name = 'maintenance_element_id'
-    
-    #a timeofuse record is valid (usable) if intervention is done
-    @api.one
-    def is_valid(self):
-        if not self.intervention_id:
-            return True
-        elif self.intervention_id.state == 'done':
-            return True
-        return False
-    
-    @api.one
-    @api.depends('intervention_id','intervention_id.state')
-    def _get_valid(self):
-        return self.is_valid()
-    
-    date = fields.Datetime("Date",default=lambda *a: time.strftime('%Y-%m-%d'))
-    intervention_id = fields.Many2one('maintenance.intervention', string="Intervention")
-    maintenance_element_id = fields.Many2one('maintenance.element', string="Maintenance element")
-    time_of_use = fields.Float("Time of use (h)")
-    valid = fields.Boolean(compute=_get_valid,  string="Valid", store=True)
-
-
 class maintenance_element(models.Model):
     _inherit = 'maintenance.element'
-    
+
     @api.one
-    @api.depends('timeofuse_history.maintenance_element_id','timeofuse_history.time_of_use')
-    def get_last_timeofuse(self):
+    def _get_last_timeofuse(self):
 
         last_timeofuse = self.env['maintenance.intervention.timeofuse'].search([('maintenance_element_id','=',self.id)],order='date desc, time_of_use desc', limit=1)
         
         if last_timeofuse:
             self.time_of_use = last_timeofuse.time_of_use
         else:
-            self.time_of_use = 0
-        
-        return True
+            self.time_of_use = 0.
+
         
     
-    time_of_use = fields.Float(compute = get_last_timeofuse, string='Last time of use',store=True)
+    time_of_use = fields.Float(compute='_get_last_timeofuse', string='Last time of use')
     timeofuse_required = fields.Boolean('Hour counter required')
-    timeofuse_history = fields.One2many('maintenance.intervention.timeofuse', 'maintenance_element_id', string="Time of use history", domain=['|',('intervention_id.state','=','done'),('intervention_id','=',False)])
-       
+    timeofuse_history = fields.One2many('maintenance.intervention.timeofuse', 'maintenance_element_id', string="Time of use history" )
+
+maintenance_element()
+
+class maintenance_intervention_timeofuse(models.Model):
+    _name = 'maintenance.intervention.timeofuse'
+    
+    _rec_name = 'maintenance_element_id'
+    
+    #a timeofuse record is valid (usable) if intervention is done
+    @api.depends('intervention_id','intervention_id.state')
+    @api.one
+    def _get_valid(self):
+        if not self.intervention_id:
+            self.valid = True
+        elif self.intervention_id.state == 'done':
+            self.valid = True
+        else:
+            self.valid = False
+
+    date = fields.Datetime("Date",default=lambda *a: time.strftime('%Y-%m-%d'))
+    intervention_id = fields.Many2one('maintenance.intervention', string="Intervention")
+    maintenance_element_id = fields.Many2one('maintenance.element', string="Maintenance element")
+    time_of_use = fields.Float("Time of use (h)")
+    valid = fields.Boolean(compute=_get_valid,  string="Valid", store=True)
 
 class maintenance_intervention(models.Model):
     _inherit = 'maintenance.intervention'

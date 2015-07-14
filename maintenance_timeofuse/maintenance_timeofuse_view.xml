@@ -37,25 +37,27 @@
 					<field name="timeofuse_required" />
 					<field name="time_of_use" />
 				</xpath>
-				<xpath expr="//form/sheet/group/field[@name='partner_id']/.." position="after">
-					<separator string="Time of use history"/>
-					<group>
-						<field name="timeofuse_history" nolabel="1">
-							
-							<tree>
-								<field name="date" />
-								<field name="time_of_use" />
-								<field name="intervention_id" />
-							</tree>
- 
-							<form>
-								<field name="date" />
-								<field name="time_of_use" />
-								<field name="intervention_id" />
-							</form>
-
-						</field>
-					</group>
+				<xpath expr="//notebook/page[@string='Product']" position="after">
+					<page string="Time of Use">
+						<separator string="Time of use history"/>
+						<group>
+							<field name="timeofuse_history" nolabel="1" context="{'maintenance_element_id':active_id}">
+								
+								<tree>
+									<field name="date" />
+									<field name="time_of_use" />
+									<field name="intervention_id" />
+								</tree>
+	 
+								<form>
+									<field name="date" />
+									<field name="time_of_use" />
+									<field name="intervention_id" />
+								</form>
+	
+							</field>
+						</group>
+					</page>
 				</xpath>
 			</field>
 		</record>

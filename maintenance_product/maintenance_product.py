@@ -81,16 +81,14 @@ class maintenance_intervention(models.Model):
     '''
     
     
-    @api.multi
-    def _get_available(self):
-        res = {}
-        for intervention in self:
-            if intervention.state != 'confirmed':
-                res[intervention.id] = False
-            else:
-                res[intervention.id] = len([picking.id for picking in intervention.sale_order_id.picking_ids if ((picking.state == 'assigned' and picking.picking_type_id.code == 'outgoing') or not picking.move_lines)])>0
-        return res
     
+    @api.one
+    @api.depends('sale_order_id.picking_ids.move_type','sale_order_id.picking_ids.move_lines.state','sale_order_id.picking_ids.move_lines.picking_id', 'sale_order_id.picking_ids.move_lines.partially_available')
+    def _get_available(self):
+        if self.state != 'confirmed':
+            self.available = False
+        else:
+            self.available = len([picking.id for picking in self.sale_order_id.picking_ids if ((picking.state == 'assigned' and picking.picking_type_id.code == 'outgoing') or not picking.move_lines)])>0
     
     
     stock_pickings = fields.One2many(related='sale_order_id.picking_ids', relation='stock.picking', string="Pickings")
@@ -109,8 +107,7 @@ class maintenance_intervention(models.Model):
         
         for intervention_product in self.intervention_products:
             product = intervention_product.copy({'intervention_id':new_id.id})
-            product.sale_order_line_id = None
-            new_id.intervention_products += product
+            
                 
         return new_id
     
@@ -124,27 +121,6 @@ class maintenance_intervention(models.Model):
     def action_create_quotation(self):
         return self.with_context(quotation=True).action_create_update_sale_order()
     
-    ''' DEPRECATED : DO NOTHING...
-    @api.multi
-    def action_update(self):
-
-        for intervention in self:
-            
-            #dictionary with products already computed (to set good procurement type if several lines with same product are in the same order)
-            already_computed_products = {}
-                
-            for intervention_product in intervention.intervention_products:
-                
-                
-                onchange_res = self.onchange_product_id(intervention_product.product_id.id, intervention.installation_id.id, intervention_product.quantity).with_context(already_computed_quantity=already_computed_products.get(intervention_product.product_id.id,0))
-                if not already_computed_products.has_key(intervention_product.product_id.id):
-                    already_computed_products[intervention_product.product_id.id] = 0
-                already_computed_products[intervention_product.product_id.id] = already_computed_products[intervention_product.product_id.id] + intervention_product.quantity
-                if onchange_res and onchange_res.has_key('value'):
-                    intervention_product.write(onchange_res['value'])
-        return True
-        
-    '''
     
     @api.multi
     def action_create_update_sale_order(self): 
@@ -414,7 +390,9 @@ class maintenance_intervention(models.Model):
                         
             
             if out_picking:
-                (out_picking.move_lines - moves_todelete).action_done()
+                moves=out_picking.move_lines - moves_todelete
+                for move in moves:
+                    move.action_done()
                 out_picking.action_done()
                 #self.env['stock.move'].action_done([move.id for move in out_picking.move_lines if move.id not in moves_todelete])
                 #self.env['stock.picking'].action_done([out_picking.id])
@@ -450,7 +428,7 @@ class maintenance_intervention(models.Model):
             if not maintenance_time:
                 raise Warning(_('No workforce time specified'))
             
-            out_picking.sale_id.invoice_ids.filtered(lambda r:r.state == 'draft').unlink()
+            out_picking.mapped('sale_id').invoice_ids.filtered(lambda r:r.state == 'draft').unlink()
             
             out_picking.invoice_state = '2binvoiced'
             intervention.sale_order_id.order_line.write({'invoiced': False})
@@ -906,7 +884,19 @@ class sale_order(models.Model):
                 result[sale.id] = None
         return result
 
+
+    @api.one
+    @api.depends('procurement_group_id')
+    def _get_picking_ids(self):
+        
+        if not self.procurement_group_id:
+            self.picking_ids = None
+        else:
+            self.picking_ids = self.env['stock.picking'].search([('group_id','=',self.procurement_group_id.id)])
+            
     
+    
+    picking_ids = fields.One2many('stock.picking', 'sale_id',compute='_get_picking_ids',store=True)
     intervention_id = fields.Many2one(comodel_name="maintenance.intervention",compute=_get_intervention, store=True)
 
 
@@ -933,59 +923,25 @@ class maintenance_intervention_task(models.Model):
    
     to_plan = fields.Boolean(compute=_get_to_plan, string='To plan',default=False,store=True)
     
+'''
+class old_stock_picking(osv.orm.Model):
+    _inherit='stock.picking'
+    
+'''    
+    
 
 class stock_picking(models.Model):
-    _inherit = 'stock.picking'
+    _inherit = ['stock.picking']
     
     @api.one
-    @api.depends('move_type','move_lines.state','move_lines.picking_id', 'move_lines.partially_available')
-    def _state_get(self):
-        result = super(stock_picking,self)._state_get(None,None)
-        
-        self.state = result[self.id]
-        
-        if result[self.id] == 'assigned':
-            self._update_intervention_tasks()
-            
-        return result
+    @api.depends('group_id')
+    def _get_sale_id(self):
+        if self.group_id:
+            self.sale_id=self.env['sale.order'].search([('procurement_group_id', '=', self.group_id.id)])
+        else:
+            self.sale_id=None
     
-    state = fields.Selection(compute=_state_get, copy=False,
-            store=True,
-            selection=[
-                ('draft', 'Draft'),
-                ('cancel', 'Cancelled'),
-                ('waiting', 'Waiting Another Operation'),
-                ('confirmed', 'Waiting Availability'),
-                ('partially_available', 'Partially Available'),
-                ('assigned', 'Ready to Transfer'),
-                ('done', 'Transferred'),
-                ], string='Status', readonly=True, select=True, track_visibility='onchange',
-            help="""
-                * Draft: not confirmed yet and will not be scheduled until confirmed\n
-                * Waiting Another Operation: waiting for another move to proceed before it becomes automatically available (e.g. in Make-To-Order flows)\n
-                * Waiting Availability: still waiting for the availability of products\n
-                * Partially Available: some products are available and reserved\n
-                * Ready to Transfer: products reserved, simply waiting for confirmation.\n
-                * Transferred: has been processed, can't be modified or cancelled anymore\n
-                * Cancelled: has been cancelled, can't be confirmed anymore"""
-        )
-    
-   
-        
-    @api.one
-    @api.constrains('move_line.state')
-    def _update_intervention_tasks(self):      
-        if self.sale_id and self.sale_id.intervention_id:
-            for task in self.sale_id.intervention_id.filtered(lambda r:r.state != 'done').tasks:
-                if (self.state =='assigned' and self.picking_type_id.code == 'outgoing') or not self.move_lines:
-                    task.to_plan = True
-                    
-            # SET Intervention availability (depending on out picking state)
-            if self.sale_id.intervention_id.state != 'confirmed':
-                self.sale_id.intervention_id.available = False
-            else:
-                self.sale_id.intervention_id.available = len([picking.id for picking in self.sale_id.picking_ids if ((picking.state == 'assigned' and picking.picking_type_id.code == 'outgoing') or not picking.move_lines)])>0
-                 
+    sale_id = fields.Many2one('sale.order',compute=_get_sale_id,store=True)
     
     #associate invoice_line with maintenance product
     '''

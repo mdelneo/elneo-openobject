@@ -310,6 +310,7 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Maintenance project">
+					
 					<header>
 						<button name="draft" string="Set to Draft" states="disabled" class="oe_highlight"/>
 						<button name="active" string="Activate" states="draft" class="oe_highlight"/>
@@ -317,6 +318,7 @@
 						<button name="action_create_update_sale_order" type='object' string='Create/update sale'/>
                     	<field name="state" widget="statusbar" statusbar_visible="draft,active,disabled"/>
                 	</header>
+                	<sheet>
                 	<group>
                 		<group>
 							<field name="code" />
@@ -391,13 +393,17 @@
 							</field>
 						</page>
 					</notebook>
-							
+					</sheet>
+					<div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>		
 				</form>
 			</field>
 		</record>
 			
 		<record id="action_maintenance_project" model="ir.actions.act_window">
-			<field name="name">Maintenance project</field>
+			<field name="name">Projects</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">maintenance.project</field>
 			<field name="view">form</field>
@@ -492,9 +498,12 @@
 		<menuitem action="action_maintenance_project_budget_line_type" id="menu_maintenance_project_budget_line_type"
 			parent="maintenance.menu_maintenance_config" sequence="10" />
 			
+		<menuitem id="menu_maintenance_sale" name="Sales"
+			parent="maintenance.menu_maintenance" sequence="15" />
+		
 			
 		<menuitem action="action_maintenance_project" id="menu_maintenance_project"
-			parent="maintenance.menu_maintenance_maintenance" sequence="20" />
+			parent="menu_maintenance_sale" sequence="10" />
 
 	</data>
 </openerp>

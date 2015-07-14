@@ -1,12 +1,24 @@
-'''
-Created on 11 juil. 2012
-
-@author: cth
-'''
-
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    Elneo
+#    Copyright (C) 2011-2015 Elneo (Technofluid SA) (<http://www.elneo.com>).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
 import time
-
-
 
 from openerp import models, fields, api, _
 
@@ -23,13 +35,9 @@ class maintenance_element(models.Model):
         else:
             self.time_of_use = 0.
 
-        
-    
     time_of_use = fields.Float(compute='_get_last_timeofuse', string='Last time of use')
     timeofuse_required = fields.Boolean('Hour counter required')
     timeofuse_history = fields.One2many('maintenance.intervention.timeofuse', 'maintenance_element_id', string="Time of use history" )
-
-maintenance_element()
 
 class maintenance_intervention_timeofuse(models.Model):
     _name = 'maintenance.intervention.timeofuse'

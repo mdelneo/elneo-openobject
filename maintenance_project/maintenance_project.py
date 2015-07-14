@@ -117,6 +117,8 @@ class maintenance_project(models.Model):
     _name = 'maintenance.project'
     _rec_name = 'code'
     
+    _inherit=['mail.thread','ir.needaction_mixin']
+    
     @api.one
     def unlink(self):
         
@@ -153,17 +155,17 @@ class maintenance_project(models.Model):
         
     code=fields.Char("Code", size=255, select=True,default=lambda obj: obj.env['ir.sequence'].get('maintenance.project'))
     project_type_id=fields.Many2one('maintenance.project.type', string="Type", select=True, required=True)
-    installation_id=fields.Many2one('maintenance.installation', string="Installation", select=True, required=True)  
+    installation_id=fields.Many2one('maintenance.installation', string="Installation", select=True, required=True,track_visibility='onchange')  
     intervention_delay_id=fields.Many2one('maintenance.project.delay', string="Intervention delay", select=True, required=True) 
     note=fields.Text("Notes")        
     date_start=fields.Date('Start date')
     date_end=fields.Date('End date')
-    sale_order_id=fields.Many2one('sale.order', string="Sale order", select=True, readonly=True) 
+    sale_order_id=fields.Many2one('sale.order', string="Sale order", select=True, readonly=True,track_visibility='onchange') 
     enable=fields.Boolean('Active', select=True,default=False) 
     invoices=fields.Many2many(related="sale_order_id.invoice_ids", string="Invoices", readonly=True)
     interventions=fields.One2many("maintenance.intervention",compute=_get_interventions, string="Interventions history", readonly=True)
     maintenance_elements=fields.Many2many("maintenance.element", 'maintenance_project_elements', 'project_id', 'element_id', "Maintenance elements")
-    state=fields.Selection([('draft','Draft'),('active','Active'),('disabled','Disabled')],'Status',readonly=True,translate=True,default='draft')
+    state=fields.Selection([('draft','Draft'),('active','Active'),('disabled','Disabled')],'Status',readonly=True,translate=True,default='draft',track_visibility='onchange')
     budget_lines=fields.One2many('maintenance.project.budget.line', 'project_id', string='Budget lines')
     warehouse_id=fields.Many2one(related='installation_id.warehouse_id', relation='stock.warehouse', string='Warehouse', readonly=True)    
    
@@ -399,8 +401,8 @@ class maintenance_intervention(models.Model):
         else:
             return res
     
-    maintenance_project_id=fields.Many2one(compute=get_maintenance_project, string='Maintenance project', relation='maintenance.project', readonly=True, store=True)
-    maintenance_project_type=fields.Many2one(compute=get_maintenance_project, method=True, multi='current_project', string='Project type', type='many2one', relation='maintenance.project.type', readonly=True, store=True)
+    maintenance_project_id=fields.Many2one(comodel_name='maintenance.project',compute=get_maintenance_project, string='Maintenance project',  readonly=True, store=True)
+    maintenance_project_type=fields.Many2one(comodel_name='maintenance.project.type',compute=get_maintenance_project, string='Project type',  readonly=True, store=True)
     date_scheduled=fields.Date('Scheduled date')
         
     @api.one

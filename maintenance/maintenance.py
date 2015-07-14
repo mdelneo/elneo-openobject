@@ -40,6 +40,7 @@ class maintenance_installation(models.Model):
     warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse',help="The Warehouse linked to this Installation")
     #active = fields.Boolean("Active",help="If this installation is active or not") 
     state = fields.Selection([('active', 'Active'), ('inactive','Inactive')], string="State", readonly=True,help="The installation can take two states<br/> -active <br/> -inactive")
+    note=fields.Text('Notes')
     
     @api.multi
     def installation_active(self):
@@ -259,17 +260,14 @@ class maintenance_intervention(models.Model):
     @api.one
     def action_cancel(self):
         self.state = 'cancel'        
-        return True
     
     @api.one
     def action_done(self):
         self.state = 'done'
-        return True
     
     @api.one
     def action_confirm(self):
         self.state = 'confirmed'
-        return True
 
 
 class maintenance_element(models.Model):

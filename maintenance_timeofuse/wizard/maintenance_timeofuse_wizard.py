@@ -12,12 +12,9 @@ class maintenance_timeofuse_intervention_confirm_wizard(models.TransientModel):
     
     @api.multi
     def confirm(self):
-        timeofuse_pool = self.pool.get("maintenance.intervention.timeofuse")
-        
-        
         
         timeofuses = self.env['maintenance.intervention.timeofuse'].search([('intervention_id','=',self.env.context.get('active_id',False)),('time_of_use','=',None)])
         timeofuses.unlink()
-        
-        res = self.env['maintenance.intervention'].browse(self.env.context.get('active_ids',False)).with_context(intervention_force_done=True).action_done()
+        ids=self.env.context.get('active_ids',False)
+        res = self.env['maintenance.intervention'].browse(ids).with_context(intervention_force_done=True).action_done()
         return {'type': 'ir.actions.act_window_close'}

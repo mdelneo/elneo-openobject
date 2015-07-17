@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+	
+		<record id="view_order_form_partial" model="ir.ui.view">
+            <field name="name">view.sale.order.form.partial</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='order_line']/tree/field[@name='route_id']" position="after">
+                	<field name="procurement_path"/>
+                </xpath>
+            </field>
+        </record>
+	
 		<!-- Add procure_methods -->
 		<record model="ir.ui.view" id="view_procurement_rule_form_procure_partial">
             <field name="name">view.procurement.rule.form.procure.partial</field>
@@ -12,6 +24,7 @@
                         <field name="procure_methods" groups="stock.group_adv_location" nolabel="1" colspan="4">
                         	<form string="Procure Methods">
                         		<group>
+                        			<field name="name" />
 	                        		<field name="procure_method" />
 		                        	<field name="location_src_id" required="1"  domain="[('usage','!=','view')]" />
 		                        	<field name="warehouse_src_id" />
@@ -27,6 +40,7 @@
 		                        </group>
 	                        </form>
 	                        <tree>
+	                        	<field name="name" />
 	                        	<field name="procure_method" />
 	                        	<field name="location_src_id" />
 	                        	<field name="warehouse_src_id" />

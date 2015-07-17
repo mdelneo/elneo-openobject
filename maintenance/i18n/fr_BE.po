@@ -1,445 +1,54 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* maintenance
+# 	* maintenance
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.4\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2014-08-14 11:57+0000\n"
-"PO-Revision-Date: 2014-08-14 14:00+0100\n"
-"Last-Translator: Clément THOMAS <clement.thomas@elneo.com>\n"
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-25 06:33+0000\n"
+"PO-Revision-Date: 2015-06-25 10:15+0100\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #. module: maintenance
-#: selection:maintenance.intervention,task_state:0
-#: field:maintenance.intervention,to_plan:0
-#: field:maintenance.intervention.task,to_plan:0
-msgid "To plan"
-msgstr "À planifier"
+#: view:website:maintenance.external_layout_footer_maintenance
+msgid "&bull;"
+msgstr "&bull;"
 
 #. module: maintenance
-#: view:maintenance.intervention:0
-msgid "Comments"
-msgstr "Commentaires"
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+msgid "Achievement"
+msgstr "Réalisation"
 
 #. module: maintenance
-#: view:maintenance.element:0
-#: view:maintenance.intervention:0
-msgid "Group By..."
-msgstr "Grouper par..."
-
-#. module: maintenance
-#: field:maintenance.intervention.task,break_time:0
-msgid "Break time"
-msgstr "Temps de pause"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-msgid "Planned/worked hours"
-msgstr "Heures planifiées/travaillées"
-
-#. module: maintenance
-#: constraint:project.task:0
-msgid "Error ! You cannot create recursive tasks."
-msgstr "Erreur ! Vous ne pouvez pas créer de tâches récursives"
-
-#. module: maintenance
-#: field:maintenance.element,time_of_use:0
-msgid "Last time of use"
-msgstr "Dernier relevé horaire"
-
-#. module: maintenance
-#: field:maintenance.element,serial_number:0
-msgid "Serial Number"
-msgstr "Numéro de série"
-
-#. module: maintenance
-#: model:ir.model,name:maintenance.model_project_task
-msgid "Task"
-msgstr "Tâche"
-
-#. module: maintenance
-#: view:maintenance.element:0
-#: field:maintenance.element,installation_id:0
-#: view:maintenance.intervention:0
-#: field:maintenance.intervention,installation_id:0
-msgid "Installation"
-msgstr "Installation"
-
-#. module: maintenance
-#: field:maintenance.element,suivi_tmi:0
-msgid "Suivi TMI"
-msgstr "Suivi TMI"
-
-#. module: maintenance
-#: model:ir.actions.act_window,name:maintenance.action_maintenance_installation
-#: model:ir.ui.menu,name:maintenance.menu_maintenance_installation
-#: view:maintenance.installation:0
-#: field:res.partner,maintenance_installations:0
-msgid "Maintenance installations"
-msgstr "Installations de maintenance"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-msgid "Maintenance intervention"
-msgstr "Intervention de maintenance"
-
-#. module: maintenance
-#: field:maintenance.intervention.task,name:0
-msgid "Task Summary"
-msgstr "Résumé de la tâche"
-
-#. module: maintenance
-#: model:ir.model,name:maintenance.model_project_project
-#: field:maintenance.intervention,project_id:0
-msgid "Project"
-msgstr "Projet"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-#: field:maintenance.intervention,task_state:0
-msgid "Task state"
-msgstr "Etat de la tâche"
-
-#. module: maintenance
-#: field:maintenance.installation,shop_id:0
-msgid "Shop"
-msgstr "Magasin"
-
-#. module: maintenance
-#: field:maintenance.intervention.type,workforce_product_duration:0
-msgid "Workforce product duration"
-msgstr "Durée du produit de main d'oeuvre"
-
-#. module: maintenance
-#: field:maintenance.intervention.task,date_end:0
-msgid "Ending Date"
-msgstr "Ending Date"
-
-#. module: maintenance
-#: field:maintenance.element,piece_tmi:0
-msgid "Piece TMI"
-msgstr "Piece TMI"
-
-#. module: maintenance
-#: selection:maintenance.intervention.type,color:0
-msgid "Yellow"
-msgstr "Jaune"
-
-#. module: maintenance
-#: constraint:res.partner:0
-msgid "You can not create account with this vat number."
-msgstr "Vous ne pouvez pas creer de compte avec ce numéro de TVA."
-
-#. module: maintenance
-#: field:maintenance.element,serialnumber_required:0
-msgid "Serial number required"
-msgstr "Numéro de série requis"
-
-#. module: maintenance
-#: field:maintenance.installation,usability_degree:0
-msgid "Usability degree"
-msgstr "Degré d'utilisation"
-
-#. module: maintenance
-#: model:ir.model,name:maintenance.model_res_partner
-msgid "Partner"
-msgstr "Partenaire"
-
-#. module: maintenance
-#: field:maintenance.intervention,contact_phone:0
-msgid "Contact phone"
-msgstr "Téléphone de contact"
-
-#. module: maintenance
-#: field:maintenance.intervention.task,planned_hours:0
-msgid "Planned Hours"
-msgstr "Planned Hours"
-
-#. module: maintenance
-#: selection:maintenance.intervention,state:0
-msgid "Confirmed"
-msgstr "Confirmé"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-msgid "Confirm"
-msgstr "Confirmer"
-
-#. module: maintenance
-#: model:ir.actions.act_window,name:maintenance.action_maintenance_intervention_type
-#: model:ir.ui.menu,name:maintenance.menu_maintenance_intervention_type
-#: view:maintenance.intervention.type:0
-msgid "Maintenance intervention type"
-msgstr "Type d'intervention"
-
-#. module: maintenance
-#: model:ir.actions.act_window,help:maintenance.action_maintenance_installation
-msgid "All maintenance installations"
-msgstr "Toutes les installations"
-
-#. module: maintenance
-#: field:maintenance.element,location:0
-msgid "Location"
-msgstr "Emplacement"
-
-#. module: maintenance
-#: selection:maintenance.intervention,state:0
-msgid "Draft"
-msgstr "Brouillon"
-
-#. module: maintenance
-#: field:maintenance.intervention,maint_type:0
-msgid "Type"
-msgstr "Type"
-
-#. module: maintenance
-#: selection:maintenance.intervention.type,color:0
-msgid "Red"
-msgstr "Rouge"
-
-#. module: maintenance
-#: view:maintenance.installation:0
-#: field:maintenance.installation,elements:0
-msgid "Elements"
-msgstr "Elements"
-
-#. module: maintenance
-#: field:maintenance.element,visible_for_intervention:0
-msgid "Visible for interventions"
-msgstr "Visible dans les interventions"
-
-#. module: maintenance
-#: constraint:project.project:0
-msgid "Error! project start-date must be lower then project end-date."
-msgstr "Erreur! La date de début du projet doit être antérieure à la date de fin du projet."
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-#: field:maintenance.intervention,technicians:0
-msgid "Technician"
-msgstr "Techniciens"
-
-#. module: maintenance
-#: help:maintenance.intervention.task,maintenance_time:0
-msgid "Number of maintenance time period to fill duration of intervention"
-msgstr "Number of maintenance time period to fill duration of intervention"
-
-#. module: maintenance
-#: model:ir.ui.menu,name:maintenance.menu_maintenance_config
-msgid "Configuration"
-msgstr "Configuration"
-
-#. module: maintenance
-#: field:maintenance.intervention,date_end:0
-#: field:maintenance.intervention,date_start:0
-msgid "Beginning"
-msgstr "Début"
-
-#. module: maintenance
-#: field:maintenance.intervention.task,date_start:0
-msgid "Starting Date"
-msgstr "Date de début"
-
-#. module: maintenance
-#: field:maintenance.element,installation_date:0
-msgid "Installation date"
-msgstr "Date d'installation"
-
-#. module: maintenance
-#: model:ir.model,name:maintenance.model_maintenance_element
-msgid "maintenance.element"
-msgstr "maintenance.element"
-
-#. module: maintenance
-#: field:maintenance.intervention,contact_address_id:0
-msgid "Contact"
-msgstr "Contact"
-
-#. module: maintenance
-#: selection:maintenance.intervention,task_state:0
-msgid "Planned"
-msgstr "Plannifiée"
-
-#. module: maintenance
-#: view:maintenance.installation:0
-msgid "Maintenance installation"
-msgstr "Installation de maintenance"
-
-#. module: maintenance
-#: field:maintenance.intervention.type,workforce_product_id:0
-msgid "Workforce product"
-msgstr "Produit de main d'oeuvre"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-#: field:maintenance.intervention,ext_comment:0
-msgid "External comment"
-msgstr "Commentaire externe"
-
-#. module: maintenance
-#: model:ir.model,name:maintenance.model_maintenance_intervention_task
-msgid "maintenance.intervention.task"
-msgstr "maintenance.intervention.task"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-#: field:maintenance.intervention,tasks:0
-msgid "Tasks"
-msgstr "Tâches"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-msgid "Beginning of task"
-msgstr "Début de la tâche"
-
-#. module: maintenance
-#: field:maintenance.intervention,state:0
-msgid "Intervention State"
-msgstr "Etat de l'intervention"
-
-#. module: maintenance
-#: view:maintenance.installation:0
-msgid "Deactivate"
-msgstr "Désactiver"
-
-#. module: maintenance
-#: field:maintenance.installation,invoice_address_id:0
-msgid "Invoice address"
-msgstr "Adresse de facturation"
-
-#. module: maintenance
-#: model:ir.model,name:maintenance.model_maintenance_intervention_type
-msgid "maintenance.intervention.type"
-msgstr "maintenance.intervention.type"
-
-#. module: maintenance
-#: selection:maintenance.intervention.type,color:0
-msgid "Black"
-msgstr "Noir"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-msgid "To confirm"
-msgstr "À confirmer"
-
-#. module: maintenance
-#: model:ir.ui.menu,name:maintenance.menu_maintenance
-msgid "Maintenance"
-msgstr "Maintenance"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-msgid "End of task"
-msgstr "Fin de la tâche"
-
-#. module: maintenance
-#: field:maintenance.installation,contact_address_id:0
-msgid "Contact address"
-msgstr "Adresse de contact"
-
-#. module: maintenance
-#: view:maintenance.element:0
-msgid "Maintenance Elements"
-msgstr "Elements de maintenance"
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+msgid "Activate"
+msgstr "Activer"
 
 #. module: maintenance
 #: field:maintenance.element,active:0
-#: field:maintenance.installation,active:0
+#: selection:maintenance.installation,state:0
 msgid "Active"
 msgstr "Active"
 
 #. module: maintenance
-#: view:maintenance.intervention:0
-#: field:maintenance.intervention,int_comment:0
-msgid "Internal comment"
-msgstr "Commentaire interne"
+#: field:maintenance.installation,address_id:0
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+#: field:maintenance.intervention,address_id:0
+msgid "Address"
+msgstr "Adresse"
 
 #. module: maintenance
-#: view:maintenance.element:0
-#: view:maintenance.installation:0
-msgid "Maintenance Element"
-msgstr "Element de maintenance"
-
-#. module: maintenance
-#: help:maintenance.intervention.task,planned_hours:0
-msgid "Estimated time to do the task, usually set by the project manager when the task is in draft state."
-msgstr "Estimated time to do the task, usually set by the project manager when the task is in draft state."
-
-#. module: maintenance
-#: field:maintenance.intervention,time_planned:0
-msgid "Time planned"
-msgstr "Durée prévue"
-
-#. module: maintenance
-#: field:maintenance.intervention.task,maintenance_time:0
-msgid "Maintenance time"
-msgstr "Maintenance time"
-
-#. module: maintenance
-#: view:maintenance.installation:0
-msgid "History"
-msgstr "Historique"
-
-#. module: maintenance
-#: field:maintenance.intervention.task,user_id:0
-msgid "Assigned to"
-msgstr "Assigned to"
-
-#. module: maintenance
-#: model:ir.actions.act_window,name:maintenance.action_maintenance_element
-#: model:ir.ui.menu,name:maintenance.menu_maintenance_element
-msgid "Maintenance elements"
-msgstr "Element de maintenance"
-
-#. module: maintenance
-#: field:maintenance.element,code:0
-#: field:maintenance.installation,code:0
-#: field:maintenance.intervention,code:0
-msgid "Code"
-msgstr "Code"
-
-#. module: maintenance
-#: view:maintenance.installation:0
-#: field:maintenance.installation,interventions:0
-msgid "Interventions"
-msgstr "Interventions"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-msgid "State"
-msgstr "Etat"
-
-#. module: maintenance
-#: model:ir.model,name:maintenance.model_maintenance_intervention
-msgid "maintenance.intervention"
-msgstr "maintenance.intervention"
-
-#. module: maintenance
-#: view:maintenance.intervention:0
-#: selection:maintenance.intervention,state:0
-msgid "Done"
-msgstr "Terminer"
-
-#. module: maintenance
-#: selection:maintenance.intervention,state:0
-msgid "Cancel"
-msgstr "Annuler"
-
-#. module: maintenance
-#: field:maintenance.intervention.task,intervention_id:0
-msgid "Intervention"
-msgstr "Intervention"
-
-#. module: maintenance
-#: constraint:project.task:0
-msgid "Error ! Task end-date must be greater then task start-date"
-msgstr "Erreur ! La date de fin de la tâche doit être postérieure à la date de démarrage"
+#: help:maintenance.intervention,address_id:0
+msgid "Address of the installation"
+msgstr "Adresse de l'installation"
 
 #. module: maintenance
 #: model:ir.actions.act_window,help:maintenance.action_maintenance_element
@@ -447,30 +56,9 @@ msgid "All maintenance elements"
 msgstr "Tous les élements de maintenance"
 
 #. module: maintenance
-#: view:maintenance.installation:0
-msgid "Content"
-msgstr "Contenu"
-
-#. module: maintenance
-#: model:ir.model,name:maintenance.model_maintenance_installation
-msgid "maintenance.installation"
-msgstr "maintenance.installation"
-
-#. module: maintenance
-#: model:ir.actions.act_window,name:maintenance.action_maintenance_intervention
-#: model:ir.ui.menu,name:maintenance.menu_maintenance_intervention
-msgid "Maintenance interventions"
-msgstr "Maintenance interventions"
-
-#. module: maintenance
-#: field:maintenance.intervention,address_id:0
-msgid "Adress"
-msgstr "Adresse"
-
-#. module: maintenance
-#: field:maintenance.element,product_id:0
-msgid "Product"
-msgstr "Produit"
+#: model:ir.actions.act_window,help:maintenance.action_maintenance_installation
+msgid "All maintenance installations"
+msgstr "Toutes les installations"
 
 #. module: maintenance
 #: model:ir.actions.act_window,help:maintenance.action_maintenance_intervention
@@ -478,47 +66,276 @@ msgid "All maintenance interventions"
 msgstr "Toutes les interventions de maintenance"
 
 #. module: maintenance
-#: field:maintenance.element,description:0
-#: view:maintenance.intervention:0
-#: field:maintenance.intervention,name:0
-msgid "Description"
-msgstr "Déscription"
+#: field:maintenance.intervention.task,user_id:0
+msgid "Assigned to"
+msgstr "Assigné à"
 
 #. module: maintenance
-#: view:maintenance.intervention:0
-msgid "Finished"
-msgstr "Terminées"
+#: field:maintenance.intervention,date_start:0
+msgid "Beginning"
+msgstr "Début"
 
 #. module: maintenance
-#: field:maintenance.element,address_id:0
-#: field:maintenance.installation,address_id:0
-#: view:maintenance.intervention:0
-msgid "Address"
-msgstr "Adresse"
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+msgid "Beginning of task"
+msgstr "Début de la tâche"
 
 #. module: maintenance
-#: view:maintenance.intervention:0
-msgid "Achievement"
-msgstr "Réalisation"
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "Break Time"
+msgstr "Temps de pause"
 
 #. module: maintenance
+#: field:maintenance.intervention.task,break_time:0
+msgid "Break time"
+msgstr "Temps de pause"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+#: selection:maintenance.intervention,state:0
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: maintenance
+#: field:maintenance.element,code:0 field:maintenance.installation,code:0
+#: field:maintenance.intervention,code:0
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Code"
+msgstr "Code"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "Comment"
+msgstr "Commentaire"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+msgid "Comments"
+msgstr "Commentaires"
+
+#. module: maintenance
+#: model:ir.ui.menu,name:maintenance.menu_maintenance_config
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+#: selection:maintenance.intervention,state:0
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#. module: maintenance
+#: field:maintenance.intervention,contact_address_id:0
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Contact"
+msgstr "Contact"
+
+#. module: maintenance
+#: view:maintenance.element:maintenance.view_maintenance_element_form
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+msgid "Contact Information"
+msgstr "Information de contact"
+
+#. module: maintenance
+#: field:maintenance.installation,contact_address_id:0
+msgid "Contact address"
+msgstr "Adresse de contact"
+
+#. module: maintenance
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+msgid "Content"
+msgstr "Contenu"
+
+#. module: maintenance
+#: field:maintenance.element,create_uid:0
+#: field:maintenance.installation,create_uid:0
+#: field:maintenance.intervention,create_uid:0
+#: field:maintenance.intervention.task,create_uid:0
+#: field:maintenance.intervention.type,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: maintenance
+#: field:maintenance.element,create_date:0
+#: field:maintenance.installation,create_date:0
+#: field:maintenance.intervention,create_date:0
+#: field:maintenance.intervention.task,create_date:0
+#: field:maintenance.intervention.type,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: maintenance
+#: view:maintenance.element:maintenance.search_maintenance_element
 #: field:maintenance.element,partner_id:0
+#: view:maintenance.installation:maintenance.search_maintenance_installation
 #: field:maintenance.installation,partner_id:0
-#: view:maintenance.intervention:0
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 #: field:maintenance.intervention,partner_id:0
+#: view:website:maintenance.report_maintenance_installation_document
+#: view:website:maintenance.report_maintenance_intervention_document
 msgid "Customer"
 msgstr "Client"
 
 #. module: maintenance
-#: field:maintenance.element,name:0
-#: field:maintenance.intervention.type,name:0
-msgid "Name"
-msgstr "Nom"
+#: help:maintenance.intervention,partner_id:0
+msgid "Customer linked to the installation"
+msgstr "Client lié à cette installation"
 
 #. module: maintenance
-#: field:maintenance.intervention,task_month:0
-msgid "Task month"
-msgstr "Mois de le tache"
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Date"
+msgstr "Date"
+
+#. module: maintenance
+#: help:maintenance.installation,message_last_post:0
+#: help:maintenance.intervention,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté pour cet enregistrement"
+
+#. module: maintenance
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+msgid "Deactivate"
+msgstr "Désactiver"
+
+#. module: maintenance
+#: help:maintenance.intervention.type,workforce_product_id:0
+msgid "Default workforce product for this kind of intervention"
+msgstr "Produit de main d'oeuvre par défaut pour ce type d'intervention"
+
+#. module: maintenance
+#: field:maintenance.element,description:0
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+#: field:maintenance.intervention,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+#: selection:maintenance.intervention,state:0
+msgid "Done"
+msgstr "Terminer"
+
+#. module: maintenance
+#: selection:maintenance.intervention,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: maintenance
+#: view:maintenance.element:maintenance.view_maintenance_element_form
+msgid "Element"
+msgstr "Element"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_element
+#: model:ir.ui.menu,name:maintenance.menu_maintenance_element
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+#: field:maintenance.installation,elements:0
+msgid "Elements"
+msgstr "Elements"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Elements :"
+msgstr "Elements :"
+
+#. module: maintenance
+#: model:ir.model,name:maintenance.model_maintenance_installation
+#: model:ir.model,name:maintenance.model_maintenance_intervention
+msgid "Email Thread"
+msgstr "Discussion par courriel"
+
+#. module: maintenance
+#: view:website:maintenance.external_layout_footer_maintenance
+msgid "Email:"
+msgstr "Email:"
+
+#. module: maintenance
+#: field:maintenance.intervention,date_end:0
+msgid "End"
+msgstr "Fin"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "End Date"
+msgstr "Date de fin"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+msgid "End of task"
+msgstr "Fin de la tâche"
+
+#. module: maintenance
+#: field:maintenance.intervention.task,date_end:0
+msgid "Ending Date"
+msgstr "Ending Date"
+
+#. module: maintenance
+#: help:maintenance.intervention.task,planned_hours:0
+msgid "Estimated time to do the task, usually set by the project manager when the task is in draft state."
+msgstr "Temps estimé pour faire la tâche, normalement défini par le gestionnaire de projet lorsque la tâche est à l'état brouillon"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "External Comment"
+msgstr "Commentaire externe"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+#: field:maintenance.intervention,ext_comment:0
+msgid "External comment"
+msgstr "Commentaire externe"
+
+#. module: maintenance
+#: view:website:maintenance.external_layout_footer_maintenance
+msgid "Fax:"
+msgstr "Fax:"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "Filter"
+msgstr "Filtre"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "Finished"
+msgstr "Terminées"
+
+#. module: maintenance
+#: field:maintenance.installation,message_follower_ids:0
+#: field:maintenance.intervention,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: maintenance
+#: view:maintenance.element:maintenance.search_maintenance_element
+#: view:maintenance.installation:maintenance.search_maintenance_installation
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: maintenance
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+msgid "History"
+msgstr "Historique"
+
+#. module: maintenance
+#: help:maintenance.installation,message_summary:0
+#: help:maintenance.intervention,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+
+#. module: maintenance
+#: field:maintenance.element,id:0 field:maintenance.installation,id:0
+#: field:maintenance.intervention,id:0
+#: field:maintenance.intervention.task,id:0
+#: field:maintenance.intervention.type,id:0
+msgid "ID"
+msgstr "ID"
 
 #. module: maintenance
 #: field:maintenance.installation,name:0
@@ -526,24 +343,435 @@ msgid "Identification"
 msgstr "Identification"
 
 #. module: maintenance
+#: help:maintenance.installation,message_unread:0
+#: help:maintenance.intervention,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "If checked new messages require your attention."
+
+#. module: maintenance
+#: selection:maintenance.installation,state:0
+msgid "Inactive"
+msgstr "Inactive"
+
+#. module: maintenance
+#: view:maintenance.element:maintenance.search_maintenance_element
+#: field:maintenance.element,installation_id:0
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+#: field:maintenance.intervention,installation_id:0
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Installation"
+msgstr "Installation"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Installation Address"
+msgstr "Adresse de l'installationInstallation Address"
+
+#. module: maintenance
+#: field:maintenance.element,installation_date:0
+msgid "Installation date"
+msgstr "Date d'installation"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_installation
+#: model:ir.ui.menu,name:maintenance.menu_maintenance_installation
+msgid "Installations"
+msgstr "Installations"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Internal Comment"
+msgstr "Commentaire interne"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+#: field:maintenance.intervention,int_comment:0
+msgid "Internal comment"
+msgstr "Commentaire interne"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_calendar
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+#: field:maintenance.intervention.task,intervention_id:0
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "Intervention"
+msgstr "Intervention"
+
+#. module: maintenance
+#: field:maintenance.intervention,state:0
+msgid "Intervention State"
+msgstr "Etat de l'intervention"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_intervention_type
+#: model:ir.ui.menu,name:maintenance.menu_maintenance_intervention_type
+msgid "Intervention Type"
+msgstr "Type d'intervention"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "Intervention address:"
+msgstr "Adresse d'intervention:"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_intervention
+#: model:ir.ui.menu,name:maintenance.menu_maintenance_intervention
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+#: field:maintenance.installation,interventions:0
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "Interventions"
+msgstr "Interventions"
+
+#. module: maintenance
+#: field:maintenance.installation,invoice_address_id:0
+msgid "Invoice address"
+msgstr "Adresse de facturation"
+
+#. module: maintenance
+#: field:maintenance.installation,message_is_follower:0
+#: field:maintenance.intervention,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est un Abonné"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Last Interventions :"
+msgstr "Dernières Interventions :"
+
+#. module: maintenance
+#: field:maintenance.installation,message_last_post:0
+#: field:maintenance.intervention,message_last_post:0
+msgid "Last Message Date"
+msgstr "Last Message Date"
+
+#. module: maintenance
+#: field:maintenance.element,write_uid:0
+#: field:maintenance.installation,write_uid:0
+#: field:maintenance.intervention,write_uid:0
+#: field:maintenance.intervention.task,write_uid:0
+#: field:maintenance.intervention.type,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: maintenance
+#: field:maintenance.element,write_date:0
+#: field:maintenance.installation,write_date:0
+#: field:maintenance.intervention,write_date:0
+#: field:maintenance.intervention.task,write_date:0
+#: field:maintenance.intervention.type,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: maintenance
+#: field:maintenance.element,location:0
+msgid "Location"
+msgstr "Emplacement"
+
+#. module: maintenance
+#: model:ir.ui.menu,name:maintenance.menu_maintenance
+#: model:ir.ui.menu,name:maintenance.menu_maintenance_maintenance
+msgid "Maintenance"
+msgstr "Maintenance"
+
+#. module: maintenance
+#: model:ir.module.category,name:maintenance.module_category_specific_maintenance
+msgid "Maintenance Applications"
+msgstr "Applications de Maintenance"
+
+#. module: maintenance
+#: view:maintenance.element:maintenance.view_maintenance_element_form
+#: view:maintenance.element:maintenance.view_maintenance_element_tree
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+msgid "Maintenance Element"
+msgstr "Element de maintenance"
+
+#. module: maintenance
+#: view:maintenance.element:maintenance.search_maintenance_element
+msgid "Maintenance Elements"
+msgstr "Elements de maintenance"
+
+#. module: maintenance
+#: model:ir.actions.report.xml,name:maintenance.report_maintenance_installations
+msgid "Maintenance Installation"
+msgstr "Installation de Maintenance"
+
+#. module: maintenance
+#: model:ir.actions.report.xml,name:maintenance.report_maintenance_interventions
+msgid "Maintenance Intervention"
+msgstr "Rapport d'intervention"
+
+#. module: maintenance
+#: view:maintenance.installation:maintenance.view_maintenance_installation_tree
+msgid "Maintenance installation"
+msgstr "Installation de maintenance"
+
+#. module: maintenance
+#: view:maintenance.installation:maintenance.search_maintenance_installation
+msgid "Maintenance installations"
+msgstr "Installations de maintenance"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_tree
+msgid "Maintenance intervention"
+msgstr "Intervention de maintenance"
+
+#. module: maintenance
+#: view:maintenance.intervention.type:maintenance.view_maintenance_intervention_type_form
+msgid "Maintenance intervention type"
+msgstr "Type d'intervention"
+
+#. module: maintenance
+#: model:res.groups,name:maintenance.group_maintenance_manager
+msgid "Maintenance manager"
+msgstr "Responsable Maintenance"
+
+#. module: maintenance
+#: model:res.groups,name:maintenance.group_maintenance_user
+msgid "Maintenance user"
+msgstr "Utilisateur Maintenance"
+
+#. module: maintenance
+#: field:maintenance.installation,message_ids:0
+#: field:maintenance.intervention,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: maintenance
+#: help:maintenance.installation,message_ids:0
+#: help:maintenance.intervention,message_ids:0
+msgid "Messages and communication history"
+msgstr "Messages and communication history"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "My Interventions confirmed"
+msgstr "Mes Interventions confirmées"
+
+#. module: maintenance
+#: field:maintenance.element,name:0 field:maintenance.intervention.type,name:0
+#: view:website:maintenance.report_maintenance_installation_document
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "Name"
+msgstr "Nom"
+
+#. module: maintenance
+#: view:website:maintenance.external_layout_footer_maintenance
+msgid "Page:"
+msgstr "Page:"
+
+#. module: maintenance
+#: model:ir.model,name:maintenance.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: maintenance
+#: view:website:maintenance.external_layout_footer_maintenance
+msgid "Phone:"
+msgstr "Téléphone:"
+
+#. module: maintenance
+#: field:maintenance.intervention.task,planned_hours:0
+msgid "Planned Hours"
+msgstr "Heures planifiées"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+msgid "Planned/worked hours"
+msgstr "Heures planifiées/travaillées"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+msgid "Print"
+msgstr "Imprimer"
+
+#. module: maintenance
+#: view:maintenance.element:maintenance.view_maintenance_element_form
+#: field:maintenance.element,product_id:0
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+msgid "Product"
+msgstr "Produit"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+msgid "Scheduling"
+msgstr "Planification"
+
+#. module: maintenance
+#: field:maintenance.element,serial_number:0
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Serial Number"
+msgstr "Numéro de série"
+
+#. module: maintenance
+#: field:maintenance.element,serialnumber_required:0
+msgid "Serial number required"
+msgstr "Numéro de série requis"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "Signature"
+msgstr "Signature"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "Start Date"
+msgstr "Date de début"
+
+#. module: maintenance
+#: field:maintenance.intervention.task,date_start:0
+msgid "Starting Date"
+msgstr "Date de début"
+
+#. module: maintenance
+#: field:maintenance.installation,state:0
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "State"
+msgstr "Etat"
+
+#. module: maintenance
+#: field:maintenance.installation,message_summary:0
+#: field:maintenance.intervention,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+msgid "Task"
+msgstr "Tâche"
+
+#. module: maintenance
+#: field:maintenance.intervention.task,name:0
+msgid "Task Summary"
+msgstr "Résumé de la tâche"
+
+#. module: maintenance
 #: field:maintenance.intervention,task_hours:0
 msgid "Task hours"
 msgstr "Heures de la tache"
 
 #. module: maintenance
-#: view:maintenance.installation:0
-msgid "Activate"
-msgstr "Activate"
+#: field:maintenance.intervention,task_month:0
+msgid "Task month"
+msgstr "Mois de le tâche"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "Task state"
+msgstr "Etat de la tâche"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+#: field:maintenance.intervention,tasks:0
+msgid "Tasks"
+msgstr "Tâches"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+#: field:maintenance.intervention,technicians:0
+msgid "Technician"
+msgstr "Techniciens"
+
+#. module: maintenance
+#: help:maintenance.installation,code:0
+msgid "The Maintenance Installation Code"
+msgstr "Le code de l'installation de maintenance"
+
+#. module: maintenance
+#: help:maintenance.installation,warehouse_id:0
+msgid "The Warehouse linked to this Installation"
+msgstr "L'Entrepôt lié à cette installation"
+
+#. module: maintenance
+#: help:maintenance.installation,address_id:0
+msgid "The address where the installation is located"
+msgstr "L'adresse où l'installation est située"
+
+#. module: maintenance
+#: help:maintenance.installation,contact_address_id:0
+msgid "The contact for this installation"
+msgstr "Le contact pour cette installation"
+
+#. module: maintenance
+#: help:maintenance.installation,elements:0
+msgid "The elements contained in this installation"
+msgstr "Les éléments contenus dans cette installation"
+
+#. module: maintenance
+#: help:maintenance.installation,state:0
+msgid "The installation can take two states<br/> -active <br/> -inactive"
+msgstr "L'installation peut prendre deux états :<br/> -active <br/> -inactive"
+
+#. module: maintenance
+#: help:maintenance.installation,interventions:0
+msgid "The interventions linked to this installation"
+msgstr "Les interventions liées à cette installation"
+
+#. module: maintenance
+#: help:maintenance.element,partner_id:0
+#: help:maintenance.installation,partner_id:0
+msgid "The partner linked to this maintenance installation"
+msgstr "Le partenaire lié à cette installation de maintenance"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "Time (Quarter(s))"
+msgstr "Temps (Quart(s) d'heure)"
 
 #. module: maintenance
 #: help:maintenance.intervention,time_planned:0
 msgid "Time initially planned to do intervention."
-msgstr "Time initially planned to do intervention."
+msgstr "Temps initialement prévu pour faire cette intervention."
 
 #. module: maintenance
-#: field:maintenance.intervention.type,color:0
-msgid "Color"
-msgstr "Couleur"
+#: field:maintenance.intervention,time_planned:0
+msgid "Time planned"
+msgstr "Durée prévue"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "To confirm"
+msgstr "À confirmer"
+
+#. module: maintenance
+#: field:maintenance.intervention,to_plan:0
+#: field:maintenance.intervention.task,to_plan:0
+msgid "To plan"
+msgstr "À planifier"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+#: field:maintenance.intervention,maint_type:0
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Type"
+msgstr "Type"
+
+#. module: maintenance
+#: view:maintenance.intervention.type:maintenance.view_maintenance_intervention_type_form
+msgid "Type :"
+msgstr "Type :"
+
+#. module: maintenance
+#: help:maintenance.intervention.type,workforce_product_duration:0
+msgid "Unit of time for workforce product"
+msgstr "Temps de mesure pour le produit de main d'oeuvre"
+
+#. module: maintenance
+#: field:maintenance.installation,message_unread:0
+#: field:maintenance.intervention,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: maintenance
+#: field:maintenance.element,visible_for_intervention:0
+msgid "Visible for interventions"
+msgstr "Visible dans les interventions"
+
+#. module: maintenance
+#: field:maintenance.installation,warehouse_id:0
+msgid "Warehouse"
+msgstr "Entrepôt"
 
 #. module: maintenance
 #: field:maintenance.element,warranty_date:0
@@ -551,7 +779,53 @@ msgid "Warranty date"
 msgstr "Date de garantie"
 
 #. module: maintenance
-#: constraint:res.partner:0
-msgid "Reference has to be unique. There is an other partner with the same reference."
-msgstr "La référence doit être unique. Il y a un autre partenaire avec la même référence."
+#: field:maintenance.installation,website_message_ids:0
+#: field:maintenance.intervention,website_message_ids:0
+msgid "Website Messages"
+msgstr "Website Messages"
 
+#. module: maintenance
+#: help:maintenance.installation,website_message_ids:0
+#: help:maintenance.intervention,website_message_ids:0
+msgid "Website communication history"
+msgstr "Website communication history"
+
+#. module: maintenance
+#: view:website:maintenance.external_layout_footer_maintenance
+msgid "Website:"
+msgstr "Website:"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "Worker"
+msgstr "Technicien"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_intervention_document
+msgid "Worker Comments"
+msgstr "Commentaires du technicien"
+
+#. module: maintenance
+#: view:website:maintenance.report_maintenance_installation_document
+msgid "Workers"
+msgstr "Techniciens"
+
+#. module: maintenance
+#: field:maintenance.intervention.type,workforce_product_id:0
+msgid "Workforce product"
+msgstr "Produit de main d'oeuvre"
+
+#. module: maintenance
+#: field:maintenance.intervention.type,workforce_product_duration:0
+msgid "Workforce product duration"
+msgstr "Durée du produit de main d'oeuvre"
+
+#. module: maintenance
+#: model:res.groups,comment:maintenance.group_maintenance_manager
+msgid "the user will have access to his all data in the maintenance application."
+msgstr "l'utilisateur aura accès à toutes ses données dans l'application de maintenance."
+
+#. module: maintenance
+#: model:res.groups,comment:maintenance.group_maintenance_user
+msgid "the user will have access to his own data in the maintenance application."
+msgstr "the user will have access to his own data in the maintenance application."

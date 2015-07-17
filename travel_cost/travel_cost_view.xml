@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		
+		<!-- Travel Cost -->
+		<record id="view_travel_cost_tree" model="ir.ui.view">
+			<field name="name">travel.cost.tree</field>
+			<field name="model">travel.cost</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Travel Cost">
+					<field name="name" />
+					<field name="zip" />
+					<field name="product_id" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_travel_cost_form" model="ir.ui.view">
+			<field name="name">travel.cost.form</field>
+			<field name="model">travel.cost</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Travel Cost">
+					<group string="Travel Costs">
+						<field name="name" />
+						<field name="zip" />
+						<field name="product_id" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="action_travel_cost" model="ir.actions.act_window">
+			<field name="name">Travel Cost</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">travel.cost</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>	  
+		
+		 
+		<menuitem action="action_travel_cost" id="menu_maintenance_travel_cost" parent="maintenance.menu_maintenance_config" sequence="10"/> 
+		
+		
+		
+		
+		<!-- Travel Time  -->
+		<record id="view_travel_time_tree" model="ir.ui.view">
+			<field name="name">travel.time.tree</field>
+			<field name="model">travel.time</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Travel Time">
+					<field name="travel_cost_id" />
+					<field name="address_id" />
+					<field name="time"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_travel_time_form" model="ir.ui.view">
+			<field name="name">travel.time.form</field>
+			<field name="model">travel.time</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Travel Time">
+					<header>
+						<button name="compute_time" type="object" string="Compute Time"/>
+					</header>
+					<sheet>
+						<group string="Travel Time">
+							<group string="Travel">
+								<field name="address_id" string="Origin"/>
+								<field name="travel_cost_id" string="Destination"/>
+							</group>
+							<group string ="Time">
+								<field name="time"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="action_travel_time" model="ir.actions.act_window">
+			<field name="name">Travel Time</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">travel.time</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>	  
+		
+		<menuitem action="action_travel_time" id="menu_maintenance_travel_time" parent="maintenance.menu_maintenance_config"/>
+		 
+		
+		
+	</data>
+</openerp>
+	

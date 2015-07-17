@@ -1,0 +1,101 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* maintenance_timeofuse
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2013-09-30 07:27+0000\n"
+"PO-Revision-Date: 2013-09-30 07:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: maintenance_timeofuse
+#: field:maintenance.element,timeofuse_required:0
+msgid "Hour counter required"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: model:ir.model,name:maintenance_timeofuse.model_maintenance_intervention_timeofuse
+msgid "maintenance.intervention.timeofuse"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: code:addons/maintenance_timeofuse/maintenance_timeofuse.py:87
+#: view:maintenance.timeofuse.intervention.confirm.wizard:0
+#, python-format
+msgid "Confirm"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: model:ir.model,name:maintenance_timeofuse.model_maintenance_element
+msgid "maintenance.element"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: view:maintenance.timeofuse.intervention.confirm.wizard:0
+msgid "You have not filled time counter(s) ! Continue ?"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: view:maintenance.timeofuse.intervention.confirm.wizard:0
+msgid "Fill time counter"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: view:maintenance.intervention:0
+#: field:maintenance.intervention,intervention_timeofuse:0
+msgid "Hour counters"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: field:maintenance.intervention.timeofuse,maintenance_element_id:0
+msgid "Maintenance element"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: view:maintenance.element:0
+#: field:maintenance.element,timeofuse_history:0
+msgid "Time of use history"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: view:maintenance.timeofuse.intervention.confirm.wizard:0
+msgid "Confirm intervention without fill time counter"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: field:maintenance.intervention.timeofuse,valid:0
+msgid "Valid"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: model:ir.model,name:maintenance_timeofuse.model_maintenance_intervention
+msgid "maintenance.intervention"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: model:ir.model,name:maintenance_timeofuse.model_maintenance_timeofuse_intervention_confirm_wizard
+msgid "maintenance.timeofuse.intervention.confirm.wizard"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: field:maintenance.intervention.timeofuse,create_date:0
+msgid "Date"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: field:maintenance.intervention.timeofuse,time_of_use:0
+msgid "Time of use (h)"
+msgstr ""
+
+#. module: maintenance_timeofuse
+#: field:maintenance.intervention.timeofuse,intervention_id:0
+msgid "Intervention"
+msgstr ""
+

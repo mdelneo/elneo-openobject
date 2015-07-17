@@ -3,6 +3,50 @@ from openerp.tools.translate import _
 from datetime import datetime
 from dateutil import relativedelta
 
+
+class sale_order(models.Model):
+    _inherit = 'sale.order'
+    
+    @api.multi
+    def action_wait(self):
+        for order_line in self.order_line:
+            order_line.procurement_path_backup = None
+            order_line.procurement_path_backup = order_line.procurement_path
+        return super(sale_order, self).action_wait()
+    
+    @api.multi
+    def action_cancel(self):
+        for order_line in self.order_line:
+            order_line.procurement_path_backup = 'cancel'
+        return super(sale_order, self).action_cancel()
+    
+sale_order()
+
+class sale_order_line(models.Model):
+    _inherit = 'sale.order.line'
+    
+
+    def copy_data(self, *args, **kwargs):
+        data = super(sale_order_line, self).copy_data(*args, **kwargs)
+        if data and data.get('procurement_path_backup'):
+            data['procurement_path_backup'] = None
+        return data
+
+    
+    @api.one
+    def get_procurement_path(self):
+        if self.procurement_path_backup:
+            self.procurement_path = self.procurement_path_backup
+        else:
+            rule = self.env['procurement.rule'].search([('route_id','=',self.route_id.id),('location_id','=',self.order_id.warehouse_id.wh_output_stock_loc_id.id)])
+            if rule:
+                self.procurement_path = rule.get_path(self.product_id, self.product_uos_qty)
+    
+    procurement_path = fields.Char('Procurement path', compute='get_procurement_path')
+    procurement_path_backup = fields.Char('Procurement path (backup)')
+    
+sale_order_line()
+
 class procurement_rule(models.Model):
     
     _inherit = 'procurement.rule'
@@ -13,6 +57,35 @@ class procurement_rule(models.Model):
         return result + [('moves', _('Move from different locations'))]
     
     procure_methods = fields.One2many('procurement.rule.procure.method', 'rule_id', string='Procure methods')
+    
+    def get_path(self, product, quantity):
+        remaining_qty = quantity
+        path = ''
+        for procure_method in self.procure_methods:
+            purchase = False
+            if procure_method.procure_method == 'make_to_stock':
+                qty_in_stock = product.with_context({'location':procure_method.location_src_id.id})._product_available()[product.id]['virtual_available']
+            elif procure_method.procure_method == 'make_to_order' and procure_method.sub_route_quantity_check_location_id:
+                qty_in_stock = product.with_context({'location':procure_method.sub_route_quantity_check_location_id.id})._product_available()[product.id]['virtual_available']
+            else:
+                purchase = True
+            
+            if remaining_qty > 0 and self.env['procurement.order'].use_procure_method(product, procure_method, remaining_qty, qty_in_stock):
+                if purchase: 
+                    move_qty = remaining_qty
+                else:
+                    move_qty = min(qty_in_stock,remaining_qty)
+                    
+                if move_qty <= 0:
+                    continue
+                
+                remaining_qty = remaining_qty - move_qty
+            
+                procure_method_name = procure_method.name or ''
+                
+                path = path+' - '+procure_method_name+' ('+str(move_qty)+')'
+        
+        return path[3:]
     
 procurement_rule()
 
@@ -32,6 +105,7 @@ class procurement_rule_procure_method(models.Model):
             vals['route_ids'] = [(4,self.sub_route_id.id)]
         return vals
     
+    name = fields.Char('Name', size=255)
     rule_id = fields.Many2one('procurement.rule', 'Rule')
     procure_method = fields.Selection([('make_to_stock', 'Take From Stock'), ('make_to_order', 'Create Procurement')], 'Move Supply Method', required=True)
     location_src_id = fields.Many2one('stock.location', 'Source location')
@@ -55,7 +129,7 @@ stock_move()
 class procurement_order(models.Model):
     _inherit = 'procurement.order'
     
-    def use_procure_method(self, procurement, procure_method, requested_quantity, qty_in_stock):
+    def use_procure_method(self, product, procure_method, requested_quantity, qty_in_stock):
         if procure_method.use_if_enough_stock and qty_in_stock > requested_quantity:
             return True
 
@@ -73,7 +147,7 @@ class procurement_order(models.Model):
                 else:
                     purchase = True
                 
-                if remaining_qty > 0 and self.use_procure_method(procurement, procure_method, remaining_qty, qty_in_stock):
+                if remaining_qty > 0 and self.use_procure_method(procurement.product_id, procure_method, remaining_qty, qty_in_stock):
                     if purchase: 
                         move_qty = remaining_qty
                     else:

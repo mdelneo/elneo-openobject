@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_maintenance_element_model_maintenance_user","maintenance.element.model","model_maintenance_element_model","maintenance.group_maintenance_user",1,1,1,1
+"access_maintenance_intervention_model_maintenance_user","maintenance.intervention.model","model_maintenance_intervention_model","maintenance.group_maintenance_user",1,1,1,1
+"access_maintenance_intervention_product_model_maintenance_user","maintenance.intervention.product.model","model_maintenance_intervention_product_model","maintenance.group_maintenance_user",1,1,1,1
+"access_maintenance_generation_detail_maintenance_user","maintenance.generation.detail","model_maintenance_generation_detail","maintenance.group_maintenance_user",1,1,1,1

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Installation views -->
+		<record
+			id="view_maintenance_installation_project_quotation"
+			model="ir.ui.view">
+			<field name="name">maintenance.installation.project.quotation.form
+			</field>
+			<field name="inherit_id" ref="maintenance_project.view_maintenance_installation_form_maintenance_project_inherit" />
+			<field name="model">maintenance.installation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<button name="installation_active" position="attributes">
+					<attribute name="states">inactive,quotation</attribute>
+				</button> 
+				<button name="installation_active" position="after">
+					<field name="is_quotation_installation" invisible="True" />
+					<button name="installation_draft" states="active,inactive" string="Reset" attrs="{'invisible':['|',('is_quotation_installation','==',False),('state','==','quotation')]}" />
+				</button>
+			</field>
+		</record>
+	
+		 
+                
+		<!-- FORM PROJECT MAINTENANCE QUOTATION -->
+		<record id="view_maintenance_project_form_quotation" model="ir.ui.view">
+			<field name="name">maintenance.project.form.quotation</field>
+			<field name="inherit_id" ref="maintenance_project.view_maintenance_project_form" />
+			<field name="model">maintenance.project</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<button name="draft" position="attributes">
+					<attribute name="states">"quotation_done, disabled"</attribute>
+				</button> 
+				<button name="active" position="attributes">
+					<attribute name="states">"draft, quotation_done"</attribute>
+				</button> 
+				<button name="disabled" position="attributes">
+					<attribute name="states">"quotations_done, active"</attribute>
+				</button>
+				<button name="disabled" position="after">
+					<button name="quotation_todo" string="Quotation To Do" states="draft" icon="gtk-execute"/>
+					<button name="quotation_done" string="Quotation Done" states="quotation_todo" icon="gtk-execute"/>
+				</button>
+				<field name="state" position="attributes">
+					<attribute name="statusbar_visible">"draft,quotation_todo,quotation_done,active,disabled"</attribute>
+				</field>
+				<page string="Budget" position="after">
+					<page string="Quotations">
+						<button name="generate_quotation_prices" string="Generate" type="object" />
+						<separator colspan="4" string="Prices" />
+						<field name="quotation_prices" nolabel="1" colspan="4">
+							<form string="Quotation prices">
+								<field name="project_type_id" />
+								<field name="brut_sale_price" />
+								<field name="cost_price" />
+								<field name="discount" />
+								<field name="coefficient" />
+								<field name="margin" />
+								<field name="net_sale_price" />
+								<field name="annual_net_sale_price" />
+							</form>
+							<tree string="Quotation prices">
+								<field name="project_type_id" />
+								<field name="brut_sale_price" />
+								<field name="cost_price" />
+								<field name="discount" />
+								<field name="coefficient" />
+								<field name="margin" />
+								<field name="net_sale_price" />
+								<field name="annual_net_sale_price" />
+							</tree>
+						</field>
+						
+						<separator string="Status"/>
+						<group>
+							<field name="quotation_todo_date" />
+							<field name="quotation_done_date" />
+						</group>
+					</page>
+				</page>
+			</field>
+		</record>
+		
+		
+		<!--  TREE PROJECT MAINTENANCE -->
+		<!-- 
+		<record
+			id="view_maintenance_project_tree_elneo_maintenance_project_inherit"
+			model="ir.ui.view">
+			<field name="name">maintenance.project.tree.elneo.maintenance.project.inherit
+			</field>
+			<field name="inherit_id" ref="maintenance_project.view_maintenance_project_tree" />
+			<field name="model">maintenance.project</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<field name="enable" position="replace">
+					<field name="state" sum="Status" />
+				</field>
+			</field>
+		</record>
+		-->
+		
+
+			
+		<!-- Change action of maintenance project -->
+		
+		<record id="view_maintenance_project_quotation_search" model="ir.ui.view">
+            <field name="name">maintenance.project.search</field>
+            <field name="model">maintenance.project</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Maintenance project">
+                    <group col="8" colspan="4">
+                        <!-- <filter icon="terp-camera_test" name="enable" string="Enable" domain="['|',('enable','=',True),('sale_order_id','=',False)]" help="Current Accounts"/>-->
+                        <filter icon="terp-camera_test" name="state" string="Quotation to do" domain="[('state','=','quotation_todo')]" help="Maintenance project requested for quotation "/>
+                        <separator orientation="vertical"/>
+                        <field name="code" />
+                        <field name="installation_id" />
+                        <field name="project_type_id" widget="selection" />
+                    </group>
+                </search>
+            </field>
+        </record>
+		
+		
+		<record id="action_maintenance_project_not_quotation" model="ir.actions.act_window">
+			<field name="name">Projects</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.project</field>
+			<field name="view">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="maintenance_project.view_maintenance_project_account_search"/>
+			<field name="context">{"search_default_enable":1}</field>
+			<field name="domain">[('state','in',['draft','active','disabled'])]</field>
+		</record>
+		
+		<record id="action_maintenance_project_quotation" model="ir.actions.act_window">
+			<field name="name">Project Quotations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.project</field>
+			<field name="view">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_maintenance_project_quotation_search"/>
+			<field name="context">{"search_default_enable":1}</field>
+			<field name="domain">[('state','not in',['draft','active','disabled'])]</field>
+		</record>
+		
+		<menuitem action="action_maintenance_project_not_quotation" id="maintenance_project.menu_maintenance_project"
+			parent="maintenance_project.menu_maintenance_sale" sequence="10" />
+			
+		<menuitem action="action_maintenance_project_quotation" id="menu_maintenance_project_quotation"
+			parent="maintenance_project.menu_maintenance_sale" sequence="10" />
+			
+	</data>
+</openerp>

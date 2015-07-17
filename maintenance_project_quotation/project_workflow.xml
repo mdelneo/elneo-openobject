@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- 
+		<record model="workflow" id="wkf_maintenance_project_quotation">
+			<field name="name">maintenance.project.quotation</field>
+			<field name="osv">maintenance.project</field>
+			<field name="on_create" eval="True"/>
+		</record>
+	 	-->
+	 	<!-- 
+		<record model="workflow.activity" id="act_draft">
+			<field name="wkf_id" ref="wkf_maintenance_project_basic"/>
+			<field name="flow_start" eval="True"/>
+			<field name="name">draft</field>
+			<field name="kind">function</field>
+			<field name="action">draft()</field>
+		</record>
+ 		-->
+		<record model="workflow.activity" id="act_todo">
+			<field name="wkf_id" ref="maintenance_project.wkf_maintenance_project"/>
+			<field name="name">todo</field>
+			<field name="kind">function</field>
+			<field name="action">quotation_todo()</field>
+		</record>
+
+		<record model="workflow.activity" id="act_done">
+			<field name="wkf_id" ref="maintenance_project.wkf_maintenance_project"/>
+			<field name="name">done</field>
+			<field name="kind">function</field>
+			<field name="action">quotation_done()</field>
+		</record>
+		<!-- 
+		<record model="workflow.activity" id="act_active">
+			<field name="wkf_id" ref="wkf_maintenance_project_quotation"/>
+			<field name="name">active</field>
+			<field name="kind">function</field>
+			<field name="action">active()</field>
+		</record>
+		
+		<record model="workflow.activity" id="act_disabled">
+			<field name="wkf_id" ref="wkf_maintenance_project_quotation"/>
+			<field name="name">disabled</field>
+			<field name="kind">function</field>
+			<field name="action">disabled()</field>
+		</record>
+ 		-->
+ 		
+ 		<!-- TRANSITIONS -->
+		<record model="workflow.transition" id="t4">
+			<field name="act_from" ref="maintenance_project.act_draft"/>
+			<field name="act_to" ref="act_todo"/>
+			<field name="signal">quotation_todo</field>
+		</record>
+
+		<record model="workflow.transition" id="t5">
+			<field name="act_from" ref="act_todo"/>
+			<field name="act_to" ref="act_done"/>
+			<field name="signal">quotation_done</field>
+		</record>
+		<record model="workflow.transition" id="t6">
+			<field name="act_from" ref="act_done"/>
+			<field name="act_to" ref="maintenance_project.act_draft"/>
+			<field name="signal">draft</field>
+		</record>
+		<record model="workflow.transition" id="t7">
+			<field name="act_from" ref="act_done"/>
+			<field name="act_to" ref="maintenance_project.act_active"/>
+			<field name="signal">active</field>
+		</record>
+		<record model="workflow.transition" id="t8">
+			<field name="act_from" ref="act_done"/>
+			<field name="act_to" ref="maintenance_project.act_disabled"/>
+			<field name="signal">disabled</field>
+		</record>
+		<!-- 
+		<record model="workflow.transition" id="t6">
+			<field name="act_from" ref="act_disabled"/>
+			<field name="act_to" ref="act_draft"/>
+			<field name="signal">draft</field>
+		</record>
+		<record model="workflow.transition" id="t7">
+			<field name="act_from" ref="act_active"/>
+			<field name="act_to" ref="act_disabled"/>
+			<field name="signal">disabled</field>
+		</record>
+		<record model="workflow.transition" id="t8">
+			<field name="act_from" ref="act_draft"/>
+			<field name="act_to" ref="act_active"/>
+			<field name="signal">active</field>
+		</record>
+		
+		 -->
+		
+		
+		<!-- MIGRATION WIZARD -->
+		<record id="view_migrate_maintenance_project_workflow_wizard_form" model="ir.ui.view">
+			<field name="name">Migrate Project Workflow</field>
+			<field name="model">maintenance.project.workflow</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<group>
+						<button icon="gtk-ok" string="Migrate" type="object" name="migrate" />
+						<button icon="gtk-cancel" string="Cancel" special="cancel" />
+					</group>
+				</form>
+			</field>
+		</record>
+	
+		<record id="action_migrate_maintenance_project_workflow_wizard"
+			model="ir.actions.act_window">
+			<field name="name">Migrate Project Workflow</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.project.workflow</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
+		<menuitem
+			id="migrate_maintenance_project_workflow_menu" groups="base.group_system"
+			name="Migrate Project Workflows" parent="maintenance.menu_maintenance_config"
+			action="action_migrate_maintenance_project_workflow_wizard" />
+	</data>
+</openerp>

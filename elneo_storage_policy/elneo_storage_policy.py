@@ -10,17 +10,17 @@ from openerp.osv.fields import related
 class procurement_order(models.Model):
     _inherit = 'procurement.order'
     
-    def use_procure_method(self, procurement, procure_method, requested_quantity, qty_in_stock):
-        res = super(procurement_order, self).use_procure_method(procurement, procure_method, requested_quantity, qty_in_stock)
+    def use_procure_method(self, product, procure_method, requested_quantity, qty_in_stock):
+        res = super(procurement_order, self).use_procure_method(product, procure_method, requested_quantity, qty_in_stock)
         
         if procure_method.use_if_enough_stock and qty_in_stock > requested_quantity:
             return True
         
-        if procurement.product_id:
+        if product:
             #find good warehouse detail
             warehouse_detail = None
             
-            for detail in procurement.product_id.warehouse_detail:
+            for detail in product.warehouse_detail:
                 if detail.warehouse_id.id == procure_method.warehouse_src_id.id:
                     warehouse_detail = detail
             if not warehouse_detail:

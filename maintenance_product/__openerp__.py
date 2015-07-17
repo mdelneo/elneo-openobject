@@ -8,10 +8,10 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['maintenance', 'sale','stock_account','stock'],
-    'data': ['maintenance_product_view.xml',
+    'data': ['wizard/maintenance_update_view.xml',
+             'maintenance_product_view.xml',
                    'maintenance_product_sequence.xml', 
                    'security/ir.model.access.csv',
-                   'wizard/maintenance_update_view.xml',
                    'report/report_maintenance.xml'
                    ],
     'installable': True,

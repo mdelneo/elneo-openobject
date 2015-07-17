@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-25 06:33+0000\n"
-"PO-Revision-Date: 2015-06-25 10:15+0100\n"
+"POT-Creation-Date: 2015-07-16 06:35+0000\n"
+"PO-Revision-Date: 2015-07-16 08:39+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language: fr_BE\n"
+"Plural-Forms: \n"
+"Language: fr\n"
 "X-Generator: Poedit 1.8.1\n"
 
 #. module: maintenance
@@ -37,6 +37,11 @@ msgstr "Activer"
 #: selection:maintenance.installation,state:0
 msgid "Active"
 msgstr "Active"
+
+#. module: maintenance
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+msgid "Additional Information"
+msgstr "Additional Information"
 
 #. module: maintenance
 #: field:maintenance.installation,address_id:0
@@ -130,6 +135,7 @@ msgid "Confirmed"
 msgstr "Confirmé"
 
 #. module: maintenance
+#: view:maintenance.element:maintenance.view_maintenance_element_form
 #: field:maintenance.intervention,contact_address_id:0
 #: view:website:maintenance.report_maintenance_installation_document
 msgid "Contact"
@@ -218,7 +224,7 @@ msgstr "Description"
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
 #: selection:maintenance.intervention,state:0
 msgid "Done"
-msgstr "Terminer"
+msgstr "Terminé"
 
 #. module: maintenance
 #: selection:maintenance.intervention,state:0
@@ -272,7 +278,7 @@ msgstr "Fin de la tâche"
 #. module: maintenance
 #: field:maintenance.intervention.task,date_end:0
 msgid "Ending Date"
-msgstr "Ending Date"
+msgstr "Date de fin"
 
 #. module: maintenance
 #: help:maintenance.intervention.task,planned_hours:0
@@ -346,7 +352,7 @@ msgstr "Identification"
 #: help:maintenance.installation,message_unread:0
 #: help:maintenance.intervention,message_unread:0
 msgid "If checked new messages require your attention."
-msgstr "If checked new messages require your attention."
+msgstr "Si coché de nouveux meassages requièrent votre attention"
 
 #. module: maintenance
 #: selection:maintenance.installation,state:0
@@ -366,7 +372,7 @@ msgstr "Installation"
 #. module: maintenance
 #: view:website:maintenance.report_maintenance_installation_document
 msgid "Installation Address"
-msgstr "Adresse de l'installationInstallation Address"
+msgstr "Adresse de l'installation"
 
 #. module: maintenance
 #: field:maintenance.element,installation_date:0
@@ -443,7 +449,7 @@ msgstr "Dernières Interventions :"
 #: field:maintenance.installation,message_last_post:0
 #: field:maintenance.intervention,message_last_post:0
 msgid "Last Message Date"
-msgstr "Last Message Date"
+msgstr "Date du dernier Message"
 
 #. module: maintenance
 #: field:maintenance.element,write_uid:0
@@ -452,7 +458,7 @@ msgstr "Last Message Date"
 #: field:maintenance.intervention.task,write_uid:0
 #: field:maintenance.intervention.type,write_uid:0
 msgid "Last Updated by"
-msgstr "Last Updated by"
+msgstr "Dernière modification par"
 
 #. module: maintenance
 #: field:maintenance.element,write_date:0
@@ -461,7 +467,7 @@ msgstr "Last Updated by"
 #: field:maintenance.intervention.task,write_date:0
 #: field:maintenance.intervention.type,write_date:0
 msgid "Last Updated on"
-msgstr "Last Updated on"
+msgstr "Dernière modification le"
 
 #. module: maintenance
 #: field:maintenance.element,location:0
@@ -541,7 +547,7 @@ msgstr "Messages"
 #: help:maintenance.installation,message_ids:0
 #: help:maintenance.intervention,message_ids:0
 msgid "Messages and communication history"
-msgstr "Messages and communication history"
+msgstr "Messages et historique de communication"
 
 #. module: maintenance
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
@@ -556,6 +562,12 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: maintenance
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+#: field:maintenance.installation,note:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: maintenance
 #: view:website:maintenance.external_layout_footer_maintenance
 msgid "Page:"
 msgstr "Page:"
@@ -568,7 +580,7 @@ msgstr "Partenaire"
 #. module: maintenance
 #: view:website:maintenance.external_layout_footer_maintenance
 msgid "Phone:"
-msgstr "Téléphone:"
+msgstr "Phone:"
 
 #. module: maintenance
 #: field:maintenance.intervention.task,planned_hours:0
@@ -782,18 +794,18 @@ msgstr "Date de garantie"
 #: field:maintenance.installation,website_message_ids:0
 #: field:maintenance.intervention,website_message_ids:0
 msgid "Website Messages"
-msgstr "Website Messages"
+msgstr "Messages du site web"
 
 #. module: maintenance
 #: help:maintenance.installation,website_message_ids:0
 #: help:maintenance.intervention,website_message_ids:0
 msgid "Website communication history"
-msgstr "Website communication history"
+msgstr "Historique de communication du site web"
 
 #. module: maintenance
 #: view:website:maintenance.external_layout_footer_maintenance
 msgid "Website:"
-msgstr "Website:"
+msgstr "Site web:"
 
 #. module: maintenance
 #: view:website:maintenance.report_maintenance_intervention_document
@@ -828,4 +840,4 @@ msgstr "l'utilisateur aura accès à toutes ses données dans l'application de m
 #. module: maintenance
 #: model:res.groups,comment:maintenance.group_maintenance_user
 msgid "the user will have access to his own data in the maintenance application."
-msgstr "the user will have access to his own data in the maintenance application."
+msgstr "l'utilisateur aura accès à ses propres données dans l'application de maintenance"

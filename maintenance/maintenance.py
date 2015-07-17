@@ -27,7 +27,7 @@ class maintenance_installation(models.Model):
             
         return res
     
-    code = fields.Char("Code", size=255, select=True,help="The Maintenance Installation Code",default=lambda obj: obj.env['ir.sequence'].get('maintenance.installation'))
+    code = fields.Char("Code", size=255, index=True,help="The Maintenance Installation Code",default=lambda obj: obj.env['ir.sequence'].get('maintenance.installation'))
     name = fields.Char("Identification", size=255)
     partner_id = fields.Many2one('res.partner', string='Customer',help="The partner linked to this maintenance installation")
     address_id = fields.Many2one('res.partner', string='Address', help="The address where the installation is located")
@@ -227,8 +227,8 @@ class maintenance_intervention(models.Model):
     def _get_code(self):
         return self.env['ir.sequence'].get('maintenance.intervention')
     
-    code = fields.Char("Code", size=255, select=True, required=True,default=_get_code)
-    name = fields.Text("Description", select=True)
+    code = fields.Char("Code", size=255, index=True, required=True,default=_get_code)
+    name = fields.Text("Description", index=True)
     partner_id = fields.Many2one("res.partner", type="many2one", related='installation_id.partner_id', readonly=True, string="Customer", store=True,help="Customer linked to the installation")
     address_id = fields.Many2one("res.partner",related="installation_id.address_id", readonly=True, string="Address", store=True,help="Address of the installation")
     installation_id = fields.Many2one('maintenance.installation', string='Installation', required=True) 
@@ -272,6 +272,7 @@ class maintenance_intervention(models.Model):
 
 class maintenance_element(models.Model):
     _name = 'maintenance.element'
+    _inherit=['mail.thread']
     _order = 'name'
     
     @api.one
@@ -307,12 +308,12 @@ class maintenance_element(models.Model):
     def _get_code(self):
         return self.env['ir.sequence'].get('maintenance.element')
     
-    installation_id = fields.Many2one('maintenance.installation', 'Installation', select=True)
-    code = fields.Char("Code", size=255, select=True,default=_get_code)
+    installation_id = fields.Many2one('maintenance.installation', 'Installation', index=True)
+    code = fields.Char("Code", size=255, index=True,default=_get_code)
     partner_id = fields.Many2one(related="installation_id.partner_id", relation="res.partner", readonly=True, string="Customer", store=True)
-    name = fields.Char("Name", size=255, select=True) 
-    product_id = fields.Many2one('product.product', 'Product', select=True)
-    serial_number = fields.Char("Serial Number", size=255, select=True)
+    name = fields.Char("Name", size=255, index=True) 
+    product_id = fields.Many2one('product.product', 'Product', index=True)
+    serial_number = fields.Char("Serial Number", size=255, index=True)
     description = fields.Text("Description")
     installation_date = fields.Date("Installation date")
     warranty_date = fields.Date("Warranty date")
@@ -351,8 +352,8 @@ class maintenance_intervention_task(models.Model):
     intervention_id = fields.Many2one("maintenance.intervention", "Intervention")
     name = fields.Char('Task Summary', size=128)
     user_id = fields.Many2one('res.users', 'Assigned to')
-    date_start = fields.Datetime('Starting Date',select=True)
-    date_end = fields.Datetime('Ending Date',select=True)
+    date_start = fields.Datetime('Starting Date',index=True)
+    date_end = fields.Datetime('Ending Date',index=True)
     planned_hours = fields.Float('Planned Hours', help='Estimated time to do the task, usually set by the project manager when the task is in draft state.')
     to_plan = fields.Boolean(compute=_get_to_plan, string='To plan', method=True, default=True,track_visibility='onchange',store=True)
     break_time = fields.Float("Break time")

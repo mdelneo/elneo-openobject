@@ -13,7 +13,8 @@
              'maintenance_sequence.xml', 
              'security/ir.model.access.csv', 
              'installation_workflow.xml',
-             'report/report_maintenance.xml'],
+             'report/report_maintenance.xml',
+             'res_config.xml'],
     'installable': True,
     'active': False,
     'application':True

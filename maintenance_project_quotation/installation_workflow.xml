@@ -49,7 +49,6 @@
 			<field name="act_to" ref="act_maintenance_installation_draft"/>
 			<field name="signal">installation_draft</field>
 		</record>
-		
 		<record model="workflow.transition" id="trans_maintenance_installation_inactive_draft">
 			<field name="act_from" ref="maintenance.act_maintenance_installation_inactive"/>
 			<field name="act_to" ref="act_maintenance_installation_draft"/>

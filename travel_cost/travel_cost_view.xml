@@ -23,11 +23,13 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Travel Cost">
-					<group string="Travel Costs">
-						<field name="name" />
-						<field name="zip" />
-						<field name="product_id" />
-					</group>
+					<sheet>
+						<group string="Travel Costs">
+							<field name="name" />
+							<field name="zip" />
+							<field name="product_id" />
+						</group>
+					</sheet>
 				</form>
 			</field>
 		</record>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_generate_project_wizard_form" model="ir.ui.view">
+			<field name="name">generate.project.wizard.form</field>
+			<field name="model">generate.project.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Generate project wizard">
+					<field name="installation_id" invisible="1" />
+					<field name="date_start" />
+					<field name="date_end" />
+					<field name="project_type_id" widget="selection" />
+					<field name="intervention_delay_id" widget="selection" />
+					<separator string="Elements" colspan="4" />
+					<field name="maintenance_element_ids" colspan="4" nolabel="1" domain="[('installation_id','=',installation_id)]" />
+					<group colspan="4" col="4">
+						<button string="Cancel" special="cancel" colspan="2" />
+						<button string="Generate" name="generate" type="object" colspan="2" />
+					</group>
+				</form>
+			</field>
+		</record>
+	</data>
+</openerp>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<record id="view_users_form_simple_modif_maint_project" model="ir.ui.view">
+            <field name="name">res.users.preferences.form.maint.project</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+            	<group string="Email Preferences" position="after">
+            		<group string="Maintenance Preferences">
+            		<group>
+            			<field name="receive_project_quotation_request" />
+            		</group>
+            	</group>
+            	</group>
+            	
+            	 
+                
+            </field>
+        </record>	
+	</data>
+</openerp>

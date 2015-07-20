@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_maint_project_quotation_price_maintenance_user","maintenance.project.quotation.price","model_maintenance_project_quotation_price","maintenance.group_maintenance_user",1,1,1,0
+"access_maint_project_quotation_price_maintenance_manager","maintenance.project.quotation.price","model_maintenance_project_quotation_price","maintenance.group_maintenance_manager",1,1,1,1

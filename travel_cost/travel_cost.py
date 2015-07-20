@@ -14,9 +14,9 @@ from openerp import models, fields,api, _
 class travel_cost(models.Model):
     _name='travel.cost'
 
-    name=fields.Char('Name',size=30,required=True,default='Cost')
-    zip=fields.Char('Zip Code',size=30,required=True)
-    product_id=fields.Many2one('product.product','Product')
+    name=fields.Char('Name',size=30,required=True,default='Cost',index=True,help="The name you give to this Cost")
+    zip=fields.Char('Zip Code',size=30,required=True,help="The zip code for this cost")
+    product_id=fields.Many2one('product.product','Product',help="The travel product for this cost")
 
     _sql_constraints=[('zip_unique','unique(zip)','Zip Code must be unique!')]
 
@@ -26,9 +26,9 @@ class travel_time(models.Model):
     
     _rec_name='travel_cost_id'
     
-    travel_cost_id=fields.Many2one('travel.cost','Travel Cost')
-    address_id=fields.Many2one('res.partner','Address')
-    time=fields.Float('Travel Time')
+    travel_cost_id=fields.Many2one('travel.cost','Travel Cost',help="The Cost linked to this travel time")
+    address_id=fields.Many2one('res.partner','Address',help="The origin address")
+    time=fields.Float('Travel Time',help="The time from the origin to the destination")
     
     
     # Compute the travel time with google

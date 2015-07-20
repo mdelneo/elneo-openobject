@@ -357,6 +357,9 @@
 							<field name="invoices" nolabel="1" colspan="4"  context="{'form_view_ref':'account.invoice_form'}" />
 						</page>
 						<page string="History">
+							<p class="oe_grey">
+                                Here are the interventions that are already done within the project period.
+                            </p>
 							<field name="interventions" nolabel="1" colspan="4" />
 						</page>
 						<page string="Budget">

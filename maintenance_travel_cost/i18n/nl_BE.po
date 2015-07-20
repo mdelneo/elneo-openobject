@@ -1,0 +1,188 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* travel_cost
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2014-08-14 12:27+0000\n"
+"PO-Revision-Date: 2014-08-14 14:52+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.5\n"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:95
+#, python-format
+msgid "No Shop defined for this installation, can't calculate!"
+msgstr "Geen Shop gedefinieerd voor deze installatie, kan niet berekenen!"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:279
+#, python-format
+msgid "Error during Google Query"
+msgstr "Fout tijdens Google Query"
+
+#. module: travel_cost
+#: sql_constraint:travel.cost:0
+msgid "Zip Code must be unique!"
+msgstr "Zip Code moet uniek zijn !"
+
+#. module: travel_cost
+#: view:maintenance.installation:0 view:travel.time:0
+msgid "Travel"
+msgstr "Reis"
+
+#. module: travel_cost
+#: view:travel.time:0
+msgid "Destination"
+msgstr "Bestemming"
+
+#. module: travel_cost
+#: model:ir.model,name:travel_cost.model_maintenance_installation
+msgid "maintenance.installation"
+msgstr "onderhoud.installatie"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:100
+#, python-format
+msgid "No Installation Address"
+msgstr "Geen installatie adres"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:37
+#, python-format
+msgid "The travel origin is not set!"
+msgstr "De oorsprong van de reis is niet ingesteld !"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:95
+#, python-format
+msgid "No Shop"
+msgstr "Geen Shop"
+
+#. module: travel_cost
+#: model:ir.actions.act_window,name:travel_cost.action_travel_cost
+#: model:ir.ui.menu,name:travel_cost.menu_maintenance_travel_cost
+#: view:maintenance.installation:0
+#: field:maintenance.installation,travel_cost_id:0 view:travel.cost:0
+#: field:travel.time,travel_cost_id:0
+msgid "Travel Cost"
+msgstr "Reiskosten"
+
+#. module: travel_cost
+#: field:travel.cost,product_id:0
+msgid "Product"
+msgstr "Product"
+
+#. module: travel_cost
+#: field:travel.cost,zip:0
+msgid "Zip Code"
+msgstr "Zip Code"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:45
+#, python-format
+msgid "The travel you specified is incorrect. Google has not found it!"
+msgstr ""
+"De reis die u hebt opgegeven is niet correct.  Google heeft het niet "
+"gevonden !"
+
+#. module: travel_cost
+#: field:travel.time,address_id:0
+msgid "Address"
+msgstr "Adres"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:35
+#, python-format
+msgid "Travel Destination Not Set"
+msgstr "Reisbestemming niet ingesteld"
+
+#. module: travel_cost
+#: view:travel.cost:0
+msgid "Travel Costs"
+msgstr "Reiskosten"
+
+#. module: travel_cost
+#: view:maintenance.installation:0
+msgid "Do you really want to update the travel time?"
+msgstr "Wil je echt de reistijd bijwerken?"
+
+#. module: travel_cost
+#: model:ir.actions.act_window,name:travel_cost.action_travel_time
+#: model:ir.ui.menu,name:travel_cost.menu_maintenance_travel_time
+#: view:maintenance.installation:0
+#: field:maintenance.installation,travel_time:0 view:travel.time:0
+#: field:travel.time,time:0
+msgid "Travel Time"
+msgstr "Reistijd"
+
+#. module: travel_cost
+#: field:travel.cost,name:0
+msgid "Name"
+msgstr "Naam"
+
+#. module: travel_cost
+#: view:maintenance.installation:0
+msgid "Travel Time (hours)"
+msgstr "Reistijd (uren)"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:35
+#, python-format
+msgid "The travel destination is not set!"
+msgstr "De reisbestemming is niet ingesteld!"
+
+#. module: travel_cost
+#: view:maintenance.installation:0 view:travel.time:0
+msgid "Time"
+msgstr "Tijd"
+
+#. module: travel_cost
+#: view:travel.time:0
+msgid "Origin"
+msgstr "Oorsprong"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:45
+#, python-format
+msgid "Travel Not Found"
+msgstr "Reis niet gevonden"
+
+#. module: travel_cost
+#: view:maintenance.installation:0 view:travel.time:0
+msgid "Compute Time"
+msgstr "Geschatte tijd"
+
+#. module: travel_cost
+#: model:ir.model,name:travel_cost.model_travel_cost
+msgid "travel.cost"
+msgstr "reis.kost"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:100
+#, python-format
+msgid "No Address defined for this installation, can't calculate!"
+msgstr "Geen adres gedefinieerd voor deze installatie, kan niet berekenen!"
+
+#. module: travel_cost
+#: view:maintenance.installation:0
+msgid "Cost"
+msgstr "Kost"
+
+#. module: travel_cost
+#: model:ir.model,name:travel_cost.model_travel_time
+msgid "travel.time"
+msgstr "reis.tijd"
+
+#. module: travel_cost
+#: code:addons/travel_cost/travel_cost.py:37
+#, python-format
+msgid "Travel Origin Not Set"
+msgstr "Oorsprong reis niet ingesteld"

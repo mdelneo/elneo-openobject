@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+	
+		<record
+			id="view_maintenance_project_installation_travel_form"
+			model="ir.ui.view">
+			<field name="name">maintenance.installation.form.travel.elneo.maintenance.inherit
+			</field>
+			<field name="inherit_id"
+				ref="maintenance_project.view_maintenance_installation_form_maintenance_project_inherit" />
+			<field name="model">maintenance.installation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+			
+				<xpath expr="/form/sheet/notebook/page[@string='Content']" position="after">
+					<page string="Travel">
+						<separator string="Cost" colspan="5" />
+						<group string="Travel Cost" colspan="4" col="6">
+							<field name="travel_cost_id" string="Travel Cost" help="The travel cost for this installation"/>
+						</group>
+						<separator string="Time" colspan="5" />
+						<group string="Travel Time" colspan="4" col="6">
+							<field name="travel_time" string="Travel Time (hours)" help="The travel time to this installation from the shop"/>
+							<button name="action_compute_time" type="object" string="Compute Time" icon="gtk-execute" confirm="Do you really want to update the travel time?" help="Compute the travel time."/>
+						</group>
+						<newline/>
+					</page>
+				</xpath>
+				
+				<field name="address_id" position="attributes">
+					<attribute name="on_change">on_change_address_id(address_id)</attribute>
+				</field>
+				
+			</field>
+		</record>
+		
+		
+	</data>
+</openerp>
+	

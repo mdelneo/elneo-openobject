@@ -73,7 +73,7 @@ class maintenance_project_type_line(models.Model):
 class maintenance_project_budget_line_type(models.Model):
     _name='maintenance.project.budget.line.type'
     
-    name=fields.Char('Name', size=255) 
+    name=fields.Char('Name', size=255,translate=True) 
     display_on_contract=fields.Boolean('Display on contract', help="Lines of this type are displayed on printed contracts")
 
 
@@ -153,15 +153,15 @@ class maintenance_project(models.Model):
         self.interventions = self.env['maintenance.intervention'].search(filters)
         
         
-    code=fields.Char("Code", size=255, select=True,default=lambda obj: obj.env['ir.sequence'].get('maintenance.project'))
-    project_type_id=fields.Many2one('maintenance.project.type', string="Type", select=True, required=True)
-    installation_id=fields.Many2one('maintenance.installation', string="Installation", select=True, required=True,track_visibility='onchange')  
-    intervention_delay_id=fields.Many2one('maintenance.project.delay', string="Intervention delay", select=True, required=True) 
+    code=fields.Char("Code", size=255, index=True,default=lambda obj: obj.env['ir.sequence'].get('maintenance.project'))
+    project_type_id=fields.Many2one('maintenance.project.type', string="Type", index=True, required=True)
+    installation_id=fields.Many2one('maintenance.installation', string="Installation", index=True, required=True,track_visibility='onchange')  
+    intervention_delay_id=fields.Many2one('maintenance.project.delay', string="Intervention delay", index=True, required=True) 
     note=fields.Text("Notes")        
     date_start=fields.Date('Start date')
     date_end=fields.Date('End date')
-    sale_order_id=fields.Many2one('sale.order', string="Sale order", select=True, readonly=True,track_visibility='onchange') 
-    enable=fields.Boolean('Active', select=True,default=False) 
+    sale_order_id=fields.Many2one('sale.order', string="Sale order", index=True, readonly=True,track_visibility='onchange') 
+    enable=fields.Boolean('Active', index=True,default=False) 
     invoices=fields.Many2many(related="sale_order_id.invoice_ids", string="Invoices", readonly=True)
     interventions=fields.One2many("maintenance.intervention",compute=_get_interventions, string="Interventions history", readonly=True)
     maintenance_elements=fields.Many2many("maintenance.element", 'maintenance_project_elements', 'project_id', 'element_id', "Maintenance elements")
@@ -330,7 +330,7 @@ class account_invoice(models.Model):
        
         self.maintenance_projects = self.env['maintenance.project'].search( [('sale_order_id','in',[so.id for so in self.sale_order_ids])])
     
-    maintenance_projects=fields.Many2many(compute=_get_maintenance_projects, string="Maintenance projects", relation='maintenance.project')
+    maintenance_projects=fields.Many2many('maintenance.project',compute=_get_maintenance_projects, string="Maintenance projects")
 
 class maintenance_intervention(models.Model):
     _inherit = 'maintenance.intervention'
@@ -373,8 +373,13 @@ class maintenance_intervention(models.Model):
             
         return res
     
+    
     @api.model
+    @api.returns('maintenance.project')
     def compute_project(self,date_start=False, installation_id=False, intervention_id=False, enable=False):
+        '''
+        @return: maintenance.project
+        '''
         res = None
         #we could pass intervention_id as parameter instead of date_start and installation_id
         if not installation_id or not date_start:

@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_sale_quotation_order_text_element","sale_quotation.order.text.element","model_sale_quotation_order_text_element",,1,1,1,1
+"access_sale_quotation_text_element","sale_quotation.text.element","model_sale_quotation_text_element",,1,1,1,1

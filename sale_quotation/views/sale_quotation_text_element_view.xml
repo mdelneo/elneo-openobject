@@ -62,7 +62,6 @@
 						<separator string="Display options" />
 						<group>
 							<group>
-								<field name="display_properties" />
 								<field name="display_quotation_text_elements" />
 								<field name="display_discount" />
 								<field name="display_total" />
@@ -83,7 +82,7 @@
 						<field colspan="4" name="quotation_text_elements" nolabel="1">
 							<form string="Quotation text element">
 								<group>
-									<field name="text_element_id" on_change="onchange_text_element(text_element_id)" />
+									<field name="text_element_id" />
 									<field name="position" />
 									<field name="sequence" />
 									<field name="displayed" />

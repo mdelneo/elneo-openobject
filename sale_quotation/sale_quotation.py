@@ -131,11 +131,16 @@ class sale_order(models.Model):
     @api.multi
     def _get_quotation_text_elements_after(self):
         self.quotation_text_elements_after = self.env['sale_quotation.order.text.element'].search([('sale_order_id','=',self.id),('position','=','after'),('displayed','=',True)])
+        
+    @api.multi
+    def _get_quotation_text_elements_final(self):
+        self.quotation_text_elements_final = self.env['sale_quotation.order.text.element'].search([('sale_order_id','=',self.id),('position','=','final'),('displayed','=',True)])
     
     quotation_text_elements = fields.One2many('sale_quotation.order.text.element', 'sale_order_id', 'Quotation text elements') 
     quotation_text_elements_before = fields.One2many('sale_quotation.order.text.element', 'sale_order_id', 'Quotation text elements before', compute='_get_quotation_text_elements_before')
     quotation_text_elements_after = fields.One2many('sale_quotation.order.text.element', 'sale_order_id', 'Quotation text elements after', compute='_get_quotation_text_elements_after')
-    display_properties = fields.Boolean("Display properties")
+    quotation_text_elements_final = fields.One2many('sale_quotation.order.text.element', 'sale_order_id', 'Quotation text elements final', compute='_get_quotation_text_elements_final')
+    #display_properties = fields.Boolean("Display properties") #to move in sale_quotation_product_properties module
     display_quotation_text_elements = fields.Boolean("Display quotation text elements")
     display_delay = fields.Boolean("Display delay", default=True)
     display_discount = fields.Boolean("Display discount") 

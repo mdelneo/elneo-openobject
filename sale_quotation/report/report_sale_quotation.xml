@@ -206,7 +206,7 @@
 							<span t-field="o.payment_term.note" />
 						</p>
 						<div class="oe_structure" />
-						<t t-if="o.display_quotation_text_elements">
+						<t t-if="o.display_quotation_text_elements" name="text_elements_after">
 							<t t-foreach="o.quotation_text_elements_after" t-as="text_element">
 								<t t-if="text_element.page_break_before">
 									<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' style="line-height:10px;page-break-before:always;" />
@@ -218,6 +218,8 @@
 									<p style="page-break-before:always;" />
 								</t>
 							</t>
+						</t>
+						<t t-if="o.display_quotation_text_elements" name="text_elements_final">
 							<t t-foreach="o.quotation_text_elements_final" t-as="text_element">
 								<t t-if="text_element.page_break_before">
 									<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' style="line-height:10px;page-break-before:always;" />

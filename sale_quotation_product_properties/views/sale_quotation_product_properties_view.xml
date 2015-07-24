@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_sale_quotation_text_element_form">
+			<field name="name">sale_quotation.text.element.form</field>
+			<field name="model">sale_quotation.text.element</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Quotation text element">
+					<group>
+						<field name="code" />
+						<field name="lang"  />
+						<field name="content" widget="text_ckeditor4" />
+						<field name="default_sequence" />
+						<field name="default_displayed" />
+						<field name="default_position" />
+						<field name="default_page_break_before" />
+						<field name="default_page_break_after" />
+					</group>				
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_sale_quotation_text_element_tree">
+			<field name="name">sale_quotation.text.element.tree</field>
+			<field name="model">sale_quotation.text.element</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Quotation text element">
+					<field name="code" />
+					<field name="lang" />
+					<field name="default_sequence" />
+					<field name="default_displayed" />
+					<field name="default_position" />
+					<field name="default_page_break_before" />
+					<field name="default_page_break_after" />		
+				</tree>
+			</field>
+		</record>
+		
+		<record id="action_sale_quotation_element" model="ir.actions.act_window">
+            <field name="name">Sale quotation elements</field>
+            <field name="res_model">sale_quotation.text.element</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_sale_quotation_text_element_tree"/>
+        </record>
+		
+		<menuitem
+			id="menu_sale_quotation_element" 
+			name="Sale quotation element" parent="base.menu_sale_config_sales"
+			action="action_sale_quotation_element" />
+	
+		<record model="ir.ui.view" id="view_order_form_sale_quotation">
+			<field name="name">sale.order.form.sale_quotation</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+
+				<xpath expr="//page[@string='Other Information']" position="after">
+					<page string="Quotation">
+						<separator string="Display options" />
+						<group>
+							<group>
+								<field name="display_quotation_text_elements" />
+								<field name="display_discount" />
+								<field name="display_total" />
+								<field name="display_line_price" />
+								<field name="display_payment_term" />
+							</group>
+							<group>
+								<field name="display_delay" />
+								<field name="display_descriptions" />
+								<field name="display_invoice_address" />
+								<field name="display_shipping_address" />
+								<field name="delay_in_week" />
+							</group>
+						</group>
+						
+						<separator string="Quotation text elements" colspan="4" />
+						
+						<field colspan="4" name="quotation_text_elements" nolabel="1">
+							<form string="Quotation text element">
+								<group>
+									<field name="text_element_id" />
+									<field name="position" />
+									<field name="sequence" />
+									<field name="displayed" />
+									<field name="page_break_before" />
+									<field name="page_break_after" />
+									<field name="content" widget="text_ckeditor4" />
+								</group>
+							</form>
+							
+							<tree string="Quotation text element">
+								<field name="displayed" />
+								<field name="text_element_id" invisible='True' />
+								<field name="text_element_name" />
+								<field name="position" />
+								<field name="sequence" />
+								<field name="page_break_before" />
+								<field name="page_break_after" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

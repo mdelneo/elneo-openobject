@@ -4,7 +4,6 @@ import math
 from openerp import models,fields,api
 from operator import itemgetter
 import re
-from pygments.lexer import _inherit
 
 
 class sale_quotation_text_element(models.Model):

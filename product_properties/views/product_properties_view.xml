@@ -1,0 +1,269 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+    	<!-- Product Property Unit -->
+     	<record model="ir.ui.view" id="product_property_unit_tree_view">
+			<field name="name">product.property.unit.tree.view</field>
+			<field name="model">product.property.unit</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Product property unit">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		
+		 <record model="ir.ui.view" id="product_property_unit_form_view">
+			<field name="name">product.property.unit.form.view</field>
+			<field name="model">product.property.unit</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Product property unit">
+					<group>
+						<field name="name" />
+					</group>
+				</form>
+			</field>
+		</record>
+    
+    	<!-- Product Property Categories -->
+     	<record model="ir.ui.view" id="product_property_category_tree_view">
+			<field name="name">product.property.category.tree.view</field>
+			<field name="model">product.property.category</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Product property category">
+					<field name="name" />
+					<field name="product_category_id" />
+					<field name="sequence" />
+				</tree>
+			</field>
+		</record>
+		
+		 <record model="ir.ui.view" id="product_property_category_form_view">
+			<field name="name">product.property.category.form.view</field>
+			<field name="model">product.property.category</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Product property category">
+					<group>
+						<field name="name" />
+						<field name="product_category_id" />
+						<separator string="Product properties" colspan="4"/>
+						<field name="product_properties" nolabel="1" colspan="4" />
+						<field name="sequence" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<!-- Product Property -->
+		<record model="ir.ui.view" id="product_property_tree_view">
+			<field name="name">product.property.tree.view</field>
+			<field name="model">product.property</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Product property">
+					<field name="name" />
+					<field name="product_property_category_id" />
+					<field name="default_value" />
+					<field name="unit_id" />
+					<field name="sequence" />
+				</tree>
+			</field>
+		</record>
+		
+		 <record model="ir.ui.view" id="product_property_form_view">
+			<field name="name">product.property.form.view</field>
+			<field name="model">product.property</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Product property">
+					<group>
+						<field name="product_property_category_id" />
+						<field name="name" />
+						<field name="default_value" />
+						<field name="unit_id" />
+						<field name="sequence" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<!-- Product Property Value -->
+		<record model="ir.ui.view" id="product_property_value_tree_view">
+			<field name="name">product.property.value.tree.view</field>
+			<field name="model">product.property.value</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Product property value">
+					<field name="product_property_category_id" />
+					<field name="used_name" />
+					<field name="used_value" />
+					<field name="unit_id" />
+					<field name="default_unit_id" />
+					<field name="use_default_unit" />
+					<field name="sequence" />
+				</tree>
+			</field>
+		</record>
+		
+		 <record model="ir.ui.view" id="product_property_value_form_view">
+			<field name="name">product.property.value.form.view</field>
+			<field name="model">product.property.value</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Product property value">
+					<group>
+						<separator string="Parent property" colspan="4" />
+						<field name="product_property_category_id" />
+						<field name="product_property_id"  
+							on_change="onchange_product_property_id(product_property_id,use_default_value, parent.id)" 
+							/>
+						<separator string="Values from property" colspan="4" />
+						<field name="default_name" />
+						<field name="use_default_name" />
+						<field name="default_value" />
+						<field name="use_default_value" />
+						<field name="default_unit_id" />
+						<field name="use_default_unit" />
+						<separator string="Values used for this record" colspan="4" />
+						<field name="name" attrs="{'readonly':[('use_default_name','=',True)]}" />					
+						<field name="value" attrs="{'readonly':[('use_default_value','=',True)]}" />
+						<field name="unit_id" attrs="{'readonly':[('use_default_unit','=',True)]}" />
+						<field name="sequence" />
+						<field name="active1" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<!-- Sale Quotation Properties -->
+		<record model="ir.ui.view" id="sale_quotation_property_tree_view">
+			<field name="name">sale.quotation.property.tree.view</field>
+			<field name="model">sale.quotation.property</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Sale quotation properties">
+					<field name="category" />
+					<field name="name" />
+					<field name="value" />
+					<field name="unit" />
+					<field name="sequence" />
+				</tree>
+			</field>
+		</record>
+		
+		 <record model="ir.ui.view" id="sale_quotation_property_form_view">
+			<field name="name">sale.quotation.property.form.view</field>
+			<field name="model">sale.quotation.property</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Sale quotation properties">
+					<group>
+						<field name="category" />
+						<field name="name" />
+						<field name="value" />
+						<field name="unit" />
+						<field name="sequence" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		
+		<!-- Sale order line -->
+		<record model="ir.ui.view" id="sale_order_form_view_inherit_product_properties">
+			<field name="name">sale.order.form.inherit.product.properties</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale_layout.view_order_form_inherit_1" />
+			<field name="arch" type="xml">
+			<field name="name"/>
+				<xpath expr="//field[@name='order_line']//field[@name='name']" position="after">
+					<page string="Properties">
+						<field name="sale_quotation_properties" nolabel="1" colspan="4" />
+					</page>
+				</xpath>
+			</field>
+		</record>
+		
+		
+		<!-- Product -->
+		<record id="product_normal_form_view_inherit_product_properties" model="ir.ui.view">
+            <field name="name">product.normal.form.view.inherit.product.properties</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position='inside'>
+                    <page string="Properties">
+                    	<separator string="Product properties" colspan="4"/>
+                        <field name="product_property_values" nolabel="1" colspan="4" context="{'product_id': 1}" />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+        
+        <!-- Product category view -->
+        <record id="product_category_form_view_inherit_product_properties" model="ir.ui.view">
+            <field name="name">product.category.form.view.inherit.product.properties</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+            	<sheet position="before">
+	            	<header>
+						<button name="action_fill" string="Fill product properties" groups="base.group_user" type="object" />
+	                </header>
+                </sheet>
+            
+                <field name="type" position="after">
+                	<newline />
+                	<separator string="Property categories" colspan="4" />
+                	<field name="product_property_categories" nolabel="1" colspan="4">
+                		<tree>
+                			<field name="name" />
+                			<field name="sequence" />
+                		</tree>
+	                	<form string="Product property category">
+							<field name="name" />
+							<separator string="Product properties" colspan="4"/>
+							<field name="product_properties" nolabel="1" colspan="4">
+								<form string="Product property">
+									<field name="name" />
+									<newline />
+									<field name="default_value" />
+									<field name="unit_id" />
+								</form>
+							</field>
+						</form>
+                	</field>
+                </field>
+            </field>
+        </record>
+        
+        <!-- Menu and Actions -->
+        <record id="action_product_property_category" model="ir.actions.act_window">
+            <field name="name">Property category</field>
+            <field name="res_model">product.property.category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="action_product_property" model="ir.actions.act_window">
+            <field name="name">Property</field>
+            <field name="res_model">product.property</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        
+        <menuitem id="menu_properties" parent="base.menu_base_config" name="Properties" />
+        <menuitem id="menu_product_property_category" action="action_product_property_category" parent="menu_properties" />
+        <menuitem id="menu_product_property" action="action_product_property" parent="menu_properties" />
+        
+
+    </data>
+</openerp>

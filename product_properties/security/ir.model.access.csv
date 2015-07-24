@@ -1,0 +1,6 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_sale_quotation_property","sale.quotation.property","model_sale_quotation_property","base.group_user",1,1,1,1
+"access_product_property_category","product.property.category","model_product_property_category","base.group_user",1,1,1,1
+"access_product_property","product.property","model_product_property","base.group_user",1,1,1,1
+"access_product_property_value","product.property.value","model_product_property_value","base.group_user",1,1,1,1
+"access_product_property_unit","product.property.unit","model_product_property_unit","base.group_user",1,1,1,1

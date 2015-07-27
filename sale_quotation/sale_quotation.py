@@ -140,7 +140,6 @@ class sale_order(models.Model):
     quotation_text_elements_before = fields.One2many('sale_quotation.order.text.element', 'sale_order_id', 'Quotation text elements before', compute='_get_quotation_text_elements_before')
     quotation_text_elements_after = fields.One2many('sale_quotation.order.text.element', 'sale_order_id', 'Quotation text elements after', compute='_get_quotation_text_elements_after')
     quotation_text_elements_final = fields.One2many('sale_quotation.order.text.element', 'sale_order_id', 'Quotation text elements final', compute='_get_quotation_text_elements_final')
-    #display_properties = fields.Boolean("Display properties") #to move in sale_quotation_product_properties module
     display_quotation_text_elements = fields.Boolean("Display quotation text elements")
     display_delay = fields.Boolean("Display delay", default=True)
     display_discount = fields.Boolean("Display discount") 

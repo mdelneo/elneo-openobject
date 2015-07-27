@@ -3,7 +3,28 @@
 	<data>
 		<template id="sale_quotation_product_properties.report_saleorder_document_inherit" inherit_id="sale_quotation.report_saleorder_document">
 			<xpath expr="//t[@name='text_elements_after']" position="after">
-						
+				<t t-if="o.display_properties">
+					<div style="page-break-before:always;">
+						<t t-foreach="o.order_line" t-as="l">
+							<t t-if="len(l.get_properties_by_category()) > 0">
+								<p t-field="l.name" style="font-weight:bold;font-size:18px;" />
+								<t t-foreach="l.get_properties_by_category()" t-as="prop_cat_tab" style="font-weight:bold;font-size:10px;">
+									<p t-esc="prop_cat_tab[0]" style="font-weight:bold;font-size:10px;" />
+									<table style="margin-bottom:15px;margin-left:50px;margin-right:50px;">
+										<t t-foreach="prop_cat_tab[1]" t-as="property">
+											<tr style="border-bottom:1px solid #ddd">
+												<td width="500px"><div style="margin:5px;"><span t-field="property.name" style="font-size:10px;" /></div></td>
+												<td width="150px" align="right"><div style="margin:5px;"><span t-field="property.value" style="font-size:10px;" /></div></td>
+												<td width="150px"><div style="margin:5px;"><span t-field="property.unit" style="font-size:10px;" /></div></td>
+											</tr>
+										</t>
+									</table>
+								</t>
+							</t>
+						</t>
+					</div>
+					<p style="page-break-before:always;" />
+				</t>		
 			</xpath>
 		</template>
 	</data>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="sale_quotation_product_properties.report_saleorder_document_inherit" inherit_id="sale_quotation.report_saleorder_document">
+			<xpath expr="//t[@name='text_elements_after']" position="after">
+				<t t-if="o.display_drive_link">
+					<div style="page-break-before:always;">
+						<t t-foreach="o.order_line" t-as="l">
+							
+						</t>
+					</div>
+					<p style="page-break-before:always;" />
+				</t>		
+			</xpath>
+		</template>
+	</data>
+</openerp>

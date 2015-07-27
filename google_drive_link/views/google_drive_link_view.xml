@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- PRODUCT PRODUCT INHERITANCE -->
+		<record id="product_normal_form_view_inherit_drive_link" model="ir.ui.view">
+            <field name="name">product.normal.form.view.inherit.drive.link</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position='inside'>
+                    <page string="Drive links">
+                    	<separator string="Drive links" colspan="4"/>
+                        <field name="drive_links" nolabel="1" colspan="4">
+	                		<tree>
+	                			<field name="name" />
+	                			<field name="lang" />
+								<field name="link"  />
+	                		</tree>
+		                	<form string="Drive links">
+								<group>
+									<field name="name" />
+									<field name="lang" />
+									<field name="link"  />
+								</group>
+							</form>
+	                	</field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- PRODUCT CATEGORY -->
+        <record id="product_category_form_view_inherit_product_properties" model="ir.ui.view">
+            <field name="name">product.category.form.view.inherit.product.properties</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                	<newline />
+                	<separator string="Drive links" colspan="4" />
+                	<field name="drive_links" nolabel="1" colspan="4">
+                		<tree>
+                			<field name="name" />
+                			<field name="lang" />
+							<field name="link"  />							
+                		</tree>
+	                	<form string="Drive links">
+							<group>
+								<field name="name" />
+								<field name="lang" />
+								<field name="link"  />
+							</group>
+						</form>
+                	</field>
+                </field>
+            </field>
+        </record>
+		
+		<!-- VIEWS FOR DRIVE LINKS -->
+	
+		<record model="ir.ui.view" id="view_product_category_drive_link_form">
+			<field name="name">view.product.category.drive.link.form</field>
+			<field name="model">product.category.drive.link</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Drive link">
+					<group>
+						<field name="product_category_id" />
+						<field name="name" />
+						<field name="lang" />
+						<field name="link"  />
+					</group>				
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_product_category_drive_link_form">
+			<field name="name">view.product.category.drive.link.form</field>
+			<field name="model">product.category.drive.link</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Drive link">
+					<field name="product_category_id" />
+					<field name="name" />
+					<field name="lang" />
+					<field name="link"  />
+				</tree>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_product_drive_link_form">
+			<field name="name">view.product.drive.link.form</field>
+			<field name="model">product.drive.link</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Drive link">
+					<group>
+						<field name="product_id" />
+						<field name="name" />
+						<field name="lang" />
+						<field name="link"  />
+					</group>				
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_product_drive_link_form">
+			<field name="name">view.product.drive.link.form</field>
+			<field name="model">product.drive.link</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Drive link">
+					<field name="product_id" />
+					<field name="name" />
+					<field name="lang" />
+					<field name="link"  />
+				</tree>
+			</field>
+		</record>
+	</data>
+</openerp>

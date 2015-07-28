@@ -9,11 +9,24 @@
 			<field name="inherit_id" ref="sale_quotation.view_order_form_sale_quotation" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='delay_in_week']" position="after">
-					<field name="display_properties" />
+					<field name="display_drive_links" />
 				</xpath>
 				<xpath expr="//field[@name='quotation_text_elements']" position="after">
 					<separator string="Drive links" colspan="4" />
-					<field name="drive_links" nolabel="1" colspan="4" />
+					<field name="drive_links" nolabel="1" colspan="4">
+						<tree>
+							<field name="name" />
+							<field name="link" />
+							<field name="product_ids" />
+						</tree>
+						<form>
+							<group>
+								<field name="name" />
+								<field name="link" />
+								<field name="product_ids" />
+							</group>
+						</form>
+					</field>
 				</xpath>
 			</field>
 		</record>

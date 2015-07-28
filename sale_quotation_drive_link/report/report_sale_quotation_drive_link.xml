@@ -3,11 +3,20 @@
 	<data>
 		<template id="sale_quotation_product_properties.report_saleorder_document_inherit" inherit_id="sale_quotation.report_saleorder_document">
 			<xpath expr="//t[@name='text_elements_after']" position="after">
-				<t t-if="o.display_drive_link">
+				<t t-if="o.display_drive_links and o.drive_links">
 					<div style="page-break-before:always;">
-						<t t-foreach="o.order_line" t-as="l">
-							
-						</t>
+						<h2>Documentations</h2>
+						<ul style="margin-left:50px">
+							<t t-foreach="o.drive_links" t-as="drive_link">
+								<li>
+									<span t-field="drive_link.name" />
+								</li>
+								<p>
+								<span t-esc="' ; '.join([product.default_code for product in drive_link.product_ids])" style="font-style:italic;font-size:10;" /><br />
+								<a target="_blank" t-field="drive_link.link"></a>
+								</p>
+							</t>
+						</ul>
 					</div>
 					<p style="page-break-before:always;" />
 				</t>		

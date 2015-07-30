@@ -48,6 +48,10 @@ class mail_message(models.Model):
     @api.model
     def create(self, vals):
         res = super(mail_message,self).create(vals)
+        
+        if not vals.get('subject',False) or not vals.get('body',False):
+            return res 
+        
         text_search = vals['subject']+' '+vals['body']
         
         for so in self.find_sale_order(text_search):

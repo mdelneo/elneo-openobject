@@ -33,7 +33,7 @@ class product_drive_link(models.Model):
         return [(r.code, r.name) for r in res] + [('','')]
     
     name = fields.Char('Name') 
-    product_id = fields.Many2one('product', string='Product')
+    product_id = fields.Many2one('product.product', string='Product')
     link = fields.Char('Url')
     lang = fields.Selection(_lang_get, 'Language', size=32)
     

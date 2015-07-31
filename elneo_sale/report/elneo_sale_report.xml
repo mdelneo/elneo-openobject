@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="elneo_sale.report_saleorder_document" inherit_id="sale_quotation.report_saleorder_document">
+			<xpath expr="//div[@t-field='o.partner_id']" position="attributes">
+				<attribute name="t-field">o.quotation_address_id</attribute>
+			</xpath>
+		</template>
+	</data>
+</openerp>

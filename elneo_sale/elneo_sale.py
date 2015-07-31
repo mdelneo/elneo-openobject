@@ -2,6 +2,7 @@
 import logging
 from openerp import models,fields,api
 from openerp.exceptions import ValidationError
+from openerp.tools.translate import _
 
 _logger = logging.getLogger(__name__)
 
@@ -42,6 +43,29 @@ class sale_order_line(models.Model):
             default = {}
         default['purchase_line_ids'] = None
         return super(sale_order_line, self).copy(default) 
+    
+    '''
+    @api.onchange('product_uom_qty')
+    def on_change_product_qty(self):
+        ''
+        test = ''
+        return test
+    '''
+    
+    def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
+            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, context=None):
+        
+        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty=qty,
+            uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
+            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, context=context)
+        
+        old_price = context.get('price_unit',0)
+        new_price = res.get('value',{'price_unit':0}).get('price_unit',0)
+        if old_price and old_price != new_price:
+            res['warning'] = {'title':'Unit price changed','message':_('Unit price has been changed from %s to %s.')%(old_price,new_price)}
+        return res
+        
         
     virtual_stock = fields.Float('Virtual stock', compute=_qty_virtual_stock)
     real_stock = fields.Float('Real stock', compute=_qty_real_stock)

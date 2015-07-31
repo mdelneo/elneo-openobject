@@ -9,6 +9,7 @@ class account_invoice(models.Model):
     def default_get(self, fields_list):
         res = super(account_invoice,self).default_get(fields_list)
         
+        #set default value of date_invoice and period_id : set the same as last invoice encoded by current user
         if res.get('type','') == 'in_invoice':
             cr = self._cr
             last_in_invoice = None

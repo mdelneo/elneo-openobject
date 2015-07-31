@@ -199,7 +199,7 @@
 								</table>
 							</div>
 						</div>
-
+						<p>Quotation validity : <span t-field='o.quotation_validity' /></p>
 						<p t-field="o.note" />
 						<p t-if="o.payment_term.note and o.display_payment_term">
 							<strong>Payment Term:</strong>

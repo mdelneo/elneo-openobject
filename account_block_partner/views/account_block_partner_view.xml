@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_sale_order_form_account_block_partner" model="ir.ui.view">
+            <field name="name">view.sale.order.form.account.block.partner</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                	<field name="unblock" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_partner_form_account_block_partner" model="ir.ui.view">
+            <field name="name">view.partner.form.account.block.partner</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+					<page string="Unpaid">			
+						<group>
+		                	<field name="blocked"/>
+							<field name="block_reason_title" colspan="4" />				
+			     			<field name="unpaid_comment" colspan="4" />
+			     			<field name="unpaid_history" colspan="4" />
+		     			</group>
+					</page>
+				</notebook>                  
+            </field>
+        </record>
+        
+        <record id="action_picking_tree_blocked" model="ir.actions.act_window">
+            <field name="name">Blocked Transfers</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain"></field>
+            <field name="context">{
+                    'search_default_picking_type_id': [active_id],
+                    'default_picking_type_id': active_id,
+                    'contact_display': 'partner_address',
+                    'search_default_available': 1,
+            }
+            </field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+        </record>
+        
+        <record id="stock_picking_type_kanban_account_block_partner" model="ir.ui.view">
+            <field name="name">stock.picking.type.kanban.account.block.partner</field>
+            <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
+            <field name="model">stock.picking.type</field>
+            <field name="arch" type="xml">
+				<a name="%(stock.action_picking_tree_ready)d" position="after">
+					<a name="%(action_picking_tree_blocked)d">
+						<field name="count_picking_blocked"/> Blocked
+					</a>
+				</a>
+            </field>
+		</record>
+		
+    </data>
+</openerp>

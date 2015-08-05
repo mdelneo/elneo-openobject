@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<record id="group_accounting_follow_blocked_partners" model="res.groups">
+			<field name="name">Follow blocked partners</field>
+			<field name="category_id" ref="base.module_category_hidden" />
+		</record>
+	</data>
+</openerp>

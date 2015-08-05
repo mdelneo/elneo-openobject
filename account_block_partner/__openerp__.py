@@ -12,7 +12,7 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['account','purchase'],
-    "data" : ['views/account_block_partner_view.xml'],
+    "data" : ['views/account_block_partner_view.xml','security/account_block_partner_security.xml'],
     'installable': True,
     'auto_install': False,
     'application': False,

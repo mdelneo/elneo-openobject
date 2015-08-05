@@ -2,6 +2,17 @@
 from openerp import models,fields,api
 from openerp.tools.float_utils import float_compare, float_round
 
+
+class account_move_line(models.Model):
+    _inherit = 'account.move.line'
+    
+    @api.multi
+    def reconcile(self, type='auto', writeoff_acc_id=False, writeoff_period_id=False, writeoff_journal_id=False):
+        res = super(account_move_line,self).reconcile(type, writeoff_acc_id, writeoff_period_id, writeoff_journal_id)
+        return res
+    
+account_move_line()
+
 class account_invoice(models.Model):
     _inherit = 'account.invoice'
     

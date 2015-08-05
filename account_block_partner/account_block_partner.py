@@ -129,9 +129,21 @@ class res_partner(models.Model):
     def write(self, vals):
         if 'block_reason_title' in vals or 'unpaid_comment' in vals or 'unpaid_history' in vals:
             vals['unpaid_write_date'] = datetime.now()      
-            
-        res = super(res_partner, self).write(vals)      
         
+        #manage users who follow blocked users
+        if 'blocked' in vals:
+            group_blocked_partners = self.env['res.groups'].search([('name','=','Follow blocked partners')])
+            for user in group_blocked_partners.users:
+                if vals['blocked'] == True:
+                    self.env['mail.followers'].create({'res_model':'res.partner', 'res_id':self.id, 'partner_id':user.partner_id.id})
+                else:
+                    mail_followers = self.env['mail.followers'].search(
+                        [('res_model','=','res.partner'), ('res_id','=',self.id), ('partner_id','=',user.partner_id.id)]
+                    )
+                    for mail_follower in mail_followers:
+                        mail_follower.unlink()
+                        
+        res = super(res_partner, self).write(vals)      
         return res
     
 res_partner()

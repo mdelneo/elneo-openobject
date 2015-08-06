@@ -8,14 +8,6 @@ class sale_order(models.Model):
     outgoing_picking_type = fields.Many2one('stock.picking.type', string='Delivery type', domain=[('code','=','outgoing')])
 sale_order()
 
-class stock_picking_type(models.Model):
-    _inherit = 'stock.picking.type'
-stock_picking_type()
-
-class stock_picking(models.Model):
-    _inherit = 'stock.picking'
-stock_picking()
-
 class procurement_order(models.Model):
     _inherit = 'procurement.order'
     

@@ -62,5 +62,17 @@
             </field>
 		</record>
 		
+		<record id="mt_partner_payment" model="mail.message.subtype">
+			<field name="name">Payment</field>
+			<field name="res_model">res.partner</field>
+			<field name="default" eval="False" />
+		</record>
+		
+		<record id="mt_partner_block" model="mail.message.subtype">
+			<field name="name">Blocked</field>
+			<field name="res_model">res.partner</field>
+			<field name="default" eval="False" />
+		</record>
+		
     </data>
 </openerp>

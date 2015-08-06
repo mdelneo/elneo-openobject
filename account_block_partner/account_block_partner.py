@@ -130,20 +130,46 @@ class res_partner(models.Model):
         if 'block_reason_title' in vals or 'unpaid_comment' in vals or 'unpaid_history' in vals:
             vals['unpaid_write_date'] = datetime.now()      
         
-        #manage users who follow blocked users
+        #manage users who follow blocked users : 
+        # - Subscribe members of group 'Follow blocked partners' to message sub-type mt_partner_payment and mt_partner_block on blocked partner
+        # - Un-subscribe members of group 'Follow blocked partners' to message sub-type mt_partner_payment on un-blocked partner
+        # - Send message to indicate partner is blocked or un-blocked to all users following mt_partner_block 
         if 'blocked' in vals:
             group_blocked_partners = self.env['res.groups'].search([('name','=','Follow blocked partners')])
-            for user in group_blocked_partners.users:
-                if vals['blocked'] == True:
-                    self.env['mail.followers'].create({'res_model':'res.partner', 'res_id':self.id, 'partner_id':user.partner_id.id})
-                else:
-                    mail_followers = self.env['mail.followers'].search(
-                        [('res_model','=','res.partner'), ('res_id','=',self.id), ('partner_id','=',user.partner_id.id)]
-                    )
-                    for mail_follower in mail_followers:
-                        mail_follower.unlink()
+            partner_block_subtype_id = self.env['ir.model.data'].xmlid_to_res_id('account_block_partner.mt_partner_block')
+            if vals['blocked'] == True:
+                text = _('<p><b>%s</b> blocked</p>')%(self.name)
+                partner_payment_subtype_id = self.env['ir.model.data'].xmlid_to_res_id('account_block_partner.mt_partner_payment')
+                self.message_subscribe_users([u.id for u in group_blocked_partners.users], [partner_block_subtype_id,partner_payment_subtype_id])
+                self.message_post(body=text, subtype='account_block_partner.mt_partner_block')
+            else:
+                text = _('<p><b>%s</b> un-blocked</p>')%(self.name)
+                self.message_post(body=text, subtype='account_block_partner.mt_partner_block')
+                self.message_unsubscribe_users([u.id for u in group_blocked_partners.users])
                         
         res = super(res_partner, self).write(vals)      
         return res
     
+    
+    @api.model
+    def create(self):
+        res = super(res_partner, self).create()
+        
+    
+    
 res_partner()
+
+
+class account_voucher(models.Model):
+    _inherit = 'account.voucher'
+    
+    @api.multi
+    def proforma_voucher(self):
+        res = super(account_voucher, self).proforma_voucher()
+        text = _('<p><b>%s</b> payment !</p>')%self.partner_id.name
+        self.partner_id.message_post(body=text, subtype='account_block_partner.mt_partner_payment')
+        return res
+        
+        
+    
+account_voucher()

@@ -230,6 +230,8 @@ class sale_order(models.Model):
             self.partner_order_id = self.partner_id.address_get(['default'])['default']
             self.sale_note = super(sale_order,self).get_salenote(self.partner_id.id)
             
+        return res
+            
 
     @api.onchange('partner_order_id')
     def onchange_partner_order_id(self):

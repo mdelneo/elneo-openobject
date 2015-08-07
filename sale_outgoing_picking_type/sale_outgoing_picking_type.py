@@ -20,6 +20,5 @@ class procurement_order(models.Model):
             if picking_type.code == 'outgoing' and sale_line and sale_line.order_id and sale_line.order_id.outgoing_picking_type:
                 res['picking_type_id'] = sale_line.order_id.outgoing_picking_type.id
         return res
-    
+        
 procurement_order()
-

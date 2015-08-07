@@ -37,204 +37,151 @@
 		    </div>      
 		</template>
 	
-		<template id="report_saleorder" inherit_id="sale.report_saleorder">
-			<xpath expr="//t[@t-call='report.html_container']" position="replace">
-				<t t-call="report.html_container">
-					<t t-foreach="doc_ids" t-as="doc_id">
-						<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sale_quotation.report_saleorder_document')" />
+
+
+		<template id="sale_quotation.report_saleorder_document" inherit_id="sale_layout.report_sale_layouted">
+		
+			<xpath expr="t[@t-call='report.external_layout']" position="attributes">
+				<attribute name="t-call">sale_quotation.layout_quotation</attribute>
+			</xpath>
+		
+			<xpath expr="//div[@class='oe_structure']" position="before">
+				<t t-if="o.display_quotation_text_elements">
+					<t t-foreach="o.quotation_text_elements_before" t-as="text_element">
+						<t t-if="text_element.page_break_before">
+							<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' style="line-height:10px;page-break-before:always;" />
+						</t>
+						<t t-if="not text_element.page_break_before">
+							<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' />
+						</t>
+						<t t-if="text_element.page_break_after">
+							<p style="page-break-before:always;" />
+						</t>
 					</t>
 				</t>
 			</xpath>
-		</template>
-
-		<template id="sale_quotation.report_saleorder_document">
-			<t t-name="sale_quotation.report_saleorder_document">
-				<t t-call="sale_quotation.layout_quotation">
-					<div class="page">
-						<t t-if="o.display_quotation_text_elements">
-							<t t-foreach="o.quotation_text_elements_before" t-as="text_element">
-								<t t-if="text_element.page_break_before">
-									<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' style="line-height:10px;page-break-before:always;" />
-								</t>
-								<t t-if="not text_element.page_break_before">
-									<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' />
-								</t>
-								<t t-if="text_element.page_break_after">
-									<p style="page-break-before:always;" />
-								</t>
-							</t>
+			
+			
+			<xpath expr="//p[@t-if='o.payment_term.note']" position="after">
+				<t t-if="o.display_quotation_text_elements" name="text_elements_after">
+					<t t-foreach="o.quotation_text_elements_after" t-as="text_element">
+						<t t-if="text_element.page_break_before">
+							<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' style="line-height:10px;page-break-before:always;" />
 						</t>
-						<div class="oe_structure" />
-						<div class="row">
-							<div class="col-xs-6">
-								<div class="mt8" t-if="o.display_invoice_address">
-									<strong>Invoice address:</strong>
-									<div t-field="o.partner_invoice_id"
-										t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
-									<p t-if="o.partner_id.vat">
-										VAT:
-										<span t-field="o.partner_id.vat" />
-									</p>
-								</div>
-								<div class="mt8" t-if="o.display_shipping_address">
-									<strong>Shipping address:</strong>
-									<div t-field="o.partner_shipping_id"
-										t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
-									<p t-if="o.partner_id.vat">
-										VAT:
-										<span t-field="o.partner_id.vat" />
-									</p>
-								</div>
-							</div>
-							<div class="col-xs-5 col-xs-offset-1">
-								<div t-field="o.partner_id"
-									t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
-							</div>
-						</div>
-
-						<h2>
-							<span t-if="o.state not in ['draft','sent']">Order N° </span>
-							<span t-if="o.state in ['draft','sent']">Quotation N° </span>
-							<span t-field="o.name" />
-						</h2>
-
-						<div class="row mt32 mb32" id="informations">
-							<div t-if="o.client_order_ref" class="col-xs-3">
-								<strong>Your Reference:</strong>
-								<p t-field="o.client_order_ref" />
-							</div>
-							<div t-if="o.date_order" class="col-xs-3">
-								<strong t-if="o.state not in ['draft','sent']">Date Ordered:</strong>
-								<strong t-if="o.state in ['draft','sent']">Quotation Date:</strong>
-								<p t-field="o.date_order" />
-							</div>
-							<div t-if="o.user_id.name" class="col-xs-3">
-								<strong>Salesperson:</strong>
-								<p t-field="o.user_id.name" />
-							</div>
-							<div t-if="o.payment_term and o.display_payment_term" class="col-xs-3">
-								<strong>Payment Term:</strong>
-								<p t-field="o.payment_term" />
-							</div>
-						</div>
-
-						<table class="table table-condensed">
-							<thead>
-								<tr>
-									<th>Description</th>
-									<th class="text-right">Quantity</th>
-									<th class="text-right" t-if="display_line_price">Unit Price</th>
-									<th groups="sale.group_discount_per_so_line" t-if="o.display_discount">Disc.(%)</th>
-									<th class="text-right" t-if="display_line_price">Price</th>
-									<th class="text-right" t-if="o.display_delay and o.delay_in_week">Delay (weeks)</th>
-									<th class="text-right" t-if="o.display_delay and not o.delay_in_week">Delay (days)</th>
-								</tr>
-							</thead>
-							<tbody class="sale_tbody">
-								<t t-foreach="o.order_line" t-as="l">
-									<tr style="border-bottom:None;">
-										<td>
-											<span t-field="l.name" />
-										</td>
-										<td class="text-right">
-											<span t-field="l.product_uom_qty" />
-											<span groups="product.group_uom" t-field="l.product_uom" />
-										</td>
-										<td class="text-right" t-if="display_line_price">
-											<span t-field="l.price_unit" />
-										</td>
-										<td groups="sale.group_discount_per_so_line" t-if="o.display_discount">
-											<span t-field="l.discount" />
-										</td>
-										<td class="text-right" t-if="display_line_price">
-											<span t-field="l.price_subtotal"
-												t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}' />
-										</td>
-										<td class="text-right" t-if="o.display_delay">
-											<t t-if="o.delay_in_week">
-												<span t-esc='l.delay/7. == int(l.delay/7.) and l.delay/7. or int(l.delay/7.)+1' />
-											</t>
-											<t t-if="not o.delay_in_week">
-												<span t-esc='l.delay' />
-											</t>
-										</td>
-									</tr>
-									<tr t-if="o.display_descriptions" style="border-bottom:1px solid #ddd">
-										<td colspan="6">
-											<span t-field="l.product_id.description_sale" style="font-style:italic;" />
-										</td>
-									</tr>
-								</t>
-							</tbody>
-						</table>
-
-						<div class="row" t-if="o.display_total">
-							<div class="col-xs-4 pull-right">
-								<table class="table table-condensed">
-									<tr class="border-black">
-										<td>
-											<strong>Total Without Taxes</strong>
-										</td>
-										<td class="text-right">
-											<span t-field="o.amount_untaxed"
-												t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}' />
-										</td>
-									</tr>
-									<tr>
-										<td>Taxes</td>
-										<td class="text-right">
-											<span t-field="o.amount_tax"
-												t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}' />
-										</td>
-									</tr>
-									<tr class="border-black">
-										<td>
-											<strong>Total</strong>
-										</td>
-										<td class="text-right">
-											<span t-field="o.amount_total"
-												t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}' />
-										</td>
-									</tr>
-								</table>
-							</div>
-						</div>
-						<p>Quotation validity : <span t-field='o.quotation_validity' /></p>
-						<p t-field="o.note" />
-						<p t-if="o.payment_term.note and o.display_payment_term">
-							<strong>Payment Term:</strong>
-							<span t-field="o.payment_term.note" />
-						</p>
-						<div class="oe_structure" />
-						<t t-if="o.display_quotation_text_elements" name="text_elements_after">
-							<t t-foreach="o.quotation_text_elements_after" t-as="text_element">
-								<t t-if="text_element.page_break_before">
-									<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' style="line-height:10px;page-break-before:always;" />
-								</t>
-								<t t-if="not text_element.page_break_before">
-									<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' />
-								</t>
-								<t t-if="text_element.page_break_after">
-									<p style="page-break-before:always;" />
-								</t>
-							</t>
+						<t t-if="not text_element.page_break_before">
+							<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' />
 						</t>
-						<t t-if="o.display_quotation_text_elements" name="text_elements_final">
-							<t t-foreach="o.quotation_text_elements_final" t-as="text_element">
-								<t t-if="text_element.page_break_before">
-									<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' style="line-height:10px;page-break-before:always;" />
-								</t>
-								<t t-if="not text_element.page_break_before">
-									<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' />
-								</t>
-								<t t-if="text_element.page_break_after">
-									<p style="page-break-before:always;" />
-								</t>
-							</t>
+						<t t-if="text_element.page_break_after">
+							<p style="page-break-before:always;" />
 						</t>
-					</div>
+					</t>
 				</t>
-			</t>
+				<t t-if="o.display_quotation_text_elements" name="text_elements_final">
+					<t t-foreach="o.quotation_text_elements_final" t-as="text_element">
+						<t t-if="text_element.page_break_before">
+							<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' style="line-height:10px;page-break-before:always;" />
+						</t>
+						<t t-if="not text_element.page_break_before">
+							<div t-field='text_element.content_interpreted' t-field-options='{"html-escape":false}' />
+						</t>
+						<t t-if="text_element.page_break_after">
+							<p style="page-break-before:always;" />
+						</t>
+					</t>
+				</t>
+			</xpath>
+			
+			<xpath expr="//div[@class='page']/div[@class='row']" position="replace">
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="mt8" t-if="o.display_invoice_address">
+							<strong>Invoice address:</strong>
+							<div t-field="o.partner_invoice_id"
+								t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
+							<p t-if="o.partner_id.vat">
+								VAT:
+								<span t-field="o.partner_id.vat" />
+							</p>
+						</div>
+						<div class="mt8" t-if="o.display_shipping_address">
+							<strong>Shipping address:</strong>
+							<div t-field="o.partner_shipping_id"
+								t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
+							<p t-if="o.partner_id.vat">
+								VAT:
+								<span t-field="o.partner_id.vat" />
+							</p>
+						</div>
+					</div>
+					<div class="col-xs-5 col-xs-offset-1">
+						<div t-field="o.partner_id"
+							t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
+					</div>
+				</div>
+			</xpath>
+			
+			<xpath expr="//div[@id='informations']/div/p[@t-field='o.payment_term']/.." position="attributes">
+				<attribute name="t-if">o.payment_term and o.display_payment_term</attribute>
+			</xpath>
+			
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed']/thead/tr" position="replace">
+				<tr>
+                    <th>Description</th>
+                    <th>Taxes</th>
+                    <th class="text-right">Quantity</th>
+                    <th class="text-right">Unit Price</th>
+                    <th groups="sale.group_discount_per_so_line">Disc.(%)</th>
+                    <th class="text-right">Price</th>
+                </tr>
+			</xpath>
+			
+			<xpath expr="//t[@t-as='l']/tr" position="replace">
+				<tr style="border-bottom:None;">
+					<td>
+						<span t-field="l.name" />
+					</td>
+					<td class="text-right">
+						<span t-field="l.product_uom_qty" />
+						<span groups="product.group_uom" t-field="l.product_uom" />
+					</td>
+					<td class="text-right" t-if="display_line_price">
+						<span t-field="l.price_unit" />
+					</td>
+					<td groups="sale.group_discount_per_so_line" t-if="o.display_discount">
+						<span t-field="l.discount" />
+					</td>
+					<td class="text-right" t-if="display_line_price">
+						<span t-field="l.price_subtotal"
+							t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}' />
+					</td>
+					<td class="text-right" t-if="o.display_delay">
+						<t t-if="o.delay_in_week">
+							<span t-esc='l.delay/7. == int(l.delay/7.) and l.delay/7. or int(l.delay/7.)+1' />
+						</t>
+						<t t-if="not o.delay_in_week">
+							<span t-esc='l.delay' />
+						</t>
+					</td>
+				</tr>
+				<tr t-if="o.display_descriptions" style="border-bottom:1px solid #ddd">
+					<td colspan="6">
+						<span t-field="l.product_id.description_sale" style="font-style:italic;" />
+					</td>
+				</tr>
+			</xpath>
+			
+			<xpath expr="//div[@class='page']/div[@class='row']/div[@class='col-xs-4 pull-right']/.." position="attributes">
+				<attribute name="t-if">o.display_total</attribute>
+			</xpath>
+			
+			<xpath expr="//p[@t-field='o.note']" position="before">
+				<p>Quotation validity : <span t-field='o.quotation_validity' /></p>
+			</xpath>
+			
+			<xpath expr="//p[@t-if='o.payment_term.note']" position="attributes">
+				<attribute name="t-if">o.payment_term.note and o.display_payment_term</attribute>
+			</xpath>
+			
 		</template>
 
 	</data>

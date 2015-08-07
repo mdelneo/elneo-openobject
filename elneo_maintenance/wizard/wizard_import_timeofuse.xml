@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="wizard_maintenance_element_timeofuse" model="ir.ui.view">
+			 <field name="name">maintenance.element.timeofuse.wizard.form</field>
+			 <field name="model">maintenance.element.timeofuse.wizard</field>
+			 <field name="type">form</field>
+			 <field name="arch" type="xml">
+			 <form string="Time of Use Import Wizard">
+			 <group string="Data">
+			 <field name="history" string="Timeofuse History" readonly="True">
+			 	<tree string="Time of use history">
+							<field name="date" />
+							<field name="time_of_use" />
+							<!-- <field name="intervention_id" /> -->
+						</tree>
+			 </field>
+			 <group colspan="4">
+			 	<field name="calc_time" />
+			 	<button name="calculate" string="Calculate" type="object" icon="gtk-refresh" help="Calculate the expected time of use based on the two last counters."/>
+			 </group>
+			 </group>
+			 <group colspan="4" string="Action">
+			 
+			 <button string="Import" name="import_time" type="object" icon="gtk-apply" help="Import the calculated time into the maintenance element."/>
+			 <button string="Cancel" special="cancel" icon="gtk-cancel"/>
+			 </group>
+			 </form>
+			 </field>
+		</record>
+		
+		<record id="action_maintenance_element_timeofuse_wizard" model="ir.actions.act_window">
+			 <field name="name">Import time of uses</field>
+			 <field name="type">ir.actions.act_window</field>
+			 <field name="src_model">maintenance.intervention.timeofuse</field>
+			 <field name="res_model">maintenance.element.timeofuse.wizard</field>
+			 <field name="view_type">form</field>
+			 <field name="view_mode">form</field>
+			 <field name="target">new</field>
+		</record>
+	</data>
+</openerp>

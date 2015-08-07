@@ -12,7 +12,7 @@ class purchase_order(models.Model):
         alert = False
         for order in self:
             for sale in order.sale_orders:
-                if sale.partner_id.blocked or (sale.stop_delivery and sale.block_delivery == 'blocked_client'):
+                if sale.partner_id.blocked:
                     alert = True
                     
         if alert:

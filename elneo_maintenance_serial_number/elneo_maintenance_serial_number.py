@@ -27,26 +27,33 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     @api.multi
-    def action_wait(self):
-        res = super(sale_order,self).action_wait()
+    def action_button_confirm(self):
+        assert len(self) == 1, 'This option should only be used for a single id at a time.'
+        mod_obj = self.env['ir.model.data']
         
         for order in self:
-            for line in order.order_line:
-                if line.product_id.serialnumber_required:
-                    wizard_id = self.env['serial.number.wizard'].create()
-                    return {
-                        'name':_("Serial numbers"),
-                        'view_mode': 'form',
-                        'view_type': 'form',
-                        'res_id':wizard_id,
-                        'res_model': 'serial.number.wizard',
-                        'type': 'ir.actions.act_window',
-                        'nodestroy': True,
-                        'target': 'new',
-                        'domain': '[]',
-                        'context': dict(self.env.context, active_ids=self._ids)
-                    }
+            if order.shop_sale:
+                for line in order.order_line:
+                    if line.product_id.serialnumber_required:
+                        #wizard_id = self.env['serial.number.wizard'].with_context(active_ids=self._ids).create({})
+                        
+                        model_data = mod_obj.search([('model','=','ir.ui.view'),('name','=','serial_number_wizard_form_view')])
+                        resource = model_data.res_id
+                        
+                        context = self.env.context.copy()
+                         
+                        return {
+                            'name': _('Serial numbers'),
+                            'view_type': 'form',
+                            'context': context,
+                            'view_mode': 'form',
+                            'res_model': 'serial.number.wizard',
+                            'views': [(resource,'form')],
+                            'nodestroy':True,
+                            #'res_id':wizard_id.id,
+                            'type': 'ir.actions.act_window',
+                            'target': 'new',
+                            }
         
-        
-        return res 
-     
+            res = super(sale_order,order).action_button_confirm()
+        return res

@@ -19,14 +19,15 @@
 #
 ##############################################################################
 {
-    'name': 'Maintenance serial number',
+    'name': 'Elneo Maintenance serial number',
     'version': '0.1',
     'category': 'Maintenance',
     'description': "Module to manage serial numbers.",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['maintenance_serial_number'],
-    'data': ['maintenance_serialnumber_view.xml',
+    'depends': ['maintenance_serial_number','shop_sale'],
+    'data': ['elneo_maintenance_serialnumber_view.xml',
+             'wizard/serial_number_wizard.xml'
              ],
     'installable': True,
     'active': False,

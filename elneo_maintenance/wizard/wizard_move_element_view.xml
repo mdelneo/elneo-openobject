@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_wizard_move_element" model="ir.ui.view">
+			<field name="name">Import Response Order</field>
+			<field name="model">wizard.move.element</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Change installation">
+					<field name="installation_id" colspan="4" />
+					<button string="Change" type="object"
+						name="change_installation" />
+					<button string="Cancel" special="cancel" />
+				</form>
+			</field>
+		</record>
+
+		<record id="action_wizard_move_element" model="ir.actions.act_window">
+			<field name="name">Move maintenance element</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">wizard.move.element</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
+		<act_window id="wizard_move_element_act"
+                name="Move element(s)"
+                res_model="wizard.move.element"
+                src_model="maintenance.element"
+                view_mode="form" view_type="form"
+                target="new" key2="client_action_multi" />
+		
+	</data>
+</openerp>

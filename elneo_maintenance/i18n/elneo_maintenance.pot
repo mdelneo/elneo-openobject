@@ -1,0 +1,794 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* elneo_maintenance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2015-05-19 08:03+0000\n"
+"PO-Revision-Date: 2015-05-19 08:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: elneo_maintenance
+#: field:maintenance.element,expected_time_of_use:0
+msgid "Annual expected hour of use"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.element.timeofuse.wizard:0
+msgid "Time of Use Import Wizard"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_project
+msgid "maintenance.project"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_create_project_sales_wizard
+#: model:ir.ui.menu,name:elneo_maintenance.create_project_sales_menu
+msgid "Create project sales"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.intervention:0
+msgid "Group By..."
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.intervention:0
+msgid "Convert in classic delivery"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+msgid "Installation Verification"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_maintenance_element_timeofuse_wizard
+msgid "Import time of uses"
+msgstr ""
+
+#. module: elneo_maintenance
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique !"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.intervention,installation_zip:0
+msgid "Zip"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element,brand:0
+msgid "Brand"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.maintenance_project_recompute_initial_cpi_id
+msgid "Compute initial CPI"
+msgstr ""
+
+#. module: elneo_maintenance
+#: selection:maintenance.intervention,error_status:0
+msgid "Purchase Delivery Outdated"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_maint_intervention_project_wetteren
+#: model:ir.ui.menu,name:elneo_maintenance.menu_maint_intervention_project_wetteren
+msgid "Maintenance Intervention (projects) (Wetteren)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_maint_intervention_awans
+#: model:ir.ui.menu,name:elneo_maintenance.menu_maint_intervention_awans
+msgid "Maintenance Intervention (Awans)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:wizard.move.element:0
+msgid "Change"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_picking_maint_reservations_awans
+#: model:ir.ui.menu,name:elneo_maintenance.menu_maintenance_reservation_awans
+msgid "Maintenance Reservations (Awans)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.intervention,installation_shop_id:0
+#: field:maintenance.intervention,shop_id:0
+msgid "Shop"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_element_model
+msgid "maintenance.element.model"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.intervention:0
+#: field:stock.picking,installation_id:0
+#: field:wizard.sale.confirm,installation_id:0
+msgid "Installation"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_wizard_sale_confirm
+msgid "wizard.sale.confirm"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+#: field:maintenance.installation,note:0
+msgid "Notes"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.ui.menu,name:elneo_maintenance.menu_maintenance_script
+msgid "Scripts"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.intervention:0
+msgid "Maintenance intervention"
+msgstr ""
+
+#. module: elneo_maintenance
+#: code:addons/elneo_maintenance/elneo_maintenance.py:775
+#, python-format
+msgid "You can only delete draft moves."
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.wizard_move_element_act
+msgid "Move element(s)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:stock.picking,maint_color:0
+msgid "Color (maintenance)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+msgid "Installation Checked"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element,power:0
+msgid "Power (kW)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.element.model.csv.import.wizard:0
+msgid "OK"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element,supplier_id:0
+msgid "Supplier"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: elneo_maintenance
+#: help:maintenance.element.model,time_counter:0
+msgid "Check if this type of element has time counter."
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:wizard.move.element:0
+msgid "Change installation"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.intervention.product,virtual_stock:0
+msgid "Virtual stock"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.installation,last_interventions:0
+msgid "Last interventions"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:stock.picking:0
+msgid "Delivery Orders"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.intervention:0
+msgid "next months"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.intervention,blocked:0
+msgid "Customer blocked"
+msgstr ""
+
+#. module: elneo_maintenance
+#: sql_constraint:res.users:0
+msgid "You can not have two users with the same login !"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+msgid "Confirm"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:elneo_maintenance.create_project_sales_wizard:0
+msgid "Create"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.installation,is_verified:0
+msgid "Is Verified"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.project,entreprise_visual:0
+msgid "Entreprise visual"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.intervention:0
+msgid "State"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element,under_competitor_contract:0
+msgid "Under competitor contract"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_maint_intervention_wetteren
+#: model:ir.ui.menu,name:elneo_maintenance.menu_maint_intervention_wetteren
+msgid "Maintenance Intervention (Wetteren)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_stock_picking
+msgid "Picking List"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_intervention_product
+msgid "maintenance.intervention.product"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,help:elneo_maintenance.action_picking_maint_reservations_awans
+#: model:ir.actions.act_window,help:elneo_maintenance.action_picking_maint_reservations_wetteren
+msgid "This is the list of all delivery orders that have\n"
+"				to be prepared, according to your different sales orders and your\n"
+"				logistics rules.\n"
+"			"
+msgstr ""
+
+#. module: elneo_maintenance
+#: constraint:product.product:0
+#: sql_constraint:product.product:0
+msgid "Reference has to be unique. There is an other product with the same reference."
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+msgid "Machines (Visual)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element.model.csv.import.wizard,csv_file:0
+msgid "CSV file"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.element:0
+#: view:maintenance.installation:0
+msgid "Calc expected time of use"
+msgstr ""
+
+#. module: elneo_maintenance
+#: selection:maintenance.intervention,error_status:0
+msgid "No Input Linked(On Order)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: help:maintenance.element.model,stat_points:0
+msgid "Points for seller stats."
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.project,nom_visual:0
+msgid "Nom visual"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_elneo_maintenance_create_installations_wizard
+msgid "elneo_maintenance.create_installations_wizard"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_element_timeofuse_wizard
+msgid "maintenance.element.timeofuse.wizard"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_element_timeofuse_wizard_detail
+msgid "maintenance.element.timeofuse.wizard.detail"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_wizard_move_element
+msgid "wizard.move.element"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+msgid "Spare part history"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_elneo_maintenance_create_project_sales_wizard
+msgid "elneo_maintenance.create_project_sales_wizard"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_element
+msgid "maintenance.element"
+msgstr ""
+
+#. module: elneo_maintenance
+#: selection:maintenance.intervention,error_status:0
+msgid "Purchase Incident"
+msgstr ""
+
+#. module: elneo_maintenance
+#: code:addons/elneo_maintenance/elneo_maintenance.py:352
+#, python-format
+msgid "Import time of use"
+msgstr ""
+
+#. module: elneo_maintenance
+#: selection:maintenance.intervention,error_status:0
+msgid "Not enough stock"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.element.timeofuse.wizard:0
+msgid "Timeofuse History"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.intervention,create_uid:0
+msgid "Creation user"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.intervention,write_uid:0
+msgid "Last Modification User"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_elneo_maintenance_create_interventions_wizard
+msgid "elneo_maintenance.create_interventions_wizard"
+msgstr ""
+
+#. module: elneo_maintenance
+#: code:addons/elneo_maintenance/elneo_maintenance.py:655
+#: code:addons/elneo_maintenance/elneo_maintenance.py:656
+#, python-format
+msgid "Attention: the client is blocked"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.installation,maintenance_product_description:0
+msgid "Maintenance products description"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_maintenance_element_brand
+#: model:ir.ui.menu,name:elneo_maintenance.menu_maintenance_element_brand
+#: view:maintenance.element.brand:0
+msgid "Maintenance element brand"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element.model,time_counter:0
+msgid "Time counter"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_intervention
+msgid "maintenance.intervention"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element.model.csv.import.wizard,message:0
+msgid "Message"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_res_partner_address
+msgid "Partner Addresses"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_project_initial_cpi_compute
+msgid "maintenance.project.initial.cpi.compute"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.project,machines:0
+msgid "Machines"
+msgstr ""
+
+#. module: elneo_maintenance
+#: code:addons/elneo_maintenance/elneo_maintenance.py:659
+#, python-format
+msgid "Flash information"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.element.timeofuse.wizard:0
+msgid "Calculate"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_element_model_csv_import_wizard
+msgid "maintenance.element.model.csv.import.wizard"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element,maintenance_partner:0
+msgid "Maintenance partner"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+msgid "Maintenance spare part description"
+msgstr ""
+
+#. module: elneo_maintenance
+#: constraint:res.users:0
+msgid "The chosen company is not in the allowed companies for this user"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.intervention,error_status:0
+msgid "Error Status"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.element.model.csv.import.wizard:0
+#: view:maintenance.element.timeofuse.wizard:0
+msgid "Import"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.project,annual_visits_number:0
+msgid "Number of annual visits"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:stock.move,purchased:0
+msgid "Is purchased"
+msgstr ""
+
+#. module: elneo_maintenance
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr ""
+
+#. module: elneo_maintenance
+#: selection:maintenance.intervention,error_status:0
+msgid "Elneo is Supplier"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_import_csv_wizard
+msgid "Import from CSV"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element.timeofuse.wizard.detail,date:0
+msgid "Date"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.element.timeofuse.wizard:0
+msgid "Data"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_picking_maint_reservations_wetteren
+#: model:ir.ui.menu,name:elneo_maintenance.menu_maintenance_reservation_wetteren
+msgid "Maintenance Reservations (Wetteren)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.project.initial.cpi.compute:0
+msgid "Compute"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:wizard.sale.confirm:0
+msgid "At least one product must create a maintenance element linked to an installation. Please select it or create a new one."
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_maint_intervention_project_awans
+#: model:ir.ui.menu,name:elneo_maintenance.menu_maint_intervention_project_awans
+msgid "Maintenance Intervention (projects) (Awans)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.project.initial.cpi.compute:0
+msgid "Compute initial index"
+msgstr ""
+
+#. module: elneo_maintenance
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element.model,stat_points:0
+msgid "Points"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.element.timeofuse.wizard:0
+msgid "Action"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.project,annual_amount:0
+msgid "Initial annual amount (without delay additional amount)"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:wizard.sale.confirm:0
+msgid "Assign"
+msgstr ""
+
+#. module: elneo_maintenance
+#: constraint:maintenance.project:0
+msgid "Several maintenance projects are enable during the same period"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:stock.picking:0
+msgid "Process"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.intervention:0
+msgid "In Error"
+msgstr ""
+
+#. module: elneo_maintenance
+#: code:addons/elneo_maintenance/elneo_maintenance.py:203
+#, python-format
+msgid "Importation error"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+msgid "General"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,help:elneo_maintenance.action_picking_maint_reservations
+msgid "This is the list of all delivery orders that have\n"
+"				to be prepared, according to your different sales orders and your\n"
+"				logistics rules."
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_picking_maint_reservations
+#: model:ir.ui.menu,name:elneo_maintenance.menu_maintenance_reservation
+msgid "Maintenance Reservations"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:wizard.move.element,installation_id:0
+msgid "New installation"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.project,personne_visual:0
+msgid "Personne visual"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:elneo_maintenance.create_project_sales_wizard:0
+#: view:maintenance.element.model.csv.import.wizard:0
+#: view:maintenance.element.timeofuse.wizard:0
+#: view:wizard.move.element:0
+#: view:wizard.sale.confirm:0
+msgid "Cancel"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_res_users
+msgid "res.users"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element.timeofuse.wizard,calc_time:0
+msgid "Calculated Time"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_element_brand
+msgid "maintenance.element.brand"
+msgstr ""
+
+#. module: elneo_maintenance
+#: help:product.product,maintenance_product:0
+msgid "A maintenance product can't be delivered without creating an associated maintenance element."
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:product.product,maintenance_product:0
+msgid "Maintenance product"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element.timeofuse.wizard.detail,wizard_id:0
+msgid "Wizard"
+msgstr ""
+
+#. module: elneo_maintenance
+#: code:addons/elneo_maintenance/elneo_maintenance.py:430
+#: view:wizard.sale.confirm:0
+#, python-format
+msgid "Sale confirm"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_installation
+msgid "maintenance.installation"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.actions.act_window,name:elneo_maintenance.action_wizard_move_element
+msgid "Move maintenance element"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+#: field:maintenance.project,intervention_months:0
+msgid "Intervention months"
+msgstr ""
+
+#. module: elneo_maintenance
+#: selection:maintenance.intervention,error_status:0
+msgid "Sale Incident"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+msgid "Additionnal informations"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.element.timeofuse.wizard:0
+msgid "Time of use history"
+msgstr ""
+
+#. module: elneo_maintenance
+#: selection:maintenance.intervention,error_status:0
+msgid "Picking Error"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:res.users,is_technician:0
+msgid "Is technician"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element,end_of_current_contract:0
+msgid "End of current contract"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.intervention:0
+msgid "Customer"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element.brand,name:0
+msgid "Name"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+msgid "Visual fields"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:stock.move,sale_price:0
+msgid "Sale price"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element.timeofuse.wizard,history:0
+#: field:maintenance.element.timeofuse.wizard.detail,time_of_use:0
+msgid "Time of Use"
+msgstr ""
+
+#. module: elneo_maintenance
+#: selection:maintenance.intervention,error_status:0
+msgid "Potentially Available"
+msgstr ""
+
+#. module: elneo_maintenance
+#: model:ir.model,name:elneo_maintenance.model_maintenance_project_delay
+msgid "maintenance.project.delay"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.element,main_element:0
+msgid "Main element"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.intervention.product,real_stock:0
+msgid "Real stock"
+msgstr ""
+
+#. module: elneo_maintenance
+#: view:maintenance.element.model.csv.import.wizard:0
+msgid "Import CSV"
+msgstr ""
+
+#. module: elneo_maintenance
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr ""
+
+#. module: elneo_maintenance
+#: selection:maintenance.intervention,error_status:0
+msgid "No Purchase"
+msgstr ""
+
+#. module: elneo_maintenance
+#: field:maintenance.project,client_visual:0
+msgid "Client visual"
+msgstr ""
+
+#. module: elneo_maintenance
+#: help:maintenance.element,main_element:0
+msgid "If other elements of the project do not have expected time of use, we use expected time of use of main element"
+msgstr ""
+

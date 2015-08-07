@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_maintenance_intervention_form_elneo" model="ir.ui.view">
+			<field name="name">maintenance.intervention.product.elneo.maintenance</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="maintenance_product.view_maintenance_intervention_maintenance_product_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//tree/field[@name='maintenance_element_id']"
+					position="after">
+					<field name="real_stock" />
+					<field name="virtual_stock" />
+				</xpath>	
+			</field>
+		</record>
+	</data>
+</openerp>

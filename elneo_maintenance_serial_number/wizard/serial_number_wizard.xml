@@ -8,11 +8,19 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form>
-                	<field name="serial_number_lines" nolabel="1" colspan="4"/>
-                	<newline />
-                	<button string="Ok" type="object" name="validate_serialnumbers" />
-					<button string="Cancel" special="cancel" />
+                	<p class="oe_grey">
+                       	As your order is a sale shop order, and thus products will be directly delivered to customer, you must fill in the serial numbers of
+                       	products which need it.
+                       	
+                       	For several quantities, split the different numbers by ';'
+                    </p>
+                	<field name="serial_number_lines" nolabel="1" colspan="4"/>                	
+                	
                 </form>
+                <footer>
+                	<button string="Confirm Order" type="object" name="validate_serialnumbers" class="oe_highlight"/>
+					<button string="Cancel" special="cancel" />
+                </footer>
             </field>
         </record>
         

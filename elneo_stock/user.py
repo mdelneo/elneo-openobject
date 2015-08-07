@@ -18,18 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'Elneo Maintenance serial number',
-    'version': '0.1',
-    'category': 'Maintenance',
-    'description': "Module to manage serial numbers.",
-    'author': 'Elneo',
-    'website': 'http://www.elneo.com',
-    'depends': ['maintenance_serial_number','shop_sale'],
-    'data': ['elneo_maintenance_serialnumber_view.xml',
-             'wizard/serial_number_wizard.xml'
-             ],
-    'installable': True,
-    'active': False,
-    'application':False
-}
+
+from openerp import models, fields
+
+
+class res_users(models.Model):
+    _inherit = 'res.users'
+    
+    default_warehouse_id = fields.Many2one('stock.warehouse','Default Warehouse',help='Default Warehouse to match some specific needs')

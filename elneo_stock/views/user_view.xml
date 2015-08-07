@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_users_form">
+            <field name="name">Users Preferences</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+
+                    <xpath expr="//field[@name='tz']" position="after">
+                    	<group>
+                        	<field name="default_warehouse_id" groups="base.group_no_one"/>
+                        </group>
+                    </xpath>
+
+            </field>
+        </record>
+        <record id="view_users_pref_elneo_stock" model="ir.ui.view">
+            <field name="name">res.users.preferences.elneo</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field eval="18" name="priority"/>
+            <field name="arch" type="xml">
+                <field name="tz" position="after">
+                	<field name="default_warehouse_id" groups="base.group_no_one"/>
+                </field>
+            </field>
+        </record>
+	</data>
+</openerp>

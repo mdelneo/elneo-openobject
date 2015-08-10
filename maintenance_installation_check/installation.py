@@ -30,13 +30,24 @@ class maintenance_intervention_product(models.Model):
         self.last_verification_uid = self.env.user
         
     @api.one
+    @api.depends('*')
     def _get_verified(self):
         if ((not self.last_verification_date) and (self.last_verification_date < (datetime.today()-timedelta(days=365)).strftime('%Y-%m-%d'))):
             self.is_verified = False
         else:
             self.is_verified=True
- 
+    
+    @api.multi
+    def _search_verified(self,operator,value):
+        if (operator == '='):
+            installations = self.env['maintenance.installation'].search(['|',('last_verification_date','=',False),('last_verification_date','<',(datetime.today()-timedelta(days=365)).strftime('%Y-%m-%d'))])
+            if value == False:
+                return [('id','in',installations.mapped('id'))]
+            else:
+                return [('id','not in',installations.mapped('id'))]
+        
+        return []
     
     last_verification_date = fields.Datetime('Last Verification Date',readonly=True)
     last_verification_uid = fields.Many2one('res.users',string="Last Verification User",readonly=True)
-    is_verified = fields.Boolean(compute=_get_verified,string='Is Verified',readonly=True)
+    is_verified = fields.Boolean(compute=_get_verified,string='Is Verified',readonly=True,search=_search_verified)

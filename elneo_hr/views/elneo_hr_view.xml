@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <record id="hr_equipment_view_form_elneo_hr" model="ir.ui.view">
+	        <field name="name">hr.equipment.form.elneo.hr</field>
+	        <field name="inherit_id" ref="hr_equipment.hr_equipment_view_form" />
+	        <field name="model">hr.equipment</field>
+	        <field name="arch" type="xml">
+	        	<field name="model" position="after">
+	        		<field name="purchase_date" />
+	        	</field>
+	        </field>
+	     </record>
+	</data>
+</openerp>

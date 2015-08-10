@@ -152,6 +152,7 @@ class sale_order(models.Model):
     def _get_quotation_text_elements_final(self):
         self.quotation_text_elements_final = self.env['sale_quotation.order.text.element'].search([('sale_order_id','=',self.id),('position','=','final'),('displayed','=',True)])
         
+    quotation_address_id = fields.Many2one('res.partner', 'Quotation Address', readonly=True, required=False, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, help="Quotation address for current sales order.")
     quotation_text_elements = fields.One2many('sale_quotation.order.text.element', 'sale_order_id', 'Quotation text elements') 
     quotation_text_elements_before = fields.One2many('sale_quotation.order.text.element', 'sale_order_id', 'Quotation text elements before', compute='_get_quotation_text_elements_before')
     quotation_text_elements_after = fields.One2many('sale_quotation.order.text.element', 'sale_order_id', 'Quotation text elements after', compute='_get_quotation_text_elements_after')

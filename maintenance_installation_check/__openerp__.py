@@ -28,7 +28,8 @@
     'website': 'http://www.elneo.com',
     'depends': [ 'maintenance'],
     "data" : [
-        'installation.xml'
+        'installation.xml',
+        'report/report_maintenance.xml'
         ],
     'installable': True,
     'active': False,

@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp import models,fields,api, _
+from openerp.exceptions import Warning
 
 from datetime import timedelta,datetime
 
@@ -211,15 +212,12 @@ class maintenance_element(models.Model):
                                     'invoice_address_id':invoice_address_id, 
                                     })
                         
-                        maint_elt_id = element.id
-                        maint_elt_pool.write([maint_elt_id], 
-                             {'serial_number':serial, 
-                              'installation_date':datetime.now().strftime('%Y-%m-%d'), 
-                              'warranty_date':(datetime.now()+year).strftime('%Y-%m-%d'),
-                              'serialnumber_required':True,
-                              'element_type_id':element_type_id,
-                              }
-                             )
+                        element.serial_number = serial
+                        element.installation_date=datetime.now().strftime('%Y-%m-%d')
+                        element.warranty_date=(datetime.now()+year).strftime('%Y-%m-%d')
+                        element.serialnumber_required=True
+                        element.type_id=element_type_id
+                        
                         found = True
                         break
             else:

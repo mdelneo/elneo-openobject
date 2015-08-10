@@ -171,15 +171,15 @@
 					<field name="contact_address_id" />
 					<field name="warehouse_id" />
 					<field name="state" />
+					<filter string="Active"
+                            domain="[('state','=','active')]" />
+                    <filter string="Inactive"
+                            domain="[('state','=','inactive')]" />
 					<group expand="0" string="Group By...">
                         <filter string="Customer"
                             domain="[]" context="{'group_by':'partner_id'}" />
-                    </group>
-                    <group expand="0" string="Filter">
-                        <filter string="Active"
-                            domain="[('state','=','active')]" />
-                        <filter string="Inactive"
-                            domain="[('state','=','inactive')]" />
+                        <filter string="Warehouse"
+                            domain="[]" context="{'group_by':'warehouse_id'}" />
                     </group>
 				</search>
 			</field>

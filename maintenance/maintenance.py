@@ -318,7 +318,7 @@ class maintenance_element(models.Model):
     installation_date = fields.Date("Installation date")
     warranty_date = fields.Date("Warranty date")
     location = fields.Char("Location", size=255)
-    #A METTRE DANS ELNEO_MAINTENANCE
+    #TODO:A METTRE DANS ELNEO_MAINTENANCE
     #'suivi_tmi':fields.text("Suivi TMI"), 
     #'piece_tmi':fields.text("Piece TMI", readonly=True),        
     address_id = fields.Many2one(related="installation_id.address_id", relation="res.partner", readonly=True, string="Installation Address")

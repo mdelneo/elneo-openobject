@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 
 class maintenance_intervention_product(models.Model):
     _inherit = 'maintenance.intervention.product'
@@ -64,6 +64,35 @@ class maintenance_installation(models.Model):
     _inherit='maintenance.installation'
     
     maintenance_product_description=fields.Text("Maintenance products description")
+    
+    
+class sale_order(models.Model):
+    _inherit='sale.order'
+    
+    @api.multi
+    def action_button_confirm(self):
+        for sale in self:
+            if not sale.shop_sale:
+                for line in sale.order_line:
+                    if line.product_id.maintenance_product and len(line.maintenance_element_ids) < line.product_uom_qty:
+                        dummy, view_id = self.env['ir.model.data'].get_object_reference('elneo_maintenance', 'view_wizard_sale_confirm')
+                        
+                        context = self.env.context.copy()
+                        context['partner_id'] = sale.partner_id.id
+                        context['sale_id'] = sale.id 
+                        return {
+                                'name':_("Sale confirm"),
+                                'view_mode': 'form',
+                                'view_id': [view_id], 
+                                'view_type': 'form',
+                                'res_model': 'wizard.sale.confirm',
+                                'type': 'ir.actions.act_window',
+                                'target': 'new',
+                                'nodestroy':True, 
+                                'context':context
+                            }
+            
+        return super(sale_order, self).action_button_confirm()
    
 '''
 class maintenance_installation(osv.osv):
@@ -80,24 +109,8 @@ class maintenance_installation(osv.osv):
                 return {'value':{'shop_id':shop_id}}
         return {}
     
-    def get_last_interventions(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        maintenance_intervention_pool = self.pool.get("maintenance.intervention")
-        
-        for installation_id in ids:
-            res[installation_id] = maintenance_intervention_pool.search(cr, uid, [("installation_id",'=',installation_id),("state","=","done")], limit=2, order='date_start desc', context=context)
-            
-        return res
-    
-        
-        
     
     
-    _columns = {
-        'maintenance_product_description':fields.text("Maintenance products description"), 
-        'note':fields.text("Notes"), 
-        'last_interventions':fields.function(get_last_interventions, string="Last interventions", type="one2many", relation="maintenance.intervention", method=True),
-    } 
     
 maintenance_installation()
 
@@ -167,32 +180,6 @@ class maintenance_element(osv.osv):
 maintenance_element()
 
 
-class res_partner_address(osv.osv):
-    _inherit = 'res.partner.address'
-    def name_get(self, cr, user, ids, context=None):
-        if not len(ids):
-            return []
-        res = []
-        if context is None:
-            context = {}
-        for r in self.read(cr, user, ids, ['zip', 'city', 'partner_id', 'street', 'name']):
-            if context.get('contact_display', 'contact')=='partner' and r['partner_id']:
-                res.append((r['id'], r['partner_id'][1]))
-            else:
-                if r['partner_id'] and r['name']:
-                    addr = r['partner_id'][1]+' - '+r['name']+', '
-                elif r['name']:
-                    addr = r['name']+', '
-                elif r['partner_id']:
-                    addr = r['partner_id'][1]+' '
-                else:
-                    addr = ''
-
-                addr += "%s %s %s" % (r.get('street', '') or '', r.get('zip', '') \
-                                    or '', r.get('city', '') or '')
-                res.append((r['id'], addr.strip() or '/'))
-        return res
-res_partner_address()
 
 class sale_order(osv.osv):
     _inherit = 'sale.order'

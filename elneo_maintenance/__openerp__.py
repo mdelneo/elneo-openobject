@@ -7,9 +7,10 @@
     'description': "Module to adapt maintenance module to elneo specifics",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': [ 'maintenance_product',  'elneo_stock'],
+    'depends': [ 'maintenance_product',  'elneo_stock','shop_sale','elneo_default_supplier'],
     "data" : [
-        'elneo_maintenance.xml'
+        'elneo_maintenance.xml',
+        'wizard/wizard_sale_confirm.xml'
         ],
     'installable': True,
     'active': False,

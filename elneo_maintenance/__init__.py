@@ -1,2 +1,2 @@
-#import wizard
+import wizard
 import elneo_maintenance

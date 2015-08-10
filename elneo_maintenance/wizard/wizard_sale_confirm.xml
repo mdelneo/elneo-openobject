@@ -7,13 +7,20 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Sale confirm">
-					<label string="At least one product must create a maintenance element linked to an installation. Please select it or create a new one." colspan="4" />
-					<field name="installation_id" colspan="4" domain="[('partner_id','=',context.get('partner_id'))]" />
-					<button string="Assign" type="object"
-						name="validate" />
-					<button string="Cancel" special="cancel" />
+					<p>
+						At least one product must create a maintenance element linked to an installation. Please select it or create a new one.
+					</p>
+					<group>
+						<field name="installation_id" domain="[('partner_id','=',context.get('partner_id'))]" colspan="4"/>
+					</group>
 				</form>
+				<footer>
+					<button string="Assign" type="object"
+						name="validate" class="oe_highlight"/>
+					<button string="Cancel" special="cancel" />
+				</footer>
 			</field>
+			
 		</record>
 
 		

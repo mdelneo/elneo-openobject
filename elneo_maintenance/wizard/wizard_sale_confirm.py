@@ -1,39 +1,54 @@
-'''
-Created on 28 mai 2013
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    Elneo
+#    Copyright (C) 2011-2015 Elneo (Technofluid SA) (<http://www.elneo.com>).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
 
-@author: technofluid
-'''
-from osv import osv, fields
-import netsvc
+from openerp import models, fields, api
 
-class wizard_sale_confirm(osv.osv_memory):
+class wizard_sale_confirm(models.TransientModel):
     _name = 'wizard.sale.confirm'
     
-    
-    def _get_default_installation(self, cr, uid, context=None):
-        if 'partner_id' in context:
-            installation_ids = self.pool.get("maintenance.installation").search(cr, uid, [('partner_id','=',context['partner_id'])], context=context)
+    @api.one
+    def _get_default_installation(self):
+        '''
+        Looks for first installation for defined partner
+        '''
+        if 'partner_id' in self.env.context:
+            installation_ids = self.env['maintenance.installation'].search([('partner_id','=',self.env.context['partner_id'])])
             if len(installation_ids) == 1:
-                return installation_ids[0]
-        return None
+                self.installation_id = installation_ids[0]
+            else:
+                self.installation_id=None
+
+    installation_id = fields.Many2one('maintenance.installation', 'Installation',default=_get_default_installation)
     
-    _columns = {
-        'installation_id':fields.many2one('maintenance.installation', 'Installation')
-    } 
-    
-    _defaults = {
-        'installation_id':_get_default_installation
-    }
-    
-    def validate(self, cr, uid, ids, context):
-        for wizard in self.browse(cr, uid, ids, context):
-            sale = self.pool.get("sale.order").browse(cr, uid, context.get("sale_id"), context)
-            self.pool.get("sale.order").write(cr, uid, [sale.id], {'installation_id':wizard.installation_id.id}, context=context)
+    @api.multi
+    def validate(self):
+        for wizard in self:
+            sale = self.env['sale.order'].browse(self.env.context.get("sale_id", False))
+            sale.installation_id = wizard.installation_id
+            
             for line in sale.order_line:
                 if line.product_id.maintenance_product:
                     #find maintenance element model associated with product of line
-                    cr.execute('select model_id from maintenance_element_model_product_rel where product_id = %s', (line.product_id.id,))
-                    model_id = cr.fetchone()
+                    self.env.cr.execute('select model_id from maintenance_element_model_product_rel where product_id = %s', (line.product_id.id,))
+                    model_id = self.env.cr.fetchone()
                     if model_id:
                         model_id = model_id[0]
                     
@@ -52,10 +67,10 @@ class wizard_sale_confirm(osv.osv_memory):
                         if line.product_id.default_supplier_id:
                             maintenance_element['supplier_id'] = line.product_id.default_supplier_id.id 
                              
-                        self.pool.get('maintenance.element').create(cr,uid,maintenance_element,context)
+                        self.env['maintenance.element'].create(maintenance_element)
         
-        wf_service = netsvc.LocalService("workflow")
-        wf_service.trg_validate(uid, 'sale.order', context.get("sale_id"), 'order_confirm', cr)
+        sale = self.env['sale.order'].browse(self.env.context.get("sale_id", False))
+        if sale:
+            sale.signal_workflow('order_confirm')
+        
         return {'type': 'ir.actions.act_window_close'}    
-        
-wizard_sale_confirm()

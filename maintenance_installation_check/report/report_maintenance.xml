@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+<!--  INSTALLATIONS -->
+<template id="report_maintenance_installation_check_document" inherit_id="maintenance.report_maintenance_installation_document">
+	   	<xpath expr="//table[@name='maintenance_elements']" position="after">
+	   		<div name="installation_verification">
+				<h4>Verification</h4>
+				<p t-if="not o.is_verified" class="glyphicon glyphicon-wrench">
+					Please check this installation !
+				</p>
+				<p t-if="o.is_verified">
+					<span t-field="o.last_verification_date"/>
+					<span t-field="o.last_verification_uid"/>
+				</p>
+			</div>
+			
+		</xpath>
+	</template>
+	</data>  		
+</openerp>

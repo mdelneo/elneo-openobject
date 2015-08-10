@@ -58,6 +58,12 @@ class maintenance_intervention_product(models.Model):
    
     virtual_stock = fields.Float(compute=_qty_virtual_stock,  string='Virtual stock')
     real_stock = fields.Float(compute=_qty_real_stock,  string='Real stock')
+    
+    
+class maintenance_installation(models.Model):
+    _inherit='maintenance.installation'
+    
+    maintenance_product_description=fields.Text("Maintenance products description")
    
 '''
 class maintenance_installation(osv.osv):
@@ -83,26 +89,6 @@ class maintenance_installation(osv.osv):
             
         return res
     
-    def action_check_verification(self,cr,uid,ids, context=None):
-        
-        self.write(cr,uid,ids,{'last_verification_date':datetime.now(),'last_verification_uid':uid})
-            
-        return True
-    
-    def _get_verified(self, cr, uid, ids, field_name, arg, context=None):
-        res={}
-        
-        
-        installations = self.pool.get('maintenance.installation').browse(cr,uid,ids,context=context)
-        
-        for installation in installations :
-            if ((not installation.last_verification_date) and (installation.last_verification_date < (datetime.today()-timedelta(days=365)).strftime('%Y-%m-%d'))):
-                res[installation.id] = False
-            else:
-                res[installation.id] = True
-            
-            
-        return res
         
         
     
@@ -111,9 +97,6 @@ class maintenance_installation(osv.osv):
         'maintenance_product_description':fields.text("Maintenance products description"), 
         'note':fields.text("Notes"), 
         'last_interventions':fields.function(get_last_interventions, string="Last interventions", type="one2many", relation="maintenance.intervention", method=True),
-        'last_verification_date':fields.datetime('Last Verification Date',readonly=True),
-        'last_verification_uid':fields.many2one('res.users',string="Last Verification User",readonly=True),
-        'is_verified':fields.function(_get_verified,string='Is Verified',readonly=True,type="boolean",store=False,method=True), 
     } 
     
 maintenance_installation()

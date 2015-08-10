@@ -8,9 +8,10 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': [ 'maintenance_product',  'elneo_stock'],
-    "update_xml" : [
+    "data" : [
         'elneo_maintenance.xml'
         ],
     'installable': True,
     'active': False,
+    'application':False
 }

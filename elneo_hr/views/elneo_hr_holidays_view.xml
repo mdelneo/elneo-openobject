@@ -1,0 +1,267 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		
+	
+		<!-- Menu -->
+		
+		
+		<!-- ?????? à quoi ça sert ????? : difference : dans l'original : , 'search_default_my_leaves':1 dans le context -->
+		<record model="ir.actions.act_window" id="open_allocation_holidays">
+			<field name="name">Allocation Requests</field>
+			<field name="res_model">hr.holidays</field>
+			<field name="view_type">form</field>
+			<field name="context">{'default_type':'add'}</field>
+			<field name="domain">[('type','=','add')]</field>
+			<field name="view_id" ref="hr_holidays.edit_holiday_new" />
+			<field name="search_view_id" ref="hr_holidays.view_hr_holidays_filter" />
+		</record>
+		
+		<record model="ir.actions.act_window.view" id="action_open_allocation_holidays_tree">
+			<field name="sequence" eval="1" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="hr_holidays.view_holiday_allocation_tree" />
+			<field name="act_window_id" ref="open_allocation_holidays" />
+		</record>
+
+		<menuitem name="Allocation Requests" parent="hr_holidays.menu_open_ask_holidays"
+			id="hr_holidays.menu_open_allocation_holidays" groups="base.group_hr_manager"
+			action="open_allocation_holidays" />
+
+		<!-- Search view : add validator 1 et validator 2 -->
+
+		<record id="view_hr_holidays_filter_elneo_inherit" model="ir.ui.view">
+			<field name="name">hr.holidays.filter.elneo.inherit</field>
+			<field name="inherit_id" ref="hr_holidays.view_hr_holidays_filter" />
+			<field name="model">hr.holidays</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+					<field name="employee_id" position="after">
+						<field name="year" />
+						
+						<field name="manager_id">
+							<filter icon="terp-personal"
+                                name="my_leaves_to_approve"
+                                domain="[('manager_id.user_id','=', uid)]"
+                                help="My Leaves to approve" />
+						</field>
+						<field name="manager_id2">
+							<filter icon="terp-personal"
+                                name="my_leaves_to_approve2"
+                                domain="[('manager_id2.user_id','=', uid)]"
+                                help="My Leaves to approve (second approve)" />
+						</field>
+					</field>
+			</field>
+		</record>
+
+		<!-- Holidays: Allocation Request -->
+
+<!-- 		<record model="ir.ui.view" id="allocation_form_inherit"> -->
+<!-- 			<field name="name">hr.holidays.allocation.form.inherit</field> -->
+<!-- 			<field name="model">hr.holidays</field> -->
+<!-- 			<field name="inherit_id" ref="hr_holidays.edit_holiday_new" /> -->
+<!-- 			<field name="type">form</field> -->
+<!-- 			<field name="arch" type="xml"> -->
+<!-- 				<xpath expr="//button[@string='Approve']" position="replace" /> -->
+<!-- 				<xpath expr="//button[@name='refuse']" position="replace"> -->
+<!-- 					<button string="Refuse" name="holidays_refuse_manual" -->
+<!-- 						states="confirm,validate,validate1" type="object" icon="gtk-no" /> -->
+<!-- 				</xpath> -->
+<!-- 				<xpath expr="//button[@name='reset']" position="replace"> -->
+<!-- 					<button string="Set to Draft" name="set_to_draft" states="cancel,refuse" type="object" icon="gtk-convert" groups="base.group_hr_manager"/>  -->
+<!-- 				</xpath> -->
+<!-- 			</field> -->
+<!-- 		</record> -->
+
+<!-- 		<record model="ir.ui.view" id="view_holiday_allocation_tree_inherit"> -->
+<!-- 			<field name="name">hr.holidays.allocation.tree.inherit</field> -->
+<!-- 			<field name="model">hr.holidays</field> -->
+<!-- 			<field name="inherit_id" ref="hr_holidays.view_holiday_allocation_tree" /> -->
+<!-- 			<field name="type">tree</field> -->
+<!-- 			<field name="arch" type="xml"> -->
+<!-- 				<button string="Approve" position="replace" /> -->
+<!-- 				<button string="Approved" position="replace" /> -->
+<!-- 			</field> -->
+<!-- 		</record> -->
+
+		<!-- holidays -->
+		
+		<!-- Leaves summary -->
+		<record model="ir.actions.act_window" id="hr_holidays.open_company_allocation">
+            <field name="res_model">hr.holidays</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_my_leaves': 1, 'search_default_group_type': 1, 'search_default_year': time.strftime('%Y')}</field>
+            <field name="domain">[('holiday_type','=','employee')]</field>
+            <field name="search_view_id" ref="hr_holidays.view_hr_holidays_filter"/>
+        </record>
+
+		
+<!-- 		<record model="ir.ui.view" id="view_holiday_inherit"> -->
+<!-- 			<field name="name">hr.holidays.tree.inherit</field> -->
+<!-- 			<field name="model">hr.holidays</field> -->
+<!-- 			<field name="type">tree</field> -->
+<!-- 			<field name="arch" type="xml"> -->
+<!-- 				<field name="inherit_id" ref="hr_holidays.view_holiday" /> -->
+<!-- 				<field name="user_id" position="after"> -->
+<!-- 					<field name="manager_user_id1"></field> -->
+<!-- 					<field name="manager_user_id2"></field> -->
+<!-- 				</field> -->
+<!-- 			</field> -->
+<!-- 		</record> -->
+
+		<record model="ir.actions.act_window" id="open_leave_to_approve_user">
+			<field name="name">Leave to approve</field>
+			<field name="res_model">hr.holidays</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="hr_holidays.edit_holiday_new" />
+			<field name="search_view_id" ref="hr_holidays.view_hr_holidays_filter" />
+			<field name="context">{'state':'validate1','manager_user_id1':uid, 'search_default_my_leaves_to_approve': 1}</field>
+			<field name="domain">[('type','=','remove'),('state','=','confirm')]
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_leave_to_approve_manager">
+			<field name="name">Leave to approve (2nd)</field>
+			<field name="res_model">hr.holidays</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="hr_holidays.edit_holiday_new" />
+			<field name="search_view_id" ref="hr_holidays.view_hr_holidays_filter" />
+			<field name="context">{'state':'validate2','manager_user_id2':uid, 'search_default_my_leaves_to_approve2': 1}</field>
+			<field name="domain">[('type','=','remove'),('state','=','validate1')]</field>
+		</record>
+
+		<record model="ir.actions.act_window.view" id="action_open_leave_to_approve_user_tree">
+			<field name="sequence" eval="1" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="hr_holidays.view_holiday" />
+			<field name="act_window_id" ref="open_leave_to_approve_user" />
+		</record>
+
+		<record model="ir.actions.act_window.view" id="action_open_leave_to_manager_tree">
+			<field name="sequence" eval="1" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="hr_holidays.view_holiday" />
+			<field name="act_window_id" ref="open_leave_to_approve_manager" />
+		</record>
+
+
+<!-- 		<delete id="hr_holidays.menu_open_leave_to_approve" model="ir.ui.menu" /> -->
+<!-- 		<delete id="hr_holidays.menu_open_ask_holidays_new" model="ir.ui.menu" /> -->
+		<menuitem name="Holidays" parent="hr_holidays.menu_open_ask_holidays"
+			id="hr_holidays.menu_open_company_allocation" action="hr_holidays.open_company_allocation"
+			sequence="40" />
+
+		<menuitem name="Leaves to approve" parent="hr_holidays.menu_open_ask_holidays"
+			id="menu_open_leave_to_approve_user" groups="base.group_hr_user"
+			action="open_leave_to_approve_user" />
+
+		<menuitem name="Leaves to approve (HR Manager)" parent="hr_holidays.menu_open_ask_holidays"
+			id="menu_open_leave_to_approve_manager" groups="base.group_hr_manager"
+			action="open_leave_to_approve_manager" />
+
+<!-- 		<record model="ir.ui.view" id="edit_holiday_new_inherit"> -->
+<!-- 			<field name="name">Leave Request Inherit</field> -->
+<!-- 			<field name="model">hr.holidays</field> -->
+<!-- 			<field name="type">form</field> -->
+<!-- 			<field name="priority">1</field> -->
+<!-- 			<field name="inherit_id" ref="hr_holidays.edit_holiday_new" /> -->
+<!-- 			<field name="arch" type="xml"> -->
+<!--                 <field name="date_from" position="attributes"> -->
+<!-- 					<attribute name="on_change">onchange_date_from(date_to, date_from, employee_id)</attribute> -->
+<!-- 				</field> -->
+<!-- 				<field name="date_to" position="attributes"> -->
+<!-- 					<attribute name="on_change">onchange_date_from(date_to, date_from, employee_id)</attribute> -->
+<!-- 				</field> -->
+                
+			
+<!-- 				<button name="refuse" position="replace"> -->
+<!-- 					<button string="Refuse" name="holidays_refuse_manual" -->
+<!-- 						states="confirm,validate,validate1" type="object" icon="gtk-no" /> -->
+<!-- 				</button> -->
+
+<!-- 				<button name="set_to_draft" position="attributes"> -->
+<!-- 					<attribute name="groups"></attribute> -->
+<!-- 				</button> -->
+
+<!-- 				<field name="employee_id" position="attributes"> -->
+<!-- 					<attribute name="attrs">{'required':[('holiday_type','=','employee')]}</attribute> -->
+<!-- 					<attribute name="on_change">onchange_employee_id(employee_id)</attribute> -->
+<!-- 				</field> -->
+<!-- 				<field name="holiday_status_id" position="attributes"> -->
+<!-- 					<attribute name="domain">[('visible','=',True)]</attribute> -->
+<!-- 				</field> -->
+				
+<!-- 				<field name="manager_id" position="before"> -->
+<!-- 					<field name="days_remaining" /> -->
+<!-- 					<field name="days_total" /> -->
+<!-- 				</field> -->
+<!-- 			</field> -->
+<!-- 		</record> -->
+
+		<!-- holidays status -->
+		<record model="ir.ui.view" id="edit_holiday_status_form_elneo">
+			<field name="name">hr.holidays.status.form.elneo</field>
+			<field name="model">hr.holidays.status</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="hr_holidays.edit_holiday_status_form" />
+			<field name="arch" type="xml">
+				<field name="categ_id" position="after">
+					<field name="visible"></field>
+					<field name="sequence" />
+					<field name="count" />
+				</field>
+			</field>
+		</record>
+		
+<!-- 		<record model="ir.ui.view" id="view_holiday_status_tree_elneo"> -->
+<!--             <field name="name">hr.holidays.status.tree.elneo</field> -->
+<!--             <field name="model">hr.holidays.status</field> -->
+<!--             <field name="inherit_id" ref="hr_holidays.view_holiday_status_tree" /> -->
+<!--             <field name="type">tree</field> -->
+<!--             <field name="arch" type="xml"> -->
+<!--             	<field name="limit" position="after"> -->
+<!--             		<field name="sequence" /> -->
+<!--             	</field> -->
+<!--             </field> -->
+<!--         </record> -->
+
+		<record id="view_holidays_status_filter_inherit" model="ir.ui.view">
+			<field name="name">hr.holidays.status.filter.inherit</field>
+			<field name="model">hr.holidays.status</field>
+			<field name="type">search</field>
+			<field name="inherit_id" ref="hr_holidays.view_holidays_status_filter" />
+			<field name="arch" type="xml">
+				<field name="categ_id" position="attributes">
+					<attribute name="domain">[('id', '=',28)]</attribute>
+				</field>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="edit_holiday_status_form_inherit">
+			<field name="name">hr.holidays.status.form.inherit</field>
+			<field name="model">hr.holidays.status</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="hr_holidays.edit_holiday_status_form" />
+			<field name="arch" type="xml">
+				<field name="categ_id" position="attributes">
+					<attribute name="domain">[('id', '=',28)]</attribute>
+				</field>
+			</field>
+		</record>
+
+		<record id="view_hr_holidays_status_search_inherit" model="ir.ui.view">
+			<field name="name">hr.holidays.status.search.inherit</field>
+			<field name="model">hr.holidays.status</field>
+			<field name="type">search</field>
+			<field name="inherit_id" ref="hr_holidays.view_hr_holidays_status_search" />
+			<field name="arch" type="xml">
+				<field name="categ_id" position="attributes">
+					<attribute name="domain">[('id', '=',28)]</attribute>
+				</field>
+			</field>
+		</record>
+
+	</data>
+</openerp>

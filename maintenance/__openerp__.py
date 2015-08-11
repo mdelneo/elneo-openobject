@@ -14,6 +14,7 @@
              'security/ir.model.access.csv', 
              'installation_workflow.xml',
              'report/report_maintenance.xml',
+             'report/maintenance_report.xml',
              'res_config.xml'],
     'installable': True,
     'active': False,

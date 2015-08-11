@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_maintenance_failure_graph" model="ir.ui.view">
+            <field name="name">maintenance.failure.report.graph</field>
+            <field name="model">maintenance.failure.report</field>
+            <field name="arch" type="xml">
+                <graph string="Failure Analysis" type="pivot">
+                     <field name="intervention_id" type="row"/>
+                     <field name="brand" type="col"/>
+                     <field name="nbr" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+
+        <!-- Custom reports (aka filters) -->
+        <!-- 
+        <record id="filter_task_report_task_pipe" model="ir.filters">
+            <field name="name">Task Pipe</field>
+            <field name="model_id">report.project.task.user</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['project_id'], 'col_group_by': ['stage_id'], 'measures': ['nbr']}</field>
+        </record>
+        <record id="filter_task_report_workload" model="ir.filters">
+            <field name="name">Workload</field>
+            <field name="model_id">report.project.task.user</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['project_id'], 'measures': ['total_hours','hours_planned','remaining_hours']}</field>
+        </record>
+        <record id="filter_task_report_responsible" model="ir.filters">
+            <field name="name">By Responsible</field>
+            <field name="model_id">report.project.task.user</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['project_id', 'user_id']}</field>
+        </record>
+        <record id="filter_task_report_reviewer" model="ir.filters">
+            <field name="name">By Reviewer</field>
+            <field name="model_id">report.project.task.user</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['project_id', 'reviewer_id']}</field>
+        </record>
+ -->
+        <record id="view_maintenance_failure_search" model="ir.ui.view">
+            <field name="name">maintenance.failure.report.search</field>
+            <field name="model">maintenance.failure.report</field>
+            <field name="arch" type="xml">
+                <search string="Maintenance Failure Analysis">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="time_planned"/>
+                    <field name="effective_duration"/>
+                    <field name="intervention_id"/>
+                    <field name="failure_element_id"/>
+                    <field name="partner_id" filter_domain="[('partner_id', 'child_of', self)]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Partner" name="partner" context="{'group_by':'partner_id'}"/>
+                        <filter string="Element" context="{'group_by':'failure_element_id'}"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_maintenance_failure_tree" model="ir.actions.act_window">
+            <field name="name">Maintenance Failure Analysis</field>
+            <field name="res_model">maintenance.failure.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="search_view_id" ref="view_maintenance_failure_search"/>
+            <field name="context">{'group_by_no_leaf':1,'group_by':[]}</field>
+            <field name="help">This report allows you to analyse the performance of your projects and users. You can analyse the quantities of tasks, the hours spent compared to the planned hours, the average number of days to open or close a task, etc.</field>
+        </record>
+
+
+		<menuitem action="action_maintenance_failure_tree" id="menu_maintenance_failure_tree" parent="maintenance.menu_maintenance_report" groups="base.group_user"/>
+        <!-- <menuitem action="action_project_task_user_tree" id="menu_project_task_user_tree" parent="base.menu_maintenance_report"/> -->
+
+    </data>
+</openerp>

@@ -3,3 +3,5 @@
 "access_maint_failure_type_maintenance_user","maintenance.failure.type","model_maintenance_failure_type","maintenance.group_maintenance_user",1,0,0,0
 "access_maint_el_brand_maintenance_manager","maintenance.element.brand","model_maintenance_element_brand","maintenance.group_maintenance_manager",1,1,1,1
 "access_maint_el_brand_maintenance_user","maintenance.element.brand","model_maintenance_element_brand","maintenance.group_maintenance_user",1,1,1,0
+"access_maint_failure_report_maintenance_user","maintenance.failure.report","model_maintenance_failure_report","maintenance.group_maintenance_user",1,1,1,0
+"access_maint_failure_report_maintenance_manager","maintenance.failure.report","model_maintenance_failure_report","maintenance.group_maintenance_manager",1,1,1,1

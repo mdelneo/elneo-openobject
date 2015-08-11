@@ -21,13 +21,14 @@
 {
     'name': 'Maintenance Failure Type',
     'version': '0.1',
-    'category': 'Maintenance failure type',
+    'category': 'Maintenance Applications',
     'description': "Module to manage type of failure in interventions",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['maintenance'],
+    'depends': ['base','maintenance'],
     'data': ['maintenance_failure_type_view.xml',
-                    'security/ir.model.access.csv'],
+                    'security/ir.model.access.csv',
+                    'report/maintenance_failure_report.xml'],
     'installable': True,
     'active': False,
     'application':False

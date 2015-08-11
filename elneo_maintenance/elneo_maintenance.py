@@ -65,6 +65,18 @@ class maintenance_installation(models.Model):
     
     maintenance_product_description=fields.Text("Maintenance products description")
     
+class maintenance_intervention(models.Model):
+    
+    @api.multi
+    def write(self,vals):
+        res = super(maintenance_intervention, self).write(vals)
+        if 'contact_address_id' in vals:
+            sale_order_pool = self.env['sale.order']            
+            for intervention in self:
+                if intervention.sale_order_id:
+                    intervention.sale_order_id.quotation_address_id = vals['contact_address_id']
+        return res
+    
     
 class sale_order(models.Model):
     _inherit='sale.order'
@@ -115,13 +127,6 @@ class maintenance_installation(osv.osv):
 maintenance_installation()
 
 
-
-class maintenance_element_brand(osv.osv):
-    _name='maintenance.element.brand'
-    _columns={
-        'name':fields.char(size=255, string="Name")
-    }
-maintenance_element_brand()
 
 
 class maintenance_element(osv.osv):
@@ -193,31 +198,7 @@ class sale_order(osv.osv):
         if vals.get("intervention_id",False):
             vals['disable_automatic_landefeld'] = True
         return super(sale_order, self).create(cr, user, vals, context=context)
-    
-    def order_confirm_elneo(self, cr, uid, ids, context):
-        for sale in self.browse(cr, uid, ids, context):
-            if not sale.shop_sale:
-                for line in sale.order_line:
-                    if line.product_id.maintenance_product and len(line.maintenance_element_ids) < line.product_uom_qty:
-                        dummy, view_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'elneo_maintenance', 'view_wizard_sale_confirm')
-                        if not context:
-                            context = {}
-                        context['partner_id'] = sale.partner_id.id
-                        context['sale_id'] = sale.id 
-                        return {
-                                'name':_("Sale confirm"),
-                                'view_mode': 'form',
-                                'view_id': [view_id], 
-                                'view_type': 'form',
-                                'res_model': 'wizard.sale.confirm',
-                                'type': 'ir.actions.act_window',
-                                'target': 'new',
-                                'nodestroy':True, 
-                                'context':context
-                            }
-            
-        return super(sale_order, self).order_confirm_elneo(cr, uid, ids, context=context)
-        
+
 sale_order()
 
 class maintenance_intervention(osv.osv):

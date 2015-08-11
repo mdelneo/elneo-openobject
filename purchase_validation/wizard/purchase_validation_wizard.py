@@ -298,7 +298,7 @@ class purchase_validation_line_wizard(models.TransientModel):
     name = fields.Char('Name',size=64,readonly=True)
     update_product=fields.Boolean("Update Product Price ?")
     new_price = fields.Float("New Price",digits=(20,6))
-    new_date_planned=fields.Date("Scheduled Date",select=True)
+    new_date_planned=fields.Date("Scheduled Date",index=True)
     new_brut_price=fields.Float("New Brut Price",digits=(20,6))
     new_discount=fields.Float("New Discount")
     price_quantity=fields.Float("Quantity",default=1)

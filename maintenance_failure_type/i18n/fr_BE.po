@@ -1,0 +1,81 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* maintenance_failure_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2015-04-09 19:20+0000\n"
+"PO-Revision-Date: 2015-04-09 21:23+0100\n"
+"Last-Translator: Clément THOMAS <clement.thomas@elneo.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: maintenance_failure_type
+#: code:addons/maintenance_failure_type/maintenance_failure_type.py:36
+#, python-format
+msgid "UserError"
+msgstr "Erreur utilisateur"
+
+#. module: maintenance_failure_type
+#: model:ir.actions.act_window,name:maintenance_failure_type.action_maintenance_failure_type
+#: model:ir.ui.menu,name:maintenance_failure_type.menu_maintenance_failure_type
+#: view:maintenance.failure.type:0
+msgid "Maintenance failure type"
+msgstr "Type de panne"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.type,description:0
+msgid "Description"
+msgstr "Description"
+
+#. module: maintenance_failure_type
+#: model:ir.model,name:maintenance_failure_type.model_maintenance_failure_type
+msgid "maintenance.failure.type"
+msgstr "maintenance.failure.type"
+
+#. module: maintenance_failure_type
+#: help:maintenance.intervention.type,is_reparation:0
+msgid "Depending on this field, user must complete reparation type before closing intervention"
+msgstr "En fonction de ce champ, l'utilisateur devra compléter le type de réparation avant de clôturer l'intervention"
+
+#. module: maintenance_failure_type
+#: model:ir.model,name:maintenance_failure_type.model_maintenance_intervention_type
+msgid "maintenance.intervention.type"
+msgstr "maintenance.intervention.type"
+
+#. module: maintenance_failure_type
+#: field:maintenance.intervention,failure_element_id:0
+msgid "Element damaged"
+msgstr "Élément endommagé"
+
+#. module: maintenance_failure_type
+#: field:maintenance.intervention,failure_type_id:0
+msgid "Failure type"
+msgstr "Type de panne"
+
+#. module: maintenance_failure_type
+#: model:ir.model,name:maintenance_failure_type.model_maintenance_intervention
+msgid "maintenance.intervention"
+msgstr "maintenance.intervention"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.type,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: maintenance_failure_type
+#: field:maintenance.intervention.type,is_reparation:0
+msgid "Is reparation"
+msgstr "Est un dépannage"
+
+#. module: maintenance_failure_type
+#: code:addons/maintenance_failure_type/maintenance_failure_type.py:36
+#, python-format
+msgid "For a reparation you must complete type of failure and element damaged."
+msgstr "Lors d'un dépannage vous devez compléter le type de panne et l'élément endommagé."
+

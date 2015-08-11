@@ -58,7 +58,6 @@
 				</field>
 			</field>
 		</record>
-		
 		<record
 			id="view_maintenance_element_failure_form"
 			model="ir.ui.view">

@@ -1,71 +1,50 @@
-# -*- coding: utf-8 -*-
-##################################################################################
-#
-# Copyright (c) 2005-2006 Axelor SARL. (http://www.axelor.com)
-# and 2004-2010 Tiny SPRL (<http://tiny.be>).
-#
-# $Id: hr.py 4656 2006-11-24 09:58:42Z Cyp $
-#
-#     This program is free software: you can redistribute it and/or modify
-#     it under the terms of the GNU Affero General Public License as
-#     published by the Free Software Foundation, either version 3 of the
-#     License, or (at your option) any later version.
-#
-#     This program is distributed in the hope that it will be useful,
-#     but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the GNU Affero General Public License
-#     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
 from openerp import models,fields,api, _, workflow
 from datetime import datetime, timedelta
-from openerp import exceptions
+from openerp.exceptions import ValidationError
+from openerp.osv import osv
+
+HR_SUPER_MANAGERS_UID = [9,10]
 
 class hr_holidays(models.Model):
     _inherit = "hr.holidays"
     
     @api.model
-    def _get_default_status_id(self):
-        employee_ids = self.env['hr.employee'].search([('user_id', '=', self._uid)])
+    def _get_default_status_id(self, requested_days):
+        employees = self.env['hr.employee'].search([('user_id', '=', self._uid)])
         
-        if employee_ids:
-            employee_id = employee_ids[0]
+        if employees:
+            employee = employees[0]
         else:
             return None
         
         #check by type of holidays if user has always
-        type_ids = self.env["hr.holidays.status"].search([])
+        types = self.env["hr.holidays.status"].search([])
         
-        if not type_ids:
+        if not types:
             return None
         
-        types = self.env["hr.holidays.status"].browse(type_ids)
-        
-        for type in types:
-            if type.count:
-                self._cr.execute("select sum(number_of_days) from hr_holidays where holiday_status_id=%s and state='validate' and employee_id=%s",(type.id, employee_id))
+        for holiday_type in types:
+            if holiday_type.count:
+                self._cr.execute("select sum(number_of_days) from hr_holidays where holiday_status_id=%s and state='validate' and employee_id=%s",(holiday_type.id, employee.id))
                 count = self._cr.fetchone()[0] or 0
-                if count > 0:
-                    return type.id
+                if count >= requested_days:
+                    return holiday_type.id
         return types[0].id                
-                
-    def _get_employee(self,cr,uid,ids, context=None):
-        if ((uid == 27 or uid == 37) or (not uid)):
+    
+    @api.multi  
+    def _get_employee(self):
+        if ((self._uid == 27 or self._uid == 37) or (not self._uid)):
             return False
         else:
-            ids_employee = self.env['hr.employee'].search(cr, uid, [('user_id','=', uid)])
-            return ids_employee[0]    
+            employee = self.env['hr.employee'].search([('user_id','=', self._uid)])
+            return employee[0].id    
     
     def onchange_type(self, cr, uid, ids, holiday_type):
         result = {}
         if holiday_type == 'employee':
             if(uid == 27 or uid == 37):
                 return result
-            ids_employee = self.env['hr.employee'].search(cr, uid, [('user_id','=', uid)])
+            ids_employee = self.pool.get('hr.employee').search(cr, uid, [('user_id','=', uid)])
             if ids_employee:
                 result['value'] = {
                     'employee_id': ids_employee[0]
@@ -74,7 +53,31 @@ class hr_holidays(models.Model):
         
     
     def onchange_date_from(self, cr, uid, ids, date_to, date_from, employee_id):
-        result = {}
+        try:
+            result = super(hr_holidays,self).onchange_date_from(cr, uid, ids, date_to, date_from)
+        except osv.except_osv:
+            #by pass warning if start date > end date
+            return {'value':{'number_of_days_temp': 0}}
+
+        if date_to and date_from:
+            diff_day = self._get_number_of_days_elneo(cr, uid, date_from, date_to, employee_id)
+            result['value'] = {
+                'number_of_days_temp': diff_day
+            }
+            return result
+        
+        result['value'] = {
+            'number_of_days_temp': 0,
+        }
+        return result
+    
+    def onchange_date_to(self, cr, uid, ids, date_to, date_from, employee_id):
+        try:
+            result = super(hr_holidays,self).onchange_date_to(cr, uid, ids, date_to, date_from)
+        except osv.except_osv:
+            #by pass warning if start date > end date
+            return {'value':{'number_of_days_temp': 0}}
+        
         if date_to and date_from:
             diff_day = self._get_number_of_days_elneo(cr, uid, date_from, date_to, employee_id)
             result['value'] = {
@@ -86,7 +89,17 @@ class hr_holidays(models.Model):
         }
         return result
     
-    def _get_number_of_days_elneo(self, cr, uid, date_from, date_to, employee_id):
+    @api.onchange('number_of_days_temp')
+    def onchange_number_of_days_temp(self):
+        res = {}
+        new_holiday_status = self._get_default_status_id(self.number_of_days_temp)
+        if self.holiday_status_id and self.holiday_status_id.id != new_holiday_status:
+            res = {'warning':{'title':'Warning','message':'Holiday type has changed !'}}
+        self.holiday_status_id = new_holiday_status
+        return res
+        
+    @api.model
+    def _get_number_of_days_elneo(self, date_from, date_to, employee_id):
         DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
         INCREMENT=0.5
         from_date = datetime.strptime(date_from, DATETIME_FORMAT)
@@ -109,13 +122,11 @@ class hr_holidays(models.Model):
             
         
         #find holidays already encoded and subtract days already encoded, in the current interval
-        previous_holidays_ids = self.search(cr, uid, [('state','=','validate'),('type','=','remove'),('employee_id','=',employee_id),
+        previous_holidays_objs = self.search([('state','=','validate'),('type','=','remove'),('employee_id','=',employee_id),
                 '|','&',('date_from','>=',datetime.strftime(from_date, DATETIME_FORMAT)),('date_from','<=',datetime.strftime(to_date, DATETIME_FORMAT)),
                 '|','&',('date_to','>=',datetime.strftime(from_date, DATETIME_FORMAT)),('date_to','<=',datetime.strftime(to_date, DATETIME_FORMAT)),
                 '&',('date_from','<=',datetime.strftime(from_date, DATETIME_FORMAT)),('date_to','>=',datetime.strftime(to_date, DATETIME_FORMAT))
         ])
-        previous_holidays_objs = self.browse(cr, uid, previous_holidays_ids)
-        
         
         #build dict of previous holidays
         previous_holidays = set()
@@ -175,152 +186,77 @@ class hr_holidays(models.Model):
             number_of_days = float(number_of_days+INCREMENT)
         
         return number_of_days-days_to_remove;
-            
-
-    def holidays_confirm(self, cr, uid, ids, *args):
-        id_holidays = []
-        id_allocation = []
-        
-        for hr_holiday in self.env["hr.holidays"].browse(cr, uid, ids):
-            if hr_holiday.type!="remove":
-                id_allocation.append(hr_holiday.id)
-            else:
-                if not(uid == 27 or uid == 37 or uid == hr_holiday.employee_id.user_id.id or (hr_holiday.department_id and hr_holiday.department_id.manager_id and hr_holiday.department_id.manager_id.user_id and hr_holiday.department_id.manager_id.user_id.id==uid)):
-                    raise exceptions.AccessDenied(_('You cannot confirm this holidays !'))
-                
-                #Ask manager for the first validation
-                manager_id=None
-                email_to = None
-                if hr_holiday.department_id and hr_holiday.department_id.manager_id and hr_holiday.department_id.manager_id.user_id and hr_holiday.department_id.manager_id.user_id.user_email:
-                    email_to = hr_holiday.department_id.manager_id.user_id.user_email
-                    manager_id = hr_holiday.department_id.manager_id.id
-                if not email_to:
-                    email_to = 'iba@elneo.com'
-                
-                body = _("Holiday request for %s received")%(hr_holiday.employee_id.name)
-                body += "\n"+"http://erp.elneo.com:8080/openerp/menu?active=428#url=%2Fopenerp%2Fform%2Fedit%3Fmodel%3Dhr.holidays%26id%3D"+str(hr_holiday.id)
-                
-                self.env["email_template.mailbox"].create(cr, uid, {
-                        'email_from':'support@elneo.com', 
-                        'email_to':email_to,  
-                        'subject':"Holiday Request", 
-                        'body_text':body,
-                        'account_id':1, 
-                    })
-                
-                super(hr_holidays, self).holidays_confirm(cr, uid, [hr_holiday.id], args)
-                if manager_id:
-                    self.env["hr.holidays"].write(cr,uid,[hr_holiday.id], {'manager_id':manager_id,'manager_id2':20})
-  
-        if id_allocation:
-            self.write(cr, uid, id_allocation, {'state':'validate'})  
-            
-            
-    def holidays_refuse_manual(self, cr, uid, ids, *args):
-        for holiday_id in ids:
-            workflow.trg_validate(uid, 'hr.holidays', holiday_id, 'refuse', cr)
-        return self.holidays_refuse(cr, uid, ids)
-                       
-    def holidays_refuse(self, cr, uid, ids, *args):
-        for hr_holiday in self.env["hr.holidays"].browse(cr, uid, ids):
-            if hr_holiday.type!="remove":
-                super(hr_holidays, self).holidays_refuse(cr, uid, [hr_holiday.id], args)
-            
-            #Check if can validate
-            #if not(uid == 27 or uid == 37 or uid == hr_holiday.employee_id.user_id.id or (hr_holiday.department_id and hr_holiday.department_id.manager_id and hr_holiday.department_id.manager_id.user_id and hr_holiday.department_id.manager_id.user_id.id==uid)):
-            if not(uid == 27 or uid == 37 or (uid == hr_holiday.employee_id.user_id.id and not(hr_holiday.state in ['validate','validate1'])) or (hr_holiday.department_id and hr_holiday.department_id.manager_id and hr_holiday.department_id.manager_id.user_id and hr_holiday.department_id.manager_id.user_id.id==uid)):
-                raise exceptions.AccessDenied(_('You cannot refuse this holidays !'))
-            
-            if hr_holiday.employee_id and hr_holiday.employee_id.user_id and hr_holiday.employee_id.user_id.user_email:
-                email_to = hr_holiday.employee_id.user_id.user_email
-                body = _("Holiday request for %s received")%(hr_holiday.employee_id.name)
-                body += "\n"+"http://erp.elneo.com:8080/openerp/menu?active=428#url=%2Fopenerp%2Fform%2Fedit%3Fmodel%3Dhr.holidays%26id%3D"+str(hr_holiday.id)
-                
-                self.env["email_template.mailbox"].create(cr, uid, {
-                        'email_from':'support@elneo.com', 
-                        'email_to':email_to,  
-                        'subject':"Holiday Request", 
-                        'body_text':body,
-                        'account_id':1, 
-                    })
-            super(hr_holidays, self).holidays_refuse(cr, uid, [hr_holiday.id], args)
-            self.env["hr.holidays"].write(cr,uid,[hr_holiday.id], {'manager_id':None,'manager_id2':None})
-        return True
-              
     
-    def holidays_validate(self, cr, uid, ids, *args):                    
-        #Ask manager for the second validation to iba
-        email_to = 'iba@elneo.com'
-        for hr_holiday in self.env["hr.holidays"].browse(cr, uid, ids):
-            if hr_holiday.type!="remove":
-                continue
-            
-            #Check if can validate
-            if not(uid == 27 or uid == 37 or (hr_holiday.department_id and hr_holiday.department_id.manager_id and hr_holiday.department_id.manager_id.user_id and hr_holiday.department_id.manager_id.user_id.id==uid)):
-                raise exceptions.AccessDenied(_('You cannot validate this holidays !'))
-            
-            body = _("Holiday request for %s received")%(hr_holiday.employee_id.name)
-            body += "\n"+"http://erp.elneo.com:8080/openerp/menu?active=428#url=%2Fopenerp%2Fform%2Fedit%3Fmodel%3Dhr.holidays%26id%3D"+str(hr_holiday.id)
-            
-            self.env["email_template.mailbox"].create(cr, uid, {
-                    'email_from':'support@elneo.com', 
-                    'email_to':email_to,  
-                    'subject':"Holiday Request", 
-                    'body_text':body,
-                    'account_id':1, 
-                })
-            
-            super(hr_holidays, self).holidays_validate(cr, uid, [hr_holiday.id], args)
-            self.env["hr.holidays"].write(cr,uid,[hr_holiday.id], {'manager_id2':20})
-        return True
-
-    def holidays_validate2(self, cr, uid, ids, *args):
-        #if not iba raise error
-        if uid != 27 and uid != 37:
-            raise exceptions.AccessDenied(_('You cannot validate this holidays !'))
-        
-        
-        #Send mail to user - recept email
-        for hr_holiday in self.env["hr.holidays"].browse(cr, uid, ids):
-            if hr_holiday.type!="remove":
-                continue
-            
-            if hr_holiday.employee_id and hr_holiday.employee_id.user_id and hr_holiday.employee_id.user_id.user_email:
-                email_to = hr_holiday.employee_id.user_id.user_email
-            
-                body = "One of your holiday request has been approved !"
-                body += "\n"+"http://erp.elneo.com:8080/openerp/menu?active=428#url=%2Fopenerp%2Fform%2Fedit%3Fmodel%3Dhr.holidays%26id%3D"+str(hr_holiday.id)
-                
-                self.env["email_template.mailbox"].create(cr, uid, {
-                        'email_from':'support@elneo.com', 
-                        'email_to':email_to,  
-                        'subject':"Holiday Request", 
-                        'body_text':body,
-                        'account_id':1, 
-                    })
-        
-        return super(hr_holidays, self).holidays_validate2(cr, uid, ids, args)  
+    def set_manager(self):
+        if self.department_id and self.department_id.manager_id:
+            self.manager_id = self.department_id.manager_id.id
+            self.manager_id2 = 27
     
-    def onchange_employee_id(self, cr, uid, ids, employee_id, context=None):
-        if not employee_id:
-            return {}
-        comp = self.env['hr.employee']._get_days(cr, uid, [employee_id], ['days_remaining','days_total'], None, context)
-        return {'value':comp[employee_id]}
-    
-    def _get_year(self, cr, uid, ids, fields, args, context=None):
-        res = {}
-        for holiday in self.browse(cr, uid, ids, context):
-            if holiday.date_from:
-                res[holiday.id] = int(holiday.date_from[0:4])
-            else:
-                res[holiday.id] = 0
+    @api.onchange('department_id')
+    def onchange_department(self):
+        self.set_manager()
+        
+    @api.model
+    def uid_hr_manager(self):
+        group_hr_manager_id = self.env['ir.model.data'].get_object_reference('base', 'group_hr_manager')[1]
+        user = self.env['res.users'].browse(self._uid) 
+        if group_hr_manager_id in [g.id for g in user.groups_id]:
+            return True
+        return False
+           
+    @api.multi
+    def holidays_confirm(self):
+        res = super(hr_holidays, self).holidays_confirm()
+        for holiday in self:
+            holiday.set_manager()
         return res
-            
-    manager_user_id1 = fields.Many2one(related='manager_id.user_id', string='User'),
-    manager_user_id2 = fields.Many2one(related='manager_id2.user_id', string='User'),
-    days_remaining = fields.Float(related='employee_id.days_remaining', string='Days remaining', readonly=True),
-    days_total = fields.Float(related='employee_id.days_total', string='Days total', readonly=True),
-    year = fields.Selection([('2014','2014'),('2015','2015'),('2016','2016')], compute='_get_year', string='Year', store=True)
+    
+    @api.multi
+    def holidays_first_validate(self):
+        res = super(hr_holidays, self).holidays_first_validate()
+        for holiday in self:
+            if holiday.manager_id and holiday.manager_id.user_id and holiday.manager_id.user_id.id != self._uid and not self.uid_hr_manager():
+                if holiday.manager_id:
+                    raise ValidationError(_('Only %s or hr managers can approve this holiday !')%holiday.manager_id.name)
+                else:
+                    raise ValidationError(_('Only hr managers can approve this holiday !'))
+        return res
+    
+    @api.multi
+    def holidays_validate(self):
+        res = super(hr_holidays, self).holidays_validate()
+        if not self.uid_hr_manager():
+            raise ValidationError(_('Only hr managers can approve this holiday !'))
+        return res
+    
+    
+    
+    #override _check_date function to allow overlap of 2 leaves on the same date with different types
+    @api.multi 
+    def _check_date(self):
+        for holiday in self:
+            domain = [
+                ('date_from', '<=', holiday.date_to),
+                ('date_to', '>=', holiday.date_from),
+                ('employee_id', '=', holiday.employee_id.id),
+                ('id', '!=', holiday.id),
+                ('state', 'not in', ['cancel', 'refuse']),
+                ('holiday_status_id','=',holiday.holiday_status_id.id), 
+                ('type','=',holiday.type)
+            ]
+            nholidays = self.search_count(domain)
+            if nholidays:
+                return False
+        return True
+    
+    _constraints = [
+        (_check_date, 'You can not have 2 leaves that overlaps on same day!', ['date_from','date_to']),
+    ] 
+           
+    manager_user_id = fields.Many2one(related='manager_id.user_id', string='Manager user', store=True)
+    manager_user_id2 = fields.Many2one(related='manager_id2.user_id', string='Manager user 2', store=True)
+    days_remaining = fields.Float(related='employee_id.days_remaining', string='Days remaining', readonly=True)
+    days_total = fields.Float(related='employee_id.days_total', string='Days total', readonly=True)
     
     @api.model
     def default_get(self, fields):
@@ -329,18 +265,22 @@ class hr_holidays(models.Model):
             if field == 'name':
                 res['name'] = _('Holidays')
             if field == 'holiday_status_id':
-                res['holiday_status_id'] = self._get_default_status_id()
+                res['holiday_status_id'] = self._get_default_status_id(1)
             if field == 'date_from':
-                res['date_from'] = lambda *a: datetime.now().strftime('%Y-%m-%d 08:00:00')
+                res['date_from'] = datetime.now().strftime('%Y-%m-%d 08:00:00')
             if field == 'date_to':
-                res['date_to'] = lambda *a: datetime.now().strftime('%Y-%m-%d 16:45:00')
+                res['date_to'] = datetime.now().strftime('%Y-%m-%d 16:45:00')
             if field == 'employee_id':
                 res['employee_id'] = self._get_employee()
         return res 
     
+    @api.model
+    def _needaction_domain_get(self):
+        dom = super(hr_holidays, self)._needaction_domain_get()
+        dom.extend(['|',('manager_user_id','=',self._uid),('manager_user_id2','=',self._uid)])
+        return dom
     
-hr_holidays()
-
+    
 class hr_holidays_status(models.Model):
     _inherit = "hr.holidays.status"
     
@@ -349,4 +289,3 @@ class hr_holidays_status(models.Model):
     sequence = fields.Integer("Sequence", help='Sequence is used to choose the first type with remaining days as default type.') 
     count = fields.Boolean("Count", help="First type with 'count' and with several remaining days will be used as default type ")
     
-hr_holidays_status()

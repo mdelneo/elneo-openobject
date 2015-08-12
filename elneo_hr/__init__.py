@@ -1,2 +1,3 @@
 import elneo_hr_equipment
 import elneo_hr_holidays
+import elneo_hr

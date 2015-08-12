@@ -255,7 +255,7 @@
 		</record>
 		
 		<record id="action_maintenance_element_model" model="ir.actions.act_window">
-			<field name="name">Maintenance element model</field>
+			<field name="name">Element Model</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">maintenance.element.model</field>
 			<field name="view_type">form</field>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- FAILURE TYPE VIEWS -->
+	
+		<record id="view_maintenance_failure_type_form" model="ir.ui.view">
+			<field name="name">maintenance.failure.type.form</field>
+			<field name="model">maintenance.failure.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Maintenance failure type">
+					<h3>
+						<label string="Name : "/><field name="name" class="oe_inline"/>
+					</h3>
+
+					<group>
+						<field name="description"/>
+					</group>
+				</form>
+			</field>
+		</record>
+			
+		<record id="action_maintenance_failure_type" model="ir.actions.act_window">
+			<field name="name">Maintenance failure type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.failure.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem action="action_maintenance_failure_type" id="menu_maintenance_failure_type"
+			parent="maintenance.menu_maintenance_config" />
+			
+		<!-- MAINTENANCE INTERVENTION TYPE -->
+		
+		<record id="view_maintenance_intervention_type_form_failure_type" model="ir.ui.view">
+			<field name="name">maintenance.intervention.type.form.failure.type</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_intervention_type_form" />
+			<field name="model">maintenance.intervention.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="workforce_product_id" position="before">
+					<field name="is_reparation" />
+				</field>
+			</field>
+		</record>
+			
+		<!-- MAINTENANCE INTERVENTION VIEW -->
+		<record id="view_maintenance_intervention_form_failure_type" model="ir.ui.view">
+			<field name="name">maintenance.intervention.form.failure.type</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_intervention_form" />
+			<field name="model">maintenance.intervention</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="contact_address_id" position="after">
+					<field name="failure_type_id" />
+					<field name="failure_element_id" domain="[('installation_id','=',installation_id)]" />
+				</field>
+			</field>
+		</record>
+		<record
+			id="view_maintenance_element_failure_form"
+			model="ir.ui.view">
+			<field name="name">maintenance.element.failure.form
+			</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_element_form" />
+			<field name="model">maintenance.element</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="product_id" position="after">
+					<field name="brand" />
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>

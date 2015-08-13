@@ -7,7 +7,9 @@ HR_SUPER_MANAGERS_UID = [9,10]
 
 class hr_holidays(models.Model):
     _inherit = "hr.holidays"
-    
+
+
+    #select automatically the good type depending on remaining days
     @api.model
     def _get_default_status_id(self, requested_days):
         employees = self.env['hr.employee'].search([('user_id', '=', self._uid)])
@@ -18,16 +20,15 @@ class hr_holidays(models.Model):
             return None
         
         #check by type of holidays if user has always
-        types = self.env["hr.holidays.status"].search([])
+        types = self.env["hr.holidays.status"].search([], order='count desc,sequence')
         
         if not types:
             return None
         
         for holiday_type in types:
             if holiday_type.count:
-                self._cr.execute("select sum(number_of_days) from hr_holidays where holiday_status_id=%s and state='validate' and employee_id=%s",(holiday_type.id, employee.id))
-                count = self._cr.fetchone()[0] or 0
-                if count >= requested_days:
+                leave_days = holiday_type.get_days(employee.id)[holiday_type.id]
+                if leave_days['remaining_leaves'] >= requested_days and leave_days['virtual_remaining_leaves'] >= requested_days:
                     return holiday_type.id
         return types[0].id                
     
@@ -98,6 +99,7 @@ class hr_holidays(models.Model):
         self.holiday_status_id = new_holiday_status
         return res
         
+    #compute number of days based on working days and leaves already encoded
     @api.model
     def _get_number_of_days_elneo(self, date_from, date_to, employee_id):
         DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -187,6 +189,7 @@ class hr_holidays(models.Model):
         
         return number_of_days-days_to_remove;
     
+    #set manager as manager of department. Manager 2 is hard-coded  
     def set_manager(self):
         if self.department_id and self.department_id.manager_id:
             self.manager_id = self.department_id.manager_id.id
@@ -196,6 +199,7 @@ class hr_holidays(models.Model):
     def onchange_department(self):
         self.set_manager()
         
+    #say if current user is hr manager 
     @api.model
     def uid_hr_manager(self):
         group_hr_manager_id = self.env['ir.model.data'].get_object_reference('base', 'group_hr_manager')[1]
@@ -211,6 +215,7 @@ class hr_holidays(models.Model):
             holiday.set_manager()
         return res
     
+    #limit approval to manager or hr managers
     @api.multi
     def holidays_first_validate(self):
         res = super(hr_holidays, self).holidays_first_validate()
@@ -222,14 +227,13 @@ class hr_holidays(models.Model):
                     raise ValidationError(_('Only hr managers can approve this holiday !'))
         return res
     
+    #limit validation to hr manager
     @api.multi
     def holidays_validate(self):
         res = super(hr_holidays, self).holidays_validate()
         if not self.uid_hr_manager():
             raise ValidationError(_('Only hr managers can approve this holiday !'))
         return res
-    
-    
     
     #override _check_date function to allow overlap of 2 leaves on the same date with different types
     @api.multi 
@@ -249,14 +253,13 @@ class hr_holidays(models.Model):
                 return False
         return True
     
+    #change constraint to bypass warning
     _constraints = [
         (_check_date, 'You can not have 2 leaves that overlaps on same day!', ['date_from','date_to']),
     ] 
            
     manager_user_id = fields.Many2one(related='manager_id.user_id', string='Manager user', store=True)
     manager_user_id2 = fields.Many2one(related='manager_id2.user_id', string='Manager user 2', store=True)
-    days_remaining = fields.Float(related='employee_id.days_remaining', string='Days remaining', readonly=True)
-    days_total = fields.Float(related='employee_id.days_total', string='Days total', readonly=True)
     
     @api.model
     def default_get(self, fields):
@@ -274,13 +277,14 @@ class hr_holidays(models.Model):
                 res['employee_id'] = self._get_employee()
         return res 
     
+    #display notification number on menu item only for holidays on which we must do an action 
     @api.model
     def _needaction_domain_get(self):
         dom = super(hr_holidays, self)._needaction_domain_get()
         dom.extend(['|',('manager_user_id','=',self._uid),('manager_user_id2','=',self._uid)])
         return dom
     
-    
+#add fields to automate selection of good holiday type
 class hr_holidays_status(models.Model):
     _inherit = "hr.holidays.status"
     

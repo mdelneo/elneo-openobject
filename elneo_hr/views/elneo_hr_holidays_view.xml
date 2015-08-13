@@ -1,6 +1,14 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data>
+		<!--  Add calendar view -->
+		<record model="ir.actions.act_window.view" id="action_holidays_calendar">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="hr_holidays.view_holiday_new_calendar"/>
+            <field name="act_window_id" ref="hr_holidays.open_company_allocation"/>
+        </record>
+	
 		<!-- Holidays to approve : filter on my approvals by default -->
 		<record model="ir.actions.act_window" id="hr_holidays.request_approve_holidays">
             <field name="name">Requests to Approve</field>

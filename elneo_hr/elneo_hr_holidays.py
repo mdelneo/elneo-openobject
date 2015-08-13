@@ -94,6 +94,8 @@ class hr_holidays(models.Model):
     def onchange_number_of_days_temp(self):
         res = {}
         new_holiday_status = self._get_default_status_id(self.number_of_days_temp)
+        if not new_holiday_status:
+            return res
         if self.holiday_status_id and self.holiday_status_id.id != new_holiday_status:
             res = {'warning':{'title':'Warning','message':'Holiday type has changed !'}}
         self.holiday_status_id = new_holiday_status
@@ -268,7 +270,9 @@ class hr_holidays(models.Model):
             if field == 'name':
                 res['name'] = _('Holidays')
             if field == 'holiday_status_id':
-                res['holiday_status_id'] = self._get_default_status_id(1)
+                default_status = self._get_default_status_id(1)
+                if default_status:
+                    res['holiday_status_id'] = self._get_default_status_id(1)
             if field == 'date_from':
                 if 'date_from' in res:
                     res['date_from'] = res['date_from'][0:10]+' 08:00:00'

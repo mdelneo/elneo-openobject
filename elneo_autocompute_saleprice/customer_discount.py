@@ -46,17 +46,17 @@ class sale_order(models.Model):
     
     discount_type_id  = fields.Many2one('product.discount.type', 'Discount type', states={'draft': [('readonly', False)]})
     
-    
-    def onchange_partner_id(self, cr, uid, ids, part, context=None):
-        result = super(sale_order, self).onchange_partner_id(cr, uid, ids, part, context)
+    @api.multi
+    def onchange_partner_id(self, partner):
+        result = super(sale_order, self).onchange_partner_id(partner)
         if not result:
             result = {'value':{}}
         elif not result.has_key('value'):
             result['value'] = {}
             
-        partner = self.pool.get("res.partner").browse(cr, uid, part)
+        partner_obj = self.env["res.partner"].browse(partner)
         
-        result['value'].update({'discount_type_id':partner.discount_type_id.id})
+        result['value'].update({'discount_type_id':partner_obj.discount_type_id.id})
         
         return result
         

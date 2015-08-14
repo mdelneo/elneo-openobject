@@ -203,38 +203,22 @@ class sale_order(models.Model):
     @api.onchange('order_line')
     def onchange_order_lines(self):
         self.order_line.compute_stock()
-    
-    @api.onchange('partner_id')
-    def _onchange_partner_id(self):
         
-        res = super(sale_order,self).onchange_partner_id(self.partner_id.id)
-        
-        #TO DELETE WHEN onchange_partner_id WILL BE WITH NEW API
-        if res['value'].has_key('fiscal_position'):
-            self.fiscal_position = res['value']['fiscal_position']
-        if res['value'].has_key('partner_shipping_id'):
-            self.partner_shipping_id = res['value']['partner_shipping_id']
-        if res['value'].has_key('partner_invoice_id'):
-            self.partner_invoice_id = res['value']['partner_invoice_id']
-        
-        if res['value'].has_key('payment_term'):
-            self.payment_term = res['value']['payment_term']
-        if res['value'].has_key('user_id'):
-            self.user_id = res['value']['user_id']
-        if res['value'].has_key('pricelist_id'):
-            self.pricelist_id = res['value']['pricelist_id']
-        #END TO DELETE WHEN onchange_partner_id WILL BE WITH NEW API
-        
-        if self.partner_id:
-            self.partner_order_id = self.partner_id.address_get(['default'])['default']
-            self.sale_note = super(sale_order,self).get_salenote(self.partner_id.id)
-            
+    @api.multi
+    def onchange_partner_id(self, partner):
+        res = super(sale_order, self).onchange_partner_id(partner)
+        if partner:
+            partner_obj = self.env['res.partner'].browse(partner)
+            if not res:
+                res = {}
+            if not 'value' in res:
+                res['value'] = {}
+            res['value']['partner_order_id'] = partner_obj.address_get(['default'])['default']
+            res['value']['sale_note'] = super(sale_order,self).get_salenote(partner)
         return res
-            
 
     @api.onchange('partner_order_id')
     def onchange_partner_order_id(self):
-        
         if not self.partner_order_id:
             self.partner_id = False
             self.partner_invoice_id = False

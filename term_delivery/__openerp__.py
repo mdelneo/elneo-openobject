@@ -8,7 +8,7 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['account','sale'],
-    'data': ['views/account_view.xml','views/sale_view.xml'],
+    'data': ['views/account_view.xml'],
     'installable': True,
     'active': False,
 }

@@ -110,18 +110,24 @@ class sale_order(models.Model):
     @api.multi
     def onchange_partner_id(self, partner):
         res = super(sale_order, self).onchange_partner_id(partner)
-        self.quotation_text_elements = self._get_default_quotation_text_elements()
+        if not res:
+            res = {}
+        if not 'value' in res:
+            res['value'] = {}
+        partner_obj = self.env['res.partner'].browse(partner)
+        res['value']['quotation_text_elements'] = self._get_default_quotation_text_elements(partner_obj)
         quotation_validity = self.env['ir.translation']._get_source('sale.config.settings,sale_quotation_default_validity', 'model', self.env['res.partner'].browse(partner).lang)
         if not quotation_validity:
             quotation_validity = self.env['ir.config_parameter'].get_param('sale_quotation.sale_quotation_default_validity')
-        if quotation_validity[0:2] == "u'":
+        #prevent bug with unicode
+        if quotation_validity and quotation_validity[0:2] == "u'":
             quotation_validity = quotation_validity[2:-1]
-        self.quotation_validity = quotation_validity
+        res['value']['quotation_validity'] = quotation_validity
         return res
     
-    def _get_default_quotation_text_elements(self):
-        if self.partner_id and self.partner_id.lang:
-            all_elts = self.env['sale_quotation.text.element'].search([('lang','=',self.partner_id.lang)])
+    def _get_default_quotation_text_elements(self, partner):
+        if partner and partner.lang:
+            all_elts = self.env['sale_quotation.text.element'].search([('lang','=',partner.lang)])
         else:
             all_elts = self.env['sale_quotation.text.element'].search([])
         result = []

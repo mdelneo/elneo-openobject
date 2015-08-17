@@ -82,7 +82,7 @@ class sale_order(models.Model):
     installation_id=fields.Many2one('maintenance.installation', 'Installation')
     maintenance_project_id=fields.Many2one('maintenance.project', 'Maintenance project')
     
-    
+    @api.one
     def copy(self,default=None):
         if not default:
             default = {}
@@ -161,7 +161,7 @@ class maintenance_project(models.Model):
             self.env['mail.mail'].create({
                                            'email_from':self.env.user, 
                                             'email_to':user.partner_id.email, 
-                                            'subject':_('Maintenance quotation done: %s')%(maintenance_project.code),
+                                            'subject':_('Maintenance quotation done: %s')%(self.code),
                                             'body_html':body,
                                             'res_id':self.id,
                                             'model':'maintenance.project'

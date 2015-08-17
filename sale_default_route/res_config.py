@@ -4,47 +4,21 @@ from openerp import fields, models, api
 class res_config(models.TransientModel):
     _inherit = 'sale.config.settings'
 
-    sale_default_route_stock = fields.Many2one('stock.location.route',string='Default Route on Stock',help='The Default Route proposed if there is enough stock on Sale Order Line')
-    
-    sale_default_route_no_stock = fields.Many2one('stock.location.route',string='Default Route without Stock',help='The Default Route proposed if there is no stock on Sale Order Line')
-    
-    
+    default_route = fields.Many2one('stock.location.route',string='Default Route',help='The Default Route proposed on new sale order line')
    
     @api.multi
     def set_sale_default_route_stock(self):
-        
-        self.env['ir.config_parameter'].set_param('sale_default_route.sale_default_route_stock',repr(self.sale_default_route_stock.id))
+        self.env['ir.config_parameter'].set_param('sale_default_route.default_route',repr(self.default_route.id))
         
     
     @api.model
     def get_default_values(self,fields):
-        
-        sale_default_route_stock = self.env['ir.config_parameter'].get_param('sale_default_route.sale_default_route_stock',False)
-        
-        sale_default_route_no_stock = self.env['ir.config_parameter'].get_param('sale_default_route.sale_default_route_no_stock',False)
-        
-        if sale_default_route_stock !='False':
-            sale_default_route_stock = int(sale_default_route_stock)
+        default_route = self.env['ir.config_parameter'].get_param('sale_default_route.default_route',False)
+        if default_route !='False':
+            default_route = int(default_route)
         else:
-            sale_default_route_stock = False
-            
-        if sale_default_route_no_stock !='False':
-            sale_default_route_no_stock = int(sale_default_route_no_stock)
-        else:
-            sale_default_route_no_stock = False
-        
-        
-        return {'sale_default_route_stock':sale_default_route_stock,
-                'sale_default_route_no_stock':sale_default_route_no_stock
-                
-                }
+            default_route = False
+        return {'default_route':default_route}
 
     
-    
-    @api.multi
-    def set_sale_default_route_no_stock(self):
-        
-        self.env['ir.config_parameter'].set_param('sale_default_route.sale_default_route_no_stock',repr(self.sale_default_route_no_stock.id))
-      
-
 res_config()

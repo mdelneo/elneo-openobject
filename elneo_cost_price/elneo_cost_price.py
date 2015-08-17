@@ -25,16 +25,17 @@ class sale_order_line(models.Model):
     _inherit = "sale.order.line"
     
     #set the cost price in sale order line when product change
-    def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
+    @api.multi
+    def product_id_change(self, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
-            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, shop_id=0, context={}):
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False):
         
-        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty=qty,
+        res = super(sale_order_line, self).product_id_change(pricelist, product, qty=qty,
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
-            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, context=context)
+            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag)
         
         if product:
-            product_obj = self.pool.get('product.product').browse(cr, uid, product)
+            product_obj = self.env['product.product'].browse(product)
             
             #get cost price for quantity
             suppinfo = product_obj.seller_ids and product_obj.seller_ids[0]
@@ -43,21 +44,20 @@ class sale_order_line(models.Model):
             if suppinfo:
                 pricelist = suppinfo.name and suppinfo.name.cost_price_product_pricelist and suppinfo.name.cost_price_product_pricelist.id
                 
-                supplier_id = context.get("supplier_id",None)
+                supplier_id = self._context.get("supplier_id",None)
                 
                 if pricelist:
-                    price = self.pool.get('product.pricelist').price_get(cr, uid, [pricelist],
-                        product, qty, supplier_id)[pricelist]
+                    price = self.env['product.pricelist'].browse(pricelist).price_get(product, qty, supplier_id)[pricelist]
                         
             if not price:
                 price = product_obj.cost_price
             
-            partner_pricelist = self.pool.get('res.partner').browse(cr, uid, partner_id).property_product_pricelist
+            partner_pricelist = self.env['res.partner'].browse(partner_id).property_product_pricelist
 
             if partner_pricelist:
-                to_cur = partner_pricelist.currency_id.id
-                frm_cur = self.pool.get('res.users').browse(cr, uid, uid).company_id.currency_id.id
-                price = self.pool.get('res.currency').compute(cr, uid, frm_cur, to_cur, price, round=False)
+                to_cur = partner_pricelist.currency_id
+                frm_cur = self.env['res.users'].browse(self._uid).company_id.currency_id
+                price = frm_cur.compute(price, to_cur, round=False)
 
             res['value'].update({'purchase_price': price})
             

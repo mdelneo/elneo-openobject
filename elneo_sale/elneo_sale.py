@@ -18,8 +18,6 @@ class sale_order_line(models.Model):
         self._qty_virtual_stock()
         self._qty_real_stock()
     
-    @api.multi
-    @api.onchange('product_id')
     def _qty_virtual_stock(self):
         for sol in self:
             if sol.product_id:
@@ -27,8 +25,6 @@ class sale_order_line(models.Model):
             else:
                 sol.virtual_stock = 0 
     
-    @api.multi
-    @api.onchange('product_id')
     def _qty_real_stock(self):
         for sol in self:
             if sol.product_id:
@@ -36,34 +32,40 @@ class sale_order_line(models.Model):
             else:
                 sol.real_stock = 0
                 
-                
     @api.multi
     def copy(self, default=None):
         if not default:
             default = {}
         default['purchase_line_ids'] = None
         return super(sale_order_line, self).copy(default) 
-    
-    '''
-    @api.onchange('product_uom_qty')
-    def on_change_product_qty(self):
-        ''
-        test = ''
-        return test
-    '''
-    
-    def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
+
+
+    @api.multi
+    def product_id_change_with_wh(self, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
-            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, context=None):
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False):
         
-        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty=qty,
+        res = super(sale_order_line, self).product_id_change_with_wh(pricelist, product, qty=qty,
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
-            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, context=context)
+            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id)
         
-        old_price = context.get('price_unit',0)
+        old_price = self._context.get('price_unit',0)
         new_price = res.get('value',{'price_unit':0}).get('price_unit',0)
+        
         if old_price and old_price != new_price:
             res['warning'] = {'title':'Unit price changed','message':_('Unit price has been changed from %s to %s.')%(old_price,new_price)}
+        
+        #compute qty real/virtual stock    
+        product_obj = self.env['product.product'].browse(product)
+        warehouse = self.env['stock.warehouse'].browse(warehouse_id)
+        if not res:
+            res = {}
+        if not 'value' in res:
+            res['value'] = {}
+        
+        res['value']['virtual_stock'] = product_obj.with_context(location=warehouse.lot_stock_id.id).virtual_available
+        res['value']['real_stock'] = product_obj.with_context(location=warehouse.lot_stock_id.id).qty_available
+        
         return res
         
         

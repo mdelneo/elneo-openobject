@@ -63,6 +63,9 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
             <field name="arch" type="xml">
+            	<xpath expr="//field[@name='address_allotment_id']" position="replace" />
+            	<xpath expr="//field[@name='invoice_lines']" position="replace" />
+            
             	<xpath expr="//field[@name='partner_invoice_id']" position="before">
             		<field name="partner_order_id" domain="[('parent_id','=',partner_id),('type','in',['default','other'])]" />
             	</xpath>
@@ -110,9 +113,6 @@
 						    <field name="purchase_count" widget="statinfo" string="Purchase orders" help="Purchase orders"/>
 						</button>
 					</div>
-                </xpath>
-	           	<xpath expr="//field[@name='product_id']" position="attributes">
-                	<attribute name="on_change">1</attribute>
                 </xpath>
                 
                 <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">

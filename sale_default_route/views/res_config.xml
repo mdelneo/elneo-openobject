@@ -8,12 +8,8 @@
             <field name="arch" type="xml">
             	<xpath expr="//div[@name='Sale Features']" position="inside">
                          <div>
-		                     <label for="sale_default_route_stock"/>
-		                     <field name="sale_default_route_stock" class="oe_inline"/>
-		                     
-		                     <label for="sale_default_route_no_stock"/>
-		                     <field name="sale_default_route_no_stock" class="oe_inline"/>
-                              
+		                     <label for="default_route"/>
+		                     <field name="default_route" class="oe_inline"/>
                          </div>
                      </xpath>
                 

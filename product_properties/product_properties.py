@@ -118,10 +118,16 @@ sale_quotation_property()
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
     
-    
-    @api.one
-    @api.onchange('product_id')
-    def update_sale_quotation_properties(self):
+
+    @api.multi    
+    def product_id_change(self, pricelist, product, qty=0,
+            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False):
+        
+        res = super(sale_order_line, self).product_id_change(pricelist, product, qty=qty,
+            uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
+            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag)
+        
         def convert_product_property_value_to_quotation_property(product_property_value):
             unit = ''
             if product_property_value.use_default_unit:
@@ -142,15 +148,22 @@ class sale_order_line(models.Model):
             return res 
            
         sale_quotation_properties = []
-        if self.product_id:     
-            context = {'lang': self.order_id.partner_id.lang, 'partner_id': self.order_id.partner_id.id, 'product_id':self.product_id}       
-            ppvs = self.env["product.property.value"].search([('product_id','=',self.product_id.id)])
+        product_obj = self.env['product.product'].browse(product)
+        if product_obj:     
+            context = {'lang': lang, 'partner_id': partner_id, 'product_id':product_obj}       
+            ppvs = self.with_context(context).env["product.property.value"].search([('product_id','=',product)])
             for ppv in ppvs:
                 if ppv.active1:
                     sqp = convert_product_property_value_to_quotation_property(ppv)
                     sale_quotation_properties.append(sqp)
         
-        self.sale_quotation_properties = sale_quotation_properties
+        if not res:
+            res = {}
+        if not 'value' in res:
+            res['value'] = {}
+        res['value']['sale_quotation_properties'] = sale_quotation_properties
+        
+        return res
         
     
     sale_quotation_properties = fields.One2many('sale.quotation.property', 'sale_order_line_id', string="Properties")

@@ -21,7 +21,6 @@
 
 from openerp import models, fields,api
 
-
 class account_invoice_line(models.Model):
     _inherit = "account.invoice.line"
     

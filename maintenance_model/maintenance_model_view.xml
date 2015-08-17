@@ -66,7 +66,7 @@
 					</page>
 				</page>
 				<field name="budget_lines" position="before">
-					<button name="generate_project_budget_lines" states="draft" string="Generate" type="object" />
+					<button name="generate_project_budget_lines" states="draft" string="Generate" type="object" class="oe_highlight"/>
 					<button name="generate_project_budget_lines" states="draft" context="{'regenerate':True}" string="Delete and Regenerate" type="object" />
 				</field>
 				

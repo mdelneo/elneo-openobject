@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- WIZARD TO MANAGE MAINTENANCE OFFERS ASKS -->
+		<record
+			id="maintenance_project_ask_quotation"
+			model="ir.ui.view">
+			<field name="name">maintenance.project.quotation.form</field>
+			<field name="model">maintenance.project_quotation_wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<p>
+					You are about to ask a maintenance quotation for the sale order you are working on.
+					<br/>
+					Enter here the <b>expected</b> working hours for products that need it.
+					</p>
+					<field name="elements_details" nolabel='1' colspan="8">
+						<tree editable="top">
+							<field name="product_code" readonly="True" />
+							<field name="working_hours" />
+						</tree>
+					</field>
+					<footer>
+						<button string="Cancel" special="cancel"/>
+						<button string="Ask Quotation" name="ask" type="object" class="oe_highlight"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+		
+		
+		<record id="action_sale_order_maintenance_project_ask_wizard" model="ir.actions.act_window">
+			<field name="name">Ask Maintenance Quotation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.project_quotation_wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
+	
+        <act_window id="sale_order_maintenance_project_ask_wizard"
+                name="Ask Maintenance Quotation"
+                res_model="maintenance.project_quotation_wizard"
+                src_model="sale.order"
+                view_mode="form" view_type="form"
+                target="new" key2="client_action_multi"/>
+                
+        <!-- END WIZARD -->
+	</data>
+</openerp>   

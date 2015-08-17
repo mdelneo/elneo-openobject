@@ -1,0 +1,380 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* maintenance_project
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2014-07-01 16:15+0000\n"
+"PO-Revision-Date: 2014-07-01 18:18+0100\n"
+"Last-Translator: Clément THOMAS <clement.thomas@elneo.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: maintenance_project
+#: view:maintenance.project:0
+#: view:maintenance.project.line:0
+#: view:maintenance.project.line.type:0
+msgid "Maintenance project line"
+msgstr "Ligne de projet de maintenance"
+
+#. module: maintenance_project
+#: field:maintenance.project.type.line,product_category_id:0
+msgid "Product category"
+msgstr "Catégorie de produit"
+
+#. module: maintenance_project
+#: sql_constraint:account.invoice:0
+msgid "The Invoice Number must be unique !"
+msgstr "Le numéro de facture doit être unique !"
+
+#. module: maintenance_project
+#: field:account.invoice.line,maintenance_invoiced_percent:0
+msgid "Percent invoiced (if intervention)"
+msgstr "Pourcentage facturé (si intervention)"
+
+#. module: maintenance_project
+#: view:maintenance.project:0
+msgid "Detail"
+msgstr "Détail"
+
+#. module: maintenance_project
+#: code:addons/maintenance_project/maintenance_project.py:216
+#, python-format
+msgid "Sale order is already confirmed."
+msgstr "La vente est déjà confirmée"
+
+#. module: maintenance_project
+#: model:maintenance.project.line.type,name:maintenance_project.Labor
+msgid "Labor"
+msgstr "Main d'oeuvre"
+
+#. module: maintenance_project
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+#: field:maintenance.project,maintenance_elements:0
+msgid "Maintenance elements"
+msgstr "Éléments de maintenance"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_installation
+msgid "maintenance.installation"
+msgstr "maintenance.installation"
+
+#. module: maintenance_project
+#: view:maintenance.project:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_project_type
+msgid "maintenance.project.type"
+msgstr "maintenance.project.type"
+
+#. module: maintenance_project
+#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_type
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_type
+#: view:maintenance.project.type:0
+msgid "Maintenance project type"
+msgstr "Type de projet de maintenance"
+
+#. module: maintenance_project
+#: field:maintenance.project,installation_id:0
+msgid "Installation"
+msgstr "Installation"
+
+#. module: maintenance_project
+#: field:maintenance.project,date_start:0
+msgid "Start date"
+msgstr "Date de début"
+
+#. module: maintenance_project
+#: field:maintenance.project,intervention_delay_id:0
+msgid "Intervention delay"
+msgstr "Délais d'intervention"
+
+#. module: maintenance_project
+#: view:maintenance.project:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_intervention_product
+msgid "maintenance.intervention.product"
+msgstr "maintenance.intervention.product"
+
+#. module: maintenance_project
+#: view:maintenance.project.type:0
+#: field:maintenance.project.type,project_type_lines:0
+msgid "Invoiced categories"
+msgstr "Catégories facturées"
+
+#. module: maintenance_project
+#: field:maintenance.project.line,product_id:0
+#: model:maintenance.project.line.type,name:maintenance_project.Product
+#: field:maintenance.project.type,product_id:0
+msgid "Product"
+msgstr "Produit"
+
+#. module: maintenance_project
+#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_line_type
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_line_type
+msgid "Project line type"
+msgstr "Type de ligne de projet"
+
+#. module: maintenance_project
+#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_delay
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_delay
+#: view:maintenance.project.delay:0
+msgid "Maintenance project delay"
+msgstr "Délais d'intervention"
+
+#. module: maintenance_project
+#: field:maintenance.project.line,maintenance_product_id:0
+msgid "Maintenance Product"
+msgstr "Produit de maintenance"
+
+#. module: maintenance_project
+#: field:maintenance.project.type.line,invoiced_percent:0
+msgid "Invoiced percent"
+msgstr "Pourcentage facturé"
+
+#. module: maintenance_project
+#: help:maintenance.project.line,intervention_id:0
+msgid "Intervention generated (among other) by this project detail."
+msgstr "Intervention générée par ce détail de projet"
+
+#. module: maintenance_project
+#: field:maintenance.project,interventions:0
+msgid "Interventions history"
+msgstr "Historique des interventions"
+
+#. module: maintenance_project
+#: field:maintenance.project.line,element_id:0
+msgid "Maintenance element"
+msgstr "Element de maintenance"
+
+#. module: maintenance_project
+#: field:maintenance.intervention,maintenance_project_type:0
+msgid "Project type"
+msgstr "Type de projet"
+
+#. module: maintenance_project
+#: view:maintenance.project:0
+msgid "Disable"
+msgstr "Désactiver"
+
+#. module: maintenance_project
+#: view:maintenance.project:0
+#: field:maintenance.project,enable:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_intervention
+msgid "maintenance.intervention"
+msgstr "maintenance.intervention"
+
+#. module: maintenance_project
+#: field:maintenance.installation,maintenance_projects:0
+msgid "Projects"
+msgstr "Projets"
+
+#. module: maintenance_project
+#: code:addons/maintenance_project/maintenance_project.py:216
+#: code:addons/maintenance_project/maintenance_project.py:394
+#, python-format
+msgid "UserError"
+msgstr "Erreur utilisateur"
+
+#. module: maintenance_project
+#: field:maintenance.project.line,cost_price:0
+msgid "Cost Price"
+msgstr "Prix de revient"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_project
+msgid "maintenance.project"
+msgstr "maintenance.project"
+
+#. module: maintenance_project
+#: field:maintenance.intervention.product,project_percent_invoiced:0
+msgid "Amount invoiced"
+msgstr "Montant facturé"
+
+#. module: maintenance_project
+#: field:maintenance.project.delay,name:0
+#: field:maintenance.project.line.type,name:0
+#: field:maintenance.project.type,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: maintenance_project
+#: code:addons/maintenance_project/maintenance_project.py:177
+#: constraint:maintenance.project:0
+#, python-format
+msgid "Several maintenance projects are enable during the same period"
+msgstr "Plusieurs projets de maintenance sont actifs durant la même période"
+
+#. module: maintenance_project
+#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project
+#: view:maintenance.installation:0
+#: field:maintenance.intervention,maintenance_project_id:0
+#: view:maintenance.project:0
+msgid "Maintenance project"
+msgstr "Projet de maintenance"
+
+#. module: maintenance_project
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+#: field:maintenance.project,note:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_element
+msgid "maintenance.element"
+msgstr "maintenance.element"
+
+#. module: maintenance_project
+#: view:maintenance.project:0
+#: view:maintenance.project.line:0
+#: view:maintenance.project.line.type:0
+msgid "Maintenance project lines"
+msgstr "Lignes de projet de maintenance"
+
+#. module: maintenance_project
+#: code:addons/maintenance_project/maintenance_project.py:394
+#, python-format
+msgid "Several projects for installation %s (%s) from %s"
+msgstr "Il existe plusieurs projets pour l'installation %s (%s) au %s"
+
+#. module: maintenance_project
+#: field:maintenance.project.line,project_id:0
+#: field:maintenance.project.type.line,project_type_id:0
+msgid "Project"
+msgstr "Projet"
+
+#. module: maintenance_project
+#: field:maintenance.project,sale_order_id:0
+msgid "Sale order"
+msgstr "Vente"
+
+#. module: maintenance_project
+#: field:maintenance.project,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_project_line
+msgid "maintenance.project.line"
+msgstr "maintenance.project.line"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_project_type_line
+msgid "maintenance.project.type.line"
+msgstr "maintenance.project.type.line"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_project_delay
+msgid "maintenance.project.delay"
+msgstr "maintenance.project.delay"
+
+#. module: maintenance_project
+#: field:maintenance.project.line,quantity:0
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: maintenance_project
+#: field:maintenance.project.type.line,intervention_type_id:0
+msgid "Intervention type"
+msgstr "Type d'intervention"
+
+#. module: maintenance_project
+#: field:maintenance.project,date_end:0
+msgid "End date"
+msgstr "Date de fin"
+
+#. module: maintenance_project
+#: field:maintenance.project,project_type_id:0
+#: field:maintenance.project.line,type_id:0
+msgid "Type"
+msgstr "Type"
+
+#. module: maintenance_project
+#: view:maintenance.project:0
+msgid "Activate"
+msgstr "Activer"
+
+#. module: maintenance_project
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+msgid "Interventions"
+msgstr "Interventions"
+
+#. module: maintenance_project
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+#: field:maintenance.project,invoices:0
+msgid "Invoices"
+msgstr "Factures"
+
+#. module: maintenance_project
+#: field:account.invoice,maintenance_projects:0
+#: field:maintenance.element,maintenance_projects:0
+#: view:maintenance.installation:0
+msgid "Maintenance projects"
+msgstr "Projets de maintenance"
+
+#. module: maintenance_project
+#: constraint:account.invoice:0
+msgid "Invalid BBA Structured Communication !"
+msgstr "Numéro de communication structurée BBA invalide !"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Ligne de facture"
+
+#. module: maintenance_project
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+msgid "General"
+msgstr "Général"
+
+#. module: maintenance_project
+#: field:maintenance.project.line,sale_price:0
+msgid "Sale Price"
+msgstr "Prix de Vente"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_maintenance_project_line_type
+msgid "maintenance.project.line.type"
+msgstr "maintenance.project.line.type"
+
+#. module: maintenance_project
+#: model:ir.model,name:maintenance_project.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: maintenance_project
+#: view:maintenance.installation:0
+#: view:maintenance.project:0
+msgid "Create/update sale"
+msgstr "Créer/mettre à jour la vente"
+
+#. module: maintenance_project
+#: field:maintenance.project.delay,price:0
+msgid "Price"
+msgstr "Prix"
+
+#. module: maintenance_project
+#: field:maintenance.project.line,intervention_id:0
+msgid "Intervention"
+msgstr "Intervention"
+

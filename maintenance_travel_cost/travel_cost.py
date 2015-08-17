@@ -14,21 +14,26 @@ from openerp import models, fields, api, _
 class maintenance_installation(models.Model):
     _inherit='maintenance.installation'
     
-    travel_cost_id=fields.Many2one('travel.cost','Travel Cost')
+    @api.one
+    def _get_travel_cost(self):
+        if not self.address_id or not self.address_id.zip:
+            return
+       
+        travel_cost_ids = self.env['travel.cost'].search([('zip','<=',self.address_id.zip)], limit=1, order='zip desc')
+        if not travel_cost_ids:
+            return
+        self.travel_cost_id=travel_cost_ids[0]
+        
+    travel_cost_id=fields.Many2one('travel.cost','Travel Cost',default=_get_travel_cost)
     travel_time=fields.Float('Travel Time')
     
     
     #when address change, update travel cost
+    @api.one
     @api.onchange('address_id')
     def on_change_address_id(self):
         #find good travel cost
-        if not self.address_id or not self.address_id.zip:
-            return {}
-       
-        travel_cost_ids = self.env['travel.cost'].search([('zip','<=',self.address_id.zip)], limit=1, order='zip desc')
-        if not travel_cost_ids:
-            return {}
-        self.travel_cost_id=travel_cost_ids[0]
+        self._get_travel_cost()
     
     # Compute Travel Time from action button
     @api.one

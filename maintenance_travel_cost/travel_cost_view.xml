@@ -29,9 +29,6 @@
 					</page>
 				</xpath>
 				
-				<field name="address_id" position="attributes">
-					<attribute name="on_change">on_change_address_id(address_id)</attribute>
-				</field>
 				
 			</field>
 		</record>

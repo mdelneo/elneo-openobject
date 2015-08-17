@@ -2,6 +2,9 @@
 from openerp import models,fields,api
 from openerp.tools.float_utils import float_compare, float_round
 
+class account_period(models.Model):
+    _inherit = 'account.period'
+    period_closed_qlikview = fields.Boolean('Period closed (Qlikview')
 
 class account_move_line(models.Model):
     _inherit = 'account.move.line'

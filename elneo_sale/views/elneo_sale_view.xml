@@ -64,10 +64,7 @@
             <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
             <field name="arch" type="xml">
             	<xpath expr="//field[@name='partner_invoice_id']" position="before">
-            		<field name="partner_order_id"/>
-            	</xpath>
-            	<xpath expr="//field[@name='partner_shipping_id']" position="after">
-            		<field name="quotation_address_id"/>
+            		<field name="partner_order_id" domain="[('parent_id','=',partner_id),('type','in',['default','other'])]" />
             	</xpath>
             	<xpath expr="//field[@name='partner_id']" position="attributes">
             		<attribute name="domain">[('is_company','=',True)]</attribute>
@@ -75,9 +72,11 @@
             	<xpath expr="//field[@name='partner_invoice_id']" position="attributes">
             		<attribute name="context">{'show_address':1,'show_ref_inline':1}</attribute>
             		<attribute name="options">{'always_reload': True}</attribute>
+            		<attribute name="domain">[('parent_id','=',partner_id),('type','in',['default','invoice','other'])]</attribute>
             	</xpath>
             	<xpath expr="//field[@name='partner_shipping_id']" position="attributes">
             		<attribute name="context">{'show_address':1,'show_ref_inline':1}</attribute>
+            		<attribute name="domain">[('parent_id','=',partner_id),('type','in',['default','delivery','other'])]</attribute>
             	</xpath>
             	<xpath expr="//field[@name='project_id']" position="replace"/>
 	           	

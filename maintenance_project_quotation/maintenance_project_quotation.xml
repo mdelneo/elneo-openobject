@@ -11,12 +11,15 @@
 			<field name="model">maintenance.installation</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
+				<field name="state" widget="statusbar" position="attributes">
+					<attribute name="statusbar_visible">draft,active,inactive</attribute>
+				</field>
 				<button name="installation_active" position="attributes">
 					<attribute name="states">inactive,quotation</attribute>
 				</button> 
 				<button name="installation_active" position="after">
 					<field name="is_quotation_installation" invisible="True" />
-					<button name="installation_draft" states="active,inactive" string="Reset" attrs="{'invisible':['|',('is_quotation_installation','==',False),('state','==','quotation')]}" />
+					<button name="installation_draft" states="active,inactive" string="Set to draft" attrs="{'invisible':['|',('is_quotation_installation','==',False),('state','==','quotation')]}" />
 				</button>
 			</field>
 		</record>
@@ -31,13 +34,13 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<button name="draft" position="attributes">
-					<attribute name="states">"quotation_done, disabled"</attribute>
+					<attribute name="states">quotation_done,disabled</attribute>
 				</button> 
 				<button name="active" position="attributes">
-					<attribute name="states">"draft, quotation_done"</attribute>
+					<attribute name="states">draft,quotation_done</attribute>
 				</button> 
 				<button name="disabled" position="attributes">
-					<attribute name="states">"quotations_done, active"</attribute>
+					<attribute name="states">quotation_done,active</attribute>
 				</button>
 				<button name="disabled" position="after">
 					<button name="quotation_todo" string="Quotation To Do" states="draft" icon="gtk-execute"/>
@@ -82,6 +85,21 @@
 				</page>
 			</field>
 		</record>
+		<record id="view_maintenance_project_model_form_quotation" model="ir.ui.view">
+			<field name="name">maintenance.project.form.quotation</field>
+			<field name="inherit_id" ref="maintenance_model.view_maintenance_project_form_maintenance_model_inherit" />
+			<field name="model">maintenance.project</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='generate_project_budget_lines' and @string='Generate']" position="attributes">
+					<attribute name="states">draft,quotation_todo</attribute>
+				</xpath>
+				<xpath expr="//button[@name='generate_project_budget_lines' and @string='Delete and Regenerate']" position="attributes">
+					<attribute name="states">draft,quotation_todo</attribute>
+				</xpath>
+			</field>
+		</record>
+
 		
 		
 		<!--  TREE PROJECT MAINTENANCE -->

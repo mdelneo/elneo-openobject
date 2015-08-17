@@ -94,16 +94,16 @@ class maintenance_installation(models.Model):
         return res
     
     @api.onchange('partner_id')
-    def on_change_partner_id(self, invoice_address_id, address_id):
-        
-        result = {}
-        
+    def _onchange_partner_id(self):
         if self.partner_id:
-            addr = self.env['res.partner'].address_get([self.partner_id.id], ['invoice', 'delivery', 'contact'])
-            result['invoice_address_id'] = addr['invoice']
-            result['address_id'] = addr['delivery']
-            #result['contact_address_id'] = addr['contact']
-        return {'value': result}
+            addr=self.partner_id.address_get(['invoice', 'delivery', 'contact'])
+            if addr.has_key('invoice'):
+                self.invoice_address_id = addr['invoice']
+            if addr.has_key('delivery'):
+                self.address_id = addr['delivery']
+            if addr.has_key('contact'):
+                self.contact_address_id = addr['contact']
+            
 
 class intervention_type(models.Model):
     _name="maintenance.intervention.type"

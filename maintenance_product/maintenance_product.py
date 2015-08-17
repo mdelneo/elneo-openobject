@@ -727,10 +727,10 @@ class sale_order_line(models.Model):
     
     @api.multi
     def unlink(self):
-        
-        intervention_product_ids = [sale_line.intervention_product_id.id for sale_line in self if (sale_line.intervention_product_id and sale_line.intervention_product_id.intervention_id.state == 'draft')]
+        intervention_products = self.filtered(lambda r:r.intervention_product_id.intervention_id.state=="draft").mapped('intervention_product_id')
+        #intervention_product_ids = [sale_line.intervention_product_id.id for sale_line in self if (sale_line.intervention_product_id and sale_line.intervention_product_id.intervention_id.state == 'draft')]
         if not self.env.context.get("from_intervention",False):
-            intervention_product_ids.unlink().with_context(from_sale_order_line=True)
+            intervention_products.with_context(from_sale_order_line=True).unlink()
         res = super(sale_order_line, self).unlink()
         return res
 

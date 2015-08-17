@@ -394,7 +394,7 @@ class maintenance_intervention(models.Model):
         search_filter = [('installation_id','=',installation_id),('date_start','<',date_start),'|',('date_end','>',date_start),('date_end','=',None)]
         
         #enable = None : don't filter on "enable" field
-        if enable != None:
+        if enable is not None:
             search_filter.append(('enable','=',enable))
         maintenance_project_ids = self.env['maintenance.project'].search(search_filter)
         '''if len(maintenance_project_ids) > 1:

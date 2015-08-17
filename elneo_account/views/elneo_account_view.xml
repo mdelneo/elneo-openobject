@@ -10,5 +10,17 @@
             	<button id="invoice_button" position="replace" />
             </field>
         </record>
+        
+        
+        <record id="view_account_period_form_elneo_account" model="ir.ui.view">
+            <field name="name">account.period.form.elneo.account</field>
+            <field name="inherit_id" ref="account.view_account_period_form" />
+            <field name="model">account.period</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='company_id']" position='after'>
+					<field name="period_closed_qlikview" />
+				</xpath>
+            </field>
+        </record>
 	</data>
 </openerp>

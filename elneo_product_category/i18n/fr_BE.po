@@ -1,0 +1,73 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* elneo_product_category
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2013-03-13 09:00+0000\n"
+"PO-Revision-Date: 2013-03-13 09:00+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: elneo_product_category
+#: model:ir.model,name:elneo_product_category.model_product_product
+msgid "Product"
+msgstr "Produit"
+
+#. module: elneo_product_category
+#: model:ir.model,name:elneo_product_category.model_product_category
+msgid "Product Category"
+msgstr "Catégorie de produits"
+
+#. module: elneo_product_category
+#: field:product.category,group:0
+msgid "Group"
+msgstr "Groupe"
+
+#. module: elneo_product_category
+#: field:product.category,family:0
+msgid "Family"
+msgstr "Famille"
+
+#. module: elneo_product_category
+#: view:product.category:0
+msgid "Product category"
+msgstr "Catégorie de produit"
+
+#. module: elneo_product_category
+#: constraint:product.category:0
+msgid "Error ! You can not create recursive categories."
+msgstr "Erreur ! Vous ne pouvez pas créer de catégories récursives"
+
+#. module: elneo_product_category
+#: model:ir.actions.act_window,name:elneo_product_category.product_category_action_form
+msgid "Products Categories"
+msgstr "Catégories de produits"
+
+#. module: elneo_product_category
+#: field:product.category,subfamily:0
+msgid "Sub-family"
+msgstr "Sub-family"
+
+#. module: elneo_product_category
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr "Erreur: code EAN invalide"
+
+#. module: elneo_product_category
+#: field:product.category,dpt:0
+msgid "Department"
+msgstr "Département"
+
+#. module: elneo_product_category
+#: constraint:product.product:0
+#: sql_constraint:product.product:0
+msgid "Reference has to be unique. There is an other product with the same reference."
+msgstr "La réference du produit doit être unique. Il y a un autre produit avec la même réference."
+

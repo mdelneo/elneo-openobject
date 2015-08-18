@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="product_template_form_view_elneo_product_category" model="ir.ui.view">
+			<field name="name">product.template.form.view.elneo.product.category</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="elneo_product.product_template_form_view_elneo_product" />
+			<field name="arch" type="xml">
+				<field name="categ_id" position="after">
+					<field name="categ_dpt" />
+					<field name="categ_group" />
+					<field name="categ_family" />
+					<field name="categ_subfamily" />
+				</field>
+			</field>
+		</record>
+
+		<record id="product_category_search_view_elneo" model="ir.ui.view">
+			<field name="name">product.category.search.view.elneo</field>
+			<field name="inherit_id" ref="product.product_category_search_view" />
+			<field name="model">product.category</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position='replace' />
+				<xpath expr="//field[@name='parent_id']" position='replace'>
+					<field name="dpt" />
+					<field name="group" />
+					<field name="family" />
+					<field name="subfamily" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

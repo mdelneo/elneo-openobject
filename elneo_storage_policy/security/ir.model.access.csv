@@ -1,4 +1,3 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_procurement_rule_procure_method","procurement.rule.procure.method","model_procurement_rule_procure_method","base.group_user",1,1,1,1
 "access_procurement_rule_procure_method_storage_policy","procurement.rule.procure.method.storage.policy","model_procurement_rule_procure_method_storage_policy","base.group_user",1,1,1,1
 "access_product_warehouse_detail","product.warehouse.detail","model_product_warehouse_detail","base.group_user",1,1,1,1

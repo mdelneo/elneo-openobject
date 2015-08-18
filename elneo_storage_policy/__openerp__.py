@@ -8,7 +8,7 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['stock', 'procure_method_partial'],
-    'update_xml': ['elneo_storage_policy_view.xml', 'elneo_storage_policy_sequence.xml'],                   
+    'update_xml': ['elneo_storage_policy_view.xml', 'elneo_storage_policy_sequence.xml', 'security/ir.model.access.csv'],                   
     'installable': True,
     'active': False,
 }

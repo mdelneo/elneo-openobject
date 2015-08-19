@@ -32,7 +32,6 @@ sale_order_line()
 
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
-    
 stock_picking()
 
 class procurement_rule(models.Model):
@@ -47,6 +46,17 @@ class stock_move(models.Model):
     
     auto_validate_dest_move = fields.Boolean('Auto validate', related='procurement_id.rule_id.autovalidate_dest_move', help='If this move is "autovalidate", when it became assigned, it is automatically set as done.')
     
+    #check availability automatically
+    @api.multi
+    def action_confirm(self):
+        res = super(stock_move, self).action_confirm()
+        pickings = set()
+        for move in self:
+            pickings.add(move.picking_id)
+        for picking in pickings:
+            picking.action_assign()
+        return res
+    
     @api.multi
     def action_done(self):
         #when a move is done, if it's flagged as "autovalidate_dest_move", call action_done on dest_move        
@@ -55,6 +65,7 @@ class stock_move(models.Model):
             if move.auto_validate_dest_move and move.move_dest_id:
                 move.move_dest_id.action_done()
         return res
+    
     
 stock_move()
 

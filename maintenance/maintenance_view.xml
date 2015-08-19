@@ -40,6 +40,221 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 		
+		 <record id="view_maintenance_internal_search" model="ir.ui.view">
+            <field name="name">maintenance.intervention.internal.search</field>
+            <field name="model">maintenance.intervention</field>
+            <field name="arch" type="xml">
+                <search string="Interventions">
+                	<field name="name" string="Intervention" filter_domain="['|',('name','ilike', self),('origin','ilike',self)]"/>
+                    <filter icon="terp-check" name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft Interventions"/>
+                    <filter icon="terp-camera_test" name="confirmed" string="Confirmed" domain="[('state','=', 'confirmed'),('available','=',False)]" help="Confirmed Interventions"/>
+                    <filter icon="terp-camera_test" name="available" string="Available" domain="[('state','=', 'confirmed'),('available','=',True)]" help="Available Interventions"/>
+                    <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]" help="Interventions done"/>
+                    <separator/>
+                    <filter name="late" string="Late" domain="[('date_start','&lt;', time.strftime('%%Y-%%m-%%d %%H:%%M:%%S')),('state','=','confirmed')]" help="Interventions that are late on scheduled time"/>
+                    <field name="maint_type"/>
+                    <separator/>
+                </search>
+             </field>
+       	</record>
+       	
+       	<record id="action_maintenance_tree_draft" model="ir.actions.act_window">
+            <field name="name">Draft Interventions</field>
+            <field name="res_model">maintenance.intervention</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain"></field>
+            <field name="context">{
+                    'search_default_maint_type': [active_id],
+                    'default_maint_type': active_id,
+                    'search_default_draft': 1,
+            }
+            </field>
+            <field name="search_view_id" ref="view_maintenance_internal_search"/>
+        </record>
+		
+		<record id="action_maintenance_tree_confirmed" model="ir.actions.act_window">
+            <field name="name">Confirmed Interventions</field>
+            <field name="res_model">maintenance.intervention</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain"></field>
+            <field name="context">{
+                    'search_default_maint_type': [active_id],
+                    'default_maint_type': active_id,
+                    'search_default_confirmed': 1,
+            }
+            </field>
+            <field name="search_view_id" ref="view_maintenance_internal_search"/>
+        </record>
+        
+        <record id="action_maintenance_tree_available" model="ir.actions.act_window">
+            <field name="name">Available Interventions</field>
+            <field name="res_model">maintenance.intervention</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain"></field>
+            <field name="context">{
+                    'search_default_maint_type': [active_id],
+                    'default_maint_type': active_id,
+                    'search_default_available': 1,
+            }
+            </field>
+            <field name="search_view_id" ref="view_maintenance_internal_search"/>
+        </record>
+        
+        <record id="action_maintenance_tree" model="ir.actions.act_window">
+            <field name="name">All Interventions</field>
+            <field name="res_model">maintenance.intervention</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain"></field>
+            <field name="context">{
+                    'search_default_maint_type': [active_id],
+                    'default_maint_type': active_id,
+            }
+            </field>
+            <field name="search_view_id" ref="view_maintenance_internal_search"/>
+        </record>
+        
+        <record id="action_maintenance_tree_done" model="ir.actions.act_window">
+            <field name="name">Interventions done</field>
+            <field name="res_model">maintenance.intervention</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain"></field>
+            <field name="context">{
+                    'search_default_maint_type': [active_id],
+                    'default_maint_type': active_id,
+                    'search_default_done': 1,
+            }
+            </field>
+            <field name="search_view_id" ref="view_maintenance_internal_search"/>
+        </record>
+        
+        <record id="action_maintenance_tree_late" model="ir.actions.act_window">
+            <field name="name">Interventions late</field>
+            <field name="res_model">maintenance.intervention</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain"></field>
+            <field name="context">{
+                    'search_default_maint_type': [active_id],
+                    'default_maint_type': active_id,
+                    'search_default_late': 1,
+            }
+            </field>
+            <field name="search_view_id" ref="view_maintenance_internal_search"/>
+        </record>
+		
+		<record id="stock_maintenance_type_kanban" model="ir.ui.view">
+            <field name="name">maintenance.int.type.kanban</field>
+            <field name="model">maintenance.intervention.type</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey" create="0">
+                	<field name="name"/>
+                	<field name="color"/>
+                	<field name="count_maintenance_draft"/>
+                	<field name="count_maintenance_confirmed"/>
+                	<field name="count_maintenance_available"/>
+                	<field name="count_maintenance_late"/>
+                    
+                	<!-- 
+                    
+                    
+                    <field name="count_picking_ready"/>
+                    <field name="count_picking_draft"/>
+                    <field name="count_picking_waiting"/>
+                    <field name="count_picking_late"/>
+                    <field name="count_picking_backorders"/>
+                     -->
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_stock_picking_type">
+                                <div class="oe_dropdown_toggle oe_dropdown_kanban" groups="maintenance.group_maintenance_manager">
+                                    <span class="oe_e">í</span>
+                                    <ul class="oe_dropdown_menu">
+                                        <t t-if="widget.view.is_action_enabled('edit')"><li><a type="edit">Edit...</a></li></t>
+                                        <t t-if="widget.view.is_action_enabled('delete')"><li><a type="delete">Delete</a></li></t>
+                                        <t t-if="widget.view.is_action_enabled('edit')"><li><ul class="oe_kanban_colorpicker" data-field="color"/></li></t>
+                                    </ul>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    <h4 class="text-center"><strong><field name="name"/></strong></h4>
+
+                                    <div class="oe_right">
+                                        
+                                    </div>
+
+                                    <div class="oe_items_list oe_kanban_ellipsis">
+                                        <div>
+                                            <a name="%(action_maintenance_tree_available)d" type="action">
+                                                <field name="count_maintenance_available"/> Available
+                                            </a>
+                                            <a name="%(action_maintenance_tree_done)d" type="action" class="oe_sparkline_bar_link">
+                                                <field name="last_done_maintenance" widget="sparkline_bar" options="{'type': 'tristate', 'colorMap': {'0': 'orange', '-1': 'red', '1': 'green'}}">Last 10 Done Interventions</field>
+                                            </a>
+                                        </div>
+                                        <div t-if="record.count_maintenance_confirmed.raw_value &gt; 0">
+                                            <a name="%(action_maintenance_tree_confirmed)d" type="action">
+                                                <field name="count_maintenance_confirmed"/> Confirmed
+                                            </a>
+                                        </div>
+                                        <div t-if="record.count_maintenance_draft.raw_value &gt; 0">
+                                            <a name="%(action_maintenance_tree_draft)d" type="action">
+                                                <field name="count_maintenance_draft"/> Draft
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a name="%(action_maintenance_tree)d" type="action">All Interventions</a>
+                                        </div>
+                                    </div>
+                                    <div class="oe_picking_type_gauge" style="text-align:center;">
+                                        <field name="rate_maintenance_late" widget="gauge" style="width:150px; height: 110px;" options="{'levelcolors': ['#a9d70b', '#f9c802', '#ff0000'], 'action_jump': '%(action_maintenance_tree_late)d'}">Late (%%)</field>
+                                        <div class="oe_gauge_labels">
+                                            <div class="oe_gauge_label_column">
+                                                <a name="%(action_maintenance_tree_late)d" type="action">
+                                                    <field name="count_maintenance_late"/> Late
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="action_maintenance_type_form" model="ir.actions.act_window">
+            <field name="name">All Interventions (By Type)</field>
+            <field name="res_model">maintenance.intervention.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new intervention type. 
+              </p><p>
+              	The maintenance intervention type system allows you to
+              	assign interventions to a kind that will alter its views
+              	accordingly.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem
+            action="action_maintenance_type_form"
+            id="menu_action_maintenance_type_form"
+            parent="menu_maintenance_maintenance" sequence="1"/>
+		
 		<menuitem action="action_maintenance_intervention_type" id="menu_maintenance_intervention_type"
 			parent="menu_maintenance_config" sequence="5"/>
 
@@ -373,7 +588,8 @@
 				<tree string="Maintenance intervention">
 					<field name="code" />
 					<field name="maint_type" />
-					<field name="time_planned" />					
+					<field name="time_planned" />
+					<field name="date_scheduled" />
 					<field name="technicians" />
 					<field name="installation_id" />
 					<field name="contact_phone" />
@@ -404,6 +620,7 @@
 						<group>
 							<group>
 								<field name="maint_type" widget="selection" />
+								<field name="date_scheduled" />
 								<field name="date_start" />
 								<field name="date_end" />
 								<field name="time_planned" widget="float_time" />

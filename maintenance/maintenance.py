@@ -1,8 +1,28 @@
-from openerp import models, fields, api
-import re
-import time
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    Elneo
+#    Copyright (C) 2011-2015 Elneo (Technofluid SA) (<http://www.elneo.com>).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+from openerp import models, fields, api, _
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime, timedelta
-from openerp import netsvc
+import time
+import json
 
 def get_datetime(date_field):
     return datetime.strptime(date_field[:19], '%Y-%m-%d %H:%M:%S')
@@ -108,9 +128,64 @@ class maintenance_installation(models.Model):
 class intervention_type(models.Model):
     _name="maintenance.intervention.type"
     
+    @api.one
+    def _get_maintenance_count(self):
+        '''
+        interventions = self.env['maintenance.intervention'].search([('maint_type','=',self.id)])
+        
+        self.count_maintenance_draft = len(interventions.filtered(lambda r:r.state=='draft'))
+        self.count_maintenance_confirmed = len(interventions.filtered(lambda r:r.state=='confirmed'))
+        
+        self.count_maintenance_late = len(interventions.filtered(lambda r:r.state=='confirmed').filtered(lambda r:r.date_start < DEFAULT_SERVER_DATETIME_FORMAT))
+        
+        self.rate_maintenance_late = (self.count_maintenance_late * 100) / self.count_maintenance_confirmed
+        '''
+        domains = {
+            'count_maintenance_draft': [('state', '=', 'draft')],
+            'count_maintenance_confirmed': [('state', '=', 'confirmed'),('available','=',False)],
+            'count_maintenance_available': [('state', '=', 'confirmed'),('available','=',True)],
+            'count_maintenance': [('state', 'in', ('draft', 'confirmed'))],
+            'count_maintenance_late': [('date_start', '<', time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)), ('state', '=', 'confirmed')],
+        }
+        
+        for field in domains:
+            data = self.env['maintenance.intervention'].read_group(domains[field] +
+                [('state', 'not in', ('done', 'cancel')), ('maint_type', '=', self.id)],
+                ['maint_type'], ['maint_type'])
+            count = dict(map(lambda x: (x['maint_type'] and x['maint_type'][0], x['maint_type_count']), data))
+            setattr(self,field,count.get(self.id, 0)) 
+            #result.setdefault(self.id, {})[field] = count.get(self.id, 0)
+        
+        if self.count_maintenance:
+            self.rate_maintenance_late = self.count_maintenance_late * 100 / (self.count_maintenance_confirmed + self.count_maintenance_available)
+        else:
+            self.rate_maintenance_late = 0
+            
+    @api.one
+    def _get_tristate_values(self):
+        interventions = self.env['maintenance.intervention'].search([('maint_type','=',self.id),('state','=','done')], order='date_end desc', limit=10)
+        
+        tristates = []
+        for intervention in interventions:
+            if intervention.date_scheduled and intervention.date_end > intervention.date_scheduled:
+                tristates.insert(0, {'tooltip': intervention.code or '' + ": " + _('Late'), 'value': -1})
+            else :
+                tristates.insert(0, {'tooltip': intervention.code or '' + ": " + _('OK'), 'value': 1})
+        
+        self.last_done_maintenance = json.dumps(tristates)
+        
+        
     name = fields.Char("Name", size=255, translate=True, required=True)
+    color = fields.Integer('Color')
     workforce_product_id = fields.Many2one('product.product', string="Workforce product", required=True,help="Default workforce product for this kind of intervention")
     workforce_product_duration = fields.Float(string="Workforce product duration", required=True,help="Unit of time for workforce product")
+    
+    count_maintenance_draft=fields.Integer(compute=_get_maintenance_count)
+    count_maintenance_confirmed=fields.Integer(compute=_get_maintenance_count)
+    count_maintenance_available=fields.Integer(compute=_get_maintenance_count)
+    count_maintenance_late=fields.Integer(compute=_get_maintenance_count)
+    rate_maintenance_late=fields.Integer(compute=_get_maintenance_count)
+    last_done_maintenance=fields.Char('Last Done Interventions',compute=_get_tristate_values)
     
 class maintenance_intervention(models.Model):
     _name = 'maintenance.intervention'
@@ -242,6 +317,7 @@ class maintenance_intervention(models.Model):
     contact_phone = fields.Char(relation="res.partner",related="contact_address_id.phone", string="Contact phone")
     technicians = fields.Char(compute='_get_task_fields', size=255, string="Technician",store=True)
     to_plan = fields.Boolean(compute='_get_task_fields', string="To plan",store=True)
+    date_scheduled=fields.Date('Scheduled date')
     date_start = fields.Datetime(compute='_get_task_fields', string="Beginning", store=True)
     date_end = fields.Datetime(compute='_get_task_fields',  string="End",store=True)
     task_hours = fields.Float(compute='_get_task_fields', size=255, string="Task hours",store=True)

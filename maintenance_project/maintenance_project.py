@@ -408,7 +408,7 @@ class maintenance_intervention(models.Model):
     
     maintenance_project_id=fields.Many2one(comodel_name='maintenance.project',compute=get_maintenance_project, string='Maintenance project',  readonly=True, store=True)
     maintenance_project_type=fields.Many2one(comodel_name='maintenance.project.type',compute=get_maintenance_project, string='Project type',  readonly=True, store=True)
-    date_scheduled=fields.Date('Scheduled date')
+    
         
     @api.one
     def generate_invoice(self):

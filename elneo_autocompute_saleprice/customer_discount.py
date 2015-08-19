@@ -19,16 +19,14 @@ class product_product(models.Model):
 class product_template(models.Model):
     _inherit = 'product.template'
     
-    def get_customer_sale_price(self, discount_type_id, sale_price, cost_price, quantity):
-        
-        '''
+    def _get_is_pneumatics(self):
         is_pneumatics = False 
         if self.web_shop_product or self.categ_dpt in ('Pneumatics','Hydraulics'):
             is_pneumatics = True
-        '''
-        is_pneumatics = True
-        
-        if discount_type_id and sale_price and is_pneumatics:
+        self.is_pneumatics = is_pneumatics
+    
+    def get_customer_sale_price(self, discount_type_id, sale_price, cost_price, quantity):
+        if discount_type_id and sale_price and self.is_pneumatics:
             margin_percent = ((sale_price - cost_price)/sale_price)*100
             if margin_percent < 0:
                 margin_percent = 0
@@ -38,8 +36,9 @@ class product_template(models.Model):
             discounts = self.env['discount.type.discount'].search([('discount_type_id','=',discount_type_id),('margin_min','<=',margin_percent),('margin_max','>=',margin_percent)])
             if discounts:
                 sale_price = sale_price-((discounts[0].discount_percent/100)*sale_price)
-        
         return sale_price
+    
+    is_pneumatics = fields.Boolean('Is pneumatics', compute='_get_is_pneumatics')
 
 class sale_order(models.Model):
     _inherit = 'sale.order'
@@ -76,6 +75,12 @@ class sale_order_line(models.Model):
     def product_id_change_with_wh_discount_type(self, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, discount_type_id=False):
+        
+        #for pneumatics product, don't use price list. Discount is computed in get_customer_sale_price function below via discount type.
+        product_obj = self.env['product.product'].browse(product)
+        if product_obj and product_obj.is_pneumatics:
+            pricelist = 1
+        
         res = super(sale_order_line, self).product_id_change_with_wh(pricelist, product, qty=qty,
                 uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
                 lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id)

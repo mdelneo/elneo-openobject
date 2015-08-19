@@ -104,6 +104,7 @@ class product_template(models.Model):
     '''    
     
     
+    @api.multi
     @api.depends('compute_cost_price','cost_price_fixed','seller_ids.pricelist_ids.price')
     def _get_cost_price(self):
         for product in self:
@@ -116,10 +117,9 @@ class product_template(models.Model):
                 if len(supplierinfos) > 0:
                     supplierinfo = supplierinfos[0]
                     
-                    pricelist = supplierinfo.name.cost_price_product_pricelist.id
+                    pricelist = supplierinfo.name.cost_price_product_pricelist
                     if pricelist and not (type(product.id) is models.NewId):
-                        price = self.pool.get('product.pricelist').price_get(self._cr, self._uid, [pricelist],
-                                product.id, 1.0)[pricelist]
+                        price = pricelist.price_get(product.id, 1.0)[pricelist.id]
                         product.cost_price = price
                     else:
                         product.cost_price = 0                    

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-16 06:35+0000\n"
-"PO-Revision-Date: 2015-07-16 08:39+0100\n"
+"POT-Creation-Date: 2015-08-19 12:09+0000\n"
+"PO-Revision-Date: 2015-08-19 14:17+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,27 @@ msgid "&bull;"
 msgstr "&bull;"
 
 #. module: maintenance
+#: model:ir.actions.act_window,help:maintenance.action_maintenance_type_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a new intervention type. \n"
+"              </p><p>\n"
+"              \tThe maintenance intervention type system allows you to\n"
+"              \tassign interventions to a kind that will alter its views\n"
+"              \taccordingly.\n"
+"              </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Clciquez pour créer un nouveau type d'intervention. \n"
+"              </p><p>\n"
+"              \tLe système de type d'intervention de maintenance vous permet\n"
+"              \td'assigner des interventions à un type qui changera la vue en fonction\n"
+"              \tde celle-ci.\n"
+"              </p>\n"
+"            "
+
+#. module: maintenance
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
 msgid "Achievement"
 msgstr "Réalisation"
@@ -34,14 +55,14 @@ msgstr "Activer"
 
 #. module: maintenance
 #: field:maintenance.element,active:0
-#: selection:maintenance.installation,state:0
+#: view:maintenance.installation:maintenance.search_maintenance_installation
 msgid "Active"
 msgstr "Active"
 
 #. module: maintenance
 #: view:maintenance.installation:maintenance.view_maintenance_installation_form
 msgid "Additional Information"
-msgstr "Additional Information"
+msgstr "Informations complémentaires"
 
 #. module: maintenance
 #: field:maintenance.installation,address_id:0
@@ -54,6 +75,18 @@ msgstr "Adresse"
 #: help:maintenance.intervention,address_id:0
 msgid "Address of the installation"
 msgstr "Adresse de l'installation"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_tree
+#: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
+msgid "All Interventions"
+msgstr "Toutes les Interventions"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_type_form
+#: model:ir.ui.menu,name:maintenance.menu_action_maintenance_type_form
+msgid "All Interventions (By Type)"
+msgstr "Toutes les Interventions (Par Type)"
 
 #. module: maintenance
 #: model:ir.actions.act_window,help:maintenance.action_maintenance_element
@@ -71,9 +104,26 @@ msgid "All maintenance interventions"
 msgstr "Toutes les interventions de maintenance"
 
 #. module: maintenance
+#: view:maintenance.config.settings:maintenance.view_maintenance_configuration
+msgid "Apply"
+msgstr "Appliquer"
+
+#. module: maintenance
 #: field:maintenance.intervention.task,user_id:0
 msgid "Assigned to"
 msgstr "Assigné à"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
+#: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
+msgid "Available"
+msgstr "Disponible"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_tree_available
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
+msgid "Available Interventions"
+msgstr "Interventions disponibles"
 
 #. module: maintenance
 #: field:maintenance.intervention,date_start:0
@@ -96,6 +146,7 @@ msgid "Break time"
 msgstr "Temps de pause"
 
 #. module: maintenance
+#: view:maintenance.config.settings:maintenance.view_maintenance_configuration
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
 #: selection:maintenance.intervention,state:0
 msgid "Cancel"
@@ -107,6 +158,11 @@ msgstr "Annuler"
 #: view:website:maintenance.report_maintenance_installation_document
 msgid "Code"
 msgstr "Code"
+
+#. module: maintenance
+#: field:maintenance.intervention.type,color:0
+msgid "Color"
+msgstr "Couleur"
 
 #. module: maintenance
 #: view:website:maintenance.report_maintenance_intervention_document
@@ -124,15 +180,29 @@ msgid "Configuration"
 msgstr "Configuration"
 
 #. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_configuration
+#: view:maintenance.config.settings:maintenance.view_maintenance_configuration
+msgid "Configure Maintenance"
+msgstr "Configurer la Maintenance"
+
+#. module: maintenance
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
 msgid "Confirm"
 msgstr "Confirmer"
 
 #. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 #: selection:maintenance.intervention,state:0
+#: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
 msgid "Confirmed"
 msgstr "Confirmé"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_tree_confirmed
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
+msgid "Confirmed Interventions"
+msgstr "Interventions Confirmées"
 
 #. module: maintenance
 #: view:maintenance.element:maintenance.view_maintenance_element_form
@@ -158,15 +228,16 @@ msgid "Content"
 msgstr "Contenu"
 
 #. module: maintenance
+#: field:maintenance.config.settings,create_uid:0
 #: field:maintenance.element,create_uid:0
 #: field:maintenance.installation,create_uid:0
-#: field:maintenance.intervention,create_uid:0
 #: field:maintenance.intervention.task,create_uid:0
 #: field:maintenance.intervention.type,create_uid:0
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: maintenance
+#: field:maintenance.config.settings,create_date:0
 #: field:maintenance.element,create_date:0
 #: field:maintenance.installation,create_date:0
 #: field:maintenance.intervention,create_date:0
@@ -198,6 +269,7 @@ msgid "Date"
 msgstr "Date"
 
 #. module: maintenance
+#: help:maintenance.element,message_last_post:0
 #: help:maintenance.installation,message_last_post:0
 #: help:maintenance.intervention,message_last_post:0
 msgid "Date of the last message posted on the record."
@@ -214,6 +286,11 @@ msgid "Default workforce product for this kind of intervention"
 msgstr "Produit de main d'oeuvre par défaut pour ce type d'intervention"
 
 #. module: maintenance
+#: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
+msgid "Delete"
+msgstr "Supprimer"
+
+#. module: maintenance
 #: field:maintenance.element,description:0
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
 #: field:maintenance.intervention,name:0
@@ -221,15 +298,29 @@ msgid "Description"
 msgstr "Description"
 
 #. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
 #: selection:maintenance.intervention,state:0
 msgid "Done"
 msgstr "Terminé"
 
 #. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: selection:maintenance.intervention,state:0
+#: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
 msgid "Draft"
 msgstr "Brouillon"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_tree_draft
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
+msgid "Draft Interventions"
+msgstr "Interventions brouillon"
+
+#. module: maintenance
+#: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
+msgid "Edit..."
+msgstr "Modifier..."
 
 #. module: maintenance
 #: view:maintenance.element:maintenance.view_maintenance_element_form
@@ -248,12 +339,6 @@ msgstr "Elements"
 #: view:website:maintenance.report_maintenance_installation_document
 msgid "Elements :"
 msgstr "Elements :"
-
-#. module: maintenance
-#: model:ir.model,name:maintenance.model_maintenance_installation
-#: model:ir.model,name:maintenance.model_maintenance_intervention
-msgid "Email Thread"
-msgstr "Discussion par courriel"
 
 #. module: maintenance
 #: view:website:maintenance.external_layout_footer_maintenance
@@ -312,6 +397,7 @@ msgid "Finished"
 msgstr "Terminées"
 
 #. module: maintenance
+#: field:maintenance.element,message_follower_ids:0
 #: field:maintenance.installation,message_follower_ids:0
 #: field:maintenance.intervention,message_follower_ids:0
 msgid "Followers"
@@ -330,14 +416,15 @@ msgid "History"
 msgstr "Historique"
 
 #. module: maintenance
+#: help:maintenance.element,message_summary:0
 #: help:maintenance.installation,message_summary:0
 #: help:maintenance.intervention,message_summary:0
 msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
 msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
 
 #. module: maintenance
-#: field:maintenance.element,id:0 field:maintenance.installation,id:0
-#: field:maintenance.intervention,id:0
+#: field:maintenance.config.settings,id:0 field:maintenance.element,id:0
+#: field:maintenance.installation,id:0 field:maintenance.intervention,id:0
 #: field:maintenance.intervention.task,id:0
 #: field:maintenance.intervention.type,id:0
 msgid "ID"
@@ -349,13 +436,14 @@ msgid "Identification"
 msgstr "Identification"
 
 #. module: maintenance
+#: help:maintenance.element,message_unread:0
 #: help:maintenance.installation,message_unread:0
 #: help:maintenance.intervention,message_unread:0
 msgid "If checked new messages require your attention."
 msgstr "Si coché de nouveux meassages requièrent votre attention"
 
 #. module: maintenance
-#: selection:maintenance.installation,state:0
+#: view:maintenance.installation:maintenance.search_maintenance_installation
 msgid "Inactive"
 msgstr "Inactive"
 
@@ -397,6 +485,7 @@ msgid "Internal comment"
 msgstr "Commentaire interne"
 
 #. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_calendar
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
 #: field:maintenance.intervention.task,intervention_id:0
@@ -425,9 +514,26 @@ msgstr "Adresse d'intervention:"
 #: model:ir.ui.menu,name:maintenance.menu_maintenance_intervention
 #: view:maintenance.installation:maintenance.view_maintenance_installation_form
 #: field:maintenance.installation,interventions:0
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 msgid "Interventions"
 msgstr "Interventions"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_tree_done
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
+msgid "Interventions done"
+msgstr "Interventions terminées"
+
+#. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_tree_late
+msgid "Interventions late"
+msgstr "Interventions en retard"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
+msgid "Interventions that are late on scheduled time"
+msgstr "Interventions qui sont en retard par rapport à la date prévue"
 
 #. module: maintenance
 #: field:maintenance.installation,invoice_address_id:0
@@ -435,10 +541,16 @@ msgid "Invoice address"
 msgstr "Adresse de facturation"
 
 #. module: maintenance
+#: field:maintenance.element,message_is_follower:0
 #: field:maintenance.installation,message_is_follower:0
 #: field:maintenance.intervention,message_is_follower:0
 msgid "Is a Follower"
 msgstr "Est un Abonné"
+
+#. module: maintenance
+#: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
+msgid "Last 10 Done Interventions"
+msgstr "Les 10 dernières Interventions"
 
 #. module: maintenance
 #: view:website:maintenance.report_maintenance_installation_document
@@ -446,21 +558,23 @@ msgid "Last Interventions :"
 msgstr "Dernières Interventions :"
 
 #. module: maintenance
+#: field:maintenance.element,message_last_post:0
 #: field:maintenance.installation,message_last_post:0
 #: field:maintenance.intervention,message_last_post:0
 msgid "Last Message Date"
 msgstr "Date du dernier Message"
 
 #. module: maintenance
+#: field:maintenance.config.settings,write_uid:0
 #: field:maintenance.element,write_uid:0
 #: field:maintenance.installation,write_uid:0
-#: field:maintenance.intervention,write_uid:0
 #: field:maintenance.intervention.task,write_uid:0
 #: field:maintenance.intervention.type,write_uid:0
 msgid "Last Updated by"
 msgstr "Dernière modification par"
 
 #. module: maintenance
+#: field:maintenance.config.settings,write_date:0
 #: field:maintenance.element,write_date:0
 #: field:maintenance.installation,write_date:0
 #: field:maintenance.intervention,write_date:0
@@ -470,20 +584,31 @@ msgid "Last Updated on"
 msgstr "Dernière modification le"
 
 #. module: maintenance
+#: code:addons/maintenance/maintenance.py:171
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
+#: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
+#, python-format
+msgid "Late"
+msgstr "En Retard"
+
+#. module: maintenance
+#: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
+msgid "Late (%)"
+msgstr "En retard (%)"
+
+#. module: maintenance
 #: field:maintenance.element,location:0
 msgid "Location"
 msgstr "Emplacement"
 
 #. module: maintenance
+#: model:ir.module.category,name:maintenance.module_category_specific_maintenance
 #: model:ir.ui.menu,name:maintenance.menu_maintenance
+#: model:ir.ui.menu,name:maintenance.menu_maintenance_config_config
 #: model:ir.ui.menu,name:maintenance.menu_maintenance_maintenance
+#: model:ir.ui.menu,name:maintenance.menu_maintenance_report
 msgid "Maintenance"
 msgstr "Maintenance"
-
-#. module: maintenance
-#: model:ir.module.category,name:maintenance.module_category_specific_maintenance
-msgid "Maintenance Applications"
-msgstr "Applications de Maintenance"
 
 #. module: maintenance
 #: view:maintenance.element:maintenance.view_maintenance_element_form
@@ -514,6 +639,7 @@ msgstr "Installation de maintenance"
 
 #. module: maintenance
 #: view:maintenance.installation:maintenance.search_maintenance_installation
+#: field:res.partner,maintenance_installations:0
 msgid "Maintenance installations"
 msgstr "Installations de maintenance"
 
@@ -538,12 +664,14 @@ msgid "Maintenance user"
 msgstr "Utilisateur Maintenance"
 
 #. module: maintenance
+#: field:maintenance.element,message_ids:0
 #: field:maintenance.installation,message_ids:0
 #: field:maintenance.intervention,message_ids:0
 msgid "Messages"
 msgstr "Messages"
 
 #. module: maintenance
+#: help:maintenance.element,message_ids:0
 #: help:maintenance.installation,message_ids:0
 #: help:maintenance.intervention,message_ids:0
 msgid "Messages and communication history"
@@ -563,9 +691,14 @@ msgstr "Nom"
 
 #. module: maintenance
 #: view:maintenance.installation:maintenance.view_maintenance_installation_form
-#: field:maintenance.installation,note:0
 msgid "Notes"
 msgstr "Notes"
+
+#. module: maintenance
+#: code:addons/maintenance/maintenance.py:173
+#, python-format
+msgid "OK"
+msgstr "OK"
 
 #. module: maintenance
 #: view:website:maintenance.external_layout_footer_maintenance
@@ -605,6 +738,12 @@ msgid "Product"
 msgstr "Produit"
 
 #. module: maintenance
+#: model:ir.model,name:maintenance.model_project_project
+#: field:maintenance.intervention,project_id:0
+msgid "Project"
+msgstr "Projet"
+
+#. module: maintenance
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
 msgid "Scheduling"
 msgstr "Planification"
@@ -636,18 +775,19 @@ msgid "Starting Date"
 msgstr "Date de début"
 
 #. module: maintenance
-#: field:maintenance.installation,state:0
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 msgid "State"
 msgstr "Etat"
 
 #. module: maintenance
+#: field:maintenance.element,message_summary:0
 #: field:maintenance.installation,message_summary:0
 #: field:maintenance.intervention,message_summary:0
 msgid "Summary"
 msgstr "Résumé"
 
 #. module: maintenance
+#: model:ir.model,name:maintenance.model_project_task
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
 msgid "Task"
 msgstr "Tâche"
@@ -686,6 +826,11 @@ msgid "Technician"
 msgstr "Techniciens"
 
 #. module: maintenance
+#: help:res.partner,maintenance_installations:0
+msgid "The Installations for Maintenance related to this partner"
+msgstr "Les Installations de Maintenance liées à ce partenaire"
+
+#. module: maintenance
 #: help:maintenance.installation,code:0
 msgid "The Maintenance Installation Code"
 msgstr "Le code de l'installation de maintenance"
@@ -709,11 +854,6 @@ msgstr "Le contact pour cette installation"
 #: help:maintenance.installation,elements:0
 msgid "The elements contained in this installation"
 msgstr "Les éléments contenus dans cette installation"
-
-#. module: maintenance
-#: help:maintenance.installation,state:0
-msgid "The installation can take two states<br/> -active <br/> -inactive"
-msgstr "L'installation peut prendre deux états :<br/> -active <br/> -inactive"
 
 #. module: maintenance
 #: help:maintenance.installation,interventions:0
@@ -770,6 +910,7 @@ msgid "Unit of time for workforce product"
 msgstr "Temps de mesure pour le produit de main d'oeuvre"
 
 #. module: maintenance
+#: field:maintenance.element,message_unread:0
 #: field:maintenance.installation,message_unread:0
 #: field:maintenance.intervention,message_unread:0
 msgid "Unread Messages"
@@ -781,6 +922,7 @@ msgid "Visible for interventions"
 msgstr "Visible dans les interventions"
 
 #. module: maintenance
+#: view:maintenance.installation:maintenance.search_maintenance_installation
 #: field:maintenance.installation,warehouse_id:0
 msgid "Warehouse"
 msgstr "Entrepôt"
@@ -791,12 +933,14 @@ msgid "Warranty date"
 msgstr "Date de garantie"
 
 #. module: maintenance
+#: field:maintenance.element,website_message_ids:0
 #: field:maintenance.installation,website_message_ids:0
 #: field:maintenance.intervention,website_message_ids:0
 msgid "Website Messages"
 msgstr "Messages du site web"
 
 #. module: maintenance
+#: help:maintenance.element,website_message_ids:0
 #: help:maintenance.installation,website_message_ids:0
 #: help:maintenance.intervention,website_message_ids:0
 msgid "Website communication history"
@@ -805,7 +949,7 @@ msgstr "Historique de communication du site web"
 #. module: maintenance
 #: view:website:maintenance.external_layout_footer_maintenance
 msgid "Website:"
-msgstr "Site web:"
+msgstr "Website:"
 
 #. module: maintenance
 #: view:website:maintenance.report_maintenance_intervention_document
@@ -831,6 +975,11 @@ msgstr "Produit de main d'oeuvre"
 #: field:maintenance.intervention.type,workforce_product_duration:0
 msgid "Workforce product duration"
 msgstr "Durée du produit de main d'oeuvre"
+
+#. module: maintenance
+#: view:maintenance.config.settings:maintenance.view_maintenance_configuration
+msgid "or"
+msgstr "ou"
 
 #. module: maintenance
 #: model:res.groups,comment:maintenance.group_maintenance_manager

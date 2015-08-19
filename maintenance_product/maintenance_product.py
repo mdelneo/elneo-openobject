@@ -571,27 +571,25 @@ class maintenance_intervention_product(models.Model):
         all_moves = self.env['stock.move'].search([('intervention_product_id','in',self.mapped('id')),('picking_id.picking_type_id.code','=','internal')])
 
         for product in self:
-            moves = all_moves.filtered(lambda r:r.intervention_product_id==product.id)
+            moves = all_moves.filtered(lambda r:r.intervention_product_id==product)
             if len(moves) == 1 :
                 product.int_move_availability = moves.state
-                return
-                
-            one_done = False
-            one_not_done = False
-            not_done_state = None
-            for move in moves:
-                if move.state == 'done':
-                    one_done = True
-                elif move.state != 'cancel':
-                    one_not_done = True
-                    not_done_state = move.state
-            if one_done and one_not_done:
-                product.int_move_availability = u'partial'
-            elif not one_done and one_not_done:
-                product.int_move_availability = not_done_state
             else:
-                product.int_move_availability = moves.filtered(lambda r:r.product_id==product.id).state
-
+                one_done = False
+                one_not_done = False
+                not_done_state = None
+                for move in moves:
+                    if move.state == 'done':
+                        one_done = True
+                    elif move.state != 'cancel':
+                        one_not_done = True
+                        not_done_state = move.state
+                if one_done and one_not_done:
+                    product.int_move_availability = u'partial'
+                elif not one_done and one_not_done:
+                    product.int_move_availability = not_done_state
+                else:
+                    product.int_move_availability = moves.filtered(lambda r:r.product_id.id==product.product_id.id)[0].state
                 
 
     description= fields.Char(string="Description", size=255)

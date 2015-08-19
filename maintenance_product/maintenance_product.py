@@ -566,7 +566,6 @@ class maintenance_intervention_product(models.Model):
             self.cost_price = sale_line_change_product['value'].get('purchase_price',0)
             self.route_id=sale_line_change_product['value'].get('route_id',False)
 
-    
     @api.multi
     def _get_int_move_availability(self):
         all_moves = self.env['stock.move'].search([('intervention_product_id','in',self.mapped('id')),('picking_id.picking_type_id.code','=','internal')])

@@ -569,10 +569,10 @@ class maintenance_intervention_product(models.Model):
     
     @api.multi
     def _get_int_move_availability(self):
-        
+        all_moves = self.env['stock.move'].search([('intervention_product_id','in',self.mapped('id')),('picking_id.picking_type_id.code','=','internal')])
+
         for product in self:
-            moves = self.env['stock.move'].search([('intervention_product_id','=',product.id),('picking_id.picking_type_id.code','=','internal')])
-            
+            moves = all_moves.filtered(lambda r:r.intervention_product_id==product.id)
             if len(moves) == 1 :
                 product.int_move_availability = moves.state
                 return
@@ -592,7 +592,7 @@ class maintenance_intervention_product(models.Model):
                 product.int_move_availability = not_done_state
             else:
                 product.int_move_availability = moves.filtered(lambda r:r.product_id==product.id).state
-    
+
                 
 
     description= fields.Char(string="Description", size=255)

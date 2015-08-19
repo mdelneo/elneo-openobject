@@ -1,5 +1,40 @@
 from openerp import models, fields,api
 
+
+class product_product(models.Model):
+    _inherit = 'product.product'
+    
+    @api.multi
+    @api.onchange('categ_id')
+    @api.depends('categ_id')
+    def get_categ_family(self):
+        for product in self:
+            cat = product.categ_id
+            cats = []
+            while cat:
+                cats.append(cat)
+                cat = cat.parent_id
+            cats.reverse()
+            len_cats = len(cats)              
+            if len_cats > 0:
+                product.categ_dpt = cats[0].name
+            else:
+                product.categ_dpt = ''
+            if len_cats > 1:
+                product.categ_group = cats[1].name
+            else:
+                product.categ_group = ''
+            if len_cats > 2:
+                product.categ_family = cats[2].name
+            else:
+                product.categ_family = ''
+            if len_cats > 3:
+                product.categ_subfamily = cats[3].name
+            else:
+                product.categ_subfamily = ''
+        
+    
+
 class product_template(models.Model):
     _inherit = 'product.template'
     

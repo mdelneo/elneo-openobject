@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+		<!-- PRODUCT VARIANT VIEW -->
+		<record id="product_normal_form_view_elneo_autocompute_saleprice" model="ir.ui.view">
+            <field name="name">product.normal.form.view.elneo.autocompute.saleprice</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="model">product.product</field>
+            <field name="mode">primary</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <field name="lst_price" position="attributes">
+                   <attribute name="readonly">1</attribute>
+                   <attribute name="name">list_price</attribute>
+                </field>
+            </field>
+        </record>
+	
 	
 		<!-- PRODUCT VIEW -->
 		<record id="elneo_product_sale_price_form_view" model="ir.ui.view">

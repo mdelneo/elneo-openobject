@@ -36,10 +36,13 @@ class sale_order(models.Model):
         carrier_product_ids = [c.product_id.id for c in self.env['delivery.carrier'].search([])]
         for line in self.order_line:
             if line.product_id and line.product_id.id in carrier_product_ids: #we should use is_delivery fields but it doesn't works
-                line.update(self.get_delivery_line())
+                delivery_line = self.get_delivery_line()
+                if delivery_line:
+                    line.update(delivery_line)
                 return
-        self.order_line |= self.order_line.new(self.get_delivery_line())
-        
+        delivery_line = self.get_delivery_line()
+        if delivery_line:
+            self.order_line |= self.order_line.new(delivery_line)
             
     def get_delivery_line(self):
         grid_id = self.carrier_id.grid_get(self.partner_shipping_id.id)
@@ -50,6 +53,8 @@ class sale_order(models.Model):
         grid = self.env['delivery.grid'].browse(grid_id)
         taxes = grid.carrier_id.product_id.taxes_id
         fpos = self.fiscal_position or False
+        if not fpos:
+            return False
         taxes = fpos.map_tax(taxes)
         price_unit = grid.get_price(self, time.strftime('%Y-%m-%d'))
         if price_unit:
@@ -70,8 +75,9 @@ class sale_order(models.Model):
     @api.multi
     def onchange_partner_id(self, partner):
         result = super(sale_order, self).onchange_partner_id(partner)
-        carrier_id = int(self.env['ir.config_parameter'].get_param('delivery_method_auto.default_carrier_id',False))
-        result['value']['carrier_id'] = carrier_id
+        if partner:
+            carrier_id = int(self.env['ir.config_parameter'].get_param('delivery_method_auto.default_carrier_id',False))
+            result['value']['carrier_id'] = carrier_id
         return result
     
 class sale_order_line(models.Model):

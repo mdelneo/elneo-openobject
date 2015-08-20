@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+    <record id="view_maintenance_intervention_merge_form" model="ir.ui.view">
+			<field name="name">maintenance.intervention.merge.form</field>
+			<field name="model">maintenance.intervention.merge.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Maintenance intervention merge">
+					<group>
+						<field name="date" />
+						<field name="reference_intervention" domain="[('id','in',intervention_lines[0][2])]" />
+						<field name="reference_installation" invisible="True"/>
+					</group>
+					<field name="intervention_lines" nolabel="1" colspan="8" domain="[('installation_id','=',reference_installation),('state','=','draft')]" >
+						<tree string="Interventions">
+							<field name="code" string="Reference"/>
+							<field name="maint_type"/>
+							<field name="date_start"/>
+						</tree>
+					</field>
+					<footer>
+						<group>
+							<button string="Get All Interventions" name="getAll" type="object" help="Allow you to retrieve all the draft interventions for this installation"/>
+							<button string="Merge" name="merge" type="object" class="oe_highlight" confirm="Do you really want to merge these interventions?" help="Do the installations merge"/>
+						</group>
+					</footer>
+					
+				</form>
+			</field>
+		</record>
+    
+		<act_window
+					id="action_maintenance_intervention_merge" 
+					name="Merge Interventions"
+		            src_model="maintenance.intervention"
+		            res_model="maintenance.intervention.merge.wizard"
+		            view_mode="form"
+		            target="new"
+		            key2="client_action_multi"
+		            />
+            
+	</data>
+</openerp>

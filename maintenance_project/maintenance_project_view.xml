@@ -12,23 +12,10 @@
 					<field name="maintenance_project_id" invisible="True" />
 					<field name="maintenance_project_type" />
 				</field>
-				<field name="time_planned" position="after">
-					<field name="date_scheduled" />
-				</field>
+				
 			</field>
 		</record>
 		
-		<record id="view_maintenance_intervention_tree_maintenance_project_inherit" model="ir.ui.view">
-			<field name="name">maintenance.intervention.tree.maintenance.project.inherit</field>
-			<field name="model">maintenance.intervention</field>
-			<field name="type">tree</field>
-			<field name="inherit_id" ref="maintenance_product.view_maintenance_intervention_maintenance_product_tree" />
-			<field name="arch" type="xml">
-				<field name="date_start" position="after">
-					<field name="date_scheduled" />
-				</field>
-			</field>
-		</record>
 		
 		
 		

@@ -19,8 +19,10 @@ class sale_order_line(models.Model):
         if not 'value' in res:
             res['value'] = {}
             
-        route_id = int(self.env['ir.config_parameter'].get_param('sale_default_route.default_route',False))
-        res['value']['route_id'] = route_id
+        route_param = self.env['ir.config_parameter'].get_param('sale_default_route.default_route',False)
+        if route_param:
+            route_id = int(route_param)
+            res['value']['route_id'] = route_id
         
         return res
           

@@ -115,10 +115,12 @@ class sale_quotation_property(models.Model):
     
 sale_quotation_property()
 
+class sale_order(models.Model):
+    _inherit = 'sale.order'
+    
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
     
-
     @api.multi    
     def product_id_change(self, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
@@ -145,7 +147,7 @@ class sale_order_line(models.Model):
                 "unit":unit
             }
                 
-            return res 
+            return (0,0,res) 
            
         sale_quotation_properties = []
         product_obj = self.env['product.product'].browse(product)

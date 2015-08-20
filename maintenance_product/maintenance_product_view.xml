@@ -189,6 +189,63 @@
 				 -->
 			</field>
 		</record>
+		
+		
+		<!-- KANBAN VIEW -->
+		<record id="view_maintenance_int_available_search" model="ir.ui.view">
+            <field name="name">maintenance.intervention.int.available.search</field>
+            <field name="model">maintenance.intervention</field>
+            <field name="inherit_id" ref="maintenance.view_maintenance_internal_search"/>
+            <field name="arch" type="xml">
+            	<filter name="confirmed" position="attributes">
+            		<attribute name="domain">[('state','=','confirmed'),('available','=',False)]</attribute>
+            	</filter>
+            	<filter name="confirmed" position="before">
+            		<filter name="available" string="Available" domain="[('state','=', 'confirmed'),('available','=',True)]" help="Available Interventions"/>
+            	</filter>
+             </field>
+        </record>
+		
+		<record id="action_maintenance_tree_available" model="ir.actions.act_window">
+            <field name="name">Available Interventions</field>
+            <field name="res_model">maintenance.intervention</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain"></field>
+            <field name="context">{
+                    'search_default_maint_type': [active_id],
+                    'default_maint_type': active_id,
+                    'search_default_available': 1,
+            }
+            </field>
+            <field name="search_view_id" ref="view_maintenance_int_available_search"/>
+        </record>
+        
+		<record id="stock_maintenance_type_available_kanban" model="ir.ui.view">
+            <field name="name">maintenance.int.type.kanban</field>
+            <field name="model">maintenance.intervention.type</field>
+            <field name="inherit_id" ref="maintenance.stock_maintenance_type_kanban"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//kanban/templates//field[@name='count_maintenance_confirmed']/.." position="replace">
+            		<a name="%(action_maintenance_tree_available)d" type="action">
+                        <field name="count_maintenance_available"/> Available
+                    </a>
+            	</xpath>
+                <xpath expr="//kanban/templates//field[@name='count_maintenance_draft']/../.." position="before">
+                	<div t-if="record.count_maintenance_confirmed.raw_value &gt; 0">
+	                     <a name="%(maintenance.action_maintenance_tree_confirmed)d" type="action">
+	                         <field name="count_maintenance_confirmed"/> Confirmed
+	                     </a>
+	                 </div>
+                </xpath>
+            </field>
+        </record>
+                
+		
+		
+		
+		
 
 
 		<!-- INTERVENTION SHORTCUTS -->

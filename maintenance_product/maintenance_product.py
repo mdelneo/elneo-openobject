@@ -29,6 +29,36 @@ def get_datetime(date_field):
     return datetime.strptime(date_field[:19], '%Y-%m-%d %H:%M:%S')
 
 
+class intervention_type(models.Model):
+    _inherit="maintenance.intervention.type"
+    
+    @api.one
+    def _get_maintenance_available(self):
+        
+        domains = {
+            'count_maintenance_draft': [('state', '=', 'draft')],
+            'count_maintenance_confirmed': [('state', '=', 'confirmed'),('available','=',False)],
+            'count_maintenance_available': [('state', '=', 'confirmed'),('available','=',True)],
+        }
+        
+        for field in domains:
+            data = self.env['maintenance.intervention'].read_group(domains[field] +
+                [('state', 'not in', ('done', 'cancel')), ('maint_type', '=', self.id)],
+                ['maint_type'], ['maint_type'])
+            count = dict(map(lambda x: (x['maint_type'] and x['maint_type'][0], x['maint_type_count']), data))
+            setattr(self,field,count.get(self.id, 0)) 
+            #result.setdefault(self.id, {})[field] = count.get(self.id, 0)
+        
+        if self.count_maintenance:
+            self.rate_maintenance_late = self.count_maintenance_late * 100 / (self.count_maintenance_confirmed + self.count_maintenance_available)
+        else:
+            self.rate_maintenance_late = 0
+    
+    
+    count_maintenance_available=fields.Integer(compute=_get_maintenance_available)
+    count_maintenance_confirmed=fields.Integer(compute=_get_maintenance_available)
+    rate_maintenance_late=fields.Integer(compute=_get_maintenance_available)
+
 class maintenance_intervention(models.Model):
     _inherit = 'maintenance.intervention'
     
@@ -589,7 +619,9 @@ class maintenance_intervention_product(models.Model):
                 elif not one_done and one_not_done:
                     product.int_move_availability = not_done_state
                 else:
-                    product.int_move_availability = moves.filtered(lambda r:r.product_id.id==product.product_id.id)[0].state
+                    moves_to_get = moves.filtered(lambda r:r.product_id.id==product.product_id.id)
+                    if len(moves_to_get) > 0:
+                        product.int_move_availability = moves_to_get[0].state
                 
 
     description= fields.Char(string="Description", size=255)

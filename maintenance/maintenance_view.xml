@@ -47,8 +47,7 @@
                 <search string="Interventions">
                 	<field name="name" string="Intervention" filter_domain="['|',('name','ilike', self),('origin','ilike',self)]"/>
                     <filter icon="terp-check" name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft Interventions"/>
-                    <filter icon="terp-camera_test" name="confirmed" string="Confirmed" domain="[('state','=', 'confirmed'),('available','=',False)]" help="Confirmed Interventions"/>
-                    <filter icon="terp-camera_test" name="available" string="Available" domain="[('state','=', 'confirmed'),('available','=',True)]" help="Available Interventions"/>
+                    <filter icon="terp-camera_test" name="confirmed" string="Confirmed" domain="[('state','=', 'confirmed')]" help="Confirmed Interventions"/>
                     <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]" help="Interventions done"/>
                     <separator/>
                     <filter name="late" string="Late" domain="[('date_start','&lt;', time.strftime('%%Y-%%m-%%d %%H:%%M:%%S')),('state','=','confirmed')]" help="Interventions that are late on scheduled time"/>
@@ -90,21 +89,6 @@
             <field name="search_view_id" ref="view_maintenance_internal_search"/>
         </record>
         
-        <record id="action_maintenance_tree_available" model="ir.actions.act_window">
-            <field name="name">Available Interventions</field>
-            <field name="res_model">maintenance.intervention</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form,calendar</field>
-            <field name="domain"></field>
-            <field name="context">{
-                    'search_default_maint_type': [active_id],
-                    'default_maint_type': active_id,
-                    'search_default_available': 1,
-            }
-            </field>
-            <field name="search_view_id" ref="view_maintenance_internal_search"/>
-        </record>
         
         <record id="action_maintenance_tree" model="ir.actions.act_window">
             <field name="name">All Interventions</field>
@@ -162,18 +146,7 @@
                 	<field name="color"/>
                 	<field name="count_maintenance_draft"/>
                 	<field name="count_maintenance_confirmed"/>
-                	<field name="count_maintenance_available"/>
                 	<field name="count_maintenance_late"/>
-                    
-                	<!-- 
-                    
-                    
-                    <field name="count_picking_ready"/>
-                    <field name="count_picking_draft"/>
-                    <field name="count_picking_waiting"/>
-                    <field name="count_picking_late"/>
-                    <field name="count_picking_backorders"/>
-                     -->
                     <templates>
                         <t t-name="kanban-box">
                             <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_stock_picking_type">
@@ -194,16 +167,11 @@
 
                                     <div class="oe_items_list oe_kanban_ellipsis">
                                         <div>
-                                            <a name="%(action_maintenance_tree_available)d" type="action">
-                                                <field name="count_maintenance_available"/> Available
+                                            <a name="%(action_maintenance_tree_confirmed)d" type="action">
+                                                <field name="count_maintenance_confirmed"/> Confirmed
                                             </a>
                                             <a name="%(action_maintenance_tree_done)d" type="action" class="oe_sparkline_bar_link">
                                                 <field name="last_done_maintenance" widget="sparkline_bar" options="{'type': 'tristate', 'colorMap': {'0': 'orange', '-1': 'red', '1': 'green'}}">Last 10 Done Interventions</field>
-                                            </a>
-                                        </div>
-                                        <div t-if="record.count_maintenance_confirmed.raw_value &gt; 0">
-                                            <a name="%(action_maintenance_tree_confirmed)d" type="action">
-                                                <field name="count_maintenance_confirmed"/> Confirmed
                                             </a>
                                         </div>
                                         <div t-if="record.count_maintenance_draft.raw_value &gt; 0">
@@ -234,7 +202,7 @@
         </record>
 
         <record id="action_maintenance_type_form" model="ir.actions.act_window">
-            <field name="name">All Interventions (By Type)</field>
+            <field name="name">Interventions (By Type)</field>
             <field name="res_model">maintenance.intervention.type</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>

@@ -142,8 +142,7 @@ class intervention_type(models.Model):
         '''
         domains = {
             'count_maintenance_draft': [('state', '=', 'draft')],
-            'count_maintenance_confirmed': [('state', '=', 'confirmed'),('available','=',False)],
-            'count_maintenance_available': [('state', '=', 'confirmed'),('available','=',True)],
+            'count_maintenance_confirmed': [('state', '=', 'confirmed')],
             'count_maintenance': [('state', 'in', ('draft', 'confirmed'))],
             'count_maintenance_late': [('date_start', '<', time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)), ('state', '=', 'confirmed')],
         }
@@ -157,7 +156,7 @@ class intervention_type(models.Model):
             #result.setdefault(self.id, {})[field] = count.get(self.id, 0)
         
         if self.count_maintenance:
-            self.rate_maintenance_late = self.count_maintenance_late * 100 / (self.count_maintenance_confirmed + self.count_maintenance_available)
+            self.rate_maintenance_late = self.count_maintenance_late * 100 / self.count_maintenance_confirmed
         else:
             self.rate_maintenance_late = 0
             
@@ -182,8 +181,8 @@ class intervention_type(models.Model):
     
     count_maintenance_draft=fields.Integer(compute=_get_maintenance_count)
     count_maintenance_confirmed=fields.Integer(compute=_get_maintenance_count)
-    count_maintenance_available=fields.Integer(compute=_get_maintenance_count)
     count_maintenance_late=fields.Integer(compute=_get_maintenance_count)
+    count_maintenance=fields.Integer(compute=_get_maintenance_count)
     rate_maintenance_late=fields.Integer(compute=_get_maintenance_count)
     last_done_maintenance=fields.Char('Last Done Interventions',compute=_get_tristate_values)
     

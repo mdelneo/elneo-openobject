@@ -19,6 +19,7 @@ class product_product(models.Model):
 class product_template(models.Model):
     _inherit = 'product.template'
     
+    @api.one
     def _get_is_pneumatics(self):
         is_pneumatics = False 
         if self.web_shop_product or self.categ_dpt in ('Pneumatics','Hydraulics'):

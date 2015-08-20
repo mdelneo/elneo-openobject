@@ -6,6 +6,28 @@ from openerp.tools.translate import _
 
 _logger = logging.getLogger(__name__)
 
+class procurement_order(models.Model):
+    _inherit = 'procurement.order'
+    
+    @api.multi
+    def make_po(self):
+        #to force new purchase order creation, when we call "make po", say to search function of purchase order that it does not exists other purchase order
+        #to do it we pass make_po = True to the context
+        self = self.with_context(make_po=True)
+        res = super(procurement_order, self).make_po()
+        return res
+    
+
+class purchase_order(models.Model):
+    _inherit = 'purchase.order'
+    
+    @api.model
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        #if make_po = True, we simulate that no other purchase order exists, to force new purchase order creation
+        if self._context.get('make_po',False):
+            return self
+        return super(purchase_order, self).search(args, offset=offset, limit=limit, order=order, count=count)
+    
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
     
@@ -48,6 +70,10 @@ class sale_order_line(models.Model):
         res = super(sale_order_line, self).product_id_change_with_wh(pricelist, product, qty=qty,
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
             lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id)
+        
+        if res and res.get('warning',False) and res['warning'].get('title',False) and res['warning']['title'] == _('Configuration Error!'):
+            del res['warning'] 
+            
         
         old_price = self._context.get('price_unit',0)
         new_price = res.get('value',{'price_unit':0}).get('price_unit',0)

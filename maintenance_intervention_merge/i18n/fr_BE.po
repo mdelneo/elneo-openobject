@@ -1,0 +1,168 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* maintenance_intervention_merge
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-20 12:07+0000\n"
+"PO-Revision-Date: 2015-08-20 14:21+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: maintenance_intervention_merge
+#: view:maintenance.intervention.merge.wizard:maintenance_intervention_merge.view_maintenance_intervention_merge_form
+msgid "Allow you to retrieve all the draft interventions for this installation"
+msgstr "Vous permet de récupérer toutes les interventions brouillons pour cette installation"
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.lines,create_uid:0
+#: field:maintenance.intervention.merge.wizard,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.lines,create_date:0
+#: field:maintenance.intervention.merge.wizard,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: maintenance_intervention_merge
+#: view:maintenance.intervention.merge.wizard:maintenance_intervention_merge.view_maintenance_intervention_merge_form
+msgid "Do the installations merge"
+msgstr "Effectue la fusion des interventions"
+
+#. module: maintenance_intervention_merge
+#: view:maintenance.intervention.merge.wizard:maintenance_intervention_merge.view_maintenance_intervention_merge_form
+msgid "Do you really want to merge these interventions?"
+msgstr "Voulez-vous réellement fusionner ces interventions?"
+
+#. module: maintenance_intervention_merge
+#: code:addons/maintenance_intervention_merge/wizard/maintenance_intervention_merge.py:258
+#, python-format
+msgid "Error during merging. Impossible to copy the interventions attributes to the new one!"
+msgstr "Erreur durant la fusion. Impossible de copier les propriétés des interventions vers la nouvelle!"
+
+#. module: maintenance_intervention_merge
+#: view:maintenance.intervention.merge.wizard:maintenance_intervention_merge.view_maintenance_intervention_merge_form
+msgid "Get All Interventions"
+msgstr "Obtenir toutes les interventions"
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.lines,id:0
+#: field:maintenance.intervention.merge.wizard,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.lines,intervention_id:0
+#: field:maintenance.intervention.merge.lines,wizard_id:0
+#: view:maintenance.intervention.merge.wizard:maintenance_intervention_merge.view_maintenance_intervention_merge_form
+#: field:maintenance.intervention.merge.wizard,intervention_lines:0
+msgid "Interventions"
+msgstr "Interventions"
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.lines,write_uid:0
+#: field:maintenance.intervention.merge.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.lines,write_date:0
+#: field:maintenance.intervention.merge.wizard,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: maintenance_intervention_merge
+#: view:maintenance.intervention.merge.wizard:maintenance_intervention_merge.view_maintenance_intervention_merge_form
+msgid "Maintenance intervention merge"
+msgstr "Fusion d'intervention de maintenance"
+
+#. module: maintenance_intervention_merge
+#: view:maintenance.intervention.merge.wizard:maintenance_intervention_merge.view_maintenance_intervention_merge_form
+msgid "Merge"
+msgstr "Fusionner"
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.wizard,date:0
+msgid "Merge Date"
+msgstr "Date de fusion"
+
+#. module: maintenance_intervention_merge
+#: model:ir.actions.act_window,name:maintenance_intervention_merge.action_maintenance_intervention_merge
+msgid "Merge Interventions"
+msgstr "Fusionner les Interventions"
+
+#. module: maintenance_intervention_merge
+#: code:addons/maintenance_intervention_merge/wizard/maintenance_intervention_merge.py:164
+#, python-format
+msgid "Merging process interrupted : impossible to change the interventions state."
+msgstr "Fusion interrompue : impossible de changer le statut des interventions."
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.lines,date_start:0
+msgid "Planned Start Date"
+msgstr "Date de début planifiée"
+
+#. module: maintenance_intervention_merge
+#: code:addons/maintenance_intervention_merge/wizard/maintenance_intervention_merge.py:268
+#, python-format
+msgid "Please select an intervention!"
+msgstr "Veuillez sélectionner une intervention!"
+
+#. module: maintenance_intervention_merge
+#: view:maintenance.intervention.merge.wizard:maintenance_intervention_merge.view_maintenance_intervention_merge_form
+msgid "Reference"
+msgstr "Référence"
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.wizard,reference_installation:0
+msgid "Reference Installation"
+msgstr "Installation de Référence"
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.wizard,reference_intervention:0
+msgid "Reference Intervention"
+msgstr "Intervention de référence"
+
+#. module: maintenance_intervention_merge
+#: help:maintenance.intervention.merge.wizard,date:0
+msgid "The date where to group the selected interventions"
+msgstr "La date à laquelle grouper les interventions sélectionnées"
+
+#. module: maintenance_intervention_merge
+#: field:maintenance.intervention.merge.lines,maint_type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: maintenance_intervention_merge
+#: code:addons/maintenance_intervention_merge/wizard/maintenance_intervention_merge.py:54
+#, python-format
+msgid "You cannot merge interventions on different installations! Please select interventions on the same installation."
+msgstr "Vous ne pouvez pas fusionner des interventions d'instalaltions différentes! Veuillez sélectionner des interventions de même installation"
+
+#. module: maintenance_intervention_merge
+#: code:addons/maintenance_intervention_merge/wizard/maintenance_intervention_merge.py:57
+#, python-format
+msgid "You cannot merge interventions which are not draft!"
+msgstr "Vous ne pouvez pas fusionner des interventions qui ne sont pas en brouillon!"
+
+#. module: maintenance_intervention_merge
+#: code:addons/maintenance_intervention_merge/wizard/maintenance_intervention_merge.py:160
+#, python-format
+msgid "You didnt provide any Date where to place the new intervention!"
+msgstr "Vous n'avez pas fourni de Date vers où placer la nouvelle intervention!"
+
+#. module: maintenance_intervention_merge
+#: code:addons/maintenance_intervention_merge/wizard/maintenance_intervention_merge.py:157
+#, python-format
+msgid "You didnt provide any Reference Intervention to help the merging process!"
+msgstr "Vous n'avez pas fourni d'Intervention de référence afin de faciliter le processus de fusion!"

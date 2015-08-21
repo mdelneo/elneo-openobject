@@ -34,6 +34,7 @@ class sale_order_line(models.Model):
 
     
     @api.one
+    @api.onchange('route_id')
     def get_procurement_path(self):
         if self.procurement_path_backup:
             self.procurement_path = self.procurement_path_backup

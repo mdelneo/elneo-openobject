@@ -46,13 +46,22 @@
             <field name="arch" type="xml">
                 <search string="Interventions">
                 	<field name="name" string="Intervention" filter_domain="['|',('name','ilike', self),('origin','ilike',self)]"/>
-                    <filter icon="terp-check" name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft Interventions"/>
-                    <filter icon="terp-camera_test" name="confirmed" string="Confirmed" domain="[('state','=', 'confirmed')]" help="Confirmed Interventions"/>
-                    <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]" help="Interventions done"/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft Interventions"/>
+                    <filter name="confirmed" string="Confirmed" domain="[('state','=', 'confirmed')]" help="Confirmed Interventions"/>
+                    <filter name="done" string="Done" domain="[('state','=','done')]" help="Interventions done"/>
                     <separator/>
                     <filter name="late" string="Late" domain="[('date_start','&lt;', time.strftime('%%Y-%%m-%%d %%H:%%M:%%S')),('state','=','confirmed')]" help="Interventions that are late on scheduled time"/>
                     <field name="maint_type"/>
                     <separator/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Technician" icon="terp-personal" domain="[]" context="{'group_by':'technicians'}"/>
+                        <filter string="Installation" icon="terp-product" domain="[]" context="{'group_by':'installation_id'}"/>
+                        <filter string="Address" icon="terp-personal+" domain="[]" context="{'group_by':'address_id'}"/>
+                        <filter string="Customer" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Type" domain="[]" context="{'group_by':'maint_type'}"/>
+                        <filter string="Task state" domain="[]" context="{'group_by':'task_state'}"/>
+                    </group>
                 </search>
              </field>
        	</record>

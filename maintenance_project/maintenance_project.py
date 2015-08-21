@@ -161,7 +161,7 @@ class maintenance_project(models.Model):
     date_start=fields.Date('Start date')
     date_end=fields.Date('End date')
     sale_order_id=fields.Many2one('sale.order', string="Sale order", index=True, readonly=True,track_visibility='onchange') 
-    enable=fields.Boolean('Active', index=True,default=False) 
+    #enable=fields.Boolean('Active', index=True,default=False)
     invoices=fields.Many2many(related="sale_order_id.invoice_ids", string="Invoices", readonly=True)
     interventions=fields.One2many("maintenance.intervention",compute=_get_interventions, string="Interventions history", readonly=True)
     maintenance_elements=fields.Many2many("maintenance.element", 'maintenance_project_elements', 'project_id', 'element_id', "Maintenance elements")
@@ -175,14 +175,14 @@ class maintenance_project(models.Model):
     @api.constrains('date_start','date_end','installation_id')
     def _check_contract_dates(self):
         for project in self: 
-            if not project.enable or not project.date_start or not project.date_end or not project.installation_id:    
+            if not project.state=='active' or not project.date_start or not project.date_end or not project.installation_id:    
                 continue
             else:
                 for install_project in project.installation_id.maintenance_projects:                
-                    if install_project.enable and project.enable and \
+                    if install_project.state=='active' and project.state=='active' and \
                         ((install_project.date_start < project.date_end and install_project.date_start > project.date_end) or (install_project.date_end < project.date_end and install_project.date_end > project.date_start) or \
                         (project.date_start < install_project.date_end and project.date_start > install_project.date_end) or (project.date_end < install_project.date_end and project.date_end > install_project.date_start)):
-                        raise Warning(_('Several maintenance projects are enable during the same period'))
+                        raise Warning(_('Several maintenance projects are active during the same period'))
         return True
 
     @api.one
@@ -265,7 +265,7 @@ class maintenance_project(models.Model):
             
             sale_order = self.env['sale.order'].create(default_values)
             self.sale_order_id=sale_order
-            self.enable=True
+            self.state='active'
             
             
             #create sale order lines from maintenance intervention products of current intervention
@@ -340,7 +340,7 @@ class maintenance_intervention(models.Model):
     @api.depends('tasks.date_start')
     def get_maintenance_project(self):
        
-        project = self.compute_project(date_start=False, installation_id=False, intervention_id=self.id, enable=None)
+        project = self.compute_project(date_start=False, installation_id=False, intervention_id=self.id)
 
         self.maintenance_project_id = project
         
@@ -376,7 +376,7 @@ class maintenance_intervention(models.Model):
     
     @api.model
     @api.returns('maintenance.project')
-    def compute_project(self,date_start=False, installation_id=False, intervention_id=False, enable=False):
+    def compute_project(self,date_start=False, installation_id=False, intervention_id=False, state=False):
         '''
         @return: maintenance.project
         '''
@@ -394,8 +394,8 @@ class maintenance_intervention(models.Model):
         search_filter = [('installation_id','=',installation_id),('date_start','<',date_start),'|',('date_end','>',date_start),('date_end','=',None)]
         
         #enable = None : don't filter on "enable" field
-        if enable is not None:
-            search_filter.append(('enable','=',enable))
+        if state:
+            search_filter.append(('state','=',state))
         maintenance_project_ids = self.env['maintenance.project'].search(search_filter)
         '''if len(maintenance_project_ids) > 1:
             installation = self.pool.get("maintenance.installation").browse(cr, uid, installation_id, context=context)

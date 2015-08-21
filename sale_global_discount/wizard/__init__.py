@@ -1,0 +1,1 @@
+import sale_global_discount_wizard

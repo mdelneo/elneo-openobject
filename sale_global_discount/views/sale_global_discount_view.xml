@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+ 		<record model="ir.ui.view" id="view_order_form_sale_global_discount">
+			<field name="name">sale.order.form.sale.global.discount</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='order_line']" position="after">
+					<button name="open_global_discount_wizard"  string="Global discount" type="object" icon="terp-camera_test" colspan="4"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

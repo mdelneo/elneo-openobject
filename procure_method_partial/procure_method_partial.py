@@ -164,8 +164,8 @@ class procurement_order(models.Model):
         return super(procurement_order, self)._run(procurement)
     
     @api.multi
-    def run(self):
-        res = super(procurement_order, self).run()
+    def run(self, autocommit=False):
+        res = super(procurement_order, self).run(autocommit)
         move_to_confirm = []
         for procurement in self:
             if procurement.state == "running" and procurement.rule_id and procurement.rule_id.action == "moves":

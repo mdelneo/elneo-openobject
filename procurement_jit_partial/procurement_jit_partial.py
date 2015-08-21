@@ -26,8 +26,8 @@ class procurement_order(models.Model):
     _inherit = "procurement.order"
 
     @api.multi
-    def run(self):
-        res = super(procurement_order, self).run()
+    def run(self, autocommit=False):
+        res = super(procurement_order, self).run(autocommit)
 
         #simulate JIT
         procurements = self.search([('move_dest_id.procurement_id', 'in', [p.id for p in self]), ('state','!=','running')], order='id')

@@ -98,7 +98,7 @@ class intervention_merge(models.TransientModel):
 
     
     intervention_lines = fields.Many2many('maintenance.intervention','maintenance_intervention_merge_rel','wizard_id','intervention_id',default=_get_interventions,string='Interventions')
-    date = fields.Datetime(string='Merge Date',default=_get_intervention_date,help='The date where to group the selected interventions',required=True)
+    date = fields.Datetime(string='Merge Date',default=_get_intervention_date,help='The date where to group the selected interventions')
     reference_intervention = fields.Many2one('maintenance.intervention',default=_get_reference_intervention,string='Reference Intervention',required=True) 
     reference_installation = fields.Many2one('maintenance.installation',default=_get_reference_installation,string='Reference Installation')    
    
@@ -155,9 +155,6 @@ class intervention_merge(models.TransientModel):
 
         if(not self.reference_intervention):
             raise Warning(_('You didn''t provide any Reference Intervention to help the merging process!'))
-        
-        if(not self.date):
-            raise Warning(_('You didn''t provide any Date where to place the new intervention!'))
         
         # Cancel current interventions
         if (not self._cancel_interventions(self.intervention_lines)):

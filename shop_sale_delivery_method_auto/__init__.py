@@ -1,0 +1,1 @@
+import shop_sale_delivery_method_auto

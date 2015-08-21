@@ -107,6 +107,13 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     @api.multi
+    def onchange_pricelist_id(self, pricelist_id, order_lines):
+        res = super(sale_order, self).onchange_pricelist_id(pricelist_id, order_lines)
+        if res and 'warning' in res:
+            del res['warning']
+        return res
+    
+    @api.multi
     def copy(self, default=None):
         if not default:
             default = {}

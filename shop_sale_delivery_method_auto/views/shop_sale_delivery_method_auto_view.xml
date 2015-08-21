@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_order_withcarrier_form_shop_sale_delivery_method_auto" model="ir.ui.view">
+			<field name="name">view.order.withcarrier.form.shop.sale.delivery.method.auto</field>
+			<field name="inherit_id" ref="delivery_method_auto.view_order_withcarrier_form_delivery_method_auto" />
+			<field name="model">sale.order</field>
+			<field name="arch" type="xml">
+				<xpath expr="//label[@for='carrier_id']/.." position="attributes">
+					<attribute name="attrs">{'invisible': [('shop_sale','=',True)]}</attribute>
+				</xpath>
+				
+				<xpath expr="//field[@name='partner_id']" position="attributes">
+					<attribute name="on_change">onchange_partner_id_with_shop_sale(partner_id, shop_sale)</attribute>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

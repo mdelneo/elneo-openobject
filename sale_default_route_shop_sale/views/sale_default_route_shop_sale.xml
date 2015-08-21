@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="view_order_form_sale_default_route_shop_sale" model="ir.ui.view">
+            <field name="name">view.sale.order.form.sale.default_route_shop_sale</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="attributes">
+                	<attribute name="context">{'shop_sale':parent.shop_sale,'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}</attribute>
+                </xpath>
+            </field>
+        </record>
+		
+	</data>
+</openerp>

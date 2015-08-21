@@ -1,2 +1,2 @@
 import res_config
-import sale
+import sale_default_route

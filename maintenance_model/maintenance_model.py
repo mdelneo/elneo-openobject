@@ -583,13 +583,13 @@ class maintenance_intervention(models.Model):
     _inherit = 'maintenance.intervention'
     
     @api.model
-    def compute_project(self,date_start, installation_id, intervention_id=False, enable=False, context=None):
+    def compute_project(self,date_start, installation_id, intervention_id=False, state=False):
         if intervention_id and self.browse(intervention_id).project_id:
             return self.browse(intervention_id).project_id
-        return super(maintenance_intervention, self).compute_project(date_start, installation_id, intervention_id, enable)
+        return super(maintenance_intervention, self).compute_project(date_start, installation_id, intervention_id, state)
     
     project_id=fields.Many2one("maintenance.project", 'Project')
-    project_enable=fields.Boolean(related='project_id.enable', store=True, string="Project enable")
+    project_state=fields.Selection([('draft','Draft'),('active','Active'),('disabled','Disabled')],related='project_id.state', store=True, string="Project state")
     model_and_iteration_json=fields.Text("Model and iteration") 
     expected_time_of_use=fields.Float("Expected time of use") 
     intervention_model_id=fields.Many2one('maintenance.intervention.model', 'Intervention model')
@@ -603,7 +603,7 @@ class maintenance_installation(models.Model):
     @api.multi
     def action_generate_project_from_installation(self):
         
-        partial_id = self.env['generate.project.wizard'].with_context(installation_ids=self._ids).create({'installation_id':self._ids[0]})
+        #partial_id = self.env['generate.project.wizard'].with_context(installation_ids=self._ids).create({'installation_id':self._ids[0]})
         
         context = self.env.context.copy()
         context.update({'installation_ids':self._ids})
@@ -614,7 +614,7 @@ class maintenance_installation(models.Model):
             'view_id': False,
             'view_type': 'form',
             'res_model': 'generate.project.wizard',
-            'res_id': partial_id,
+            #'res_id': partial_id,
             'type': 'ir.actions.act_window',
             'nodestroy': True,
             'target': 'new',

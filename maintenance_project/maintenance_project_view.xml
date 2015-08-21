@@ -97,14 +97,19 @@
 								<field name="project_type_id" />
 								<field name="date_start" />
 								<field name="date_end" />
-								<field name="enable" />
+								<field name="state" />
 							</tree>
 							<form string="Maintenance project">
-								<field name="code" />
-								<field name="project_type_id" widget="selection" />
-								<field name="intervention_delay_id" widget="selection" />
-								<field name="date_start" />
-								<field name="date_end" />
+								<header>
+									<field name="state" widget="statusbar" statusbar_visible="draft,active,disabled"/>
+								</header>
+								<group>
+									<field name="code" />
+									<field name="project_type_id" widget="selection" />
+									<field name="intervention_delay_id" widget="selection" />
+									<field name="date_start" />
+									<field name="date_end" />
+								</group>
 								<notebook colspan="4">
 									<page string="General">
 										<separator string="Maintenance elements" colspan="4" />
@@ -132,10 +137,8 @@
 										<field name="interventions" nolabel="1" colspan="4" />
 									</page>
 								</notebook>
-								<button name="action_create_update_sale_order" type='object'
-									string='Create/update sale' icon="gtk-execute"
-									colspan="2" />
-								<field name="enable" />					
+								<!-- <button name="action_create_update_sale_order" type='object' string='Create/update sale' /> -->
+													
 							</form>
 						</field>
 					</page>
@@ -285,7 +288,6 @@
 					<field name="sale_order_id" />
 					<field name="date_start" />
 					<field name="date_end" />
-					<field name="enable" />
 					<field name="state" sum="Status" />
 				</tree>
 			</field>
@@ -399,7 +401,7 @@
 			<field name="view">form</field>
 			<field name="view_mode">tree,form</field>
 			<field name="search_view_id" ref="view_maintenance_project_account_search"/>
-			<field name="context">{"search_default_enable":1}</field>
+			<field name="context">{"search_default_state":'active'}</field>
 		</record>
 		
 		
@@ -482,7 +484,7 @@
 			<field name="res_model">maintenance.project.budget.line.type</field>
 			<field name="view">form</field>
 			<field name="view_mode">tree,form</field>
-			<field name="context">{"search_default_enable":1}</field>
+			<field name="context">{"search_default_state":'active'}</field>
 		</record>
 		
 		<menuitem action="action_maintenance_project_budget_line_type" id="menu_maintenance_project_budget_line_type"

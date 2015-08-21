@@ -41,14 +41,23 @@ class generate_project_wizard(models.TransientModel):
                     'project_type_id':wizard.project_type_id.id, 
                     'intervention_delay_id':wizard.intervention_delay_id.id, 
                     'installation_id':installation_id, 
-                    'enable':False, 
                     'maintenance_elements':[(4,elt.id) for elt in wizard.maintenance_element_ids]
                 })
         #generate interventions
         projects.generate_interventions()
         return {}
     
-    installation_id=fields.Many2one('maintenance.installation', 'Installations')
+    def _get_installation_id(self):
+        
+        active_id = self.env.context.get('active_id', False)
+        if active_id and (self.env.context.get('active_model', False) == 'maintenance.installation'):
+            installation = self.env['maintenance.installation'].browse(active_id)
+            return installation.id
+        
+        
+            
+    
+    installation_id=fields.Many2one('maintenance.installation', 'Installation',default=_get_installation_id,readonly=True)
     date_start=fields.Date("Begin", required=True) 
     date_end=fields.Date("End", required=True)
     project_type_id=fields.Many2one('maintenance.project.type', string="Type", index=True, required=True)

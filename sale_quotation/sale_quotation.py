@@ -5,17 +5,6 @@ from openerp import models,fields,api
 from operator import itemgetter
 import re
 
-class res_config(models.TransientModel):
-    _inherit = 'sale.config.settings'
-
-    sale_quotation_default_validity = fields.Char('Default quotation validity', translate=True, help='The default quotation validity in a sale order.')
-   
-    @api.multi
-    def set_sale_quotation_default_validity(self):
-        self.env['ir.config_parameter'].set_param('sale_quotation.sale_quotation_default_validity',repr(self.sale_quotation_default_validity))
-        
-res_config()
-
 class sale_quotation_text_element(models.Model):
     _name = 'sale_quotation.text.element'
     _description = "Quotation elements are appendix to add inside a quotation"
@@ -116,13 +105,6 @@ class sale_order(models.Model):
             res['value'] = {}
         partner_obj = self.env['res.partner'].browse(partner)
         res['value']['quotation_text_elements'] = self._get_default_quotation_text_elements(partner_obj)
-        quotation_validity = self.env['ir.translation']._get_source('sale.config.settings,sale_quotation_default_validity', 'model', self.env['res.partner'].browse(partner).lang)
-        if not quotation_validity:
-            quotation_validity = self.env['ir.config_parameter'].get_param('sale_quotation.sale_quotation_default_validity')
-        #prevent bug with unicode
-        if quotation_validity and quotation_validity[0:2] == "u'":
-            quotation_validity = quotation_validity[2:-1]
-        res['value']['quotation_validity'] = quotation_validity
         return res
     
     def _get_default_quotation_text_elements(self, partner):

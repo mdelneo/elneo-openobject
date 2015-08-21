@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-		<record id="view_sale_quotation_settings" model="ir.ui.view">
-            <field name="name">sale quotation settings</field>
-            <field name="model">sale.config.settings</field>
-            <field name="inherit_id" ref="sale_stock.view_sales_config_sale_stock"/>
-            <field name="arch" type="xml">
-            	<xpath expr="//div[@name='Sale Features']" position="inside">
-                     <div>
-                     	<label for="sale_quotation_default_validity" />
-						<field name="sale_quotation_default_validity" class="oe_inline" />
-                     </div>
-                 </xpath>
-            </field>
-        </record>
-	
-	
-	
 		<record model="ir.ui.view" id="view_sale_quotation_text_element_form">
 			<field name="name">sale_quotation.text.element.form</field>
 			<field name="model">sale_quotation.text.element</field>

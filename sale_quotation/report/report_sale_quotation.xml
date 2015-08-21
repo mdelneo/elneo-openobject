@@ -175,7 +175,7 @@
 			</xpath>
 			
 			<xpath expr="//p[@t-field='o.note']" position="before">
-				<p>Quotation validity : <span t-field='o.quotation_validity' /></p>
+				<p>Quotation validity : <span t-field='o.quotation_validity' /><t t-if="not o.quotation_validity">One month</t></p>
 			</xpath>
 			
 			<xpath expr="//p[@t-if='o.payment_term.note']" position="attributes">

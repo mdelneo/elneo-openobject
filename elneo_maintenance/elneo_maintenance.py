@@ -18,7 +18,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from openerp import models, fields, api, _
 
 class maintenance_intervention_product(models.Model):
@@ -66,17 +65,68 @@ class maintenance_installation(models.Model):
     maintenance_product_description=fields.Text("Maintenance products description")
     
 class maintenance_intervention(models.Model):
+    _inherit='maintenance.intervention'
     
     @api.multi
     def write(self,vals):
         res = super(maintenance_intervention, self).write(vals)
-        if 'contact_address_id' in vals:
-            sale_order_pool = self.env['sale.order']            
+        if 'contact_address_id' in vals:            
             for intervention in self:
                 if intervention.sale_order_id:
                     intervention.sale_order_id.quotation_address_id = vals['contact_address_id']
         return res
     
+    warehouse_id = fields.Many2one(related='sale_order_id.warehouse_id', string="Warehouse")
+    installation_warehouse_id = fields.Many2one(related='installation_id.warehouse_id',  string="Warehouse")
+
+class maintenance_element(models.Model):
+    _inherit = 'maintenance.element'
+    
+    @api.multi
+    def import_timeofuse(self):
+        
+        return {
+                'name':_("Import time of use"),
+                'view_mode': 'form',
+                'view_type': 'form',
+                'res_model': 'maintenance.element.timeofuse.wizard',
+                'type': 'ir.actions.act_window',
+                'nodestroy': True,
+                'target': 'new',
+                'domain': '[]',
+                'context': dict(self.env.context, active_ids=self._ids)
+            }
+        
+    @api.one
+    @api.depends('maintenance_projects')
+    def _is_under_project(self):
+        for project in self.maintenance_projects:
+            if project.active:
+                for project_elt in project.maintenance_elements:
+                    if project_elt.id == self.id: 
+                        self.is_under_project = True
+            break
+
+      
+    power = fields.Float("Power (kW)")
+    maintenance_partner = fields.Char(string="Maintenance partner", size=255)
+    under_competitor_contract = fields.Boolean("Under competitor contract")
+    end_of_current_contract = fields.Date('End of current contract')
+    supplier_id = fields.Many2one('res.partner', string='Supplier')
+    under_project = fields.Boolean(compute=_is_under_project,  string="Under project", readonly=True, store=True)                                                    
+    
+
+    
+class maintenance_project(models.Model):
+    _inherit = 'maintenance.project'
+    
+    intervention_months = fields.Text("Intervention months")
+    annual_visits_number = fields.Integer("Number of annual visits")
+    machines = fields.Text("Machines", readonly=False)        
+    nom_visual = fields.Char("Nom visual", size=255, readonly=True)
+    entreprise_visual = fields.Text("Entreprise visual", readonly=True)
+    client_visual = fields.Char("Client visual", size=255, readonly=True)
+    personne_visual = fields.Char("Personne visual", size=255, readonly=True)
     
 class sale_order(models.Model):
     _inherit='sale.order'
@@ -131,53 +181,7 @@ maintenance_installation()
 
 class maintenance_element(osv.osv):
     _inherit = 'maintenance.element'
-    
-    def import_timeofuse(self,cr,uid,ids,context=None):
-        
-        return {
-                'name':_("Import time of use"),
-                'view_mode': 'form',
-                'view_type': 'form',
-                'res_model': 'maintenance.element.timeofuse.wizard',
-                'type': 'ir.actions.act_window',
-                'nodestroy': True,
-                'target': 'new',
-                'domain': '[]',
-                'context': dict(context, active_ids=ids)
-            }
-        
-    def _is_under_project(self, cr, uid, ids, field_name, arg, context=None):
-        res = {}
-        for element in self.browse(cr, uid, ids, context):
-            res[element.id] = False
-            for project in element.maintenance_projects:
-                if project.active:
-                    for project_elt in project.maintenance_elements:
-                        if project_elt.id == element.id: 
-                            res[element.id] = True
-                break
-        return res
-                 
-    def get_elements_from_project(self, cr, uid, ids, c={}):
-        res = []
-        for project in self.pool.get("maintenance.project").browse(cr, uid, ids, c):
-            for element in project.maintenance_elements:
-                res.append(element.id)
-        return res
-                                                        
-    
-    _columns = {
-        'brand':fields.many2one('maintenance.element.brand', string="Brand"), 
-        'power':fields.float("Power (kW)"),
-        'maintenance_partner':fields.char(string="Maintenance partner", size=255), 
-        'under_competitor_contract':fields.boolean("Under competitor contract"), 
-        'end_of_current_contract':fields.date('End of current contract'), 
-        'supplier_id':fields.many2one('res.partner', string='Supplier'),
-        'under_project':fields.function(_is_under_project, type='boolean', string="Under project", method=True, readonly=True, 
-                                        store={'maintenance.project': (get_elements_from_project, ['maintenance_elements'], 20),})
-                
-    } 
-    
+
     _defaults = {
         'main_element':lambda self, cr, uid, context : context['default_main'] if context and 'default_main' in context else False 
     }
@@ -207,7 +211,6 @@ class maintenance_intervention(osv.osv):
     _columns = {
         'blocked' : fields.related('partner_id','blocked', string='Customer blocked', type="boolean"), 
         'shop_id':fields.related('sale_order_id','shop_id', type="many2one", relation="sale.shop", string="Shop"),         
-        'installation_shop_id':fields.related('installation_id','shop_id', type="many2one", relation="sale.shop", string="Shop"),
         'create_uid': fields.many2one('res.users', 'Creation user', readonly=True),
         'write_uid':  fields.many2one('res.users', 'Last Modification User', readonly=True),
         'installation_zip':fields.related('installation_id','address_id','zip',type="char",size=255, string="Zip", store=True),
@@ -1027,33 +1030,6 @@ class maintenance_project_initial_cpi_id_compute(osv.osv_memory):
         return {'type': 'ir.actions.act_window_close'}
 maintenance_project_initial_cpi_id_compute()
 
-class maintenance_project(osv.osv):
-    _inherit = 'maintenance.project'
-    
-    #def _get_contract_file_name(self, cr, uid, ids, field_names, args, context=None):
-        #result = {}
-        #for project in self.browse(cr, uid, ids, context):
-            #result[project.id] = project.code+'.pdf'
-        #return result
-    
-    _columns = {
-        'intervention_months' : fields.text("Intervention months"),
-        'annual_visits_number' : fields.integer("Number of annual visits"),
-                
-        'machines' : fields.text("Machines", readonly=False),        
-        'nom_visual':fields.char("Nom visual", size=255, readonly=True),
-        'entreprise_visual':fields.text("Entreprise visual", readonly=True),
-        'client_visual':fields.char("Client visual", size=255, readonly=True),
-        'personne_visual':fields.char("Personne visual", size=255, readonly=True),
-        
-        #disable contract in fields.binary -> performances issues 
-        #'contract_file':fields.binary("Contract file (PDF)"),
-        #'contract_file_name': fields.function(_get_contract_file_name, type="char", size=255, readonly=True, method=True),
-    }
-    
-    _defaults = {
-        #'contract_file_name': 'contract.pdf',
-    }
     
     def action_create_update_sale_order(self, cr, uid, ids, context):
         sale_order_pool = self.pool.get("sale.order")
@@ -1087,15 +1063,6 @@ class maintenance_project(osv.osv):
     
     
 maintenance_project()
-
-class maintenance_project_delay(osv.osv):
-    _inherit = 'maintenance.project.delay'
-    
-    _columns = {
-        'price':fields.float("Price")
-    }
-    
-maintenance_project_delay()
 
 
 '''

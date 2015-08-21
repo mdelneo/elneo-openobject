@@ -27,5 +27,26 @@
 				</separator>
 			</field>
 		</record>
+		<record id="view_maintenance_project_elneo_form" model="ir.ui.view">
+			<field name="name">maintenance.project.elneo.form</field>
+			<field name="model">maintenance.project</field>
+			<field name="inherit_id" ref="maintenance_project.view_maintenance_project_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<page string="General" position="after">
+					<page string="Visual">
+						<group>
+							<field name="machines" />
+						</group>
+						<group>
+							<field name="nom_visual" />
+							<field name="entreprise_visual" />
+							<field name="client_visual"/>
+							<field name="personne_visual" />
+						</group>
+					</page>
+				</page>
+			</field>
+		</record>
 	</data>
 </openerp>

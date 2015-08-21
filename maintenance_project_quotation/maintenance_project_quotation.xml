@@ -150,7 +150,7 @@
 			<field name="view">form</field>
 			<field name="view_mode">tree,form</field>
 			<field name="search_view_id" ref="maintenance_project.view_maintenance_project_account_search"/>
-			<field name="context">{"search_default_enable":1}</field>
+			<field name="context">{"search_default_state":'active'}</field>
 			<field name="domain">[('state','in',['draft','active','disabled'])]</field>
 		</record>
 		
@@ -161,7 +161,7 @@
 			<field name="view">form</field>
 			<field name="view_mode">tree,form</field>
 			<field name="search_view_id" ref="view_maintenance_project_quotation_search"/>
-			<field name="context">{"search_default_enable":1}</field>
+			<field name="context">{"search_default_state":'active'}</field>
 			<field name="domain">[('state','not in',['draft','active','disabled'])]</field>
 		</record>
 		

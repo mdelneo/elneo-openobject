@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+       
+     <record model="ir.ui.view" id="sale_global_discount_view">
+		<field name="name">sale.global.discount.wizard.form</field>
+		<field name="model">sale.global.discount.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Global Discount">
+				<group>
+					<div>
+						<label string="Discount" for="discount" class="oe_inline" />
+						<field name="discount" class="oe_inline" />
+						<label string="%" class="oe_inline" />
+						<button string="process" name="process" type="object" icon="gtk-ok" class="oe_inline" />
+					</div>
+				</group>
+			</form>
+		</field>
+	</record>
+
+    </data>
+</openerp>

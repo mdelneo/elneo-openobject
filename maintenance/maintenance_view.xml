@@ -191,7 +191,7 @@
                                             <a name="%(action_maintenance_tree)d" type="action">All Interventions</a>
                                         </div>
                                     </div>
-                                    <div class="oe_picking_type_gauge" style="text-align:center;">
+                                    <div class="oe_picking_type_gauge" style="text-align:center;margin-top:10px;">
                                         <field name="rate_maintenance_late" widget="gauge" style="width:150px; height: 110px;" options="{'levelcolors': ['#a9d70b', '#f9c802', '#ff0000'], 'action_jump': '%(action_maintenance_tree_late)d'}">Late (%%)</field>
                                         <div class="oe_gauge_labels">
                                             <div class="oe_gauge_label_column">

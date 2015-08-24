@@ -196,12 +196,17 @@ class sale_order(models.Model):
     @api.constrains('carrier_id','shop_sale')
     @api.one
     def _check_carrier_id(self):
-        if not self.shop_sale and not self.carrier_id:
+        from_opportunity = False
+        if self._context and self._context.get('active_model',False) and self._context['active_model'] == 'crm.lead':
+            from_opportunity = True
+        if not self.shop_sale and not self.carrier_id and not from_opportunity:
             raise ValidationError("A delivery method has to be chosen")
     
     @api.depends('purchase_ids')
+    @api.multi
     def _count_all(self):
-        self.purchase_count=len(self.purchase_ids)
+        for sale in self:
+            sale.purchase_count=len(sale.purchase_ids)
     
     purchase_count = fields.Integer(compute=_count_all, method=True)
     

@@ -20,6 +20,18 @@
             <field name="domain">[('is_company','=',False)]</field>
         </record>
         
+        <!-- Partner search -->
+        <record id="view_res_partner_filter_elneo_crm" model="ir.ui.view">
+            <field name="name">res.partner.select.elneo.crm</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='name']" position="after">
+            		<field name="vat" />
+            	</xpath>
+            </field>
+        </record>
+        
         <!-- PARTNER TREE -->
         <record id="view_partner_tree_elneo" model="ir.ui.view">
             <field name="name">res.partner.tree.elneo</field>

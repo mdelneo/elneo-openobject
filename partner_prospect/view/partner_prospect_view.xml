@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_partner_form_partner_prospect" model="ir.ui.view">
+			<field name="name">view.partner.form.partner.prospect</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field eval="1" name="priority" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@name='sales_purchases']//field[@name='customer']" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</xpath>
+				<xpath expr="//page[@name='sales_purchases']//field[@name='customer']" position="after">
+					<field name="customer_prospect" />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

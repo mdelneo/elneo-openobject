@@ -87,3 +87,4 @@ class sale_order_line(models.Model):
                     cr.execute('insert into sale_order_invoice_rel (order_id,invoice_id) values (%s,%s)', (order.id, res))
                     self.invalidate_cache(cr, uid, ['invoice_ids'], [order.id], context=context)
         return res
+    

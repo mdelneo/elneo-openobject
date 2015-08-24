@@ -13,7 +13,7 @@ class res_partner(models.Model):
             for partner in partners_with_same_ref:
                 if partner.id != self.id:
                     raise ValidationError(_('Another partner exists with the same reference (%s)')%(self.ref,))
-            partners_with_same_name = self.search([('name','=',self.name)])
+            '''partners_with_same_name = self.search([('name','=',self.name)])
             for partner in partners_with_same_name:
                 if partner.id != self.id:
-                    raise ValidationError(_('Another partner exists with the same name (%s)')%(self.name,))
+                    raise ValidationError(_('Another partner exists with the same name (%s)')%(self.name,))'''

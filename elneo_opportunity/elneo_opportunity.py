@@ -19,7 +19,7 @@ class crm_case_stage(models.Model):
     
 class crm_lead(models.Model):
     
-    _inherit = 'crm.lead'
+    _inherit = ['crm.lead']
     
     _order = 'date_action desc' 
     
@@ -107,6 +107,18 @@ class crm_lead(models.Model):
         res['state'] = 'open'
         res['date_action'] = (datetime.now()+timedelta(days=self.env['res.users'].browse(self._uid).days_before_quotation_relaunch)).strftime('%Y-%m-%d')
         res['user_id'] = self._uid
+        return res
+    
+    
+    #display notification number of opportunity to recall 
+    @api.model
+    def _needaction_domain_get(self):
+        return ['&',('user_id','=',self._uid),('to_recall','=',True)]
+    
+    
+    @api.model
+    def _needaction_count(self, domain):
+        res = super(crm_lead, self)._needaction_count(domain)
         return res
     
 crm_lead()

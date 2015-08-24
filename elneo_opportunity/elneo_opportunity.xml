@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<!-- Opportunity steps : add win flag -->
+		<record model="ir.ui.view" id="crm_case_stage_form_elneo_opportunity">
+            <field name="name">crm.case.stage.form.elneo.opportuniry</field>
+            <field name="model">crm.case.stage</field>
+            <field name="inherit_id" ref="crm.crm_case_stage_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<field name="sequence" position="after">
+            		<field name="win_stage" />
+            		<field name="to_recall" />
+            	</field>
+            </field>
+        </record>
+	
+		<!-- On sale, add a tab 'Quotation follow up' -->
+		<record model="ir.ui.view" id="sale_order_form_elneo_opportunity">
+			<field name="name">sale.order.form.elneo.opportunity</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/sheet/group" position="after">
+					<group colspan="6" col="8">
+		   				<field name="origin_type" />
+						<field name='opportunity_id' />
+						<field name='last_quotation_id' />
+					</group>
+    			</xpath>
+			</field>
+		</record>
+		
+		<!-- Opportunity -->
+		
+		<!-- Search (new) -->
+		<record id="elneo_opportunity_search_view" model="ir.ui.view">
+            <field name="name">elneo.opportunity.search.view</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter" />
+            <field name="model">crm.lead</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//search" position="inside">
+	            	<filter string="To recall" domain="[('to_recall','=',True)]" name="to_recall" />
+	            	<field name="date_action" />
+	            	<field name="partner_id" />
+	            	<field name="stage_id" widget="selection" domain="[('type','=','opportunity')]" />
+            	</xpath>
+            </field>
+        </record>
+        
+		
+		<!-- List (new) -->
+<!-- 		<record id="elneo_opportunity_tree_view" model="ir.ui.view"> -->
+<!--             <field name="name">elneo.opportunity.tree.view</field> -->
+<!--             <field name="model">crm.lead</field> -->
+<!--             <field name="type">tree</field> -->
+<!--             <field name="priority" eval="1"/> -->
+<!--             <field name="arch" type="xml"> -->
+<!--             	<tree string="Quotation follow up" editable="bottom"> -->
+<!-- 					<field name="stage_id" readonly="1"/> -->
+<!-- 					<button name="stage_previous" string="Previous Stage" -->
+<!--                             type="object" icon="gtk-go-back" context="{'stage_type':'opportunity'}" /> -->
+<!--                     <button name="stage_next" string="Next Stage" context="{'stage_type':'opportunity'}" -->
+<!--                         type="object" -->
+<!--                         icon="gtk-go-forward" /> -->
+<!-- 	            	<field name="date_action" string='Recall date' /> -->
+<!-- 	            	<field name="partner_id"  readonly="1" /> -->
+<!-- 	            	<field name="planned_revenue_computed"  readonly="1"/> -->
+<!-- 	            	<field name="name" string="Opportunity" readonly="1" /> -->
+<!-- 	            	<field name="create_date" readonly="1" /> -->
+<!-- 	            	<field name="user_id" string='Quotation manager' readonly="1" /> -->
+<!-- 	            	<field name="probability" readonly="1" /> -->
+<!--             	</tree> -->
+<!--             </field> -->
+<!--         </record> -->
+		
+		<!-- FORM (new) -->
+<!-- 		<record id="elneo_opportunity_form_view" model="ir.ui.view"> -->
+<!--             <field name="name">elneo.opportunity.form.view</field> -->
+<!--             <field name="model">crm.lead</field> -->
+<!--             <field name="type">form</field> -->
+<!--             <field name="priority" eval="1"/> -->
+<!--             <field name="arch" type="xml"> -->
+<!--             	<form string="Opportunities"> -->
+<!--             		<group colspan="4" col="8"> -->
+<!-- 	            		<field name="name" required="1" string="Opportunity" colspan="1" readonly='0' /> -->
+<!-- 	            		<group colspan="1" col="4"> -->
+<!-- 							<field name="stage_id"  -->
+<!-- 								on_change="onchange_stage_id(stage_id)" -->
+<!-- 								domain="[('type','=','opportunity')]"  -->
+<!-- 								widget="selection" -->
+<!-- 								/> -->
+								
+								
+<!-- 							<button name="stage_previous" states="draft,open,pending" -->
+<!-- 								type="object" icon="gtk-go-back" string="" /> -->
+<!-- 							<button name="stage_next" states="draft,open,pending" -->
+<!-- 								type="object" icon="gtk-go-forward" string="" -->
+<!-- 								context="{'stage_type': 'opportunity'}" /> -->
+<!-- 						</group> -->
+<!-- 						<field name="user_id" colspan="1" /> -->
+<!-- 						<button name="action_makeMeeting" type="object" string="Schedule Meeting" icon="gtk-redo" colspan="1" /> -->
+<!-- 					</group> -->
+<!-- 					<separator colspan="4" string="Customer" /> -->
+<!-- 					<field name="partner_id" /> -->
+<!-- 					<separator colspan="4" string="Tracking" /> -->
+<!-- 					<field name="date_action" string='Recall date' /> -->
+<!-- 					<field name="title_action" /> -->
+					
+<!-- 					<group colspan="2" col="2"> -->
+<!-- 						<field name="planned_revenue" string="Revenue (manual)" /> -->
+<!-- 						<field name="planned_revenue_auto" string="auto" /> -->
+<!-- 						<field name="planned_revenue_computed" string='Planned revenue' /> -->
+<!-- 					</group> -->
+<!-- 					<group colspan="2" col="2"> -->
+<!-- 						<field name="sale_price_manual" /> -->
+<!-- 						<field name="sale_price_auto" string="auto" /> -->
+<!-- 						<field name="sale_price_computed" /> -->
+<!-- 					</group> -->
+					
+<!-- 					<notebook colspan="4"> -->
+<!-- 						<page string='General'> -->
+<!-- 							<separator string='Notes' colspan='4' /> -->
+<!-- 							<field name="description" nolabel="1" colspan="4" /> -->
+<!-- 							<separator colspan="4" string="Quotations" /> -->
+<!-- 							<field name="quotation_ids" colspan='4' nolabel='1' /> -->
+<!-- 						</page> -->
+<!-- 						<page string="Meetings"> -->
+<!-- 							<separator colspan="4" string="Meeting" /> -->
+<!-- 							<field name="meeting_ids" colspan="4" nolabel="1" /> -->
+<!-- 						</page> -->
+<!-- 						<page string="Extra Info"> -->
+<!-- 							<field name="probability" /> -->
+<!-- 							<group col="2" colspan="2"> -->
+<!-- 								<separator string="Dates" colspan="2" /> -->
+<!-- 								<field name="create_date" /> -->
+<!-- 								<field name="write_date" /> -->
+<!-- 								<field name="date_closed" /> -->
+<!-- 								<field name="date_open" /> -->
+<!-- 							</group> -->
+<!-- 						</page> -->
+<!-- 					</notebook> -->
+<!-- 					<button name="print_quotation_report" type="object" string="Print quotation" /> -->
+<!--             	</form> -->
+<!--             </field> -->
+<!--         </record> -->
+        
+        
+        <!-- ACTIONS -->
+        
+        
+        <record id="crm.crm_case_category_act_oppor11" model="ir.actions.act_window">
+            <field name="name">Quotation follow up</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,graph,form,calendar</field>
+            <field name="context">{
+            		'search_default_user_id':uid,
+	                'search_default_to_recall':1,
+	            }
+	        </field>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+        </record>
+        
+<!--         <record id="elneo_opportunity_action_tree" model="ir.actions.act_window.view"> -->
+<!-- 			<field eval="2" name="sequence" /> -->
+<!-- 			<field name="view_mode">tree</field> -->
+<!-- 			<field name="view_id" ref="elneo_opportunity_tree_view" /> -->
+<!-- 			<field name="act_window_id" ref="elneo_opportunity_action" /> -->
+<!-- 		</record> -->
+		
+<!-- 		<record id="elneo_opportunity_action_form" -->
+<!-- 			model="ir.actions.act_window.view"> -->
+<!-- 			<field eval="2" name="sequence" /> -->
+<!-- 			<field name="view_mode">form</field> -->
+<!-- 			<field name="view_id" ref="elneo_opportunity_form_view" /> -->
+<!-- 			<field name="act_window_id" ref="elneo_opportunity_action" /> -->
+<!-- 		</record> -->
+		
+		<!-- Users view -->
+		<record id="view_users_form_elneo_opportunity" model="ir.ui.view">
+            <field name="name">res.users.form.elneo.opportunity</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//page[@string='Access Rights']" position="after">
+                    <page string="Quotation follow up">
+                        <group>
+		                    <field name="is_seller" />
+		                    <field name="days_before_quotation_relaunch" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+		
+	</data>
+</openerp>

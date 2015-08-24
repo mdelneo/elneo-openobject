@@ -7,12 +7,11 @@
             <field name="inherit_id" ref="sale_stock.view_sales_config_sale_stock"/>
             <field name="arch" type="xml">
             	<xpath expr="//div[@name='Sale Features']" position="inside">
-                         <div>
-		                     <label for="default_carrier_id"/>
-		                     <field name="default_carrier_id" class="oe_inline"/>
-                         </div>
-                     </xpath>
-                
+                        <div>
+							<label for="default_carrier_id" />
+							<field name="default_carrier_id" class="oe_inline" />
+                        </div>
+                    </xpath>
             </field>
         </record>
 	</data>

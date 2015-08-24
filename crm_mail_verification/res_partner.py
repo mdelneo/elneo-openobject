@@ -10,6 +10,8 @@ class res_partner(models.Model):
     @api.one
     @api.constrains('email')
     def _check_email(self):
+        if not self.email:
+            return
         try:
             email = str(self.email)
         except:

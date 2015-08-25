@@ -63,8 +63,9 @@ class sale_order(models.Model):
                 invoice.shop_sale=True
                 invoice.comment = self.note
                 invoice.journal_id=self.warehouse_id.shop_sale_journal_id.id
-          
-    
+                
+        return res
+
     
     shop_sale=fields.Boolean("Shop Sale (Automatic Delivery)",default=_default_shop_sale)
     

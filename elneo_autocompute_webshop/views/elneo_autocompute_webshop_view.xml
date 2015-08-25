@@ -31,61 +31,6 @@
 			</field>
 		</record>
 		
-		<!-- COEFFICIENTS -->
-		<record model="ir.ui.view" id="category_coefficientlist_tree_view">
-			<field name="name">category_coefficientlist.tree</field>
-			<field name="model">elneo_autocompute_saleprice.category_coefficientlist</field>
-			<field name="type">tree</field>
-			<field name="arch" type="xml">
-				<tree>
-					<field name="categ_id" />
-					<field name="partner_id" />
-					<field name="coefficient" />
-					<field name="is_brutprice" />
-				</tree>
-			</field>
-		</record>
-		
-		<record model="ir.ui.view" id="category_coefficientlist_form_view">
-			<field name="name">category_coefficientlist.form</field>
-			<field name="model">elneo_autocompute_saleprice.category_coefficientlist</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<form string="Coefficient" col="4">
-					<group>
-						<field name="categ_id" />
-						<field name="partner_id" />
-						<field name="coefficient" attrs="{'readonly':[('is_brutprice', '!=', False)]}" />
-						<field name="is_brutprice" on_change="on_change_is_brutprice(is_brutprice)" />
-						<button name="action_update_product_sale_price"
-							string="Update" 
-							type="object" 
-							icon="gtk-execute"
-							colspan="2"/>
-					</group>
-				</form>
-			</field>
-		</record>
-		
-	
-		<record model="ir.actions.act_window" id="action_category_coefficientlist_form">
-			<field name="name">Coefficient</field>
-			<field name="res_model">elneo_autocompute_saleprice.category_coefficientlist</field>
-			<field name="view_type">form</field>
-    		<field name="view_mode">tree,form</field>
-    		<field name="view_id" ref="category_coefficientlist_tree_view"/>
-		</record>
-
-		<menuitem name="Coefficient" parent="product.prod_config_main" id="category_coefficientlist_menuitem" sequence="15" action="action_category_coefficientlist_form"/>
-		
-<!-- 		<act_window id="action_category_coefficientlist_form_multi" -->
-<!--                 name="Update Product Price" -->
-<!--                 res_model="elneo_autocompute_saleprice.confirm_update_wizard" -->
-<!--                 src_model="elneo_autocompute_saleprice.category_coefficientlist" -->
-<!--                 view_mode="form" view_type="form" -->
-<!--                 target="new" key2="client_action_multi" /> -->
-		
-		
 		<!-- PRODUCT GROUP VIEWS -->
 		<record id="view_product_group_form" model="ir.ui.view">
 			<field name="name">product.group.form</field>

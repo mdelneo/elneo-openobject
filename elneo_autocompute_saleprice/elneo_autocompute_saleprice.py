@@ -69,7 +69,7 @@ class category_coefficientlist(models.Model):
         logger.info('Update product sale price -- '+'----- Start Product Update -----')  
         i_product = 0
         begining_product = datetime.now()    
-        products_prices = self.pool.get("product.template")._get_list_price(product_template_ids)
+        products_prices = self.env["product.template"]._get_list_price()
         total_product = len(products_prices)
         commit_counter = datetime.now()
         commit_time = 1                 
@@ -124,7 +124,7 @@ class category_coefficientlist(models.Model):
             if len(result) > 0:
                 return product_template_ids
         
-        for ids in self.pool.get("product.template").search([('default_supplier_id','=',partner.id),('categ_id','=',category.id)]):
+        for ids in self.env["product.template"].search([('default_supplier_id','=',partner.id),('categ_id','=',category.id)]):
             product_template_ids.append(ids)
         
         for subCategory in category.child_id:
@@ -185,8 +185,8 @@ class product_template(models.Model):
             category_coefficientlist = False
 
             while category:
-                if product_p.default_supplier_id:
-                    result = self.env['elneo_autocompute_saleprice.category_coefficientlist'].search([('categ_id','=',category.id),('partner_id','=',product_p.default_supplier_id.id)])
+                if self.default_supplier_id:
+                    result = self.env['elneo_autocompute_saleprice.category_coefficientlist'].search([('categ_id','=',category.id),('partner_id','=',self.default_supplier_id.id)])
                     if len(result) > 0:
                         category_coefficientlist = result[0]
                         break
@@ -255,7 +255,7 @@ class product_template(models.Model):
         self.list_price = sale_price
         return sale_price
         
-    list_price = fields.Float('Sale Price', compute='_get_list_price', help="Base price for computing the customer price. Sometimes called the catalog price.", store=True)
+    list_price = fields.Float('Sale Price', compute='_get_list_price', help="Base price for computing the customer price. Sometimes called the catalog price.", store=True, readonly=True)
     sale_price_fixed = fields.Float('Sale price fixed')
     sale_price_seller = fields.Float('Sale price seller')
     compute_sale_price = fields.Boolean('Autocompute sale price', default=True, help="Sale price is always the highest price, between fixed, seller and cumputed price if checked, between fixed and seller if not checked")

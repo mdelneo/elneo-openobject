@@ -107,12 +107,6 @@ class product_template(models.Model):
         return res
         
     
-    def copy(self, cr, uid, id, default=None, context=None):
-        if not default:
-            default = {}
-        default['barcode_number'] = self.pool.get('ir.sequence').get(cr, uid, 'product.barcode')
-        return super(product_template,self).copy(cr, uid, id, default=default, context=context)
-    barcode_number = fields.Char('Barcode number', size=7, default=lambda obj: obj.env['ir.sequence'].get('product.barcode'))
     warehouse_detail = fields.One2many('product.warehouse.detail', 'product_tmpl_id', 'Warehouse detail', default=_get_default_warehouse_detail)
     orderpoints = fields.One2many('stock.warehouse.orderpoint', 'product_tmpl_id', 'Minimum Inventory Rules')
     

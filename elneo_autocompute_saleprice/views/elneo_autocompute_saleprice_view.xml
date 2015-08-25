@@ -41,6 +41,18 @@
 		</record>
 	
 		<!-- COEFFICIENT VIEWS -->
+		<record model="ir.ui.view" id="category_coefficientlist_search_view">
+			<field name="name">category_coefficientlist.search</field>
+			<field name="model">elneo_autocompute_saleprice.category_coefficientlist</field>
+			<field name="arch" type="xml">
+				<search string="Coefficient">
+					<field name="categ_id" />
+					<field name="partner_id" />
+					<field name="is_brutprice" />
+				</search>
+			</field>
+		</record>
+		
 		<record model="ir.ui.view" id="category_coefficientlist_tree_view">
 			<field name="name">category_coefficientlist.tree</field>
 			<field name="model">elneo_autocompute_saleprice.category_coefficientlist</field>
@@ -65,7 +77,7 @@
 						<field name="categ_id" />
 						<field name="partner_id" />
 						<field name="coefficient" attrs="{'readonly':[('is_brutprice', '!=', False)]}" />
-						<field name="is_brutprice" on_change="on_change_is_brutprice(is_brutprice)" />
+						<field name="is_brutprice" />
 						<button name="action_update_product_sale_price"
 							string="Update" 
 							type="object" 

@@ -44,7 +44,7 @@ class product_template(models.Model):
             result.append(orderpoint.product_id.id)
         return result
     
-    default_supplier_id = fields.Many2one('res.partner', 'Default supplier', compute=get_default_supplier, method=True,readonly=True)
+    default_supplier_id = fields.Many2one('res.partner', 'Default supplier', compute=get_default_supplier, method=True,readonly=True, store=True)
     default_supplierinfo_id = fields.Many2one('product.supplierinfo', 'Default supplier', compute=get_default_supplierinfo, method=True, readonly=True)
     
 product_template()

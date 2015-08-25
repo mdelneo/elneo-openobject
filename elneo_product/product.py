@@ -75,6 +75,14 @@ class product_template(models.Model):
                 
         return result
     
+    
+    def copy(self, cr, uid, id, default=None, context=None):
+        if not default:
+            default = {}
+        default['barcode_number'] = self.pool.get('ir.sequence').get(cr, uid, 'product.barcode')
+        return super(product_template,self).copy(cr, uid, id, default=default, context=context)
+    
     type = fields.Selection([('product', 'Stockable Product'),('consu', 'Consumable'),('service','Service')], 'Product Type', required=True,default='product', help="Consumable are product where you don't manage stock, a service is a non-material product provided by a company or an individual.")
+    barcode_number = fields.Char('Barcode number', size=7, default=lambda obj: obj.env['ir.sequence'].get('product.barcode'))
     
     '''ext_name = fields.Text(compute=get_ext_name, method=True, string='Advanced search', search=search_ext_name)'''

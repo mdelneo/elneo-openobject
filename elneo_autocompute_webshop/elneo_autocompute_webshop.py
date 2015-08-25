@@ -90,6 +90,7 @@ class product_template(models.Model):
         return res
     
     @api.depends('categ_id','standard_price','web_shop_product','product_group_id')
+    @api.multi
     def _get_list_price(self):
         return super(product_template, self)._get_list_price()
     

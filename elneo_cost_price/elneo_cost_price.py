@@ -107,24 +107,32 @@ class product_template(models.Model):
     @api.multi
     @api.depends('compute_cost_price','cost_price_fixed','seller_ids.pricelist_ids.price')
     def _get_cost_price(self):
-        for product in self:
+        for product_tmpl in self:
             
-            if not product.compute_cost_price:
-                product.cost_price = product.cost_price_fixed
+            if not product_tmpl.compute_cost_price:
+                product_tmpl.cost_price = product_tmpl.cost_price_fixed
             else:
-                supplierinfos = product.seller_ids
+                supplierinfos = product_tmpl.seller_ids
             
                 if len(supplierinfos) > 0:
                     supplierinfo = supplierinfos[0]
                     
                     pricelist = supplierinfo.name.cost_price_product_pricelist
-                    if pricelist and not (type(product.id) is models.NewId):
-                        price = pricelist.price_get(product.id, 1.0)[pricelist.id]
-                        product.cost_price = price
+                    
+                    #find product template id
+                    product_tmpl_id = False
+                    if not (type(product_tmpl.id) is models.NewId):
+                        product_tmpl_id = product_tmpl.id
+                    elif self._context and 'params' in self._context and 'id' in self._context['params']:
+                        product_tmpl_id = self._context['params']['id']
+                        
+                    if pricelist and product_tmpl_id:
+                        price = pricelist.price_get(product_tmpl_id, 1.0)[pricelist.id]
+                        product_tmpl.cost_price = price
                     else:
-                        product.cost_price = 0                    
+                        product_tmpl.cost_price = 0                    
             
-        return product.cost_price
+        return product_tmpl.cost_price
     
     def compute_all_costprice(self,cr,uid,ids,context=None):
         cr.execute("select id from product_product order by id")

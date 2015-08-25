@@ -66,7 +66,6 @@ class sale_order(models.Model):
                 
         return res
 
-    
     shop_sale=fields.Boolean("Shop Sale (Automatic Delivery)",default=_default_shop_sale)
     
     @api.onchange('shop_sale')

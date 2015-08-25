@@ -3,24 +3,38 @@
 	<data>
 		<!-- HIDE BUTTON WITH TOTAL INVOICED, FOR PERFORMANCE REASONS -->
 		<record model="ir.ui.view" id="partner_view_buttons_elneo_account">
-            <field name="name">partner.view.buttons.elneo.account</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="account.partner_view_buttons" />
-            <field name="arch" type="xml">
-            	<button id="invoice_button" position="replace" />
-            </field>
-        </record>
-        
-        
-        <record id="view_account_period_form_elneo_account" model="ir.ui.view">
-            <field name="name">account.period.form.elneo.account</field>
-            <field name="inherit_id" ref="account.view_account_period_form" />
-            <field name="model">account.period</field>
-            <field name="arch" type="xml">
-            	<xpath expr="//field[@name='company_id']" position='after'>
+			<field name="name">partner.view.buttons.elneo.account</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="account.partner_view_buttons" />
+			<field name="arch" type="xml">
+				<button id="invoice_button" position="replace" />
+			</field>
+		</record>
+
+
+		<record id="view_account_period_form_elneo_account" model="ir.ui.view">
+			<field name="name">account.period.form.elneo.account</field>
+			<field name="inherit_id" ref="account.view_account_period_form" />
+			<field name="model">account.period</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='company_id']" position='after'>
 					<field name="period_closed_qlikview" />
 				</xpath>
-            </field>
-        </record>
+			</field>
+		</record>
+
+
+		<record id="invoice_supplier_form_elneo_account" model="ir.ui.view">
+			<field name="name">account.invoice.supplier.form.elneo.account</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form" />
+			<field name="model">account.invoice</field>
+			<field name="priority">2</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='origin']" position="after">
+					<field name="purchase_type_id" />
+				</xpath>
+			</field>
+		</record>
+		
 	</data>
 </openerp>

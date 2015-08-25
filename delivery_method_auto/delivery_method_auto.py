@@ -4,7 +4,7 @@ import time
 from openerp.tools.translate import _
 
 
-class res_config(models.TransientModel):
+class base_config_settings(models.TransientModel):
     _inherit = 'sale.config.settings'
 
     default_carrier_id = fields.Many2one('delivery.carrier',string='Default delivery',help='The Default carrier proposed on new sale order')
@@ -15,16 +15,13 @@ class res_config(models.TransientModel):
         
     
     @api.model
-    def get_default_values(self,fields):
+    def get_default_carrier(self,fields):
         default_carrier_id = self.env['ir.config_parameter'].get_param('delivery_method_auto.default_carrier_id',False)
         if default_carrier_id !='False':
             default_carrier_id = int(default_carrier_id)
         else:
             default_carrier_id = False
         return {'default_carrier_id':default_carrier_id}
-
-    
-res_config()
 
 class sale_order(models.Model):
     _inherit = 'sale.order'

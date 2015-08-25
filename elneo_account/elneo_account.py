@@ -39,4 +39,15 @@ class account_invoice(models.Model):
                 
         return res
     
+    @api.multi
+    def _get_purchase_type(self):
+        for invoice in self:
+            if invoice.purchase_ids and invoice.purchase_ids[0].purchase_type_id:
+                invoice.purchase_type_id = invoice.purchase_ids[0].purchase_type_id.id
+            else:
+                invoice.purchase_type_id = None
+    
+    purchase_type_id = fields.Many2one('purchase.order.type', 'Purchase type', compute='_get_purchase_type', readonly=True)
+    purchase_ids = fields.Many2many('purchase.order', 'purchase_invoice_rel', 'invoice_id', 'purchase_id', 'Purchases')
+    
 account_invoice()

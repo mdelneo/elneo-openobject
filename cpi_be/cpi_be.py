@@ -1,5 +1,5 @@
 #from osv import osv, fields
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from openerp import models, fields, api, _
 
@@ -9,17 +9,7 @@ class cpi_be_type(models.Model):
     name = fields.Char("Name", size=255)
     description = fields.Char("Description", size=1024)
     entries = fields.One2many('cpi.be.entry','type_id', string='Entries')
-    
-    '''
-    _columns = {
-        'name':fields.char("Name", size=255),
-        'description':fields.char("Description", size=1024),  
-        'entries':fields.one2many('cpi.be.entry','type_id', string='Entries')
-    }
-    '''
-cpi_be_type()
-
-
+ 
 class cpi_be_entry(models.Model):
     _name = 'cpi.be.entry'
     
@@ -60,14 +50,6 @@ class cpi_be_entry(models.Model):
         
         return recs.name_get()
     
-    '''
-    _columns = {
-        'type_id':fields.many2one('cpi.be.type', string="Type"),
-        'year':fields.integer("Year"), 
-        'month':fields.integer("Month"), 
-        'value':fields.float("Value")
-    }
-    '''
     def _check_date(self, cr, uid, ids):
         for cpi in self.browse(cr, uid, ids):
             if cpi.month < 1 or cpi.month > 12:
@@ -79,10 +61,6 @@ class cpi_be_entry(models.Model):
     _sql_constraints = [
         ('cpi_be_entry_unique', 'unique(type_id,year,month)', 'For the same type, year and month must be unique')
     ]
-    
-     
-    
-cpi_be_entry()
 
 class cpi_be_update_wizard(models.TransientModel):
     _name = 'cpi.be.update.wizard'
@@ -91,5 +69,4 @@ class cpi_be_update_wizard(models.TransientModel):
     def action_update(self):
         self.env["scheduler.cpi_be"].import_cpi_be_all()
         return {'type': 'ir.actions.act_window_close'}
-    
-cpi_be_update_wizard()
+

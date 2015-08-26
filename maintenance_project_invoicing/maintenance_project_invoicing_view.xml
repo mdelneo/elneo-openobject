@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_maintenance_project_tree_invoicing" model="ir.ui.view">
+			<field name="name">maintenance.project.tree.invoicing</field>
+			<field name="inherit_id" ref="maintenance_project.view_maintenance_project_tree" />
+			<field name="model">maintenance.project</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<field name="project_type_id" position="after">
+					<field name="annual_amount" sum="Total amount" />
+				</field>
+			</field>
+		</record>
+	
+		<record id="view_maintenance_project_form_invoicing" model="ir.ui.view">
+			<field name="name">maintenance.project.form.invoicing</field>
+			<field name="inherit_id" ref="maintenance_project.view_maintenance_project_form" />
+			<field name="model">maintenance.project</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Invoices']/group" position="before">
+					<header>
+						<group>
+							<button name="generate_next_invoice" type='object' class="fa fa-share" string="Generate next invoice"/>
+						</group>
+					</header>
+				</xpath>
+				<field name="invoices" position="after">
+					
+					<group>
+						<field name="next_invoice_date" />
+					</group>
+					
+				</field>
+				<page string="General" position="after">
+					<page string="Prices">
+						<separator string="Initial values"/>
+						<group>
+							<field name="annual_amount" />
+							<field name="delay_price_init" />
+						</group>
+						<separator string="Calculation" colspan="4" />
+						<group>
+							<field name="delay_price_included" />
+							<field name="project_start_period_invoicing" />
+							<field name="invoicing_delay" />
+							<field name="price_calculation" />
+						</group>
+					</page>
+				</page>
+				<field name="intervention_delay_id" position="after">
+					<field name="current_price" />
+				</field>
+				
+			</field>
+		</record>
+	</data>
+</openerp>

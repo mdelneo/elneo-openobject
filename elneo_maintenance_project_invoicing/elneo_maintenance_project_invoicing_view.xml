@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record	id="view_maintenance_project_invoicing_form_elneo" model="ir.ui.view">
+			<field name="name">maintenance.project.form.elneo</field>
+			<field name="inherit_id" ref="maintenance_project_invoicing.view_maintenance_project_form_invoicing" />
+			<field name="model">maintenance.project</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="delay_price_init" position="after">
+					<field name="initial_cpi_id" domain="[('type_id','=',cpi_type_id)]" />
+				</field>
+				<separator string="Calculation" position="before">
+					<separator string="IPC"/>
+						<group>
+							<field name="cpi_type_id" />
+							<field name="current_cpi_id" domain="[('type_id','=',cpi_type_id)]" />
+						</group>
+				</separator>	
+			</field>
+		</record>
+	</data>
+</openerp>

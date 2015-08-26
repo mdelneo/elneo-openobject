@@ -37,10 +37,5 @@
         		</xpath>
         	</field>
        	</record>
-       	
-       	
-       	
-       	<!-- DELETE PRODUCT VARIANT MENU -->
-<!--        	<delete model="ir.ui.menu" id="base.menu_product" /> -->
     </data>
 </openerp>

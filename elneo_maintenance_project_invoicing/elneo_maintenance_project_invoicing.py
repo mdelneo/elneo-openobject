@@ -134,10 +134,4 @@ class maintenance_project(models.Model):
     initial_cpi_id = fields.Many2one("cpi.be.entry", string="Initial CPI")
     cpi_type_id = fields.Many2one('cpi.be.type', "CPI type",default=_get_default_cpi_type)
     current_cpi_id = fields.Many2one("cpi.be.entry", string="Current CPI")
-       
-    '''
-    _defaults = {  
-        'cpi_type_id': 4,  
-    }
-    
-    '''
+      

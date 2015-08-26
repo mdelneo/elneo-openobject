@@ -42,23 +42,23 @@ class cpi_be_entry(models.Model):
                 result.append((entry.id,'['+str(entry.value)+']'))
         return result
     
+    @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         if not args:
             args = []
         
-        ids = []
         req_ids = []
         if name:
-            self.cr.execute("select id from cpi_be_entry where to_char(month,'09')||'/'||year like %s",('%'+name+'%',))
-            req_ids = map(lambda x: x[0], self.cr.fetchall())
+            self.env.cr.execute("select id from cpi_be_entry where to_char(month,'09')||'/'||year like %s",('%'+name+'%',))
+            req_ids = map(lambda x: x[0], self.env.cr.fetchall())
         
         if name:
-            ids = self.search([('id', 'in', req_ids)]+args, limit=limit)
+            recs = self.search([('id', 'in', req_ids)]+args, limit=limit)
         else:
-            ids = self.search(args, limit=limit)
+            recs = self.search(args, limit=limit)
         
         
-        return self.name_get(ids,)
+        return recs.name_get()
     
     '''
     _columns = {

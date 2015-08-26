@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+    	<record id="group_hidden_menu" model="res.groups">
+	        <field name="name">Hidden menus</field>
+	    </record>
+    
+    	<!-- MENU -->
+    	<!-- create main menu -->
+    	<menuitem id="main_menu_product" name="Products" sequence="17"/>
+    	<!-- move product sub-menu from sales to Product main menu -->
+    	<menuitem id="base.menu_product" parent="main_menu_product" name="Products" sequence="17"/>
+    	<!-- move product_config sub-menu from sale config to product main menu -->
+    	<menuitem id="product.prod_config_main" name="Product Categories &amp; Attributes" parent="main_menu_product" sequence="70" groups="base.group_no_one"/>
+    	<!-- Hide Attributes and Attributes value -->
+    	<menuitem id="product.menu_attribute_action" groups="group_hidden_menu" />
+    	<menuitem id="product.menu_variants_action" groups="group_hidden_menu" />
+    	
+    
     	
     	<!-- PRODUCT & PRODUCT VARIANT -->
 		<record id="product_template_form_view_elneo_product" model="ir.ui.view">

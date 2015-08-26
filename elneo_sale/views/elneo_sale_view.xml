@@ -202,9 +202,7 @@
         
         <menuitem id="sale.menu_sale_order" name="Sales" parent="base.menu_sales" action="action_orders_salesteams_elneo" sequence="2"/>
         <menuitem id="sale.menu_sale_quotations" name="Quotations" parent="base.menu_sales" action="action_quotations_salesteams_elneo" sequence="1"/>
-        <delete model="ir.ui.menu" id="base.menu_partner_form"/>
         <menuitem id="sales_team.menu_sales_team_act" name="Sales Teams" parent="base.menu_sales" sequence="5" />
-
             
 	</data>
 	

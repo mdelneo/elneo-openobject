@@ -86,7 +86,7 @@ class intervention_merge(models.TransientModel):
     def onchange_reference_intervention(self):
         self.reference_installation = self.reference_intervention.installation_id.id
         
-    @api.onchange('interventioon_lines')
+    @api.onchange('intervention_lines')
     def onchange_intervention_lines(self):
         # If a reference intervention is set and lines have changed, check if reference intervention is present in the list
         if (self.reference_intervention):

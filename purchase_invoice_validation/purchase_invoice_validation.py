@@ -86,9 +86,9 @@ class account_invoice(models.Model):
         return res
     
     purchase_ids = fields.Many2many('purchase.order', 'purchase_invoice_rel', 'invoice_id', 'purchase_id', 'Purchases')
-    validation_problem = fields.Boolean("Validation problem")
+    validation_problem = fields.Boolean("Validation problem", default=False)
     validation_problem_type = fields.Many2one("account.invoice.validation.problem", "Problem type")
-    litigation = fields.Boolean("Litigation")
+    litigation = fields.Boolean("Litigation", default=False)
     supplier_invoice_file = fields.Binary("Supplier invoice file")
     validation_problem_comment = fields.Text("Validation problem comment")
     due_date_supplier = fields.Date("Supplier due date")
@@ -96,7 +96,7 @@ class account_invoice(models.Model):
     force_payment_sent = fields.Boolean("Do not appear in payment orders (problem)")
     purchase_type_id = fields.Many2one("purchase.order.type", compute='_get_purchase_type', string="Purchase type")
     diff_supplier_due_date = fields.Boolean(compute='_get_diff_supplier_due_date', string="Difference between supplier due date and due date", store=True)
-    problem_solving_in_progress = fields.Boolean('Problem solving in progress')
+    problem_solving_in_progress = fields.Boolean('Problem solving in progress', default=False)
 
 class account_move_line(models.Model):
     _inherit = 'account.move.line'

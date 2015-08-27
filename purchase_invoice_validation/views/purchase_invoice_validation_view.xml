@@ -14,7 +14,7 @@
             		<field name="reference" />
             	</field>
             	<filter name="unpaid" position="after">
-	            	<filter name="validation_problem" icon="terp-document-new" string="Validation problem" domain="[('validation_problem','=','True'),('litigation','!=','True')]" />
+	            	<filter name="validation_problem" icon="terp-document-new" string="Validation problem" domain="['&amp;','&amp;',('validation_problem','=','True'),('litigation','!=','True'),('problem_solving_in_progress','!=','True')]" />
 	            	<filter name="litigation" icon="terp-document-new" string="Litigation" domain="[('litigation','=','True')]" />
 	            	<filter name="problem_solving_in_progress" icon="terp-document-new" string="Problem solving in progress" domain="[('problem_solving_in_progress','=','True')]" />
 	            	<filter name="supplier_due_date_different" icon="terp-document-new" string="Difference between supplier due date and due date" domain="[('diff_supplier_due_date','=','True')]" />

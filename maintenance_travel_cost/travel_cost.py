@@ -151,12 +151,12 @@ class maintenance_intervention(models.Model):
                     if not account_id:
                         account_id = travel_product.categ_id.property_account_income_categ.id
                     taxes=travel_product.taxes_id
-                    partner = invoice.address_invoice_id.partner_id and invoice.address_invoice_id.partner_id or False
+                    partner = invoice.partner_id and invoice.partner_id or False
                     
-                    account_id = self.env['account.fiscal.position'].map_account(partner.property_account_position, account_id)
+                    account_id = partner.property_account_position.map_account(account_id)
                     taxes = travel_product.taxes_id
                     taxes_ids = [x.id for x in taxes]
-                    taxes_ids = self.env['account.fiscal.position'].map_tax(partner.property_account_position, taxes)
+                    taxes_ids = partner.property_account_position.map_tax(taxes)
                     if (invoice.state == 'draft'):
                         values={
                                 'name': travel_product.name,
@@ -166,7 +166,7 @@ class maintenance_intervention(models.Model):
                                 'account_id': account_id,
                                 'price_unit': travel_product.list_price,
                                 'quantity': 1,
-                                'invoice_line_tax_id': [(6, 0,taxes_ids)],
+                                'invoice_line_tax_id': [(6, 0,taxes_ids.mapped('id'))],
                                 'intervention_id':intervention.id
                                 }
                         self.env['account.invoice.line'].create(values)

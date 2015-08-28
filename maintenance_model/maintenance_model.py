@@ -263,17 +263,21 @@ class maintenance_element(models.Model):
         for element in self:
             
             #find expected time of use depending on main_element flag
+            '''
             main_elt_time_of_use = [elt.expected_time_of_use for elt in element.installation_id.elements if elt.main_element]
             if main_elt_time_of_use:
                 main_elt_time_of_use = main_elt_time_of_use[0]
             else:
                 main_elt_time_of_use = 0
+            '''
             
             if element.element_model_id:
+                '''
                 if element.expected_time_of_use:
                     expected_time_of_use = element.expected_time_of_use
                 else:
                     expected_time_of_use = main_elt_time_of_use
+                '''
                 
                 for intervention_model in element.element_model_id.intervention_model_ids:
                     if intervention_model.no_generation_of_intervention:
@@ -285,36 +289,36 @@ class maintenance_element(models.Model):
                     if not intervention_model.months_cycle and not  intervention_model.hours_cycle:
                         raise Warning(_('You have to fill at least cycle months or cycle hours for intervention %s of model %s.')%(intervention_model.name, element.element_model_id.name))
                     
-                    if not expected_time_of_use and (intervention_model.hours_first != 0 or intervention_model.hours_cycle != 0):
+                    if not element.expected_time_of_use and (intervention_model.hours_first != 0 or intervention_model.hours_cycle != 0):
                         raise Warning(_('You have to define expected annual time of use of element %s.')%(element.name))
                     
                     #find if element operate enough to compute days from operating time
                     #for first intervention
-                    hours_until_max_time_first = (expected_time_of_use*intervention_model.months_first)/12
+                    hours_until_max_time_first = (element.expected_time_of_use*intervention_model.months_first)/12
                     if intervention_model.hours_first == 0 or (intervention_model.months_first != 0 and hours_until_max_time_first < intervention_model.hours_first):
                         days_first = intervention_model.months_first*(365./12.)
-                        hours_first = expected_time_of_use*intervention_model.months_first/12.
+                        hours_first = element.expected_time_of_use*intervention_model.months_first/12.
                     else:
-                        days_first =  ((intervention_model.hours_first*12.)/expected_time_of_use)*(365./12)
+                        days_first =  ((intervention_model.hours_first*12.)/element.expected_time_of_use)*(365./12)
                         hours_first = intervention_model.hours_first
                     
                     #for next interventions
-                    hours_for_max_time = (expected_time_of_use*intervention_model.months_cycle)/12.
+                    hours_for_max_time = (element.expected_time_of_use*intervention_model.months_cycle)/12.
                     if intervention_model.hours_cycle == 0 or (intervention_model.months_cycle != 0 and hours_for_max_time < intervention_model.hours_cycle):
                         days_cycle = intervention_model.months_cycle*(365./12.)
-                        hours_cycle = expected_time_of_use*intervention_model.months_cycle/12.
+                        hours_cycle = element.expected_time_of_use*intervention_model.months_cycle/12.
                     else:
-                        days_cycle =  ((intervention_model.hours_cycle*12.)/expected_time_of_use)*(365./12.)
+                        days_cycle =  ((intervention_model.hours_cycle*12.)/element.expected_time_of_use)*(365./12.)
                         hours_cycle = intervention_model.hours_cycle
                     
                     #existing installation
                     if element.intervention_generation_start_hours and intervention_model.hours_cycle:
                         current_hours = hours_cycle*math.ceil((element.intervention_generation_start_hours-hours_first)/hours_cycle)+hours_first
-                        days = (365*(current_hours-element.intervention_generation_start_hours))/expected_time_of_use
+                        days = (365*(current_hours-element.intervention_generation_start_hours))/element.expected_time_of_use
                         current_date = begin+timedelta(days=days)
                     elif element.intervention_generation_first_date:
                         current_date = datetime.strptime(element.intervention_generation_first_date, '%Y-%m-%d')
-                        current_hours = (expected_time_of_use*(current_date-begin).days)/365.
+                        current_hours = (element.expected_time_of_use*(current_date-begin).days)/365.
                     #case of new installation
                     else:
                         current_date = begin+timedelta(days=days_first)
@@ -343,6 +347,7 @@ class maintenance_element(models.Model):
                             'installation_id':installation.id,
                             'contact_address_id':installation.contact_address_id.id, 
                             'intervention_products':[(0,0,{'delay':product_intervention_model.product_id.sale_delay,'sale_price':product_intervention_model.product_id.list_price,'cost_price':product_intervention_model.product_id.standard_price,'description':product_intervention_model.product_id.name_get()[0][1],'intervention_model':product_intervention_model.intervention_model_id.id,'intervention_product_model':product_intervention_model.id,'maintenance_element_id':element.id,'product_id':product_intervention_model.product_id.id, 'quantity':product_intervention_model.quantity}) for product_intervention_model in intervention_model.intervention_product_model_ids],
+                            'intervention_timeofuse':[(0,0,{'expected_time_of_use':element.expected_time_of_use,'element_id':element.id})],
                             'hours':current_hours, 
                             'element_model_id':element.element_model_id.id,
                             'intervention_model_id':intervention_model.id, 
@@ -420,7 +425,7 @@ class maintenance_element(models.Model):
             merged_intervention['time_planned'] = duration
             merged_intervention['date_end'] = merged_intervention['date_start']+timedelta(hours=duration)
             merged_intervention['name'] = intervention_name
-            merged_intervention['expected_time_of_use'] = max_hours
+            #merged_intervention['expected_time_of_use'] = max_hours
             merged_intervention['description'] = merged_intervention['description'][0:-2]
             merged_intervention['elements'] = [element]
             
@@ -553,6 +558,7 @@ class maintenance_project(models.Model):
         new_interventions = self.maintenance_elements.get_interventions(self)
         for new_intervention_tosave in new_interventions:
             intervention_id = self.env['maintenance.intervention'].create(new_intervention_tosave)
+            
             for intervention_detail in new_intervention_tosave['intervention_detail']:
                 self.env['maintenance.generation.detail'].create({
                     'intervention_id':intervention_id.id, 
@@ -576,8 +582,17 @@ class maintenance_generation_detail(models.Model):
 class maintenance_intervention_product(models.Model):
     _inherit = 'maintenance.intervention.product'
     
+    @api.one
+    @api.depends('intervention_id.intervention_timeofuse.expected_time_of_use')
+    def _get_expected_tou(self):
+        time_of_use = self.env['maintenance.intervention.timeofuse'].search([('intervention_id','=',self.intervention_id),('element_id','=',self.maintenance_element_id)])
+        
+        if time_of_use:
+            return time_of_use[0].expected_time_of_use
+
     intervention_product_model=fields.Many2one('maintenance.intervention.product.model', 'Product model')
     intervention_model=fields.Many2one('maintenance.intervention.model','Intervention Model')
+    expected_time_of_use=fields.Float("Expected time of use",compute=_get_expected_tou,store=True) 
 
 class maintenance_intervention(models.Model):
     _inherit = 'maintenance.intervention'
@@ -591,7 +606,6 @@ class maintenance_intervention(models.Model):
     project_id=fields.Many2one("maintenance.project", 'Project')
     project_state=fields.Selection([('draft','Draft'),('active','Active'),('disabled','Disabled')],related='project_id.state', store=True, string="Project state")
     model_and_iteration_json=fields.Text("Model and iteration") 
-    expected_time_of_use=fields.Float("Expected time of use") 
     intervention_model_id=fields.Many2one('maintenance.intervention.model', 'Intervention model')
     element_model_id=fields.Many2one('maintenance.element.model', 'Intervention model')    
 
@@ -688,6 +702,8 @@ class maintenance_intervention_timeofuse(models.Model):
         res.check_regenerate_interventions()
         res.check_timeofuse()
         return res
+    
+    expected_time_of_use=fields.Float("Expected time of use")
 
 
 class maintenance_project_budget_line(models.Model):

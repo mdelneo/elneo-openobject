@@ -5,7 +5,7 @@ import re
 class res_partner(models.Model):
     _inherit = 'res.partner'
     
-    REGEX="\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+"
+    REGEX="\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,10}\\b"
     
     @api.one
     @api.constrains('email')

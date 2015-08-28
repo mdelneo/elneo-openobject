@@ -398,6 +398,7 @@ class maintenance_element(models.Model):
     #'piece_tmi':fields.text("Piece TMI", readonly=True),        
     address_id = fields.Many2one(related="installation_id.address_id", relation="res.partner", readonly=True, string="Installation Address")
     serialnumber_required = fields.Boolean("Serial number required")
+    visible_for_intervention = fields.Boolean("Visible for interventions",default=True)
     active = fields.Boolean("Active",default=True)
     warehouse_id = fields.Many2one(related='installation_id.warehouse_id', relation='sale.shop', string="Warehouse")
 

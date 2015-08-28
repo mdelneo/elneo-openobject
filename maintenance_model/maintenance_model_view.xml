@@ -25,6 +25,20 @@
 			</field>
 		</record>
 
+		<!-- Maintenance intervention form -->
+		<record id="view_maintenance_intervention_form_maintenance_model_inherit" model="ir.ui.view">
+			<field name="name">maintenance.intervention.form.maintenance_model.inherit</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="maintenance_project.view_maintenance_intervention_form_maintenance_project_inherit" />
+			<field name="arch" type="xml">
+				<field name="date_scheduled" position="after">
+					<field name="expected_time_of_use" />
+				</field>
+			</field>
+		</record>
+		
+	
 		<!-- Maintenance project view -->
 		<record id="view_maintenance_project_form_maintenance_model_inherit" model="ir.ui.view">
 			<field name="name">maintenance.project.form.maintenance.model.inherit</field>

@@ -68,6 +68,10 @@ class maintenance_intervention(models.Model):
     _inherit='maintenance.intervention'
     
     @api.multi
+    def action_create_update_sale_order(self):
+        return super(maintenance_intervention,self.with_context(from_intervention=True)).action_create_update_sale_order()
+    
+    @api.multi
     def write(self,vals):
         res = super(maintenance_intervention, self).write(vals)
         if 'contact_address_id' in vals:            
@@ -130,6 +134,15 @@ class maintenance_project(models.Model):
     
 class sale_order(models.Model):
     _inherit='sale.order'
+    
+    @api.constrains('carrier_id','shop_sale')
+    @api.one
+    def _check_carrier_id(self):
+        if not self.env.context.get('from_intervention', False):
+            return super(sale_order,self)._check_carrier_id()
+        else:
+            return True
+            
     
     @api.multi
     def action_button_confirm(self):
@@ -1055,11 +1068,6 @@ maintenance_project_initial_cpi_id_compute()
             for line in result:
                 line['price_unit'] = project.annual_amount
         return result
-    
-    def onchange_intervention_delay(self, cr, uid, ids, delay_id, delay_price_included, context=None):
-        if delay_id and not delay_price_included:
-            return {'value':{'delay_price_init':self.pool.get("maintenance.project.delay").browse(cr, uid, delay_id, context).price}}
-        return {}
     
     
 maintenance_project()

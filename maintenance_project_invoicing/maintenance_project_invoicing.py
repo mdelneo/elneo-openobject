@@ -110,10 +110,10 @@ class maintenance_project(models.Model):
         #set invoiced = False to allow action_invoice_create to recreate another invoice for the same line
         #TODO: REMOVE WHEN sale/sale.py is fixed (in action_invoice_create)
         if len(self.sale_order_id.order_line) == 1:
-            self.env.cr.execute("""UPDATE sale_order_line SET invoiced=False WHERE id IN (%s)""",(tuple(self.sale_order_id.order_line._ids)))
+            self.env.cr.execute("""UPDATE sale_order_line SET invoiced=False WHERE id IN (%s)""",(tuple(self.sale_order_id.order_line.mapped('id'))))
             self.env['sale.order.line'].invalidate_cache(['invoiced'])
         elif len(self.sale_order_id.order_line) > 1:
-            self.env.cr.execute("""UPDATE sale_order_line SET invoiced=False WHERE id IN %s""",(tuple(self.sale_order_id.order_line._ids)))
+            self.env.cr.execute("""UPDATE sale_order_line SET invoiced=False WHERE id IN %s""" % str(tuple(self.sale_order_id.order_line.mapped('id'))))
             self.env['sale.order.line'].invalidate_cache(['invoiced'])
         
         invoice_id = self.sale_order_id.action_invoice_create()

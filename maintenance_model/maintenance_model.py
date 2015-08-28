@@ -340,14 +340,15 @@ class maintenance_element(models.Model):
                         intervention = {
                             'name':intervention_model.name,
                             'maint_type':intervention_model.intervention_type_id.id,
+                            'date_scheduled':current_date, 
                             'date_start':current_date, 
                             'date_end':current_date+timedelta(hours=intervention_model.duration), 
                             'planned_hours':intervention_model.duration, 
                             'description':intervention_model.description, 
                             'installation_id':installation.id,
                             'contact_address_id':installation.contact_address_id.id, 
-                            'intervention_products':[(0,0,{'delay':product_intervention_model.product_id.sale_delay,'sale_price':product_intervention_model.product_id.list_price,'cost_price':product_intervention_model.product_id.standard_price,'description':product_intervention_model.product_id.name_get()[0][1],'intervention_model':product_intervention_model.intervention_model_id.id,'intervention_product_model':product_intervention_model.id,'maintenance_element_id':element.id,'product_id':product_intervention_model.product_id.id, 'quantity':product_intervention_model.quantity}) for product_intervention_model in intervention_model.intervention_product_model_ids],
-                            'intervention_timeofuse':[(0,0,{'expected_time_of_use':element.expected_time_of_use,'element_id':element.id})],
+                            'intervention_products':[(0,0,{'delay':product_intervention_model.product_id.sale_delay,'sale_price':product_intervention_model.product_id.product_tmpl_id.list_price,'cost_price':product_intervention_model.product_id.standard_price,'description':product_intervention_model.product_id.name_get()[0][1],'intervention_model':product_intervention_model.intervention_model_id.id,'intervention_product_model':product_intervention_model.id,'maintenance_element_id':element.id,'product_id':product_intervention_model.product_id.id, 'quantity':product_intervention_model.quantity}) for product_intervention_model in intervention_model.intervention_product_model_ids],
+                            'intervention_timeofuse':[(0,0,{'expected_time_of_use':current_hours,'maintenance_element_id':element.id})],
                             'hours':current_hours, 
                             'element_model_id':element.element_model_id.id,
                             'intervention_model_id':intervention_model.id, 
@@ -370,13 +371,14 @@ class maintenance_element(models.Model):
                 'name':'', 
                 'description':'', 
                 'maint_type':merge_table[key][0]['maint_type'],
-                'date_planned':merge_table[key][0]['date_start'],
+                'date_scheduled':merge_table[key][0]['date_scheduled'],
                 'date_start':merge_table[key][0]['date_start'],
                 'installation_id':merge_table[key][0]['installation_id'],
                 'contact_address_id':merge_table[key][0]['contact_address_id'],
                 'hours':merge_table[key][0]['hours'],
                 'element_model_id':merge_table[key][0]['element_model_id'],
                 'project_id':merge_table[key][0]['project_id'],
+                'intervention_timeofuse':merge_table[key][0]['intervention_timeofuse'],
                 'intervention_products' : [],
                 'intervention_detail':[],
             }
@@ -404,6 +406,17 @@ class maintenance_element(models.Model):
                 merged_intervention['intervention_detail'].append({'intervention_model_id':intervention['intervention_model_id'], 'maintenance_element_id':element.id})
                 duration = duration + intervention['planned_hours']
                 
+                tou_found=False
+                if (merged_intervention['intervention_timeofuse']):
+                    for timeofuse in merged_intervention['intervention_timeofuse']:
+                        if (timeofuse[2] and timeofuse[2].has_key('maintenance_element_id') and intervention['intervention_timeofuse'][0][2] and intervention['intervention_timeofuse'][0][2].has_key('maintenance_element_id')):
+                            if timeofuse[2]['maintenance_element_id'] == intervention['intervention_timeofuse'][0][2]['maintenance_element_id']:
+                                tou_found = True
+                
+                if (not tou_found):
+                    merged_intervention['intervention_timeofuse'] += intervention['intervention_timeofuse']
+                            
+                
             intervention_name = ''
             for element_name in element_names:
                 hours = element_names[element_name]['hours']
@@ -427,7 +440,7 @@ class maintenance_element(models.Model):
             merged_intervention['name'] = intervention_name
             #merged_intervention['expected_time_of_use'] = max_hours
             merged_intervention['description'] = merged_intervention['description'][0:-2]
-            merged_intervention['elements'] = [element]
+            merged_intervention['elements'] = [element.id]
             
             result.append(merged_intervention)
                     
@@ -585,8 +598,7 @@ class maintenance_intervention_product(models.Model):
     @api.one
     @api.depends('intervention_id.intervention_timeofuse.expected_time_of_use')
     def _get_expected_tou(self):
-        time_of_use = self.env['maintenance.intervention.timeofuse'].search([('intervention_id','=',self.intervention_id.id),('element_id','=',self.maintenance_element_id.id)])
-        
+        time_of_use = self.env['maintenance.intervention.timeofuse'].search([('intervention_id','=',self.intervention_id.id),('maintenance_element_id','=',self.maintenance_element_id.id)])
         if time_of_use:
             return time_of_use[0].expected_time_of_use
 

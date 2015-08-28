@@ -260,6 +260,21 @@
 		
 		<!-- Maintenance intervention -->
 		
+		<record id="view_maintenance_intervention_form_model" model="ir.ui.view">
+			<field name="name">maintenance.intervention.form.model</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="inherit_id" ref="maintenance_timeofuse.view_maintenance_intervention_form_timeofuse_inherit"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Hour counters']/field[@name='intervention_timeofuse']/tree/field[@name='time_of_use']" position="before">
+					<field name="expected_time_of_use" />
+				</xpath>
+				<xpath expr="//page[@string='Hour counters']/field[@name='intervention_timeofuse']//form/group/field[@name='time_of_use']" position="before">
+					<field name="expected_time_of_use" />
+				</xpath>
+			</field>
+		</record>
+		
 		<record id="view_maintenance_intervention_tree_inherit" model="ir.ui.view">
 			<field name="name">maintenance.intervention.tree.inherit</field>
 			<field name="model">maintenance.intervention</field>

@@ -914,18 +914,16 @@ class sale_order(models.Model):
         return result
 
 
-    @api.one
     @api.depends('procurement_group_id')
+    @api.one
     def _get_picking_ids(self):
         
         if not self.procurement_group_id:
             self.picking_ids = None
         else:
             self.picking_ids = self.env['stock.picking'].search([('group_id','=',self.procurement_group_id.id)])
-            
     
-    
-    picking_ids = fields.One2many('stock.picking', 'sale_id',compute='_get_picking_ids')
+    picking_ids = fields.One2many('stock.picking', 'sale_id', compute='_get_picking_ids', store=True)
     intervention_id = fields.Many2one(comodel_name="maintenance.intervention",compute=_get_intervention, store=True)
 
 
@@ -961,6 +959,22 @@ class old_stock_picking(osv.orm.Model):
 
 class stock_picking(models.Model):
     _inherit = ['stock.picking']
+    
+    
+    @api.model
+    def _install_sale_id(self):
+        self._cr.execute('''DO $$ 
+        BEGIN
+            BEGIN
+                ALTER TABLE stock_picking ADD COLUMN sale_id integer;
+                COMMENT ON COLUMN stock_picking.sale_id IS 'Sale Order';
+            EXCEPTION
+                WHEN duplicate_column THEN RAISE NOTICE 'column sale_id already exists in stock_picking.';
+            END;
+            update stock_picking set sale_id = so.id from sale_order so where so.procurement_group_id = stock_picking.group_id;
+        END;
+        $$''')
+        return True
   
     @api.multi
     @api.depends('group_id')
@@ -972,7 +986,7 @@ class stock_picking(models.Model):
                 pick.sale_id=None
 
     
-    sale_id = fields.Many2one('sale.order',compute='_get_sale_id')
+    sale_id = fields.Many2one('sale.order',compute='_get_sale_id', store=True)
     
     #associate invoice_line with maintenance product
     '''

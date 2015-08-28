@@ -9,7 +9,9 @@
     'website': 'http://www.elneo.com',
     'depends': ['base','stock','purchase', 'sale_margin'],
     "data" : ['views/elneo_stock_view.xml',
-              'views/user_view.xml'
+              'views/user_view.xml',
+              'wizard/transfert_move_wizard_view.xml', 
+              'security/ir.model.access.csv'
               ],
     'installable': True,
     'auto_install': False,

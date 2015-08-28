@@ -32,6 +32,7 @@ sale_order_line()
 
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
+    
 stock_picking()
 
 class procurement_rule(models.Model):

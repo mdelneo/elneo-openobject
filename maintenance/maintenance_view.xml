@@ -310,7 +310,6 @@
 								<field name="name" />
 								<field name="installation_id" />
 								<field name="active" />
-								<field name="visible_for_intervention" />
 							</group>
 							<group>
 								<field name="installation_date" />
@@ -456,7 +455,6 @@
 											<field name="code" />
 											<field name="name" />
 											<field name="active" />
-											<field name="visible_for_intervention" />
 										</group>
 	
 										<group>

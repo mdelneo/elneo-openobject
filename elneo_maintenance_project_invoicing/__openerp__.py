@@ -10,7 +10,6 @@
     'depends': ['maintenance_project_invoicing','cpi_be'],
     "update_xml" : [
         'elneo_maintenance_project_invoicing_view.xml',
-        'elneo_maintenance_project_invoicing_data.xml',
         'res_config.xml'
         ],
     'installable': True,

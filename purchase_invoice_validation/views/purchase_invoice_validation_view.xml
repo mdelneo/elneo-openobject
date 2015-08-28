@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Supplier invoices search -->
+		<record model="ir.ui.view" id="view_account_invoice_filter_purchase_invoice_validation">
+			<field name="name">account.invoice.select.purchase.invoice.validation</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+            	<field name="partner_id" position="before">
+            		<field name="supplier_invoice_number" />
+            		<field name="number" />
+            		<field name="reference" />
+            	</field>
+            	<filter name="unpaid" position="after">
+	            	<filter name="validation_problem" icon="terp-document-new" string="Validation problem" domain="['&amp;','&amp;',('validation_problem','=','True'),('litigation','!=','True'),('problem_solving_in_progress','!=','True')]" />
+	            	<filter name="litigation" icon="terp-document-new" string="Litigation" domain="[('litigation','=','True')]" />
+	            	<filter name="problem_solving_in_progress" icon="terp-document-new" string="Problem solving in progress" domain="[('problem_solving_in_progress','=','True')]" />
+	            	<filter name="supplier_due_date_different" icon="terp-document-new" string="Difference between supplier due date and due date" domain="[('diff_supplier_due_date','=','True')]" />
+	            	<newline />
+            	</filter>
+            </field>
+		</record>
+	
+		<!-- Supplier invoices form -->
+		<record id="invoice_supplier_form_purchase_invoice_validation" model="ir.ui.view">
+			<field name="name">account.invoice.supplier.form.purchase.invoice.validation</field>
+			<field name="model">account.invoice</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[@string='Re-Open']" position="after">
+					<button name="invoice_problem" type='object'
+							string="Problem" icon="gtk-find" attrs="{'invisible':['|',('validation_problem','=',True),('state','not in',('draft','proforma2'))]}" />
+					<button name="invoice_problem_solving_in_progress" type='object'
+						string="Solving in progress" icon="gtk-find" attrs="{'invisible':['|',('validation_problem','!=',True),('problem_solving_in_progress','=',True)]}"  />
+					<button name="invoice_litigation" type='object'
+						string="Litigation" icon="gtk-find" attrs="{'invisible':['|',('validation_problem','!=',True),('litigation','=',True)]}"  />
+				</xpath>
+				<xpath expr="//button[@name='invoice_open']" position='attributes'>
+					<attribute name="string">Approve</attribute>
+					<attribute name="icon">terp-camera_test</attribute>
+				</xpath>
+							
+				<field name="payment_term" position="after">
+					<field name="force_payment_sent"  attrs="{'invisible':['|',('validation_problem','!=',True),('litigation','=',True)]}"/>
+				</field>
+				
+			
+				<field name="reference_type" position="attributes">
+					<attribute name="on_change">onchange_name(name, reference_type)</attribute>
+				</field>
+			
+				<notebook position="inside">
+					<page string="Purchase">
+						<field name="purchase_ids" nolabel="1" />
+					</page>
+				</notebook>
+			
+				<page string="Invoice" position="after">
+					<page string="Validation problems">
+						<group>
+							<field name="validation_problem_type" widget="selection" />
+							<newline />
+							<field name="validation_problem_comment" colspan="4" />
+							<field name="supplier_invoice_file" />
+							<separator string="Advanced" colspan="4" />
+							<field name="internal_number" string="Define/Change Invoice Number" />
+							<field name="validation_problem" />
+							<newline />
+							<field name="problem_solving_in_progress" attrs="{'invisible':[('validation_problem','!=',True)]}" />
+							<field name="litigation" attrs="{'invisible':[('validation_problem','!=',True)]}" />
+							<field name="problem_amount" attrs="{'invisible':[('validation_problem','!=',True)]}" />
+						</group>
+					</page>
+				</page>
+			</field>
+		</record>
+	</data>
+</openerp>

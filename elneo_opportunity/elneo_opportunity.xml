@@ -75,6 +75,36 @@
 <!--             	</tree> -->
 <!--             </field> -->
 <!--         </record> -->
+
+			<record model="ir.ui.view" id="crm_case_form_view_oppor_elneo_opportunity">
+	            <field name="name">crm.case.form.view.oppor.elneo.opportunity</field>
+	            <field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
+	            <field name="model">crm.lead</field>
+	            <field name="priority">20</field>
+	            <field name="arch" type="xml">
+	            	<xpath expr="//div[@class='oe_title']/h2/field[@name='company_currency']" position="replace" />
+	            	<xpath expr="//div[@class='oe_title']/h2/field[@name='planned_revenue']" position="replace" />
+	            	<xpath expr="//div[@class='oe_title']/h2/span" position="replace" />
+	            	<xpath expr="//div[@class='oe_title']/label[@for='planned_revenue']" position="replace" />
+	            	
+	            	<xpath expr="//notebook" position="before">
+		            	<group>
+		            		<group>
+		            			<h2><label string="Margin" /></h2><newline />		            			
+		            			<field name="planned_revenue_computed" widget='monetary' options="{'currency_field': 'company_currency'}"/>
+		            			<field name="planned_revenue_auto" />
+		            			<field name="planned_revenue" widget='monetary' options="{'currency_field': 'company_currency'}"/>
+		            		</group>
+		            		<group>
+		            			<h2><label string="Sale price" /></h2><newline />	
+		            			<field name="sale_price_computed" widget='monetary' options="{'currency_field': 'company_currency'}"/>
+		            			<field name="sale_price_auto" />
+		            			<field name="sale_price_manual" widget='monetary' options="{'currency_field': 'company_currency'}"/>
+		            		</group>
+		            	</group>
+	            	</xpath>
+	            </field>
+            </record>
 		
 		<!-- FORM (new) -->
 <!-- 		<record id="elneo_opportunity_form_view" model="ir.ui.view"> -->

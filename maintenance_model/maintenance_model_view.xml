@@ -47,7 +47,6 @@
 							<tree colors="grey:(state=='cancel')">
 								<field name="code" />
 								<field name="date_start" />
-								<field name="expected_time_of_use" />
 								<field name="time_planned"/>	
 								<field name="contact_phone"/>
 								<field name="technicians"/>

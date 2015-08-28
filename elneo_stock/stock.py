@@ -68,6 +68,46 @@ class stock_move(models.Model):
         return res
     
     
+    #reservation will be available when at least one product is available. for delivery order it depends on sale order.
+    def _prepare_picking_assign(self, cr, uid, move, context=None):
+        res = super(stock_move, self)._prepare_picking_assign(cr, uid, move, context=context)
+        if move.picking_type_id and move.picking_type_id.code == 'internal':
+            res['move_type'] = 'direct'
+        return res
+    
+    
+    #bug correction : include assigned and partially_available state in query
+    @api.cr_uid_ids_context
+    def _picking_assign(self, cr, uid, move_ids, procurement_group, location_from, location_to, context=None):
+        """Assign a picking on the given move_ids, which is a list of move supposed to share the same procurement_group, location_from and location_to
+        (and company). Those attributes are also given as parameters.
+        """
+        pick_obj = self.pool.get("stock.picking")
+        # Use a SQL query as doing with the ORM will split it in different queries with id IN (,,)
+        # In the next version, the locations on the picking should be stored again.
+        query = """
+            SELECT stock_picking.id FROM stock_picking, stock_move
+            WHERE
+                stock_picking.state in ('draft', 'confirmed', 'waiting', 'assigned','partially_available') AND
+                stock_move.picking_id = stock_picking.id AND
+                stock_move.location_id = %s AND
+                stock_move.location_dest_id = %s AND
+        """
+        params = (location_from, location_to)
+        if not procurement_group:
+            query += "stock_picking.group_id IS NULL LIMIT 1"
+        else:
+            query += "stock_picking.group_id = %s LIMIT 1"
+            params += (procurement_group,)
+        cr.execute(query, params)
+        [pick] = cr.fetchone() or [None]
+        if not pick:
+            move = self.browse(cr, uid, move_ids, context=context)[0]
+            values = self._prepare_picking_assign(cr, uid, move, context=context)
+            pick = pick_obj.create(cr, uid, values, context=context)
+        return self.write(cr, uid, move_ids, {'picking_id': pick}, context=context)
+    
+    
 stock_move()
 
 class product_template(models.Model):

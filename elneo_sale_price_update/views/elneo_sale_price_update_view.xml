@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_order_form_elneo_sale_price_update">
+			<field name="name">sale.order.form.elneo.sale.price.update</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='order_line']" position="after">
+					<button icon="terp-camera_test" name="update_prices" string="Update Prices" type="object" attrs="{'invisible':[('state','not in',['draft','sent'])]}" groups="product.group_sale_pricelist"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

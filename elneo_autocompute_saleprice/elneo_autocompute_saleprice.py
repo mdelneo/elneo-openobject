@@ -295,6 +295,6 @@ class product_product(models.Model):
         
         return super(product_product, self).copy(cr, uid, ids, default, context=context)
     
-    list_price = fields.Float('Sale Price', related='product_tmpl_id.list_price', help="Base price for computing the customer price. Sometimes called the catalog price.", store=True)
+    list_price = fields.Float('Sale Price', related='product_tmpl_id.list_price', help="Base price for computing the customer price. Sometimes called the catalog price.")
 
 product_product()

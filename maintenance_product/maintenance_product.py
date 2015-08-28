@@ -925,7 +925,7 @@ class sale_order(models.Model):
             
     
     
-    picking_ids = fields.One2many('stock.picking', 'sale_id',compute='_get_picking_ids',store=True)
+    picking_ids = fields.One2many('stock.picking', 'sale_id',compute='_get_picking_ids')
     intervention_id = fields.Many2one(comodel_name="maintenance.intervention",compute=_get_intervention, store=True)
 
 
@@ -961,21 +961,18 @@ class old_stock_picking(osv.orm.Model):
 
 class stock_picking(models.Model):
     _inherit = ['stock.picking']
-    
-    @api.model
-    def _install_sale_id(self):
-        self._cr.execute('update stock_picking set sale_id = so.id from sale_order so where so.procurement_group_id = stock_picking.group_id;')
-        return True
-    
-    @api.one
+  
+    @api.multi
     @api.depends('group_id')
     def _get_sale_id(self):
-        if self.group_id:
-            self.sale_id=self.env['sale.order'].search([('procurement_group_id', '=', self.group_id.id)])
-        else:
-            self.sale_id=None
+        for pick in self:
+            if pick.group_id:
+                pick.sale_id=self.env['sale.order'].search([('procurement_group_id', '=', pick.group_id.id)])
+            else:
+                pick.sale_id=None
+
     
-    sale_id = fields.Many2one('sale.order',compute=_get_sale_id, store=True)
+    sale_id = fields.Many2one('sale.order',compute='_get_sale_id')
     
     #associate invoice_line with maintenance product
     '''

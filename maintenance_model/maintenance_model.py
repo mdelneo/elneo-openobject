@@ -585,7 +585,7 @@ class maintenance_intervention_product(models.Model):
     @api.one
     @api.depends('intervention_id.intervention_timeofuse.expected_time_of_use')
     def _get_expected_tou(self):
-        time_of_use = self.env['maintenance.intervention.timeofuse'].search([('intervention_id','=',self.intervention_id),('element_id','=',self.maintenance_element_id)])
+        time_of_use = self.env['maintenance.intervention.timeofuse'].search([('intervention_id','=',self.intervention_id.id),('element_id','=',self.maintenance_element_id.id)])
         
         if time_of_use:
             return time_of_use[0].expected_time_of_use

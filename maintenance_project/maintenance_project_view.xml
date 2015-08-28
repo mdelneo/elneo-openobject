@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+        <record id="view_account_invoice_project_filter" model="ir.ui.view">
+            <field name="name">account.invoice.project.select</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <search string="Search Invoice">
+                    <field name="number" string="Invoice" filter_domain="['|','|','|', ('number','ilike',self), ('origin','ilike',self), ('supplier_invoice_number', 'ilike', self), ('partner_id', 'child_of', self)]"/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft Invoices"/>
+                    <filter name="proforma" string="Proforma" domain="[('state','=','proforma2')]" help="Proforma Invoices" groups="account.group_proforma_invoices"/>
+                    <filter name="invoices" string="Invoices" domain="[('state','not in',['draft','cancel'])]" help="Proforma/Open/Paid Invoices"/>
+                    <filter name="unpaid" string="Unpaid" domain="[('state','=','open')]" help="Unpaid Invoices"/>
+                    <filter name="message_unread" string="My Invoices to Process" domain="[('section_id.member_ids','in', [uid]),('state','=', 'draft')]" />
+                    <separator/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="user_id" string="Salesperson"/>
+                    <field name="period_id" string="Period"/>
+                    <separator/>
+                    <filter domain="[('user_id','=',uid)]" help="My Invoices"/>
+                    <group expand="0" string="Group By">
+                    	<filter name="group_by_partner_id" string="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter string="Salesperson" context="{'group_by':'user_id'}"/>
+                        <filter string="Status" context="{'group_by':'state'}"/>
+                        <separator/>
+                        <filter string="Period" context="{'group_by':'period_id'}"/>
+                        <filter string="Due Month" context="{'group_by':'date_due'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="invoice_form_project" model="ir.ui.view">
+            <field name="name">account.invoice.form.project</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <page string="Other Info" position="after">
+                	<page string="Contracts">
+                		<field name="maintenance_projects" />
+                	</page>
+                </page>
+            </field>
+        </record>
+	
+	
 		<!-- Maintenance intervention inheritance -->
 		<record id="view_maintenance_intervention_form_maintenance_project_inherit" model="ir.ui.view">
 			<field name="name">maintenance.intervention.form.maintenance.project.inherit</field>
@@ -15,10 +58,7 @@
 				
 			</field>
 		</record>
-		
-		
-		
-		
+
 		<!-- Maintenance element inheritance -->
 		<record
 			id="view_maintenance_element_form_maintenance_project_inherit"
@@ -262,7 +302,6 @@
             <field name="arch" type="xml">
                 <search string="Maintenance project">
                     <group col="8" colspan="4">
-                        <!-- <filter icon="terp-camera_test" name="enable" string="Enable" domain="['|',('enable','=',True),('sale_order_id','=',False)]" help="Current Accounts"/>-->
                         <filter name="state" string="Active" domain="[('state','=','active')]" help="Current Projects"/>
                         <separator orientation="vertical"/>
                         <field name="code" />
@@ -299,7 +338,6 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Maintenance project">
-					
 					<header>
 						<button name="draft" string="Set to Draft" states="disabled" class="oe_highlight"/>
 						<button name="active" string="Activate" states="draft" class="oe_highlight"/>

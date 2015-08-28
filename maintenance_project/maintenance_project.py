@@ -313,7 +313,17 @@ class account_invoice_line(models.Model):
 
 
 class account_invoice(models.Model):
-    _inherit = 'account.invoice' 
+    _name='account.invoice'
+    _inherit = ['account.invoice','ir.needaction_mixin']
+    
+    @api.model
+    def _needaction_domain_get(self):
+        return ['&',('section_id.member_ids','in', self.env.uid),('state','=', 'draft')]
+    
+    @api.model
+    def _needaction_count(self, domain):
+        res = super(account_invoice, self)._needaction_count(domain)
+        return res
     
     def _refund_cleanup_lines(self, cr, uid, lines):
         res = super(account_invoice, self)._refund_cleanup_lines(cr, uid, lines)
@@ -325,12 +335,33 @@ class account_invoice(models.Model):
                 del invoice_line['intervention_id']
         return res
     
+  
     @api.one
     def _get_maintenance_projects(self):
        
-        self.maintenance_projects = self.env['maintenance.project'].search( [('sale_order_id','in',[so.id for so in self.sale_order_ids])])
+        self.maintenance_projects = self.env['maintenance.project'].search( [('sale_order_id.invoice_ids','in',[so for so in self.ids])])
+        
+    @api.multi
+    def _search_projects(self,operator,value):
+        if (operator == '!=' and value == False):
+            '''projects = self.env['maintenance.project'].search([('sale_order_id.invoice_ids','in',[so for so in self.ids])])'''
+            
+            self.env.cr.execute("""SELECT ai.id FROM account_invoice ai 
+                                    JOIN sale_order_invoice_rel soir ON ai.id = soir.invoice_id 
+                                    JOIN sale_order so ON soir.order_id = so.id
+                                    JOIN maintenance_project mp ON mp.sale_order_id = so.id""")
+            
+            ids = self.env.cr.fetchall()
+            return [('id','in',ids)]
+            
+        
+        return []
     
-    maintenance_projects=fields.Many2many('maintenance.project',compute=_get_maintenance_projects, string="Maintenance projects")
+    
+    maintenance_projects=fields.Many2many('maintenance.project',compute=_get_maintenance_projects, search=_search_projects,string="Maintenance projects",readonly=True)
+    
+    
+    
 
 class maintenance_intervention(models.Model):
     _inherit = 'maintenance.intervention'

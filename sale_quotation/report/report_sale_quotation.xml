@@ -2,49 +2,10 @@
 <openerp>
 	<data>
 	
-		<template id="layout_quotation">
-		    <!-- Multicompany -->
-		    <t t-if="o and 'company_id' in o">
-		        <t t-set="company" t-value="o.company_id"></t>
-		    </t>
-		    <t t-if="not o or not 'company_id' in o">
-		        <t t-set="company" t-value="res_company"></t>
-		    </t>
-		
-		    <t t-call="sale_quotation.layout_quotation_header" />
-		    <t t-raw="0" />
-		    <t t-call="sale_quotation.layout_quotation_footer" />
-		</template>
-		
-		<template id="layout_quotation_header">
-		    <div class="header">
-	            <div>
-	                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
-	            </div>
-		    </div>
-		</template>
-		
-		<template id="layout_quotation_footer">
-		    <div class="footer">
-		        <div class="text-center" style="border-top: 1px solid black;">
-		            <ul class="list-inline">
-		                <li>Page:</li>
-		                <li><span class="page"/></li>
-		                <li>/</li>
-		                <li><span class="topage"/></li>
-		            </ul>
-		        </div>
-		    </div>      
-		</template>
-	
-
 
 		<template id="sale_quotation.report_saleorder_document" inherit_id="sale_layout.report_sale_layouted">
-		
-			<xpath expr="t[@t-call='report.external_layout']" position="attributes">
-				<attribute name="t-call">sale_quotation.layout_quotation</attribute>
-			</xpath>
-		
+			
+			<!-- Add text elements before -->		
 			<xpath expr="//div[@class='oe_structure']" position="before">
 				<t t-if="o.display_quotation_text_elements">
 					<t t-foreach="o.quotation_text_elements_before" t-as="text_element">
@@ -61,7 +22,7 @@
 				</t>
 			</xpath>
 			
-			
+			<!-- Add text elements after & final -->
 			<xpath expr="//p[@t-if='o.payment_term.note']" position="after">
 				<t t-if="o.display_quotation_text_elements" name="text_elements_after">
 					<t t-foreach="o.quotation_text_elements_after" t-as="text_element">
@@ -114,8 +75,7 @@
 						</div>
 					</div>
 					<div class="col-xs-5 col-xs-offset-1">
-						<div t-field="o.partner_id"
-							t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
+						<div t-field="o.partner_id" t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
 					</div>
 				</div>
 			</xpath>

@@ -107,6 +107,17 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     @api.multi
+    def print_quotation(self):
+        assert len(self) == 1, 'This option should only be used for a single id at a time'
+        self.signal_workflow('quotation_sent')
+        if self.state == 'draft':
+            return self.pool['report'].get_action('sale.report_saleorder')
+        else:
+            return self.pool['report'].get_action('elneo_sale.report_saleorder_confirmation')
+        
+    
+    
+    @api.multi
     def onchange_pricelist_id(self, pricelist_id, order_lines):
         res = super(sale_order, self).onchange_pricelist_id(pricelist_id, order_lines)
         if res and 'warning' in res:

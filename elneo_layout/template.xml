@@ -6,6 +6,7 @@
 				<link rel="stylesheet" href="/elneo_layout/static/src/css/elneo.css"/>
 			</xpath>
 		</template>
+	
 		
 		<template id="external_layout_header_elneo" inherit_id="report.external_layout_header">
 			<xpath expr="//div[@class='header']" position="replace">

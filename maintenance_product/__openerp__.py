@@ -12,8 +12,7 @@
              'maintenance_product_view.xml',
                    'maintenance_product_sequence.xml', 
                    'security/ir.model.access.csv',
-                   'report/report_maintenance.xml',
-                   'data/stock_picking.yml'
+                   'report/report_maintenance.xml'
                    ],
     'installable': True,
     'active': False,

@@ -10,6 +10,7 @@
     'depends': ['maintenance_project'],
     "data" : [
         'maintenance_project_invoicing_view.xml',
+        'maintenance_project_invoicing_data.xml'
         ],
     'installable': True,
     'active': False,

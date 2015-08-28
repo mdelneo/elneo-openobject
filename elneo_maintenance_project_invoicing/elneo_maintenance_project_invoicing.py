@@ -47,7 +47,10 @@ class maintenance_project(models.Model):
     def _set_cpi(self):
         cpi_pool = self.env['cpi.be.entry']
         
-        date_invoice,date_start,date_end = self._get_invoice_dates()
+        res = self._get_invoice_dates()
+        date_invoice=res['date_invoice']
+        date_start = res['date_start']
+        date_end = res['date_end']
         
         if not date_invoice or not self.sale_order_id or not date_start:
             return False

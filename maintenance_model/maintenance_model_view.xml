@@ -10,8 +10,11 @@
 			<field name="arch" type="xml">
 				<xpath expr="//form/sheet/notebook/page/field/form/notebook/page[@string='History']" position='before'>
 					<page string="Project interventions">
+						<header>
+							<button name="generate_interventions" string="Generate interventions" type="object" class="fa fa-cogs" />
+						</header>
 						<field name="intervention_generation_type" />
-						<button name="generate_interventions" string="Generate interventions" type="object" icon="terp-camera_test" />
+						
 						<separator string="Expected interventions under project" colspan="4" />
 						<field name="intervention_ids" colspan="4" nolabel="1" />
 					</page>
@@ -45,9 +48,13 @@
 			<field name="arch" type="xml">
 				<page string="History" position="after">
 					<page string="Project interventions">
-						<group col="6">
+						<header>
+							<group>
+								<button name="generate_interventions" string="Generate interventions" type="object" class="fa fa-cogs" />
+							</group>
+						</header>
+						<group>
 							<field name="intervention_generation_start_date" />
-							<button name="generate_interventions" string="Generate interventions" type="object" icon="terp-camera_test" />
 						</group>
 						<separator string="Expected interventions under project" colspan="4" />
 						<field name="intervention_ids" colspan="4" nolabel="1">

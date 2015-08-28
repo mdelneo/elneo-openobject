@@ -51,7 +51,11 @@
 				</field>
 				<page string="Budget" position="after">
 					<page string="Quotations">
-						<button name="generate_quotation_prices" string="Generate" type="object" />
+						<header>
+							<group>
+								<button name="generate_quotation_prices" class="fa fa-cogs" string="Generate" type="object" />
+							</group>
+						</header>
 						<separator colspan="4" string="Prices" />
 						<field name="quotation_prices" nolabel="1" colspan="4">
 							<form string="Quotation prices">

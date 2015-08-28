@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-30 10:10+0000\n"
-"PO-Revision-Date: 2015-06-30 12:17+0100\n"
+"POT-Creation-Date: 2015-08-28 08:00+0000\n"
+"PO-Revision-Date: 2015-08-28 10:07+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,11 +28,6 @@ msgid "Active"
 msgstr "Actif"
 
 #. module: maintenance_project
-#: field:maintenance.element,expected_time_of_use:0
-msgid "Annual expected hour of use"
-msgstr "Heures d'utilisation prévues"
-
-#. module: maintenance_project
 #: view:maintenance.element:maintenance_project.view_maintenance_element_search_inherit
 msgid "Assets purchased in current month"
 msgstr "Biens achetés dans le mois en cours"
@@ -50,16 +45,37 @@ msgstr "Règles de budget"
 #. module: maintenance_project
 #: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_budget_line_type
 #: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_budget_line_type
+#: field:maintenance.project.budget.rule,budget_line_type_id:0
 msgid "Budget line type"
 msgstr "Type de ligne de budget"
 
 #. module: maintenance_project
+#: field:maintenance.project,budget_lines:0
+msgid "Budget lines"
+msgstr "Lignes de Budget"
+
+#. module: maintenance_project
 #: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
+#: field:maintenance.project.type,budget_rules:0
 msgid "Budget rules"
 msgstr "règles de Budget"
 
 #. module: maintenance_project
-#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
+#: field:maintenance.project,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.invoice_form_project
+msgid "Contracts"
+msgstr "Contrats"
+
+#. module: maintenance_project
+#: field:maintenance.project.budget.line,cost_price:0
+msgid "Cost price"
+msgstr "Prix de revient"
+
+#. module: maintenance_project
 #: view:maintenance.project:maintenance_project.view_maintenance_project_form
 msgid "Create/update sale"
 msgstr "Créer/mettre à jour la vente"
@@ -88,8 +104,13 @@ msgstr "Créé le"
 
 #. module: maintenance_project
 #: view:maintenance.project:maintenance_project.view_maintenance_project_account_search
-msgid "Current Accounts"
-msgstr "Current Accounts"
+msgid "Current Projects"
+msgstr "Projets Courants"
+
+#. module: maintenance_project
+#: help:maintenance.project,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement"
 
 #. module: maintenance_project
 #: view:maintenance.project:maintenance_project.view_maintenance_project_form
@@ -97,10 +118,34 @@ msgid "Disable"
 msgstr "Désactiver"
 
 #. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_installation
-#: model:ir.model,name:maintenance_project.model_maintenance_intervention
-msgid "Email Thread"
-msgstr "Discussion par courriel"
+#: field:maintenance.project.budget.line.type,display_on_contract:0
+msgid "Display on contract"
+msgstr "Afficher sur le contrat"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Draft Invoices"
+msgstr "Factures en brouillon"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Due Month"
+msgstr "Mois d'échéance"
+
+#. module: maintenance_project
+#: field:maintenance.project,date_end:0
+msgid "End date"
+msgstr "Date de fin"
+
+#. module: maintenance_project
+#: field:maintenance.project,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
 
 #. module: maintenance_project
 #: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
@@ -109,10 +154,25 @@ msgid "General"
 msgstr "Général"
 
 #. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Group By"
+msgstr "Grouper par"
+
+#. module: maintenance_project
+#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+msgid "Here are the interventions that are already done within the project period."
+msgstr "Ici se trouvent les interventions qui sont déjà terminées et qui sont situées dans la période du projet."
+
+#. module: maintenance_project
 #: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
 #: view:maintenance.project:maintenance_project.view_maintenance_project_form
 msgid "History"
 msgstr "Historique"
+
+#. module: maintenance_project
+#: help:maintenance.project,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
 
 #. module: maintenance_project
 #: field:maintenance.project,id:0 field:maintenance.project.budget.line,id:0
@@ -124,6 +184,43 @@ msgid "ID"
 msgstr "ID"
 
 #. module: maintenance_project
+#: help:maintenance.project,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, les nouveaux messages attireront votre attention."
+
+#. module: maintenance_project
+#: field:maintenance.project.budget.rule,included:0
+msgid "Included"
+msgstr "Inclus"
+
+#. module: maintenance_project
+#: field:maintenance.project,installation_id:0
+msgid "Installation"
+msgstr "Installation"
+
+#. module: maintenance_project
+#: field:maintenance.project.budget.line,intervention_id:0
+msgid "Intervention"
+msgstr "Intervention"
+
+#. module: maintenance_project
+#: field:maintenance.project,intervention_delay_id:0
+msgid "Intervention delay"
+msgstr "Délais d'intervention"
+
+#. module: maintenance_project
+#: help:maintenance.project.budget.line,intervention_id:0
+msgid "Intervention generated (among other) by this project detail."
+msgstr "Intervention générée (à partir d'une autre) par le détail du projet"
+
+#. module: maintenance_project
+#: field:maintenance.project.budget.line,intervention_type_id:0
+#: field:maintenance.project.type.line,intervention_type_id:0
+msgid "Intervention type"
+msgstr "Type d'intervention"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
 #: model:ir.model,name:maintenance_project.model_account_invoice
 msgid "Invoice"
 msgstr "Facture"
@@ -140,14 +237,36 @@ msgstr "Catégories facturées"
 
 #. module: maintenance_project
 #: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
+#: field:maintenance.project.type,project_type_lines:0
 msgid "Invoiced categories"
 msgstr "Catégories facturées"
 
 #. module: maintenance_project
+#: field:maintenance.project.type.line,invoiced_percent:0
+msgid "Invoiced percent"
+msgstr "Pourcentage facturé"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
 #: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
 #: view:maintenance.project:maintenance_project.view_maintenance_project_form
 msgid "Invoices"
 msgstr "Factures"
+
+#. module: maintenance_project
+#: field:maintenance.project,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est un abonné"
+
+#. module: maintenance_project
+#: model:maintenance.project.budget.line.type,name:maintenance_project.Labor
+msgid "Labor"
+msgstr "Main d'oeuvre"
+
+#. module: maintenance_project
+#: field:maintenance.project,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier Message"
 
 #. module: maintenance_project
 #: field:maintenance.project,write_uid:0
@@ -172,14 +291,28 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: maintenance_project
+#: help:maintenance.project.budget.line.type,display_on_contract:0
+msgid "Lines of this type are displayed on printed contracts"
+msgstr "Les lignes de ce type sont affichées dans les contrats imprimés"
+
+#. module: maintenance_project
+#: field:maintenance.project.budget.line,maintenance_product_id:0
+msgid "Maintenance Product"
+msgstr "Produit de Maintenance"
+
+#. module: maintenance_project
+#: field:maintenance.project.budget.line,element_id:0
+msgid "Maintenance element"
+msgstr "Elément de Maintenance"
+
+#. module: maintenance_project
 #: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
 #: view:maintenance.project:maintenance_project.view_maintenance_project_form
+#: field:maintenance.project,maintenance_elements:0
 msgid "Maintenance elements"
 msgstr "Éléments de maintenance"
 
 #. module: maintenance_project
-#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project
-#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project
 #: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
 #: field:maintenance.intervention,maintenance_project_id:0
 #: view:maintenance.project:maintenance_project.view_maintenance_project_account_search
@@ -225,37 +358,148 @@ msgid "Maintenance projects"
 msgstr "Projets de maintenance"
 
 #. module: maintenance_project
+#: field:maintenance.project,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: maintenance_project
+#: help:maintenance.project,message_ids:0
+msgid "Messages and communication history"
+msgstr "Messages et historique de communication"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "My Invoices"
+msgstr "Mes factures"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "My Invoices to Process"
+msgstr "Mes factures à traiter"
+
+#. module: maintenance_project
+#: field:maintenance.project.budget.line,name:0
+#: field:maintenance.project.budget.line.type,name:0
+#: field:maintenance.project.delay,name:0
+#: field:maintenance.project.type,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: maintenance_project
 #: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
 #: view:maintenance.project:maintenance_project.view_maintenance_project_form
+#: field:maintenance.project,note:0
 msgid "Notes"
 msgstr "Notes"
 
 #. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:124
+#: view:account.invoice:maintenance_project.invoice_form_project
+msgid "Other Info"
+msgstr "Autre information"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Period"
+msgstr "Période"
+
+#. module: maintenance_project
+#: code:addons/maintenance_project/maintenance_project.py:126
 #, python-format
 msgid "Please disable maintenance project %s before delete it."
 msgstr "Veuillez désactiver le projet de maintenance %s avant de le supprimer"
 
 #. module: maintenance_project
+#: field:maintenance.project.delay,price:0
+msgid "Price"
+msgstr "Prix"
+
+#. module: maintenance_project
+#: field:maintenance.project.budget.line,product_id:0
+#: model:maintenance.project.budget.line.type,name:maintenance_project.Product
+#: field:maintenance.project.type,product_id:0
+msgid "Product"
+msgstr "Produit"
+
+#. module: maintenance_project
+#: field:maintenance.project.type.line,product_category_id:0
+msgid "Product category"
+msgstr "Catégorie de produit"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Proforma"
+msgstr "Pro-forma"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Proforma Invoices"
+msgstr "Factures proforma"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Proforma/Open/Paid Invoices"
+msgstr "Factures proforma/ouvertes/payées"
+
+#. module: maintenance_project
+#: field:maintenance.project.budget.line,project_id:0
+msgid "Project"
+msgstr "Projet"
+
+#. module: maintenance_project
 #: field:maintenance.intervention,maintenance_project_type:0
+#: field:maintenance.project.budget.rule,intervention_type_id:0
+#: field:maintenance.project.budget.rule,project_type_id:0
+#: field:maintenance.project.type.line,project_type_id:0
 msgid "Project type"
 msgstr "Type de projet"
 
 #. module: maintenance_project
+#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project
 #: field:maintenance.installation,maintenance_projects:0
 msgid "Projects"
 msgstr "Projets"
 
 #. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:223
+#: field:maintenance.project.budget.line,quantity:0
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: maintenance_project
+#: field:maintenance.project,sale_order_id:0
+msgid "Sale order"
+msgstr "Vente"
+
+#. module: maintenance_project
+#: code:addons/maintenance_project/maintenance_project.py:225
 #, python-format
 msgid "Sale order is already confirmed."
 msgstr "La vente est déjà confirmée"
 
 #. module: maintenance_project
-#: field:maintenance.intervention,date_scheduled:0
-msgid "Scheduled date"
-msgstr "Date prévue"
+#: field:maintenance.project.budget.line,sale_price:0
+msgid "Sale price"
+msgstr "Prix de Vente"
+
+#. module: maintenance_project
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_sale
+msgid "Sales"
+msgstr "Ventes"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Salesperson"
+msgstr "Vendeur"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Search Invoice"
+msgstr "Rechercher une facture"
 
 #. module: maintenance_project
 #: view:maintenance.project:maintenance_project.view_maintenance_project_form
@@ -263,15 +507,42 @@ msgid "Set to Draft"
 msgstr "Mettre en Brouillon"
 
 #. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:183
+#: code:addons/maintenance_project/maintenance_project.py:185
 #, python-format
-msgid "Several maintenance projects are enable during the same period"
+msgid "Several maintenance projects are active during the same period"
 msgstr "Plusieurs projets de maintenance sont actifs durant la même période"
 
 #. module: maintenance_project
+#: field:maintenance.project,date_start:0
+msgid "Start date"
+msgstr "Date de début"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
 #: view:maintenance.project:maintenance_project.view_maintenance_project_tree
 msgid "Status"
-msgstr "Statut"
+msgstr "État"
+
+#. module: maintenance_project
+#: field:maintenance.project,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: maintenance_project
+#: field:maintenance.project.budget.line,time_of_use:0
+msgid "Time of use"
+msgstr "Temps d'utilisation"
+
+#. module: maintenance_project
+#: model:maintenance.project.budget.line.type,name:maintenance_project.Travel
+msgid "Travel cost"
+msgstr "Coût de déplacement"
+
+#. module: maintenance_project
+#: field:maintenance.project,project_type_id:0
+#: field:maintenance.project.budget.line,budget_line_type_id:0
+msgid "Type"
+msgstr "Type"
 
 #. module: maintenance_project
 #: view:maintenance.element:maintenance_project.view_maintenance_element_search_inherit
@@ -280,7 +551,26 @@ msgid "Under contract"
 msgstr "Sous contrat"
 
 #. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:124
-#, python-format
-msgid "UserError"
-msgstr "Erreur utilisateur"
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Unpaid"
+msgstr "Impayée"
+
+#. module: maintenance_project
+#: view:account.invoice:maintenance_project.view_account_invoice_project_filter
+msgid "Unpaid Invoices"
+msgstr "Factures impayées"
+
+#. module: maintenance_project
+#: field:maintenance.project,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: maintenance_project
+#: field:maintenance.project,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages du site web"
+
+#. module: maintenance_project
+#: help:maintenance.project,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication du site web"

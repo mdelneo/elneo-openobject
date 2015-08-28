@@ -1,172 +1,103 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* elneo_maintenance_project_invoicing
+# 	* maintenance_project_invoicing
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.4\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2013-09-13 11:50+0000\n"
-"PO-Revision-Date: 2013-09-13 11:50+0000\n"
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-28 07:57+0000\n"
+"PO-Revision-Date: 2015-08-28 09:59+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
 
-#. module: elneo_maintenance_project_invoicing
-#: selection:maintenance.project,invoicing_delay:0
-msgid "Monthly"
-msgstr "Mensuelle"
-
-#. module: elneo_maintenance_project_invoicing
-#: model:ir.model,name:elneo_maintenance_project_invoicing.model_maintenance_project
-msgid "maintenance.project"
-msgstr "maintenance.project"
-
-#. module: elneo_maintenance_project_invoicing
-#: field:maintenance.project,current_price:0
-msgid "Current annual amount"
-msgstr "Montant annuel courant"
-
-#. module: elneo_maintenance_project_invoicing
-#: view:maintenance.project:0
-msgid "Generate next invoice"
-msgstr "Générer la facture suivante"
-
-#. module: elneo_maintenance_project_invoicing
-#: field:maintenance.project,project_start_period_invoicing:0
-msgid "Start of invoicing period"
-msgstr "Début de la période de facturation"
-
-#. module: elneo_maintenance_project_invoicing
-#: help:maintenance.project,price_calculation:0
-msgid "((annual amount + delay price)/initial cpi)*current cpi"
-msgstr "((montant annuel + prix du délai)/IPC initial)*IPC courant"
-
-#. module: elneo_maintenance_project_invoicing
-#: field:maintenance.project,delay_price_included:0
-msgid "Delay price included in initial price"
-msgstr "Le prix du délai est inclus dans le prix initial"
-
-#. module: elneo_maintenance_project_invoicing
-#: view:maintenance.project:0
-msgid "Prices"
-msgstr "Prix"
-
-#. module: elneo_maintenance_project_invoicing
-#: code:addons/elneo_maintenance_project_invoicing/elneo_maintenance_project_invoicing.py:331
-#, python-format
-msgid "No CPI type specified"
-msgstr "Pas d'IPC spécifié"
-
-#. module: elneo_maintenance_project_invoicing
-#: field:maintenance.project,next_invoice_date:0
-msgid "Next invoice date"
-msgstr "Date de prochaine facture"
-
-#. module: elneo_maintenance_project_invoicing
-#: model:ir.model,name:elneo_maintenance_project_invoicing.model_scheduler_maintenance_project
-msgid "scheduler.maintenance_project"
-msgstr "scheduler.maintenance_project"
-
-#. module: elneo_maintenance_project_invoicing
-#: code:addons/elneo_maintenance_project_invoicing/elneo_maintenance_project_invoicing.py:297
-#, python-format
-msgid "CPI value: %s for %s"
-msgstr "Valeur IPC : %s pour %s"
-
-#. module: elneo_maintenance_project_invoicing
-#: field:maintenance.project,initial_cpi_id:0
-msgid "Initial CPI"
-msgstr "IPC initial (i0)"
-
-#. module: elneo_maintenance_project_invoicing
-#: view:maintenance.project:0
-msgid "Total amount"
-msgstr "Montant total"
-
-#. module: elneo_maintenance_project_invoicing
-#: selection:maintenance.project,invoicing_delay:0
-msgid "Annual"
-msgstr "Annuelle"
-
-#. module: elneo_maintenance_project_invoicing
-#: field:maintenance.project,delay_price_init:0
-msgid "Initial delay price"
-msgstr "Prix initial du délai"
-
-#. module: elneo_maintenance_project_invoicing
-#: code:addons/elneo_maintenance_project_invoicing/elneo_maintenance_project_invoicing.py:335
-#, python-format
-msgid "No initial CPI value"
-msgstr "Pas d'IPC initial (i0)"
-
-#. module: elneo_maintenance_project_invoicing
-#: code:addons/elneo_maintenance_project_invoicing/elneo_maintenance_project_invoicing.py:300
-#, python-format
-msgid "\n"
-"Elements : "
-msgstr "\n"
-"Elements : "
-
-#. module: elneo_maintenance_project_invoicing
-#: code:addons/elneo_maintenance_project_invoicing/elneo_maintenance_project_invoicing.py:339
-#, python-format
-msgid "Unable to find current period"
-msgstr "Impossible de trouver la période courante"
-
-#. module: elneo_maintenance_project_invoicing
-#: constraint:maintenance.project:0
-msgid "Several maintenance projects are enable during the same period"
-msgstr "Plusieurs projets de maintenance sont actifs au cours de la même période"
-
-#. module: elneo_maintenance_project_invoicing
-#: code:addons/elneo_maintenance_project_invoicing/elneo_maintenance_project_invoicing.py:333
-#, python-format
-msgid "No initial annual amount"
-msgstr "Pas de montant annuel initial (p0)"
-
-#. module: elneo_maintenance_project_invoicing
-#: field:maintenance.project,invoicing_delay:0
-msgid "Invoicing delay"
-msgstr "Délai de facturation"
-
-#. module: elneo_maintenance_project_invoicing
-#: view:maintenance.project:0
-msgid "Initial values"
-msgstr "Valeurs initiales"
-
-#. module: elneo_maintenance_project_invoicing
-#: code:addons/elneo_maintenance_project_invoicing/elneo_maintenance_project_invoicing.py:337
-#, python-format
-msgid "No current CPI"
-msgstr "Pas d'IPC courant"
-
-#. module: elneo_maintenance_project_invoicing
-#: view:maintenance.project:0
-msgid "General"
-msgstr "Général"
-
-#. module: elneo_maintenance_project_invoicing
-#: view:maintenance.project:0
-#: field:maintenance.project,price_calculation:0
+#. module: maintenance_project_invoicing
+#: view:maintenance.project:maintenance_project_invoicing.view_maintenance_project_form_invoicing
 msgid "Calculation"
 msgstr "Calcul"
 
-#. module: elneo_maintenance_project_invoicing
-#: field:maintenance.project,cpi_type_id:0
-msgid "CPI type"
-msgstr "Type d'IPC"
+#. module: maintenance_project_invoicing
+#: field:scheduler.maintenance_project,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
 
-#. module: elneo_maintenance_project_invoicing
-#: model:ir.model,name:elneo_maintenance_project_invoicing.model_maintenance_intervention
-msgid "maintenance.intervention"
-msgstr "maintenance.intervention"
+#. module: maintenance_project_invoicing
+#: field:scheduler.maintenance_project,create_date:0
+msgid "Created on"
+msgstr "Créé le"
 
-#. module: elneo_maintenance_project_invoicing
-#: field:maintenance.project,current_cpi_id:0
-msgid "Current CPI"
-msgstr "IPC courant"
+#. module: maintenance_project_invoicing
+#: view:maintenance.project:maintenance_project_invoicing.view_maintenance_project_form_invoicing
+msgid "General"
+msgstr "Général"
 
+#. module: maintenance_project_invoicing
+#: view:maintenance.project:maintenance_project_invoicing.view_maintenance_project_form_invoicing
+msgid "Generate next invoice"
+msgstr "Générer la facture suivante"
+
+#. module: maintenance_project_invoicing
+#: field:scheduler.maintenance_project,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: maintenance_project_invoicing
+#: view:maintenance.project:maintenance_project_invoicing.view_maintenance_project_form_invoicing
+msgid "Initial values"
+msgstr "Valeurs initiales"
+
+#. module: maintenance_project_invoicing
+#: field:scheduler.maintenance_project,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière Mise à jour par"
+
+#. module: maintenance_project_invoicing
+#: field:scheduler.maintenance_project,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière Mise à jour le"
+
+#. module: maintenance_project_invoicing
+#: code:addons/maintenance_project_invoicing/maintenance_project_invoicing.py:165
+#, python-format
+msgid "No initial annual amount"
+msgstr "Pas de montant annuel initial"
+
+#. module: maintenance_project_invoicing
+#: view:maintenance.project:maintenance_project_invoicing.view_maintenance_project_form_invoicing
+msgid "Prices"
+msgstr "Prix"
+
+#. module: maintenance_project_invoicing
+#: model:ir.actions.act_window,name:maintenance_project_invoicing.action_invoice_project_tree
+#: model:ir.ui.menu,name:maintenance_project_invoicing.menu_maintenance_project_invoices
+msgid "Project Invoices"
+msgstr "Factures (Projets)"
+
+#. module: maintenance_project_invoicing
+#: model:ir.actions.act_window,name:maintenance_project_invoicing.action_maintenance_project_to_invoice
+#: model:ir.ui.menu,name:maintenance_project_invoicing.menu_maintenance_project_to_invoice
+#: view:maintenance.project:maintenance_project_invoicing.view_maintenance_project_invoicing_search
+msgid "Projects To Invoice"
+msgstr "Projets à facturer"
+
+#. module: maintenance_project_invoicing
+#: view:maintenance.project:maintenance_project_invoicing.view_maintenance_project_invoicing_search
+msgid "To Invoice"
+msgstr "A Facturer"
+
+#. module: maintenance_project_invoicing
+#: view:maintenance.project:maintenance_project_invoicing.view_maintenance_project_tree_invoicing
+msgid "Total amount"
+msgstr "Montant total"
+
+#. module: maintenance_project_invoicing
+#: code:addons/maintenance_project_invoicing/maintenance_project_invoicing.py:167
+#, python-format
+msgid "Unable to find initial price delay"
+msgstr "Impossible de trouver le prix initial du délai"

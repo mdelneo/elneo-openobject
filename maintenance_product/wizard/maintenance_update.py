@@ -19,6 +19,10 @@
 #
 ##############################################################################
 import time
+try:
+    import simplejson as json
+except ImportError:
+    import json 
 
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning
@@ -31,7 +35,7 @@ class maintenance_update_invoice(models.TransientModel):
     @api.model
     def fields_view_get(self,view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         def addString(original_label, label):
-            return original_label + '<label colspan="4" string="'+label+'" /><newline />'
+            return original_label + '<label colspan="4" string="'+format(label)+'" /><newline />'
         def addTitle(original_label, label):
             return original_label + '<separator colspan="4" string="'+label+'" /><newline />'
         

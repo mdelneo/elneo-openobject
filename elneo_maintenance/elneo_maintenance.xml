@@ -46,6 +46,15 @@
 						</group>
 					</page>
 				</page>
+				<field name="intervention_delay_id" position="after">
+					<field name="annual_visits_number" />
+				</field>
+				
+				<field name="note" position="after">.
+					<separator string="Intervention months" />
+					<field name="intervention_months" nolabel="1"/>
+				</field>
+				
 			</field>
 		</record>
 	</data>

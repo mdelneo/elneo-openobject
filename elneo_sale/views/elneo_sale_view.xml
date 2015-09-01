@@ -51,13 +51,44 @@
             </field>
         </record>
         
+        <!-- product category form : 
+        		- add stat_on_invoice_date_default
+         -->
+        <record id="product_category_form_view_elneo_sale" model="ir.ui.view">
+            <field name="name">product.category.form.elneo.sale</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view" />
+            <field name="arch" type="xml">
+            	<xpath expr="//group[@name='parent']" position="after">
+            		<group>
+            			<field name="stat_on_invoice_date_default" />
+            		</group>
+            	</xpath>
+                <form string="Product Categories">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group name="parent" col="4">
+                                <field name="parent_id"/>
+                                <field name="type"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
         
         <!-- 
 			Inherit of view sale_order_form to:
 				- add virtual and real stock
+				- add stat_on_invoice_date
 		 -->
-        
-        
 		<record id="view_order_form_elneo_sale" model="ir.ui.view">
             <field name="name">view.sale.order.form.elneo.sale</field>
             <field name="model">sale.order</field>
@@ -84,6 +115,7 @@
             	<xpath expr="//field[@name='project_id']" position="replace"/>
 	           	
 				<field name="invoiced" position="before">
+					<field name="stat_on_invoice_date" />
             		<field name="force_is_invoiced"/>
             		<field name="is_invoiced"/>
             	</field>

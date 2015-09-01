@@ -75,7 +75,19 @@ class stock_picking(models.Model):
     _inherit = 'stock.picking'
     
     @api.multi
-    @api.depends('move_lines.state','move_lines.picking_id','move_lines.partially_available','move_type')
+    @api.depends('group_id')
+    def _get_sale_id(self):
+        for pick in self:
+            if pick.group_id:
+                pick.sale_id=self.env['sale.order'].search([('procurement_group_id', '=', pick.group_id.id)])
+            else:
+                pick.sale_id=None
+
+    
+    sale_id = fields.Many2one('sale.order',compute='_get_sale_id', store=True)
+    
+    @api.multi
+    @api.depends('move_lines.state','move_lines.picking_id','move_lines.partially_available','move_type','sale_id.unblock')
     def _state_get(self):
         res = super(stock_picking, self)._state_get(['state'], {})
         for pick in self:

@@ -7,7 +7,7 @@
     'description': "Adapt sales flows to counter specifics",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['sale','stock','account'],
+    'depends': ['sale_stock','account'],
     "data" : ['views/sale_view.xml','views/stock_view.xml','security/sale_security.xml','shop_sale_workflow.xml'
         ],
     'installable': True,

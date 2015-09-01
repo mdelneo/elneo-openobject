@@ -1,6 +1,21 @@
 from openerp import models, fields,api,_, workflow
 from openerp.exceptions import Warning
 
+class sale_order_line(models.Model):
+    _inherit = 'sale.order.line'
+    
+    @api.multi
+    def product_id_change_with_wh(self, pricelist, product, qty=0,
+            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False):
+        res = super(sale_order_line, self).product_id_change_with_wh(pricelist, product, qty, uom, qty_uos, uos, name, partner_id, lang, update_tax, date_order, packaging, fiscal_position, flag, warehouse_id)
+        if self._context.get('shop_sale',False):
+            product = self.env['product.product'].browse(product)
+            warehouse = self.env['stock.warehouse'].browse(warehouse_id)
+            stock_real = product.product_tmpl_id.with_context({'location':warehouse.lot_stock_id.id})._product_available(None, False)[self.product_tmpl_id.id]['qty_available']
+            if stock_real < qty:
+                res['warning'] = {'title':_('Warning'),'message':_('Stock (%s) is lower than ordered quantity (%s).')%(stock_real,qty)}
+        return res
 
 class sale_order(models.Model):
     _inherit='sale.order'

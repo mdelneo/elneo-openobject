@@ -13,7 +13,7 @@ class procurement_order(models.Model):
     def make_po(self):
         #to force new purchase order creation, when we call "make po", say to search function of purchase order that it does not exists other purchase order
         #to do it we pass make_po = True to the context
-        self = self.with_context(make_po=True)
+        self = self.with_context(make_po=self._context.get('make_po',True))
         res = super(procurement_order, self).make_po()
         return res
     

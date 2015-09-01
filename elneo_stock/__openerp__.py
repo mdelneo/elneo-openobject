@@ -8,9 +8,10 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['base','stock','purchase', 'sale_margin', 'maintenance_product'],
-    "data" : ['views/elneo_stock_view.xml',
-              'views/user_view.xml',
+    "data" : [
               'wizard/transfert_move_wizard_view.xml', 
+              'views/elneo_stock_view.xml',
+              'views/user_view.xml',
               'security/ir.model.access.csv'
               ],
     'installable': True,

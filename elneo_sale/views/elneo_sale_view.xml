@@ -2,6 +2,18 @@
 <openerp>
 	<data>
 	
+		<record id="trans_act_ship_end_invoice_picking" model="workflow.transition">
+            <field name="act_from" ref="sale.act_ship_end"/>
+            <field name="act_to" ref="sale.act_invoice"/>
+            <field name="condition">(order_policy == 'picking')</field>
+        </record>
+        
+		<record id="sale.trans_ship_end_done" model="workflow.transition">
+            <field name="act_from" ref="sale.act_ship_end"/>
+            <field name="act_to" ref="sale.act_done"/>
+            <field name="condition">(order_policy != 'picking')</field>
+        </record>
+	
 	<!-- 
 		Product supplier info FORM : 
 			- add brut_price and discount 

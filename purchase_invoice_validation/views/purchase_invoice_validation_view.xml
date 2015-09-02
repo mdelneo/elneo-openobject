@@ -47,6 +47,9 @@
 					<field name="force_payment_sent"  attrs="{'invisible':['|',('validation_problem','!=',True),('litigation','=',True)]}"/>
 				</field>
 				
+				<xpath expr="//field[@name='date_due']" position="after">
+					<field name="due_date_supplier" />
+				</xpath>
 			
 				<field name="reference_type" position="attributes">
 					<attribute name="on_change">onchange_name(name, reference_type)</attribute>

@@ -108,9 +108,9 @@ class sale_order_line(models.Model):
 
 sale_order_line()   
 
+    
 class sale_order(models.Model):
     _inherit = 'sale.order'
-    
     
     #Override order confirmation to check 'stat on invoice date' if a product is in a category checked as 'stat on invoice date default'
     @api.multi 

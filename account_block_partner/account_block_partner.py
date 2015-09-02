@@ -166,7 +166,7 @@ class res_partner(models.Model):
     @api.model
     def create(self):
         res = super(res_partner, self).create()
-        
+        return res
     
     
 res_partner()

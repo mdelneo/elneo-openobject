@@ -1,5 +1,17 @@
 from openerp import models, fields, api
 
+class stock_warehouse_orderpoint(models.Model):
+    _inherit = 'stock.warehouse.orderpoint'
+    stocked_for_customer = fields.Boolean('Stocked for customer')
+
+class procurement_order(models.Model):
+    _inherit = 'procurement.order'
+    
+    @api.model
+    def _procure_orderpoint_confirm(self, use_new_cursor=False, company_id = False):
+        return super(procurement_order, self.with_context(make_po=False))._procure_orderpoint_confirm(use_new_cursor,company_id)
+        
+
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
 
@@ -76,7 +88,7 @@ class stock_move(models.Model):
         return res
     
     
-    #bug correction : include assigned and partially_available state in query
+    #include assigned and partially_available state in query
     @api.cr_uid_ids_context
     def _picking_assign(self, cr, uid, move_ids, procurement_group, location_from, location_to, context=None):
         """Assign a picking on the given move_ids, which is a list of move supposed to share the same procurement_group, location_from and location_to

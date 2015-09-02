@@ -1079,8 +1079,7 @@ class stock_picking(models.Model):
     @api.multi
     def action_cancel(self):
         for pick in self:
-            moves = [move.id for move in pick.move_lines]
-            moves.action_cancel()
+            pick.move_lines.action_cancel()
         return True
           
     '''

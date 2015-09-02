@@ -6,6 +6,11 @@ from openerp.tools.translate import _
 
 _logger = logging.getLogger(__name__)
 
+class product_category(models.Model):
+    _inherit = 'product.category'
+    
+    stat_on_invoice_date_default = fields.Boolean('Stats on invoice date by default', help="If this box is checked, if a sale order contains a product of this category, when it will be confirmed, sale order 'Stats on invoice date' box will be checked.")
+
 class procurement_order(models.Model):
     _inherit = 'procurement.order'
     
@@ -13,7 +18,7 @@ class procurement_order(models.Model):
     def make_po(self):
         #to force new purchase order creation, when we call "make po", say to search function of purchase order that it does not exists other purchase order
         #to do it we pass make_po = True to the context
-        self = self.with_context(make_po=True)
+        self = self.with_context(make_po=self._context.get('make_po',True))
         res = super(procurement_order, self).make_po()
         return res
     
@@ -106,16 +111,39 @@ sale_order_line()
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
+    
+    #Override order confirmation to check 'stat on invoice date' if a product is in a category checked as 'stat on invoice date default'
+    @api.multi 
+    def action_button_confirm(self):
+        #recursive function to check if product categories are stat_on_invoice_date by default
+        def is_stat_on_invoice_date(product):
+            categ = product.categ_id
+            while categ:
+                if categ.stat_on_invoice_date_default:
+                    return True
+                categ = categ.parent_id
+            
+           
+        result = super(sale_order,self).action_button_confirm()
+        
+        #check sale order stat_on_invoice_date if needed
+        for sale in self:
+            for line in sale.order_line:
+                if line.product_id:
+                    if is_stat_on_invoice_date(line.product_id):
+                        sale.stat_on_invoice_date = True
+                        break;
+        return result
+    
+    
     @api.multi
     def print_quotation(self):
         assert len(self) == 1, 'This option should only be used for a single id at a time'
         self.signal_workflow('quotation_sent')
-        if self.state == 'draft':
-            return self.pool['report'].get_action('sale.report_saleorder')
+        if self.state in ('draft','sent'):
+            return self.env['report'].get_action(self,'sale.report_saleorder')
         else:
-            return self.pool['report'].get_action('elneo_sale.report_saleorder_confirmation')
-        
-    
+            return self.env['report'].get_action(self,'elneo_sale.report_saleorder_confirmation')
     
     @api.multi
     def onchange_pricelist_id(self, pricelist_id, order_lines):
@@ -203,6 +231,7 @@ class sale_order(models.Model):
             help="""On demand: A draft invoice can be created from the sales order when needed. \nOn delivery order: A draft invoice can be created from the delivery order when the products have been delivered. \nBefore delivery: A draft invoice is created from the sales order and must be paid before the products can be delivered.""")
     
     purchase_ids = fields.Many2many('purchase.order', 'purchase_sale_rel', 'sale_id', 'purchase_id', 'Purchases')
+    stat_on_invoice_date = fields.Boolean("Stats on invoice date")
     
     @api.constrains('carrier_id','shop_sale')
     @api.one

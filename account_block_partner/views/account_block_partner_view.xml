@@ -20,7 +20,7 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <notebook position="inside">
-					<page string="Unpaid">			
+					<page string="Unpaid" attrs="{'invisible':[('is_company','=',False)]}">			
 						<group>
 		                	<field name="blocked"/>
 							<field name="block_reason_title" colspan="4" />				

@@ -162,7 +162,6 @@ class res_partner(models.Model):
         res = super(res_partner, self).write(vals)      
         return res
 
-
 class account_voucher(models.Model):
     _inherit = 'account.voucher'
     

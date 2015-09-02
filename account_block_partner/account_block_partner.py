@@ -125,7 +125,7 @@ class res_partner(models.Model):
     unpaid_history = fields.Text('Unpaid history',  help="History of unpaid")
     unpaid_write_date = fields.Datetime("Unpaid last update date", readonly=True)
     
-    @api.multi
+    @api.one
     def write(self, vals):
         if 'block_reason_title' in vals or 'unpaid_comment' in vals or 'unpaid_history' in vals:
             vals['unpaid_write_date'] = datetime.now()      
@@ -149,15 +149,6 @@ class res_partner(models.Model):
                         
         res = super(res_partner, self).write(vals)      
         return res
-    
-    
-    @api.model
-    def create(self):
-        res = super(res_partner, self).create()
-        
-    
-    
-res_partner()
 
 
 class account_voucher(models.Model):

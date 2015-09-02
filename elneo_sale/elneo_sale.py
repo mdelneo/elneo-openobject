@@ -140,10 +140,10 @@ class sale_order(models.Model):
     def print_quotation(self):
         assert len(self) == 1, 'This option should only be used for a single id at a time'
         self.signal_workflow('quotation_sent')
-        if self.state == 'draft':
-            return self.pool['report'].get_action('sale.report_saleorder')
+        if self.state in ('draft','sent'):
+            return self.env['report'].get_action(self,'sale.report_saleorder')
         else:
-            return self.pool['report'].get_action('elneo_sale.report_saleorder_confirmation')
+            return self.env['report'].get_action(self,'elneo_sale.report_saleorder_confirmation')
     
     @api.multi
     def onchange_pricelist_id(self, pricelist_id, order_lines):

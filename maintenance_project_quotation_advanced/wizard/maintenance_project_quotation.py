@@ -158,7 +158,7 @@ class maintenance_project_quotation_wizard(models.TransientModel):
             maintenance_elements =  self.env['maintenance.element'].search([('installation_id','=',installation_id.id)])
             
             if not sale_order.maintenance_project_id:
-                maintenance_project_id = self.env['maintenance.project'].create({'installation_id':installation_id.id,'sale_order_id':sale_order.id,'maintenance_elements':[(4,elt_id.id) for elt_id in maintenance_elements]})
+                maintenance_project_id = self.env['maintenance.project'].create({'installation_id':installation_id.id,'maintenance_elements':[(4,elt_id.id) for elt_id in maintenance_elements]})
             else:
                 maintenance_project_id = sale_order.maintenance_project_id
                 sale_order.maintenance_project_id.installation_id = installation_id

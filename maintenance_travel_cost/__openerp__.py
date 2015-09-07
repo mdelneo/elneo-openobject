@@ -1,5 +1,5 @@
 {
-    "name" : "Google Travel Costs",
+    "name" : "Maintenance Travel Costs",
     "version" : "1.0",
     "depends": ["base", "stock",'travel_cost',"maintenance_project"],
     "author": "Elneo",

@@ -259,7 +259,7 @@
 			
 		
 		<!-- Maintenance intervention -->
-		
+		<!-- 
 		<record id="view_maintenance_intervention_form_model" model="ir.ui.view">
 			<field name="name">maintenance.intervention.form.model</field>
 			<field name="model">maintenance.intervention</field>
@@ -274,7 +274,7 @@
 				</xpath>
 			</field>
 		</record>
-		
+		 -->
 		<record id="view_maintenance_intervention_tree_inherit" model="ir.ui.view">
 			<field name="name">maintenance.intervention.tree.inherit</field>
 			<field name="model">maintenance.intervention</field>

@@ -34,12 +34,18 @@
 			<field name="inherit_id" ref="maintenance.view_maintenance_installation_form"/>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
+				<xpath expr="//sheet/div[@class='oe_title']" position="after">
+					<div class="oe_right oe_button_box">
+                        <button class="oe_inline oe_stat_button oe_right" name="action_check_installation" string="Check Installation" Help="Click if you have just checked this installation and it corresponds to reality"
+                               type="object" attrs="{'invisible':[('is_verified','=',True)]}" icon="fa-check" widget="statinfo"/>
+                    </div>
+				</xpath>
 				<xpath expr="//page[@string='Content']/field[@name='elements']" position="after">
 					<separator string="Verification"/>
 					<group>
 						<field name="last_verification_date"/>
 						<field name="last_verification_uid"/>
-						<button name="action_check_installation" type="object" string="Installation checked" help="Click if you have just checked this installation and it corresponds to reality"/>
+						<field name="is_verified" invisible="True"/>
 					</group>
 				
 				</xpath>

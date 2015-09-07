@@ -1,7 +1,7 @@
 {
     "name" : "Google Travel Costs",
     "version" : "1.0",
-    "depends": ["base", "stock"],
+    "depends": ["base", "stock","maintenance"],
     "author": "Elneo",
     "category": "Elneo",
     "description": "Module to calculate travels between addresses",

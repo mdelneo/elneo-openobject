@@ -1102,7 +1102,7 @@ class stock_move(models.Model):
     _inherit = 'stock.move'
     
     @api.model
-    def _create_invoice_line_from_vals(self, cr, uid, move, invoice_line_vals, context=None):
+    def _create_invoice_line_from_vals(self, move, invoice_line_vals):
         """ Update invoice line with intervention product
             Deprecate the stock.picking._invoice_line_hook function
         @param move: Stock move
@@ -1112,7 +1112,7 @@ class stock_move(models.Model):
         
         invoice_line_id = super(stock_move,self)._create_invoice_line_from_vals(move,invoice_line_vals)
         
-        self.env['account.move.line'].write(invoice_line_id,{'intervention_product_id':move.intervention_product_id.id})
+        self.env['account.move.line'].browse(invoice_line_id).intervention_product_id = move.intervention_product_id.id
         
         return invoice_line_id
     

@@ -36,5 +36,17 @@
 			</field>
 		</record>
 		
+		<!-- account invoice search -->
+		<record id="view_account_invoice_filter_elneo_account" model="ir.ui.view">
+            <field name="name">account.invoice.select.elneo.account</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='number']" position='after'>
+            		<field name="origin" />
+            	</xpath>
+            </field>
+        </record>
+		
 	</data>
 </openerp>

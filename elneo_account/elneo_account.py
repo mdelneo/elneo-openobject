@@ -2,6 +2,34 @@
 from openerp import models,fields,api
 from openerp.tools.float_utils import float_compare, float_round
 
+class stock_move(models.Model):
+    _inherit = 'stock.move'
+    
+    @api.multi
+    def action_done(self):
+        res = super(stock_move,self).action_done()
+        
+        pickings = set()
+        for move in self:
+            pickings.add(move.picking_id)
+            
+        for picking in pickings:
+            if picking.picking_type_id.code == 'incoming':
+                journal = self.env['account.invoice'].with_context(type='in_invoice')._default_journal()
+                picking.action_invoice_create(journal_id=journal.id, group=False, type="in_invoice")
+                
+        return  res
+    
+class stock_picking(models.Model):
+    _inherit = 'stock.picking'
+    
+    def _get_invoice_vals(self, cr, uid, key, inv_type, journal_id, move, context=None):
+        res = super(stock_picking,self)._get_invoice_vals(cr, uid, key, inv_type, journal_id, move, context=None)
+        if move.picking_id.origin:
+            origin = res['origin'] or ''
+            res['origin'] = origin+move.picking_id.origin
+        return res
+
 class account_period(models.Model):
     _inherit = 'account.period'
     period_closed_qlikview = fields.Boolean('Period closed (Qlikview')

@@ -3,6 +3,7 @@ import logging
 from openerp import models,fields,api
 from openerp.exceptions import ValidationError
 from openerp.tools.translate import _
+import openerp
 
 _logger = logging.getLogger(__name__)
 
@@ -111,6 +112,7 @@ sale_order_line()
     
 class sale_order(models.Model):
     _inherit = 'sale.order'
+    
     
     #own template to send by email
     @api.multi
@@ -227,8 +229,8 @@ class sale_order(models.Model):
 
             if (sumInvoice != 0 or sumSale != 0) and sumInvoice >= sumSale:
                 self.is_invoiced = True
-       
-    
+                
+    margin = fields.Float(track_visibility='always')
     partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},default=lambda rec: rec.partner_id, help="Order address for current sales order.")
     carrier_id = fields.Many2one('delivery.carrier', 'Delivery Method', help="Complete this field if you plan to invoice the shipping based on picking.")
     is_invoiced = fields.Boolean(compute=_get_is_invoiced, string="Is invoiced", readonly=True,help="Checked if the sale order is completely invoiced",store=True)

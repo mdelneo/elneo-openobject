@@ -17,5 +17,25 @@
                 </xpath>
             </field>
         </record>
+        
+        <record id="view_order_form_purchase_sale" model="ir.ui.view">
+            <field name="name">view.sale.order.form.purchase.sale</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+        		<xpath expr="//h1" position="before">
+                    <div class="oe_right oe_button_box" name="buttons">
+						<button type="object"
+						    name="view_purchase"
+						    class="oe_stat_button"
+						    icon="fa-strikethrough"
+						    attrs="{'invisible': [('purchase_count', '=', 0)]}"
+						    >
+						    <field name="purchase_count" widget="statinfo" string="Purchase orders" help="Purchase orders"/>
+						</button>
+					</div>
+                </xpath>
+            </field>
+        </record>
 	</data>
 </openerp>

@@ -1,63 +1,101 @@
 from openerp import models, fields, api
 
-
 class purchase_order(models.Model):
-    
     _inherit='purchase.order'
+   
+    @api.multi
+    def copy(self, default=None):
+        if not default:
+            default = {}
+        default['sale_ids'] = None
+        return super(purchase_order, self).copy(default)
     
-    def _get_sale_orders(self):
-       
-        self.env.cr.execute('''select distinct purchase_order.id, sale_order.id
-                                from sale_order 
-                                left join sale_order_line
-                                    left join procurement_order
-                                        left join stock_move
-                                            left join procurement_order po2
-                                            left join purchase_order_line
-                                                left join purchase_order on purchase_order_line.order_id = purchase_order.id
-                                            on po2.purchase_line_id = purchase_order_line.id
-                                            on stock_move.id = po2.move_dest_id
-                                        on stock_move.procurement_id = procurement_order.id
-                                    on procurement_order.sale_line_id = sale_order_line.id
-                                on sale_order_line.order_id = sale_order.id
-                                where sale_order.state != 'cancel' and purchase_order.id in %s''',(tuple(self.mapped('id')),))
-        res = self.env.cr.fetchall()
-        
-        # IF NO STOCK MOVE, MAYBE A DROPSHIPPING (PROCUREMENT IS THE SAME FOR SALE AND PURCHASE)
-        if len(res) == 0:
-            self.env.cr.execute('''select distinct purchase_order.id, sale_order.id
-                                    from sale_order 
-                                    left join sale_order_line
-                                        left join procurement_order
-                                            left join purchase_order_line
-                                            left join purchase_order on purchase_order_line.order_id = purchase_order.id
-                                            on procurement_order.purchase_line_id = purchase_order_line.id 
-                                        on procurement_order.sale_line_id = sale_order_line.id
-                                    on sale_order_line.order_id = sale_order.id
-                                    where sale_order.state != 'cancel' and purchase_order.id in %s''',(tuple(self.mapped('id')),))
-            res = self.env.cr.fetchall()
-        
-        # No procurement and no drop shipping, use stock_move
-        
-        orders=[]
-        for (purchase_id, sale_id) in res:
-            orders.append(sale_id)
-            
-        self.sale_orders=orders
-    
-    @api.depends('sale_orders')
+    @api.depends('sale_ids')
     def _count_all(self):
-        self.sale_count=len(self.sale_orders)
-    
+        self.sale_count=len(self.sale_ids)
+        
     @api.multi
     def view_sale(self):
         '''
         This function returns an action that display existing sale orders of given purchase order ids.
         It load the tree or the form according to the number of sale orders
         '''
-        
+
         mod_obj = self.env['ir.model.data']
         dummy, action_id = tuple(mod_obj.get_object_reference('sale', 'action_orders'))
+        action_obj = self.env['ir.actions.act_window'].browse(action_id)
+        action = action_obj.read()[0]
+
+        #override the context to get rid of the default filtering on picking type
+        action['context'] = {}
+        #choose the view_mode accordingly
+        if self.sale_count > 1:
+            action['domain'] = "[('id','in',[" + ','.join(map(str, self.sale_ids.mapped('id'))) + "])]"
+        else:
+            res = mod_obj.get_object_reference('sale', 'view_order_form')
+            action['views'] = [(res and res[1] or False, 'form')]
+            action['res_id'] = self.sale_ids.mapped('id')[0] or False
+        return action
+
+    sale_ids = fields.Many2many('sale.order', 'purchase_sale_rel', 'purchase_id', 'sale_id', 'Sales')
+    sale_count = fields.Integer(compute=_count_all)
+
+
+class purchase_order_line(models.Model):
+    _inherit='purchase.order.line'
+    
+    sale_line_ids = fields.Many2many('sale.order.line', 'purchase_line_sale_line_rel', 'purchase_line_id', 'sale_line_id', 'Sale lines')
+    
+    @api.multi
+    def copy(self, default=None):
+        if not default:
+            default = {}
+        default['sale_line_ids'] = None
+        return super(purchase_order_line, self).copy(default)
+    
+
+class procurement_order(models.Model):
+    
+    _inherit = 'procurement.order'
+    
+    @api.multi
+    def make_po(self):
+        res = super(procurement_order,self).make_po()
+        #link sales with purchase in accordance with procurement group
+        for procurement in self:
+            if procurement.purchase_line_id and procurement.group_id:
+                for other_procurement in procurement.group_id.procurement_ids:
+                    if other_procurement.sale_line_id:
+                        other_procurement.sale_line_id.order_id.write({'purchase_ids':[(4,procurement.purchase_id.id)]})
+                        other_procurement.sale_line_id.write({'purchase_line_ids':[(4,procurement.purchase_line_id.id)]})
+        return res
+    
+class sale_order(models.Model):
+    _inherit='sale.order'
+    
+    @api.multi
+    def copy(self, default=None):
+        if not default:
+            default = {}
+        default['purchase_ids'] = None
+        return super(sale_order, self).copy(default)
+    
+    @api.depends('purchase_ids')
+    @api.multi
+    def _count_all(self):
+        for sale in self:
+            sale.purchase_count=len(sale.purchase_ids)
+            
+        
+    @api.multi
+    def view_purchase(self):
+        '''
+        This function returns an action that display existing purchase orders of given purchase order ids.
+        It load the tree or the form according to the number of purchase orders
+        '''
+        
+        mod_obj = self.env['ir.model.data']
+        dummy, action_id = tuple(mod_obj.get_object_reference('purchase', 'purchase_form_action'))
         action_obj = self.env['ir.actions.act_window'].browse(action_id)
         action = action_obj.read()[0]
         
@@ -65,16 +103,13 @@ class purchase_order(models.Model):
         #override the context to get rid of the default filtering on picking type
         action['context'] = {}
         #choose the view_mode accordingly
-        if self.sale_count > 1:
-            action['domain'] = "[('id','in',[" + ','.join(map(str, self.sale_orders.mapped('id'))) + "])]"
+        if self.purchase_count > 1:
+            action['domain'] = "[('id','in',[" + ','.join(map(str, self.purchase_ids.mapped('id'))) + "])]"
         else:
-            res = mod_obj.get_object_reference('sale', 'view_order_form')
+            res = mod_obj.get_object_reference('purchase', 'purchase_order_form')
             action['views'] = [(res and res[1] or False, 'form')]
-            action['res_id'] = self.sale_orders.mapped('id')[0] or False
+            action['res_id'] = self.purchase_ids.mapped('id')[0] or False
         return action
-    
-    
-    sale_orders = fields.Many2many(comodel_name='sale.order',compute=_get_sale_orders,string='Sale Orders',method=True)
-    sale_count = fields.Integer(compute=_count_all, method=True)
-    
-purchase_order()
+
+    purchase_count = fields.Integer(compute=_count_all)
+    purchase_ids = fields.Many2many('purchase.order', 'purchase_sale_rel', 'sale_id', 'purchase_id', 'Purchases')

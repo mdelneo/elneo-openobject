@@ -44,6 +44,17 @@ class account_move_line(models.Model):
     
 account_move_line()
 
+class account_invoice_line(models.Model):
+    _inherit = 'account.invoice.line'
+    
+    @api.model
+    def default_get(self, fields_list):
+        res = super(account_invoice_line,self).default_get(fields_list)
+        if 'name' in fields_list:
+            res['name'] = '/'
+        return res
+    
+
 class account_invoice(models.Model):
     _inherit = 'account.invoice'
     

@@ -151,14 +151,7 @@ class sale_order(models.Model):
         if res and 'warning' in res:
             del res['warning']
         return res
-    
-    @api.multi
-    def copy(self, default=None):
-        if not default:
-            default = {}
-        default['purchase_ids'] = None
-        return super(sale_order, self).copy(default)
-    
+
     @api.one
     @api.depends('invoice_ids.state','force_is_invoiced')
     def _get_is_invoiced(self):
@@ -230,7 +223,6 @@ class sale_order(models.Model):
             ],string='Create Invoice', required=True, readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
             help="""On demand: A draft invoice can be created from the sales order when needed. \nOn delivery order: A draft invoice can be created from the delivery order when the products have been delivered. \nBefore delivery: A draft invoice is created from the sales order and must be paid before the products can be delivered.""")
     
-    purchase_ids = fields.Many2many('purchase.order', 'purchase_sale_rel', 'sale_id', 'purchase_id', 'Purchases')
     stat_on_invoice_date = fields.Boolean("Stats on invoice date")
     
     @api.constrains('carrier_id','shop_sale')
@@ -242,37 +234,6 @@ class sale_order(models.Model):
         if not self.shop_sale and not self.carrier_id and not from_opportunity:
             raise ValidationError("A delivery method has to be chosen")
     
-    @api.depends('purchase_ids')
-    @api.multi
-    def _count_all(self):
-        for sale in self:
-            sale.purchase_count=len(sale.purchase_ids)
-    
-    purchase_count = fields.Integer(compute=_count_all, method=True)
-    
-    @api.multi
-    def view_purchase(self):
-        '''
-        This function returns an action that display existing purchase orders of given purchase order ids.
-        It load the tree or the form according to the number of purchase orders
-        '''
-        
-        mod_obj = self.env['ir.model.data']
-        dummy, action_id = tuple(mod_obj.get_object_reference('purchase', 'purchase_form_action'))
-        action_obj = self.env['ir.actions.act_window'].browse(action_id)
-        action = action_obj.read()[0]
-        
-
-        #override the context to get rid of the default filtering on picking type
-        action['context'] = {}
-        #choose the view_mode accordingly
-        if self.purchase_count > 1:
-            action['domain'] = "[('id','in',[" + ','.join(map(str, self.purchase_order.mapped('id'))) + "])]"
-        else:
-            res = mod_obj.get_object_reference('purchase', 'view_order_form')
-            action['views'] = [(res and res[1] or False, 'form')]
-            action['res_id'] = self.purchase_orders.mapped('id')[0] or False
-        return action
     
     #function to rewrite when odoo core will be migrated to new api
     def onchange_warehouse_id(self, cr, uid, ids, warehouse_id, context=None):

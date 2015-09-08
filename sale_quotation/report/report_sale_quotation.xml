@@ -2,7 +2,6 @@
 <openerp>
 	<data>
 	
-
 		<template id="sale_quotation.report_saleorder_document" inherit_id="sale_layout.report_sale_layouted">
 			
 			<!-- Add text elements before -->		

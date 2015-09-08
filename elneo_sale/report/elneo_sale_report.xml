@@ -6,7 +6,7 @@
 		<template id="elneo_sale.report_saleorder_document" inherit_id="sale_quotation.report_saleorder_document">
 			<!-- Report only for quotation -->
 			<xpath expr="//div[@class='page']/h2" position="replace">
-				<h2><span>Quotation N°</span><span t-fields="o.name"/></h2>				
+				<h2><span>Quotation N°</span><span t-field="o.name"/></h2>				
 			</xpath>
 			<xpath expr="//div[@id='informations']/div[@t-if='o.date_order']" position="replace">
                 <strong>Quotation Date:</strong><p t-field="o.date_order"/>

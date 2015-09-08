@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
+	<!-- Email template -->
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="email_template_quotation_followup" model="email.template">
+            <field name="name">Sale Follow-up</field>
+            <field name="email_from">${(object.user_id.email or '')|safe}</field>
+            <field name="subject">Quotation ${object.display_name}</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="email_to">${object.partner_id.email}</field>
+            <field name="reply_to">${object.user_id.user_email}</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="sale_quotation_lead"/>
+            <field name="report_name">quotation</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<div>
+
+    <p>${object.partner_id.title.name or ''}&nbsp;${object.partner_id.display_name or ''}</p>
+
+	<p>Suite &agrave; votre demande, nous vous avions fait une proposition (${object.name}) le ${object.last_quotation_id.create_date|format_date() or ''}&nbsp;que vous trouverez en pi&egrave;ce jointe.</p>
+	
+	<p>A notre connaissance, nous n&rsquo;avons pas encore re&ccedil;u de commande pour cette offre.</p>
+	
+	<p>Nous voudrions, par la pr&eacute;sente, vous offrir encore une fois notre aide en cas de probl&egrave;mes et &eacute;ventuellement vous proposer une alternative.</p>
+	
+	<p>A cette fin, pourriez-vous s&rsquo;il vous pla&icirc;t remplir le questionnaire ci-dessous (+/- 1 minute) ?</p>
+	
+	<p>https://docs.google.com/forms/d/1OjRLwP54yRuhl1hgb5fdBG-9I_E4B-2Q8M-JxRIQQFc/viewform?c=0&amp;w=1</p>
+	
+	<p>Merci d&rsquo;avance.<br />
+	&nbsp;<br />
+	Cordialement,</p>
+	
+	<p>&nbsp;</p>
+	    
+</div>
+            ]]></field>
+        </record>
+        </data>
+		<data>
+	
+		<!-- Quotation report -->
+		<report 
+			string="Quotation"
+			id="sale_quotation_lead"
+			model="crm.lead"
+			report_type="qweb-pdf"
+			file="elneo_opportunity.quotation_lead"
+			name="elneo_opportunity.quotation_lead"
+			/>
+				
+        <template id="elneo_opportunity.quotation_lead">
+		    <t t-call="report.html_container">
+		        <t t-foreach="doc_ids" t-as="doc_id">
+		            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sale.report_saleorder')"/>
+		        </t>
+		    </t>
+		</template>
 		
 		<!-- Opportunity steps : add win flag -->
 		<record model="ir.ui.view" id="crm_case_stage_form_elneo_opportunity">
@@ -82,6 +140,10 @@
 	            <field name="model">crm.lead</field>
 	            <field name="priority">20</field>
 	            <field name="arch" type="xml">
+	            	<xpath expr="//header" position="inside">
+	            		<button name="print_quotation_report" type="object" string="Print quotation" class="oe_highlight"/>
+	            		<button name="send_quotation_followup_email" string="Send followup" type="object" class="oe_highlight"/>
+	            	</xpath>
 	            	<xpath expr="//div[@class='oe_title']/h2/field[@name='company_currency']" position="replace" />
 	            	<xpath expr="//div[@class='oe_title']/h2/field[@name='planned_revenue']" position="replace" />
 	            	<xpath expr="//div[@class='oe_title']/h2/span" position="replace" />

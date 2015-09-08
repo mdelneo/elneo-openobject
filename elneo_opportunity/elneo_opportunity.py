@@ -1,9 +1,22 @@
 import logging
-from openerp import models,fields,api
+from openerp import models,fields,api,_
 from openerp.exceptions import ValidationError
 import re
 import sys
 from datetime import datetime, timedelta
+
+class Report(models.Model):
+    _inherit = 'report'
+    
+    @api.multi
+    def render(self, template, values=None):
+        #change doc_model, docs and doc_ids on rendering to use sale_order template
+        if template == 'elneo_opportunity.quotation_lead':
+            values['doc_model'] = 'sale.order'
+            values['doc_ids'] = [doc.last_quotation_id.id for doc in values['docs']]
+            values['docs'] = [doc.last_quotation_id for doc in values['docs']]
+        res = super(Report,self).render(template, values=values)
+        return res
 
 class res_users(models.Model):
     _inherit = 'res.users'
@@ -23,11 +36,44 @@ class crm_lead(models.Model):
     
     _order = 'date_action desc' 
     
+    #send email
+    @api.multi
+    def send_quotation_followup_email(self):
+        ir_model_data = self.env['ir.model.data']
+        try:
+            template_id = ir_model_data.get_object_reference('elneo_opportunity', 'email_template_quotation_followup')[1]
+        except ValueError:
+            template_id = False
+        try:
+            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
+        except ValueError:
+            compose_form_id = False 
+            
+        ctx = dict(self._context)
+        ctx.update({
+            'default_model': 'purchase.order',
+            'default_res_id': self[0].id,
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+        })
+        return {
+            'name': _('Compose Email'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form_id, 'form')],
+            'view_id': compose_form_id,
+            'target': 'new',
+            'context': ctx,
+        }
+    
     @api.multi
     def print_quotation_report(self):
         return { 
                     'type': 'ir.actions.report.xml',
-                    'report_name':'sale.quotation.lead',
+                    'report_name':'elneo_opportunity.quotation_lead',
                     'nodestroy': True,
                     'datas':{'model':'crm.lead', 'ids': [l.id for l in self]},
                 } 
@@ -46,7 +92,7 @@ class crm_lead(models.Model):
                 opportunity.quotation_address_id = last_quotation.quotation_address_id.id
             else:
                 opportunity.last_quotation_id = None
-                opportunity.quotation_address_id = opportunity.partner_address_id.id
+                opportunity.quotation_address_id = opportunity.partner_id.id
             
             if opportunity.planned_revenue_auto:
                 if last_quotation:
@@ -98,7 +144,7 @@ class crm_lead(models.Model):
     sale_price_auto = fields.Boolean('Sale price auto ?', default=True)
     to_recall = fields.Boolean(compute='_get_torecall', search=_search_torecall, string='To recall', type="boolean", method=True)
     last_quotation_id = fields.Many2one('sale.order', compute='_get_quotation_fields', string="Last quotation", method=True, readonly=True, help='Last quotation related to this opportunity.')
-    quotation_address_id = fields.Many2one('res.partner.address', compute='_get_quotation_fields', string="Quotation address", method=True, readonly=True, help='Last quotation related to this opportunity.')
+    quotation_address_id = fields.Many2one('res.partner', compute='_get_quotation_fields', string="Quotation address", method=True, readonly=True, help='Last quotation related to this opportunity.')
     
     @api.model
     def default_get(self, fields_list):

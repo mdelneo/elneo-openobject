@@ -112,6 +112,23 @@ sale_order_line()
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
+    #own template to send by email
+    @api.multi
+    def action_quotation_send(self):
+        action_dict = super(sale_order, self).action_quotation_send()
+        try:
+            if self.state in ('draft','sent'):
+                template_id = self.env['ir.model.data'].get_object_reference('elneo_sale', 'email_template_quotation')[1]
+            else:
+                template_id = self.env['ir.model.data'].get_object_reference('elneo_sale', 'email_template_sale_confirmation')[1]
+            ctx = action_dict['context']
+            ctx['default_template_id'] = template_id
+            ctx['default_use_template'] = True
+        except Exception:
+            pass
+        return action_dict
+    
+    
     #Override order confirmation to check 'stat on invoice date' if a product is in a category checked as 'stat on invoice date default'
     @api.multi 
     def action_button_confirm(self):

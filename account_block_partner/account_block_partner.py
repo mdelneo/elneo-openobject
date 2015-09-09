@@ -8,31 +8,34 @@ class purchase_order(models.Model):
     _inherit = 'purchase.order'
     
     @api.multi
-    def wkf_confirm_order(self):
-        alert = False
+    def check_customer_block(self):
+        res = False
+
         for order in self:
-            for sale in order.sale_orders:
+            for sale in order.sale_ids:
                 if sale.partner_id.blocked:
-                    alert = True
-                    
-        if alert:
-            view_id = self.env['ir.model.data'].get_object_reference('sale_block_delivery', 'view_purchase_blocked_wizard')
-            return {
-                    'name':_("Purchase confirm warning"),
-                    'view_mode': 'form',
-                    'view_type': 'form',
-                    'view_id':[view_id[1]],
-                    'res_model': 'purchase.blocked.wizard',
-                    'type': 'ir.actions.act_window',
-                    'nodestroy': True,
-                    'target': 'new',
-                    'domain': '[]',
-                    'context': dict(self._context, active_ids=self._ids)
-                    }
-        result = super(purchase_order, self).purchase_confirm_elneo()
-        return result
+                    return sale.partner_id.blocked
+                
+        return res
     
-purchase_order()
+    @api.multi
+    def check_customer_unblocked(self):
+        res = True
+
+        for order in self:
+            for sale in order.sale_ids:
+                if sale.partner_id.blocked:
+                    return not sale.partner_id.blocked
+                
+        return res
+    
+    
+    @api.multi
+    def warn_blocked(self):
+        
+        for order in self:
+            order.message_post(body=_('Purchase blocked due to customer: %s.') % (self.name or ''),
+        subtype="purchase.customer_blocked",type="email")
 
 class sale_order(models.Model):
     _inherit = 'sale.order'

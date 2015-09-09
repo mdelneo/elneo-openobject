@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		 <record id="purchase.act_customer_block_wait" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">WaitForCustomerBlockApproval</field>
+        </record>
+        
+        <record id="purchase.act_customer_block_approval" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">CheckForCustomerBlock</field>
+            <field name="split_mode">OR</field>
+            <field name="kind">function</field>
+            <field name="action">warn_blocked()</field>
+        </record>
+        
+			
+         <record id="trans_confirmed_customer_wait" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_confirmed"/>
+            <field name="act_to" ref="purchase.act_customer_block_approval"/>
+        </record>
+
+        <record id="trans_confirmed_blocked" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_customer_block_approval"/>
+            <field name="act_to" ref="purchase.act_customer_block_wait"/>
+            <field name="condition">check_customer_block()</field>
+            <field name="signal">purchase_unblock</field>
+        </record>
+
+        <record id="trans_confirmed_unblocked" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_customer_block_approval"/>
+            <field name="act_to" ref="purchase.act_customer_block_wait"/>
+            <field name="condition">check_customer_unblocked()</field>
+        </record>
+
+        <record id="trans_amount_unblocked_app" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_customer_block_wait"/>
+            <field name="act_to" ref="purchase.act_router"/>
+        </record>
+     </data>
+</openerp>

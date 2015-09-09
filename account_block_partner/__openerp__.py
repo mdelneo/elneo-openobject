@@ -11,8 +11,11 @@
     ''',
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['account','purchase'],
-    "data" : ['views/account_block_partner_view.xml','security/account_block_partner_security.xml'],
+    'depends': ['account','purchase','purchase_sale'],
+    "data" : ['views/account_block_partner_view.xml',
+              'security/account_block_partner_security.xml',
+              'purchase_workflow.xml'
+              ],
     'installable': True,
     'auto_install': False,
     'application': False,

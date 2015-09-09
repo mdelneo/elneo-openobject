@@ -1,6 +1,23 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
+    	<!-- Event-related subtypes for messaging / Chatter -->
+        <record id="purchase.customer_blocked" model="mail.message.subtype">
+            <field name="name">The customer is blocked. The purchase order needs to be unblocked</field>
+            <field name="res_model">purchase.order</field>
+            <field name="default" eval="False"/>
+        </record>
+        
+    	<record id="purchase_order_form_block" model="ir.ui.view">
+            <field name="name">purchase.order.block.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//header/button[@name='purchase_approve']" position="after">
+            		<button name="purchase_unblock" states="confirmed" string="Unblock Order" class="oe_highlight"/>
+            	</xpath>
+            </field>
+        </record>
         <record id="view_sale_order_form_account_block_partner" model="ir.ui.view">
             <field name="name">view.sale.order.form.account.block.partner</field>
             <field name="model">sale.order</field>

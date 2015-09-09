@@ -15,6 +15,24 @@
 			</field>
 		</record>
 		
+		<record id="view_maintenance_intervention_elneo_tree" model="ir.ui.view">
+			<field name="name">maintenance.intervention.elneo.tree</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_intervention_tree"/>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree position="inside">
+					<field name="blocked" invisible="1" />
+				</tree>
+				<tree position="attributes">
+					<attribute name="colors">Magenta:blocked;</attribute>
+				</tree>
+				<field name="technicians" position="before">
+					<field name="installation_zip" />
+				</field>
+			</field>
+		</record>
+		
 		<record id="view_maintenance_installation_elneo_form" model="ir.ui.view">
 			<field name="name">maintenance.installation.elneo.form</field>
 			<field name="model">maintenance.installation</field>

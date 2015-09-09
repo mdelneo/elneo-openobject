@@ -80,8 +80,24 @@ class maintenance_intervention(models.Model):
                     intervention.sale_order_id.quotation_address_id = vals['contact_address_id']
         return res
     
+    @api.onchange('installation_id')
+    def on_change_installation_id(self):
+        '''
+        @depends: account_block_partner
+        '''
+        res=[]
+        if self.installation_id and self.installation_id.partner_id and self.self.installation_id.partner_id.blocked:
+            title =  _("Attention: the client is blocked")+'\n' 
+            message = _("Attention: the client is blocked")+'\n'
+            res['warning'] = {
+                    'title': title,
+                    'message': message}
+        return res
+    
     warehouse_id = fields.Many2one(related='sale_order_id.warehouse_id', string="Warehouse")
     installation_warehouse_id = fields.Many2one(related='installation_id.warehouse_id',  string="Warehouse")
+    installation_zip = fields.Char(related='installation_id.address_id.zip', string="Zip", store=True)
+    blocked = fields.Boolean(related='partner_id.blocked', string='Customer blocked')
 
 class maintenance_element(models.Model):
     _inherit = 'maintenance.element'
@@ -189,20 +205,6 @@ class maintenance_installation(osv.osv):
     
 maintenance_installation()
 
-
-
-
-class maintenance_element(osv.osv):
-    _inherit = 'maintenance.element'
-
-    _defaults = {
-        'main_element':lambda self, cr, uid, context : context['default_main'] if context and 'default_main' in context else False 
-    }
-    
-maintenance_element()
-
-
-
 class sale_order(osv.osv):
     _inherit = 'sale.order'
     
@@ -222,15 +224,12 @@ class maintenance_intervention(osv.osv):
     _inherit = 'maintenance.intervention' 
     
     _columns = {
-        'blocked' : fields.related('partner_id','blocked', string='Customer blocked', type="boolean"), 
-        'shop_id':fields.related('sale_order_id','shop_id', type="many2one", relation="sale.shop", string="Shop"),         
+        'blocked' : fields.related('partner_id','blocked', string='Customer blocked', type="boolean"),         
         'create_uid': fields.many2one('res.users', 'Creation user', readonly=True),
         'write_uid':  fields.many2one('res.users', 'Last Modification User', readonly=True),
-        'installation_zip':fields.related('installation_id','address_id','zip',type="char",size=255, string="Zip", store=True),
-        'error_status':fields.selection([('potentially','Potentially Available'),('delivery_outdated','Purchase Delivery Outdated'),('no_purchase','No Purchase'),('no_input','No Input Linked(On Order)'),('picking_error','Picking Error'),('sale_incident','Sale Incident'),('purchase_incident','Purchase Incident'),('elneo_supplier','Elneo is Supplier'),('not_enough_stock', 'Not enough stock')],string='Error Status')
+       
     }
     
-    _defaults={'error_status':False}
     
     # TO CHECK
     #_order = 'date_scheduled desc NULLS LAST'
@@ -403,49 +402,7 @@ class maintenance_intervention(osv.osv):
                     invoice_pool.write(cr, uid, [invoice.id], {'section_id':invoice.sale_order_ids[0].section_id.id}, context=context)
         
         return res
-                        
-            
-        
-    
-    #add flash info when selecting installation in intervention
-    def on_change_installation_id(self, cr, uid, ids, installation_id=None):
-        
-        res = super(maintenance_intervention, self).on_change_installation_id(cr, uid, ids, installation_id)
-        
-        if not res:
-            res = {}
-                                              
-        warning = {}
-        title = ''
-        message = ''
-        
-        if not installation_id:
-            return {}
-        else:
-            part = self.pool.get("maintenance.installation").browse(cr, uid, installation_id).partner_id
-            
-        title = ''
-        
-        if part.blocked:
-            title =  _("Attention: the client is blocked")+'\n' 
-            message = _("Attention: the client is blocked")+'\n'
-            
-        if part.flash_info == True:
-            title =  title+_("Flash information")
-            message = message+"%s" % (part.flash_info_content)
-        
-        if title:
-            warning = {
-                    'title': title,
-                    'message': message,}
-        
-            warning['title'] = title
-            warning['message'] = message
-                        
-            res['warning'] = warning
-        
-        return res
-    
+
     def action_done(self, cr, uid, ids, context=None):
         result = super(maintenance_intervention, self).action_done(cr, uid, ids, context)
         

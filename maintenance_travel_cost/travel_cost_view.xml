@@ -13,17 +13,19 @@
 			<field name="model">maintenance.installation</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
+				<xpath expr="//sheet/div[@class='oe_right oe_button_box']" position="inside">
+                        <button class="oe_inline oe_stat_button oe_right" name="action_compute_time" string="Compute Time" confirm="Do you really want to update the travel time?" help="Compute the travel time."
+                               type="object" icon="fa-clock-o" widget="statinfo"/>
+
+				</xpath>
 			
 				<xpath expr="/form/sheet/notebook/page[@string='Content']" position="after">
 					<page string="Travel">
-						<separator string="Cost" colspan="5" />
 						<group string="Travel Cost" colspan="4" col="6">
 							<field name="travel_cost_id" string="Travel Cost" help="The travel cost for this installation"/>
 						</group>
-						<separator string="Time" colspan="5" />
 						<group string="Travel Time" colspan="4" col="6">
 							<field name="travel_time" string="Travel Time (hours)" help="The travel time to this installation from the shop"/>
-							<button name="action_compute_time" type="object" string="Compute Time" icon="gtk-execute" confirm="Do you really want to update the travel time?" help="Compute the travel time."/>
 						</group>
 						<newline/>
 					</page>

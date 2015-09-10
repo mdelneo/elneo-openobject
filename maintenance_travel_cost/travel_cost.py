@@ -284,8 +284,9 @@ class GMaps:
     
     def get_travel(self,origin,destination):
         
-        
-        url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&language=en-EN&sensor=false".format(str(origin),str(destination))
+        test=unicode(origin).encode('utf-8')
+        test1=unicode(destination).encode('utf-8')
+        url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&language=en-EN&sensor=false".format(test,test1)
         try:
             self.parse_order_response(simplejson.load(urllib.urlopen(url)))
         except Exception, e:

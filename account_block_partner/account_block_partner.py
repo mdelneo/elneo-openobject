@@ -32,10 +32,11 @@ class purchase_order(models.Model):
     
     @api.multi
     def warn_blocked(self):
-        
         for order in self:
-            order.message_post(body=_('Purchase blocked due to customer: %s.') % (self.name or ''),
-        subtype="purchase.customer_blocked",type="email")
+            for sale in order.sale_ids:
+                if sale.partner_id.blocked:
+                    order.message_post(body=_('Purchase blocked due to customer: %s.') % (self.name or ''),
+                subtype="purchase.customer_blocked",type="email")
 
 class sale_order(models.Model):
     _inherit = 'sale.order'

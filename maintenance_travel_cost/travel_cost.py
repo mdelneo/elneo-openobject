@@ -66,8 +66,8 @@ class maintenance_installation(models.Model):
                 raise Warning(_("No Address defined for this installation, can't calculate!"))
         
         # We are looking first in travel_time table before Google Call
-        if (self.travel_cost_id and self.warehouse_id.lot_stock_id.address_id):
-            time_id = self.env['travel.time'].search([('travel_cost_id','=',self.travel_cost_id.id),('address_id','=',self.shop_id.warehouse_id.lot_stock_id.address_id.id)])
+        if (self.travel_cost_id and self.warehouse_id.partner_id):
+            time_id = self.env['travel.time'].search([('travel_cost_id','=',self.travel_cost_id.id),('address_id','=',self.warehouse_id.partner_id.id)])
             found=False
             if time_id:
                 for time_travel in time_id:
@@ -91,16 +91,16 @@ class maintenance_installation(models.Model):
    
     
     # Limit errors due to void addresses parts (city, zip,...)
-    @api.one
+    @api.model
     def _get_clean_travel(self):
         
         res={'origin':"",
              'destination':""
              }
         if (self):
-            if(self.warehouse_id and self.warehouse_id.lot_stock_id and self.warehouse_id.lot_stock_id.address_id):
+            if(self.warehouse_id and self.warehouse_id.partner_id):
                 address=None
-                address = self.warehouse_id.lot_stock_id.address_id
+                address = self.warehouse_id.partner_id
                 if (address.street):
                     res['origin']+=address.street
                 if (address.zip):

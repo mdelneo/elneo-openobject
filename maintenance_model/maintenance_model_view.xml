@@ -125,6 +125,11 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="maintenance_project.view_maintenance_installation_form_maintenance_project_inherit" />
 			<field name="arch" type="xml">
+				<xpath expr="//sheet/div[@class='oe_right oe_button_box']" position="inside">
+                        <button class="oe_inline oe_stat_button oe_right" name="action_generate_project_from_installation" string="Generate project"  help="Generate project (contract) for this installation."
+                               type="object" icon="fa-edit" widget="statinfo"/>
+
+				</xpath>
 				<xpath expr="//form/sheet/notebook/page/field/tree/field[@name='name']" position="after">
 					<field name="element_model_id" />
 				</xpath>
@@ -132,9 +137,6 @@
 					position="after">
 					<field name="element_model_id" />
 				</xpath>
-				<field name="maintenance_projects" position="before">
-					<button name="action_generate_project_from_installation" string="Generate project" type="object" icon="terp-camera_test" colspan="4" />
-				</field>
 			</field>
 		</record>
 		

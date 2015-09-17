@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="workflow" id="wkf_maintenance_todo">
+			<field name="name">maintenance_todo.wkf</field>
+			<field name="osv">maintenance.todo</field>
+			<field name="on_create" eval="True"/>
+		</record>
+	
+		<record model="workflow.activity" id="act_maintenance_todo_asked">
+			<field name="wkf_id" ref="wkf_maintenance_todo"/>
+			<field name="name">asked</field>
+			<field name="flow_start">True</field>
+			<field name="kind">function</field>
+			<field name="action">action_asked()</field>
+		</record>
+
+		<record model="workflow.activity" id="act_maintenance_todo_assign">
+			<field name="wkf_id" ref="wkf_maintenance_todo"/>
+			<field name="name">assign</field>
+			<field name="kind">function</field>
+			<field name="action">action_assign()</field>
+		</record>
+		
+		<record model="workflow.activity" id="act_maintenance_todo_progress">
+			<field name="wkf_id" ref="wkf_maintenance_todo"/>
+			<field name="name">progress</field>
+			<field name="kind">function</field>
+			<field name="action">action_progress()</field>
+		</record>
+		
+		<record model="workflow.activity" id="act_maintenance_todo_done">
+			<field name="wkf_id" ref="wkf_maintenance_todo"/>
+			<field name="name">done</field>
+			<field name="kind">function</field>
+			<field name="action">action_done()</field>
+			<field name="flow_stop">True</field>
+		</record>
+		
+		<record model="workflow.activity" id="act_maintenance_todo_cancel">
+			<field name="wkf_id" ref="wkf_maintenance_todo"/>
+			<field name="name">cancel</field>
+			<field name="kind">function</field>
+			<field name="action">action_cancel()</field>
+			<field name="flow_stop">True</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_maintenance_todo_asked_progress">
+			<field name="act_from" ref="act_maintenance_todo_asked"/>
+			<field name="act_to" ref="act_maintenance_todo_progress"/>
+			<field name="signal">action_assign</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_maintenance_todo_progress_assign">
+			<field name="act_from" ref="act_maintenance_todo_progress"/>
+			<field name="act_to" ref="act_maintenance_todo_assign"/>
+			<field name="signal">action_progress</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_maintenance_todo_assign_done">
+			<field name="act_from" ref="act_maintenance_todo_assign"/>
+			<field name="act_to" ref="act_maintenance_todo_done"/>
+			<field name="signal">action_done</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_maintenance_todo_asked_cancel">
+			<field name="act_from" ref="act_maintenance_todo_asked"/>
+			<field name="act_to" ref="act_maintenance_todo_cancel"/>
+			<field name="signal">action_cancel</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_maintenance_todo_progress_cancel">
+			<field name="act_from" ref="act_maintenance_todo_progress"/>
+			<field name="act_to" ref="act_maintenance_todo_cancel"/>
+			<field name="signal">action_cancel</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_maintenance_todo_assign_cancel">
+			<field name="act_from" ref="act_maintenance_todo_assign"/>
+			<field name="act_to" ref="act_maintenance_todo_cancel"/>
+			<field name="signal">action_cancel</field>
+		</record>
+	</data>
+</openerp>

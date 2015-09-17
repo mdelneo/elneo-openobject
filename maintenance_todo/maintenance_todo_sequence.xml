@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Sequences for maintenance.element -->
+        <record id="seq_type_maint_todo" model="ir.sequence.type">
+            <field name="name">Maintenance Todo</field>
+            <field name="code">maintenance.todo</field>
+        </record>
+
+        <record id="seq_maint_todo" model="ir.sequence">
+            <field name="name">Maintenance Todo</field>
+            <field name="code">maintenance.todo</field>
+            <field name="prefix">TODO</field>
+            <field name="padding">5</field>
+        </record>
+
+    </data>
+</openerp>

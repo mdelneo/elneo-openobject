@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		
+		<record id="view_maintenance_todo_tree" model="ir.ui.view">
+			<field name="name">maintenance.todo.tree</field>
+			<field name="model">maintenance.todo</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree colors="blue:(state=='asked');orange:(state=='assigned');grey:(state=='cancel')">
+					<field name="code"/>
+					<field name="installation_id"/>
+					<field name="ask_user_id"/>
+					<field name="ask_date"/>
+					<field name="assigned_user_id"/>
+					<field name="done_date"/>
+					<field name="state"/>
+					<button name="action_progress_my" icon="terp-partner" type="object" string="Affect to me(Progress)" states="asked" groups="maintenance.group_maintenance_manager"/>
+					<button name="action_assign_to" icon="terp-gtk-jump-to-ltr" type="object" string="Assign to an Intervention" states="progress" groups="maintenance.group_maintenance_manager"/>
+				</tree>
+			</field>
+		</record>
+			
+		<record id="view_maintenance_todo_form" model="ir.ui.view">
+			<field name="name">maintenance.todo.form</field>
+			<field name="model">maintenance.todo</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Maintenance Todo">
+					<header>
+						
+						<button name="action_progress" string="In progress" states="asked" type="object" groups="maintenance.group_maintenance_user"/>
+						<button name="action_assign" states="progress" string="Assign" type="object" groups="maintenance.group_maintenance_user"/>
+						<button name="action_done" states="assign" string="Done" type="object" groups="maintenance.group_maintenance_user"/>
+						<button name="action_cancel" states="asked,progress,assign,done" string="Cancel" type="object" groups="maintenance.group_maintenance_user"/>
+						<field name="state" widget="statusbar" clickable="True" statusbar_visible="asked,progress,assigned,done"/>
+					</header>
+					<sheet>
+						
+						<group>
+							<h1>
+								<field name="code"/>
+							</h1>
+							
+						</group>
+						<group>
+							<field name="description"/>
+						</group>
+						<group>
+							<group>
+								<field name="ask_user_id"/>
+								<field name="assigned_user_id"/>
+								<field name="done_user_id"/>
+							</group>
+							<group>
+								<field name="installation_id" />
+								<field name="intervention_from_id" domain="[('installation_id','=',installation_id)]"/>
+								<field name="intervention_assign_id" domain="[('installation_id','=',installation_id)]"/>
+							</group>
+						</group>
+						<div class="oe_chatter">
+		                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+		                    <field name="message_ids" widget="mail_thread"/>
+		                </div>
+					</sheet>
+				</form>
+			</field>
+		</record>
+			
+		<record id="action_maintenance_todo" model="ir.actions.act_window">
+			<field name="name">Maintenance Todo's</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.todo</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,kanban</field>
+			<field name="context">{
+                    'search_default_draft': 1,
+            }
+            </field>
+		</record>
+
+		 <record id="view_maintenance_todo_search" model="ir.ui.view">
+            <field name="name">maintenance.todo.search</field>
+            <field name="model">maintenance.todo</field>
+            <field name="arch" type="xml">
+                <search string="Todo's">
+                	<field name="code" string="Todo"/>
+                	<field name="installation_id" string="Installation"/>
+                	<field name="ask_user_id" string="Ask User"/>
+                	<field name="assigned_user_id" string="Assigned User"/>
+                	<field name="done_user_id" string="Done User"/>
+                    <filter name="asked" string="Asked" domain="[('state','=','asked')]" help="Asked Todo's"/>
+                    <filter name="in_progress" string="In Progress" domain="[('state','=', 'progress')]" help="In Progress Todo's"/>
+                    <filter name="message_unread" string="My Todo's In Progress" domain="[('state','=','progress'),('assigned_user_id','=',uid)]" help="My In Progress Todo's"/>
+                    <filter name="assigned" string="Assigned" domain="[('state','=','assigned')]" help="Assigned Todo's"/>
+                    <filter name="done" string="Done" domain="[('state','=','done')]" help="Done Todo's"/>
+                    <filter name="cancelled" string="Cancelled" domain="[('state','=','cancel')]" help="Cancelled Todo's"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Installation" domain="[]" context="{'group_by':'installation_id'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+             </field>
+       	</record>
+       	
+       	<record model="ir.ui.view" id="view_maintennace_todo_kanban">
+            <field name="name">maintenance.todo.kanban</field>
+            <field name="model">maintenance.todo</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey" default_group_by="state">
+                	<field name="installation_id"/>
+                	<field name="code"/>
+                	<field name="intervention_from_id"/>
+                	<field name="intervention_assign_id"/>
+                	<field name="ask_user_id"/>
+                	<field name="assigned_user_id"/>
+                	<field name="done_user_id"/>
+                	<field name="ask_date"/>
+                	<field name="done_date"/>
+                	
+                    <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_dropdown_toggle oe_dropdown_kanban" groups="base.group_user">
+                                <span class="oe_e">í</span>
+                                <ul class="oe_dropdown_menu">
+                                    <t t-if="widget.view.is_action_enabled('edit')"><li><a type="edit">Edit...</a></li></t>
+                                    <t t-if="widget.view.is_action_enabled('delete')"><li><a type="delete">Delete</a></li></t>
+                                    <!-- 
+                                    <li>
+                                      <ul class="oe_kanban_project_times" groups="project.group_time_work_estimation_tasks">
+                                        <li><a name="set_remaining_time_1" type="object" class="oe_kanban_button">1</a></li>
+                                        <li><a name="set_remaining_time_2" type="object" class="oe_kanban_button">2</a></li>
+                                        <li><a name="set_remaining_time_5" type="object" class="oe_kanban_button">5</a></li>
+                                        <li><a name="set_remaining_time_10" type="object" class="oe_kanban_button">10</a></li>
+                                      </ul>
+                                    </li>
+                                     -->
+                                    <br/>
+                                    <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                </ul>
+                            </div>
+
+                            <div class="oe_kanban_content">
+                                <div><b><field name="code"/></b></div>
+                                <div>
+                                    <field name="installation_id"/><br/>
+                                    <!-- 
+                                    <t t-if="record.date_deadline.raw_value and record.date_deadline.raw_value lt (new Date())" t-set="red">oe_kanban_text_red</t>
+                                    <span t-attf-class="#{red || ''}"><i><field name="date_deadline"/></i></span>
+                                     -->
+                                </div>
+                                
+                                <div class="oe_kanban_footer_left">
+                                <!-- 
+                                    <span groups="project.group_time_work_estimation_tasks" title="Remaining hours">
+                                        <span class="oe_e">N</span>
+                                        <t t-esc="Math.round(record.remaining_hours.raw_value)"/>
+                                    </span>
+                                     -->
+                                </div>
+                                <!-- 
+                                <div class="oe_kanban_footer_left" style="margin-top:5px;">
+                                    <t t-raw="record.message_summary.raw_value"/>
+                                    <field name="categ_ids"/>
+                                </div>
+                                 -->
+                                    <div class="oe_kanban_bottom_right">
+                                       <img t-att-src="kanban_image('res.users', 'image_small', record.assigned_user_id.raw_value)" t-att-title="record.assigned_user_id.value" width="24" height="24" class="oe_kanban_avatar pull-right"/>
+                                        <!-- 
+                                        <div class="pull-left" groups="base.group_user">
+                                            <field name="kanban_state" widget="kanban_state_selection"/>
+                                            <field name="priority" widget="priority"/>
+                                        </div>
+                                         -->
+                                    </div>
+                            </div>
+                            <div class="oe_clear"></div>
+                        </div>
+                    </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <record id="view_maintenance_installation_todo_form" model="ir.ui.view">
+			<field name="name">maintenance.installation.todo.form</field>
+			<field name="model">maintenance.installation</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_installation_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<page string="History" position="after">
+					<page string="Todo's">
+						<span class="oe_grey">
+							Here are todo's which are not done or not cancelled for this installation
+						</span>
+						<field name="todo_ids">
+							<tree colors="blue:(state=='asked');orange:(state=='assigned');grey:(state=='cancel')">
+								<field name="code"/>
+								<field name="ask_user_id"/>
+								<field name="ask_date"/>
+								<field name="state"/>
+							</tree>
+						</field>
+					</page>
+				</page>
+			
+			</field>
+		</record>
+		
+		<record id="view_maintenance_intervention_todo_form" model="ir.ui.view">
+			<field name="name">maintenance.intervention.todo.form</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_intervention_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<div class="oe_right oe_button_box" position="inside">
+                    <button class="oe_inline oe_stat_button oe_right" name="add_todo" string="Add Todo" Help="Click if you want to ask a todo"
+                           type="object" icon="fa-tasks" widget="statinfo"/>
+                </div>
+				<page string="Comments" position="after">
+					<page string="Todo's">
+						<separator string="Todo's assigned to this intervention"/>
+						<span class="oe_grey">Here are todo's that are assigned by manager to this intervention</span>
+						<field name="todo_assigned_ids"/>
+						<separator string="Other todo's for the installation"/>
+						<span class="oe_grey">Here are todo's that are linked to the installation</span>
+						<field name="todo_ids"/>
+					</page>
+				
+				</page>
+			</field>
+		</record>
+        
+       	<!-- MAINTENANCE TODO MENU -->
+		<menuitem id="menu_maintenance_todos" name="Maintenance Todo's"
+			sequence="11" parent="maintenance.menu_maintenance" groups="maintenance.group_maintenance_user" />
+			
+		       	<!-- MAINTENANCE TODO MENU -->
+		<menuitem id="menu_maintenance_todo" name="Maintenance Todo's" action="action_maintenance_todo"
+			sequence="10" parent="menu_maintenance_todos" groups="maintenance.group_maintenance_user" />
+	</data>
+</openerp>

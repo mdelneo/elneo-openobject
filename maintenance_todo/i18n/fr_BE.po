@@ -1,0 +1,290 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* maintenance_todo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-16 07:30+0000\n"
+"PO-Revision-Date: 2015-09-16 09:32+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,ask_date:0
+msgid "Ask Date"
+msgstr "Date de demande"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+#: selection:maintenance.todo,state:0
+msgid "Asked"
+msgstr "Demandé"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "Asked Todo's"
+msgstr "Choses à faire demandées"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_form
+msgid "Assign"
+msgstr "Assign"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+#: selection:maintenance.todo,state:0
+msgid "Assigned"
+msgstr "Assignée"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "Assigned Todo's"
+msgstr "Tâches à faire "
+
+#. module: maintenance_todo
+#: field:maintenance.todo,assigned_user_id:0
+msgid "Assigned User"
+msgstr "Utilisateur assigné"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+#: selection:maintenance.todo,state:0
+msgid "Cancelled"
+msgstr "Annulée"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "Cancelled Todo's"
+msgstr "Tâches à faire annulées"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,ask_user_id:0
+msgid "Claim User"
+msgstr "Demandeur"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: maintenance_todo
+#: help:maintenance.todo,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintennace_todo_kanban
+msgid "Delete"
+msgstr "Supprimer"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_form
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+#: selection:maintenance.todo,state:0
+msgid "Done"
+msgstr "Fait"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,done_date:0
+msgid "Done Date"
+msgstr "Date de fin"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "Done Todo's"
+msgstr "Tâches à faire terminées"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,done_user_id:0
+msgid "Done User"
+msgstr "Utilisateur d'exécution"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintennace_todo_kanban
+msgid "Edit..."
+msgstr "Modifier..."
+
+#. module: maintenance_todo
+#: model:ir.model,name:maintenance_todo.model_maintenance_todo
+msgid "Email Thread"
+msgstr "Discussion par courriel"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: maintenance_todo
+#: view:maintenance.installation:maintenance_todo.view_maintenance_installation_todo_form
+msgid "Here are todo's which are not done or not cancelled for this installation"
+msgstr "Here are todo's which are not done or not cancelled for this installation"
+
+#. module: maintenance_todo
+#: view:maintenance.installation:maintenance_todo.view_maintenance_installation_todo_form
+msgid "History"
+msgstr "Historique"
+
+#. module: maintenance_todo
+#: help:maintenance.todo,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+
+#. module: maintenance_todo
+#: field:maintenance.todo,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: maintenance_todo
+#: help:maintenance.todo,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, les nouveaux messages retiendront votre attention"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "In Progress"
+msgstr "En cours"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "In Progress Todo's"
+msgstr "Tâches à faire en cours"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_form
+#: selection:maintenance.todo,state:0
+msgid "In progress"
+msgstr "En cours"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+#: field:maintenance.todo,installation_id:0
+msgid "Installation"
+msgstr "Installation"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,intervention_from_id:0
+msgid "Intervention From"
+msgstr "Intervention d'origine"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,intervention_assign_id:0
+msgid "Intervention assigned to"
+msgstr "Intervention de destination"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est un abonné"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_form
+msgid "Maintenance Todo"
+msgstr "Tâche à faire"
+
+#. module: maintenance_todo
+#: model:ir.actions.act_window,name:maintenance_todo.action_maintenance_todo
+#: model:ir.ui.menu,name:maintenance_todo.menu_maintenance_todo
+#: model:ir.ui.menu,name:maintenance_todo.menu_maintenance_todos
+msgid "Maintenance Todo's"
+msgstr "Tâches à faire"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: maintenance_todo
+#: help:maintenance.todo,message_ids:0
+msgid "Messages and communication history"
+msgstr "Messages et historique de communication"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "My In Progress Todo's"
+msgstr "Mes tâches à faire en cours"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "My Todo's In Progress"
+msgstr "Mes tâches à faire en cours"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+#: field:maintenance.todo,state:0
+msgid "State"
+msgstr "Etat"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: maintenance_todo
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "Todo"
+msgstr "Tâche à faire"
+
+#. module: maintenance_todo
+#: view:maintenance.installation:maintenance_todo.view_maintenance_installation_todo_form
+#: field:maintenance.installation,todo_ids:0
+#: view:maintenance.todo:maintenance_todo.view_maintenance_todo_search
+msgid "Todo's"
+msgstr "Tâches à faire"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: maintenance_todo
+#: field:maintenance.todo,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages du site web"
+
+#. module: maintenance_todo
+#: help:maintenance.todo,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication du site web"

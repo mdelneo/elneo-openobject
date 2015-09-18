@@ -218,7 +218,7 @@ class product_template(models.Model):
             else:
                 sale_price_computed = self.cost_price * coeff
                 
-        self.list_price = max(sale_price_computed, self.sale_price_seller, self.sale_price_fixed)
+        self.list_price = max(sale_price_computed, self.sale_price_seller, self.sale_price_fixed,self.maximum_price)
         return self.list_price
     
     
@@ -260,6 +260,7 @@ class product_template(models.Model):
     sale_price_seller = fields.Float('Sale price seller')
     compute_sale_price = fields.Boolean('Autocompute sale price', default=True, help="Sale price is always the highest price, between fixed, seller and cumputed price if checked, between fixed and seller if not checked")
     last_update_price_fixed = fields.Date('Date of last update of fixed price') #this field is updated by a psql trigger
+    maximum_price = fields.Float('Historical maximum price', readonly=1) #this field is filled by database trigger on list_price update
     
     '''    
     store={

@@ -26,8 +26,8 @@
 					<separator string="Cost Price" />
 					<newline />
 					<field name="cost_price" />
-					<field name="compute_cost_price" /> <!--  groups="technofluid_interne.group_supermanager" -->
-					<field name="cost_price_fixed" /> <!--  groups="technofluid_interne.group_supermanager" -->
+					<field name="compute_cost_price" on_change="on_change_compute_cost_price(compute_cost_price,cost_price_fixed)" /> <!--  groups="technofluid_interne.group_supermanager" -->
+					<field name="cost_price_fixed" on_change="on_change_compute_cost_price(compute_cost_price,cost_price_fixed)" /> <!--  groups="technofluid_interne.group_supermanager" -->
                 </field>
                 <field name="standard_price" position="replace">                
                 	<newline />

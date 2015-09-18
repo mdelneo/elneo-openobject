@@ -36,6 +36,8 @@
 					<!-- groups="technofluid_interne.group_supermanager" -->
 					
 					<field name="sale_price_seller" />
+					
+					<field name="maximum_price" />
 				</field>
 			</field>
 		</record>

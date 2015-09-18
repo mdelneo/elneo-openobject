@@ -102,37 +102,58 @@ class product_template(models.Model):
             return {'value': {'cost_price':self._get_cost_price(cr, uid, ids, args={'compute_cost_price':compute_cost_price, 'cost_price_fixed':cost_price_fixed})[ids[0]]}}
         return {}
     '''    
-    
-    
+
     @api.multi
+    def on_change_compute_cost_price(self, compute_cost_price, cost_price_fixed):
+        context_onchange = {'compute_cost_price':compute_cost_price,'cost_price_fixed':cost_price_fixed,'product_tmpl_id':self.id}
+        new_cost_price = self.with_context(onchange=context_onchange)._get_cost_price()
+        if type(new_cost_price) is list:
+            if len(new_cost_price) > 0:
+                new_cost_price = new_cost_price[0]
+            else:
+                new_cost_price = 0.
+        return {'value':{'cost_price':new_cost_price}}
+    
+    @api.one
     @api.depends('compute_cost_price','cost_price_fixed','seller_ids.pricelist_ids.price')
     def _get_cost_price(self):
-        for product_tmpl in self:
+        
+        cost_price = 0.0
+        
+        #get values from old api
+        if 'onchange' in self._context:
+            cost_price_fixed = self._context['onchange']['cost_price_fixed']
+            compute_cost_price = self._context['onchange']['compute_cost_price']
+            product_tmpl_id = self._context['onchange']['product_tmpl_id']
+        else:
+            cost_price_fixed = self.cost_price_fixed
+            compute_cost_price = self.compute_cost_price
+            product_tmpl_id = self.id
             
-            if not product_tmpl.compute_cost_price:
-                product_tmpl.cost_price = product_tmpl.cost_price_fixed
-            else:
-                supplierinfos = product_tmpl.seller_ids
-            
-                if len(supplierinfos) > 0:
-                    supplierinfo = supplierinfos[0]
-                    
-                    pricelist = supplierinfo.name.cost_price_product_pricelist
-                    
-                    #find product template id
-                    product_tmpl_id = False
-                    if not (type(product_tmpl.id) is models.NewId):
-                        product_tmpl_id = product_tmpl.id
+        if not compute_cost_price:
+            cost_price = cost_price_fixed
+        else:
+            supplierinfos = self.seller_ids
+        
+            if len(supplierinfos) > 0:
+                supplierinfo = supplierinfos[0]
+                
+                pricelist = supplierinfo.name.cost_price_product_pricelist
+                
+                #find product template id
+                if not product_tmpl_id:
+                    if not (type(self.id) is models.NewId):
+                        product_tmpl_id = self.id
                     elif self._context and 'params' in self._context and 'id' in self._context['params']:
                         product_tmpl_id = self._context['params']['id']
-                        
-                    if pricelist and product_tmpl_id:
-                        price = pricelist.price_get(product_tmpl_id, 1.0)[pricelist.id]
-                        product_tmpl.cost_price = price
-                    else:
-                        product_tmpl.cost_price = 0                    
+                    
+                if pricelist and product_tmpl_id:
+                    price = pricelist.price_get(product_tmpl_id, 1.0)[pricelist.id]
+                    cost_price = price
+        
+        self.cost_price = cost_price
+        return cost_price                    
             
-        return product_tmpl.cost_price
     
     def compute_all_costprice(self,cr,uid,ids,context=None):
         cr.execute("select id from product_product order by id")

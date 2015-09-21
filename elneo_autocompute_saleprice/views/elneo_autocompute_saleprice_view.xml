@@ -38,6 +38,7 @@
 					<field name="sale_price_seller" />
 					
 					<field name="maximum_price" />
+					<button name="reset_maximum_price" string="Reset" type="object" />
 				</field>
 			</field>
 		</record>

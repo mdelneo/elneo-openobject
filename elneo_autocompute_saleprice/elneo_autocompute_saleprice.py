@@ -286,6 +286,10 @@ $$
         
         self.list_price = sale_price
         return sale_price
+    
+    @api.multi
+    def reset_maximum_price(self):
+        self.write({'maximum_price':0})
         
     list_price = fields.Float('Sale Price', compute='_get_list_price', help="Base price for computing the customer price. Sometimes called the catalog price.", store=True, readonly=True)
     sale_price_fixed = fields.Float('Sale price fixed')
@@ -294,13 +298,6 @@ $$
     last_update_price_fixed = fields.Date('Date of last update of fixed price') #this field is updated by a psql trigger
     maximum_price = fields.Float('Historical maximum price', readonly=1) #this field is filled by database trigger on list_price update
     
-    '''    
-    store={
-    'pricelist.partnerinfo':(get_template_from_partnerinfo, None, 9),  
-    'product.product':(get_template_from_product, None, 10),
-    'product.template':(lambda self, cr, uid, ids, c={}: ids, None, 10),
-    } 
-    '''
 
 product_template()
 

@@ -1,0 +1,3 @@
+# -*- coding: utf-8 -*-
+
+- !function {model: product.template, name: _install_product_template_maximum_price_trigger}

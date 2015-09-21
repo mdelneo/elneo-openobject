@@ -148,7 +148,8 @@ class product_template(models.Model):
                         product_tmpl_id = self._context['params']['id']
                     
                 if pricelist and product_tmpl_id:
-                    price = pricelist.price_get(product_tmpl_id, 1.0)[pricelist.id]
+                    product_product_id = self.env['product.product'].search([('product_tmpl_id','=',product_tmpl_id)]).id
+                    price = pricelist.price_get(product_product_id, 1.0)[pricelist.id]
                     cost_price = price
         
         self.cost_price = cost_price

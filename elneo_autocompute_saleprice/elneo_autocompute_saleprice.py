@@ -166,6 +166,38 @@ To compute sale price there is 2 functions :
 class product_template(models.Model):
     _inherit = "product.template"
     
+    @api.model
+    def _install_product_template_maximum_price_trigger(self):
+        req = '''CREATE OR REPLACE FUNCTION fill_trg_product_maximum_price()
+  RETURNS trigger AS
+$BODY$    
+    BEGIN            
+    update product_template set maximum_price = NEW.list_price where id = NEW.id;
+    return NEW;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+
+DROP TRIGGER IF EXISTS trg_fill_maximum_price ON product_template;
+CREATE TRIGGER trg_fill_maximum_price AFTER UPDATE OF list_price OR INSERT ON product_template
+FOR EACH ROW EXECUTE PROCEDURE fill_trg_product_maximum_price();
+
+DO $$
+    BEGIN
+        BEGIN
+            ALTER TABLE product_template ADD COLUMN maximum_price double precision;
+            COMMENT ON COLUMN product_template.maximum_price IS 'Maximum price';
+        EXCEPTION
+            WHEN duplicate_column THEN RAISE NOTICE 'column maximum_price already exists in product_template.';
+        END;
+    END;
+$$
+'''
+        self._cr.execute(req)
+
+    
     @api.one
     def get_product_product(self):
         res = self.env['product.product'].search([('product_tmpl_id','=',self.id)])

@@ -8,7 +8,7 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['base', 'product'],
-    "data" : ['views/elneo_search_view.xml', ],
+    "data" : ['views/elneo_search_view.xml', 'data/install.yml'],
     'installable': True,
     'auto_install': False,
     'application': True,

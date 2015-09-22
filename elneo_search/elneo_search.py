@@ -2,7 +2,18 @@
 from openerp import models,fields,api
 from openerp.exceptions import ValidationError
 import re
+import inspect, os
+from subprocess import call
 
+
+class elneo_search(models.TransientModel):
+    _name = 'elneo.search'
+    
+    @api.model
+    def _install_sql(self):
+        sql_file = open('/'.join(__file__.split('/')[:-1])+'/data/install_product_search.sql')
+        sql_query = sql_file.read()
+        self._cr.execute(sql_query)
 
 class product_product(models.Model):
     _inherit = 'product.product'
@@ -28,7 +39,7 @@ product_product()
 
 class product_template(models.Model):
     _inherit = 'product.template'
-
+    
     @api.multi
     def get_ext_name(self):
         result = {}

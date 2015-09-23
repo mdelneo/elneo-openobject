@@ -24,6 +24,7 @@ from datetime import datetime
 class MaintenanceTodo(models.Model):
     _name = 'maintenance.todo'
     _rec_name='code'
+    _order='ask_date desc'
     
     _inherit=['mail.thread','ir.needaction_mixin']
     
@@ -35,6 +36,12 @@ class MaintenanceTodo(models.Model):
     def copy(self,default=None):
         new_todo = super(MaintenanceTodo, self).copy(default)
         new_todo.code = self.env['ir.sequence'].get('maintenance.todo')
+        
+    @api.one
+    def _get_summary(self):
+        self.summary = self.description[:32]
+        if len(self.description) > 32 :
+            self.summary+= '(...)'
         
     @api.model
     def _needaction_domain_get(self):
@@ -51,6 +58,7 @@ class MaintenanceTodo(models.Model):
     done_user_id=fields.Many2one('res.users',string='Done User',track_visibility='onchange')
     ask_date=fields.Datetime('Ask Date',default=lambda *a : datetime.today().strftime('%Y-%m-%d %H:%M:%S'),readonly=True )
     done_date=fields.Datetime('Done Date',readonly=True)
+    summary=fields.Char('Summary',size=37,compute=_get_summary,readonly=True)
     
     
     @api.one
@@ -67,7 +75,9 @@ class MaintenanceTodo(models.Model):
         
     @api.one
     def action_done(self):
+        self.done_user_id=self.env.user
         self.state = 'done'
+        
         
     @api.one
     def action_asked(self):
@@ -76,12 +86,15 @@ class MaintenanceTodo(models.Model):
     @api.multi
     def action_assign_to(self):
         context = self.env.context.copy()
+        
+        dummy, view_id = self.env['ir.model.data'].get_object_reference('maintenance_todo', 'view_maintenance_todo_assign_to_form')
+        
         return {
             'name':_("Assign Todo"),
             'view_mode': 'form',
-            'view_id': False,
             'view_type': 'form',
             'res_model': 'maintenance.todo.assign.to',
+            'view_id':[view_id],
             #'res_id': partial_id,
             'type': 'ir.actions.act_window',
             'nodestroy': True,
@@ -89,6 +102,7 @@ class MaintenanceTodo(models.Model):
             'domain': '[]',
             'context': context
         }
+      
         
     @api.one
     def action_progress_my(self):
@@ -103,6 +117,27 @@ class maintenance_installation(models.Model):
     
 class maintenance_intervention(models.Model):
     _inherit = 'maintenance.intervention'
+    
+    @api.onchange('installation_id')
+    def _on_change_installation_id(self):
+        '''
+        @return: warning
+        '''
+        res={}
+        
+        # The Warning
+        if self.installation_id.todo_ids.filtered(lambda r:r.state in ('asked','progress')):
+            title =  _("Existing Todo's")+'\n' 
+            message = _("There are todo's for this installation")+'\n'
+            res['warning'] = {
+                    'title': title,
+                    'message': message}
+            
+        #Update the One2many list
+        
+        self.update({'todo_ids':self.installation_id.todo_ids - self.todo_assigned_ids})
+        
+        return res
     
     @api.multi
     def add_todo(self):
@@ -128,10 +163,54 @@ class maintenance_intervention(models.Model):
     todo_assigned_ids = fields.One2many('maintenance.todo','intervention_assign_id',string="Assigned Todo's")
     
     todo_ids = fields.One2many(comodel_name='maintenance.todo',compute=_get_todos,string="Todo's")
-    
-    
-    
+
     @api.multi
     def action_confirm(self):
+        '''
+        Check if there are todo's that are not assigned
+        '''            
+        for intervention in self:
+            if not self.env.context.get('confirm_todo_anyway',False) and intervention.installation_id.todo_ids.filtered(lambda r:r.state in ('asked','progress')):
+                
+                context = self.env.context.copy()
+                return {
+            'name':_("Confirm Anyway"),
+            'view_mode': 'form',
+            'view_id': False,
+            'view_type': 'form',
+            'res_model': 'maintenance.intervention.todo.conf',
+            #'res_id': partial_id,
+            'type': 'ir.actions.act_window',
+            'nodestroy': True,
+            'target': 'new',
+            'domain': '[]',
+            'context': context
+            }
+                
+        return super(maintenance_intervention,self).action_confirm()
+
         
-            return super(maintenance_intervention,self).action_confirm()
+    @api.multi
+    def action_done(self):
+        '''
+        List todo's to confirm
+        '''            
+        for intervention in self:
+            if not self.env.context.get('todo_done',False) and intervention.installation_id.todo_ids.filtered(lambda r:r.state in ('assigned')):
+                dummy, view_id = self.env['ir.model.data'].get_object_reference('maintenance_todo', 'view_maintenance_todo_done_form')
+                context = self.env.context.copy()
+                return {
+            'name':_("List Todo's to mark as done"),
+            'view_mode': 'form',
+            'view_id': False,
+            'view_type': 'form',
+            'res_model': 'maintenance.intervention.todo.done',
+            #'res_id': partial_id,
+            'type': 'ir.actions.act_window',
+            'nodestroy': True,
+            'target': 'new',
+            'domain': '[]',
+            'context': context
+            }
+                
+        return super(maintenance_intervention,self).action_done()            

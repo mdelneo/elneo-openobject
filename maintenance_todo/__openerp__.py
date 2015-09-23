@@ -11,6 +11,7 @@
     'data': [
              'maintenance_todo_view.xml',
              'maintenance_todo_sequence.xml',
+             'todo_data.xml',
              'todo_workflow.xml',
              'security/ir.model.access.csv',
              'wizard/todo_wizard_view.xml' ],

@@ -4,7 +4,9 @@ from openerp import models,fields,api
 class res_partner(models.Model):
     _inherit = 'res.partner'
     
-    ref = fields.Char('Reference', size=10,select=1, required=True)
+    ref = fields.Char('Reference', size=10,select=1)
+    
+    alias = fields.Char('Alias', size=255,select=1)
     
     
     def init(self,cr):

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+		<!-- Product search -->
        	<record id="product_search_form_view_elneo_search" model="ir.ui.view">
            <field name="name">product.search.form.view.elneo.search</field>
            <field name="model">product.product</field>
@@ -21,6 +22,18 @@
 				<field name="name" position="before">
                		<field name="search_field_layout" />
                		<field name="search_default_code_layout" />
+               	</field>
+          	</field>
+       </record>
+       
+       <!-- Partner search -->
+       <record id="res_partner_search_form_view_elneo_search" model="ir.ui.view">
+           <field name="name">res.partner.search.form.view.elneo.search</field>
+           <field name="model">res.partner</field>
+           <field name="inherit_id" ref="base.view_res_partner_filter"/>
+           <field name="arch" type="xml">
+				<field name="name" position="before">
+               		<field name="search_field_layout" />
                	</field>
           	</field>
        </record>

@@ -11,9 +11,13 @@ class elneo_search(models.TransientModel):
     
     @api.model
     def _install_sql(self):
-        sql_file = open('/'.join(__file__.split('/')[:-1])+'/data/install_product_search.sql')
-        sql_query = sql_file.read()
-        self._cr.execute(sql_query)
+        sql_files = [
+            open('/'.join(__file__.split('/')[:-1])+'/data/install_product_search.sql'),
+            open('/'.join(__file__.split('/')[:-1])+'/data/install_partner_search.sql'),
+        ]
+        for sql_file in sql_files:
+            sql_query = sql_file.read()
+            self._cr.execute(sql_query)
 
 class product_product(models.Model):
     _inherit = 'product.product'
@@ -89,3 +93,43 @@ class product_template(models.Model):
     
     
 product_template()
+
+
+
+class res_partner(models.Model):
+    _inherit = 'res.partner'
+    
+    @api.multi
+    def get_ext_name(self):
+        result = {}
+        for product_id in self:                    
+            result[product_id] = ''
+        return result
+     
+    @api.multi
+    def search_ext_name(self, operator, value):
+        self._cr.execute("select id from partner_search_column('"+value+"');")
+        res = self._cr.fetchall()
+        return [('id', 'in', [x[0] for x in res])]
+    
+  
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        if not args:
+            args=[]
+        if name:
+            if len(name) < 3:
+                partners = self.search([('ref','=',name)]+ args, limit=limit)
+                if not partners:
+                    raise ValidationError(_('You must type a minimum of 3 characters to search a partner'))
+            else:
+                partners = self.search([('search_field_layout','ilike',name)], limit=limit)
+        else:
+            partners = self.search(args, limit=limit)
+        return partners.name_get()
+    
+    
+    
+    search_field_layout = fields.Char(compute='get_ext_name', search=search_ext_name, size=4096, string='Advanced search')
+    
+res_partner()

@@ -1,15 +1,27 @@
---CREATE EXTENSION unaccent;
+CREATE EXTENSION IF NOT EXISTS unaccent;
 
-/*
-ALTER TABLE product_product ADD COLUMN search_field character varying(4096);
-COMMENT ON COLUMN product_product.search_field IS 'Search';
+DO $$
+	BEGIN
+		BEGIN
+			ALTER TABLE product_product ADD COLUMN search_field character varying(4096);
+			COMMENT ON COLUMN product_product.search_field IS 'Search';
+		EXCEPTION
+			WHEN duplicate_column THEN RAISE NOTICE 'column search_field already exists in product_product.';
+		END;
+	END;
+$$;
 
-ALTER TABLE product_product ADD COLUMN search_default_code character varying(4096);
-COMMENT ON COLUMN product_product.search_default_code IS 'Default code (search)';
 
-ALTER TABLE product_product ADD COLUMN search character varying(4096);
-COMMENT ON COLUMN product_product.search IS 'Search';
-*/
+DO $$
+	BEGIN
+		BEGIN
+			ALTER TABLE product_product ADD COLUMN search_default_code character varying(4096);
+			COMMENT ON COLUMN product_product.search_default_code IS 'Default code (search)';
+		EXCEPTION
+			WHEN duplicate_column THEN RAISE NOTICE 'column search_default_code already exists in product_product.';
+		END;
+	END;
+$$;
 
 
 CREATE OR REPLACE FUNCTION product_search_code(IN text, OUT id integer)
@@ -86,8 +98,6 @@ ALTER FUNCTION product_search_full(text)
 
 
 
-
-
 CREATE OR REPLACE FUNCTION search_format(IN text, OUT text)
   RETURNS text AS
 $BODY$
@@ -142,30 +152,6 @@ $BODY$
   COST 100;
 ALTER FUNCTION fill_product_search_field(integer)
   OWNER TO odoo;
-
-/*
-CREATE OR REPLACE FUNCTION product_fill_search_column(IN integer, OUT res integer)
-  RETURNS integer AS
-$BODY$ 
-    update product_product set search = req.search
-from (select product_product.id, substr(concat_ws(' | ',product_product.alias, product_template.name, product_product.default_code, string_agg(product_supplierinfo.product_name,' | '),
-string_agg(product_supplierinfo.product_code, ' | '), string_agg(name_translation.value, ' | ')), 0, 4096) as search
-from product_product 
-left join product_template
-	left join product_supplierinfo on product_supplierinfo.product_tmpl_id = product_template.id 
-	left join ir_translation name_translation on name_translation.res_id = product_template.id and name_translation.name = 'product.template,name' 
-on product_product.product_tmpl_id = product_template.id 
-group by product_product.id, product_template.id
-) req
-where req.id = product_product.id
-and product_product.id = $1 RETURNING product_product.id
-$BODY$
-  LANGUAGE sql VOLATILE
-  COST 100;
-ALTER FUNCTION product_fill_search_column(integer)
-  OWNER TO odoo;
-*/
-
 	
 
 CREATE OR REPLACE FUNCTION fill_all_product_search(OUT id integer)
@@ -174,7 +160,7 @@ $BODY$
     DECLARE 
         r RECORD;    
     BEGIN    
-	FOR r IN SELECT product_product.id FROM product_product where active
+	FOR r IN SELECT product_product.id FROM product_product where active and (search_field is null or search_default_code is null)
 	LOOP
 		PERFORM fill_product_search_field(r.id);
 	END LOOP;
@@ -397,5 +383,11 @@ ALTER FUNCTION product_fill_search_column_trigger()
   OWNER TO odoo;
 */
 
--- select fill_all_product_search()
 
+DO $$
+	BEGIN
+		RAISE NOTICE 'fill search_field for all products...';
+		perform fill_all_product_search();
+		RAISE NOTICE '...ok !';
+	END;
+$$;

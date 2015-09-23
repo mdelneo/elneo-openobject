@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="1">
+    	
+		<record id="subtype_todo_warn" model="mail.message.subtype">
+            <field name="name">Todo Warning</field>
+            <field name="res_model">maintenance.intervention</field>
+            <field name="description">Warning! A todo that was assigned to this intervention was not done</field>
+            <field name="default" eval="False"/>
+        </record>
+        
+        <record id="email_template_todo_warn" model="email.template">
+            <field name="name">Todo Warning</field>
+            <field name="body_html"><![CDATA[
+        <p>Warning! The intervention <strong>${object.code}</strong> has been done but some Todo's assigneed to it aren't!
+            
+        </p>
+        ]]></field>
+        </record>
+    </data>
+</openerp>

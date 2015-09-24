@@ -111,4 +111,5 @@ class maintenance_intervention(models.Model):
                     }
                     
         
-        result = super(maintenance_intervention, self).action_done()
+        return super(maintenance_intervention, self).action_done()
+

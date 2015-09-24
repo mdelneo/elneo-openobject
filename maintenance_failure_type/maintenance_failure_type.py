@@ -52,7 +52,7 @@ class maintenance_intervention(models.Model):
     failure_type_id = fields.Many2one('maintenance.failure.type', 'Failure type')
     failure_element_id = fields.Many2one('maintenance.element', 'Element damaged')
     
-    @api.one
+    @api.multi
     def action_done(self):
         if self.maint_type and self.maint_type.is_reparation and (not self.failure_type_id or not self.failure_element_id):
                 raise Warning( _('For a reparation you must complete type of failure and element damaged.'))

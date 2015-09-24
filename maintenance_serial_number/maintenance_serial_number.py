@@ -37,7 +37,7 @@ class MaintenanceInterventionProduct(models.Model):
     serial_number = fields.Char(size=255, string="Serial number")
     
     
-class MaintenanceIntervention(models.Model):
+class maintenance_intervention(models.Model):
     _inherit = 'maintenance.intervention' 
 
     @api.multi
@@ -50,8 +50,7 @@ class MaintenanceIntervention(models.Model):
                 elif intervention_product.sale_order_line_id and intervention_product.product_id.serialnumber_required:
                     raise Warning(_('Please enter %s serial number of product %s')%(str(intervention_product.sale_order_line_id.product_uom_qty), intervention_product.product_id.default_code))
 
-        result = super(MaintenanceIntervention, self).action_done()
-        return result
+        return super(maintenance_intervention, self).action_done()
 
     
 class stock_transfer_details(models.TransientModel):

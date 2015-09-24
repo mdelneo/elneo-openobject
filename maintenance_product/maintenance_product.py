@@ -326,7 +326,7 @@ class maintenance_intervention(models.Model):
         Add products to delivery order
         
         '''
-        result = super(maintenance_intervention, self).action_done()
+
         
         
         for intervention in self:
@@ -437,7 +437,7 @@ class maintenance_intervention(models.Model):
             
             intervention.generate_invoice()
       
-        return result
+        return super(maintenance_intervention, self).action_done()
     
     @api.multi
     def generate_invoice(self):

@@ -7,12 +7,12 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="maintenance_product.view_maintenance_intervention_maintenance_product_form" />
 			<field name="arch" type="xml">
-			<xpath expr="//sheet/h1" position="after">
-				<div class="oe_right oe_button_box">
+			
+				<div class="oe_right oe_button_box" position="inside">
                         <button class="oe_inline oe_stat_button oe_right" name="action_convert_delivery" string="Classic delivery" Help="Click if you want to convert intervention in classic delivery"
                                type="action"  icon="fa-truck" widget="statinfo"/>
                     </div>
-				</xpath>
+				
 				<xpath expr="//tree/field[@name='maintenance_element_id']"
 					position="after">
 					<field name="real_stock" />

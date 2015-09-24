@@ -27,7 +27,7 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['maintenance','maintenance_timeofuse','maintenance_product'],
-    'update_xml': ['security/ir.model.access.csv', 'wizard/maintenance_wizard_view.xml'],
+    'data': ['security/ir.model.access.csv', 'wizard/maintenance_wizard_view.xml'],
     'installable': True,
     'active': False,
     'application':False

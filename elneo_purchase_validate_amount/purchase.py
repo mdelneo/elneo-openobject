@@ -31,7 +31,7 @@ class purchase_order(models.Model):
     
     
     def check_amount_low(self):
-        res = False
+        res = True
         
         purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_amount',False)
         

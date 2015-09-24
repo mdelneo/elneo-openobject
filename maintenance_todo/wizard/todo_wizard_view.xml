@@ -35,7 +35,7 @@
 						<span class="oe_grey">Here you can specify the intervention to assign the todo</span>
 						<field name="installation_id" invisible="1"/>
 						<field name="intervention_from_id" invisible="1"/>
-						<field name="intervention_id" domain="[('installation_id','=',installation_id),('id','&lt;&gt;',intervention_from_id)]"/>
+						<field name="intervention_id" domain="[('installation_id','=',installation_id)]"/>
 					</group>
 					<footer>
 						<group>

@@ -50,7 +50,7 @@ class MaintenanceTodo(models.Model):
     description = fields.Text('Description',size=255,required=True)
     code = fields.Char("Code", size=20, index=True, required=True,default=_get_code)
     installation_id = fields.Many2one('maintenance.installation',string='Installation',required=True)
-    state = fields.Selection([('asked','Asked'),('progress','In progress'),('assigned','Assigned'),('done','Done'),('cancel','Cancelled')],string="State",required=True,default='asked',track_visibility='onchange')
+    state = fields.Selection([('asked','Asked'),('progress','In progress'),('ready','Ready'),('done','Done'),('cancel','Cancelled')],string="State",required=True,default='asked',track_visibility='onchange')
     intervention_from_id=fields.Many2one('maintenance.intervention',string='Intervention From')
     intervention_assign_id=fields.Many2one('maintenance.intervention',string='Intervention assigned to',track_visibility='onchange')
     ask_user_id=fields.Many2one('res.users',string='Claim User',default=lambda obj: obj.env.user)
@@ -61,9 +61,13 @@ class MaintenanceTodo(models.Model):
     summary=fields.Char('Summary',size=37,compute=_get_summary,readonly=True)
     
     
-    @api.one
+    @api.multi
     def action_assign(self):
-        self.state = 'assigned'
+        for todo in self:
+            #If no user is defined
+            if not todo.assigned_user_id:
+                todo.assigned_user_id = self.env.user
+            todo.state = 'ready'
         
     @api.one
     def action_progress(self):
@@ -82,6 +86,10 @@ class MaintenanceTodo(models.Model):
     @api.one
     def action_asked(self):
         self.state = 'asked'
+        
+    @api.one
+    def action_unassign(self):
+        self.intervention_assign_id = None
         
     @api.multi
     def action_assign_to(self):
@@ -102,8 +110,7 @@ class MaintenanceTodo(models.Model):
             'domain': '[]',
             'context': context
         }
-      
-        
+    
     @api.one
     def action_progress_my(self):
         self.assigned_user_id = self.env.user
@@ -158,11 +165,30 @@ class maintenance_intervention(models.Model):
     
     @api.one
     def _get_todos(self):
-        self.todo_ids = self.env['maintenance.todo'].search([('installation_id','=',self.installation_id.id)]) - self.todo_assigned_ids
+        self.todo_ids = self.env['maintenance.todo'].search([('installation_id','=',self.installation_id.id),('state','not in',('done','cancel'))]) - self.todo_assigned_ids
     
     todo_assigned_ids = fields.One2many('maintenance.todo','intervention_assign_id',string="Assigned Todo's")
     
     todo_ids = fields.One2many(comodel_name='maintenance.todo',compute=_get_todos,string="Todo's")
+    
+    @api.multi
+    def assign_todo(self):
+        for intervention in self:
+            if intervention.installation_id and intervention.todo_ids:
+                readys = intervention.todo_ids.filtered(lambda r:r.state != 'ready')
+                readys.action_assign()
+                readys.write({'intervention_assign_id' : intervention.id})
+        return True
+            
+            
+    @api.multi
+    def assign_all_todo(self):
+        for intervention in self:
+            if intervention.installation_id and intervention.todo_ids:
+                intervention.todo_ids.action_assign()
+                intervention.todo_ids.write({'intervention_assign_id' : intervention.id})
+        return True
+            
 
     @api.multi
     def action_confirm(self):
@@ -196,7 +222,7 @@ class maintenance_intervention(models.Model):
         List todo's to confirm
         '''            
         for intervention in self:
-            if not self.env.context.get('todo_done',False) and intervention.installation_id.todo_ids.filtered(lambda r:r.state in ('assigned')):
+            if not self.env.context.get('todo_done',False) and intervention.installation_id.todo_ids.filtered(lambda r:r.state in ('ready')):
                 dummy, view_id = self.env['ir.model.data'].get_object_reference('maintenance_todo', 'view_maintenance_todo_done_form')
                 context = self.env.context.copy()
                 return {

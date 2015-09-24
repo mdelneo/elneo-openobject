@@ -48,13 +48,19 @@
 		<record model="workflow.transition" id="trans_maintenance_todo_asked_progress">
 			<field name="act_from" ref="act_maintenance_todo_asked"/>
 			<field name="act_to" ref="act_maintenance_todo_progress"/>
+			<field name="signal">action_progress</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_maintenance_todo_asked_assign">
+			<field name="act_from" ref="act_maintenance_todo_asked"/>
+			<field name="act_to" ref="act_maintenance_todo_assign"/>
 			<field name="signal">action_assign</field>
 		</record>
 		
 		<record model="workflow.transition" id="trans_maintenance_todo_progress_assign">
 			<field name="act_from" ref="act_maintenance_todo_progress"/>
 			<field name="act_to" ref="act_maintenance_todo_assign"/>
-			<field name="signal">action_progress</field>
+			<field name="signal">action_assign</field>
 		</record>
 		
 		<record model="workflow.transition" id="trans_maintenance_todo_assign_done">

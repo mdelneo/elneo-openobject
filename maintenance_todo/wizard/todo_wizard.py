@@ -132,7 +132,7 @@ class intervention_done_todo(models.TransientModel):
         res = []
         if self.env.context.get('active_id',False) and self.env.context.get('active_model',False) and self.env.context['active_model'] == 'maintenance.intervention':
             intervention = self.env['maintenance.intervention'].browse(self.env.context.get('active_id',False))
-            assigned_todos = intervention.installation_id.todo_ids.filtered(lambda r:r.state in ('assigned'))
+            assigned_todos = intervention.installation_id.todo_ids.filtered(lambda r:r.state in ('ready'))
             int_todos = assigned_todos.filtered(lambda r:r.intervention_assign_id==intervention)
             for int_todo in int_todos:
                 '''

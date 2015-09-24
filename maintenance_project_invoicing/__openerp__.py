@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'MaintenanceProject Invoicing',
+    'name': 'Maintenance Project Invoicing',
     'version': '0.1',
     'category': 'Maintenance',
     'description': "Generate automatically maintenance project (contract) invoices",

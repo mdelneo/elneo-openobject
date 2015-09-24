@@ -10,7 +10,7 @@
 			name="Configuration" sequence="20" groups="group_maintenance_user" />
 			
 		<menuitem id="menu_maintenance_maintenance" parent="menu_maintenance" 
-			name="Maintenance" sequence="15" groups="group_maintenance_user" />
+			name="Maintenance" sequence="10" groups="group_maintenance_user" />
 			
 			
 		<record id="view_maintenance_intervention_type_form" model="ir.ui.view">
@@ -592,6 +592,8 @@
 						<h1>
 							<label string="Intervention"/><field name="code" class="oe_inline"/>
 						</h1>
+						<div class="oe_right oe_button_box">
+	                    </div>
 						<group>
 							<group>
 								<field name="maint_type" widget="selection" />

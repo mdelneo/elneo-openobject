@@ -88,15 +88,44 @@ class maintenance_installation(models.Model):
         
         return ids.name_get()
     
-    '''
-    def search(self,*args,**kwargs):
-        res = super(maintenance_installation, self).search(*args,**kwargs)
-        return res
-    '''
-    
-    @api.multi
-    def name_get(self):
+    def name_get(self,cr,uid,ids,context=None):
         res = []
+        
+        reads = self.read(
+            cr, uid, ids,
+            ['code', 'name','address_id','partner_id'],
+            context, load='_classic_write')
+        
+        res = []
+        for r in reads:
+            if r['partner_id']:
+                partner = self.pool.get('res.partner').read(cr,uid,r['partner_id'],['name'],context, load='_classic_write')
+            
+            if r['address_id']:
+                address = self.pool.get('res.partner').read(cr,uid,r['address_id'],['city'],context, load='_classic_write')
+            
+            name_tab = []
+            
+            if r['name']:
+                name_tab.append(r['name'])
+            if partner:
+                name_tab.append(partner['name'])
+            if address:
+                name_tab.append(address['city'])
+            if r['code']:
+                name_tab.append('('+r['code']+')')
+            try:
+                res.append((r['id'],' - '.join(name_tab)))
+            except:
+                ''
+            '''
+            name = r['code']
+            if r['name']:
+                name += ' - ' + r['name']
+            
+            res.append((r['id'],name))
+        
+        
         for record in self:
             name_tab = []
             if record.name:
@@ -111,6 +140,8 @@ class maintenance_installation(models.Model):
                 res.append((record.id,' - '.join(name_tab)))
             except:
                 ''
+            '''
+                
         return res
     
     @api.onchange('partner_id')
@@ -214,15 +245,20 @@ class maintenance_intervention(models.Model):
     def name_get(self, cr, uid, ids, context=None):
         if not ids:
             return []
-        result = []
-        for me in self.browse(cr, uid, ids, context=context):
-            if me.name:
-                result.append((me.id, me.code+' - '+me.name))
-            else:
-                result.append((me.id, me.code))
-        return result
-    
-    
+
+        reads = self.read(
+            cr, uid, ids,
+            ['code', 'name'],
+            context, load='_classic_write')
+        res = []
+        for r in reads:
+            name = r['code']
+            if r['name']:
+                name += ' - ' + r['name']
+            
+            res.append((r['id'],name))
+            
+        return res
     '''
     def _get_intervention_from_task(self):
         return [task.intervention_id.id for task in self.env['maintenance.intervention.task'].browse(cr, uid, ids, context)]
@@ -334,15 +370,18 @@ class maintenance_intervention(models.Model):
     
     @api.one
     def action_cancel(self):
-        self.state = 'cancel'        
+        self.state = 'cancel'
+        return True
     
-    @api.one
+    @api.multi
     def action_done(self):
-        self.state = 'done'
+        self.write({'state':'done'})
+        return True
     
     @api.one
     def action_confirm(self):
-        self.state = 'confirmed'
+        self.write({'state':'confirmed'})
+        return True
 
 
 class maintenance_element(models.Model):

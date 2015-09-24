@@ -25,7 +25,7 @@
     'description': "Module to manage quotations based on maintenance projects",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['maintenance_project', 'sale','base',],
+    'depends': ['maintenance_project','maintenance_model', 'sale','base',],
     'data': ['maintenance_project_quotation.xml',
               'security/ir.model.access.csv','project_workflow.xml','installation_workflow.xml','user_quotation_request.xml'],
     'installable': True,

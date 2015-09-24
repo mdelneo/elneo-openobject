@@ -86,8 +86,8 @@ class maintenance_intervention(models.Model):
         '''
         @depends: account_block_partner
         '''
-        res=[]
-        if self.installation_id and self.installation_id.partner_id and self.self.installation_id.partner_id.blocked:
+        res={}
+        if self.installation_id and self.installation_id.partner_id and self.installation_id.partner_id.blocked:
             title =  _("Attention: the client is blocked")+'\n' 
             message = _("Attention: the client is blocked")+'\n'
             res['warning'] = {

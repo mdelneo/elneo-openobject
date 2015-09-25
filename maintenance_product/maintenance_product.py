@@ -718,7 +718,7 @@ class sale_order_line(models.Model):
                     'cost_price':order_line.purchase_price, 
                     'discount':order_line.discount, 
                     'delay':order_line.delay,
-                    'route_id':order_line.route_id
+                    'route_id':order_line.route_id.id
                 })
         return True
     

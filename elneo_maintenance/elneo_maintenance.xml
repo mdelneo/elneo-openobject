@@ -12,12 +12,18 @@
                         <button class="oe_inline oe_stat_button oe_right" name="action_convert_delivery" string="Classic delivery" Help="Click if you want to convert intervention in classic delivery"
                                type="action"  icon="fa-truck" widget="statinfo"/>
                     </div>
-				
+                  <xpath expr="//form/group/field[@name='route_id']"
+					position="after">
+					<field name="real_stock" />
+					<field name="virtual_stock" />
+				</xpath>
+				<!-- PERFORMANCE 
 				<xpath expr="//tree/field[@name='maintenance_element_id']"
 					position="after">
 					<field name="real_stock" />
 					<field name="virtual_stock" />
 				</xpath>
+				 -->
 				<xpath expr="//field[@name='intervention_products']/form/group/field[@name='route_id']"
 					position="after">
 					<field name="procurement_path"/>

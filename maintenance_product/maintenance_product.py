@@ -196,6 +196,7 @@ class maintenance_intervention(models.Model):
                 default_values['intervention_id'] = intervention.id 
                 default_values['order_policy'] = 'picking'
                 
+                
                 for field in default_values.keys():
                     if type(default_values[field]) == list:
                         field_type = sale_order_pool._columns[field]._type
@@ -203,6 +204,7 @@ class maintenance_intervention(models.Model):
                             default_values[field] = [(0,0,val) for val in default_values[field]] 
                         elif field_type == 'many2many':
                             default_values[field] = [(4,val) for val in default_values[field]]
+                
                 
                 sale_order = sale_order_pool.create(default_values)
                 
@@ -228,19 +230,7 @@ class maintenance_intervention(models.Model):
         order_line = self.env['sale.order.line'].product_id_change(
                             sale_order.pricelist_id.id, intervention_product.product_id.id, qty=intervention_product.quantity, 
                             partner_id=partner.id, lang=partner.lang, fiscal_position=sale_order.fiscal_position.id)['value']
-                
-        for field in order_line.keys():
-            if type(order_line[field]) == list:
-                field_type = self.env['sale.order.line']._columns[field]._type
-                if field_type == 'one2many':
-                    order_line[field] = [(0,0,val) for val in order_line[field]] 
-                elif field_type == 'many2many':
-                    order_line[field] = [(4,val) for val in order_line[field]]
-        
-        #default_values = self.env['maintenance.intervention.product'].onchange_product_id([intervention_product.product_id.id], intervention_product.product_id.id, 
-        #        intervention_product.intervention_id.installation_id.id, intervention_product.quantity, context={})
-        #if default_values:
-        #    default_values = default_values['value']
+
             
         order_line['product_id'] = intervention_product.product_id.id
         order_line['product_uom_qty'] = intervention_product.quantity

@@ -98,6 +98,9 @@ class maintenance_installation(models.Model):
         
         res = []
         for r in reads:
+            partner = None
+            address = None
+            
             if r['partner_id']:
                 partner = self.pool.get('res.partner').read(cr,uid,r['partner_id'],['name'],context, load='_classic_write')
             
@@ -118,29 +121,6 @@ class maintenance_installation(models.Model):
                 res.append((r['id'],' - '.join(name_tab)))
             except:
                 ''
-            '''
-            name = r['code']
-            if r['name']:
-                name += ' - ' + r['name']
-            
-            res.append((r['id'],name))
-        
-        
-        for record in self:
-            name_tab = []
-            if record.name:
-                name_tab.append(record.name)
-            if record.partner_id and record.partner_id.name:
-                name_tab.append(record.partner_id.name)
-            if record.address_id and record.address_id.city:
-                name_tab.append(record.address_id.city)
-            if record.code:
-                name_tab.append('('+record.code+')')
-            try:
-                res.append((record.id,' - '.join(name_tab)))
-            except:
-                ''
-            '''
                 
         return res
     

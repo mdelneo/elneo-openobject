@@ -58,6 +58,7 @@ class maintenance_intervention_product(models.Model):
    
     virtual_stock = fields.Float(compute=_qty_virtual_stock,  string='Virtual stock')
     real_stock = fields.Float(compute=_qty_real_stock,  string='Real stock')
+    procurement_path = fields.Char(related='sale_order_line_id.procurement_path', string='Procurement path')
     
     
 class maintenance_installation(models.Model):
@@ -99,7 +100,17 @@ class maintenance_intervention(models.Model):
     def action_convert_delivery(self):
         #cancel interventions
         self.write({'state': 'cancel'})
-    
+        
+    @api.model
+    def get_sale_order_line(self,sale_order, intervention_product, partner):
+
+        order_line = super(maintenance_intervention,self).get_sale_order_line(sale_order,intervention_product,partner)
+        
+        order_line['route_id'] = intervention_product.route_id.id
+        
+        return order_line
+        
+        
     warehouse_id = fields.Many2one(related='sale_order_id.warehouse_id', string="Warehouse")
     installation_warehouse_id = fields.Many2one(related='installation_id.warehouse_id',  string="Warehouse")
     installation_zip = fields.Char(related='installation_id.address_id.zip', string="Zip", store=True)

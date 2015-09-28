@@ -88,6 +88,9 @@ class maintenance_installation(models.Model):
         
         return ids.name_get()
     
+    
+    
+    
     def name_get(self,cr,uid,ids,context=None):
         res = []
         
@@ -111,18 +114,19 @@ class maintenance_installation(models.Model):
             
             if r['name']:
                 name_tab.append(r['name'])
-            if partner:
+            if partner and partner['name']:
                 name_tab.append(partner['name'])
-            if address:
+            if address and address['city']:
                 name_tab.append(address['city'])
             if r['code']:
                 name_tab.append('('+r['code']+')')
             try:
                 res.append((r['id'],' - '.join(name_tab)))
             except:
-                ''
+                res.append((r['id'],''))
                 
         return res
+    
     
     @api.onchange('partner_id')
     def _onchange_partner_id(self):

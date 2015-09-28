@@ -323,7 +323,7 @@ class maintenance_intervention(models.Model):
     address_id = fields.Many2one("res.partner",related="installation_id.address_id", readonly=True, string="Address", store=True,help="Address of the installation")
     installation_id = fields.Many2one('maintenance.installation', string='Installation', required=True) 
     state = fields.Selection([('cancel','Cancel'), ('draft','Draft'), ('confirmed', 'Confirmed'), ('done', 'Done')], string="Intervention State", readonly=True,default='draft',track_visibility='onchange')
-    task_state = fields.Selection(compute='_get_task_fields', size=255,default='to_plan', readonly=True, string="Task state", selection=[('to_plan','To plan'), ('planned', 'Planned')])
+    task_state = fields.Selection(compute='_get_task_fields', size=255,default='to_plan', readonly=True, string="Task state", selection=[('to_plan','To plan'), ('planned', 'Planned')],store=True)
     tasks = fields.One2many('maintenance.intervention.task','intervention_id', 'Tasks')
     int_comment = fields.Text("Internal comment")
     ext_comment = fields.Text("External comment") 

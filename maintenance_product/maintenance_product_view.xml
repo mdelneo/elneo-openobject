@@ -76,8 +76,8 @@
 			<field name="type">search</field>
 			<field name="arch" type="xml">
 				<filter name="to_confirm" position="after">
-					<filter icon="terp-camera_test" name="not_available" string="Not available" domain="[('state','=','confirmed'),('available','=',False)]" />
-					<filter icon="terp-camera_test" name="planning" string="Planning" domain="[('state','=','confirmed'),('available','=',True)]" />
+					<filter icon="terp-camera_test" name="not_available" string="Not available" domain="[('state','=','confirmed'),('available','=',False)]" help="State is confirmed but not all products are available"/>
+					<filter icon="terp-camera_test" name="planning" string="Planning" domain="[('state','=','confirmed'),('available','=',True)]" help="State is confirmed and products are available"/>
 				</filter>
 			</field>
 		</record>

@@ -49,6 +49,7 @@ class maintenance_failure_type(models.Model):
 class maintenance_intervention(models.Model):
     _inherit='maintenance.intervention'
     
+    is_reparation=fields.Boolean(related='maint_type.is_reparation',string='Is Reparation',help='Depends from maintenance intervention type')
     failure_type_id = fields.Many2one('maintenance.failure.type', 'Failure type')
     failure_element_id = fields.Many2one('maintenance.element', 'Element damaged')
     

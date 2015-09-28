@@ -53,8 +53,9 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<field name="contact_address_id" position="after">
-					<field name="failure_type_id" />
-					<field name="failure_element_id" domain="[('installation_id','=',installation_id)]" />
+					<field name="is_reparation" invisible="1"/>
+					<field name="failure_type_id" attrs="{'readonly':[('is_reparation','=',False)]}"/>
+					<field name="failure_element_id" domain="[('installation_id','=',installation_id)]" attrs="{'readonly':[('is_reparation','=',False)]}"/>
 				</field>
 			</field>
 		</record>

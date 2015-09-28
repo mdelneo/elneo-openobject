@@ -522,10 +522,10 @@
 						<!--  <field name="sale_order_id" />-->
                     </group>
                     <group string="Filter">
-                    	<filter name="message_unread" string="My Interventions confirmed" domain="['&amp;', ('tasks.user_id.id','=',uid),('state', '=', 'confirmed')]" />
-                    	<filter name="to_confirm" string="To confirm" domain="[('state','=','draft')]" />
-                    	<filter name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]" />
-                        <filter name="done" string="Finished" domain="[('state','=','done')]" />
+                    	<filter name="message_unread" string="My Interventions confirmed" domain="['&amp;', ('tasks.user_id.id','=',uid),('state', '=', 'confirmed')]" help="Interventions that have tasks assigned to me and state in confirmed"/>
+                    	<filter name="to_confirm" string="To confirm" domain="[('state','=','draft')]" help="Interventions that have state in draft"/>
+                    	<filter name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]" help="Interventions that have state in confirmed"/>
+                        <filter name="done" string="Finished" domain="[('state','=','done')]" help="Interventions that have state in done"/>
                     </group>
                     <group expand="0" string="Group By...">
                         <filter string="Technician" icon="terp-personal" domain="[]" context="{'group_by':'technicians'}"/>

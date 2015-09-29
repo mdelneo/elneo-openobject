@@ -62,13 +62,12 @@ class intervention_merge(models.TransientModel):
     
     # Set the start date as the first selected intervention date 
     def _get_intervention_date(self):
-        res=''
         
         intervention_id = self.env.context.get('active_id',False)
         if intervention_id:
             intervention = self.env['maintenance.intervention'].browse(intervention_id)
             if(intervention.date_start):
-                return str(intervention.date_start)
+                return intervention.date_start
     
     # Set the reference intervention as the first selected one
     def _get_reference_intervention(self):
@@ -248,7 +247,7 @@ class intervention_merge(models.TransientModel):
                 for timeofuse in line.intervention_timeofuse:
                     # Don't copy existing time of use line for a particular maintenance element
                     if not(timeofuse.maintenance_element_id.id in maint_element_time_appended):
-                        timeofuse.copy(default={'intervention_id':new_int})
+                        timeofuse.copy(default={'intervention_id':new_int.id})
                         maint_element_time_appended.append(timeofuse.maintenance_element_id.id)
             res = True
         except Exception,e:

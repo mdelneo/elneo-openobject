@@ -23,7 +23,7 @@
 					<footer>
 						<group>
 							<button string="Get All Interventions" name="getAll" type="object" help="Allow you to retrieve all the draft interventions for this installation"/>
-							<button string="Merge" name="merge" type="object" class="oe_highlight" confirm="Do you really want to merge these interventions?" help="Do the installations merge"/>
+							<button string="Merge" name="merge" type="object" class="oe_highlight" help="Do the installations merge"/>
 						</group>
 					</footer>
 					

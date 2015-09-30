@@ -24,6 +24,8 @@ from openerp import models, fields, api, _
 
 class maintenance_element(models.Model):
     _inherit = 'maintenance.element'
+    
+    
 
     @api.one
     def _get_last_timeofuse(self):
@@ -54,6 +56,11 @@ class maintenance_intervention_timeofuse(models.Model):
             self.valid = True
         else:
             self.valid = False
+            
+    def fields_view_get(self,cr,uid,view_id=None, view_type='form', toolbar=False, submenu=False,context=None):
+        res = super(maintenance_intervention_timeofuse,self).fields_view_get(cr,uid,view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu,context=context)
+         
+                
 
     date = fields.Datetime("Date",default=lambda *a: time.strftime('%Y-%m-%d'))
     intervention_id = fields.Many2one('maintenance.intervention', string="Intervention")
@@ -78,6 +85,25 @@ class maintenance_intervention(models.Model):
         
         return res
     
+    @api.multi
+    def action_add_counter(self):
+        context = self.env.context.copy()
+        return {
+                        'name':_("Add Counter"),
+                        'view_mode': 'form',
+                        'view_type': 'form',
+                        'view_id': False,
+                        'res_model': 'maintenance.timeofuse.intervention.addcounter.wizard',
+                        #'res_id':wizard_id,
+                        'context': context,
+                        #'views': [(resource,'form')],
+                        'type': 'ir.actions.act_window',
+                        'nodestroy': True,
+                        'target': 'new',
+                        
+                        
+                    }
+        
     @api.multi
     def action_done(self):
         force = self.env.context.get("intervention_force_done", False)

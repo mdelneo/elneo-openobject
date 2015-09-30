@@ -16,5 +16,29 @@
 				</form>
 			</field>
 		</record>
+		
+		<record id="view_maintenance_timeofuse_intervention_addcounter_wizard" model="ir.ui.view">
+			<field name="name">Add Counter</field>
+			<field name="model">maintenance.timeofuse.intervention.addcounter.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Confirm">
+					<span class="oe_grey">
+						Please fill in the counter for a specific element of the installation
+					</span>
+					<group>
+						<field name="intervention_id" invisible="1"/>
+						<field name="element_id" domain="[('installation_id.interventions','in',intervention_id)]"/>
+						<field name="time_of_use"/>
+					</group>
+					<separator
+						string="You have not filled time counter(s) ! Continue ?" />
+					<footer>
+						<button special="cancel" class="oe_link" string="Cancel"/>
+						<button name="confirm" string="Add" type="object" class="oe_highlight"/>
+					</footer>
+				</form>
+			</field>
+		</record>
 	</data>
 </openerp>

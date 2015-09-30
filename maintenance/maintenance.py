@@ -347,10 +347,19 @@ class maintenance_intervention(models.Model):
     _order = 'id desc'
     
     @api.onchange('installation_id')
-    def on_change_installation_id(self):        
+    def _on_change_installation_id(self):
+        res={}
         if self.installation_id:
             self.partner_id=self.installation_id.id
             self.contact_address_id = self.installation_id.contact_address_id.id
+            
+            if self.installation_id.state == 'inactive':
+                
+                res['warning']={
+                    'title': 'Installation Inactive',
+                    'message': 'Warning! The installation is Inactive!'}
+        
+        return res
     
     @api.one
     def action_cancel(self):

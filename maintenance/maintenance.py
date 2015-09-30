@@ -344,7 +344,7 @@ class maintenance_intervention(models.Model):
     time_planned = fields.Float('Time planned', help='Time initially planned to do intervention.')
     
     
-    _order = 'id desc'
+    _order = 'date_start,id desc'
     
     @api.onchange('installation_id')
     def _on_change_installation_id(self):

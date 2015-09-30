@@ -83,7 +83,7 @@ class maintenance_intervention(models.Model):
         return res
     
     @api.onchange('installation_id')
-    def on_change_installation_id(self):
+    def on_change_installation_id_elneo(self):
         '''
         @depends: account_block_partner
         '''

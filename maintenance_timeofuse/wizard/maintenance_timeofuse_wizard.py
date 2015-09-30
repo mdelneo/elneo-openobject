@@ -38,5 +38,6 @@ class maintenance_timeofuse_intervention_addcounter_wizard(models.TransientModel
         
         value={'maintenance_element_id':self.element_id.id,
                'time_of_use':self.time_of_use,
+               'intervention_id':self.intervention_id.id
                }
         self.env['maintenance.intervention.timeofuse'].create(value)

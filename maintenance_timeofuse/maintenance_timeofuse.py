@@ -46,6 +46,13 @@ class maintenance_intervention_timeofuse(models.Model):
     
     _rec_name = 'maintenance_element_id'
     
+    @api.one
+    def copy(self,default=None):
+        default.update({'time_of_use':0.0})
+        new_time = super(maintenance_intervention_timeofuse,self).copy(default=default)
+        
+        return new_time
+    
     #a timeofuse record is valid (usable) if intervention is done
     @api.depends('intervention_id','intervention_id.state')
     @api.one
@@ -56,16 +63,11 @@ class maintenance_intervention_timeofuse(models.Model):
             self.valid = True
         else:
             self.valid = False
-            
-    def fields_view_get(self,cr,uid,view_id=None, view_type='form', toolbar=False, submenu=False,context=None):
-        res = super(maintenance_intervention_timeofuse,self).fields_view_get(cr,uid,view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu,context=context)
-         
-                
 
     date = fields.Datetime("Date",default=lambda *a: time.strftime('%Y-%m-%d'))
     intervention_id = fields.Many2one('maintenance.intervention', string="Intervention")
     maintenance_element_id = fields.Many2one('maintenance.element', string="Maintenance element")
-    time_of_use = fields.Float("Time of use (h)")
+    time_of_use = fields.Float("Time of use (h)",default=0.0)
     valid = fields.Boolean(compute=_get_valid,  string="Valid", store=True)
 
 class maintenance_intervention(models.Model):
@@ -73,6 +75,18 @@ class maintenance_intervention(models.Model):
  
     intervention_timeofuse=fields.One2many('maintenance.intervention.timeofuse', 'intervention_id', string="Hour counters")
     
+    @api.one
+    def copy(self,default=None):
+
+        new_int = super(maintenance_intervention, self).copy()
+        
+        times=self.env['maintenance.intervention.timeofuse']
+        for timeofuse in self.intervention_timeofuse:
+            times+=timeofuse.copy(default={'intervention_id':new_int.id
+                                           })
+        
+        return new_int
+
     @api.multi
     def action_create_update_sale_order(self):
         res = super(maintenance_intervention, self).action_create_update_sale_order()

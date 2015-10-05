@@ -29,33 +29,6 @@ waiting for your news, please accept, ${object.quotation_address_id.title.name o
             ]]></field>
         </record>
         
-        <!--Email template to send order confirmation -->
-        <record id="email_template_sale_confirmation" model="email.template">
-            <field name="name">Order confirmation</field>
-            <field name="email_from">${(object.user_id.email or '')|safe}</field>
-            <field name="email_cc">${(object.create_uid.id != object.user_id.id) and object.user_id.user_email or ''}</field>
-            <field name="subject">Order confirmation ${object.name or ''}</field>
-            <field name="partner_to">${object.partner_order_id.id}</field>
-            <field name="model_id" ref="sale.model_sale_order"/>
-            <field name="auto_delete" eval="True"/>
-            <field name="report_template" ref="elneo_sale.report_saleorder_confirmation"/>
-            <field name="report_name">Order_Confirmation_${object.name}</field>
-            <field name="lang">${object.partner_order_id.lang}</field>
-            <field name="user_signature" eval="True"/>
-            <field name="body_html"><![CDATA[
-            <div>
-Hello,<br />
-<br />
-Please find enclosed our acknowledgement for your order :<br /> 
-<br />
-- Your reference : ${object.client_order_ref or ''}<br />
-- Our reference: ${object.name}<br />
-<br />
-Best regards,<br /> 
-			</div>
-
-            ]]></field>
-        </record>
 	</data>
 
 	<data>
@@ -219,6 +192,33 @@ Best regards,<br />
 		    </t>
 		</template>
 	
+		<!--Email template to send order confirmation -->
+        <record id="email_template_sale_confirmation" model="email.template">
+            <field name="name">Order confirmation</field>
+            <field name="email_from">${(object.user_id.email or '')|safe}</field>
+            <field name="email_cc">${(object.create_uid.id != object.user_id.id) and object.user_id.user_email or ''}</field>
+            <field name="subject">Order confirmation ${object.name or ''}</field>
+            <field name="partner_to">${object.partner_order_id.id}</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="elneo_sale.report_saleorder_confirmation"/>
+            <field name="report_name">Order_Confirmation_${object.name}</field>
+            <field name="lang">${object.partner_order_id.lang}</field>
+            <field name="user_signature" eval="True"/>
+            <field name="body_html"><![CDATA[
+            <div>
+Hello,<br />
+<br />
+Please find enclosed our acknowledgement for your order :<br /> 
+<br />
+- Your reference : ${object.client_order_ref or ''}<br />
+- Our reference: ${object.name}<br />
+<br />
+Best regards,<br /> 
+			</div>
+
+            ]]></field>
+        </record>
 	
 	</data>
 </openerp>

@@ -48,6 +48,18 @@ DO $$
 	END;
 $$;
 
+DO $$
+	BEGIN
+		BEGIN
+			ALTER TABLE res_partner ADD COLUMN alias character varying(255);
+			COMMENT ON COLUMN res_partner.alias IS 'Alias';
+		EXCEPTION
+			WHEN duplicate_column THEN RAISE NOTICE 'column alias already exists in res_partner.';
+		END;
+	END;
+$$;
+
+
 -- Search function
 
 CREATE OR REPLACE FUNCTION partner_search_column(IN text, OUT id integer)

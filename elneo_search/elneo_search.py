@@ -12,7 +12,7 @@ class elneo_search(models.TransientModel):
     @api.model
     def _install_sql(self):
         sql_files = [
-            open('/'.join(__file__.split('/')[:-1])+'/data/install_product_search.sql'),
+            #open('/'.join(__file__.split('/')[:-1])+'/data/install_product_search.sql'),
             open('/'.join(__file__.split('/')[:-1])+'/data/install_partner_search.sql'),
         ]
         for sql_file in sql_files:
@@ -62,8 +62,8 @@ class product_template(models.Model):
         self._cr.execute("select id from product_search_code('"+value+"');")
         res = self._cr.fetchall()
         return [('id', 'in', [x[0] for x in res])]
-    
-    
+
+
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
         if not args:
@@ -87,13 +87,10 @@ class product_template(models.Model):
         return products.name_get()
     
     
-    
     search_field_layout = fields.Char(compute='get_ext_name', search=search_ext_name, size=4096, string='Advanced search')
     search_default_code_layout = fields.Char(compute='get_ext_name', search=search_default_code, size=4096, string='Code')
     
-    
 product_template()
-
 
 
 class res_partner(models.Model):
@@ -111,7 +108,6 @@ class res_partner(models.Model):
         self._cr.execute("select id from partner_search_column('"+value+"');")
         res = self._cr.fetchall()
         return [('id', 'in', [x[0] for x in res])]
-    
   
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
@@ -127,8 +123,6 @@ class res_partner(models.Model):
         else:
             partners = self.search(args, limit=limit)
         return partners.name_get()
-    
-    
     
     search_field_layout = fields.Char(compute='get_ext_name', search=search_ext_name, size=4096, string='Advanced search')
     

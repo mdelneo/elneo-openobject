@@ -126,7 +126,7 @@ class maintenance_intervention(models.Model):
     _inherit = 'maintenance.intervention'
     
     @api.onchange('installation_id')
-    def _on_change_installation_id(self):
+    def _on_change_installation_id_todo(self):
         '''
         @return: warning
         '''

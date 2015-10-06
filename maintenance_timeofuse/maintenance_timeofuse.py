@@ -24,6 +24,8 @@ from openerp import models, fields, api, _
 
 class maintenance_element(models.Model):
     _inherit = 'maintenance.element'
+    
+    
 
     @api.one
     def _get_last_timeofuse(self):
@@ -44,6 +46,13 @@ class maintenance_intervention_timeofuse(models.Model):
     
     _rec_name = 'maintenance_element_id'
     
+    @api.one
+    def copy(self,default=None):
+        default.update({'time_of_use':0.0})
+        new_time = super(maintenance_intervention_timeofuse,self).copy(default=default)
+        
+        return new_time
+    
     #a timeofuse record is valid (usable) if intervention is done
     @api.depends('intervention_id','intervention_id.state')
     @api.one
@@ -58,7 +67,7 @@ class maintenance_intervention_timeofuse(models.Model):
     date = fields.Datetime("Date",default=lambda *a: time.strftime('%Y-%m-%d'))
     intervention_id = fields.Many2one('maintenance.intervention', string="Intervention")
     maintenance_element_id = fields.Many2one('maintenance.element', string="Maintenance element")
-    time_of_use = fields.Float("Time of use (h)")
+    time_of_use = fields.Float("Time of use (h)",default=0.0)
     valid = fields.Boolean(compute=_get_valid,  string="Valid", store=True)
 
 class maintenance_intervention(models.Model):
@@ -66,6 +75,18 @@ class maintenance_intervention(models.Model):
  
     intervention_timeofuse=fields.One2many('maintenance.intervention.timeofuse', 'intervention_id', string="Hour counters")
     
+    @api.one
+    def copy(self,default=None):
+
+        new_int = super(maintenance_intervention, self).copy()
+        
+        times=self.env['maintenance.intervention.timeofuse']
+        for timeofuse in self.intervention_timeofuse:
+            times+=timeofuse.copy(default={'intervention_id':new_int.id
+                                           })
+        
+        return new_int
+
     @api.multi
     def action_create_update_sale_order(self):
         res = super(maintenance_intervention, self).action_create_update_sale_order()
@@ -78,6 +99,25 @@ class maintenance_intervention(models.Model):
         
         return res
     
+    @api.multi
+    def action_add_counter(self):
+        context = self.env.context.copy()
+        return {
+                        'name':_("Add Counter"),
+                        'view_mode': 'form',
+                        'view_type': 'form',
+                        'view_id': False,
+                        'res_model': 'maintenance.timeofuse.intervention.addcounter.wizard',
+                        #'res_id':wizard_id,
+                        'context': context,
+                        #'views': [(resource,'form')],
+                        'type': 'ir.actions.act_window',
+                        'nodestroy': True,
+                        'target': 'new',
+                        
+                        
+                    }
+        
     @api.multi
     def action_done(self):
         force = self.env.context.get("intervention_force_done", False)

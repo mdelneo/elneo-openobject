@@ -32,6 +32,9 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="maintenance_project.view_maintenance_project_form" />
 			<field name="arch" type="xml">
+				<xpath expr="/form/sheet/notebook/page[@string='General']/field[@name='maintenance_elements']/tree/field[@name='name']" position="after">
+					<field name="element_model_id"/>
+				</xpath>
 				<page string="History" position="after">
 					<page string="Project interventions">
 						<header>

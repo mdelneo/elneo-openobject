@@ -9,10 +9,14 @@
 			<field name="arch" type="xml">
 				<xpath expr="/form/sheet/notebook" position="inside">
 					<page string="Hour counters">
+						<div class="oe_right">
+							<button class="oe_inline oe_stat_button oe_right" name="action_add_counter" string="Add Counter"  help="Add a counter to specific installation element"
+                               type="object" icon="fa-plus" widget="statinfo"/>
+						</div>
 						<field name="intervention_timeofuse" nolabel="1">
-							<tree string="Hour counters">
-								<field name="maintenance_element_id" />
-								<field name="time_of_use" />								
+							<tree string="Hour counters" create="false" editable="bottom">
+								<field name="maintenance_element_id"/>
+								<field name="time_of_use"/>								
 							</tree>
 							<form>
 								<group>

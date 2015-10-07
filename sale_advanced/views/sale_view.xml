@@ -8,8 +8,7 @@
             <field name="inherit_id" ref="sale.view_order_tree"/>
             <field name="priority">2</field>
             <field name="arch" type="xml">
-            	<xpath expr="//tree/field[@name='state']" position="before">
-            		<field name="picked_rate" widget="progressbar"/>
+            	<xpath expr="//tree/field[@name='state']" position="before">            		
             		<field name="invoiced_rate" widget="progressbar"/>
             	</xpath>
             </field>

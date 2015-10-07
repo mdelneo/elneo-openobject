@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+		<!-- delete purchase_order_count to increase performance -->
+		<record model="ir.ui.view" id="purchase_partner_kanban_view_elneo_crm">
+            <field name="name">purchase.partner.kanban.view.elneo.crm</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="purchase.purchase_partner_kanban_view"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='purchase_order_count']" position='replace' />
+            	<xpath expr="//a[@name='%(purchase.act_res_partner_2_purchase_order)d']" position='replace' />
+            </field>
+        </record>
+	
 		<record id="action_partner_form_elneo" model="ir.actions.act_window">
             <field name="name">Companies</field>
             <field name="type">ir.actions.act_window</field>

@@ -2,7 +2,7 @@
 
 .openerp .oe_notebook > li.ui-state-active > a, .openerp .oe_notebook > li.ui-state-active > a:hover {
   border-color: #7c7bad;
-  border-bottom: transparent;
+  border-bottom-color: transparent;
 }
 
 .openerp .oe_notebook {

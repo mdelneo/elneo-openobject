@@ -78,8 +78,6 @@ class product_template(models.Model):
                 products = self.search([('default_code','=',matches[0])]+ args, limit=limit)
             elif len(name) < 3:
                 products = self.search([('default_code','=',name)]+ args, limit=limit)
-                if not products:
-                    raise ValidationError(_('You must type a minimum of 3 characters to search a product'))
             else:
                 products = self.search([('search_field_layout','ilike',name)], limit=limit)
         else:
@@ -116,8 +114,6 @@ class res_partner(models.Model):
         if name:
             if len(name) < 3:
                 partners = self.search([('ref','=',name)]+ args, limit=limit)
-                if not partners:
-                    raise ValidationError(_('You must type a minimum of 3 characters to search a partner'))
             else:
                 partners = self.search([('search_field_layout','ilike',name)], limit=limit)
         else:

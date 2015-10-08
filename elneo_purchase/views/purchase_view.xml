@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
 		<record id="purchase_order_form_elneo" model="ir.ui.view">
             <field name="name">purchase.order.form.elneo</field>
             <field name="model">purchase.order</field>

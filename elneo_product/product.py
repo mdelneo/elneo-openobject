@@ -10,9 +10,8 @@ class product_product(models.Model):
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'product_product_alias_ext_name_index\'')
         if not cr.fetchone():
             cr.execute('CREATE INDEX product_product_alias_ext_name_index ON product_product (alias, default_code)')
-            
         return res
-
+    
 class product_template(models.Model):
     _inherit = 'product.template'
     

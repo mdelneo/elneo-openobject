@@ -1,5 +1,25 @@
 from openerp import models, fields, api
 
+
+class product_product(models.Model):
+    _inherit = 'product.product'
+    
+    def _purchases_count(self):
+        self._cr.execute('select product_id, count(distinct order_id) from purchase_order_line where product_id in (%s) group by product_id',(tuple([p.id for p in self]),))
+        req_res = self._cr.fetchall()
+        res = {}
+        for req_res_line in req_res:
+            res[req_res_line[0]] = req_res_line[1]
+        for product in self:
+            if product.id in res:
+                product.purchases_count = res[product.id]
+            else:
+                product.purchases_count = 0
+        return res
+            
+    purchases_count = fields.Integer(compute='_purchases_count', string='# Purchases')
+    
+
 class base_config_settings(models.TransientModel):
     _inherit = 'purchase.config.settings'
 

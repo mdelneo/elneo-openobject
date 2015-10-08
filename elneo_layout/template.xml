@@ -4,6 +4,10 @@
 		<template id="assets_backend" name="Sale Template Larger Sheet" inherit_id="web.assets_backend">
 			<xpath expr="." position="inside">
 				<link rel="stylesheet" href="/elneo_layout/static/src/css/elneo.css"/>
+				
+			</xpath>
+			<xpath expr="//script[@src='/web/static/src/js/view_form.js']" position="after">
+				<script type="text/javascript" src="/elneo_layout/static/src/js/view_form.js"></script>
 			</xpath>
 		</template>
 	

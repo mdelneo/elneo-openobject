@@ -55,6 +55,8 @@
             </field>
        	</record>
        	
+       	<!--PARTNER FORM -->
+       	
         <record id="view_partner_form_elneo" model="ir.ui.view">
             <field name="name">res.partner.form.elneo</field>
             <field name="model">res.partner</field>
@@ -65,9 +67,11 @@
             		<field name="ref"/>
             	</xpath>
             </field>
-            
         </record>
         
+        
+        
+        <!-- PARTNER SEARCH -->
         
         <record model="ir.ui.view" id="res_partner_opt_out_search_elneo">
             <field name="name">res.partner.opt_out.search.elneo</field>
@@ -107,6 +111,7 @@
         	action="action_partner_form_elneo_contacts"
         	sequence="20"        
         	/>
+        	
         	
 	</data>
 </openerp>

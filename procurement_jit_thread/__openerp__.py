@@ -28,7 +28,7 @@
     """,
     'author': 'Elneo',
     'website': 'http://elneo.com',
-    'depends': ['procurement_jit'],
+    'depends': ['procurement_jit','procurement_jit_partial'],
     'data': [],
     'demo': [],
     'test': [],

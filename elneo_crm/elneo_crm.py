@@ -1,34 +1,25 @@
 # -*- coding: utf-8 -*-
 from openerp import models,fields,api
+from openerp.exceptions import ValidationError
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
     
-    ref = fields.Char('Reference', size=10,select=1)
+    ref = fields.Char('Reference', size=10,index=True)
     
-    alias = fields.Char('Alias', size=255,select=1)
+    alias = fields.Char('Alias', size=255,index=True)
     
-    
-    def init(self,cr):
-        #UPDATE DATABASE TO AVOID NULL PROBLEMS
-        query="UPDATE res_partner SET ref = 'TO CORRECT' WHERE ref IS NULL"
+    @api.constrains('ref')
+    def _check_ref(self):
+        #Mother companies must have reference
+        if (not self.parent_id and not self.ref):
+            raise ValidationError("You must fill in the reference for this partner!")
         
-        cr.execute(query)
-        
-    @api.model
-    def create(self,vals):
-        
-        if not vals.get('ref') or vals.get('ref') == '':
-            vals.update({'ref': 'TO CORRECT'})
-        
-        partner = super(res_partner,self).create(vals)
-        
-        return partner
-           
-    
+        sames = self.search([('active','=',True),('parent_id','=',False),('ref','=',self.ref),('id','!=',self.id)])
+        if (sames):
+            raise ValidationError("There is partner with the same reference! Please change it or go to the good partner.\n\n%s" % (sames[0].name))
+            
     def _get_default_is_company(self):
         return self._context.get('force_is_company', False)
         
     is_company = fields.Boolean('Is a company', default=_get_default_is_company)
-
-res_partner()

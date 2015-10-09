@@ -19,36 +19,37 @@
 #
 ##############################################################################
 from threading import Thread
+import logging
+import time
 
-from openerp import models, api, sql_db
+from openerp import models, api,registry
 
 class procurement_order(models.Model):
     _inherit = "procurement.order"
     
     def _run_thread(self,autocommit=False,ids=None):
-        cr2 = sql_db.db_connect(self.env.cr.dbname).cursor()
-        
-        
-        uid, context = self.env.uid, self.env.context
+        #TODO : Find another method (because if the sale order takes more than 60 seconds to be confirmed, this causes error)
+        time.sleep(60)
         with api.Environment.manage():
-            self.env = api.Environment(cr2, uid, context)
-            try:
-               
-                self.env['procurement.order'].run(autocommit)
-            finally:
-                try:                
-                    cr2.commit()
-                except Exception:
-                    pass
-                try:                
-                    cr2.close()
-                except Exception:
-                    pass
+            with registry(self.env.cr.dbname).cursor() as new_cr:
+                new_env = api.Environment(new_cr, self.env.uid, self.env.context)
+                try:
+                    for procurement in self:
+                        procurement.with_env(new_env).with_context(from_thread=True).run(autocommit)
+                finally:
+                    try:                
+                        new_env.cr.commit()
+                    except Exception:
+                        try:           
+                            new_env.cr.close()
+                        except Exception:
+                            pass
 
     @api.multi
     def run(self, autocommit=False):
-        self.env.cr.commit();
-        thread_run = Thread(target=self._run_thread, args=({'autocommit':autocommit}))
+        if self.env.context.get('from_thread',False):
+            return super(procurement_order,self).run(autocommit)
+        thread_run = Thread(target=self._run_thread, args=(autocommit,self._ids))
         thread_run.start()
         
         return True

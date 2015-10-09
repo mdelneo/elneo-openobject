@@ -19,6 +19,8 @@
 #
 ##############################################################################
 from threading import Thread
+import logging
+import time
 
 from openerp import models, api,registry
 
@@ -26,11 +28,14 @@ class procurement_order(models.Model):
     _inherit = "procurement.order"
     
     def _run_thread(self,autocommit=False,ids=None):
+        #TODO : Find another method (because if the sale order takes more than 60 seconds to be confirmed, this causes error)
+        time.sleep(60)
         with api.Environment.manage():
             with registry(self.env.cr.dbname).cursor() as new_cr:
                 new_env = api.Environment(new_cr, self.env.uid, self.env.context)
                 try:
-                    super(procurement_order,self).with_env(new_env).with_context(from_thread=True).run(autocommit)
+                    for procurement in self:
+                        procurement.with_env(new_env).with_context(from_thread=True).run(autocommit)
                 finally:
                     try:                
                         new_env.cr.commit()
@@ -42,7 +47,8 @@ class procurement_order(models.Model):
 
     @api.multi
     def run(self, autocommit=False):
-        
+        if self.env.context.get('from_thread',False):
+            return super(procurement_order,self).run(autocommit)
         thread_run = Thread(target=self._run_thread, args=(autocommit,self._ids))
         thread_run.start()
         

@@ -9,12 +9,36 @@
     	<!-- create main menu -->
     	<menuitem id="main_menu_product" name="Products" sequence="17"/>
     	<!-- move product sub-menu from sales to Product main menu -->
-    	<menuitem id="base.menu_product" parent="main_menu_product" name="Products" sequence="17"/>
+    	<menuitem id="base.menu_product" parent="main_menu_product" name="Products" sequence="17" />
+    	
     	<!-- move product_config sub-menu from sale config to product main menu -->
     	<menuitem id="product.prod_config_main" name="Product Categories &amp; Attributes" parent="main_menu_product" sequence="70" groups="base.group_no_one"/>
     	<!-- Hide Attributes and Attributes value -->
     	<menuitem id="product.menu_attribute_action" groups="group_hidden_menu" />
     	<menuitem id="product.menu_variants_action" groups="group_hidden_menu" />
+    	<menuitem id="product.menu_products"  groups="group_hidden_menu" />
+    	
+    	<record id="product.menu_products" model="ir.ui.menu">
+		    <field name="groups_id" eval="[(3,ref('base.group_no_one'))]"/>
+		</record>
+		<record id="product.menu_variants_action" model="ir.ui.menu">
+		    <field name="groups_id" eval="[(3,ref('base.group_no_one'))]"/>
+		</record>
+		<record id="product.menu_attribute_action" model="ir.ui.menu">
+		    <field name="groups_id" eval="[(3,ref('base.group_no_one'))]"/>
+		</record>
+		
+		
+		<!-- ACTION (change order of vues : tree,form,kanban) -->
+		<record id="product.product_template_action" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product.product_template_tree_view"/>
+            <field name="context">{"search_default_filter_to_sell":1}</field>
+        </record>
     	
     
     	

@@ -32,11 +32,9 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="product.view_partner_property_form" />
 			<field name="arch" type="xml">
-				<sheet position="before">
-					<header>
-						<button string="Compute cost price" groups="base.group_user" type="action" name="%(elneo_cost_price.action_res_partner_compute_cost_price)d" />
-					</header>
-				</sheet>
+				<xpath expr="//div[@name='buttons']" position="inside">
+					<button string="Compute cost price" class="oe_inline oe_stat_button" icon="fa-gears" groups="base.group_user" type="action" name="%(elneo_cost_price.action_res_partner_compute_cost_price)d" attrs="{'invisible': ['|','|',('is_company','=',False),('supplier','=',False),('parent_id','&lt;&gt;',False)]}"/>
+				</xpath>				
 			</field>
 		</record>
 		

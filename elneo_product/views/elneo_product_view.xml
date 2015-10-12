@@ -13,12 +13,15 @@
     	
     	<!-- move product_config sub-menu from sale config to product main menu -->
     	<menuitem id="product.prod_config_main" name="Product Categories &amp; Attributes" parent="main_menu_product" sequence="70" groups="base.group_no_one"/>
+    	
+    	<menuitem id="product.menu_products"  parent="base.menu_product" name="Products" />
+    	
     	<!-- Hide Attributes and Attributes value -->
     	<menuitem id="product.menu_attribute_action" groups="group_hidden_menu" />
     	<menuitem id="product.menu_variants_action" groups="group_hidden_menu" />
-    	<menuitem id="product.menu_products"  groups="group_hidden_menu" />
+    	<menuitem id="product.menu_product_template_action"  groups="group_hidden_menu" />
     	
-    	<record id="product.menu_products" model="ir.ui.menu">
+    	<record id="product.menu_product_template_action" model="ir.ui.menu">
 		    <field name="groups_id" eval="[(3,ref('base.group_no_one'))]"/>
 		</record>
 		<record id="product.menu_variants_action" model="ir.ui.menu">
@@ -79,10 +82,48 @@
         		<xpath expr="//field[@name='default_code']" position="replace" />
      		    <xpath expr="//div[@class='oe_title']/h1" position="after">
        				<group>
-       					<field name="default_code" class="oe_inline" string="Reference" />
+       					<field name="default_code" class="oe_inline" string="Code" />
        				</group>
         		</xpath>
         	</field>
        	</record>
+       	
+       	
+       	
+       	<record id="product_product_tree_view_elneo_product" model="ir.ui.view">
+            <field name="name">product.product.tree.view.elneo.product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='attribute_value_ids']" position="replace" />
+            	<xpath expr="//field[@name='lst_price']" position="replace" />
+            	<xpath expr="//field[@name='uom_id']" position="replace" />
+            	<xpath expr="//field[@name='ean13']" position="replace" />
+            	<xpath expr="//field[@name='name']" position="replace" />
+            	
+				<xpath expr="//field[@name='default_code']" position="after">
+					<field name="name" />
+					<field name="list_price" />
+					<field name="cost_price" />
+					<field name="default_supplier_id" />
+				</xpath>
+            </field>
+        </record>
+        
+        <record id="view_stock_product_tree_elneo_product" model="ir.ui.view">
+            <field name="name">view.stock.product.tree.elneo.product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.view_stock_product_tree"/>
+            <field name="arch" type="xml">
+            	<tree position="attributes">
+                    <attribute name="colors" translation="off"></attribute>
+                </tree>
+            
+            	<xpath expr="//field[@name='qty_available']" position="replace" />
+            	<xpath expr="//field[@name='virtual_available']" position="replace" />
+            </field>
+        </record>
+        
+        
     </data>
 </openerp>

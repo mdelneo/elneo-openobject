@@ -15,6 +15,11 @@ class product_product(models.Model):
 class product_template(models.Model):
     _inherit = 'product.template'
     
+    _defaults = {
+        'sale_ok':True,
+        'purchase_ok':True
+    }
+    
     def _auto_init(self,cr,args):
         res = super(product_template, self)._auto_init(cr, args)
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'product_template_ext_name_index\'')

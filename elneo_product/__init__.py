@@ -1,1 +1,1 @@
-import product
+import elneo_product

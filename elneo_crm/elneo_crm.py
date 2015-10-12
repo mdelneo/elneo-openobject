@@ -21,5 +21,42 @@ class res_partner(models.Model):
             
     def _get_default_is_company(self):
         return self._context.get('force_is_company', False)
-        
+    
+    
+    @api.multi
+    def _sale_order_count(self):
+        for partner in self:
+            if not partner.is_company:
+                partner.sale_order_count = 0
+            else:
+                count = self.env['sale.order'].search_count([('partner_id','=',partner.id),('state','not in',['cancel','draft'])])
+                count_progress = self.env['sale.order'].search_count([('partner_id','=',partner.id),('state','not in',['cancel','draft','done'])])
+                partner.sale_order_count = str(count)+' ('+str(count_progress)+')'
+            
+            
+    @api.multi
+    def _purchase_order_count(self):
+        for partner in self:
+            if not partner.is_company:
+                partner.purchase_order_count = 0
+            else:
+                count = self.env['purchase.order'].search_count([('partner_id','=',partner.id),('state','not in',['cancel','draft'])])
+                count_progress = self.env['purchase.order'].search_count([('partner_id','=',partner.id),('state','not in',['cancel','draft','done'])])
+                partner.purchase_order_count = str(count)+' ('+str(count_progress)+')'
+            
+            
+    @api.multi
+    def _supplier_invoice_count(self):
+        for partner in self:
+            if not partner.is_company:
+                partner.supplier_invoice_count = 0
+            else:
+                count = self.env['account.invoice'].search_count([('type','=','in_invoice'),('partner_id','=',partner.id),('state','not in',['cancel'])])
+                count_progress = self.env['account.invoice'].search_count([('type','=','in_invoice'),('partner_id','=',partner.id),('state','not in',['cancel','open','paid'])])
+                partner.supplier_invoice_count = str(count)+' ('+str(count_progress)+')'
+            
+
+    sale_order_count = fields.Char(compute='_sale_order_count', string='# of Sales Order', size=255)
     is_company = fields.Boolean('Is a company', default=_get_default_is_company)
+    purchase_order_count = fields.Char(compute='_purchase_order_count', string='# of Purchase Order', size=255)
+    supplier_invoice_count = fields.Char(compute='_supplier_invoice_count', string='# Supplier Invoices', size=255)

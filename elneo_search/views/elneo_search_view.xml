@@ -28,7 +28,6 @@
            		</xpath>
            		<xpath expr="//field[@name='name']" position="replace" />
            		<xpath expr="//field[@name='categ_id']" position="replace" />
-           		<xpath expr="//field[@name='product_variant_ids']" position="replace" />
            		<xpath expr="//field[@name='company_id']" position="replace" />
            		<xpath expr="//field[@name='pricelist_id']" position="replace" />
            		

@@ -54,8 +54,49 @@
         		<field name="active" position="after">
         			<field name="categ_id"/>
         		</field>
+        		<xpath expr="//field[@name='sale_ok']" position="attributes">
+        			<attribute name="invisible">1</attribute>
+        		</xpath>
+        		<xpath expr="//label[@for='sale_ok']" position="attributes">
+        			<attribute name="invisible">1</attribute>
+        		</xpath>
         	</field>
        	</record>
+       	
+       	<!-- PRODUCT TEMPLATE SEARCH VIEW -->
+       	<record id="product_template_search_view_elneo_product" model="ir.ui.view">
+            <field name="name">product.template.search.view.elneo.product</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view" />
+            <field name="arch" type="xml">
+            	<xpath expr="//filter[@name='filter_to_sell']" position="replace" />
+            </field>
+        </record>
+        
+        <!-- PRODUCT TEMPLATE FORM IN PURCHASE MODULE -->
+        <record id="view_product_supplier_inherit_elneo_product" model="ir.ui.view">
+            <field name="name">view.product.supplier.inherit.elneo.product</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="purchase.view_product_supplier_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='purchase_ok']" position="attributes">
+        			<attribute name="invisible">1</attribute>
+        		</xpath>
+        		<xpath expr="//label[@for='purchase_ok']" position="attributes">
+        			<attribute name="invisible">1</attribute>
+        		</xpath>
+            </field>
+        </record>
+        
+        <!-- PRODUCT TEMPLATE SEARCH IN PURCHASE MODULE -->
+       	<record id="product_template_search_view_purchase_elneo_product" model="ir.ui.view">
+            <field name="name">product.template.search.view.purchase.elneo.product</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="purchase.product_template_search_view_purchase"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//filter[@name='filter_to_purchase']" position="replace" />
+            </field>
+        </record>
        	
        	<!-- PRODUCT VARIANT -->
        	<record id="product_normal_form_view_elneo_product" model="ir.ui.view">
@@ -70,6 +111,12 @@
         			<field name="barcode_number" />
         		</xpath>
         		<xpath expr="//field[@name='default_code']" position="replace" />
+        		<xpath expr="//field[@name='name']" position="attributes">
+        			<attribute name="attrs"></attribute>
+        		</xpath>
+        		<xpath expr="//field[@name='product_tmpl_id']" position="attributes">
+        			<attribute name="invisible">1</attribute>
+        		</xpath>
         	</field>
        	</record>
        	

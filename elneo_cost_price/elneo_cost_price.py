@@ -82,6 +82,13 @@ class res_partner(models.Model):
     
     cost_price_product_pricelist = fields.Many2one('product.pricelist', string='Cost Pricelist', company_dependent=True, help="This pricelist is used to set the cost price of a product based on the pricelist of the prefered supplier for this product")
     
+class product_product(models.Model):
+    _inherit='product.product'
+    
+    @api.multi
+    def on_change_compute_cost_price(self, compute_cost_price, cost_price_fixed):
+        return self.product_tmpl_id.on_change_compute_cost_price(compute_cost_price,cost_price_fixed)
+    
 
 class product_template(models.Model):
     _inherit = "product.template"

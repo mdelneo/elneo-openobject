@@ -203,7 +203,7 @@ class intervention_type(models.Model):
     
 class maintenance_intervention(models.Model):
     _name = 'maintenance.intervention'
-    _order='date_start'
+
     _inherit = ['mail.thread','ir.needaction_mixin']
     
     @api.multi

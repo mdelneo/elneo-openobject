@@ -185,12 +185,12 @@ class intervention_merge(models.TransientModel):
         intervention_detail_lines = self.env['maintenance.generation.detail'].search([('intervention_id','in',intervention_ids)])
         intervention_detail_lines_set = set()
         for intervention_detail_line in intervention_detail_lines:
-            intervention_detail_lines_set.add((new_intervention_id,intervention_detail_line.intervention_model_id.id,intervention_detail_line.maintenance_element_id.id))
+            intervention_detail_lines_set.add((new_intervention_id.id,intervention_detail_line.intervention_model_id.id,intervention_detail_line.maintenance_element_id.id))
         for intervention_detail_line in intervention_detail_lines_set:
             self.env['maintenance.generation.detail'].create( {
                 'intervention_id':intervention_detail_line[0],
                 'intervention_model_id':intervention_detail_line[1],
-                'maintenance_element_id':intervention_detail_line[2],  
+                'maintenance_element_id':intervention_detail_line[2],
             })
 
     def _cancel_interventions(self,int_list):

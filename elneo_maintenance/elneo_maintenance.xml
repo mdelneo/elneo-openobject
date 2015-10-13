@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+	 	<record id="view_maintenance_intervention_search_elneo" model="ir.ui.view">
+            <field name="name">maintenance.intervention.search.elneo</field>
+            <field name="model">maintenance.intervention</field>
+            <field name="inherit_id" ref="maintenance.view_maintenance_intervention_search"/>
+            <field name="arch" type="xml">
+                <group string="Group By..." position="before">
+                	<group string="Elneo">
+                		<filter name="awans" string="Awans" domain="[('installation_id.warehouse_id','=',1)]" help="Awans Interventions"/>
+                		<filter name="wetteren" string="Wetteren" domain="[('installation_id.warehouse_id','=',2)]" help="Wetteren Interventions"/>
+                	</group>
+                </group>
+            </field>
+        </record>
+        
+        <record id="view_maintenance_internal_search_elneo" model="ir.ui.view">
+            <field name="name">maintenance.intervention.internal.search.elneo</field>
+            <field name="model">maintenance.intervention</field>
+            <field name="inherit_id" ref="maintenance.view_maintenance_internal_search"/>
+            <field name="arch" type="xml">
+                <group string="Group By..." position="before">
+                	<group string="Elneo">
+                		<filter name="awans" string="Awans" domain="[('installation_id.warehouse_id','=',1)]" help="Awans Interventions"/>
+                		<filter name="wetteren" string="Wetteren" domain="[('installation_id.warehouse_id','=',2)]" help="Wetteren Interventions"/>
+                	</group>
+                </group>
+            </field>
+        </record>
+                
+                
 		<record id="view_maintenance_intervention_form_elneo" model="ir.ui.view">
 			<field name="name">maintenance.intervention.product.elneo.maintenance</field>
 			<field name="model">maintenance.intervention</field>

@@ -60,37 +60,7 @@
 		</record>
 
 		<!-- Maintenance element inheritance -->
-		<record
-			id="view_maintenance_element_form_maintenance_project_inherit"
-			model="ir.ui.view">
-			<field name="name">maintenance.element.form.maintenance.project.inherit</field>
-			<field name="inherit_id" ref="maintenance.view_maintenance_element_form" />
-			<field name="model">maintenance.element</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<field name="warranty_date" position="after">
-					<field name="expected_time_of_use" />
-					<field name="time_of_use" />
-				</field>
-			</field>
-		</record>
-		
-		<record
-			id="view_maintenance_element_form_maintenance_project_inherit"
-			model="ir.ui.view">
-			<field name="name">maintenance.element.form.maintenance.project.inherit</field>
-			<field name="inherit_id" ref="maintenance.view_maintenance_element_form" />
-			<field name="model">maintenance.element</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<field name="warranty_date" position="after">
-					<field name="expected_time_of_use" />
-					<field name="time_of_use" />
-				</field>
-			</field>
-		</record>
-		
-		
+	
 		<record id="view_maintenance_element_search_inherit" model="ir.ui.view">
             <field name="name">maintenance.element.search.inherit</field>
             <field name="model">maintenance.element</field>

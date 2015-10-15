@@ -7,16 +7,12 @@
 			<field name="model">product.product</field>
 			<field name="inherit_id" ref="product.product_normal_form_view" />
 			<field name="arch" type="xml">
-				
-				<page string="Sales" position="after">
-					<page string="Maintenance">
-						<group>
+				<field name="active" position="before">
+					<group string="Maintenance">
 							<field name="maintenance_product"/>
 							<field name="serialnumber_required"/>
-						</group>
-					</page>
-				
-				</page>
+					</group>
+				</field>
 			</field>
 		</record>
 		<!--  

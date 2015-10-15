@@ -195,11 +195,10 @@
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//notebook" position='inside'>
-                    <page string="Properties">
-                    	<separator string="Product properties" colspan="4"/>
+                <xpath expr="//page[@name='sales']" position='inside'>
+                	<group name="product_properties" string="Product properties">
                         <field name="product_property_values" nolabel="1" colspan="4" context="{'product_id': 1}" />
-                    </page>
+                    </group>
                 </xpath>
             </field>
         </record>

@@ -139,12 +139,16 @@ class product_supplierinfo(models.Model):
     
     pricelist_history_ids = fields.One2many('pricelist.partnerinfo.history','suppinfo_id',string='Pricelist History',readonly=True)
     net_unit_price = fields.Float(string='Net unit price', compute='get_price_for_one')
+    brut_unit_price = fields.Float(string='Brut unit price', compute='get_price_for_one')
+    discount_unit_price = fields.Float(string='Discount', compute='get_price_for_one')
     
     @api.one
     def get_price_for_one(self):
         for pricelist in self.pricelist_ids:
             if pricelist.min_quantity == 1:
                 self.net_unit_price = pricelist.price
+                self.brut_unit_price = pricelist.brut_price
+                self.discount_unit_price = pricelist.discount
                 return
     
 product_supplierinfo()

@@ -118,6 +118,7 @@
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
             
+            
             	<xpath expr="//page[@string='Accounting']" position="replace" />
             
             	<xpath expr="//field[@name='sale_delay']" position='replace' />
@@ -142,7 +143,7 @@
 								</group>		
                             </div>
 							<group>
-								<field name="list_price"/>
+								<field name="list_price2"/>
 								<field name="cost_price"/>
 							</group>
 						</group>
@@ -225,6 +226,7 @@
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_product_tree_view"/>
             <field name="arch" type="xml">
+            
             	<xpath expr="//field[@name='attribute_value_ids']" position="replace" />
             	<xpath expr="//field[@name='lst_price']" position="replace" />
             	<xpath expr="//field[@name='uom_id']" position="replace" />

@@ -22,12 +22,17 @@
 			<field name="inherit_id" ref="product.product_template_form_view" />
 			<field name="priority">100</field>
 			<field name="arch" type="xml">
+				<field name="list_price" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
 				<field name="list_price" position="after">
-					<separator string="Cost Price" />
 					<newline />
-					<field name="cost_price" />
-					<field name="compute_cost_price" on_change="on_change_compute_cost_price(compute_cost_price,cost_price_fixed)" /> <!--  groups="technofluid_interne.group_supermanager" -->
-					<field name="cost_price_fixed" on_change="on_change_compute_cost_price(compute_cost_price,cost_price_fixed)" /> <!--  groups="technofluid_interne.group_supermanager" -->
+					<group string="Cost price">
+						<newline />
+	<!-- 					<field name="cost_price" /> -->
+						<field name="compute_cost_price" on_change="on_change_compute_cost_price(compute_cost_price,cost_price_fixed)" /> <!--  groups="technofluid_interne.group_supermanager" -->
+						<field name="cost_price_fixed" on_change="on_change_compute_cost_price(compute_cost_price,cost_price_fixed)" /> <!--  groups="technofluid_interne.group_supermanager" -->
+					</group>
                 </field>
                 <field name="standard_price" position="replace">                
                 	<newline />

@@ -89,5 +89,6 @@ class product_template(models.Model):
     type = fields.Selection([('product', 'Stockable Product'),('consu', 'Consumable'),('service','Service')], 'Product Type', required=True,default='product', help="Consumable are product where you don't manage stock, a service is a non-material product provided by a company or an individual.")
     barcode_number = fields.Char('Barcode number', size=7, default=lambda obj: obj.env['ir.sequence'].get('product.barcode'))
     warehouse_detail2 = fields.One2many('product.warehouse.detail', string='Warehouse detail', related='warehouse_detail', readonly=True)
+    list_price2 = fields.Float('Sale price', related='list_price')
     
     '''ext_name = fields.Text(compute=get_ext_name, method=True, string='Advanced search', search=search_ext_name)'''

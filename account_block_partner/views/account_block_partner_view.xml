@@ -30,22 +30,25 @@
             </field>
         </record>
 
-        <record id="view_partner_form_account_block_partner" model="ir.ui.view">
-            <field name="name">view.partner.form.account.block.partner</field>
+        <record id="view_partner_inherit_followup_form_account_block_partner" model="ir.ui.view">
+            <field name="name">view.partner.inherit.followup.form.account.block.partner</field>
+            <field name="inherit_id" ref="account_followup.view_partner_inherit_followup_form"/>
             <field name="model">res.partner</field>
             <field name="type">form</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-                <notebook position="inside">
-					<page string="Unpaid" attrs="{'invisible':[('is_company','=',False)]}">			
-						<group>
-		                	<field name="blocked"/>
-							<field name="block_reason_title" colspan="4" />				
-			     			<field name="unpaid_comment" colspan="4" />
-			     			<field name="unpaid_history" colspan="4" />
-		     			</group>
-					</page>
-				</notebook>                  
+            	<xpath expr="//field[@name='unreconciled_aml_ids']" position="after">
+            		<group>
+	                	<field name="blocked"/>
+						<field name="block_reason_title" colspan="4" />				
+		     			<field name="unpaid_comment" colspan="4" />
+		     			<field name="unpaid_history" colspan="4" />
+	     			</group>
+            	</xpath>
+            	<xpath expr="//button[@name='action_done']" position="replace" />
+            	<xpath expr="//field[@name='payment_responsible_id']" position="replace" />
+            	<xpath expr="//field[@name='payment_next_action']" position="replace" />
+            	<xpath expr="//field[@name='payment_next_action_date']" position="replace" />
+            	<xpath expr="//field[@name='payment_note']" position="replace" />
             </field>
         </record>
         

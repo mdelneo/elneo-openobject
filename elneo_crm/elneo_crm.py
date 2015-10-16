@@ -5,9 +5,33 @@ from openerp.exceptions import ValidationError
 class res_partner(models.Model):
     _inherit = 'res.partner'
     
-    ref = fields.Char('Reference', size=10,index=True)
-    
+    ref = fields.Char('Reference', size=10,index=True, readonly=True)
     alias = fields.Char('Alias', size=255,index=True)
+    sales_count = fields.Integer('Number of sales', compute='_get_sales_count')
+    
+    type = fields.Selection([('contact', 'Contact'),('delivery', 'Shipping'), ('invoice', 'Invoice')], string='Address Type')
+    
+    
+    def action_view_sales(self, cr, uid, ids, context=None):
+        result = self.pool['ir.model.data'].xmlid_to_res_id(cr, uid, 'sale.action_orders', raise_if_not_found=True)
+        result = self.pool['ir.actions.act_window'].read(cr, uid, [result], context=context)[0]
+        result['domain'] = "[('partner_id','in',[" + ','.join(map(str, ids)) + "])]"
+        result['context'] = {'search_default_my_sale_orders_filter': 0}
+        return result
+    
+    def _get_sales_count(self):
+        self._cr.execute('select partner_id, count(id) from sale_order where partner_id in %s group by partner_id',(tuple([p.id for p in self]),))
+        req_res = self._cr.fetchall()
+        res = {}
+        for req_res_line in req_res:
+            res[req_res_line[0]] = req_res_line[1]
+        for partner in self:
+            if partner.id in res:
+                partner.sales_count = res[partner.id]
+            else:
+                partner.sales_count = 0
+        return res
+            
     
     @api.constrains('ref')
     def _check_ref(self):

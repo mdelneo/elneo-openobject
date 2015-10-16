@@ -39,6 +39,7 @@
             <field name="arch" type="xml">
             	<xpath expr="//tree/field[@name='partner_id']" position="after">
             		<field name="client_order_ref"/>
+            		<field name="section_id"/>
             	</xpath>
             	<xpath expr="//tree/field[@name='amount_total']" position="before">
             		<field name="margin"/>
@@ -54,7 +55,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//tree/field[@name='partner_id']" position="after">
             		<field name="client_order_ref"/>
-            		
+            		<field name="section_id"/>
             	</xpath>
             	<xpath expr="//tree/field[@name='amount_total']" position="before">
             		<field name="margin"/>

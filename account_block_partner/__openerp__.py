@@ -11,7 +11,7 @@
     ''',
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['account','purchase','purchase_sale'],
+    'depends': ['account','purchase','purchase_sale','account_followup'],
     "data" : ['views/account_block_partner_view.xml',
               'security/account_block_partner_security.xml',
               'purchase_workflow.xml'

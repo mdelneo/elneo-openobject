@@ -350,7 +350,7 @@ class maintenance_intervention(models.Model):
     def _on_change_installation_id(self):
         res={}
         if self.installation_id:
-            self.partner_id=self.installation_id.id
+            self.partner_id=self.installation_id.partner_id.id
             self.contact_address_id = self.installation_id.contact_address_id.id
             
             if self.installation_id.state == 'inactive':

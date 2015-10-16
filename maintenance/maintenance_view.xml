@@ -605,8 +605,8 @@
 							</group>
 							<group>	
 								<field name="installation_id"/>
-								<field name="partner_id" invisible="True" />
-								<field name="contact_address_id"/>
+								<field name="partner_id" invisible="1"/>
+								<field name="contact_address_id" context="{'search_default_parent_id':partner_id}"/>
 							</group>
 							<group>
 									<separator string="Description" colspan="2"/>

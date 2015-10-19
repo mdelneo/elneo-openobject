@@ -47,7 +47,7 @@ class maintenance_installation(models.Model):
             
         return res
     
-    code = fields.Char("Code", size=255, index=True,help="The Maintenance Installation Code",default=lambda obj: obj.env['ir.sequence'].get('maintenance.installation'))
+    code = fields.Char("Reference", size=255, index=True,help="The Maintenance Installation Code",default=lambda obj: obj.env['ir.sequence'].get('maintenance.installation'))
     name = fields.Char("Identification", size=255)
     partner_id = fields.Many2one('res.partner', string='Customer',help="The partner linked to this maintenance installation")
     address_id = fields.Many2one('res.partner', string='Address', help="The address where the installation is located")

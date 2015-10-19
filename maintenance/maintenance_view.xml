@@ -415,7 +415,7 @@
 					</header>
 					<sheet>
 						<div class="oe_title">
-	                    	<label for="code" string="Installation" class="oe_edit_only"/>
+	                    	<label for="code" string="Reference" class="oe_edit_only"/>
                         	<h1><field name="code"/></h1>
 	                    </div>
 	                    <div class="oe_right oe_button_box">

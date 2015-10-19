@@ -78,7 +78,7 @@ class product_category(models.Model):
     _inherit = 'product.category'
     
     def _subfamily_search(self, operator, value):
-        return [('id','in',self.search(['&','&','&','&',('name','ilike',value),('parent_id','!=',False),('parent_id.parent_id','!=',False),('parent_id.parent_id.parent_id','!=',False)]).get_children_ids())]
+        return [('id','in',self.search(['&','&','&','&',('name','ilike',value),('parent_id','!=',False),('parent_id.parent_id','!=',False),('parent_id.parent_id.parent_id','!=',False),('parent_id.parent_id.parent_id.parent_id','=',False)]).get_children_ids())]
     
     def _family_search(self, operator, value):
         return [('id','in',self.search(['&','&','&',('name','ilike',value),('parent_id','!=',False),('parent_id.parent_id','!=',False),('parent_id.parent_id.parent_id','=',False)]).get_children_ids())]

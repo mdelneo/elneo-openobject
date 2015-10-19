@@ -170,7 +170,6 @@
         		<xpath expr="//group[@name='weight']" position="replace"/>
         		
         		<field name="active" position="after">
-        			<field name="categ_id"/>
         			<field name="intrastat_id" />
         		</field>
         		

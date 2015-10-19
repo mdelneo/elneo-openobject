@@ -590,7 +590,8 @@
 					</header>
 					<sheet>
 						<h1>
-							<label string="Intervention"/><field name="code" class="oe_inline"/>
+							<label class="oe_edit_only" for="code" string="Reference"/>
+							<field name="code" class="oe_inline"/>
 						</h1>
 						<div class="oe_right oe_button_box">
 	                    </div>

@@ -28,12 +28,18 @@ class product_product(models.Model):
             args=[]
         
         if name:
-            if len(name) < 3:
+            matches = False
+            if name and name[0] == '[':
+                #if pattern begin with [ : we consider it as well formated, and we limit search with the exact code extracted between []
+                matches = re.findall("\[([^\]]*)\]*",name)
+            if matches:
+                products = self.search([('default_code','=',matches[0])]+ args, limit=limit)
+            elif len(name) < 3:
                 products = self.search([('default_code','=',name)]+ args, limit=limit)
             else:
                 products = self.search([('search_field_layout','ilike',name)], limit=limit)
         else:
-            products = self.search(args, limit=limit)            
+            products = self.search(args, limit=limit)
         return products.name_get()
     
     @api.multi
@@ -60,32 +66,6 @@ class product_product(models.Model):
     search_default_code_layout = fields.Char(compute='get_ext_name', search=search_default_code, size=4096, string='Code')
 
 product_product()
-
-class product_template(models.Model):
-    _inherit = 'product.template'
-    
-
-    @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
-        if not args:
-            args=[]
-        
-        if name:
-            matches = False
-            if name and name[0] == '[':
-                #if pattern begin with [ : we consider it as well formated, and we limit search with the exact code extracted between []
-                matches = re.findall("\[([^\]]*)\]*",name)
-            if matches:
-                products = self.search([('default_code','=',matches[0])]+ args, limit=limit)
-            elif len(name) < 3:
-                products = self.search([('default_code','=',name)]+ args, limit=limit)
-            else:
-                products = self.search([('search_field_layout','ilike',name)], limit=limit)
-        else:
-            products = self.search(args, limit=limit)
-        return products.name_get()
-    
-product_template()
 
 
 class res_partner(models.Model):

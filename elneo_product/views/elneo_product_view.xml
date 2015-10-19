@@ -214,7 +214,9 @@
 				<xpath expr="//group[@string='Storage Location']" position="replace" />
             	<xpath expr="//group[@string='Counter-Part Locations Properties']" position="replace" />
             	<xpath expr="//group[@name='status']" position="replace" />
-				<xpath expr="//group[@name='procurement_uom']" position="replace" />
+				<xpath expr="//group[@name='procurement_uom']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
 				
 				
         	</field>
@@ -229,7 +231,9 @@
             
             	<xpath expr="//field[@name='attribute_value_ids']" position="replace" />
             	<xpath expr="//field[@name='lst_price']" position="replace" />
-            	<xpath expr="//field[@name='uom_id']" position="replace" />
+            	<xpath expr="//field[@name='uom_id']" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</xpath>
             	<xpath expr="//field[@name='ean13']" position="replace" />
             	<xpath expr="//field[@name='name']" position="replace" />
             	

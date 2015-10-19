@@ -301,8 +301,7 @@
 				<form string="Maintenance Element">
 					<sheet>
 						<h1>
-	                        <label string="Element "/>
-	                        <!-- <field name="name" class="oe_inline" readonly="1"/> -->
+	                        <label for="code" class="oe_edit_only" string="Reference"/>
 	                        <field name="code" class="oe_inline"/>
 	                    </h1>
 						<group>

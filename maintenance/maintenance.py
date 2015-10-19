@@ -416,7 +416,7 @@ class maintenance_element(models.Model):
         return self.env['ir.sequence'].get('maintenance.element')
     
     installation_id = fields.Many2one('maintenance.installation', 'Installation', index=True)
-    code = fields.Char("Code", size=255, index=True,default=_get_code)
+    code = fields.Char("Reference", size=255, index=True,default=_get_code)
     partner_id = fields.Many2one(related="installation_id.partner_id", relation="res.partner", readonly=True, string="Customer", store=True)
     name = fields.Char("Name", size=255, index=True) 
     product_id = fields.Many2one('product.product', 'Product', index=True)

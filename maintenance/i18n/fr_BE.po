@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-19 12:09+0000\n"
-"PO-Revision-Date: 2015-08-19 14:17+0100\n"
+"POT-Creation-Date: 2015-10-19 09:15+0000\n"
+"PO-Revision-Date: 2015-10-19 11:18+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr\n"
+"Language: fr_BE\n"
 "X-Generator: Poedit 1.8.1\n"
 
 #. module: maintenance
@@ -35,11 +35,11 @@ msgid ""
 "            "
 msgstr ""
 "<p class=\"oe_view_nocontent_create\">\n"
-"                Clciquez pour créer un nouveau type d'intervention. \n"
+"                Click to create a new intervention type. \n"
 "              </p><p>\n"
-"              \tLe système de type d'intervention de maintenance vous permet\n"
-"              \td'assigner des interventions à un type qui changera la vue en fonction\n"
-"              \tde celle-ci.\n"
+"              \tThe maintenance intervention type system allows you to\n"
+"              \tassign interventions to a kind that will alter its views\n"
+"              \taccordingly.\n"
 "              </p>\n"
 "            "
 
@@ -66,6 +66,7 @@ msgstr "Informations complémentaires"
 
 #. module: maintenance
 #: field:maintenance.installation,address_id:0
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 #: field:maintenance.intervention,address_id:0
 msgid "Address"
@@ -81,12 +82,6 @@ msgstr "Adresse de l'installation"
 #: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
 msgid "All Interventions"
 msgstr "Toutes les Interventions"
-
-#. module: maintenance
-#: model:ir.actions.act_window,name:maintenance.action_maintenance_type_form
-#: model:ir.ui.menu,name:maintenance.menu_action_maintenance_type_form
-msgid "All Interventions (By Type)"
-msgstr "Toutes les Interventions (Par Type)"
 
 #. module: maintenance
 #: model:ir.actions.act_window,help:maintenance.action_maintenance_element
@@ -112,18 +107,6 @@ msgstr "Appliquer"
 #: field:maintenance.intervention.task,user_id:0
 msgid "Assigned to"
 msgstr "Assigné à"
-
-#. module: maintenance
-#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
-#: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
-msgid "Available"
-msgstr "Disponible"
-
-#. module: maintenance
-#: model:ir.actions.act_window,name:maintenance.action_maintenance_tree_available
-#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
-msgid "Available Interventions"
-msgstr "Interventions disponibles"
 
 #. module: maintenance
 #: field:maintenance.intervention,date_start:0
@@ -153,11 +136,9 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: maintenance
-#: field:maintenance.element,code:0 field:maintenance.installation,code:0
-#: field:maintenance.intervention,code:0
 #: view:website:maintenance.report_maintenance_installation_document
 msgid "Code"
-msgstr "Code"
+msgstr "Référence"
 
 #. module: maintenance
 #: field:maintenance.intervention.type,color:0
@@ -251,6 +232,7 @@ msgstr "Créé le"
 #: field:maintenance.element,partner_id:0
 #: view:maintenance.installation:maintenance.search_maintenance_installation
 #: field:maintenance.installation,partner_id:0
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 #: field:maintenance.intervention,partner_id:0
 #: view:website:maintenance.report_maintenance_installation_document
@@ -321,11 +303,6 @@ msgstr "Interventions brouillon"
 #: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
 msgid "Edit..."
 msgstr "Modifier..."
-
-#. module: maintenance
-#: view:maintenance.element:maintenance.view_maintenance_element_form
-msgid "Element"
-msgstr "Element"
 
 #. module: maintenance
 #: model:ir.actions.act_window,name:maintenance.action_maintenance_element
@@ -406,6 +383,7 @@ msgstr "Abonnés"
 #. module: maintenance
 #: view:maintenance.element:maintenance.search_maintenance_element
 #: view:maintenance.installation:maintenance.search_maintenance_installation
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 msgid "Group By..."
 msgstr "Grouper par..."
@@ -451,6 +429,7 @@ msgstr "Inactive"
 #: view:maintenance.element:maintenance.search_maintenance_element
 #: field:maintenance.element,installation_id:0
 #: view:maintenance.installation:maintenance.view_maintenance_installation_form
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 #: field:maintenance.intervention,installation_id:0
 #: view:website:maintenance.report_maintenance_installation_document
@@ -520,6 +499,12 @@ msgid "Interventions"
 msgstr "Interventions"
 
 #. module: maintenance
+#: model:ir.actions.act_window,name:maintenance.action_maintenance_type_form
+#: model:ir.ui.menu,name:maintenance.menu_action_maintenance_type_form
+msgid "Interventions (By Type)"
+msgstr "Interventions (By Type)"
+
+#. module: maintenance
 #: model:ir.actions.act_window,name:maintenance.action_maintenance_tree_done
 #: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 msgid "Interventions done"
@@ -534,6 +519,26 @@ msgstr "Interventions en retard"
 #: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 msgid "Interventions that are late on scheduled time"
 msgstr "Interventions qui sont en retard par rapport à la date prévue"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "Interventions that have state in confirmed"
+msgstr "Interventions that have state in confirmed"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "Interventions that have state in done"
+msgstr "Interventions that have state in done"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "Interventions that have state in draft"
+msgstr "Interventions that have state in draft"
+
+#. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+msgid "Interventions that have tasks assigned to me and state in confirmed"
+msgstr "Interventions that have tasks assigned to me and state in confirmed"
 
 #. module: maintenance
 #: field:maintenance.installation,invoice_address_id:0
@@ -584,7 +589,7 @@ msgid "Last Updated on"
 msgstr "Dernière modification le"
 
 #. module: maintenance
-#: code:addons/maintenance/maintenance.py:171
+#: code:addons/maintenance/maintenance.py:185
 #: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention.type:maintenance.stock_maintenance_type_kanban
 #, python-format
@@ -695,7 +700,7 @@ msgid "Notes"
 msgstr "Notes"
 
 #. module: maintenance
-#: code:addons/maintenance/maintenance.py:173
+#: code:addons/maintenance/maintenance.py:187
 #, python-format
 msgid "OK"
 msgstr "OK"
@@ -714,6 +719,11 @@ msgstr "Partenaire"
 #: view:website:maintenance.external_layout_footer_maintenance
 msgid "Phone:"
 msgstr "Phone:"
+
+#. module: maintenance
+#: selection:maintenance.intervention,task_state:0
+msgid "Planned"
+msgstr "Plannifiée"
 
 #. module: maintenance
 #: field:maintenance.intervention.task,planned_hours:0
@@ -742,6 +752,16 @@ msgstr "Produit"
 #: field:maintenance.intervention,project_id:0
 msgid "Project"
 msgstr "Projet"
+
+#. module: maintenance
+#: view:maintenance.element:maintenance.view_maintenance_element_form
+#: field:maintenance.element,code:0
+#: view:maintenance.installation:maintenance.view_maintenance_installation_form
+#: field:maintenance.installation,code:0
+#: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
+#: field:maintenance.intervention,code:0
+msgid "Reference"
+msgstr "Reference"
 
 #. module: maintenance
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
@@ -775,6 +795,7 @@ msgid "Starting Date"
 msgstr "Date de début"
 
 #. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 msgid "State"
 msgstr "Etat"
@@ -808,7 +829,9 @@ msgid "Task month"
 msgstr "Mois de le tâche"
 
 #. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
+#: field:maintenance.intervention,task_state:0
 msgid "Task state"
 msgstr "Etat de la tâche"
 
@@ -819,6 +842,7 @@ msgid "Tasks"
 msgstr "Tâches"
 
 #. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_form
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 #: field:maintenance.intervention,technicians:0
@@ -887,12 +911,14 @@ msgid "To confirm"
 msgstr "À confirmer"
 
 #. module: maintenance
+#: selection:maintenance.intervention,task_state:0
 #: field:maintenance.intervention,to_plan:0
 #: field:maintenance.intervention.task,to_plan:0
 msgid "To plan"
 msgstr "À planifier"
 
 #. module: maintenance
+#: view:maintenance.intervention:maintenance.view_maintenance_internal_search
 #: view:maintenance.intervention:maintenance.view_maintenance_intervention_search
 #: field:maintenance.intervention,maint_type:0
 #: view:website:maintenance.report_maintenance_installation_document
@@ -915,11 +941,6 @@ msgstr "Temps de mesure pour le produit de main d'oeuvre"
 #: field:maintenance.intervention,message_unread:0
 msgid "Unread Messages"
 msgstr "Messages non lus"
-
-#. module: maintenance
-#: field:maintenance.element,visible_for_intervention:0
-msgid "Visible for interventions"
-msgstr "Visible dans les interventions"
 
 #. module: maintenance
 #: view:maintenance.installation:maintenance.search_maintenance_installation

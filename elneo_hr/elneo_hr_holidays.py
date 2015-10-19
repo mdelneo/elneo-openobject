@@ -34,7 +34,7 @@ class hr_holidays(models.Model):
     
     @api.multi  
     def _get_employee(self):
-        if ((self._uid == 27 or self._uid == 37) or (not self._uid)):
+        if ((self._uid == 20 or self._uid == 27) or (not self._uid)):
             return False
         else:
             employee = self.env['hr.employee'].search([('user_id','=', self._uid)])
@@ -43,7 +43,7 @@ class hr_holidays(models.Model):
     def onchange_type(self, cr, uid, ids, holiday_type):
         result = {}
         if holiday_type == 'employee':
-            if(uid == 27 or uid == 37):
+            if(uid == 20 or uid == 27):
                 return result
             ids_employee = self.pool.get('hr.employee').search(cr, uid, [('user_id','=', uid)])
             if ids_employee:
@@ -195,7 +195,7 @@ class hr_holidays(models.Model):
     def set_manager(self):
         if self.department_id and self.department_id.manager_id:
             self.manager_id = self.department_id.manager_id.id
-            self.manager_id2 = 27
+            self.manager_id2 = 20
     
     @api.onchange('department_id')
     def onchange_department(self):

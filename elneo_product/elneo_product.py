@@ -12,6 +12,25 @@ class product_product(models.Model):
             cr.execute('CREATE INDEX product_product_alias_ext_name_index ON product_product (alias, default_code)')
         return res
     
+    
+    def copy(self, cr, uid, ids, default=None, context=None):
+        if default is None:
+            default = {}
+        if context is None:
+            context = {}
+        
+        default_code = self.browse(cr, uid, ids, context).default_code    
+        
+        #add suffix to default_code on duplicate
+        suffix = ' - copy'
+        nb = self.search(cr, uid, [('default_code','=',default_code+suffix)],count=True, context=context)
+        if nb>=1:
+            suffix = suffix+' ('+str(nb)+')'
+        default.update({'default_code':default_code+suffix})
+        
+        return super(product_product, self).copy(cr, uid, ids, default, context=context)
+    
+    
 class product_template(models.Model):
     _inherit = 'product.template'
     

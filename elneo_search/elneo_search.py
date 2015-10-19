@@ -36,21 +36,14 @@ class product_product(models.Model):
             products = self.search(args, limit=limit)            
         return products.name_get()
     
-    search_field_layout = fields.Char(related='product_tmpl_id.search_field_layout', size=4096, string='Advanced search')
-    search_default_code_layout = fields.Char(related='product_tmpl_id.search_default_code_layout', size=4096, string='Code')
-
-product_product()
-
-class product_template(models.Model):
-    _inherit = 'product.template'
-    
     @api.multi
     def get_ext_name(self):
         result = {}
         for product_id in self:                    
             result[product_id] = ''
         return result
-     
+    
+    
     @api.multi
     def search_ext_name(self, operator, value):
         self._cr.execute("select id from product_search_column('"+value+"');")
@@ -62,7 +55,15 @@ class product_template(models.Model):
         self._cr.execute("select id from product_search_code('"+value+"');")
         res = self._cr.fetchall()
         return [('id', 'in', [x[0] for x in res])]
+    
+    search_field_layout = fields.Char(compute='get_ext_name', search=search_ext_name, size=4096, string='Advanced search')
+    search_default_code_layout = fields.Char(compute='get_ext_name', search=search_default_code, size=4096, string='Code')
 
+product_product()
+
+class product_template(models.Model):
+    _inherit = 'product.template'
+    
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
@@ -83,10 +84,6 @@ class product_template(models.Model):
         else:
             products = self.search(args, limit=limit)
         return products.name_get()
-    
-    
-    search_field_layout = fields.Char(compute='get_ext_name', search=search_ext_name, size=4096, string='Advanced search')
-    search_default_code_layout = fields.Char(compute='get_ext_name', search=search_default_code, size=4096, string='Code')
     
 product_template()
 

@@ -321,7 +321,7 @@ class maintenance_intervention(models.Model):
     def _get_code(self):
         return self.env['ir.sequence'].get('maintenance.intervention')
     
-    code = fields.Char("Code", size=255, index=True, required=True,default=_get_code)
+    code = fields.Char("Reference", size=255, index=True, required=True,default=_get_code)
     name = fields.Text("Description", index=True)
     partner_id = fields.Many2one("res.partner", type="many2one", related='installation_id.partner_id', readonly=True, string="Customer", store=True,help="Customer linked to the installation")
     address_id = fields.Many2one("res.partner",related="installation_id.address_id", readonly=True, string="Address", store=True,help="Address of the installation")

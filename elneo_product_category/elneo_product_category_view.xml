@@ -30,6 +30,40 @@
 				</xpath>
 			</field>
 		</record>
+		
+		
+		<!-- Hide fields -->
+		<record id="product_category_form_view_inherit_elneo_product_category" model="ir.ui.view">
+            <field name="name">product.category.form.view.inherit.elneo.product.category</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="stock.product_category_form_view_inherit" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@string='Logistics']" position="replace" />
+            </field>
+        </record>
+        
+        <record id="view_category_property_form_elneo_product_category" model="ir.ui.view">
+            <field name="name">view.category.property.form.elneo.product.category</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="account.view_category_property_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group[@name='account_property']" position="replace" />
+                </data>
+            </field>
+        </record>
+        
+        <record id="view_category_property_form_elneo_product_category2" model="ir.ui.view">
+            <field name="name">view.category.property.form.elneo.product.category2</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="stock_account.view_category_property_form"/>
+            <field name="arch" type="xml">
+            	<data>
+                    <xpath expr="//group[@name='account_stock_property']" position="replace" />
+                </data>
+            </field>
+        </record>
+		
 
 	</data>
 </openerp>

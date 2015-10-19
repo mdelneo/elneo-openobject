@@ -7,7 +7,7 @@
     'description': "Elneo Module organize products in different categories",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['product', 'elneo_product'],
+    'depends': ['product', 'elneo_product', 'account', 'stock', 'stock_account'],
     'update_xml': ['elneo_product_category_view.xml'],                   
     'installable': True,
     'active': False,

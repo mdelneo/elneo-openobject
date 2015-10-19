@@ -7,11 +7,6 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_search_view"/>
             <field name="arch" type="xml">
-            	<xpath expr="//field[@name='name']" position="replace">
-               		<field name="search_field_layout" />
-               		<field name="search_default_code_layout" />
-               		<field name="name" invisible="1" />
-           		</xpath>
            		<xpath expr="//filter[@name='consumable']" position="replace" />
            		<xpath expr="//filter[@string='Services']" position="replace" />
 <!--            		<xpath expr="//filter[@name='filter_to_sell']" position="replace" /> -->
@@ -25,6 +20,8 @@
            		
             </field>
         </record>
+        
+      
 	
 		<!-- Product product search -->
        	<record id="product_search_form_view_elneo_search" model="ir.ui.view">
@@ -32,6 +29,11 @@
            <field name="model">product.product</field>
            <field name="inherit_id" ref="product.product_search_form_view"/>
            <field name="arch" type="xml">
+           		<xpath expr="//field[@name='name']" position="replace">
+               		<field name="search_field_layout" />
+               		<field name="search_default_code_layout" />
+               		<field name="name" invisible="1" />
+           		</xpath>
            		<xpath expr="//field[@name='attribute_value_ids']" position="replace" />
            		<xpath expr="//field[@name='product_tmpl_id']" position="replace" />
            		<xpath expr="//filter[@name='template_id']" position="replace" />

@@ -228,6 +228,8 @@
             <field name="inherit_id" ref="product.product_product_tree_view"/>
             <field name="arch" type="xml">
             
+            	<xpath expr="//field[@name='name']" position="price" />
+            
             	<xpath expr="//field[@name='attribute_value_ids']" position="replace" />
             	<xpath expr="//field[@name='lst_price']" position="replace" />
             	<xpath expr="//field[@name='uom_id']" position="attributes">

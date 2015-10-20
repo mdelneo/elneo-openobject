@@ -25,7 +25,7 @@ from openerp.exceptions import Warning
 
 
 
-class intervention_merge_lines(models.TransientModel):
+class InterventionMergeLines(models.TransientModel):
     _name='maintenance.intervention.merge.lines'
     
     wizard_id = fields.Many2one('maintenance.intervention.merge.wizard',string='Interventions')
@@ -33,11 +33,12 @@ class intervention_merge_lines(models.TransientModel):
     maint_type = fields.Many2one('maintenance.intervention.type','Type')
     date_start = fields.Datetime(string='Planned Start Date')
 
-class intervention_merge(models.TransientModel):
+class InterventionMerge(models.TransientModel):
     _name='maintenance.intervention.merge.wizard'
     
+    @api.model
     def _get_interventions(self):
-        res=[]
+        res=self.env['maintenance.intervention']
         
         if not self.env.context or not self.env.context.has_key('active_ids'):
             return res
@@ -46,6 +47,7 @@ class intervention_merge(models.TransientModel):
         
         
         last_installation_id=None
+        maint_type=self.env['maintenance.intervention.type']
         interventions = self.env['maintenance.intervention'].browse(ids)
         for intervention in self.env['maintenance.intervention'].browse(ids):
             
@@ -55,10 +57,14 @@ class intervention_merge(models.TransientModel):
             
             if(not intervention.state in ['draft']):
                 raise Warning(_('You cannot merge interventions which are not draft!'))
+            
+            if(maint_type and maint_type!=intervention.maint_type):
+                raise Warning(_('You cannot merge interventions that have different types!'))
 
             last_installation_id = intervention.installation_id
+            maint_type = intervention.maint_type
             
-        return interventions.mapped('id')
+        return interventions
     
     # Set the start date as the first selected intervention date 
     def _get_intervention_date(self):
@@ -70,10 +76,10 @@ class intervention_merge(models.TransientModel):
                 return intervention.date_start
     
     # Set the reference intervention as the first selected one
+    @api.model
     def _get_reference_intervention(self):
         intervention_id = self.env.context.get('active_id',False)
-        if intervention_id:
-            return intervention_id
+        return self.env['maintenance.intervention'].browse(intervention_id)
     
     # Set the reference intervention as the first selected one
     def _get_reference_installation(self):
@@ -147,8 +153,10 @@ class intervention_merge(models.TransientModel):
         #return {'nodestroy':True}
     
     # Merging process
-    @api.one
+    @api.multi
     def merge(self):
+        # From one wizard at once
+        self.ensure_one()
         res={}
         
 
@@ -159,12 +167,18 @@ class intervention_merge(models.TransientModel):
         if (not self._cancel_interventions(self.intervention_lines)):
             raise Warning(_('Merging process interrupted : impossible to change the interventions state.'))
         
-        default_attributes = {'date_scheduled':self.date}.copy()
+        sched_date = datetime.strftime(datetime.strptime(self.date,'%Y-%m-%d %H:%M:%S'),'%Y-%m-%d')
+        
+        default_attributes = {}.copy()
+
         default_attributes.update(self._get_comments(self.intervention_lines))
         default_attributes.update(self._get_time_planned(self.intervention_lines))
         
         # Duplicate reference intervention
         new_intervention_id = self.reference_intervention.copy(default=default_attributes)
+        new_intervention_id.date_scheduled = sched_date
+        
+        self._set_tasks(self.intervention_lines, new_intervention_id, self.date)
         
         # Get lines that are not reference line
         lines_to_append = self._get_not_ref_lines(self.intervention_lines,self.reference_intervention.id)
@@ -178,6 +192,20 @@ class intervention_merge(models.TransientModel):
         
         #Create generation details
         self._create_generation_details(new_intervention_id, [intervention.id for intervention in self.intervention_lines])
+        
+        intervention_strings=','.join(self.intervention_lines.mapped('code'))
+      
+        new_intervention_id.message_post(_('Intervention generated from fusion of Interventions %s') % intervention_strings)
+        
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'maintenance.intervention',
+            'res_id' : new_intervention_id.id,
+            'target': 'self',
+            'type': 'ir.actions.act_window',
+           
+        }
 
     
     #create new lines of generation details to link new intervention to intervention models and maintenance elements
@@ -198,6 +226,14 @@ class intervention_merge(models.TransientModel):
             intervention.state='cancel'
         
         return True
+    
+    @api.model
+    def _set_tasks(self,lines,intervention,date):
+        tasks=self.env['maintenance.intervention.task']
+        for line in lines:
+            for task in line.tasks:
+                tasks += task.copy({'date_start':date,'intervention_id':intervention.id})
+    
             
     def _get_comments(self,lines):
         res = {'ext_comment':'','int_comment':'','name':''}

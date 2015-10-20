@@ -11,9 +11,9 @@
 					<group>
 						<field name="date" />
 						<field name="reference_intervention" domain="[('id','in',intervention_lines[0][2])]" />
-						<field name="reference_installation" invisible="True"/>
+						<field name="reference_installation" invisible="1"/>
 					</group>
-					<field name="intervention_lines" nolabel="1" colspan="8" domain="[('installation_id','=',reference_installation),('state','=','draft')]" >
+					<field name="intervention_lines" nolabel="1" domain="[('installation_id','=',reference_installation),('state','=','draft')]" >
 						<tree string="Interventions">
 							<field name="code" string="Reference"/>
 							<field name="maint_type"/>

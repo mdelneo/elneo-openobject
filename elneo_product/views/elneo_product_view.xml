@@ -79,6 +79,15 @@
             </field>
         </record>
         
+        <record id="product_template_search_view_elneo_product" model="ir.ui.view">
+            <field name="name">product.template.search.view.elneo.product</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//filter[@name='filter_to_sell']" position="replace" />
+            </field>
+        </record>
+        
         <!-- PRODUCT TEMPLATE SEARCH IN PURCHASE MODULE -->
        	<record id="product_template_search_view_purchase_elneo_product" model="ir.ui.view">
             <field name="name">product.template.search.view.purchase.elneo.product</field>

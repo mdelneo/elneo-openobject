@@ -117,7 +117,7 @@
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
-            
+            	<xpath expr="//field[@name='description']" position="replace" />
             
             	<xpath expr="//page[@string='Accounting']" position="replace" />
             

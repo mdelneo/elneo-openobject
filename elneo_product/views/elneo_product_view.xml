@@ -221,7 +221,7 @@
         	</field>
        	</record>
        	
-       
+      
        	<record id="product_product_tree_view_elneo_product" model="ir.ui.view">
             <field name="name">product.product.tree.view.elneo.product</field>
             <field name="model">product.product</field>

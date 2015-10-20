@@ -1,9 +1,17 @@
 from openerp import models, fields,api
+from openerp.tools.translate import _
 
 class product_product(models.Model):
     _inherit = 'product.product'
     
     alias = fields.Char(string="Alias", size=255, translate=False)
+    qty_available_text = fields.Char(compute='_product_available_text')
+    
+    @api.multi
+    def _product_available_text(self):
+        for product in self:
+            product.qty_available_text = 'A: '+str(product.with_context(location=[15]).qty_available)+'| W: '+str(product.with_context(location=[16]).qty_available) 
+
     
     def _auto_init(self,cr,args):
         res = super(product_product, self)._auto_init(cr, args)

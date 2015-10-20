@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+    <record id="view_maintenance_intervention_merge_project" model="ir.ui.view">
+			<field name="name">maintenance.intervention.merge.project</field>
+			<field name="model">maintenance.intervention.merge.wizard</field>
+			<field name="inherit_id" ref = "maintenance_intervention_merge.view_maintenance_intervention_merge_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//form/field[@name='intervention_lines']/tree/field[@name='maint_type']" position="after">
+					<field name="project_id"/>
+				</xpath>
+				
+			</field>
+		</record>
+    
+	</data>
+</openerp>

@@ -30,7 +30,7 @@ pricelist_partnerinfo()
 class product_template(models.Model):
     _inherit = "product.template"
     
-    product_group_id = fields.Many2one('product.group', 'Product group')
+    product_group_id = fields.Many2one('product.group', 'Landefeld product group')
     web_shop_product = fields.Boolean("Web shop product")
     
     def get_purchase_public_price(self, quantity):

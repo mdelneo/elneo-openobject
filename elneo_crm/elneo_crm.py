@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from openerp import models,fields,api
+from openerp import models,fields,api,_
 from openerp.exceptions import ValidationError
+from openerp.exceptions import Warning
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
@@ -10,6 +11,14 @@ class res_partner(models.Model):
     sales_count = fields.Integer('Number of sales', compute='_get_sales_count')
     
     type = fields.Selection([('contact', 'Contact'),('delivery', 'Shipping'), ('invoice', 'Invoice')], string='Address Type')
+    
+    @api.multi
+    def write(self, vals):
+        if not vals.get('active',True):
+            sales = self.env['sale.order'].search([('partner_id','=',self.id),('state','not in',['cancel','done'])])
+            if sales:
+                raise Warning(_('There is few sales for this partner. Please close or cancel them before disable the partner.'))            
+        return super(res_partner,self).write(vals)
     
     
     def action_view_sales(self, cr, uid, ids, context=None):

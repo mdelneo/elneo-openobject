@@ -140,7 +140,7 @@
                 	<field name="brut_sale_price"/>
                 </xpath>
                 
-                <xpath expr="//field[@name='order_line']" position="attributes">
+                <xpath expr="//field[@name='order_line']/tree" position="attributes">
                 	<attribute name="editable" />
                 </xpath>
                 

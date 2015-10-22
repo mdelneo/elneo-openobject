@@ -40,8 +40,7 @@ class maintenance_project_quotation_wizard(models.TransientModel):
         
         sale = self.env['sale.order'].browse(self.env.context.get('active_id',False))
         sale_order_lines = sale.order_line.filtered(lambda r:r.product_id.type=='product')
-        #if installation already linked to sale 
-        #sale_order_lines = self.env['sale.order.line'].search([('order_id','=',self.env.context['active_id']),('product_type','=','product')])
+        
         res = []
         
         for line in sale_order_lines:
@@ -80,9 +79,6 @@ class maintenance_project_quotation_wizard(models.TransientModel):
                     if elements and elements[0].time_counter:
                         raise Warning(_('Please fill expected working hours for %s.')%(detail.sale_line_id.product_id.default_code,))
             
-            
-            #installation_pool = self.pool.get('maintenance.installation')
-            
             if(self.env.context.get('active_id',False)==False):
                 return False
             
@@ -116,7 +112,8 @@ class maintenance_project_quotation_wizard(models.TransientModel):
                     'partner_id':sale_order.partner_id.id,
                     'address_id':sale_order.partner_invoice_id.id,
                     'invoice_address_id':sale_order.partner_invoice_id.id,
-                    'is_quotation_installation':True, 
+                    'is_quotation_installation':True,
+                    #TODO: A mettre ailleurs
                     #'travel_cost_id':travel_cost_id
                 }
                 

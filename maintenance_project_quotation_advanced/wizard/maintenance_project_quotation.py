@@ -18,9 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from datetime import datetime
 from openerp import models, fields, api, _
+from openerp.exceptions import Warning
 
 
 class maintenance_project_quotation_wizard_element_detail(models.TransientModel):
@@ -32,8 +31,6 @@ class maintenance_project_quotation_wizard_element_detail(models.TransientModel)
     product_code=fields.Char('Product',size=255)
     working_hours=fields.Integer('Working hours planned')
    
-    
-
 #Wizard to ask new maintenance quotation
 class maintenance_project_quotation_wizard(models.TransientModel):
     _name='maintenance.project_quotation_wizard'
@@ -46,7 +43,6 @@ class maintenance_project_quotation_wizard(models.TransientModel):
         #if installation already linked to sale 
         #sale_order_lines = self.env['sale.order.line'].search([('order_id','=',self.env.context['active_id']),('product_type','=','product')])
         res = []
-        
         
         for line in sale_order_lines:
             elements = self.env['maintenance.element'].search([('sale_order_line_id','=',line.id)])
@@ -79,8 +75,10 @@ class maintenance_project_quotation_wizard(models.TransientModel):
         
         for wizard in self:
             for detail in wizard.elements_details:
-                if not detail.working_hours and detail.sale_line_id.product_id.serialnumber_required:
-                    raise Warning(_('Please fill expected working hours for %s.')%(detail.sale_line_id.product_id.default_code,))
+                if not detail.working_hours :
+                    elements = detail.sale_line_id.product_id.maintenance_element_model_ids.sorted(key=lambda r:r.id, reverse=True)
+                    if elements and elements[0].time_counter:
+                        raise Warning(_('Please fill expected working hours for %s.')%(detail.sale_line_id.product_id.default_code,))
             
             
             #installation_pool = self.pool.get('maintenance.installation')
@@ -99,6 +97,7 @@ class maintenance_project_quotation_wizard(models.TransientModel):
             
             
             #find good travel cost
+            #TODO:
             '''
             change_address = self.env['maintenance.installation'].on_change_address_id(sale_order.partner_invoice_id.id)
             
@@ -172,8 +171,6 @@ class maintenance_project_quotation_wizard(models.TransientModel):
             sale_order.maintenance_project_id=maintenance_project_id
             
             context = self.env.context.copy()
-            
-            #return {'type': 'ir.actions.act_window_close'}
         
             return {
                 'name':_("New maintenance project"), 

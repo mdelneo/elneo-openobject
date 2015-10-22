@@ -6,6 +6,7 @@ class product_product(models.Model):
     
     alias = fields.Char(string="Alias", size=255, translate=False)
     qty_available_text = fields.Char(compute='_product_available_text')
+    barcode_number = fields.Char('Barcode number', size=7, default=lambda obj: obj.env['ir.sequence'].get('product.barcode'), groups='stock.group_stock_manager')
     
     @api.multi
     def _product_available_text(self):
@@ -102,7 +103,7 @@ class product_template(models.Model):
     
 
     type = fields.Selection([('product', 'Stockable Product'),('consu', 'Consumable'),('service','Service')], 'Product Type', required=True,default='product', help="Consumable are product where you don't manage stock, a service is a non-material product provided by a company or an individual.")
-    barcode_number = fields.Char('Barcode number', size=7, default=lambda obj: obj.env['ir.sequence'].get('product.barcode'), groups='stock.group_stock_manager')
+    
     warehouse_detail2 = fields.One2many('product.warehouse.detail', string='Warehouse detail', related='warehouse_detail', readonly=True)
     list_price2 = fields.Float('Sale price', related='list_price')
     

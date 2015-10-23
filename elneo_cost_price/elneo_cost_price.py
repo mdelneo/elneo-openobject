@@ -35,8 +35,6 @@ class sale_order_line(models.Model):
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
             lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag)
         
-        t1 = datetime.now()
-        
         if product:
             product_obj = self.env['product.product'].browse(product)
             
@@ -70,10 +68,6 @@ class sale_order_line(models.Model):
             if not res['value']['purchase_price']:
                 res['warning'] = {'title': 'No cost price', 'message':'Product %s has a zero cost price'%product_obj.default_code}
         
-        t2 = datetime.now()
-        
-        self._context['timers'][0] = self._context['timers'][0] + (t2-t1)
-            
         return res
     
     #just replace Standard price to purchase_price in sale_order_line margin computation

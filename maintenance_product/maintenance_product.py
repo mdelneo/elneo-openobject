@@ -26,13 +26,6 @@ from datetime import datetime, timedelta
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning
 
-T_SOL_COSTPRICE = timedelta()
-T_SOL_PP = timedelta()
-T_SOL_QUOTATION = timedelta()
-T_OTHER = timedelta()
-T_TOTAL = timedelta()
-T_BEFORE = timedelta()
-T_AFTER = timedelta()
 
 def get_datetime(date_field):
     return datetime.strptime(date_field[:19], '%Y-%m-%d %H:%M:%S')
@@ -163,9 +156,6 @@ class maintenance_intervention(models.Model):
     
     @api.multi
     def action_create_update_sale_order(self): 
-        logger = logging.getLogger(__name__)
-        t1 = datetime.now()
-        
         #intervention must be reload 
         if len(self) > 0 and self[0].state=='confirmed':
             return False
@@ -220,25 +210,12 @@ class maintenance_intervention(models.Model):
                 
                 sale_order = sale_order_pool.create(default_values)
                 
-                t2 = datetime.now()
-                
-                T_BEFORE = t2-t1
-                
-                logger.info('action_create_update_sale_order -- BEFORE='+str(T_BEFORE.seconds))
-                
-                T_AFTER = timedelta()
-                
-                timers = [T_SOL_COSTPRICE,T_SOL_PP,T_SOL_QUOTATION,T_OTHER,T_TOTAL]
                 
                 #create sale order lines from maintenance intervention products of current intervention 
                 for intervention_product in intervention.intervention_products:
-                    order_line = self.with_context(timers=timers).get_sale_order_line(sale_order, intervention_product, partner)
-                    t1 = datetime.now()
+                    order_line = self.get_sale_order_line(sale_order, intervention_product, partner)
                     new_order_line_id = sale_order_line_pool.create(order_line)
                     intervention_product.sale_order_line_id= new_order_line_id
-                    t2 = datetime.now()
-                    T_AFTER = T_AFTER + (t2-t1)
-                    logger.info('action_create_update_sale_order -- AFTER='+str(T_AFTER.seconds))
                                         
                 #update intervention
                 intervention.sale_order_id = sale_order
@@ -258,13 +235,9 @@ class maintenance_intervention(models.Model):
                     +' QUOTATION='+str(self._context['timers'][2].seconds)+' TOTAL (get_sale_order_line)='+str(self._context['timers'][3].seconds)
         )
 
-        t1 = datetime.now()
         order_line = self.env['sale.order.line'].product_id_change(
                             sale_order.pricelist_id.id, intervention_product.product_id.id, qty=intervention_product.quantity, 
                             partner_id=partner.id, lang=partner.lang, fiscal_position=sale_order.fiscal_position.id)['value']
-        t2 = datetime.now()
-        self._context['timers'][4] = self._context['timers'][4] + (t2-t1)
-
             
         order_line['product_id'] = intervention_product.product_id.id
         order_line['product_uom_qty'] = intervention_product.quantity

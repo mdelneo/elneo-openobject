@@ -130,6 +130,8 @@ class sale_order_line(models.Model):
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
             lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag)
         
+        t1 = datetime.now()
+        
         def convert_product_property_value_to_quotation_property(product_property_value):
             unit = ''
             if product_property_value.use_default_unit:
@@ -164,6 +166,10 @@ class sale_order_line(models.Model):
         if not 'value' in res:
             res['value'] = {}
         res['value']['sale_quotation_properties'] = sale_quotation_properties
+        
+        t2 = datetime.now()
+        
+        self._context['timers'][1] = self._context['timers'][1] + (t2-t1)
         
         return res
         

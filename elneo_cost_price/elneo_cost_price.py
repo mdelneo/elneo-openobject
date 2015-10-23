@@ -1,6 +1,7 @@
-from openerp import models,fields,api
+from openerp import models,fields,api,_
 from openerp.tools.float_utils import float_compare, float_round
-
+from datetime import datetime
+from openerp.exceptions import Warning
 
 class purchase_validation_wizard(models.TransientModel):
     _inherit = "purchase.validation.wizard"
@@ -34,22 +35,25 @@ class sale_order_line(models.Model):
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
             lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag)
         
+        t1 = datetime.now()
+        
         if product:
             product_obj = self.env['product.product'].browse(product)
             
             #get cost price for quantity
             suppinfo = product_obj.seller_ids and product_obj.seller_ids[0]
             
-            price = 0
-            if suppinfo:
-                pricelist = suppinfo.name and suppinfo.name.cost_price_product_pricelist and suppinfo.name.cost_price_product_pricelist.id
-                
-                supplier_id = self._context.get("supplier_id",None)
-                
-                if pricelist:
-                    price = self.env['product.pricelist'].browse(pricelist).price_get(product, qty, supplier_id)[pricelist]
-                        
-            if not price:
+            
+            if product_obj.distinct_price_by_qty:
+                price = 0
+                if suppinfo:
+                    pricelist = suppinfo.name and suppinfo.name.cost_price_product_pricelist and suppinfo.name.cost_price_product_pricelist.id
+                    
+                    supplier_id = self._context.get("supplier_id",None)
+                    
+                    if pricelist:
+                        price = self.env['product.pricelist'].browse(pricelist).price_get(product, qty, supplier_id)[pricelist]
+            else:
                 price = product_obj.cost_price
             
             partner_pricelist = self.env['res.partner'].browse(partner_id).property_product_pricelist
@@ -57,13 +61,18 @@ class sale_order_line(models.Model):
             if partner_pricelist:
                 to_cur = partner_pricelist.currency_id
                 frm_cur = self.env['res.users'].browse(self._uid).company_id.currency_id
-                price = frm_cur.compute(price, to_cur, round=False)
+                if to_cur != frm_cur:
+                    price = frm_cur.compute(price, to_cur, round=False)
 
             res['value'].update({'purchase_price': price})
             
             #Add a warning if cost_price = 0
             if not res['value']['purchase_price']:
                 res['warning'] = {'title': 'No cost price', 'message':'Product %s has a zero cost price'%product_obj.default_code}
+        
+        t2 = datetime.now()
+        
+        self._context['timers'][0] = self._context['timers'][0] + (t2-t1)
             
         return res
     
@@ -93,9 +102,28 @@ class product_product(models.Model):
 class product_template(models.Model):
     _inherit = "product.template"
     
+    @api.multi
+    def _get_distinct_by_qty(self):
+        self._cr.execute('''select pt.id, avg(pp.min_quantity) != min(pp.min_quantity) from 
+            pricelist_partnerinfo pp 
+            left join product_supplierinfo ps 
+                left join product_template pt on ps.product_tmpl_id = pt.id
+            on ps.id = pp.suppinfo_id
+            where pt.default_supplier_id = ps.name and product_tmpl_id in (%s)
+            group by pt.id;''', (tuple([p.id for p in self]),))
+        results = self._cr.fetchall()
+        for res in results:
+            for product in self:
+                if product.id == res[0]:
+                    product.distinct_price_by_qty = res[1]
+             
+        
+    
     cost_price = fields.Float('Cost price', compute='_get_cost_price', method=True, store=True)
     cost_price_fixed = fields.Float(string='Cost price fixed', help="It's based on the purchase price (with the shipping cost")
     compute_cost_price = fields.Boolean(string='Autocompute cost price', help="When checked, cost price is computed", default=True)
+    distinct_price_by_qty = fields.Boolean(string='Distinct price by quantity', compute='_get_distinct_by_qty', help='Checked if product has different purchase prices depending on quantity for default supplier')
+    
     
     ''' REPLACED BY api.depends
     def onchange_seller_ids(self, cr, uid, ids, compute_cost_price = True, cost_price_fixed = 0):
@@ -156,6 +184,9 @@ class product_template(models.Model):
                     
                 if pricelist and product_tmpl_id:
                     product_product_id = self.env['product.product'].search([('product_tmpl_id','=',product_tmpl_id)]).id
+                    if not product_product_id:
+                        raise Warning(_('An error occurring during computation of product price. Please check if product is active.'))
+                    
                     price = pricelist.price_get(product_product_id, 1.0)[pricelist.id]
                     cost_price = price
         

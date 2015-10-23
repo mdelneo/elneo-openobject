@@ -168,9 +168,14 @@ class sale_order_line(models.Model):
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, shop_id=0, context={}):
         
+        to1 = datetime.now()
         res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty=qty,
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
             lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, context=context)
+        to2 = datetime.now()
+        context['timers'][3] = context['timers'][3] + (to2-to1)
+        
+        t1 = datetime.now()
         
         if not flag:
             if not res['value']:
@@ -178,6 +183,11 @@ class sale_order_line(models.Model):
             product_obj = self.pool.get("product.product").browse(cr, uid, product, context)
             context_partner = {'lang': lang, 'partner_id': partner_id}
             res['value']['name'] = self.pool.get('product.product').name_get(cr, uid, [product_obj.id], context=context_partner)[0][1]
+        
+        t2=datetime.now()
+        
+        context['timers'][2] = context['timers'][2] + (t2-t1)    
+        
         return res
     
 sale_order_line()

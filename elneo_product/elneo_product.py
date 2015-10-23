@@ -107,3 +107,6 @@ class product_template(models.Model):
     warehouse_detail2 = fields.One2many('product.warehouse.detail', string='Warehouse detail', related='warehouse_detail', readonly=True)
     list_price2 = fields.Float('Sale price', related='list_price')
     
+class pricelist_partnerinfo(models.Model):
+    _inherit = 'pricelist.partnerinfo'
+    suppinfo_id = fields.Many2one(index=True)

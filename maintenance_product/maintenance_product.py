@@ -229,12 +229,6 @@ class maintenance_intervention(models.Model):
     @api.model
     def get_sale_order_line(self,sale_order, intervention_product, partner):
         
-        logger = logging.getLogger(__name__)
-        logger.info('Get Sale order line -- COST_PRICE='
-                    +str(self._context['timers'][0].seconds)+' PP='+str(self._context['timers'][1].seconds)
-                    +' QUOTATION='+str(self._context['timers'][2].seconds)+' TOTAL (get_sale_order_line)='+str(self._context['timers'][3].seconds)
-        )
-
         order_line = self.env['sale.order.line'].product_id_change(
                             sale_order.pricelist_id.id, intervention_product.product_id.id, qty=intervention_product.quantity, 
                             partner_id=partner.id, lang=partner.lang, fiscal_position=sale_order.fiscal_position.id)['value']

@@ -73,7 +73,9 @@ class sale_order(models.Model):
     def onchange_partner_id(self, partner):
         result = super(sale_order, self).onchange_partner_id(partner)
         if partner:
-            carrier_id = int(self.env['ir.config_parameter'].get_param('delivery_method_auto.default_carrier_id',False))
+            carrier_id = self.env['ir.config_parameter'].get_param('delivery_method_auto.default_carrier_id',False)
+            if carrier_id:
+                carrier_id = int(carrier_id)
             result['value']['carrier_id'] = carrier_id
         return result
     

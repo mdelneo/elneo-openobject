@@ -103,7 +103,7 @@ class product_template(models.Model):
             left join product_supplierinfo ps 
                 left join product_template pt on ps.product_tmpl_id = pt.id
             on ps.id = pp.suppinfo_id
-            where pt.default_supplier_id = ps.name and product_tmpl_id in (%s)
+            where pt.default_supplier_id = ps.name and product_tmpl_id in %s
             group by pt.id;''', (tuple([p.id for p in self]),))
         results = self._cr.fetchall()
         for res in results:

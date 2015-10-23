@@ -28,7 +28,7 @@ class ProductProduct(models.Model):
     _inherit = 'product.product'
     
     maintenance_product = fields.Boolean("Maintenance product", help="A maintenance product can't be delivered without creating an associated maintenance element.")
-    serialnumber_required = fields.Boolean("Serial number required")
+    #serialnumber_required = fields.Boolean("Serial number required")
     
 
 class MaintenanceInterventionProduct(models.Model):
@@ -47,8 +47,10 @@ class maintenance_intervention(models.Model):
             for intervention_product in intervention.intervention_products:
                 if intervention_product.serial_number and intervention_product.serial_number.count(';')+1 == intervention_product.sale_order_line_id.product_uom_qty:
                     self.env['maintenance.element'].create_default(intervention_product.serial_number, intervention_product.sale_order_line_id.id, product_id = intervention_product.product_id.id, sale_order_id = intervention_product.intervention_id.sale_order_id.id, installation_id = intervention.installation_id.id)
-                elif intervention_product.sale_order_line_id and intervention_product.product_id.serialnumber_required:
+                #TODO : BEST MANAGEMENT (WITHOUT ;)
+                elif intervention_product.sale_order_line_id and intervention_product.product_id.track_outgoing:
                     raise Warning(_('Please enter %s serial number of product %s')%(str(intervention_product.sale_order_line_id.product_uom_qty), intervention_product.product_id.default_code))
+                
 
         return super(maintenance_intervention, self).action_done()
 
@@ -110,6 +112,11 @@ class stock_transfer_details(models.TransientModel):
     
     @api.one
     def do_detailed_transfer(self):
+        '''
+        for item in self.item_ids:
+            if item.serialnumber_required:
+                print 'ok'
+        '''       
         if super(stock_transfer_details,self).do_detailed_transfer():
             processed_ids = []
             # Create new and update existing pack operations

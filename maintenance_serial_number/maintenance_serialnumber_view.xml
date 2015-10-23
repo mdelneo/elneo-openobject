@@ -10,7 +10,7 @@
 				<field name="active" position="before">
 					<group string="Maintenance">
 							<field name="maintenance_product"/>
-							<field name="serialnumber_required"/>
+							<!-- <field name="serialnumber_required"/> -->
 					</group>
 				</field>
 			</field>

@@ -132,7 +132,7 @@ class maintenance_intervention(models.Model):
     
     stock_pickings = fields.One2many(related='sale_order_id.picking_ids', relation='stock.picking', string="Pickings")
     sale_order_id = fields.Many2one('sale.order',string='Sale order', readonly=True)
-    intervention_products = fields.One2many('maintenance.intervention.product', 'intervention_id', 'Maintenance intervention products')
+    intervention_products = fields.One2many('maintenance.intervention.product', 'intervention_id', 'Maintenance intervention products',auto_join=True)
     #to_plan = fields.Boolean(compute=_get_task_fields,string="To plan", store=True,) #override to_plan cause when to_plan field of task was written, to_plan field of intervention was not re-computed.
     available = fields.Boolean(compute=_get_available, string="Available", store=True)
     #out_picking = fields.Many2one("stock.picking",compute=_get_out_picking, string="Out picking", store=True)
@@ -651,8 +651,8 @@ class maintenance_intervention_product(models.Model):
     description= fields.Char(string="Description", size=255)
     product_id = fields.Many2one('product.product', string="Product", required=True)
     sale_order_line_id = fields.Many2one( comodel_name="sale.order.line",  string="Sale order line", readonly=True)
-    intervention_id = fields.Many2one('maintenance.intervention', string="Maintenance intervention", ondelete='cascade')
-    maintenance_element_id = fields.Many2one('maintenance.element', string="Maintenance element") 
+    intervention_id = fields.Many2one('maintenance.intervention', string="Maintenance intervention", ondelete='cascade',index=True)
+    maintenance_element_id = fields.Many2one('maintenance.element', string="Maintenance element",index=True) 
     quantity = fields.Float("Quantity",default=1)
     intervention_date = fields.Datetime(related='intervention_id.date_start', string="Date")
     int_move_availability = fields.Selection(compute=_get_int_move_availability, string="Reservation", selection=[('partial', 'Partial'), ('draft', 'Draft'), ('waiting', 'Waiting'), ('confirmed', 'Not Available'), ('assigned', 'Available'), ('done', 'Done'), ('cancel', 'Cancelled')])

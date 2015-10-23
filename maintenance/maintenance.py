@@ -455,7 +455,7 @@ class maintenance_intervention_task(models.Model):
         self.maintenance_time = maintenance_time
     
     
-    intervention_id = fields.Many2one("maintenance.intervention", "Intervention")
+    intervention_id = fields.Many2one("maintenance.intervention", "Intervention",index=True)
     name = fields.Char('Task Summary', size=128)
     user_id = fields.Many2one('res.users', 'Assigned to')
     date_start = fields.Datetime('Starting Date',index=True)

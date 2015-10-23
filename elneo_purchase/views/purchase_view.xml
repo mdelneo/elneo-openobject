@@ -12,6 +12,10 @@
 				<field name="partner_id" position="after">
 					<field name="purchase_type_id"/>
 				</field>
+				<field name="origin" position="after">
+					<field name="invoiced_rate" widget="progressbar"/>
+            		<field name="shipped_rate" widget="progressbar"/>
+				</field>
 				<xpath expr="//tree[@string='Purchase Order Lines']/field[@name='state']" position="replace">
 					<field name="state"/>
 				</xpath>
@@ -21,7 +25,7 @@
 				<xpath expr="//field[@name='invoice_method']/.." position="attributes">
 					<attribute name="string">Accounting</attribute>
 				</xpath>
-				<!--  TO ADD IF USABILITY IS IMPROVED
+				
 				<xpath expr="//form/sheet/notebook/page[@string='Deliveries &amp; Invoices']" position="after">
 					<page string="History">
 						<label for="invoice_ids" string="Invoices" widget="one2many_list"/>
@@ -30,9 +34,10 @@
 						<field name="picking_ids"/>
 					</page>
 				</xpath>
-				 -->
+				 
 			</field>
 		</record>
+		<!-- TO ADD IF USABILITY IS IMPROVED
 		<record id="purchase_order_tree_elneo" model="ir.ui.view">
             <field name="name">purchase.order.tree.elneo</field>
             <field name="inherit_id" ref="purchase.purchase_order_tree"/>
@@ -45,7 +50,7 @@
 
             </field>
         </record>
-        
+         -->
         
         <record id="view_request_for_quotation_filter_elneo" model="ir.ui.view">
             <field name="name">request.quotation.select.elneo</field>

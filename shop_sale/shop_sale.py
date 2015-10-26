@@ -12,7 +12,7 @@ class sale_order_line(models.Model):
         if self._context.get('shop_sale',False):
             product = self.env['product.product'].browse(product)
             warehouse = self.env['stock.warehouse'].browse(warehouse_id)
-            stock_real = product.product_tmpl_id.with_context({'location':warehouse.lot_stock_id.id})._product_available(None, False)[self.product_tmpl_id.id]['qty_available']
+            stock_real = product.with_context({'location':warehouse.lot_stock_id.id})._product_available()[product.id]['qty_available']
             if stock_real < qty:
                 res['warning'] = {'title':_('Warning'),'message':_('Stock (%s) is lower than ordered quantity (%s).')%(stock_real,qty)}
         return res

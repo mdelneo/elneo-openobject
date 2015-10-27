@@ -10,8 +10,10 @@
 				<xpath expr="//page[@name='sales_purchases']//field[@name='customer']" position="attributes">
 					<attribute name="invisible">True</attribute>
 				</xpath>
-				<xpath expr="//page[@name='sales_purchases']//field[@name='customer']" position="after">
+				<xpath expr="//page[@name='sales_purchases']/group/group/field[@name='supplier']" position="replace"/>
+				<xpath expr="//field[@name='title']" position="after">
 					<field name="customer_prospect" />
+					<field name="supplier" />
 				</xpath>
 			</field>
 		</record>

@@ -166,7 +166,16 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
+            	<xpath expr="//page[@name='sales_purchases']/group/group/field[@name='lang']" position="replace" />
+            	<xpath expr="//page[@name='sales_purchases']/group/group/field[@name='active']" position="replace" /> 
             	<xpath expr="//page[@name='sales_purchases']/group/group/field[@name='ref']" position="replace"/>
+            	
+            	
+            	<xpath expr="//field[@name='website']" position="after">
+            		<field name="active" />
+            		<field name="lang" />
+            	</xpath>
+            	
             	<xpath expr="//label[@for='street']" position="before">
             		<field name="ref"/>
             	</xpath>

@@ -122,6 +122,9 @@
                             <field name="title" options='{"no_open": True}'/>
                         </group>
                         
+                        <group>
+                        	<field name="type" />
+                        </group>
                         <field name="comment" placeholder="Put an internal note..." colspan="4" />
                     </group>
                 </sheet>
@@ -170,6 +173,7 @@
             	<xpath expr="//page[@name='sales_purchases']/group/group/field[@name='active']" position="replace" /> 
             	<xpath expr="//page[@name='sales_purchases']/group/group/field[@name='ref']" position="replace"/>
             	
+            	<xpath expr="//page//field[@name='is_company']" position="replace" />
             	
             	<xpath expr="//field[@name='website']" position="after">
             		<field name="active" />
@@ -190,6 +194,13 @@
             	<xpath expr="//field[@name='company_id']" position="replace" />
             	
             	<xpath expr="//field[@name='category_id']" position="replace" />
+            	<xpath expr="//page//field[@name='category_id']" position="replace" />
+            	
+            	<xpath expr="//page//field[@name='is_company']" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</xpath>
+            	<xpath expr="//page//label[@for='is_company']" position="replace" />
+            	
             	<xpath expr="//div[@class='oe_title oe_left']/h1" position='after'>
             		<group>
             			<field name="alias" />

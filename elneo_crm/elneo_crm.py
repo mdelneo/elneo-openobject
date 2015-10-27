@@ -14,6 +14,16 @@ class res_partner(models.Model):
     type = fields.Selection([('contact', 'Contact'),('delivery', 'Shipping'), ('invoice', 'Invoice')], string='Address Type')
     
     
+    @api.one
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        default = {} if default is None else default.copy()
+        default.update({
+            'vat': False,
+            'name': (self.name or '') + ' (copy)',
+            'ref': (self.name or '') + ' copy',
+            })
+        return super(res_partner, self.with_context(copy=True)).copy(default)
     
     @api.multi
     def write(self, vals):
@@ -46,6 +56,9 @@ class res_partner(models.Model):
             
     @api.constrains('vat')
     def _check_unique_vat(self):
+        if self._context.get('copy',False):
+            return True
+        
         for partner in self:
             if partner.is_company and partner.vat:
                 sames = self.search([('active','=',True),('parent_id','=',False),('id','!=',self.id),('vat','=',self.vat)])
@@ -55,6 +68,9 @@ class res_partner(models.Model):
     
     @api.constrains('ref')
     def _check_ref(self):
+        if self._context.get('copy',False):
+            return True
+        
         #Mother companies must have reference
         if (not self.parent_id and not self.ref):
             raise ValidationError("You must fill in the reference for this partner!")
@@ -71,6 +87,9 @@ class res_partner(models.Model):
     
     @api.constrains('name')
     def _check_name(self):
+        if self._context.get('copy',False):
+            return True
+        
         #Mother companies must have name
         if (not self.parent_id and not self.name):
             raise ValidationError("You must fill in the name for this partner!")

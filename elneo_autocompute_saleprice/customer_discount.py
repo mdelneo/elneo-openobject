@@ -59,6 +59,28 @@ class sale_order(models.Model):
         result['value'].update({'discount_type_id':partner_obj.discount_type_id.id})
         
         return result
+    
+    @api.one
+    def update_all_prices(self):
+        for line in self.order_line:
+            on_change_res = line.product_id_change_with_wh_discount_type(
+                pricelist=self.pricelist_id.id, 
+                product=line.product_id.id, 
+                qty=line.product_uom_qty, 
+                uom=line.product_uom.id,  
+                discount_type_id=self.discount_type_id.id, 
+                partner_id=self.partner_id.id
+            )
+            
+            
+            if on_change_res.has_key('value'):
+                if on_change_res['value'].has_key('price_unit'):
+                    line.price_unit = on_change_res['value']['price_unit']
+                if on_change_res['value'].has_key('purchase_price'):    
+                    line.purchase_price = on_change_res['value']['purchase_price']
+                if on_change_res['value'].has_key('brut_sale_price'):    
+                    line.purchase_price = on_change_res['value']['brut_sale_price']
+            
         
 sale_order()
 

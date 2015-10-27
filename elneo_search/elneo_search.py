@@ -92,7 +92,7 @@ class res_partner(models.Model):
             if len(name) < 3:
                 partners = self.search([('ref','=',name)]+ args, limit=limit)
             else:
-                partners = self.search([('search_field_layout','ilike',name)], limit=limit)
+                partners = self.search([('search_field_layout','ilike',name)]+ args, limit=limit)
         else:
             partners = self.search(args, limit=limit)
         return partners.name_get()

@@ -2,6 +2,7 @@
 from openerp import models,fields,api,_
 from openerp.exceptions import ValidationError
 from openerp.exceptions import Warning
+import re
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
@@ -11,6 +12,8 @@ class res_partner(models.Model):
     sales_count = fields.Integer('Number of sales', compute='_get_sales_count')
     
     type = fields.Selection([('contact', 'Contact'),('delivery', 'Shipping'), ('invoice', 'Invoice')], string='Address Type')
+    
+    
     
     @api.multi
     def write(self, vals):
@@ -41,6 +44,14 @@ class res_partner(models.Model):
                 partner.sales_count = 0
         return res
             
+    @api.constrains('vat')
+    def _check_unique_vat(self, cr, uid, ids, context=None):
+        for partner in self.browse(cr, uid, ids, context=context):
+            if partner.is_company and partner.vat:
+                sames = self.search([('active','=',True),('parent_id','=',False),('id','!=',self.id),('upper(vat)','=',self.vat.upper())])
+                if (sames):
+                    raise ValidationError("There is partner with the same VAT ! Please change it or go to the good partner.\n\n%s" % (sames[0].name))
+        return True
     
     @api.constrains('ref')
     def _check_ref(self):
@@ -48,9 +59,14 @@ class res_partner(models.Model):
         if (not self.parent_id and not self.ref):
             raise ValidationError("You must fill in the reference for this partner!")
         
-        sames = self.search([('active','=',True),('parent_id','=',False),('ref','=',self.ref),('id','!=',self.id)])
-        if (sames):
-            raise ValidationError("There is partner with the same reference! Please change it or go to the good partner.\n\n%s" % (sames[0].name))
+        if self.ref:
+            sames = self.search([('active','=',True),('parent_id','=',False),('id','!=',self.id),('upper(ref)','=',self.ref.upper())])
+            
+            if (sames):
+                raise ValidationError("There is partner with the same reference! Please change it or go to the good partner.\n\n%s" % (sames[0].name))
+            
+            if len(re.compile(r"[a-zA-Z0-9_]+").findall(self.ref)) != 1:
+                raise ValidationError(_('Special characters are not allowed on partner reference.'))
             
     def _get_default_is_company(self):
         return self._context.get('force_is_company', False)

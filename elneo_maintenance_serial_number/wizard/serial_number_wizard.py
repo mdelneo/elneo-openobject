@@ -6,7 +6,6 @@ class sale_order(models.Model):
     _inherit='sale.order'
     
     
-    @api.one
     def shop_sale_ship(self):
         for line in self.order_line:
             for element in line.maintenance_element_ids:
@@ -22,7 +21,7 @@ class sale_order(models.Model):
                         else:
                             self._assign_serial(move, element.serial_number, element.product_id)
                             
-        super(sale_order,self).shop_sale_ship()
+        return super(sale_order,self).shop_sale_ship()
     
     @api.model
     def _assign_serial(self,move,serial,product):

@@ -45,10 +45,10 @@ class res_partner(models.Model):
         return res
             
     @api.constrains('vat')
-    def _check_unique_vat(self, cr, uid, ids, context=None):
-        for partner in self.browse(cr, uid, ids, context=context):
+    def _check_unique_vat(self):
+        for partner in self:
             if partner.is_company and partner.vat:
-                sames = self.search([('active','=',True),('parent_id','=',False),('id','!=',self.id),('upper(vat)','=',self.vat.upper())])
+                sames = self.search([('active','=',True),('parent_id','=',False),('id','!=',self.id),('vat','=',self.vat)])
                 if (sames):
                     raise ValidationError("There is partner with the same VAT ! Please change it or go to the good partner.\n\n%s" % (sames[0].name))
         return True
@@ -60,7 +60,7 @@ class res_partner(models.Model):
             raise ValidationError("You must fill in the reference for this partner!")
         
         if self.ref:
-            sames = self.search([('active','=',True),('parent_id','=',False),('id','!=',self.id),('upper(ref)','=',self.ref.upper())])
+            sames = self.search([('active','=',True),('parent_id','=',False),('id','!=',self.id),('ref','=',self.ref)])
             
             if (sames):
                 raise ValidationError("There is partner with the same reference! Please change it or go to the good partner.\n\n%s" % (sames[0].name))
@@ -76,14 +76,11 @@ class res_partner(models.Model):
             raise ValidationError("You must fill in the name for this partner!")
         
         if self.name:
-            sames = self.search([('active','=',True),('parent_id','=',False),('id','!=',self.id),('upper(name)','=',self.name.upper())])
+            self._cr.execute('select id from res_partner where active = True and parent_id is null and id != %s and upper(name) = %s',(self.id,self.name.upper()))
             
-            if (sames):
-                raise ValidationError("There is partner with the same name! Please change it or go to the good partner.\n\n%s" % (sames[0].name))
+            for t in self._cr.fetchall():
+                raise ValidationError("There is partner with the same name! Please change it or go to the good partner.\n\n%s" % (self.browse(t[0]).name))
             
-            if len(re.compile(r"[a-zA-Z0-9_]+").findall(self.name)) != 1:
-                raise ValidationError(_('Special characters are not allowed on partner name.'))        
-    
             
     def _get_default_is_company(self):
         return self._context.get('force_is_company', False)

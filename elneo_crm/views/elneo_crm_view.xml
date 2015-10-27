@@ -289,6 +289,7 @@
                     <div name="vat_info">
                         <field name="vat" on_change="vat_change(vat)" placeholder="e.g. BE0477472701" class="oe_inline" attrs="{'required':[('is_company','=',True),('vat_subjected','=',True)]}" />
                         <button colspan="2" name="button_check_vat" string="Check Validity" type="object" icon="gtk-execute" class="oe_inline"/>
+                        <label for="vat_subjected" />
                         <field name="vat_subjected" class="oe_inline"/>
                     </div>
             	</xpath>

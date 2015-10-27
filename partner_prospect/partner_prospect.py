@@ -32,4 +32,4 @@ class res_partner(models.Model):
                     partner.prospect = False
         
     
-    customer_prospect = fields.Selection(CUSTOMER_PROSPECT_SELECTION, string='Type', compute='_get_customer_prospect', inverse='_set_customer_prospect')
+    customer_prospect = fields.Selection(CUSTOMER_PROSPECT_SELECTION, string='Customer type', compute='_get_customer_prospect', inverse='_set_customer_prospect', required=True, default='prospect')

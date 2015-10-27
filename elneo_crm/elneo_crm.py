@@ -68,6 +68,23 @@ class res_partner(models.Model):
             if len(re.compile(r"[a-zA-Z0-9_]+").findall(self.ref)) != 1:
                 raise ValidationError(_('Special characters are not allowed on partner reference.'))
             
+    
+    @api.constrains('name')
+    def _check_name(self):
+        #Mother companies must have name
+        if (not self.parent_id and not self.name):
+            raise ValidationError("You must fill in the name for this partner!")
+        
+        if self.name:
+            sames = self.search([('active','=',True),('parent_id','=',False),('id','!=',self.id),('upper(name)','=',self.name.upper())])
+            
+            if (sames):
+                raise ValidationError("There is partner with the same name! Please change it or go to the good partner.\n\n%s" % (sames[0].name))
+            
+            if len(re.compile(r"[a-zA-Z0-9_]+").findall(self.name)) != 1:
+                raise ValidationError(_('Special characters are not allowed on partner name.'))        
+    
+            
     def _get_default_is_company(self):
         return self._context.get('force_is_company', False)
     

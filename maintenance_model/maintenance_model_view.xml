@@ -10,9 +10,12 @@
 			<field name="arch" type="xml">
 				<xpath expr="//form/sheet/notebook/page/field/form/notebook/page[@string='History']" position='before'>
 					<page string="Project interventions">
-						<header>
-							<button name="generate_interventions" string="Generate interventions" type="object" class="fa fa-cogs" />
-						</header>
+						<div class=" oe_right oe_button_box">
+				            <button class="oe_stat_button"
+				                    name="generate_interventions" type="object" string="Generate Interventions"
+				                    help="Generate Interventions "
+				                    icon="fa-cogs" widget="statinfo"/>
+				          </div>
 						<field name="intervention_generation_type" />
 						
 						<separator string="Expected interventions under project" colspan="4" />
@@ -37,11 +40,13 @@
 				</xpath>
 				<page string="History" position="after">
 					<page string="Project interventions">
-						<header>
-							<group>
-								<button name="generate_interventions" string="Generate interventions" type="object" class="fa fa-cogs" />
-							</group>
-						</header>
+						<div class=" oe_right oe_button_box">
+				            <button class="oe_stat_button"
+				                    name="generate_interventions" type="object" string="Generate Interventions"
+				                    help="Generate Interventions "
+				                    icon="fa-cogs" widget="statinfo"/>
+				          </div>
+						
 						<group>
 							<field name="intervention_generation_start_date" />
 						</group>

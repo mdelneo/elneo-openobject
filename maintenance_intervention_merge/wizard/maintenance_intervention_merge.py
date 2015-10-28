@@ -104,7 +104,7 @@ class InterventionMerge(models.TransientModel):
     
     intervention_lines = fields.Many2many('maintenance.intervention','maintenance_intervention_merge_rel','wizard_id','intervention_id',default=_get_interventions,string='Interventions')
     date = fields.Datetime(string='Merge Date',default=_get_intervention_date,help='The date where to group the selected interventions')
-    reference_intervention = fields.Many2one('maintenance.intervention',default=_get_reference_intervention,string='Reference Intervention',required=True) 
+    reference_intervention = fields.Many2one('maintenance.intervention',default=_get_reference_intervention,string='Reference Intervention',required=True,ondelete='cascade') 
     reference_installation = fields.Many2one('maintenance.installation',default=_get_reference_installation,string='Reference Installation')    
    
     @api.multi

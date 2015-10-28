@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-28 08:00+0000\n"
-"PO-Revision-Date: 2015-08-28 10:07+0100\n"
+"POT-Creation-Date: 2015-10-28 13:50+0000\n"
+"PO-Revision-Date: 2015-10-28 14:52+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -298,19 +298,19 @@ msgstr "Les lignes de ce type sont affichées dans les contrats imprimés"
 #. module: maintenance_project
 #: field:maintenance.project.budget.line,maintenance_product_id:0
 msgid "Maintenance Product"
-msgstr "Produit de Maintenance"
+msgstr "Produit"
 
 #. module: maintenance_project
 #: field:maintenance.project.budget.line,element_id:0
 msgid "Maintenance element"
-msgstr "Elément de Maintenance"
+msgstr "Elément"
 
 #. module: maintenance_project
 #: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
 #: view:maintenance.project:maintenance_project.view_maintenance_project_form
 #: field:maintenance.project,maintenance_elements:0
 msgid "Maintenance elements"
-msgstr "Éléments de maintenance"
+msgstr "Éléments"
 
 #. module: maintenance_project
 #: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
@@ -319,7 +319,7 @@ msgstr "Éléments de maintenance"
 #: view:maintenance.project:maintenance_project.view_maintenance_project_form
 #: view:maintenance.project:maintenance_project.view_maintenance_project_tree
 msgid "Maintenance project"
-msgstr "Projet de maintenance"
+msgstr "Projet"
 
 #. module: maintenance_project
 #: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_delay
@@ -334,14 +334,14 @@ msgstr "Délais d'intervention"
 #: view:maintenance.project.budget.line:maintenance_project.view_maintenance_project_budget_line_form
 #: view:maintenance.project.budget.line.type:maintenance_project.view_maintenance_project_budget_line_type_form
 msgid "Maintenance project line"
-msgstr "Ligne de projet de maintenance"
+msgstr "Ligne de projet"
 
 #. module: maintenance_project
 #: view:maintenance.project:maintenance_project.view_maintenance_project_form
 #: view:maintenance.project.budget.line:maintenance_project.view_maintenance_project_budget_line_tree
 #: view:maintenance.project.budget.line.type:maintenance_project.view_maintenance_project_budget_line_type_tree
 msgid "Maintenance project lines"
-msgstr "Lignes de projet de maintenance"
+msgstr "Lignes de projet"
 
 #. module: maintenance_project
 #: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_type
@@ -349,13 +349,13 @@ msgstr "Lignes de projet de maintenance"
 #: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
 #: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_tree
 msgid "Maintenance project type"
-msgstr "Type de projet de maintenance"
+msgstr "Type de projet"
 
 #. module: maintenance_project
 #: field:maintenance.element,maintenance_projects:0
 #: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
 msgid "Maintenance projects"
-msgstr "Projets de maintenance"
+msgstr "Projets"
 
 #. module: maintenance_project
 #: field:maintenance.project,message_ids:0
@@ -461,6 +461,7 @@ msgstr "Type de projet"
 #. module: maintenance_project
 #: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project
 #: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project
+#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_projects
 #: field:maintenance.installation,maintenance_projects:0
 msgid "Projects"
 msgstr "Projets"
@@ -485,11 +486,6 @@ msgstr "La vente est déjà confirmée"
 #: field:maintenance.project.budget.line,sale_price:0
 msgid "Sale price"
 msgstr "Prix de Vente"
-
-#. module: maintenance_project
-#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_sale
-msgid "Sales"
-msgstr "Ventes"
 
 #. module: maintenance_project
 #: view:account.invoice:maintenance_project.view_account_invoice_project_filter

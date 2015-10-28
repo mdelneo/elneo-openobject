@@ -480,12 +480,7 @@
 				</tree>
 			</field>
 		</record>
-		
-		
-		
-			
-			
-			
+	
 		<record id="action_maintenance_project_budget_line_type" model="ir.actions.act_window">
 			<field name="name">Budget line type</field>
 			<field name="type">ir.actions.act_window</field>
@@ -498,12 +493,11 @@
 		<menuitem action="action_maintenance_project_budget_line_type" id="menu_maintenance_project_budget_line_type"
 			parent="maintenance.menu_maintenance_config" sequence="10" />
 			
-		<menuitem id="menu_maintenance_sale" name="Sales"
+		<menuitem id="menu_maintenance_project" name="Projects"
 			parent="maintenance.menu_maintenance" sequence="15" />
 		
-			
-		<menuitem action="action_maintenance_project" id="menu_maintenance_project"
-			parent="menu_maintenance_sale" sequence="10" />
+		<menuitem action="action_maintenance_project" id="menu_maintenance_projects"
+			parent="menu_maintenance_project" sequence="10" />
 
 	</data>
 </openerp>

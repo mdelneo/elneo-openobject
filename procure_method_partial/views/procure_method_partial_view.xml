@@ -11,7 +11,11 @@
                 	<field name="procurement_path"/>
                 </xpath>
                 <xpath expr="//field[@name='order_line']/form//field[@name='route_id']" position="after">
-                	<field name="procurement_path" />
+               		<label for="procurement_path"/>
+                	<div>
+	                	<field name="procurement_path" class="oe_inline"/>
+	                	<button name="get_procurement_path" string="Refresh" class="oe_inline"/>
+                	</div>
                 </xpath>
             </field>
         </record>

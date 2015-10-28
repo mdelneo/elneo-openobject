@@ -247,7 +247,7 @@
 		<menuitem id="menu_maintenance_todos" name="Todo's"
 			sequence="11" parent="maintenance.menu_maintenance" groups="maintenance.group_maintenance_user" />
 			
-		       	<!-- MAINTENANCE TODO MENU -->
+		<!-- MAINTENANCE TODO MENU -->
 		<menuitem id="menu_maintenance_todo" name="Todo's" action="action_maintenance_todo"
 			sequence="10" parent="menu_maintenance_todos" groups="maintenance.group_maintenance_user" />
 	</data>

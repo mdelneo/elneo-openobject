@@ -34,14 +34,15 @@ class sale_order_line(models.Model):
 
     
     @api.one
-    @api.onchange('route_id')
+    @api.onchange('route_id','order_id.warehouse_id')
     def get_procurement_path(self):
         if self.procurement_path_backup:
             self.procurement_path = self.procurement_path_backup
         else:
             rule = self.env['procurement.rule'].search([('route_id','=',self.route_id.id),('location_id','=',self.order_id.warehouse_id.wh_output_stock_loc_id.id)])
             if rule:
-                self.procurement_path = rule.get_path(self.product_id, self.product_uos_qty)
+                self.procurement_path = rule.get_path(self.product_id, self.product_uom_qty)
+                
     
     procurement_path = fields.Char('Procurement path', compute='get_procurement_path')
     procurement_path_backup = fields.Char('Procurement path (backup)')
@@ -62,6 +63,7 @@ class procurement_rule(models.Model):
     def get_path(self, product, quantity):
         remaining_qty = quantity
         path = ''
+        
         for procure_method in self.procure_methods:
             purchase = False
             if procure_method.procure_method == 'make_to_stock':

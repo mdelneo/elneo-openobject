@@ -169,11 +169,11 @@
 			<field name="domain">[('state','not in',['draft','active','disabled'])]</field>
 		</record>
 		
-		<menuitem action="action_maintenance_project_not_quotation" id="maintenance_project.menu_maintenance_project"
-			parent="maintenance_project.menu_maintenance_sale" sequence="10" />
+		<menuitem action="action_maintenance_project_not_quotation" id="maintenance_project.menu_maintenance_projects"
+			parent="maintenance_project.menu_maintenance_project" sequence="10" />
 			
 		<menuitem action="action_maintenance_project_quotation" id="menu_maintenance_project_quotation"
-			parent="maintenance_project.menu_maintenance_sale" sequence="10" />
+			parent="maintenance_project.menu_maintenance_project" sequence="10" />
 			
 	</data>
 </openerp>

@@ -40,10 +40,19 @@ class maintenance_element(models.Model):
         else:
             self.with_project=False
         
+    @api.one
+    def _get_current_project(self):
+        '''
+        Get First Active Project
+        '''
+        for project in self.maintenance_projects.filtered(lambda r:r.state=='active'):
+            self.current_project_id = project
+            return
     
     maintenance_projects=fields.Many2many("maintenance.project", 'maintenance_project_elements', 'element_id', 'project_id', "Maintenance projects")
     expected_time_of_use=fields.Integer("Annual expected hour of use")
     with_project=fields.Boolean(compute=_is_with_project, string="Under contract", store=True)
+    current_project_id=fields.Many2one(compute=_get_current_project,string="Current Project",comodel_name="maintenance.project")
     
 class maintenance_project_type(models.Model):
     _name = 'maintenance.project.type'

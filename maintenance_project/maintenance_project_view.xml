@@ -71,6 +71,7 @@
 	                <filter string="Under contract" name="with_project"
 	                        domain="[('with_project','=',True)]"
 	                        help="Assets purchased in current month"/>
+	                <field name="current_project_id"/>
 	                <!-- TO MOVE IN MAINTENANCE MODEL MODULE...
 	                <filter string="Without model" icon="terp-go-month" name="without_model"
 	                        domain="[('element_model_id','=',False)]"
@@ -79,6 +80,18 @@
 	            </field>
             </field>
         </record>
+        
+        <record id="view_maintenance_element_project_form" model="ir.ui.view">
+			<field name="name">maintenance.element.form</field>
+			<field name="model">maintenance.element</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_element_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="installation_id" position="after">
+					<field name="current_project_id"/>
+				</field>
+			</field>
+		</record>
 	
 		<!-- Maintenance installation inheritance -->
 		<record

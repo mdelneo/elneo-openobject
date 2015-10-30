@@ -8,6 +8,7 @@
 			</xpath>
 			<xpath expr="//script[@src='/web/static/src/js/view_form.js']" position="after">
 				<script type="text/javascript" src="/elneo_layout/static/src/js/view_form.js"></script>
+				<script type="text/javascript" src="/elneo_layout/static/src/js/views.js"></script>
 			</xpath>
 		</template>
 	

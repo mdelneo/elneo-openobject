@@ -177,9 +177,14 @@ class product_template(models.Model):
                         product_tmpl_id = self._context['params']['id']
                     
                 if pricelist and product_tmpl_id:
+                    
                     product_product_id = self.env['product.product'].search([('product_tmpl_id','=',product_tmpl_id)]).id
                     if not product_product_id:
-                        raise Warning(_('An error occurring during computation of product price. Please check if product is active.'))
+                        product_template=self.env['product.template'].browse(product_tmpl_id)
+                        name = ''
+                        if product_template:
+                            name = product_template.name
+                        raise Warning(_('An error occurring during computation of product price. Please check if product %s is active.' % name))
                     
                     price = pricelist.price_get(product_product_id, 1.0)[pricelist.id]
                     cost_price = price

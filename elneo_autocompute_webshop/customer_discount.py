@@ -11,6 +11,13 @@ from pygments.lexer import _inherit
 class product_template(models.Model):
     _inherit = 'product.template'
     
+    @api.one
+    def _get_is_pneumatics(self):
+        is_pneumatics = False 
+        if self.web_shop_product or self.categ_dpt in ('Pneumatics','Hydraulics'):
+            is_pneumatics = True
+        self.is_pneumatics = is_pneumatics
+    
     def get_customer_sale_price(self, discount_type_id, sale_price, cost_price, quantity):
         if self.web_shop_product and self.product_group_id:
             
@@ -36,6 +43,8 @@ class product_template(models.Model):
             res = super(product_template, self).get_customer_sale_price(discount_type_id, sale_price, cost_price, quantity)
         
         return res
+    
+    is_pneumatics = fields.Boolean('Is pneumatics', compute='_get_is_pneumatics')
 
 
 class product_discount_type(models.Model):

@@ -20,12 +20,8 @@
 ##############################################################################
 
 from datetime import datetime, timedelta
-
-
 import calendar
-
 import math
-
 
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning
@@ -185,6 +181,42 @@ class maintenance_element(models.Model):
     intervention_generation_first_date=fields.Date('Date of first intervention (auto. generation)', help="When we do generation of interventions from project, we consider this value as first intervention date. This date is not used if start hours are filled.")
     element_model_id=fields.Many2one('maintenance.element.model', 'Element model')
     main_element=fields.Boolean("Main element", help="If other elements of the project do not have expected time of use, we use expected time of use of main element")
+    current_project_start_date = fields.Date(related='current_project_id.used_intervention_generation_start_date',string='Intervention beginning',readonly=True)
+    
+    @api.onchange('timeofuse_history')
+    def on_change_timeofuse_history(self):
+        reference_times = self.timeofuse_history.sorted(key=lambda r:r.date,reverse=True)
+        if(len(reference_times) > 0):
+            reference_time = reference_times[0]
+        if (not self.intervention_generation_first_date):
+            return
+        start_date = datetime.strptime(self.intervention_generation_first_date,"%Y-%m-%d")
+        
+        self.intervention_generation_start_hours = self.compute_start_hour(reference_time, start_date, self.expected_time_of_use)
+    
+    @api.model
+    def compute_start_hour(self,reference_time,start_date,expected_time_of_use):
+        '''
+        We calculate the estimated counter start time
+        '''
+        
+        if (not reference_time or not reference_time.time_of_use):
+            return 0
+        
+        # We can't calculate the start hour if there is no date for the reference counter
+        if (not reference_time.date or not start_date):
+            return reference_time.time_of_use
+        
+        final_hour = reference_time.time_of_use
+        delta = (start_date - datetime.strptime(reference_time.date,"%Y-%m-%d %H:%M:%S")).days
+        
+        if (delta and delta >= 0):
+            hours_diff = (expected_time_of_use / 365.) * delta
+            final_hour = reference_time.time_of_use + hours_diff
+            
+        return final_hour
+        
+        
     
     # Function to calculate (and estimate) the maintenance element counter at
     # the begining of the project intervention generation date
@@ -194,35 +226,12 @@ class maintenance_element(models.Model):
         
         if project and project.intervention_generation_start_date:
             
-            expected_time_of_use = self.expected_time_of_use
-            tmp=[]
-            for time_of_use_history in self.timeofuse_history:
-                tmp.append({'date':time_of_use_history.date,'time_of_use':time_of_use_history.time_of_use})
-                
-            if (len(tmp)==0):
-                return False
+            reference_times = self.timeofuse_history.sorted(key=lambda r:r.date,reverse=True)
+            if(len(reference_times) > 0):
+                reference_time = reference_times[0]
             
+            self.intervention_generation_start_hours = self.compute_start_hour(reference_time,datetime.strptime(project.intervention_generation_start_date,"%Y-%m-%d"),self.expected_time_of_use)
             
-            tmp.sort(key=lambda x:x['date'],reverse=True)
-            times_of_use = tmp
-            time_reference=None
-            if (times_of_use[0]):
-                time_reference = times_of_use[0]
-                
-            if (not time_reference):
-                return False
-            
-            delta = (datetime.strptime(project.intervention_generation_start_date,"%Y-%m-%d") - datetime.strptime(time_reference['date'],"%Y-%m-%d %H:%M:%S")).days
-            
-            # If generation start date is before last counter we take just the time of use as reference
-            final_hour = time_reference['time_of_use']
-            hours_diff = 0.
-            # If generation start date is before last counter
-            if (delta and delta >= 0):
-                hours_diff = (expected_time_of_use / 365.) * delta
-                final_hour = time_reference['time_of_use'] + hours_diff
-            
-            self.intervention_generation_start_hours=final_hour
 
     
     # As a maintenance element cannot be linked to one and only
@@ -245,40 +254,23 @@ class maintenance_element(models.Model):
             raise Warning( _('Project end date is required'))
         
         result = []
-        #interventions = []
+       
         begin = datetime.strptime(date_from, '%Y-%m-%d')
-        end = datetime.strptime(date_to, '%Y-%m-%d')
+        
+        if date_to:
+            end = datetime.strptime(date_to, '%Y-%m-%d')
+        else:
+            #TODO: Put a config parameter to not store it in the code
+            end = begin + timedelta(days=365*2)
         
         diff = end-begin
         days = diff.days
-        #timeofuse_pool = self.pool.get("maintenance.intervention.timeofuse")
-        #intervention_product_pool = self.pool.get("maintenance.intervention.product")
-        #product_pool = self.pool.get("product.product")
-        #project_pool = self.pool.get("maintenance.project")
+
         installation = project.installation_id
-        #intervention_model_pool = self.pool.get("maintenance.intervention.model")
-        
         
         merge_table = {}
         for element in self:
-            
-            #find expected time of use depending on main_element flag
-            '''
-            main_elt_time_of_use = [elt.expected_time_of_use for elt in element.installation_id.elements if elt.main_element]
-            if main_elt_time_of_use:
-                main_elt_time_of_use = main_elt_time_of_use[0]
-            else:
-                main_elt_time_of_use = 0
-            '''
-            
             if element.element_model_id:
-                '''
-                if element.expected_time_of_use:
-                    expected_time_of_use = element.expected_time_of_use
-                else:
-                    expected_time_of_use = main_elt_time_of_use
-                '''
-                
                 for intervention_model in element.element_model_id.intervention_model_ids:
                     if intervention_model.no_generation_of_intervention:
                         continue
@@ -328,35 +320,36 @@ class maintenance_element(models.Model):
                     
                     while current_date <= end:
                         
-                        keep_alive = keep_alive+1
-                        if keep_alive > 1000:
-                            raise Warning(_('Technical problem, please call your IT support.'))
-                        
-                        merge_key = current_date.strftime('%Y-%m-%d')
-                    
-                        if not merge_table.has_key(merge_key):
-                            merge_table[merge_key] = []
+                        if current_date >= begin:
+                            keep_alive = keep_alive+1
+                            if keep_alive > 1000:
+                                raise Warning(_('Technical problem, please call your IT support.'))
                             
-                        intervention = {
-                            'name':intervention_model.name,
-                            'maint_type':intervention_model.intervention_type_id.id,
-                            'date_scheduled':current_date, 
-                            'date_start':current_date, 
-                            'date_end':current_date+timedelta(hours=intervention_model.duration), 
-                            'planned_hours':intervention_model.duration, 
-                            'description':intervention_model.description, 
-                            'installation_id':installation.id,
-                            'contact_address_id':installation.contact_address_id.id, 
-                            'intervention_products':[(0,0,{'delay':product_intervention_model.product_id.sale_delay,'sale_price':product_intervention_model.product_id.product_tmpl_id.list_price,'cost_price':product_intervention_model.product_id.standard_price,'description':product_intervention_model.product_id.name_get()[0][1],'intervention_model':product_intervention_model.intervention_model_id.id,'intervention_product_model':product_intervention_model.id,'maintenance_element_id':element.id,'product_id':product_intervention_model.product_id.id, 'quantity':product_intervention_model.quantity}) for product_intervention_model in intervention_model.intervention_product_model_ids],
-                            'intervention_timeofuse':[(0,0,{'expected_time_of_use':current_hours,'maintenance_element_id':element.id})],
-                            'hours':current_hours, 
-                            'element_model_id':element.element_model_id.id,
-                            'intervention_model_id':intervention_model.id, 
-                            'project_id':project.id, 
-                            'element_name':element.name
-                        }
+                            merge_key = current_date.strftime('%Y-%m-%d')
                         
-                        merge_table[merge_key].append(intervention)
+                            if not merge_table.has_key(merge_key):
+                                merge_table[merge_key] = []
+                                
+                            intervention = {
+                                'name':intervention_model.name,
+                                'maint_type':intervention_model.intervention_type_id.id,
+                                'date_scheduled':current_date, 
+                                'date_start':current_date, 
+                                'date_end':current_date+timedelta(hours=intervention_model.duration), 
+                                'planned_hours':intervention_model.duration, 
+                                'description':intervention_model.description, 
+                                'installation_id':installation.id,
+                                'contact_address_id':installation.contact_address_id.id, 
+                                'intervention_products':[(0,0,{'delay':product_intervention_model.product_id.sale_delay,'sale_price':product_intervention_model.product_id.product_tmpl_id.list_price,'cost_price':product_intervention_model.product_id.standard_price,'description':product_intervention_model.product_id.name_get()[0][1],'intervention_model':product_intervention_model.intervention_model_id.id,'intervention_product_model':product_intervention_model.id,'maintenance_element_id':element.id,'product_id':product_intervention_model.product_id.id, 'quantity':product_intervention_model.quantity}) for product_intervention_model in intervention_model.intervention_product_model_ids],
+                                'intervention_timeofuse':[(0,0,{'expected_time_of_use':current_hours,'maintenance_element_id':element.id})],
+                                'hours':current_hours, 
+                                'element_model_id':element.element_model_id.id,
+                                'intervention_model_id':intervention_model.id, 
+                                'project_id':project.id, 
+                                'element_name':element.name
+                            }
+                            
+                            merge_table[merge_key].append(intervention)
                         
                         current_hours = current_hours+hours_cycle
                         current_date = current_date+timedelta(days=days_cycle)
@@ -580,9 +573,17 @@ class maintenance_project(models.Model):
                 })                
         return True
     
+    @api.one
+    def get_intervention_start_date(self):
+        if self.intervention_generation_start_date:
+            self.used_intervention_generation_start_date = self.intervention_generation_start_date
+        else:
+            self.used_intervention_generation_start_date = datetime.strftime(datetime.now(), "%Y-%m-%d")
+     
     intervention_ids=fields.One2many('maintenance.intervention', 'project_id', 'Expected interventions under project',help="These are interventions generated under the project. Not to be confounded with interventions history that are all the interventions done on the installation during the contract period")
     intervention_generation_type=fields.Selection([('models','From models')], string="Intervention generation",help="How to generate intervention?",default='models')
     intervention_generation_start_date=fields.Date(string="From", help="Date from which interventions will be generated",default=lambda *a:datetime.now().strftime('%Y-%m-%d'))
+    used_intervention_generation_start_date=fields.Date(compute=get_intervention_start_date,string="Intervention beginning",readonly=True)
 
 
 class maintenance_generation_detail(models.Model):

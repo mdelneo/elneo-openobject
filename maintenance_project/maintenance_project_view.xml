@@ -90,6 +90,9 @@
 				<field name="installation_id" position="after">
 					<field name="current_project_id"/>
 				</field>
+				<field name="warranty_date" position="after">
+					<field name="expected_time_of_use"/>
+				</field>
 			</field>
 		</record>
 	

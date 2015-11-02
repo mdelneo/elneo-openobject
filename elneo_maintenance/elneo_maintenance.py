@@ -168,6 +168,14 @@ class maintenance_project(models.Model):
 class sale_order(models.Model):
     _inherit='sale.order'
     
+    
+    @api.model
+    def copy(self,default=None):
+        if self.intervention_id:
+            return super(sale_order,self.with_context(from_intervention=True)).copy(default=default)
+        else:
+            return super(sale_order,self).copy(default=default)
+        
     @api.constrains('carrier_id','shop_sale')
     @api.one
     def _check_carrier_id(self):

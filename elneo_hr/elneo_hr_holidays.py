@@ -275,14 +275,14 @@ class hr_holidays(models.Model):
                     res['holiday_status_id'] = self._get_default_status_id(1)
             if field == 'date_from':
                 if 'date_from' in res:
-                    res['date_from'] = res['date_from'][0:10]+' 08:00:00'
+                    res['date_from'] = res['date_from'][0:10]+' 07:00:00'
                 else:
-                    res['date_from'] = datetime.now().strftime('%Y-%m-%d 08:00:00')
+                    res['date_from'] = datetime.now().strftime('%Y-%m-%d 07:00:00')
             if field == 'date_to':
                 if 'date_to' in res:
-                    res['date_to'] = res['date_to'][0:10]+' 16:45:00'
+                    res['date_to'] = res['date_to'][0:10]+' 15:45:00'
                 else:
-                    res['date_to'] = datetime.now().strftime('%Y-%m-%d 16:45:00')
+                    res['date_to'] = datetime.now().strftime('%Y-%m-%d 15:45:00')
             if field == 'employee_id':
                 res['employee_id'] = self._get_employee()
         return res 

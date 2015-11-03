@@ -304,6 +304,8 @@
 	                        <label for="code" class="oe_edit_only" string="Reference"/>
 	                        <field name="code" class="oe_inline"/>
 	                    </h1>
+	                    <div class="oe_right oe_button_box" name="button_box">
+	                    </div>
 						<group>
 							<group>
 								<field name="name" />

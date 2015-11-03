@@ -11,7 +11,7 @@
     """,
     'author':  'Elneo',
     'website': 'www.elneo.com',
-    'depends': ['sale',],
+    'depends': ['sale','elneo_autocompute_saleprice'],
     'data': ['views/elneo_sale_price_update_view.xml',],
     'installable': True,
     'auto_install': False,

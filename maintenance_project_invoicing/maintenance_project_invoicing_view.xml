@@ -92,9 +92,9 @@
 		
 
 		<menuitem action="action_maintenance_project_to_invoice" id="menu_maintenance_project_to_invoice"
-			parent="maintenance_project.menu_maintenance_sale" sequence="20" />
+			parent="maintenance_project.menu_maintenance_project" sequence="20" />
 			
 		<menuitem action="action_invoice_project_tree" id="menu_maintenance_project_invoices"
-		parent="maintenance_project.menu_maintenance_sale" sequence="21" />
+		parent="maintenance_project.menu_maintenance_project" sequence="21" />
 	</data>
 </openerp>

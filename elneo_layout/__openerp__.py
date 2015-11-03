@@ -14,5 +14,6 @@
     'installable': True,
     'auto_install': False,
     'application': False,
+    'js': [ 'static/src/js/views.js',   ],
 
 }

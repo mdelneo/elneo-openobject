@@ -19,13 +19,6 @@ class product_product(models.Model):
 class product_template(models.Model):
     _inherit = 'product.template'
     
-    @api.one
-    def _get_is_pneumatics(self):
-        is_pneumatics = False 
-        if self.web_shop_product or self.categ_dpt in ('Pneumatics','Hydraulics'):
-            is_pneumatics = True
-        self.is_pneumatics = is_pneumatics
-    
     def get_customer_sale_price(self, discount_type_id, sale_price, cost_price, quantity):
         if discount_type_id and sale_price and self.is_pneumatics:
             margin_percent = ((sale_price - cost_price)/sale_price)*100
@@ -38,8 +31,6 @@ class product_template(models.Model):
             if discounts:
                 sale_price = sale_price-((discounts[0].discount_percent/100)*sale_price)
         return sale_price
-    
-    is_pneumatics = fields.Boolean('Is pneumatics', compute='_get_is_pneumatics')
 
 class sale_order(models.Model):
     _inherit = 'sale.order'
@@ -74,12 +65,12 @@ class sale_order(models.Model):
             
             
             if on_change_res.has_key('value'):
-                if on_change_res['value'].has_key('price_unit'):
-                    line.price_unit = on_change_res['value']['price_unit']
                 if on_change_res['value'].has_key('purchase_price'):    
                     line.purchase_price = on_change_res['value']['purchase_price']
                 if on_change_res['value'].has_key('brut_sale_price'):    
                     line.purchase_price = on_change_res['value']['brut_sale_price']
+            #For Sale price, we get customer price
+            line.price_unit =line.product_id.get_customer_sale_price(self.discount_type_id.id, line.product_id.list_price, line.product_id.cost_price, line.product_uom_qty)
             
         
 sale_order()

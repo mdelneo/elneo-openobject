@@ -10,9 +10,12 @@
 			<field name="arch" type="xml">
 				<xpath expr="//form/sheet/notebook/page/field/form/notebook/page[@string='History']" position='before'>
 					<page string="Project interventions">
-						<header>
-							<button name="generate_interventions" string="Generate interventions" type="object" class="fa fa-cogs" />
-						</header>
+						<div class=" oe_right oe_button_box">
+				            <button class="oe_stat_button"
+				                    name="generate_interventions" type="object" string="Generate Interventions"
+				                    help="Generate Interventions "
+				                    icon="fa-cogs" widget="statinfo"/>
+				          </div>
 						<field name="intervention_generation_type" />
 						
 						<separator string="Expected interventions under project" colspan="4" />
@@ -37,11 +40,13 @@
 				</xpath>
 				<page string="History" position="after">
 					<page string="Project interventions">
-						<header>
-							<group>
-								<button name="generate_interventions" string="Generate interventions" type="object" class="fa fa-cogs" />
-							</group>
-						</header>
+						<div class=" oe_right oe_button_box">
+				            <button class="oe_stat_button"
+				                    name="generate_interventions" type="object" string="Generate Interventions"
+				                    help="Generate Interventions "
+				                    icon="fa-cogs" widget="statinfo"/>
+				          </div>
+						
 						<group>
 							<field name="intervention_generation_start_date" />
 						</group>
@@ -83,20 +88,19 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="maintenance.view_maintenance_element_form" />
 			<field name="arch" type="xml">
-				<xpath expr="//form/sheet" position="before">
-					<header>
-						<button name="calculate_start_hour" type="object" string="Estimate Start Counter" icon="gtk-execute" help="Estimates start counter hours depending on already known counters"/>
-					</header>
-				</xpath>
+				<div name="button_box" position="inside">
+					<button name="calculate_start_hour" class="oe_inline oe_stat_button" type="object" icon="fa-cogs" string="Calc Start Hour" help="Calculate the counter value at the beginning of the project from known times of use"/>
+	            </div>
 				<xpath expr="//notebook/page[@string='Product']" position="after">
 					<page string="Intervention generation">
 						<separator string="Intervention generation" colspan="4" />
-						
+							
 							<group>
 							<field name="element_model_id" />
 							</group>
 							<group>
 								<field name="intervention_generation_start_hours" string="Hours (at beginning of generation)" />
+								<field name="current_project_start_date" />
 							</group>
 							<group>
 								<field name="intervention_generation_first_date" string="First intervention (at beginning of generation)" />

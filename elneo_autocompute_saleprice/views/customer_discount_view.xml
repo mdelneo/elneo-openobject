@@ -53,7 +53,7 @@
                 </xpath>
                 
                 <xpath expr="//field[@name='order_line']" position="after">
-                	<button name="update_all_prices" string="Update prices" type="object" states="draft" />
+                	<button class="oe_stat_button" name="update_all_prices" string="Update prices" type="object" icon="fa-refresh" states="draft" />
                 </xpath>
 			</field>
 		</record>

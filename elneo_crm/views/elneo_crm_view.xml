@@ -182,6 +182,7 @@
             	<xpath expr="//field[@name='website']" position="after">
             		<field name="active" />
             		<field name="lang" />
+            		<field name="blocked" />
             	</xpath>
             	
             	<xpath expr="//label[@for='street']" position="before">
@@ -233,6 +234,17 @@
             <field name="arch" type="xml">
                 <data>
                 	<xpath expr="//field[@name='section_id']" position="replace" />
+                </data>
+            </field>
+        </record>
+        
+        <record id="view_partner_inherit_followup_form_account_block_partner_elneo_crm" model="ir.ui.view">
+            <field name="name">view.partner.inherit.followup.form.account.block.partner.elneo.crm</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account_block_partner.view_partner_inherit_followup_form_account_block_partner"/>
+            <field name="arch" type="xml">
+                <data>
+                	<xpath expr="//field[@name='blocked']" position="replace" />
                 </data>
             </field>
         </record>

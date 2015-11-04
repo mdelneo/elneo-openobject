@@ -5,7 +5,7 @@ from openerp.tools.translate import _
 class res_partner(models.Model):
     _inherit = 'res.partner'
     
-    CUSTOMER_PROSPECT_SELECTION = [('customer','Customer'),('prospect','Prospect'),('none','None')]
+    CUSTOMER_PROSPECT_SELECTION = [('customer','Customer'),('prospect','Prospect'),('no','None')]
     
     prospect = fields.Boolean('Prospect')
     
@@ -16,6 +16,8 @@ class res_partner(models.Model):
                     partner.customer_prospect = 'customer'
                 elif partner.prospect:
                     partner.customer_prospect = 'prospect'
+                else:
+                    partner.customer_prospect = 'no'
     
     @api.onchange('customer_prospect')
     def _set_customer_prospect(self):
@@ -32,4 +34,4 @@ class res_partner(models.Model):
                     partner.prospect = False
         
     
-    customer_prospect = fields.Selection(CUSTOMER_PROSPECT_SELECTION, string='Customer type', compute='_get_customer_prospect', inverse='_set_customer_prospect', required=True, default='prospect')
+    customer_prospect = fields.Selection(CUSTOMER_PROSPECT_SELECTION, string='Customer relation type', compute='_get_customer_prospect', inverse='_set_customer_prospect', required=True, default='prospect')

@@ -11,5 +11,11 @@
 	        	</field>
 	        </field>
 	     </record>
+	     
+	     <!-- Change sequence of equipment to open equipment when user clic on equipment menu point -->
+	     <menuitem
+	        id="hr_equipment.menu_m_request_form"
+	        sequence="9"
+	        />
 	</data>
 </openerp>

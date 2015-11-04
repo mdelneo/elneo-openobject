@@ -15,7 +15,10 @@
 	     <!-- Change sequence of equipment to open equipment when user clic on equipment menu point -->
 	     <menuitem
 	        id="hr_equipment.menu_m_request_form"
-	        sequence="9"
+	        name="Maintenance Requests"
+	        parent="hr_equipment.menu_equipment_equipment"
+	        action="hr_equipment.hr_equipment_request_action"
+	        sequence="3"
 	        />
 	</data>
 </openerp>

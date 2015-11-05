@@ -96,8 +96,8 @@ class hr_holidays(models.Model):
         new_holiday_status = self._get_default_status_id(self.number_of_days_temp)
         if not new_holiday_status:
             return res
-        if self.holiday_status_id and self.holiday_status_id.id != new_holiday_status:
-            res = {'warning':{'title':'Warning','message':'Holiday type has changed !'}}
+        '''if self.holiday_status_id and self.holiday_status_id.id != new_holiday_status:
+            res = {'warning':{'title':'Warning','message':'Holiday type has changed !'}}'''
         self.holiday_status_id = new_holiday_status
         return res
         
@@ -303,3 +303,18 @@ class hr_holidays_status(models.Model):
     sequence = fields.Integer("Sequence", help='Sequence is used to choose the first type with remaining days as default type.') 
     count = fields.Boolean("Count", help="First type with 'count' and with several remaining days will be used as default type ")
     
+    
+    #display leaves taken and max even if holiday type is limited 
+    def name_get(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        if not context.get('employee_id',False):
+            # leave counts is based on employee_id, would be inaccurate if not based on correct employee
+            return super(hr_holidays_status, self).name_get(cr, uid, ids, context=context)
+
+        res = []
+        for record in self.browse(cr, uid, ids, context=context):
+            name = record.name
+            name = name + ('  (%g/%g)' % (record.leaves_taken or 0.0, record.max_leaves or 0.0))
+            res.append((record.id, name))
+        return res

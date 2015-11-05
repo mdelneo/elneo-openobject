@@ -243,9 +243,16 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="account_block_partner.view_partner_inherit_followup_form_account_block_partner"/>
             <field name="arch" type="xml">
-                <data>
-                	<xpath expr="//field[@name='blocked']" position="replace" />
-                </data>
+                <xpath expr="//field[@name='blocked']" position="replace" />
+            </field>
+        </record>
+        
+        <record id="view_partner_inherit_followup_form_elneo_crm" model="ir.ui.view">
+            <field name="name">view.partner.inherit.followup.form.elneo.crm</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account_followup.view_partner_inherit_followup_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='blocked']" position="replace" />
             </field>
         </record>
         

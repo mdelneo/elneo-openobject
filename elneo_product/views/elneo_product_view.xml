@@ -10,12 +10,12 @@
     	<menuitem id="main_menu_product" name="Products" sequence="17" groups="base.group_user" />
     	
     	<!-- move product sub-menu from sales to Product main menu -->
-    	<menuitem id="base.menu_product" parent="main_menu_product" name="Products" sequence="17" />
+    	<menuitem id="base.menu_product" parent="main_menu_product" name="Products" groups="base.group_user" sequence="17" />
     	
     	<!-- move product_config sub-menu from sale config to product main menu -->
     	<menuitem id="product.prod_config_main" name="Product Categories &amp; Attributes" parent="main_menu_product" sequence="70" groups="base.group_no_one"/>
     	
-    	<menuitem id="product.menu_products"  parent="base.menu_product" name="Products" />
+    	<menuitem id="product.menu_products"  parent="base.menu_product" name="Products"  groups="base.group_user" />
     	
     	<!-- Hide Attributes and Attributes value -->
     	<menuitem id="product.menu_attribute_action" groups="group_hidden_menu" />

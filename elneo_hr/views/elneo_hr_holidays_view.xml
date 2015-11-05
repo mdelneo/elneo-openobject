@@ -74,15 +74,5 @@
 			</field>
 		</record>
 		
-		<record model="ir.actions.act_window" id="hr_holidays.open_company_allocation">
-            <field name="name">Leaves Summary</field>
-            <field name="res_model">hr.holidays</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" eval="view_holiday_simple"/>
-            <field name="context">{'search_default_group_type': 1}</field>
-            <field name="domain">[('holiday_type','=','employee'), ('state', '!=', 'refuse')]</field>
-            <field name="search_view_id" ref="view_hr_holidays_filter"/>
-        </record>
 	</data>
 </openerp>

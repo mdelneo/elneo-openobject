@@ -7,7 +7,8 @@
     
     	<!-- MENU -->
     	<!-- create main menu -->
-    	<menuitem id="main_menu_product" name="Products" sequence="17"/>
+    	<menuitem id="main_menu_product" name="Products" sequence="17" groups="base.group_user" />
+    	
     	<!-- move product sub-menu from sales to Product main menu -->
     	<menuitem id="base.menu_product" parent="main_menu_product" name="Products" sequence="17" />
     	

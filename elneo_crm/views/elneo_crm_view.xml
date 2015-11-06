@@ -122,9 +122,6 @@
                             <field name="title" options='{"no_open": True}'/>
                         </group>
                         
-                        <group>
-                        	<field name="type" />
-                        </group>
                         <field name="comment" placeholder="Put an internal note..." colspan="4" />
                     </group>
                 </sheet>

@@ -265,12 +265,20 @@ class sale_order(models.Model):
     user_id = fields.Many2one(required=True)
     section_id = fields.Many2one(required=True)
     
+    @api.multi
+    def copy(self, default=None):
+        if not default:
+            default = {}
+        return super(sale_order, self.with_context(copy=True)).copy(default) 
+    
     @api.constrains('carrier_id','shop_sale')
     @api.one
     def _check_carrier_id(self):
         from_opportunity = False
         if self._context and self._context.get('active_model',False) and self._context['active_model'] == 'crm.lead':
             from_opportunity = True
+        if self._context.get('copy',False):
+            return
         if not self.shop_sale and not self.carrier_id and not from_opportunity:
             raise ValidationError("A delivery method has to be chosen")
     

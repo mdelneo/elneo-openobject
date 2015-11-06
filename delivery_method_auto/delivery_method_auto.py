@@ -73,6 +73,23 @@ class sale_order(models.Model):
     def onchange_partner_id(self, partner):
         result = super(sale_order, self).onchange_partner_id(partner)
         if partner:
+            partner_obj = self.env['res.partner'].browse(partner)
+            if not partner_obj.property_account_position:
+                if not 'warning' in result:
+                    result['warning'] = {}
+                title = _('Fiscal position missing')
+                message = _('Please add fiscal position to partner %s.')%(partner_obj.name,)
+                if 'title' in result['warning']:
+                    result['warning']['title'] = result['warning']['title'] + title or title
+                else:
+                    result['warning']['title'] = title
+                
+                if 'message' in result['warning']:
+                    result['warning']['message'] = result['warning']['message'] + message or message
+                else:
+                    result['warning']['message'] = message
+            
+            
             carrier_id = self.env['ir.config_parameter'].get_param('delivery_method_auto.default_carrier_id',False)
             if carrier_id:
                 carrier_id = int(carrier_id)

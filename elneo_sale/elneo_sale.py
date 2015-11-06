@@ -262,6 +262,9 @@ class sale_order(models.Model):
     
     stat_on_invoice_date = fields.Boolean("Stats on invoice date")
     
+    user_id = fields.Many2one(required=True)
+    section_id = fields.Many2one(required=True)
+    
     @api.constrains('carrier_id','shop_sale')
     @api.one
     def _check_carrier_id(self):

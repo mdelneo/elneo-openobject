@@ -1,0 +1,193 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_crm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-07 16:31+0000\n"
+"PO-Revision-Date: 2015-11-07 17:34+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "(edit company address)"
+msgstr "(modifier l'adresse de la société)"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "Address"
+msgstr "Adresse"
+
+#. module: elneo_crm
+#: field:res.partner,alias:0
+msgid "Alias"
+msgstr "Alias"
+
+#. module: elneo_crm
+#: model:ir.model,name:elneo_crm.model_crm_case_categ
+msgid "Category of Case"
+msgstr "Catégorie de cas"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_form_elneo_crm
+msgid "Check Validity"
+msgstr "Vérifier la validité"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "City"
+msgstr "Ville"
+
+#. module: elneo_crm
+#: model:ir.actions.act_window,name:elneo_crm.action_partner_form_elneo
+#: model:ir.ui.menu,name:elneo_crm.crm_partners_companies
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "Company"
+msgstr "Société"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_form_elneo
+msgid "Company type"
+msgstr "Company type"
+
+#. module: elneo_crm
+#: model:ir.actions.act_window,name:elneo_crm.action_partner_form_elneo_contacts
+#: model:ir.ui.menu,name:elneo_crm.crm_partners_contacts
+#: view:res.partner:elneo_crm.view_partner_contact_tree
+msgid "Contacts"
+msgstr "Contacts"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "Country"
+msgstr "Pays"
+
+#. module: elneo_crm
+#: model:ir.ui.menu,name:elneo_crm.crm
+msgid "Crm"
+msgstr "Crm"
+
+#. module: elneo_crm
+#: field:sale.order,is_quotation:0
+msgid "Is Quotation"
+msgstr "Est une offre"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "Is a Company?"
+msgstr "Est une société ?"
+
+#. module: elneo_crm
+#: model:ir.model,name:elneo_crm.model_calendar_event
+msgid "Meeting"
+msgstr "Rendez-vous"
+
+#. module: elneo_crm
+#: model:ir.model,name:elneo_crm.model_crm_meeting_user
+msgid "Meeting by user"
+msgstr "Rendez-vous par utilisateur"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "Name"
+msgstr "Nom"
+
+#. module: elneo_crm
+#: model:ir.model,name:elneo_crm.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: elneo_crm
+#: model:ir.model,name:elneo_crm.model_res_partner_address
+msgid "Partner Addresses"
+msgstr "Carnet d'adresses"
+
+#. module: elneo_crm
+#: model:ir.ui.menu,name:elneo_crm.crm_partners
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "Partners"
+msgstr "Partenaires"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "Put an internal note..."
+msgstr "Mettre une note interne..."
+
+#. module: elneo_crm
+#: field:sale.order,quotation_address_id:0
+msgid "Quotation Address"
+msgstr "Addresse de l'Offre"
+
+#. module: elneo_crm
+#: help:sale.order,quotation_address_id:0
+msgid "Quotation address for current sales order."
+msgstr "Addresse de l'offre pour la vente actuelle."
+
+#. module: elneo_crm
+#: model:ir.model,name:elneo_crm.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
+
+#. module: elneo_crm
+#: code:addons/elneo_crm/elneo_crm.py:85
+#, python-format
+msgid "Special characters are not allowed on partner reference."
+msgstr ""
+"Les caractères spéciaux ne sont pas autorisés dans la référence du partenaire"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "State"
+msgstr "État"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "Street..."
+msgstr "Rue..."
+
+#. module: elneo_crm
+#: code:addons/elneo_crm/elneo_crm.py:33
+#, python-format
+msgid ""
+"There is few sales for this partner. Please close or cancel them before "
+"disable the partner."
+msgstr ""
+"Il y a quelques ventes pour ce partenaire. Veuillez les fermer ou les "
+"annuler avant de désactiver le partenaire."
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "ZIP"
+msgstr "Code postal"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_form_elneo_crm
+msgid "e.g. BE0477472701"
+msgstr "e.g. BE0477472701"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "e.g. Sales Director"
+msgstr "ex : directeur commercial"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_contact_form
+msgid "e.g. www.odoo.com"
+msgstr "ex : www.odoo.com"
+
+#. module: elneo_crm
+#: view:res.partner:elneo_crm.view_partner_form_elneo
+msgid "tree"
+msgstr "tree"

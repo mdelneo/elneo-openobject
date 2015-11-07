@@ -1,4 +1,4 @@
-from openerp import models, api
+from openerp import models, api, _
 from openerp.exceptions import ValidationError
 import re
 
@@ -15,7 +15,7 @@ class res_partner(models.Model):
         try:
             email = str(self.email)
         except:
-            raise ValidationError('Email is not well written : '+self.email)
+            raise ValidationError(_('Email is not well written : %s') % self.email)
         
         if not re.search(self.REGEX, email.upper()):
-            raise ValidationError('Email is not well written : '+email)
+            raise ValidationError(_('Email is not well written : %s') % email)

@@ -1,0 +1,29 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_unique_ref_name
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 12:13+0000\n"
+"PO-Revision-Date: 2015-11-09 13:14+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: partner_unique_ref_name
+#: code:addons/partner_unique_ref_name/partner_unique_ref_name.py:15
+#, python-format
+msgid "Another partner exists with the same reference (%s)"
+msgstr "Un autre partenaire existe avec la même référence (%s)"
+
+#. module: partner_unique_ref_name
+#: model:ir.model,name:partner_unique_ref_name.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"

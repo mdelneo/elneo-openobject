@@ -1,62 +1,323 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* elneo_supplier_price_update
+# 	* elneo_supplier_price_update
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.4\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2014-12-04 09:47+0000\n"
-"PO-Revision-Date: 2014-12-04 10:47+0100\n"
-"Last-Translator: Clément THOMAS <clement.thomas@elneo.com>\n"
-"Language-Team: \n"
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 10:15+0000\n"
+"PO-Revision-Date: 2015-11-09 11:19+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,product_group:0
-msgid "Product Group"
-msgstr "Product Group"
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- brut_price"
+msgstr "- brut_price"
 
 #. module: elneo_supplier_price_update
-#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:847
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- discount"
+msgstr "- discount"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- min_quantity (The minimal quantity to buy for this product)"
+msgstr "- min_quantity (La quantité minimale à acheter)"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- multiply (Coefficient to obtain the unit net price)"
+msgstr "- multiply (Le coefficient pour obtenir le prix unitaire net)"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- name_de"
+msgstr "- name_de"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- name_en"
+msgstr "- name_en"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- name_fr"
+msgstr "- name_fr"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- name_nl"
+msgstr "- name_nl"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- name_tmpl"
+msgstr "- name_tmpl"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- net_price"
+msgstr "- net_price"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- pack"
+msgstr "- pack"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- product_category_id"
+msgstr "- product_category_id"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- product_code"
+msgstr "- product_code"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- product_group"
+msgstr "- product_group"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- public_price"
+msgstr "- public_price"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- quantity (The quantity for the price calculation)"
+msgstr "- quantity (La quantité pour le calcul du prix)"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "- weight"
+msgstr "- weight"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Action"
+msgstr "Action"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,brut_price:0
+msgid "Brut Price"
+msgstr "Prix Brut"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+#: view:elneo.supplier.price.update.wizard:elneo_supplier_price_update.supplier_price_update_wizard_view
+#: view:elneo.update.landefeld.prices.wizard:elneo_supplier_price_update.view_elneo_update_landefeld_prices_wizard_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update,state:0
+msgid "Canceled"
+msgstr "Annulé"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,complete_list_price:0
+msgid "Complete Price List"
+msgstr "Liste de Prix complète"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Compute"
+msgstr "Calculer"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update,state:0
+msgid "Computed"
+msgstr "Calculé"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update,state:0
+msgid "Computing"
+msgstr "Calcul en cours"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update,state:0
+msgid "Computing Error"
+msgstr "Erreur de Calcul"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update.line,state:0
+msgid "Create Cancelled"
+msgstr "Création annulée"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update.line,state:0
+msgid "Create Error"
+msgstr "Erreur de création"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,percent_operation_create:0
+msgid "Create Operation Progress"
+msgstr "Progression de l'Opération de création"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Create Products"
+msgstr "Créer les Produits"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update.line,state:0
+msgid "Created"
+msgstr "Créé"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,create_uid:0
+#: field:elneo.supplier.price.update.line,create_uid:0
+#: field:elneo.supplier.price.update.message,create_uid:0
+#: field:elneo.supplier.price.update.wizard,create_uid:0
+#: field:elneo.update.landefeld.prices.wizard,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,create_date:0
+#: field:elneo.supplier.price.update.line,create_date:0
+#: field:elneo.supplier.price.update.message,create_date:0
+#: field:elneo.supplier.price.update.wizard,create_date:0
+#: field:elneo.update.landefeld.prices.wizard,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,date:0
+#: field:elneo.supplier.price.update.message,date:0
+msgid "Date"
+msgstr "Date"
+
+#. module: elneo_supplier_price_update
+#: help:elneo.supplier.price.update,date:0
+msgid "Date of Import"
+msgstr "Date d'import"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,discount:0
+msgid "Discount"
+msgstr "Remise"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update.wizard:elneo_supplier_price_update.supplier_price_update_wizard_view
+msgid "Do you really want to affect every price of this supplier?"
+msgstr "Voulez-vous réellement modifier chaque prix de ce fournisseur?"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Do you really want to change status of this line?"
+msgstr "Voulez-vous réellement changer le statut de cette ligne?"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Do you really want to create these products as displayed?"
+msgstr "Voulez-vous réellement créer ces produits tels qu'affichés?"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history_search
+#: selection:elneo.supplier.price.update,state:0
+msgid "Done"
+msgstr "Fait"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history_search
+#: selection:elneo.supplier.price.update,state:0
+#: selection:elneo.supplier.price.update.line,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history_search
+msgid "Draft Imports"
+msgstr "Imports brouillon"
+
+#. module: elneo_supplier_price_update
+#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:222
+#, python-format
+msgid "ERROR : "
+msgstr "ERREUR : "
+
+#. module: elneo_supplier_price_update
+#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:722
 #, python-format
 msgid "ERROR : During Create lines - "
 msgstr "ERREUR : Durant la création des lignes -"
 
 #. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-#: selection:elneo.supplier.price.update.line,state:0
-msgid "To Update"
-msgstr "A mettre à jour"
+#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:529
+#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:531
+#, python-format
+msgid "ERROR : During Import lines - "
+msgstr "ERREUR : Durant l'Import des lignes - "
 
 #. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,old_net_price:0
-msgid "Old Net Price"
-msgstr "Ancien Prix Net"
+#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:591
+#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:651
+#, python-format
+msgid "ERROR : During Purchase Price Update lines - "
+msgstr "ERREUR : Pendant la mise à jour des lignes de prix d'achat - "
 
 #. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
+#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:326
+#, python-format
+msgid "ERROR : During getting data from Landefeld Line :"
+msgstr "ERROR : Durant l'obtention des données depuis la ligne Landefeld :"
+
+#. module: elneo_supplier_price_update
+#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:218
+#, python-format
+msgid "ERROR : The csv file is not in the expected format"
+msgstr "ERREUR : Le fichier csv n'est pas au format attendu"
+
+#. module: elneo_supplier_price_update
+#: field:product.group,category_id:0
+msgid "Equivalent category"
+msgstr "Catégorie Equivalente"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history_search
+msgid "Group By State"
+msgstr "Grouper par Etat"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history_search
 msgid "Group By..."
 msgstr "Grouper Par..."
 
 #. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- quantity (The quantity for the price calculation)"
-msgstr "- quantity (La quantité pour le calcul du prix)"
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history_search
+msgid "History Search"
+msgstr "Recherche d'Historique"
 
 #. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,supplier_id:0
-#: field:elneo.supplier.price.update.wizard,supplier_id:0
-msgid "Supplier"
-msgstr "Fournisseur"
+#: field:elneo.supplier.price.update,id:0
+#: field:elneo.supplier.price.update.line,id:0
+#: field:elneo.supplier.price.update.message,id:0
+#: field:elneo.supplier.price.update.wizard,id:0
+#: field:elneo.update.landefeld.prices.wizard,id:0
+msgid "ID"
+msgstr "ID"
 
 #. module: elneo_supplier_price_update
-#: help:elneo.supplier.price.update,increase_price:0
-msgid "This is the increase percent from product sold quantities"
-msgstr "C'est le pourcentage d'augmentation à partir des quantités vendues du produit"
+#: field:elneo.supplier.price.update.message,import_id:0
+#: view:elneo.update.landefeld.prices.wizard:elneo_supplier_price_update.view_elneo_update_landefeld_prices_wizard_form
+msgid "Import"
+msgstr "Import"
 
 #. module: elneo_supplier_price_update
 #: field:elneo.supplier.price.update,messages:0
@@ -64,22 +325,273 @@ msgid "Import Messages"
 msgstr "Messages d'Import"
 
 #. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Import Properties"
+msgstr "Propriétés d'Import"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,import_id:0
+msgid "Import id"
+msgstr "Import id"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Import lines"
+msgstr "Importer les lignes"
+
+#. module: elneo_supplier_price_update
+#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:370
+#, python-format
+msgid "Impossible to import. Required fields are not present in the file!"
+msgstr "Impossible d'importer. Des champs nécessaires ne sont pas présents dans le fichier!"
+
+#. module: elneo_supplier_price_update
+#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:186
+#, python-format
+msgid "Impossible to import. The Csv file is not defined!"
+msgstr "Impossible d'importer. Le fichier csv n'est pas défini!"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,increase_price:0
+msgid "Increase"
+msgstr "Augmentation"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,increase_price:0
+#: field:elneo.supplier.price.update.wizard,increase_percent:0
+msgid "Increase Percent"
+msgstr "Pourcentage d'Augmentation"
+
+#. module: elneo_supplier_price_update
+#: model:ir.model,name:elneo_supplier_price_update.model_product_supplierinfo
+msgid "Information about a product supplier"
+msgstr "Information sur le fournisseur du produit"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update,type:0
+msgid "Landefeld"
+msgstr "Landefeld"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update.line:elneo_supplier_price_update.view_supplier_price_update_history_line
+msgid "Landefeld specifics"
+msgstr "Landefeld specifics"
+
+#. module: elneo_supplier_price_update
+#: field:product.supplierinfo,last_price_update_date:0
+msgid "Last Price Update Date"
+msgstr "Date de dernière Mise à jour des prix"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,write_uid:0
+#: field:elneo.supplier.price.update.line,write_uid:0
+#: field:elneo.supplier.price.update.message,write_uid:0
+#: field:elneo.supplier.price.update.wizard,write_uid:0
+#: field:elneo.update.landefeld.prices.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,write_date:0
+#: field:elneo.supplier.price.update.line,write_date:0
+#: field:elneo.supplier.price.update.message,write_date:0
+#: field:elneo.supplier.price.update.wizard,write_date:0
+#: field:elneo.update.landefeld.prices.wizard,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,year_sold_quantity:0
+msgid "Last Year Sold Quantity"
+msgstr "Quantité vendue l'année précédente"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Legend"
+msgstr "Légende"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,line_ids:0
+#: field:elneo.supplier.price.update,line_ids_display:0
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,lines_sold:0
+#: field:elneo.supplier.price.update,lines_sold_display:0
+msgid "Lines Sold"
+msgstr "Lignes vendues"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,lines_to_create:0
+#: field:elneo.supplier.price.update,lines_to_create_display:0
+msgid "Lines to Create"
+msgstr "Lignes à créer"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,lines_to_update:0
+#: field:elneo.supplier.price.update,lines_to_update_display:0
+msgid "Lines to Update"
+msgstr "Lignes à mettre à jour"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "List of fields for standard import csv file:"
+msgstr "Liste des champs pour l'import standard en fichier csv:"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.message,message:0
+msgid "Message"
+msgstr "Message"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Messages"
+msgstr "Messages"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,min_quantity:0
+msgid "Min. Buy Quantity"
+msgstr "Quantité Min. d'Achat"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,multiply:0
+msgid "Multiply"
+msgstr "Multiple"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,name_de:0
+msgid "Name DE"
+msgstr "Nom DE"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,name_en:0
+msgid "Name EN"
+msgstr "Nom EN"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,name_fr:0
+msgid "Name FR"
+msgstr "Nom FR"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,name_nl:0
+msgid "Name NL"
+msgstr "Nom NL"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,name_tmpl:0
+msgid "Name Template"
+msgstr "Name Template"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,net_price:0
+msgid "Net Price"
+msgstr "Prix Net"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,net_price_difference:0
+msgid "Net Price Difference"
+msgstr "Différence de Prix Net"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,old_brut_price:0
+msgid "Old Brut Price"
+msgstr "Ancien Prix Brut"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,old_discount:0
+msgid "Old Discount"
+msgstr "Ancienne remise"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,old_net_price:0
+msgid "Old Net Price"
+msgstr "Ancien Prix Net"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,old_public_price:0
+msgid "Old Public Price"
+msgstr "Ancien Prix publique"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Original Lines"
+msgstr "Lignes originales"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,pack:0
+msgid "Pack"
+msgstr "Pack"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,pricelist_file:0
+msgid "Pricelist File"
+msgstr "Fichier de liste de prix"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update.line:elneo_supplier_price_update.view_supplier_price_update_history_line
+msgid "Prices"
+msgstr "Prix"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,product_category_id:0
+msgid "Product Category"
+msgstr "Catégorie de produit"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,product_group:0
+msgid "Product Group"
+msgstr "Product Group"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,product_code:0
+msgid "Product Supplier Code"
+msgstr "Code Produit Fournisseur"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update.line:elneo_supplier_price_update.view_supplier_price_update_history_line
+#: field:elneo.supplier.price.update.line,product_ids:0
+msgid "Products"
+msgstr "Produits"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Products Sold Last Year"
+msgstr "Produits vendus "
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update.line,public_price:0
+msgid "Public Price"
+msgstr "Prix publique"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update.line,state:0
+msgid "Purchase Price Updated"
+msgstr "Prix d'Achat Mis à jour"
+
+#. module: elneo_supplier_price_update
 #: selection:elneo.supplier.price.update,state:0
 msgid "Purchase Prices Updated"
 msgstr "Prix d'Achat Mis à jour"
 
 #. module: elneo_supplier_price_update
-#: help:elneo.supplier.price.update,code:0
-msgid "The Import Code"
-msgstr "Le Code d'Import"
+#: field:elneo.supplier.price.update.line,quantity:0
+msgid "Quantity"
+msgstr "Quantité"
 
 #. module: elneo_supplier_price_update
-#: field:product.supplierinfo,last_supplier_price_update:0
-msgid "Update"
-msgstr "Update"
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Reset"
+msgstr "Remettre à zéro"
 
 #. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
+#: field:elneo.supplier.price.update,save_in_sale_price_fixed:0
+msgid "Save in Sale Price"
+msgstr "Sauvegarder dans les prix d'Achat"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
 msgid "Set to Draft"
 msgstr "Mettre en Brouillon"
 
@@ -89,522 +601,17 @@ msgid "Standard"
 msgstr "Standard"
 
 #. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,multiply:0
-msgid "Multiply"
-msgstr "Multiple"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Legend"
-msgstr "Légende"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update.line:0
-#: field:elneo.supplier.price.update.line,product_ids:0
-msgid "Products"
-msgstr "Produits"
-
-#. module: elneo_supplier_price_update
-#: model:ir.model,name:elneo_supplier_price_update.model_elneo_update_landefeld_prices_wizard
-msgid "elneo.update.landefeld.prices.wizard"
-msgstr "elneo.update.landefeld.prices.wizard"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update.line:0
-msgid "Landefeld specifics"
-msgstr "Landefeld specifics"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update.wizard:0
-msgid "Ok"
-msgstr "Ok"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Messages"
-msgstr "Messages"
-
-#. module: elneo_supplier_price_update
-#: constraint:product.supplierinfo:0
-msgid "Error: The default UOM and the Supplier Product UOM must be in the same category."
-msgstr "Erreur : l'UdM par défaut et l'UdM du fournisseur doivent appartenir à la même catégorie."
-
-#. module: elneo_supplier_price_update
-#: help:elneo.supplier.price.update,type:0
-msgid "The type of input will determine which kind of file structure can be imported."
-msgstr "Le type d'entrée déterminera quel type de structure de fichier pourra être importée."
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Import lines"
-msgstr "Importer les lignes"
-
-#. module: elneo_supplier_price_update
-#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:202
-#, python-format
-msgid "ERROR : The csv file is not in the expected format"
-msgstr "ERREUR : Le fichier csv n'est pas au format attendu"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- discount"
-msgstr "- discount"
-
-#. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update.line,state:0
-msgid "Create Error"
-msgstr "Erreur de création"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,lines_to_update:0
-msgid "Lines to Update"
-msgstr "Lignes à mettre à jour"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "List of fields for standard import csv file:"
-msgstr "Liste des champs pour l'import standard en fichier csv:"
-
-#. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update,state:0
-msgid "Computing"
-msgstr "Calcul en cours"
-
-#. module: elneo_supplier_price_update
-#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:162
-#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:172
-#, python-format
-msgid "Impossible to import. The Csv file is not defined!"
-msgstr "Impossible d'importer. Le fichier csv n'est pas défini!"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Import Properties"
-msgstr "Propriétés d'Import"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- name_fr"
-msgstr "- name_fr"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,old_brut_price:0
-msgid "Old Brut Price"
-msgstr "Ancien Prix Brut"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,net_price:0
-msgid "Net Price"
-msgstr "Prix Net"
-
-#. module: elneo_supplier_price_update
-#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:206
-#, python-format
-msgid "ERROR : "
-msgstr "ERREUR : "
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Do you really want to change status of this line?"
-msgstr "Voulez-vous réellement changer le statut de cette ligne?"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,net_price_difference:0
-msgid "Net Price Difference"
-msgstr "Différence de Prix Net"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Update Purchase Prices"
-msgstr "Mettre à jour les prix d'Achat"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,name_en:0
-msgid "Name EN"
-msgstr "Nom EN"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history_search
 #: field:elneo.supplier.price.update,state:0
 #: field:elneo.supplier.price.update.line,state:0
 msgid "State"
 msgstr "Statut"
 
 #. module: elneo_supplier_price_update
-#: field:product.supplierinfo,last_price_update_date:0
-msgid "Last Price Update Date"
-msgstr "Date de dernière Mise à jour des prix"
-
-#. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update.line,state:0
-msgid "Purchase Price Updated"
-msgstr "Prix d'Achat Mis à jour"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,pricelist_file:0
-msgid "Pricelist File"
-msgstr "Fichier de liste de prix"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,brut_price:0
-msgid "Brut Price"
-msgstr "Prix Brut"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,type:0
-msgid "Type"
-msgstr "Type"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- product_code"
-msgstr "- product_code"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,increase_price:0
-#: field:elneo.supplier.price.update.wizard,increase_percent:0
-msgid "Increase Percent"
-msgstr "Pourcentage d'Augmentation"
-
-#. module: elneo_supplier_price_update
-#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:641
-#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:646
-#, python-format
-msgid "ERROR : During Import lines - "
-msgstr "ERREUR : Durant l'Import des lignes - "
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Products Sold Last Year"
-msgstr "Produits vendus "
-
-#. module: elneo_supplier_price_update
-#: model:ir.actions.act_window,name:elneo_supplier_price_update.action_supplier_price_update
-#: model:ir.ui.menu,name:elneo_supplier_price_update.menu_supplier_price_history
-msgid "Supplier Price Update History"
-msgstr "Historique des Mises à jour de Prix Fournisseur"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update.line:0
-msgid "Translations"
-msgstr "Translations"
-
-#. module: elneo_supplier_price_update
-#: model:ir.model,name:elneo_supplier_price_update.model_elneo_supplier_price_update_message
-msgid "elneo.supplier.price.update.message"
-msgstr "elneo.supplier.price.update.message"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update.line:0
-msgid "Prices"
-msgstr "Prix"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,old_discount:0
-msgid "Old Discount"
-msgstr "Ancienne remise"
-
-#. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update.line,state:0
-msgid "Created"
-msgstr "Créé"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,percent_operation_create:0
-msgid "Create Operation Progress"
-msgstr "Progression de l'Opération de création"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- product_group"
-msgstr "- product_group"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-#: view:elneo.supplier.price.update.wizard:0
-#: view:elneo.update.landefeld.prices.wizard:0
-msgid "Cancel"
-msgstr "Annuler"
-
-#. module: elneo_supplier_price_update
-#: model:ir.model,name:elneo_supplier_price_update.model_elneo_supplier_price_update
-msgid "elneo.supplier.price.update"
-msgstr "elneo.supplier.price.update"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "The import will erase existing lines. Do you want to continue?"
-msgstr "Cet import effacera les lignes existantes. Voulez-vous continuer?"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,pack:0
-msgid "Pack"
-msgstr "Pack"
-
-#. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update,state:0
-msgid "Computed"
-msgstr "Calculé"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,weight:0
-msgid "Weight"
-msgstr "Poids"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,percent_operation_update:0
-msgid "Update Operation Progress"
-msgstr "Progression de l'opération de mise à jour"
-
-#. module: elneo_supplier_price_update
-#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:699
-#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:772
-#, python-format
-msgid "ERROR : During Purchase Price Update lines - "
-msgstr "ERREUR : Pendant la mise à jour des lignes de prix d'achat - "
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- name_de"
-msgstr "- name_de"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Original Lines"
-msgstr "Lignes originales"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-#: view:elneo.supplier.price.update.line:0
-msgid "Supplier Price List History Lines"
-msgstr "Lignes d'Historique de liste de prix fournisseur"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.message,message:0
-msgid "Message"
-msgstr "Message"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,product_code:0
-msgid "Product Supplier Code"
-msgstr "Code Produit Fournisseur"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,lines_sold:0
-msgid "Lines Sold"
-msgstr "Lignes vendues"
-
-#. module: elneo_supplier_price_update
-#: constraint:product.supplierinfo:0
-msgid "You can not create two supplier lines with the same sequence"
-msgstr "Vous ne pouvez créer deux fournisseurs avec la même séquence"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,increase_price:0
-msgid "Increase"
-msgstr "Augmentation"
-
-#. module: elneo_supplier_price_update
-#: model:ir.actions.act_window,name:elneo_supplier_price_update.action_supplier_price_update_wizard
-#: model:ir.ui.menu,name:elneo_supplier_price_update.menu_supplier_price_wizard
-msgid "Update supplier prices (%)"
-msgstr "Mettre à jour les prix fournisseur (%)"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-#: selection:elneo.supplier.price.update,state:0
-#: selection:elneo.supplier.price.update.line,state:0
-msgid "Draft"
-msgstr "Brouillon"
-
-#. module: elneo_supplier_price_update
-#: model:ir.ui.menu,name:elneo_supplier_price_update.menu_supplier_price_update
-msgid "Supplier Price Update"
-msgstr "Mise à jour des prix fournisseur"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,name_tmpl:0
-msgid "Name Template"
-msgstr "Name Template"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.message,import_id:0
-#: view:elneo.update.landefeld.prices.wizard:0
-msgid "Import"
-msgstr "Import"
-
-#. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update.line,state:0
-msgid "Updated"
-msgstr "Mis à jour"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- multiply (Coefficient to obtain the unit net price)"
-msgstr "- multiply (Le coefficient pour obtenir le prix unitaire net)"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,public_price:0
-msgid "Public Price"
-msgstr "Prix publique"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,import_id:0
-msgid "unknown"
-msgstr "inconnu"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,discount:0
-msgid "Discount"
-msgstr "Remise"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "History Search"
-msgstr "Recherche d'Historique"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- product_category_id"
-msgstr "- product_category_id"
-
-#. module: elneo_supplier_price_update
-#: model:ir.model,name:elneo_supplier_price_update.model_product_supplierinfo
-msgid "Information about a product supplier"
-msgstr "Information sur le fournisseur du produit"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,date:0
-#: field:elneo.supplier.price.update.message,date:0
-msgid "Date"
-msgstr "Date"
-
-#. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update.line,state:0
-msgid "Create Cancelled"
-msgstr "Création annulée"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,name_nl:0
-msgid "Name NL"
-msgstr "Nom NL"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Create Products"
-msgstr "Créer les Produits"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Compute"
-msgstr "Calculer"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- net_price"
-msgstr "- net_price"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- name_tmpl"
-msgstr "- name_tmpl"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,save_in_sale_price_fixed:0
-msgid "Save in Sale Price"
-msgstr "Sauvegarder dans les prix d'Achat"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- brut_price"
-msgstr "- brut_price"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Action"
-msgstr "Action"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,quantity:0
-msgid "Quantity"
-msgstr "Quantité"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,code:0
-msgid "Code"
-msgstr "Code"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,old_public_price:0
-msgid "Old Public Price"
-msgstr "Ancien Prix publique"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Supplier Price List History"
-msgstr "Historique de Liste de Prix Fournisseur"
-
-#. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update,state:0
-msgid "Computing Error"
-msgstr "Erreur de Calcul"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- name_en"
-msgstr "- name_en"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- min_quantity (The minimal quantity to buy for this product)"
-msgstr "- min_quantity (La quantité minimale à acheter)"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-#: selection:elneo.supplier.price.update,state:0
-msgid "Done"
-msgstr "Fait"
-
-#. module: elneo_supplier_price_update
-#: code:addons/elneo_supplier_price_update/elneo_supplier_price_update.py:346
-#, python-format
-msgid "Impossible to import. Required fields are not present in the file!"
-msgstr "Impossible d'importer. Des champs nécessaires ne sont pas présents dans le fichier!"
-
-#. module: elneo_supplier_price_update
-#: field:product.group,category_id:0
-msgid "Equivalent category"
-msgstr "Catégorie Equivalente"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Reset"
-msgstr "Remettre à zéro"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Update Sale Prices"
-msgstr "Mettre à jour les Prix de Vente"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,complete_list_price:0
-msgid "Complete Price List"
-msgstr "Liste de Prix complète"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update.message:0
-msgid "Supplier Price List Import History Messages"
-msgstr "Historiques des Messages d'Import de Prix Fournisseurs"
-
-#. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update.line,state:0
-msgid "Update Error"
-msgstr "Erreur de mise à jour"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- pack"
-msgstr "- pack"
+#: field:elneo.supplier.price.update,supplier_id:0
+#: field:elneo.supplier.price.update.wizard,supplier_id:0
+msgid "Supplier"
+msgstr "Fournisseur"
 
 #. module: elneo_supplier_price_update
 #: field:elneo.supplier.price.update.line,suppinfo_id:0
@@ -613,46 +620,129 @@ msgid "Supplier Info"
 msgstr "Supplier Info"
 
 #. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- name_nl"
-msgstr "- name_nl"
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history_tree
+msgid "Supplier Price List History"
+msgstr "Historique de Liste de Prix Fournisseur"
 
 #. module: elneo_supplier_price_update
-#: help:elneo.supplier.price.update,date:0
-msgid "Date of Import"
-msgstr "Date d'import"
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+#: view:elneo.supplier.price.update.line:elneo_supplier_price_update.view_supplier_price_update_history_line
+#: view:elneo.supplier.price.update.line:elneo_supplier_price_update.view_supplier_price_update_history_line_tree
+msgid "Supplier Price List History Lines"
+msgstr "Lignes d'Historique de liste de prix fournisseur"
 
 #. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,name_de:0
-msgid "Name DE"
-msgstr "Nom DE"
+#: view:elneo.supplier.price.update.message:elneo_supplier_price_update.view_supplier_price_update_history_message
+#: view:elneo.supplier.price.update.message:elneo_supplier_price_update.view_supplier_price_update_history_message_tree
+msgid "Supplier Price List Import History Messages"
+msgstr "Historiques des Messages d'Import de Prix Fournisseurs"
 
 #. module: elneo_supplier_price_update
-#: model:ir.model,name:elneo_supplier_price_update.model_product_group
-msgid "product.group"
-msgstr "product.group"
+#: model:ir.ui.menu,name:elneo_supplier_price_update.menu_supplier_price_update
+msgid "Supplier Price Update"
+msgstr "Mise à jour des prix fournisseur"
 
 #. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update,state:0
-msgid "Canceled"
-msgstr "Annulé"
+#: model:ir.actions.act_window,name:elneo_supplier_price_update.action_supplier_price_update
+#: model:ir.ui.menu,name:elneo_supplier_price_update.menu_supplier_price_history
+msgid "Supplier Price Update History"
+msgstr "Historique des Mises à jour de Prix Fournisseur"
 
 #. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update,state:0
-msgid "Updating Purchase Prices"
-msgstr "Mise à jour des Prix d'Achat en cours"
+#: help:elneo.supplier.price.update,code:0
+msgid "The Import Code"
+msgstr "Le Code d'Import"
 
 #. module: elneo_supplier_price_update
-#: view:elneo.update.landefeld.prices.wizard:0
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "The import will erase existing lines. Do you want to continue?"
+msgstr "Cet import effacera les lignes existantes. Voulez-vous continuer?"
+
+#. module: elneo_supplier_price_update
+#: help:elneo.supplier.price.update,type:0
+msgid "The type of input will determine which kind of file structure can be imported."
+msgstr "Le type d'entrée déterminera quel type de structure de fichier pourra être importée."
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "This action will create products from the above lines which are in 'To Create' state"
+msgstr "Cette action créera des produits à partir des lignes ci-dessus qui sont dans l'état 'A créer'"
+
+#. module: elneo_supplier_price_update
+#: help:elneo.supplier.price.update,increase_price:0
+msgid "This is the increase percent from product sold quantities"
+msgstr "C'est le pourcentage d'augmentation à partir des quantités vendues du produit"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+#: selection:elneo.supplier.price.update.line,state:0
+msgid "To Create"
+msgstr "A créer"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+#: selection:elneo.supplier.price.update.line,state:0
+msgid "To Update"
+msgstr "A mettre à jour"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update.line:elneo_supplier_price_update.view_supplier_price_update_history_line
+msgid "Translations"
+msgstr "Traductions"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: elneo_supplier_price_update
+#: field:product.supplierinfo,last_supplier_price_update:0
+msgid "Update"
+msgstr "Mettre à jour"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update.line,state:0
+msgid "Update Error"
+msgstr "Erreur de mise à jour"
+
+#. module: elneo_supplier_price_update
+#: field:elneo.supplier.price.update,percent_operation_update:0
+msgid "Update Operation Progress"
+msgstr "Progression de l'opération de mise à jour"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Update Purchase Prices"
+msgstr "Mettre à jour les prix d'Achat"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history
+msgid "Update Sale Prices"
+msgstr "Mettre à jour les Prix de Vente"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.update.landefeld.prices.wizard:elneo_supplier_price_update.view_elneo_update_landefeld_prices_wizard_form
 #: model:ir.actions.act_window,name:elneo_supplier_price_update.action_wizard_update_landefeld_prices
 #: model:ir.ui.menu,name:elneo_supplier_price_update.update_landefeld_prices_menu
 msgid "Update landefeld prices"
 msgstr "Mettre à jour les prix landefeld"
 
 #. module: elneo_supplier_price_update
-#: model:ir.model,name:elneo_supplier_price_update.model_elneo_supplier_price_update_wizard
-msgid "elneo.supplier.price.update.wizard"
-msgstr "elneo.supplier.price.update.wizard"
+#: model:ir.actions.act_window,name:elneo_supplier_price_update.action_supplier_price_update_wizard
+#: model:ir.ui.menu,name:elneo_supplier_price_update.menu_supplier_price_wizard
+msgid "Update supplier prices (%)"
+msgstr "Mettre à jour les prix fournisseur (%)"
+
+#. module: elneo_supplier_price_update
+#: selection:elneo.supplier.price.update.line,state:0
+msgid "Updated"
+msgstr "Mis à jour"
+
+#. module: elneo_supplier_price_update
+#: view:elneo.supplier.price.update:elneo_supplier_price_update.view_supplier_price_update_history_search
+msgid "Updated prices"
+msgstr "Prix mis à jour"
 
 #. module: elneo_supplier_price_update
 #: selection:elneo.supplier.price.update,state:0
@@ -660,68 +750,16 @@ msgid "Updating"
 msgstr "Mise à jour en cours"
 
 #. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-#: selection:elneo.supplier.price.update.line,state:0
-msgid "To Create"
-msgstr "A créer"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,lines_to_create:0
-msgid "Lines to Create"
-msgstr "Lignes à créer"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "Do you really want to create these products as displayed?"
-msgstr "Voulez-vous réellement créer ces produits tels qu'affichés?"
-
-#. module: elneo_supplier_price_update
-#: selection:elneo.supplier.price.update,type:0
-msgid "Landefeld"
-msgstr "Landefeld"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update,line_ids:0
-msgid "Lines"
-msgstr "Lignes"
-
-#. module: elneo_supplier_price_update
 #: selection:elneo.supplier.price.update,state:0
 msgid "Updating Error"
 msgstr "Erreur de mise à jour"
 
 #. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,product_category_id:0
-msgid "Product Category"
-msgstr "Product Category"
+#: selection:elneo.supplier.price.update,state:0
+msgid "Updating Purchase Prices"
+msgstr "Mise à jour des Prix d'Achat en cours"
 
 #. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,year_sold_quantity:0
-msgid "Last Year Sold Quantity"
-msgstr "Quantité vendue l'année précédente"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,name_fr:0
-msgid "Name FR"
-msgstr "Nom FR"
-
-#. module: elneo_supplier_price_update
-#: model:ir.model,name:elneo_supplier_price_update.model_elneo_supplier_price_update_line
-msgid "elneo.supplier.price.update.line"
-msgstr "elneo.supplier.price.update.line"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- weight"
-msgstr "- weight"
-
-#. module: elneo_supplier_price_update
-#: view:elneo.supplier.price.update:0
-msgid "- public_price"
-msgstr "- public_price"
-
-#. module: elneo_supplier_price_update
-#: field:elneo.supplier.price.update.line,min_quantity:0
-msgid "Min. Buy Quantity"
-msgstr "Quantité Min. d'Achat"
-
+#: field:elneo.supplier.price.update.line,weight:0
+msgid "Weight"
+msgstr "Poids"

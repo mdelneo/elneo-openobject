@@ -21,8 +21,8 @@ class res_config(models.TransientModel):
     @api.model
     def get_default_values(self,fields):
         
-        purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_amount',False)
-        purchase_validate_group = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_group',False)
+        purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_amount',0)
+        purchase_validate_group = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_group',0)
 
         return {'purchase_validate_amount':int(purchase_validate_amount),
                 'purchase_validate_group':int(purchase_validate_group),

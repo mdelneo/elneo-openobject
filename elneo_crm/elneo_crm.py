@@ -14,6 +14,36 @@ class res_partner(models.Model):
     type = fields.Selection([('contact', 'Contact'),('delivery', 'Shipping'), ('invoice', 'Invoice')], string='Address Type')
     
     
+    @api.multi
+    def name_get(self):
+        def name_add(name, add, sep=', '):
+            if not name:
+                name = ''
+            elif add:
+                name = name+sep
+            if add:
+                name = name + add
+            return name
+            
+        result = []
+        for partner in self:
+            
+            
+            name = ''
+            name = name_add(name, partner.name)
+            
+            if not partner.is_company:
+                name = name_add(name, partner.street)
+                name = name_add(name, partner.street2)
+                name = name_add(name, partner.zip)
+                name = name_add(name, partner.city, ' ')
+                name = name_add(name, partner.country_id.name)
+            result.append((partner.id, name))
+            
+        return result
+
+    
+    
     @api.one
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):

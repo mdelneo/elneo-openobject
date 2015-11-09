@@ -1,0 +1,58 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 14:22+0000\n"
+"PO-Revision-Date: 2015-11-09 15:23+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: purchase_sale
+#: model:ir.model,name:purchase_sale.model_procurement_order
+msgid "Procurement"
+msgstr "Approvisionnement"
+
+#. module: purchase_sale
+#: model:ir.model,name:purchase_sale.model_purchase_order
+msgid "Purchase Order"
+msgstr "Achat"
+
+#. module: purchase_sale
+#: model:ir.model,name:purchase_sale.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Ligne de commande"
+
+#. module: purchase_sale
+#: view:sale.order:purchase_sale.view_order_form_purchase_sale
+msgid "Purchase orders"
+msgstr "Achats"
+
+#. module: purchase_sale
+#: view:purchase.order:purchase_sale.purchase_order_form_sale_button
+msgid "Sale Orders"
+msgstr "Ventes"
+
+#. module: purchase_sale
+#: field:purchase.order.line,sale_line_ids:0
+msgid "Sale lines"
+msgstr "Lignes de Vente"
+
+#. module: purchase_sale
+#: field:purchase.order,sale_ids:0
+msgid "Sales"
+msgstr "Ventes"
+
+#. module: purchase_sale
+#: model:ir.model,name:purchase_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"

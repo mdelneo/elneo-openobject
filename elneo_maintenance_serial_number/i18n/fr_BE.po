@@ -1,0 +1,93 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_maintenance_serial_number
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 08:07+0000\n"
+"PO-Revision-Date: 2015-11-09 09:11+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: elneo_maintenance_serial_number
+#: view:serial.number.wizard:elneo_maintenance_serial_number.serial_number_wizard_form_view
+msgid ""
+"As your order is a sale shop order, and thus products will be directly delivered to customer, you must fill in the serial numbers of\n"
+"                       \tproducts which need it.\n"
+"                       \t\n"
+"                       \tFor several quantities, split the different numbers by ';'"
+msgstr ""
+"Comme votre commande est une vente comptoir, et comme les produits vont être livrés directement au client, vous devez remplir les numéros de séries des\n"
+"                       \tproduits qui en ont besoin.\n"
+"                       \t\n"
+"                       \tPour plusieurs quantités, séparez les différents numéros par ';'"
+
+#. module: elneo_maintenance_serial_number
+#: view:serial.number.wizard:elneo_maintenance_serial_number.serial_number_wizard_form_view
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: elneo_maintenance_serial_number
+#: view:serial.number.wizard:elneo_maintenance_serial_number.serial_number_wizard_form_view
+msgid "Confirm Order"
+msgstr "Confirmer la commander"
+
+#. module: elneo_maintenance_serial_number
+#: field:serial.number.line.wizard,create_uid:0
+#: field:serial.number.wizard,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_maintenance_serial_number
+#: field:serial.number.line.wizard,create_date:0
+#: field:serial.number.wizard,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_maintenance_serial_number
+#: field:serial.number.line.wizard,id:0 field:serial.number.wizard,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: elneo_maintenance_serial_number
+#: field:serial.number.line.wizard,write_uid:0
+#: field:serial.number.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: elneo_maintenance_serial_number
+#: field:serial.number.line.wizard,write_date:0
+#: field:serial.number.wizard,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: elneo_maintenance_serial_number
+#: code:addons/elneo_maintenance_serial_number/wizard/serial_number_wizard.py:82
+#, python-format
+msgid "Please enter %s serial number for product %s"
+msgstr "Veuillez entrer %s numéro(s) de série pour le produit %s"
+
+#. module: elneo_maintenance_serial_number
+#: model:ir.model,name:elneo_maintenance_serial_number.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
+
+#. module: elneo_maintenance_serial_number
+#: code:addons/elneo_maintenance_serial_number/elneo_maintenance_serial_number.py:46
+#, python-format
+msgid "Serial numbers"
+msgstr "Numéros de série"
+
+#. module: elneo_maintenance_serial_number
+#: code:addons/elneo_maintenance_serial_number/wizard/serial_number_wizard.py:18
+#, python-format
+msgid "The quantity to deliver is not the same as serial numbers for the product : %s"
+msgstr "La quantité à livrer est différente du nombre de numéros de série pour le produit : %s"

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models,fields,api,osv
+from openerp import models,fields,api
 from datetime import datetime
 from openerp.tools.translate import _
 
@@ -51,11 +51,9 @@ class sale_order(models.Model):
         
         part = self.pool.get('res.partner').browse(cr, uid, partner_id) 
         if part.blocked == True:
-            title =  _("Attention: the customer is blocked") 
-            message = _("Attention: the customer is blocked") 
             res['warning'] = {
-                    'title': title,
-                    'message': message,}
+                    'title': _("Customer blocked") ,
+                    'message': _("Warning: the customer is blocked"),}
         return res
       
     

@@ -1,0 +1,83 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 08:20+0000\n"
+"PO-Revision-Date: 2015-11-09 09:21+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: elneo_product
+#: view:product.product:elneo_product.product_normal_form_view_elneo_product
+msgid "Alias"
+msgstr "Alias"
+
+#. module: elneo_product
+#: view:product.product:elneo_product.product_normal_form_view_elneo_product
+msgid "Code"
+msgstr "Code"
+
+#. module: elneo_product
+#: view:product.product:elneo_product.product_normal_form_view_elneo_product
+msgid "General"
+msgstr "Général"
+
+#. module: elneo_product
+#: model:res.groups,name:elneo_product.group_hidden_menu
+msgid "Hidden menus"
+msgstr "Menus cachés"
+
+#. module: elneo_product
+#: model:ir.model,name:elneo_product.model_product_product
+msgid "Product"
+msgstr "Produit"
+
+#. module: elneo_product
+#: view:product.product:elneo_product.product_normal_form_view_elneo_product
+msgid "Product Name"
+msgstr "Nom de l'article"
+
+#. module: elneo_product
+#: model:ir.model,name:elneo_product.model_product_template
+msgid "Product Template"
+msgstr "Modèle de produit"
+
+#. module: elneo_product
+#: model:ir.ui.menu,name:elneo_product.main_menu_product
+msgid "Products"
+msgstr "Produits"
+
+#. module: elneo_product
+#: view:product.product:elneo_product.product_normal_form_view_elneo_product
+msgid "Sale Conditions"
+msgstr "Conditions de vente"
+
+#. module: elneo_product
+#: view:product.product:elneo_product.product_normal_form_view_elneo_product
+msgid "Stock"
+msgstr "Stock"
+
+#. module: elneo_product
+#: view:product.product:elneo_product.product_normal_form_view_elneo_product
+msgid "Weights"
+msgstr "Poids"
+
+#. module: elneo_product
+#: view:product.product:elneo_product.product_normal_form_view_elneo_product
+msgid "days"
+msgstr "jours"
+
+#. module: elneo_product
+#: view:product.product:elneo_product.product_normal_form_view_elneo_product
+msgid "months"
+msgstr "mois"

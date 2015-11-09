@@ -1,67 +1,132 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_cost_price
+# 	* elneo_cost_price
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2012-03-19 08:18+0000\n"
-"PO-Revision-Date: 2012-03-19 10:02+0100\n"
-"Last-Translator: mat <mbouhy@gmail.com>\n"
-"Language-Team: \n"
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-07 16:06+0000\n"
+"PO-Revision-Date: 2015-11-07 17:29+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#. module: sale_cost_price
-#: model:ir.model,name:sale_cost_price.model_product_product
-msgid "Product"
-msgstr "Produit"
+#. module: elneo_cost_price
+#: code:addons/elneo_cost_price/elneo_cost_price.py:187
+#, python-format
+msgid ""
+"An error occurring during computation of product price. Please check if "
+"product %s is active."
+msgstr ""
+"Une erreur est apparue durant le calcul des prix de produit. Veuillez "
+"vérifier que le produit %s est actif."
 
-#. module: sale_cost_price
-#: field:product.product,sale_price:0
-msgid "sale price"
-msgstr "Prix de vente"
+#. module: elneo_cost_price
+#: field:product.template,compute_cost_price:0
+msgid "Autocompute cost price"
+msgstr "Calcul automatique du prix de revient"
 
-#. module: sale_cost_price
-#: field:product.product,cost_price:0
-msgid "cost price"
+#. module: elneo_cost_price
+#: view:res.partner.cost.price:elneo_cost_price.view_supplier_compute_cost_price
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: elneo_cost_price
+#: view:res.partner.cost.price:elneo_cost_price.view_supplier_compute_cost_price
+msgid "Compute"
+msgstr "Calculer"
+
+#. module: elneo_cost_price
+#: model:ir.actions.act_window,name:elneo_cost_price.action_res_partner_compute_cost_price
+#: view:res.partner:elneo_cost_price.view_partner_elneo_cost_price_wizard_form
+msgid "Compute cost price"
+msgstr "Calculer le prix de revient"
+
+#. module: elneo_cost_price
+#: view:res.partner.cost.price:elneo_cost_price.view_supplier_compute_cost_price
+msgid "Compute cost prices"
+msgstr "Calculer les prix de revient"
+
+#. module: elneo_cost_price
+#: view:product.template:elneo_cost_price.elneo_product_cost_price_form_view
+msgid "Cost Price"
 msgstr "Prix de revient"
 
-#. module: sale_cost_price
-#: help:product.product,cost_price:0
-msgid "It's based on the purchase price (with the shipping cost,  "
-msgstr "Ce prix est basé sur le prix d'acaht au fournisseur majoré d'un pourcentage pour les frais de port (et eventuellement, un calcul pour changer de devise)"
+#. module: elneo_cost_price
+#: field:product.template,cost_price:0
+msgid "Cost price"
+msgstr "Prix de revient"
 
-#. module: sale_cost_price
-#: constraint:product.product:0
-msgid "Error: Invalid ean code"
-msgstr "Erreur: code EAN invalide"
+#. module: elneo_cost_price
+#: field:product.template,cost_price_fixed:0
+msgid "Cost price fixed"
+msgstr "Prix de revient fixé"
 
-#. module: sale_cost_price
-#: model:ir.model,name:sale_cost_price.model_res_partner
+#. module: elneo_cost_price
+#: field:res.partner.cost.price,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_cost_price
+#: field:res.partner.cost.price,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_cost_price
+#: field:res.partner.cost.price,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: elneo_cost_price
+#: help:product.template,cost_price_fixed:0
+msgid "It's based on the purchase price (with the shipping cost"
+msgstr "C'est basé sur le prix d'achat (avec les coûts d'expédition"
+
+#. module: elneo_cost_price
+#: field:res.partner.cost.price,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: elneo_cost_price
+#: field:res.partner.cost.price,write_date:0
+msgid "Last Updated on"
+msgstr "Denière mise à jour le"
+
+#. module: elneo_cost_price
+#: model:ir.model,name:elneo_cost_price.model_res_partner
 msgid "Partner"
 msgstr "Partenaire"
 
-#. module: sale_cost_price
-#: help:res.partner,cost_price_product_pricelist:0
-msgid "This pricelist will be used to set the cost price of a product based on the pricelist of the prefered supplier for this product"
-msgstr "Cette liste de prix sert à calculer le prix de revient d'un produit"
+#. module: elneo_cost_price
+#: model:ir.model,name:elneo_cost_price.model_product_template
+msgid "Product Template"
+msgstr "Modèle de produit"
 
-#. module: sale_cost_price
-#: help:product.product,sale_price:0
-msgid "It's based on the cost price   "
-msgstr "Basé sur le prix de revient et la marge souhaitée"
+#. module: elneo_cost_price
+#: model:ir.model,name:elneo_cost_price.model_purchase_validation_wizard
+msgid "Purchase validation wizard"
+msgstr "Assistant de validation des achats"
 
-#. module: sale_cost_price
-#: model:ir.model,name:sale_cost_price.model_sale_order_line
+#. module: elneo_cost_price
+#: model:ir.model,name:elneo_cost_price.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Ligne de bon de commandes"
 
-#. module: sale_cost_price
-#: field:res.partner,cost_price_product_pricelist:0
-msgid "Cost price Pricelist"
-msgstr "Liste de prix de revient"
+#. module: elneo_cost_price
+#: view:res.partner.cost.price:elneo_cost_price.view_supplier_compute_cost_price
+msgid ""
+"This operation will compute cost prices for all products of this supplier. "
+"Are you sure ?"
+msgstr ""
+"Cette opération calculera les prix de revient pour tous les produits de ce "
+"fournisseur. Êtes-vous sûr?"
 
+#. module: elneo_cost_price
+#: help:product.template,compute_cost_price:0
+msgid "When checked, cost price is computed"
+msgstr "Lorsque coché, le prix de revient est calculé"

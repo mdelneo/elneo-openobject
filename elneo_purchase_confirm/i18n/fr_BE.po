@@ -1,0 +1,28 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_purchase_confirm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 08:27+0000\n"
+"PO-Revision-Date: 2015-11-09 09:27+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: elneo_purchase_confirm
+#: view:purchase.order:elneo_purchase_confirm.purchase_order_form_elneo_confirm
+msgid "Confirm Order"
+msgstr "Confirmer la commande"
+
+#. module: elneo_purchase_confirm
+#: model:ir.model,name:elneo_purchase_confirm.model_purchase_order
+msgid "Purchase Order"
+msgstr "Achat"

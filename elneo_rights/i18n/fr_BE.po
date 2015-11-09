@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_rights
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 08:36+0000\n"
+"PO-Revision-Date: 2015-11-09 09:37+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: elneo_rights
+#: view:stock.warehouse:elneo_rights.view_warehouse_elneo_rights
+msgid "Display"
+msgstr "Afficher"
+
+#. module: elneo_rights
+#: field:stock.warehouse,group_id:0
+msgid "Group"
+msgstr "Groupe"
+
+#. module: elneo_rights
+#: model:ir.model,name:elneo_rights.model_stock_warehouse
+msgid "Warehouse"
+msgstr "Entrepôt"
+
+#. module: elneo_rights
+#: model:res.groups,name:elneo_rights.group_warehouse_awans
+msgid "Warehouse Awans"
+msgstr "Entrepôt Awans"
+
+#. module: elneo_rights
+#: model:res.groups,name:elneo_rights.group_warehouse_wetteren
+msgid "Warehouse Wetteren"
+msgstr "Entrepôt Wetteren"

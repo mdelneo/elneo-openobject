@@ -1,0 +1,71 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_autocompute_webshop
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-07 15:59+0000\n"
+"PO-Revision-Date: 2015-11-07 17:01+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: elneo_autocompute_webshop
+#: field:product.group,create_uid:0 field:product.group.discount,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_autocompute_webshop
+#: field:product.group,create_date:0
+#: field:product.group.discount,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_autocompute_webshop
+#: field:product.group,id:0 field:product.group.discount,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: elneo_autocompute_webshop
+#: field:product.group,write_uid:0 field:product.group.discount,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: elneo_autocompute_webshop
+#: field:product.group,write_date:0 field:product.group.discount,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: elneo_autocompute_webshop
+#: model:ir.model,name:elneo_autocompute_webshop.model_product_template
+msgid "Product Template"
+msgstr "Modèle de produit"
+
+#. module: elneo_autocompute_webshop
+#: model:ir.actions.act_window,name:elneo_autocompute_webshop.action_product_group
+#: model:ir.ui.menu,name:elneo_autocompute_webshop.menu_product_group
+#: view:product.group:elneo_autocompute_webshop.view_product_group_form
+#: view:product.group:elneo_autocompute_webshop.view_product_group_tree
+msgid "Product group"
+msgstr "Product group"
+
+#. module: elneo_autocompute_webshop
+#: view:product.discount.type:elneo_autocompute_webshop.view_product_discount_type_form_webshop_inherit
+msgid "Product group discounts"
+msgstr "Remises product group"
+
+#. module: elneo_autocompute_webshop
+#: view:product.discount.type:elneo_autocompute_webshop.view_product_discount_type_form_webshop_inherit
+msgid "Values"
+msgstr "Valeurs"
+
+#. module: elneo_autocompute_webshop
+#: field:product.template,web_shop_product:0
+msgid "Web shop product"
+msgstr "Produit Web Shop"

@@ -1,0 +1,202 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_opportunity
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 08:15+0000\n"
+"PO-Revision-Date: 2015-11-09 09:19+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: elneo_opportunity
+#: model:email.template,body_html:elneo_opportunity.email_template_quotation_followup
+msgid ""
+"\n"
+"<div>\n"
+"\n"
+"    <p>${object.partner_id.title.name or ''}&nbsp;${object.partner_id.display_name or ''}</p>\n"
+"\n"
+"\t<p>Suite &agrave; votre demande, nous vous avions fait une proposition (${object.name}) le ${object.last_quotation_id.create_date|format_date() or ''}&nbsp;que vous trouverez en pi&egrave;ce jointe.</p>\n"
+"\t\n"
+"\t<p>A notre connaissance, nous n&rsquo;avons pas encore re&ccedil;u de commande pour cette offre.</p>\n"
+"\t\n"
+"\t<p>Nous voudrions, par la pr&eacute;sente, vous offrir encore une fois notre aide en cas de probl&egrave;mes et &eacute;ventuellement vous proposer une alternative.</p>\n"
+"\t\n"
+"\t<p>A cette fin, pourriez-vous s&rsquo;il vous pla&icirc;t remplir le questionnaire ci-dessous (+/- 1 minute) ?</p>\n"
+"\t\n"
+"\t<p>https://docs.google.com/forms/d/1OjRLwP54yRuhl1hgb5fdBG-9I_E4B-2Q8M-JxRIQQFc/viewform?c=0&amp;w=1</p>\n"
+"\t\n"
+"\t<p>Merci d&rsquo;avance.<br />\n"
+"\t&nbsp;<br />\n"
+"\tCordialement,</p>\n"
+"\t\n"
+"\t<p>&nbsp;</p>\n"
+"\t    \n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div>\n"
+"\n"
+"    <p>${object.partner_id.title.name or ''}&nbsp;${object.partner_id.display_name or ''}</p>\n"
+"\n"
+"\t<p>Suite &agrave; votre demande, nous vous avions fait une proposition (${object.name}) le ${object.last_quotation_id.create_date|format_date() or ''}&nbsp;que vous trouverez en pi&egrave;ce jointe.</p>\n"
+"\t\n"
+"\t<p>A notre connaissance, nous n&rsquo;avons pas encore re&ccedil;u de commande pour cette offre.</p>\n"
+"\t\n"
+"\t<p>Nous voudrions, par la pr&eacute;sente, vous offrir encore une fois notre aide en cas de probl&egrave;mes et &eacute;ventuellement vous proposer une alternative.</p>\n"
+"\t\n"
+"\t<p>A cette fin, pourriez-vous s&rsquo;il vous pla&icirc;t remplir le questionnaire ci-dessous (+/- 1 minute) ?</p>\n"
+"\t\n"
+"\t<p>https://docs.google.com/forms/d/1OjRLwP54yRuhl1hgb5fdBG-9I_E4B-2Q8M-JxRIQQFc/viewform?c=0&amp;w=1</p>\n"
+"\t\n"
+"\t<p>Merci d&rsquo;avance.<br />\n"
+"\t&nbsp;<br />\n"
+"\tCordialement,</p>\n"
+"\t\n"
+"\t<p>&nbsp;</p>\n"
+"\t    \n"
+"</div>\n"
+"            "
+
+#. module: elneo_opportunity
+#: field:crm.lead,planned_revenue_auto:0
+msgid "Auto margin"
+msgstr "Marge Auto"
+
+#. module: elneo_opportunity
+#: code:addons/elneo_opportunity/elneo_opportunity.py:61
+#, python-format
+msgid "Compose Email"
+msgstr "Composer un Email"
+
+#. module: elneo_opportunity
+#: field:res.users,days_before_quotation_relaunch:0
+msgid "Days before quotation relaunch"
+msgstr "Jours avant relance d'offre"
+
+#. module: elneo_opportunity
+#: field:res.users,is_seller:0
+msgid "Is seller"
+msgstr "Est un vendeur"
+
+#. module: elneo_opportunity
+#: field:sale.order,last_quotation_id:0
+msgid "Last quotation"
+msgstr "Dernière offre"
+
+#. module: elneo_opportunity
+#: view:crm.lead:elneo_opportunity.crm_case_form_view_oppor_elneo_opportunity
+msgid "Margin"
+msgstr "Marge"
+
+#. module: elneo_opportunity
+#: field:sale.order,opportunity_id:0
+msgid "Opportunity"
+msgstr "Opportunité"
+
+#. module: elneo_opportunity
+#: selection:sale.order,origin_type:0
+msgid "Order"
+msgstr "Commande"
+
+#. module: elneo_opportunity
+#: view:crm.lead:elneo_opportunity.crm_case_form_view_oppor_elneo_opportunity
+msgid "Print quotation"
+msgstr "Imprimer l'offre"
+
+#. module: elneo_opportunity
+#: model:ir.actions.report.xml,name:elneo_opportunity.sale_quotation_lead
+#: selection:sale.order,origin_type:0
+msgid "Quotation"
+msgstr "Offre"
+
+#. module: elneo_opportunity
+#: model:email.template,subject:elneo_opportunity.email_template_quotation_followup
+msgid "Quotation ${object.display_name}"
+msgstr "Offre ${object.display_name}"
+
+#. module: elneo_opportunity
+#: view:res.users:elneo_opportunity.view_users_form_elneo_opportunity
+msgid "Quotation follow up"
+msgstr "Relance d'offre"
+
+#. module: elneo_opportunity
+#: field:crm.lead,quotation_ids:0
+msgid "Quotations"
+msgstr "Offres"
+
+#. module: elneo_opportunity
+#: model:ir.model,name:elneo_opportunity.model_report
+msgid "Report"
+msgstr "Rapport"
+
+#. module: elneo_opportunity
+#: view:crm.lead:elneo_opportunity.crm_case_form_view_oppor_elneo_opportunity
+msgid "Sale price"
+msgstr "Prix de vente"
+
+#. module: elneo_opportunity
+#: field:crm.lead,sale_price_manual:0
+msgid "Sale price (manual)"
+msgstr "Prix de vente (manuel)"
+
+#. module: elneo_opportunity
+#: field:crm.lead,sale_price_auto:0
+msgid "Sale price auto ?"
+msgstr "Prix de vente auto ?"
+
+#. module: elneo_opportunity
+#: model:ir.model,name:elneo_opportunity.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
+
+#. module: elneo_opportunity
+#: view:crm.lead:elneo_opportunity.crm_case_form_view_oppor_elneo_opportunity
+msgid "Send followup"
+msgstr "Envoyer la relance"
+
+#. module: elneo_opportunity
+#: model:ir.model,name:elneo_opportunity.model_crm_case_stage
+msgid "Stage of case"
+msgstr "Etape de cas"
+
+#. module: elneo_opportunity
+#: field:crm.case.stage,to_recall:0
+#: view:crm.lead:elneo_opportunity.elneo_opportunity_search_view
+msgid "To recall"
+msgstr "À rappeler"
+
+#. module: elneo_opportunity
+#: field:sale.order,origin_type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: elneo_opportunity
+#: help:sale.order,origin_type:0
+msgid "Type is quotation if order come from a quotation"
+msgstr "Le type est 'offre' si la vente vient d'une offre"
+
+#. module: elneo_opportunity
+#: help:sale.order,last_quotation_id:0
+msgid "When you select last quotation done to this customer, good opportunity will be automatically selected."
+msgstr "Lorsque vous sélectionnez la dernière offre terminée pour ce client, la bonne oppportunité est automatiquement sélectionnée."
+
+#. module: elneo_opportunity
+#: field:crm.case.stage,win_stage:0
+msgid "Win stage"
+msgstr "Etape gagnée"
+
+#. module: elneo_opportunity
+#: model:email.template,report_name:elneo_opportunity.email_template_quotation_followup
+msgid "quotation"
+msgstr "offre"

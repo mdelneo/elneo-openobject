@@ -1,0 +1,365 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_quotation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 14:47+0000\n"
+"PO-Revision-Date: 2015-11-09 15:51+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: sale_quotation
+#: selection:sale_quotation.order.text.element,position:0
+#: selection:sale_quotation.text.element,default_position:0
+msgid "After"
+msgstr "Après"
+
+#. module: sale_quotation
+#: selection:sale_quotation.order.text.element,position:0
+#: selection:sale_quotation.text.element,default_position:0
+msgid "Before"
+msgstr "Avant"
+
+#. module: sale_quotation
+#: help:sale_quotation.order.text.element,page_break_before:0
+msgid "Check if you want a page break after quotation element"
+msgstr "Vérifiez si vous voulez un saut de page après l'élément d'offre"
+
+#. module: sale_quotation
+#: help:sale_quotation.text.element,default_page_break_before:0
+msgid "Check if you want a page break after quotation element by default"
+msgstr "Cochez si vous voulez un saut de page après un élément d'offre par défaut"
+
+#. module: sale_quotation
+#: help:sale_quotation.order.text.element,page_break_after:0
+msgid "Check if you want a page break before quotation element"
+msgstr "Vérifiez si vous voulez un saut de page avant l'élément d'offre"
+
+#. module: sale_quotation
+#: help:sale_quotation.text.element,default_page_break_after:0
+msgid "Check if you want a page break before quotation element by default"
+msgstr "Vérifiez si vous voulez un saut de page après l'élément d'offre par défaut"
+
+#. module: sale_quotation
+#: field:sale_quotation.text.element,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: sale_quotation
+#: help:sale_quotation.text.element,code:0
+msgid "Code for Quotation Elements"
+msgstr "Code des éléments"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,content:0
+#: field:sale_quotation.text.element,content:0
+msgid "Content"
+msgstr "Contenu"
+
+#. module: sale_quotation
+#: help:sale_quotation.text.element,content:0
+msgid "Content for Quotation Elements"
+msgstr "Contenu pour les éléments d'offre"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,create_uid:0
+#: field:sale_quotation.text.element,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,create_date:0
+#: field:sale_quotation.text.element,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: sale_quotation
+#: field:sale_quotation.text.element,default_position:0
+msgid "Default position"
+msgstr "Position par défaut"
+
+#. module: sale_quotation
+#: field:sale.order,delay_in_week:0
+msgid "Delay in week"
+msgstr "Délai en semaines"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "Description"
+msgstr "Description"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "Disc.(%)"
+msgstr "Rem.(%)"
+
+#. module: sale_quotation
+#: field:sale.order,display_delay:0
+msgid "Display delay"
+msgstr "Afficher les délais de livraison"
+
+#. module: sale_quotation
+#: field:sale.order,display_descriptions:0
+msgid "Display descriptions"
+msgstr "Afficher les descriptions"
+
+#. module: sale_quotation
+#: field:sale.order,display_discount:0
+msgid "Display discount"
+msgstr "Afficher la remise"
+
+#. module: sale_quotation
+#: field:sale.order,display_invoice_address:0
+msgid "Display invoice address"
+msgstr "Afficher l'adresse de facturation"
+
+#. module: sale_quotation
+#: view:sale.order:sale_quotation.view_order_form_sale_quotation
+msgid "Display options"
+msgstr "Options d'affichage"
+
+#. module: sale_quotation
+#: field:sale.order,display_payment_term:0
+msgid "Display payment term"
+msgstr "Afficher les conditions de paiement"
+
+#. module: sale_quotation
+#: field:sale.order,display_line_price:0
+msgid "Display price by line"
+msgstr "Afficher le prix par ligne"
+
+#. module: sale_quotation
+#: field:sale.order,display_properties:0
+msgid "Display properties"
+msgstr "Afficher les propriétés"
+
+#. module: sale_quotation
+#: field:sale.order,display_quotation_text_elements:0
+msgid "Display quotation text elements"
+msgstr "Afficher les textes ci-dessous"
+
+#. module: sale_quotation
+#: field:sale.order,display_shipping_address:0
+msgid "Display shipping address"
+msgstr "Afficher l'adresse d'expédition"
+
+#. module: sale_quotation
+#: field:sale.order,display_total:0
+msgid "Display total"
+msgstr "Afficher le total"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,displayed:0
+#: field:sale_quotation.text.element,default_displayed:0
+msgid "Displayed"
+msgstr "Affiché"
+
+#. module: sale_quotation
+#: selection:sale_quotation.order.text.element,position:0
+#: selection:sale_quotation.text.element,default_position:0
+msgid "Final"
+msgstr "Final"
+
+#. module: sale_quotation
+#: help:sale_quotation.order.text.element,sequence:0
+#: help:sale_quotation.text.element,default_sequence:0
+msgid "Gives the sequence order of displayed text elements in the report."
+msgstr "Donne l'ordre des éléments d'offre affichés dans le rapport"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,id:0
+#: field:sale_quotation.text.element,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "Invoice address:"
+msgstr "Adresse de facturation :"
+
+#. module: sale_quotation
+#: field:sale_quotation.text.element,lang:0
+msgid "Language"
+msgstr "Langue"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,write_uid:0
+#: field:sale_quotation.text.element,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,write_date:0
+#: field:sale_quotation.text.element,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "One month"
+msgstr "Un mois"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,page_break_after:0
+#: field:sale_quotation.text.element,default_page_break_after:0
+msgid "Page break after"
+msgstr "Saut de page après"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,page_break_before:0
+#: field:sale_quotation.text.element,default_page_break_before:0
+msgid "Page break before"
+msgstr "Saut de page après"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,position:0
+msgid "Position"
+msgstr "Position"
+
+#. module: sale_quotation
+#: help:sale_quotation.order.text.element,position:0
+msgid "Position of text element set to default position of selected Text Element."
+msgstr "Position de l'élément texte mis à la position par défaut de l'élément texte sélectionné"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "Price"
+msgstr "Prix"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: sale_quotation
+#: view:sale.order:sale_quotation.view_order_form_sale_quotation
+msgid "Quotation"
+msgstr "Devis"
+
+#. module: sale_quotation
+#: model:ir.model,name:sale_quotation.model_sale_quotation_text_element
+msgid "Quotation elements are appendix to add inside a quotation"
+msgstr "Les éléments d'offre sont des annexes à ajouter à l'intérieur d'une offre"
+
+#. module: sale_quotation
+#: view:sale.order:sale_quotation.view_order_form_sale_quotation
+#: view:sale_quotation.text.element:sale_quotation.view_sale_quotation_text_element_form
+#: view:sale_quotation.text.element:sale_quotation.view_sale_quotation_text_element_tree
+msgid "Quotation text element"
+msgstr "Élément d'offre"
+
+#. module: sale_quotation
+#: view:sale.order:sale_quotation.view_order_form_sale_quotation
+#: field:sale.order,quotation_text_elements:0
+msgid "Quotation text elements"
+msgstr "Éléments d'offre"
+
+#. module: sale_quotation
+#: model:ir.model,name:sale_quotation.model_sale_quotation_order_text_element
+msgid "Quotation text elements included in a sale order."
+msgstr "Éléments d'offre inclus dans la vente"
+
+#. module: sale_quotation
+#: field:sale.order,quotation_validity:0
+msgid "Quotation validity"
+msgstr "Validité de l'offre"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "Quotation validity :"
+msgstr "Validité de l'offre :"
+
+#. module: sale_quotation
+#: help:sale_quotation.order.text.element,sale_order_id:0
+msgid "Related sale order"
+msgstr "Vente liée"
+
+#. module: sale_quotation
+#: help:sale_quotation.order.text.element,text_element_id:0
+msgid "Related text element"
+msgstr "Élément de texte relatif"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,sale_order_id:0
+msgid "Sale order"
+msgstr "Vente"
+
+#. module: sale_quotation
+#: model:ir.ui.menu,name:sale_quotation.menu_sale_quotation_element
+msgid "Sale quotation element"
+msgstr "Élément d'offre"
+
+#. module: sale_quotation
+#: model:ir.actions.act_window,name:sale_quotation.action_sale_quotation_element
+msgid "Sale quotation elements"
+msgstr "éléments d'offre"
+
+#. module: sale_quotation
+#: model:ir.model,name:sale_quotation.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
+
+#. module: sale_quotation
+#: model:ir.model,name:sale_quotation.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bon de commandes"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,sequence:0
+#: field:sale_quotation.text.element,default_sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "Shipping address:"
+msgstr "Adresse de livraison :"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "Taxes"
+msgstr "Taxes"
+
+#. module: sale_quotation
+#: field:sale_quotation.order.text.element,text_element_id:0
+msgid "Text element"
+msgstr "Élément texte"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "Unit Price"
+msgstr "Prix unitaire"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "VAT:"
+msgstr "TVA:"
+
+#. module: sale_quotation
+#: help:sale_quotation.order.text.element,content:0
+msgid "content copied from Quotation Elements"
+msgstr "contenu copié des éléments d'offre"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "o.display_total"
+msgstr "o.display_total"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "o.payment_term and o.display_payment_term"
+msgstr "o.payment_term and o.display_payment_term"
+
+#. module: sale_quotation
+#: view:website:sale.report_saleorder_document
+msgid "o.payment_term.note and o.display_payment_term"
+msgstr "o.payment_term.note and o.display_payment_term"

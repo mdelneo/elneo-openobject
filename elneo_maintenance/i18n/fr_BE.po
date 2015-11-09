@@ -6,24 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-07 16:47+0000\n"
-"PO-Revision-Date: 2015-11-07 17:50+0100\n"
+"POT-Creation-Date: 2015-11-09 07:21+0000\n"
+"PO-Revision-Date: 2015-11-09 08:25+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #. module: elneo_maintenance
 #: help:product.product,maintenance_product:0
-msgid ""
-"A maintenance product can't be delivered without creating an associated "
-"maintenance element."
-msgstr ""
-"Un produit de maintenance ne peut pas être livré sans créer un élément de "
-"maintenance."
+msgid "A maintenance product can't be delivered without creating an associated maintenance element."
+msgstr "Un produit de maintenance ne peut pas être livré sans créer un élément de maintenance."
 
 #. module: elneo_maintenance
 #: field:maintenance.element,expected_time_of_use:0
@@ -37,19 +34,8 @@ msgstr "Assigner"
 
 #. module: elneo_maintenance
 #: view:wizard.sale.confirm:elneo_maintenance.view_wizard_sale_confirm
-msgid ""
-"At least one product must create a maintenance element linked to an "
-"installation. Please select it or create a new one."
-msgstr ""
-"Au moins un produit de maintenance doit être lié à l'installation. Merci "
-"d'en sélectionner ou d'en créer un nouveau."
-
-#. module: elneo_maintenance
-#: code:addons/elneo_maintenance/elneo_maintenance.py:92
-#: code:addons/elneo_maintenance/elneo_maintenance.py:93
-#, python-format
-msgid "Attention: the client is blocked"
-msgstr "Attention: le client est bloqué"
+msgid "At least one product must create a maintenance element linked to an installation. Please select it or create a new one."
+msgstr "Au moins un produit de maintenance doit être lié à l'installation. Merci d'en sélectionner ou d'en créer un nouveau."
 
 #. module: elneo_maintenance
 #: view:maintenance.intervention:elneo_maintenance.view_maintenance_internal_search_elneo
@@ -133,15 +119,11 @@ msgstr "ID"
 
 #. module: elneo_maintenance
 #: help:maintenance.element,main_element:0
-msgid ""
-"If other elements of the project do not have expected time of use, we use "
-"expected time of use of main element"
-msgstr ""
-"Si d'autres éléments du projet n'ont pas de temps d'utilisation attendu, on "
-"utilise le temps attendu de l'élément principal"
+msgid "If other elements of the project do not have expected time of use, we use expected time of use of main element"
+msgstr "Si d'autres éléments du projet n'ont pas de temps attendu d'utilisation, on utilise le temps attendu de l'élément principal"
 
 #. module: elneo_maintenance
-#: code:addons/elneo_maintenance/elneo_maintenance.py:126
+#: code:addons/elneo_maintenance/elneo_maintenance.py:124
 #, python-format
 msgid "Import time of use"
 msgstr "Importer le temps d'utilisation"
@@ -260,7 +242,7 @@ msgid "Product"
 msgstr "Produit"
 
 #. module: elneo_maintenance
-#: code:addons/elneo_maintenance/elneo_maintenance.py:200
+#: code:addons/elneo_maintenance/elneo_maintenance.py:198
 #: view:wizard.sale.confirm:elneo_maintenance.view_wizard_sale_confirm
 #, python-format
 msgid "Sale confirm"
@@ -302,6 +284,18 @@ msgid "Visual"
 msgstr "Visual"
 
 #. module: elneo_maintenance
+#: code:addons/elneo_maintenance/elneo_maintenance.py:93
+#, python-format
+msgid "Warning: Customer blocked"
+msgstr "Attention: Client bloqué"
+
+#. module: elneo_maintenance
+#: code:addons/elneo_maintenance/elneo_maintenance.py:94
+#, python-format
+msgid "Warning: The Customer is blocked"
+msgstr "Attention: Le Client est bloqué"
+
+#. module: elneo_maintenance
 #: view:maintenance.intervention:elneo_maintenance.view_maintenance_internal_search_elneo
 #: view:maintenance.intervention:elneo_maintenance.view_maintenance_intervention_search_elneo
 msgid "Wetteren"
@@ -314,7 +308,7 @@ msgid "Wetteren Interventions"
 msgstr "Interventions de Wetteren"
 
 #. module: elneo_maintenance
-#: code:addons/elneo_maintenance/elneo_maintenance.py:222
+#: code:addons/elneo_maintenance/elneo_maintenance.py:220
 #, python-format
 msgid "You can only delete draft moves."
 msgstr "Vous ne pouvez supprimer que les mouvements brouillon"

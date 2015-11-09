@@ -5,8 +5,6 @@ from openerp import models,fields,api
 from operator import itemgetter
 import re
 
-
-
 class product_property_unit(models.Model):
     _name = 'product.property.unit'
     _description = 'Unit of properties'

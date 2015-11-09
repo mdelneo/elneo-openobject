@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_default_supplier
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-07 16:35+0000\n"
+"PO-Revision-Date: 2015-11-07 17:36+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: elneo_default_supplier
+#: view:product.template:elneo_default_supplier.product_template_kanban_elneo_default_supplier
+msgid "Default supplier :"
+msgstr "Fournisseur par défaut :"
+
+#. module: elneo_default_supplier
+#: model:ir.model,name:elneo_default_supplier.model_product_template
+msgid "Product Template"
+msgstr "Modèle de produit"
+
+#. module: elneo_default_supplier
+#: model:ir.model,name:elneo_default_supplier.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bon de commandes"

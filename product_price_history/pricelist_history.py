@@ -17,7 +17,7 @@ class pricelist_history(models.Model):
     
     update_method = fields.Selection((('manual','Manual'),('price_list_file','Price List File'),('purchase_order_confirmation','Purchase Order Confirmation')),   'Update Method', size=30, store=True)
     
-    discount = fields.Float('Discount (%)', digits=(16, 2))
+    discount = fields.Float('Discount (%)', digits_compute=dp.get_precision('Discount'))
     
     price = fields.Float('Unit Price', required=True, digits_compute=dp.get_precision('Product Price'), help="This price will be considered as a price for the supplier UoM if any or the default Unit of Measure of the product otherwise")
     

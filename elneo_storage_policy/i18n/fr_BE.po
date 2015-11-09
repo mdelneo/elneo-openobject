@@ -1,97 +1,148 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* elneo_storage_policy
+# 	* elneo_storage_policy
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2013-03-07 16:27+0000\n"
-"PO-Revision-Date: 2013-03-07 16:27+0000\n"
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 10:09+0000\n"
+"PO-Revision-Date: 2015-11-09 11:11+0100\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Elneo <support@elneo.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #. module: elneo_storage_policy
-#: model:ir.model,name:elneo_storage_policy.model_product_product
-msgid "Product"
-msgstr "Produit"
+#: field:product.warehouse.detail,aisle:0
+msgid "Aisle"
+msgstr "Allée"
 
 #. module: elneo_storage_policy
-#: constraint:product.product:0
-#: sql_constraint:product.product:0
-msgid "Reference has to be unique. There is an other product with the same reference."
-msgstr "La réference du produit doit être unique. Il y a un autre produit avec la même réference."
+#: field:product.product,barcode_number:0
+msgid "Barcode number"
+msgstr "Code Barre"
 
 #. module: elneo_storage_policy
-#: selection:product.product,depreciation_policy_awans:0
-#: selection:product.product,depreciation_policy_wetteren:0
-#: selection:product.product,storage_policy_awans:0
-#: selection:product.product,storage_policy_wetteren:0
+#: field:procurement.rule.procure.method.storage.policy,create_uid:0
+#: field:product.warehouse.detail,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_storage_policy
+#: field:procurement.rule.procure.method.storage.policy,create_date:0
+#: field:product.warehouse.detail,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_storage_policy
+#: field:product.warehouse.detail,depreciation_policy:0
+msgid "Depreciation policy"
+msgstr "Politique de dépréciation"
+
+#. module: elneo_storage_policy
+#: selection:procurement.rule.procure.method.storage.policy,name:0
+#: selection:product.warehouse.detail,depreciation_policy:0
+msgid "Downgraded"
+msgstr "Dévalué"
+
+#. module: elneo_storage_policy
+#: selection:procurement.rule.procure.method.storage.policy,name:0
+#: selection:product.warehouse.detail,depreciation_policy:0
 msgid "Drop"
-msgstr "Abandonné"
+msgstr "Rebut"
 
 #. module: elneo_storage_policy
-#: selection:product.product,storage_policy_awans:0
-#: selection:product.product,storage_policy_wetteren:0
-msgid "Stocked"
-msgstr "Stocké"
+#: field:procurement.rule.procure.method.storage.policy,id:0
+#: field:product.warehouse.detail,id:0
+msgid "ID"
+msgstr "ID"
 
 #. module: elneo_storage_policy
-#: field:product.product,depreciation_policy_awans:0
-msgid "Depreciation policy Awans"
-msgstr "Politique de dévalorisation à Awans"
+#: field:procurement.rule.procure.method.storage.policy,write_uid:0
+#: field:product.warehouse.detail,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
 
 #. module: elneo_storage_policy
-#: field:product.product,warehouse_description_wetteren:0
-msgid "Warehouse description Wetteren"
-msgstr "Description magasin Wetteren"
+#: field:procurement.rule.procure.method.storage.policy,write_date:0
+#: field:product.warehouse.detail,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
 
 #. module: elneo_storage_policy
-#: selection:product.product,depreciation_policy_awans:0
-#: selection:product.product,depreciation_policy_wetteren:0
+#: model:ir.model,name:elneo_storage_policy.model_stock_warehouse_orderpoint
+msgid "Minimum Inventory Rule"
+msgstr "Règle du stock minimum."
+
+#. module: elneo_storage_policy
+#: field:product.template,orderpoints:0
+msgid "Minimum Inventory Rules"
+msgstr "Règles de stock Minimum"
+
+#. module: elneo_storage_policy
+#: selection:product.warehouse.detail,depreciation_policy:0
 msgid "Not downgraded"
-msgstr "Non dévalorisé"
+msgstr "Non dévalué"
 
 #. module: elneo_storage_policy
-#: selection:product.product,storage_policy_awans:0
-#: selection:product.product,storage_policy_wetteren:0
+#: selection:procurement.rule.procure.method.storage.policy,name:0
 msgid "Not stocked"
 msgstr "Non stocké"
 
 #. module: elneo_storage_policy
-#: constraint:product.product:0
-msgid "Error: Invalid ean code"
-msgstr "Erreur: code EAN invalide"
+#: field:procurement.rule.procure.method.storage.policy,procure_method_id:0
+msgid "Procure method"
+msgstr "Méthode d'approvisionnement"
 
 #. module: elneo_storage_policy
-#: field:product.product,warehouse_description_awans:0
-msgid "Warehouse description Awans"
-msgstr "Description magasin Awans"
+#: model:ir.model,name:elneo_storage_policy.model_procurement_order
+msgid "Procurement"
+msgstr "Approvisionnement"
 
 #. module: elneo_storage_policy
-#: field:product.product,depreciation_policy_wetteren:0
-msgid "Depreciation policy Wetteren"
-msgstr "Politique de dévalorisation à Wetteren"
+#: model:ir.model,name:elneo_storage_policy.model_product_product
+#: field:product.warehouse.detail,product_tmpl_id:0
+msgid "Product"
+msgstr "Produit"
 
 #. module: elneo_storage_policy
-#: field:product.product,storage_policy_awans:0
-msgid "Storage Policy Awans"
-msgstr "Politique de stockage à Awans"
+#: model:ir.model,name:elneo_storage_policy.model_product_template
+#: field:stock.warehouse.orderpoint,product_tmpl_id:0
+msgid "Product Template"
+msgstr "Modèle de produit"
 
 #. module: elneo_storage_policy
-#: selection:product.product,depreciation_policy_awans:0
-#: selection:product.product,depreciation_policy_wetteren:0
-#: selection:product.product,storage_policy_awans:0
-#: selection:product.product,storage_policy_wetteren:0
-msgid "Downgraded"
-msgstr "Dévalorisé"
+#: selection:procurement.rule.procure.method.storage.policy,name:0
+msgid "Stocked"
+msgstr "Stocké"
 
 #. module: elneo_storage_policy
-#: field:product.product,storage_policy_wetteren:0
-msgid "Storage Policy Wetteren"
-msgstr "Politique de stockage à Wetteren"
+#: field:procurement.rule.procure.method,storage_policies:0
+msgid "Storage policies"
+msgstr "Politiques de stockage"
 
+#. module: elneo_storage_policy
+#: field:procurement.rule.procure.method.storage.policy,name:0
+msgid "Storage policy"
+msgstr "Politique de stockage"
+
+#. module: elneo_storage_policy
+#: field:product.warehouse.detail,warehouse_id:0
+msgid "Warehouse"
+msgstr "Entrepôt"
+
+#. module: elneo_storage_policy
+#: field:product.warehouse.detail,warehouse_description:0
+msgid "Warehouse description"
+msgstr "Description de l'entrepôt"
+
+#. module: elneo_storage_policy
+#: view:product.template:elneo_storage_policy.product_template_form_view_elneo_storage_policy
+#: field:product.template,warehouse_detail:0
+msgid "Warehouse detail"
+msgstr "Détail de l'entrepôt"

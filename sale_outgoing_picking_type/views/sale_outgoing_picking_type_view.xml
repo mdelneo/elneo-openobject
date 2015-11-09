@@ -7,7 +7,7 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <field name="origin" position="after">
+                <field name="client_order_ref" position="after">
                 	<field name="outgoing_picking_type" domain="[('code','=','outgoing'), ('warehouse_id','=',warehouse_id)]"/>
                 </field>
             </field>

@@ -49,7 +49,6 @@ class product_product(models.Model):
             result[product_id] = ''
         return result
     
-    
     @api.multi
     def search_ext_name(self, operator, value):
         self._cr.execute("select id from product_search_column('"+value+"');")

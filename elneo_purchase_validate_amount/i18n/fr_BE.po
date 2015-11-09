@@ -1,55 +1,172 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* purchase_validate_amount
+# 	* elneo_purchase_validate_amount
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-14 07:46+0000\n"
-"PO-Revision-Date: 2015-04-14 09:49+0100\n"
+"POT-Creation-Date: 2015-11-09 08:30+0000\n"
+"PO-Revision-Date: 2015-11-09 09:35+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language: fr_BE\n"
-"X-Generator: Poedit 1.7.4\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
 
-#. module: purchase_validate_amount
-#: view:purchase.config.settings:purchase_validate_amount.view_validate_amount_purchase_configuration
+#. module: elneo_purchase_validate_amount
+#: model:email.template,body_html:elneo_purchase_validate_amount.email_template_purchase_amount_validate
+msgid ""
+"\n"
+"\t\t\tA purchase order requires your attention.<br/>\n"
+"<br/>\n"
+"The amount of the purchase order (${object.name}) is too high and need your validation.<br/>\n"
+"\t\t\t"
+msgstr ""
+"\n"
+"\t\t\tUn achat requiert votre attention.<br/>\n"
+"<br/>\n"
+"Le montant de l'achat (${object.name}) est trop élevé et nécessite votre validation.<br/>\n"
+"\t\t\t"
+
+#. module: elneo_purchase_validate_amount
+#: field:purchase.amount.wizard,group_id:0
+msgid "Administrative Group"
+msgstr "Groupe Administratif"
+
+#. module: elneo_purchase_validate_amount
+#: view:purchase.config.settings:elneo_purchase_validate_amount.view_validate_amount_purchase_configuration
 #: field:purchase.config.settings,purchase_validate_amount:0
 msgid "Amount Validation"
 msgstr "Validation (Montant)"
 
-#. module: purchase_validate_amount
-#: model:ir.model,name:purchase_validate_amount.model_purchase_order
+#. module: elneo_purchase_validate_amount
+#: field:purchase.amount.wizard,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_purchase_validate_amount
+#: field:purchase.amount.wizard,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_purchase_validate_amount
+#: field:purchase.config.settings,purchase_validate_group:0
+msgid "Group"
+msgstr "Groupe"
+
+#. module: elneo_purchase_validate_amount
+#: field:purchase.amount.wizard,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: elneo_purchase_validate_amount
+#: field:purchase.amount.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière Mise à jour par"
+
+#. module: elneo_purchase_validate_amount
+#: field:purchase.amount.wizard,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière Mise à jour le"
+
+#. module: elneo_purchase_validate_amount
+#: code:addons/elneo_purchase_validate_amount/wizard/purchase_amount_wizard.py:77
+#, python-format
+msgid "No Email Template is defined. Contact your Administrator"
+msgstr "Aucun modèle d'email n'est défini. Contactez votre Administrateur"
+
+#. module: elneo_purchase_validate_amount
+#: view:purchase.amount.wizard:elneo_purchase_validate_amount.view_purchase_amount_wizard
+msgid "Pick one or more purchase managers to send them a mail."
+msgstr "Choisissez un ou plusieurs responsables d'achat pour leur envoyer un mail."
+
+#. module: elneo_purchase_validate_amount
+#: code:addons/elneo_purchase_validate_amount/wizard/purchase_amount_wizard.py:80
+#, python-format
+msgid "Please fill an email for user %s"
+msgstr "Veuillez remplir l'adresse mail pour l'utilisateur %s"
+
+#. module: elneo_purchase_validate_amount
+#: code:addons/elneo_purchase_validate_amount/purchase.py:65
+#, python-format
+msgid "Purchase Amount Too High!"
+msgstr "Montant de l'achat trop élevé!"
+
+#. module: elneo_purchase_validate_amount
+#: model:ir.model,name:elneo_purchase_validate_amount.model_purchase_order
 msgid "Purchase Order"
 msgstr "Achat"
 
-#. module: purchase_validate_amount
-#: code:addons/purchase_validate_amount/purchase.py:30
-#, python-format
-msgid "Purchase Order Amount too high"
-msgstr "Le montant de l'achat est trop élevé"
+#. module: elneo_purchase_validate_amount
+#: model:email.template,subject:elneo_purchase_validate_amount.email_template_purchase_amount_validate
+msgid "Purchase Order Validation on Amount"
+msgstr "Validation de l'achat sur le montant"
 
-#. module: purchase_validate_amount
+#. module: elneo_purchase_validate_amount
+#: model:ir.actions.act_window,name:elneo_purchase_validate_amount.action_view_purchase_amount_wizard
+msgid "Purchase Validation on Amount"
+msgstr "Validation de l'achat sur le montant"
+
+#. module: elneo_purchase_validate_amount
+#: model:ir.model,name:elneo_purchase_validate_amount.model_purchase_amount_wizard
+msgid "Purchase amount wizard"
+msgstr "Assistant d'achat (montant)"
+
+#. module: elneo_purchase_validate_amount
+#: view:purchase.order:elneo_purchase_validate_amount.purchase_order_search_inherit
+msgid "Purchase orders which are not approved yet."
+msgstr "Bons de commande qui ne sont pas encore approuvés."
+
+#. module: elneo_purchase_validate_amount
+#: view:purchase.amount.wizard:elneo_purchase_validate_amount.view_purchase_amount_wizard
+msgid "Purchase update"
+msgstr "Mise à jour d'achat"
+
+#. module: elneo_purchase_validate_amount
+#: view:purchase.amount.wizard:elneo_purchase_validate_amount.view_purchase_amount_wizard
+msgid "Send mail"
+msgstr "Envoyer l'email"
+
+#. module: elneo_purchase_validate_amount
+#: view:purchase.amount.wizard:elneo_purchase_validate_amount.view_purchase_amount_wizard
+msgid "The Amount of the purchase order is too high and need a validation."
+msgstr "Le montant de l'acaht est trop élevé et nécessite une validation."
+
+#. module: elneo_purchase_validate_amount
 #: help:purchase.config.settings,purchase_validate_amount:0
 msgid "The purchase amount level to block the purchase and wait for validation"
 msgstr "Le niveau du montant de l'achat pour bloquer l'acaht et attendre une validation"
 
-#. module: purchase_validate_amount
+#. module: elneo_purchase_validate_amount
+#: view:purchase.order:elneo_purchase_validate_amount.purchase_order_search_inherit
+msgid "To Approve"
+msgstr "À approuver"
+
+#. module: elneo_purchase_validate_amount
 #: field:purchase.order,date_amount_unblocked:0
 msgid "Unblocked on Amount date"
 msgstr "Date de débloquage sur le montant"
 
-#. module: purchase_validate_amount
+#. module: elneo_purchase_validate_amount
 #: field:purchase.order,user_amount_unblocked:0
 msgid "Unblocked on Amount user"
 msgstr "Utilisateur de débloquage sur le montant"
 
-#. module: purchase_validate_amount
-#: view:purchase.order:purchase_validate_amount.purchase_order_form_amount
+#. module: elneo_purchase_validate_amount
+#: view:purchase.order:elneo_purchase_validate_amount.purchase_order_form_amount
 msgid "Unblocking"
 msgstr "Débloquage"
+
+#. module: elneo_purchase_validate_amount
+#: field:purchase.amount.wizard,users_to_warn:0
+msgid "Users To Warn"
+msgstr "Utilisateur à avertir"
+
+#. module: elneo_purchase_validate_amount
+#: view:purchase.amount.wizard:elneo_purchase_validate_amount.view_purchase_amount_wizard
+msgid "_Cancel"
+msgstr "_Cancel"

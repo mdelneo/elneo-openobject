@@ -1,0 +1,138 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-07 16:39+0000\n"
+"PO-Revision-Date: 2015-11-07 17:46+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: fr_BE\n"
+
+#. module: elneo_hr
+#: field:hr.holidays.status,count:0
+msgid "Count"
+msgstr "Compter"
+
+#. module: elneo_hr
+#: model:ir.model,name:elneo_hr.model_hr_employee
+msgid "Employee"
+msgstr "Employé"
+
+#. module: elneo_hr
+#: model:ir.model,name:elneo_hr.model_hr_car
+msgid "Employee Car Description"
+msgstr "Description du Véhicule Employé"
+
+#. module: elneo_hr
+#: model:ir.model,name:elneo_hr.model_hr_equipment
+msgid "Equipment"
+msgstr "Équipement"
+
+#. module: elneo_hr
+#: help:hr.holidays.status,count:0
+msgid ""
+"First type with 'count' and with several remaining days will be used as "
+"default type "
+msgstr ""
+"First type with 'count' and with several remaining days will be used as "
+"default type "
+
+#. module: elneo_hr
+#: code:addons/elneo_hr/elneo_hr_holidays.py:271
+#, python-format
+msgid "Holidays"
+msgstr "Vacances"
+
+#. module: elneo_hr
+#: model:ir.model,name:elneo_hr.model_hr_holidays
+msgid "Leave"
+msgstr "Congé"
+
+#. module: elneo_hr
+#: model:ir.model,name:elneo_hr.model_hr_holidays_status
+msgid "Leave Type"
+msgstr "Type de congé"
+
+#. module: elneo_hr
+#: field:hr.holidays,manager_user_id:0
+msgid "Manager user"
+msgstr "Utilisateur Responsable"
+
+#. module: elneo_hr
+#: field:hr.holidays,manager_user_id2:0
+msgid "Manager user 2"
+msgstr "Utilisateur Responsable 2"
+
+#. module: elneo_hr
+#: model:ir.model,name:elneo_hr.model_elneo_hr_multimedia
+msgid "Multimedia"
+msgstr "Multimédia"
+
+#. module: elneo_hr
+#: view:hr.holidays:elneo_hr.view_hr_holidays_filter_elneo_inherit
+msgid "My approvals"
+msgstr "Mes approbations"
+
+#. module: elneo_hr
+#: code:addons/elneo_hr/elneo_hr_holidays.py:227
+#, python-format
+msgid "Only %s or hr managers can approve this holiday !"
+msgstr ""
+"Seulement %s ou les responsables ressources humaines peuvent approuver ce "
+"congé!"
+
+#. module: elneo_hr
+#: code:addons/elneo_hr/elneo_hr_holidays.py:229
+#: code:addons/elneo_hr/elneo_hr_holidays.py:237
+#, python-format
+msgid "Only hr managers can approve this holiday !"
+msgstr "Seuls les responsables ressources humaines peuvent approuver ce congé!"
+
+#. module: elneo_hr
+#: field:hr.equipment,purchase_date:0
+msgid "Purchase date"
+msgstr "Date d'achat"
+
+#. module: elneo_hr
+#: help:hr.holidays,manager_user_id:0 help:hr.holidays,manager_user_id2:0
+msgid "Related user name for the resource to manage its access."
+msgstr "Nom d'utilisateur lié à la ressource pour gérer ses accès."
+
+#. module: elneo_hr
+#: field:hr.holidays.status,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: elneo_hr
+#: help:hr.holidays.status,sequence:0
+msgid ""
+"Sequence is used to choose the first type with remaining days as default "
+"type."
+msgstr ""
+"La séquence est utilisée pour choisir le premier type avec les jours "
+"restants comme type par défaut."
+
+#. module: elneo_hr
+#: constraint:hr.holidays:0
+msgid "You can not have 2 leaves that overlaps on same day!"
+msgstr ""
+"Vous ne pouvez pas avoir 2 demandes de congés qui se chevauchent dans la "
+"même journée."
+
+#. module: elneo_hr
+#: view:hr.holidays:elneo_hr.edit_holiday_new_elneo_hr
+msgid "onchange_date_from(date_to, date_from, employee_id)"
+msgstr "onchange_date_from(date_to, date_from, employee_id)"
+
+#. module: elneo_hr
+#: view:hr.holidays:elneo_hr.edit_holiday_new_elneo_hr
+msgid "onchange_date_to(date_to, date_from, employee_id)"
+msgstr "onchange_date_to(date_to, date_from, employee_id)"

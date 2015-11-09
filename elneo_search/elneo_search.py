@@ -67,7 +67,6 @@ class product_product(models.Model):
 
 product_product()
 
-
 class res_partner(models.Model):
     _inherit = 'res.partner'
     

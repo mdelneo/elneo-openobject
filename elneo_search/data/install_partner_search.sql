@@ -1,4 +1,4 @@
-CREATE EXTENSION IF NOT EXISTS unaccent;
+-- CREATE EXTENSION IF NOT EXISTS unaccent;
 
 -- Format function
 
@@ -9,8 +9,8 @@ $BODY$
 $BODY$
   LANGUAGE sql VOLATILE
   COST 100;
-ALTER FUNCTION search_format(text)
-  OWNER TO odoo;
+--ALTER FUNCTION search_format(text)
+--  OWNER TO odoo;
 
 
 CREATE OR REPLACE FUNCTION search_format_star(IN text, OUT text)
@@ -20,8 +20,8 @@ $BODY$
 $BODY$
   LANGUAGE sql VOLATILE
   COST 100;
-ALTER FUNCTION search_format_star(text)
-  OWNER TO odoo;
+-- ALTER FUNCTION search_format_star(text)
+--  OWNER TO odoo;
 
   
 CREATE OR REPLACE FUNCTION search_format_update(IN text, OUT text)
@@ -31,8 +31,8 @@ $BODY$
 $BODY$
   LANGUAGE sql VOLATILE
   COST 100;
-ALTER FUNCTION search_format_update(text)
-  OWNER TO odoo;
+-- ALTER FUNCTION search_format_update(text)
+--  OWNER TO odoo;
 
 
 -- Add fields
@@ -85,8 +85,8 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
-ALTER FUNCTION partner_search_column(text)
-  OWNER TO odoo;
+-- ALTER FUNCTION partner_search_column(text)
+--  OWNER TO odoo;
 
 
 -- General fill function
@@ -106,8 +106,8 @@ and res_partner.id = $1 RETURNING res_partner.id;
 $BODY$
   LANGUAGE sql VOLATILE
   COST 100;
-ALTER FUNCTION fill_partner_search_field(integer)
-  OWNER TO odoo;
+-- ALTER FUNCTION fill_partner_search_field(integer)
+--  OWNER TO odoo;
 
 
 	
@@ -131,8 +131,8 @@ $BODY$
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION fill_trg_res_partner()
-  OWNER TO odoo;
+-- ALTER FUNCTION fill_trg_res_partner()
+--  OWNER TO odoo;
 
 CREATE OR REPLACE FUNCTION fill_all_partner_search(OUT id integer)
   RETURNS SETOF integer AS
@@ -150,8 +150,8 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
-ALTER FUNCTION partner_search_column(text)
-  OWNER TO odoo;
+-- ALTER FUNCTION partner_search_column(text)
+--  OWNER TO odoo;
 
 
 -- TRIGGERS 

@@ -1,0 +1,139 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 10:02+0000\n"
+"PO-Revision-Date: 2015-11-09 11:07+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: elneo_stock
+#: field:procurement.rule,autovalidate_dest_move:0
+msgid "Auto-validate destination move"
+msgstr "Valider automatiquement les mouvements de destination"
+
+#. module: elneo_stock
+#: field:transfert.move.wizard,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_stock
+#: field:transfert.move.wizard,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_stock
+#: field:res.users,default_warehouse_id:0
+msgid "Default Warehouse"
+msgstr "Entrepôt par défaut"
+
+#. module: elneo_stock
+#: help:res.users,default_warehouse_id:0
+msgid "Default Warehouse to match some specific needs"
+msgstr "Entrepôt par défaut pour répndre à des besoins spécifiques"
+
+#. module: elneo_stock
+#: field:transfert.move.wizard,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: elneo_stock
+#: field:transfert.move.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière Mise à jour par"
+
+#. module: elneo_stock
+#: field:transfert.move.wizard,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière Mise à jour le"
+
+#. module: elneo_stock
+#: model:ir.model,name:elneo_stock.model_stock_location
+msgid "Location"
+msgstr "Emplacement"
+
+#. module: elneo_stock
+#: model:ir.model,name:elneo_stock.model_stock_warehouse_orderpoint
+msgid "Minimum Inventory Rule"
+msgstr "Règle du stock minimum."
+
+#. module: elneo_stock
+#: model:ir.model,name:elneo_stock.model_stock_picking
+msgid "Picking List"
+msgstr "Bon de transfert"
+
+#. module: elneo_stock
+#: model:ir.model,name:elneo_stock.model_procurement_order
+msgid "Procurement"
+msgstr "Approvisionnement"
+
+#. module: elneo_stock
+#: model:ir.model,name:elneo_stock.model_procurement_rule
+msgid "Procurement Rule"
+msgstr "Règle d'approvisionnement"
+
+#. module: elneo_stock
+#: field:transfert.move.wizard,product_id:0
+msgid "Product"
+msgstr "Produit"
+
+#. module: elneo_stock
+#: model:ir.model,name:elneo_stock.model_product_template
+msgid "Product Template"
+msgstr "Modèle de produit"
+
+#. module: elneo_stock
+#: field:transfert.move.wizard,quantity:0
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: elneo_stock
+#: model:ir.model,name:elneo_stock.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bon de commandes"
+
+#. module: elneo_stock
+#: model:ir.model,name:elneo_stock.model_stock_move
+msgid "Stock Move"
+msgstr "Mouvement de stock"
+
+#. module: elneo_stock
+#: field:transfert.move.wizard,move_id:0
+msgid "Stock move"
+msgstr "Mouvement de stock"
+
+#. module: elneo_stock
+#: field:stock.warehouse.orderpoint,stocked_for_customer:0
+msgid "Stocked for customer"
+msgstr "Stocké pour le client"
+
+#. module: elneo_stock
+#: model:ir.actions.act_window,name:elneo_stock.transfert_move
+#: view:transfert.move.wizard:elneo_stock.view_transfert_move_wizard
+msgid "Transfert move"
+msgstr "Mouvement de transfert"
+
+#. module: elneo_stock
+#: view:transfert.move.wizard:elneo_stock.view_transfert_move_wizard
+msgid "_Apply"
+msgstr "_Appliquer"
+
+#. module: elneo_stock
+#: view:transfert.move.wizard:elneo_stock.view_transfert_move_wizard
+msgid "_Cancel"
+msgstr "_Annuler"
+
+#. module: elneo_stock
+#: view:transfert.move.wizard:elneo_stock.view_transfert_move_wizard
+msgid "or"
+msgstr "ou"

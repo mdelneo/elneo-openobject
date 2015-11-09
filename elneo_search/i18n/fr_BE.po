@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_search
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 09:47+0000\n"
+"PO-Revision-Date: 2015-11-09 10:48+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: elneo_search
+#: field:elneo.search,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_search
+#: field:elneo.search,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_search
+#: field:elneo.search,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: elneo_search
+#: field:elneo.search,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière Mise à jour par"
+
+#. module: elneo_search
+#: field:elneo.search,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière Mise à jour le"
+
+#. module: elneo_search
+#: model:ir.model,name:elneo_search.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: elneo_search
+#: model:ir.model,name:elneo_search.model_product_product
+msgid "Product"
+msgstr "Produit"

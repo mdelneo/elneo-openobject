@@ -49,7 +49,6 @@ class product_product(models.Model):
             result[product_id] = ''
         return result
     
-    
     @api.multi
     def search_ext_name(self, operator, value):
         self._cr.execute("select id from product_search_column('"+value+"');")
@@ -66,7 +65,6 @@ class product_product(models.Model):
     search_default_code_layout = fields.Char(compute='get_ext_name', search=search_default_code, size=4096, string='Code')
 
 product_product()
-
 
 class res_partner(models.Model):
     _inherit = 'res.partner'

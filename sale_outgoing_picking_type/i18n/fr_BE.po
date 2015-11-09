@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_outgoing_picking_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 14:45+0000\n"
+"PO-Revision-Date: 2015-11-09 15:45+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: sale_outgoing_picking_type
+#: field:sale.order,outgoing_picking_type:0
+msgid "Delivery type"
+msgstr "Type de livraison"
+
+#. module: sale_outgoing_picking_type
+#: model:ir.model,name:sale_outgoing_picking_type.model_procurement_order
+msgid "Procurement"
+msgstr "Approvisionnement"
+
+#. module: sale_outgoing_picking_type
+#: model:ir.model,name:sale_outgoing_picking_type.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"

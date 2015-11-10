@@ -98,7 +98,7 @@
             	<xpath expr="//field[@name='invoice_lines']" position="replace" />
             
             	<xpath expr="//field[@name='partner_invoice_id']" position="before">
-            		<field name="partner_order_id" domain="[('parent_id','=',partner_id),('type','in',['default','other'])]" />
+            		<field name="partner_order_id" context="{'contact_display':1}" domain="['|',('id','=',partner_id),('parent_id','=',partner_id),('type','in',['default','other','contact'])]" />
             	</xpath>
             	<xpath expr="//field[@name='partner_id']" position="attributes">
             		<attribute name="domain">[('is_company','=',True)]</attribute>
@@ -108,15 +108,15 @@
             	<xpath expr="//field[@name='partner_shipping_id']" position="after">
             		<field name="partner_invoice_id" 
             			groups="sale.group_delivery_invoice_address" 
-            			context="{'default_type':'invoice','show_address':1,'show_ref_inline':1}"
+            			context="{'default_type':'invoice','show_address':1,'show_ref_inline':1,'contact_display':1}"
             			options="{'always_reload': True}"
-            			domain="[('parent_id','=',partner_id),('type','in',['default','invoice','other'])]"
+            			domain="['|',('parent_id','=',partner_id),('parent_id','=',partner_id),('type','in',['default','invoice','other'])]"
             			/>
             	</xpath>
             	
             	<xpath expr="//field[@name='partner_shipping_id']" position="attributes">
-            		<attribute name="context">{'show_address':1,'show_ref_inline':1}</attribute>
-            		<attribute name="domain">[('parent_id','=',partner_id),('type','in',['default','delivery','other'])]</attribute>
+            		<attribute name="context">{'show_address':1,'show_ref_inline':1,'contact_display':1}</attribute>
+            		<attribute name="domain">['|',('parent_id','=',partner_id),('parent_id','=',partner_id),('type','in',['default','delivery','other'])]</attribute>
             	</xpath>
             	<xpath expr="//field[@name='project_id']" position="replace"/>
 	           	
@@ -131,13 +131,13 @@
 	           	</xpath>
 	           	
 	           	<xpath expr="//notebook/page[@string='Other Information']" position="after">
-	           		<page string="History">
+	           		<page string="Order tracking">
+						<label for="picking_ids" string="Pickings" widget="one2many_list"/>
+						<field name="picking_ids"/>
 	           			<label for="purchase_ids" string="Purchases" widget="one2many_list"/>
 	           			<field name="purchase_ids" />
 	           			<label for="invoice_ids" string="Invoices" widget="one2many_list"/>
 						<field name="invoice_ids"/>
-						<label for="picking_ids" string="Pickings" widget="one2many_list"/>
-						<field name="picking_ids"/>
 	           		</page>
 	           	</xpath>
                 <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
@@ -158,6 +158,19 @@
                 
 			</field>
         </record>
+        
+        
+<!--         <record model="ir.ui.view" id="view_order_form_inherit_1_elneo_sale"> -->
+<!--             <field name="name">view.order.form.inherit.1.elneo.sale</field> -->
+<!--             <field name="model">sale.order</field> -->
+<!--             <field name="inherit_id" ref="sale_layout.view_order_form_inherit_1"/> -->
+<!--             <field name="arch" type="xml"> -->
+<!-- 			        remove sale dpt from sale order lines -->
+<!--                     <xpath expr="//notebook/page/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='sale_layout_cat_id']" position="replace" /> -->
+<!--                     <xpath expr="//field[@name='order_line']/form/group/group/field[@name='sale_layout_cat_id']" position="replace" /> -->
+<!--             </field> -->
+<!--         </record> -->
+        
         <record model="ir.ui.view" id="sale_view_inherit123_elneo_sale">
             <field name="name">sale.order.inherit.elneo.sale</field>
             <field name="model">sale.order</field>

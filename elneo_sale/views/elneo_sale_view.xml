@@ -98,7 +98,7 @@
             	<xpath expr="//field[@name='invoice_lines']" position="replace" />
             
             	<xpath expr="//field[@name='partner_invoice_id']" position="before">
-            		<field name="partner_order_id" context="{'contact_display':1}" domain="['|',('id','=',partner_id),('parent_id','=',partner_id),('type','in',['default','other','contact'])]" />
+            		<field name="partner_order_id" context="{'contact_display':1}" domain="['|',('id','=',partner_id),'&amp;',('parent_id','=',partner_id),('type','in',['default','other','contact'])]" />
             	</xpath>
             	<xpath expr="//field[@name='partner_id']" position="attributes">
             		<attribute name="domain">[('is_company','=',True)]</attribute>
@@ -110,13 +110,13 @@
             			groups="sale.group_delivery_invoice_address" 
             			context="{'default_type':'invoice','show_address':1,'show_ref_inline':1,'contact_display':1}"
             			options="{'always_reload': True}"
-            			domain="['|',('id','=',partner_id),('parent_id','=',partner_id),('type','in',['default','invoice','other'])]"
+            			domain="['|',('id','=',partner_id),'&amp;',('parent_id','=',partner_id),('type','in',['default','invoice','other'])]"
             			/>
             	</xpath>
             	
             	<xpath expr="//field[@name='partner_shipping_id']" position="attributes">
             		<attribute name="context">{'show_address':1,'show_ref_inline':1,'contact_display':1}</attribute>
-            		<attribute name="domain">['|',('id','=',partner_id),('parent_id','=',partner_id),('type','in',['default','delivery','other'])]</attribute>
+            		<attribute name="domain">['|',('id','=',partner_id),'&amp;',('parent_id','=',partner_id),('type','in',['default','delivery','other'])]</attribute>
             	</xpath>
             	<xpath expr="//field[@name='project_id']" position="replace"/>
 	           	

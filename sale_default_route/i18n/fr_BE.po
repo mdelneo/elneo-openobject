@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_default_route
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 14:38+0000\n"
+"PO-Revision-Date: 2015-11-09 15:39+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: sale_default_route
+#: field:sale.config.settings,default_route:0
+msgid "Default Route"
+msgstr "Route par défaut"
+
+#. module: sale_default_route
+#: model:ir.model,name:sale_default_route.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bon de commandes"
+
+#. module: sale_default_route
+#: help:sale.config.settings,default_route:0
+msgid "The Default Route proposed on new sale order line"
+msgstr "La route par défaut poposée pour une nouvelle ligne de vente"

@@ -1,0 +1,184 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* procure_method_partial
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 12:16+0000\n"
+"PO-Revision-Date: 2015-11-09 13:25+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: procure_method_partial
+#: selection:procurement.rule.procure.method,procure_method:0
+msgid "Create Procurement"
+msgstr "Créer l'apprvisionnement"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: procure_method_partial
+#: view:procurement.rule:procure_method_partial.view_procurement_rule_form_procure_partial
+msgid "Delay"
+msgstr "Délai"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,delay:0
+msgid "Delay (days)"
+msgstr "Délai (jours)"
+
+#. module: procure_method_partial
+#: help:procurement.rule.procure.method,sequence:0
+msgid "First procure method will be applied first."
+msgstr "La première méthode d'approvisionnement sera appliquée en premier"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: procure_method_partial
+#: help:procurement.rule.procure.method,use_if_enough_stock:0
+msgid "If there is enough stock in location, whatever the other conditions, the procure method will be used"
+msgstr "S'il y a assez de stock dans l'emplacement, quelles que soient les autes conditions, la méthode d'approvisionnement sera utilisée"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,sub_route_quantity_check_location_id:0
+msgid "Location for quantity check"
+msgstr "Emplacement pour les vérifications de quantité"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,procure_method:0
+msgid "Move Supply Method"
+msgstr "Méthode d'approvisionnement"
+
+#. module: procure_method_partial
+#: code:addons/procure_method_partial/procure_method_partial.py:59
+#, python-format
+msgid "Move from different locations"
+msgstr "Déplacer de différents emplacements"
+
+#. module: procure_method_partial
+#: view:procurement.rule:procure_method_partial.view_procurement_rule_form_procure_partial
+msgid "Moving Options"
+msgstr "Options de mouvement"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,partner_address_id:0
+msgid "Partner address"
+msgstr "Adresse du partenaire"
+
+#. module: procure_method_partial
+#: view:procurement.rule:procure_method_partial.view_procurement_rule_form_procure_partial
+msgid "Procure Methods"
+msgstr "Méthodes d'approvisionnement"
+
+#. module: procure_method_partial
+#: field:procurement.rule,procure_methods:0
+msgid "Procure methods"
+msgstr "Méthodes d'approvisionnement"
+
+#. module: procure_method_partial
+#: model:ir.model,name:procure_method_partial.model_procurement_order
+msgid "Procurement"
+msgstr "Approvisionnement"
+
+#. module: procure_method_partial
+#: model:ir.model,name:procure_method_partial.model_procurement_rule
+msgid "Procurement Rule"
+msgstr "Règle d'approvisionnement"
+
+#. module: procure_method_partial
+#: field:sale.order.line,procurement_path_backup:0
+msgid "Procurement path (backup)"
+msgstr "Chemin d'approvisionnement (sauvegarde)"
+
+#. module: procure_method_partial
+#: view:sale.order:procure_method_partial.view_order_form_partial
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,rule_id:0
+msgid "Rule"
+msgstr "Règle"
+
+#. module: procure_method_partial
+#: model:ir.model,name:procure_method_partial.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
+
+#. module: procure_method_partial
+#: model:ir.model,name:procure_method_partial.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bon de commandes"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,location_src_id:0
+msgid "Source location"
+msgstr "Emplacement source"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,warehouse_src_id:0
+msgid "Source warehouse"
+msgstr "Entrepôt source"
+
+#. module: procure_method_partial
+#: model:ir.model,name:procure_method_partial.model_stock_move
+msgid "Stock Move"
+msgstr "Mouvement de stock"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,sub_route_id:0
+msgid "Sub-route"
+msgstr "Sous-route"
+
+#. module: procure_method_partial
+#: selection:procurement.rule.procure.method,procure_method:0
+msgid "Take From Stock"
+msgstr "Prendre du stock"
+
+#. module: procure_method_partial
+#: field:procurement.rule.procure.method,use_if_enough_stock:0
+msgid "Use if enough stock"
+msgstr "Utiliser si assez de stock"
+
+#. module: procure_method_partial
+#: view:procurement.rule:procure_method_partial.view_procurement_rule_form_procure_partial
+msgid "days"
+msgstr "jours"

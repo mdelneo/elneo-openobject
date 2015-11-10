@@ -1,44 +1,26 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* term_delivery
+# 	* term_delivery
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.4\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2014-09-19 13:12+0000\n"
-"PO-Revision-Date: 2014-09-19 15:21+0100\n"
-"Last-Translator: Clément THOMAS <clement.thomas@elneo.com>\n"
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-10 08:01+0000\n"
+"PO-Revision-Date: 2015-11-10 09:01+0100\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #. module: term_delivery
 #: field:account.payment.term,default_order_policy:0
-msgid "Default Shipping Policy"
-msgstr "Politique d'expédition par défaut"
-
-#. module: term_delivery
-#: selection:account.payment.term,default_order_policy:0
-msgid "Invoice On Order After Delivery"
-msgstr "Facturation sur Commande après livraison"
-
-#. module: term_delivery
-#: sql_constraint:sale.order:0
-msgid "Order Reference must be unique !"
-msgstr "La référence de la commande doit être unique !"
-
-#. module: term_delivery
-#: selection:account.payment.term,default_order_policy:0
-msgid "Shipping & Manual Invoice"
-msgstr "Livraison et Facturation manuelle"
-
-#. module: term_delivery
-#: model:ir.model,name:term_delivery.model_account_payment_term
-msgid "Payment Term"
-msgstr "Condition de paiement"
+msgid "Default Order Policy"
+msgstr "Default Order Policy"
 
 #. module: term_delivery
 #: selection:account.payment.term,default_order_policy:0
@@ -51,22 +33,16 @@ msgid "Payment Before Delivery"
 msgstr "Paiement avant livraison"
 
 #. module: term_delivery
+#: model:ir.model,name:term_delivery.model_account_payment_term
+msgid "Payment Term"
+msgstr "Condition de paiement"
+
+#. module: term_delivery
 #: model:ir.model,name:term_delivery.model_sale_order
 msgid "Sales Order"
 msgstr "Commande de ventes"
 
 #. module: term_delivery
-#: help:account.payment.term,default_order_policy:0
-msgid ""
-"The Shipping Policy is used to synchronise invoice and delivery operations.\n"
-"  - The 'Pay Before delivery' choice will first generate the invoice and then generate the picking order after the payment of this invoice.\n"
-"  - The 'Shipping & Manual Invoice' will create the picking order directly and wait for the user to manually click on the 'Invoice' button to generate the draft invoice.\n"
-"  - The 'Invoice On Order After Delivery' choice will generate the draft invoice based on sales order after all picking lists have been finished.\n"
-"  - The 'Invoice From The Picking' choice is used to create an invoice during the picking process."
-msgstr ""
-"La politique de livraison est utilisée pour synchroniser la facture et les opérations de livraisons.\n"
-"  - Le choix 'Payer avant livraison' génère d'abord la facture et ensuite génère la réservation après le paiement de cette facture.\n"
-"  - Le choix 'Livraison et facturation manuelle' créera la réservation directement et attend la confirmation manuelle au click sur le bouton 'Facture' pour générer la facture brouillon.\n"
-"  - Le choix 'Facturer sur base de la commande après livraison' génèrera la facture brouillon basé sur les ventes après que toutes les livraisons aient été effectuées.\n"
-"  - Le choix 'Facturer sur base des livraisons' est utilisé pour créer une facture pendant les processus de réservation."
-
+#: selection:account.payment.term,default_order_policy:0
+msgid "Shipping & Manual Invoice"
+msgstr "Livraison et Facturation manuelle"

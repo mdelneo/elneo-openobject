@@ -1,0 +1,127 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_invoice_validation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 14:20+0000\n"
+"PO-Revision-Date: 2015-11-09 15:21+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+msgid "Advanced"
+msgstr "Avancé"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+msgid "Approve"
+msgstr "Approuver"
+
+#. module: purchase_invoice_validation
+#: field:account.invoice.validation.problem,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: purchase_invoice_validation
+#: field:account.invoice.validation.problem,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+msgid "Define/Change Invoice Number"
+msgstr "Définir/Modifier le numéro de facture"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.view_account_invoice_filter_purchase_invoice_validation
+msgid "Difference between supplier due date and due date"
+msgstr "Différence entre la date d'échéance fournisseur et la date d'échéance"
+
+#. module: purchase_invoice_validation
+#: field:account.invoice.validation.problem,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+#: model:ir.model,name:purchase_invoice_validation.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: purchase_invoice_validation
+#: model:ir.model,name:purchase_invoice_validation.model_account_move_line
+msgid "Journal Items"
+msgstr "Écritures comptables"
+
+#. module: purchase_invoice_validation
+#: field:account.invoice.validation.problem,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière Mise à jour par"
+
+#. module: purchase_invoice_validation
+#: field:account.invoice.validation.problem,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière Mise à jour le"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.view_account_invoice_filter_purchase_invoice_validation
+msgid "Litigation"
+msgstr "Litige"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+msgid "Problem"
+msgstr "Problème"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.view_account_invoice_filter_purchase_invoice_validation
+#: field:account.invoice,problem_solving_in_progress:0
+msgid "Problem solving in progress"
+msgstr "Solution au problème en cours"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+msgid "Purchase"
+msgstr "Achat"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+msgid "Solving in progress"
+msgstr "Solution en cours"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.view_account_invoice_filter_purchase_invoice_validation
+msgid "Validation problem"
+msgstr "Problème de validation"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+msgid "Validation problems"
+msgstr "Problèmes de validation"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+msgid "onchange_name(name, reference_type)"
+msgstr "onchange_name(name, reference_type)"
+
+#. module: purchase_invoice_validation
+#: code:addons/purchase_invoice_validation/purchase_invoice_validation.py:31
+#, python-format
+msgid "please fill supplier invoice file"
+msgstr "veuillez fournir le fichier de facture fournisseur"
+
+#. module: purchase_invoice_validation
+#: view:account.invoice:purchase_invoice_validation.invoice_supplier_form_purchase_invoice_validation
+msgid "terp-camera_test"
+msgstr "terp-camera_test"

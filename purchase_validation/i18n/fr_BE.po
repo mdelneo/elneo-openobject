@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 09:51+0000\n"
-"PO-Revision-Date: 2015-04-17 12:01+0100\n"
+"POT-Creation-Date: 2015-11-09 14:24+0000\n"
+"PO-Revision-Date: 2015-11-09 15:27+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language: fr_BE\n"
-"X-Generator: Poedit 1.7.4\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #. module: purchase_validation
 #: model:email.template,body_html:purchase_validation.email_template_delivery_date_change
@@ -32,10 +32,10 @@ msgstr ""
 "\n"
 "\t\t\tCher client,<br/>\n"
 "<br/>\n"
-"La date de livraison de votre commande (${object.client_order_ref} - ${object.name}) a été modifiée au ${object.confirmed_delivery_date}.<br/>\n"
-"Vous pouvez nous appeler si vous désirez une livraison partielle des produits.<br/>\n"
+"La date de livraison de votre commande (${object.client_order_ref} - ${object.name}), a été modifiée au ${object.confirmed_delivery_date}.<br/>\n"
+"Vous pouvez nous appeler si vous souhaitez une livraison partielle des produits.<br/>\n"
 "<br/>\n"
-"Recevez toutes nos excuses pour ces désagréments,<br/>\n"
+"Vous remerciant pour votre compréhension,<br/>\n"
 "\t\t\t"
 
 #. module: purchase_validation
@@ -78,7 +78,7 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: purchase_validation
-#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:181
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:186
 #, python-format
 msgid "Delivery date confirmed to the customer (%s) for order %s is no longer correct."
 msgstr "La date de livraison confirmée au client (%s) pour la commande %s n'est plus correcte."
@@ -89,13 +89,13 @@ msgid "Delivery date modification"
 msgstr "Modification de la date de livraison"
 
 #. module: purchase_validation
-#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:178
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:183
 #, python-format
 msgid "Delivery date of the sale order %s was postponed from %s to %s."
 msgstr "La date d'envoi de la commande de vente %s est reportée du %s au %s."
 
 #. module: purchase_validation
-#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:194
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:199
 #, python-format
 msgid "Do you want send an email to following customers about theses modifications :"
 msgstr "Voulez vous envoyer un email aux clients suivants afin de les informer des modifications :"
@@ -147,7 +147,7 @@ msgid "New Price"
 msgstr "Nouveau prix"
 
 #. module: purchase_validation
-#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:85
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:86
 #, python-format
 msgid "No Email Template is defined. Contact your Administrator"
 msgstr "Aucun modèle d'email n'est défini. Contactez votre Administrateur"
@@ -159,7 +159,7 @@ msgid "Operation canceled"
 msgstr "Opération annulée"
 
 #. module: purchase_validation
-#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:89
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:90
 #, python-format
 msgid "Please fill an email for user %s"
 msgstr "Merci de remplir l'adresse email de l'utilisateur %s"
@@ -176,7 +176,7 @@ msgid "Product '%s' has not supplier '%s' configured. Please complete it before.
 msgstr "Le produit '%s' n'a pas le fournisseur '%s' de configuré. Merci de le compléter."
 
 #. module: purchase_validation
-#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:242
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:247
 #, python-format
 msgid "Product '%s' price has been updated from %s to %s."
 msgstr "Le prix du produit '%s' a été mis à jour de %s à %s."
@@ -222,6 +222,11 @@ msgid "Purchase updater line wizard"
 msgstr "Assistant de mise à jour des lignes d'Achat"
 
 #. module: purchase_validation
+#: model:mail.message.subtype,name:purchase_validation.mt_purchase_validated
+msgid "Purchase validated"
+msgstr "Achat validé"
+
+#. module: purchase_validation
 #: view:purchase.order:purchase_validation.purchase_order_form_inherit_purchase_validation
 msgid "Purchase validation"
 msgstr "Validation de l'achat"
@@ -237,15 +242,20 @@ msgid "Quantity"
 msgstr "Quantité"
 
 #. module: purchase_validation
+#: model:ir.model,name:purchase_validation.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bon de commandes"
+
+#. module: purchase_validation
 #: field:purchase.validation.line.wizard,new_date_planned:0
 msgid "Scheduled Date"
 msgstr "Date prévue"
 
 #. module: purchase_validation
-#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:188
+#: code:addons/purchase_validation/wizard/purchase_validation_wizard.py:193
 #, python-format
 msgid "Some of customer have a delivery date that has changed, but order address has no email "
-msgstr "Des clients ont leur date de livraison qui a changé, mais le partenaire de livraison n'a pas de mail"
+msgstr "Des clients ont une date de livraison qui a changé, mais l'adresse de commande ne comporte pas d'addresse mail"
 
 #. module: purchase_validation
 #: field:purchase.validation.line.wizard,update_product:0

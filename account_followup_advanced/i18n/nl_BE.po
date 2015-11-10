@@ -1,0 +1,236 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_followup_advanced
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-10 08:10+0000\n"
+"PO-Revision-Date: 2015-11-10 09:36+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.5\n"
+
+#. module: account_followup_advanced
+#: code:addons/account_followup_advanced/wizard/account_followup_print.py:116
+#, python-format
+msgid "%s partners have no credits and as such the action is cleared"
+msgstr "%s partners hebben geen krediet en  de actie is uitgeschakeld"
+
+#. module: account_followup_advanced
+#: view:website:account_followup.report_followup
+msgid "Amount"
+msgstr "Bedrag"
+
+#. module: account_followup_advanced
+#: view:account_followup.print:account_followup_advanced.view_account_followup_print_semi
+#: view:account_followup.semi:account_followup_advanced.view_account_followup_semi
+msgid "Cancel"
+msgstr "Annuleren"
+
+#. module: account_followup_advanced
+#: view:account_followup.print:account_followup_advanced.view_account_followup_print_semi
+msgid "Clear Partners"
+msgstr "Clear Partners"
+
+#. module: account_followup_advanced
+#: code:addons/account_followup_advanced/wizard/account_followup_print.py:285
+#, python-format
+msgid "Click on Download button below to get Followup file generated."
+msgstr ""
+"Klik op de Download knop onderaan en verkrijg het Followup bestand generated."
+
+#. module: account_followup_advanced
+#: view:account_followup.semi:account_followup_advanced.view_account_followup_semi
+msgid "Continue"
+msgstr "Ga door"
+
+#. module: account_followup_advanced
+#: field:account_followup.semi,create_uid:0
+msgid "Created by"
+msgstr "Gecreëerd door"
+
+#. module: account_followup_advanced
+#: field:account_followup.semi,create_date:0
+msgid "Created on"
+msgstr "Gecreëerd op"
+
+#. module: account_followup_advanced
+#: view:website:account_followup.report_followup
+msgid "Description"
+msgstr "Omschrijving"
+
+#. module: account_followup_advanced
+#: code:addons/account_followup_advanced/wizard/account_followup_print.py:34
+#, python-format
+msgid "Error"
+msgstr "Fout"
+
+#. module: account_followup_advanced
+#: field:account_followup.semi,followup_id:0
+msgid "Follow-up"
+msgstr "Follow-up"
+
+#. module: account_followup_advanced
+#: field:account_followup.semi,date:0
+msgid "Follow-up Sending Date"
+msgstr "Follow-up verzenddatum"
+
+#. module: account_followup_advanced
+#: view:account_followup.stat.by.partner:account_followup_advanced.account_followup_stat_by_partner_advanced_search
+msgid "Group By"
+msgstr "Group By"
+
+#. module: account_followup_advanced
+#: field:account_followup.semi,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_followup_advanced
+#: view:website:account_followup.report_followup
+msgid "Invoice Date"
+msgstr "Factuurdatum"
+
+#. module: account_followup_advanced
+#: field:account_followup.semi,write_uid:0
+msgid "Last Updated by"
+msgstr "Laatste aanpassing door"
+
+#. module: account_followup_advanced
+#: field:account_followup.semi,write_date:0
+msgid "Last Updated on"
+msgstr "Laatste aanpassing op"
+
+#. module: account_followup_advanced
+#: view:account_followup.stat.by.partner:account_followup_advanced.account_followup_stat_by_partner_advanced_search
+msgid "Level"
+msgstr "Niveau"
+
+#. module: account_followup_advanced
+#: view:website:account_followup.report_followup
+msgid "Litigation"
+msgstr "Geschil"
+
+#. module: account_followup_advanced
+#: model:ir.actions.act_window,name:account_followup_advanced.action_customer_followup_litigations
+#: model:ir.ui.menu,name:account_followup_advanced.account_followup_litigations
+msgid "Litigations"
+msgstr "Geschillen"
+
+#. module: account_followup_advanced
+#: view:website:account_followup.report_followup
+msgid "Maturity Date"
+msgstr "Vervaldatum"
+
+#. module: account_followup_advanced
+#: field:account_followup.print,no_lit:0
+msgid "No Litigations"
+msgstr "Geen geschillen"
+
+#. module: account_followup_advanced
+#: help:account_followup.print,no_lit:0
+msgid "No Litigations on reminders prints"
+msgstr "Geen geschillen op afdruk herinneringen"
+
+#. module: account_followup_advanced
+#: code:addons/account_followup_advanced/wizard/account_followup_print.py:34
+#, python-format
+msgid "No Model found. Contact your Administrator"
+msgstr "Geen Model gevonden. Kontakteer Administrator"
+
+#. module: account_followup_advanced
+#: view:account_followup.stat.by.partner:account_followup_advanced.account_followup_stat_by_partner_advanced_search
+msgid "Partner to Remind"
+msgstr "Relatie voor aanmaning"
+
+#. module: account_followup_advanced
+#: model:ir.model,name:account_followup_advanced.model_account_followup_print
+msgid "Print Follow-up & Send Mail to Customers"
+msgstr "Aanmaningen afdrukken & mail sturen naar klanten"
+
+#. module: account_followup_advanced
+#: view:account_followup.print:account_followup_advanced.view_account_followup_print_semi
+msgid "Print Letters (No Level change)"
+msgstr "Druk brieven (Geen niveau aanpassing)"
+
+#. module: account_followup_advanced
+#: view:website:account_followup.report_followup
+msgid "Ref"
+msgstr "Ref."
+
+#. module: account_followup_advanced
+#: code:addons/account_followup_advanced/wizard/account_followup_print.py:84
+#, python-format
+msgid "Sales Order"
+msgstr "Bestelling"
+
+#. module: account_followup_advanced
+#: code:addons/account_followup_advanced/wizard/account_followup_print.py:46
+#, python-format
+msgid "Select Partners"
+msgstr "Selecteer Partners"
+
+#. module: account_followup_advanced
+#: model:ir.actions.act_window,name:account_followup_advanced.action_customer_followup_semi
+#: model:ir.ui.menu,name:account_followup_advanced.account_followup_semi
+msgid "Semi Automatic Followups"
+msgstr "Halfautomatische Followups"
+
+#. module: account_followup_advanced
+#: model:ir.model,name:account_followup_advanced.model_account_followup_semi
+msgid "Semi Automatic Print Followup & Send Mail to Customers"
+msgstr "Halfautomatische Print Followup & mail sturen naar klanten"
+
+#. module: account_followup_advanced
+#: code:addons/account_followup_advanced/wizard/account_followup_print.py:290
+#, python-format
+msgid "Send Letters : Actions Summary"
+msgstr "Verzend brieven : historiek akties"
+
+#. module: account_followup_advanced
+#: code:addons/account_followup_advanced/wizard/account_followup_print.py:127
+#, python-format
+msgid "Send Letters and Emails: Actions Summary"
+msgstr "Verzend brieven en emails: historiek akties"
+
+#. module: account_followup_advanced
+#: view:account_followup.print:account_followup_advanced.view_account_followup_print_semi
+msgid "Send emails and generate letters"
+msgstr "Verstuur e-mails en maak brieven"
+
+#. module: account_followup_advanced
+#: view:account_followup.print:account_followup_advanced.view_account_followup_print_semi
+#: view:account_followup.semi:account_followup_advanced.view_account_followup_semi
+msgid "Send follow-ups"
+msgstr "Aanmaningen versturen"
+
+#. module: account_followup_advanced
+#: view:account_followup.semi:account_followup_advanced.view_account_followup_semi
+msgid ""
+"This action will send follow-up emails, print the letters and\n"
+"                        set the manual actions per customer, according to "
+"the follow-up levels defined."
+msgstr ""
+"Deze aktie verstuurt follow-up emails, drukt de brieven en\n"
+"                        voert handmatige akties per klant uit, gedefinieerd "
+"volgens de follow-up niveaus"
+
+#. module: account_followup_advanced
+#: help:account_followup.semi,date:0
+msgid "This field allow you to select a forecast date to plan your follow-ups"
+msgstr "Via dit veld kan je een datum vooropstellen voor de follow-up"
+
+#. module: account_followup_advanced
+#: view:website:account_followup.report_followup
+msgid "Total:"
+msgstr "Totaal:"
+
+#. module: account_followup_advanced
+#: view:account_followup.semi:account_followup_advanced.view_account_followup_semi
+msgid "or"
+msgstr "of"

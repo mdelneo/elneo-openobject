@@ -1,0 +1,267 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_properties
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 12:35+0000\n"
+"PO-Revision-Date: 2015-11-09 14:45+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: product_properties
+#: model:ir.model,name:product_properties.model_product_property_category
+msgid "A category of properties"
+msgstr "Une catégorie de propriétés"
+
+#. module: product_properties
+#: model:ir.model,name:product_properties.model_product_property_value
+msgid "A property assigned to a product"
+msgstr "Une propriété attribuée à un produit"
+
+#. module: product_properties
+#: field:product.property.value,active1:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: product_properties
+#: field:product.property,product_property_values:0
+msgid "Assigned properties"
+msgstr "Propriétés attribuées"
+
+#. module: product_properties
+#: field:product.property,product_property_category_id:0
+#: field:sale.quotation.property,category:0
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: product_properties
+#: field:product.property,create_uid:0
+#: field:product.property.category,create_uid:0
+#: field:product.property.unit,create_uid:0
+#: field:product.property.value,create_uid:0
+#: field:sale.quotation.property,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: product_properties
+#: field:product.property,create_date:0
+#: field:product.property.category,create_date:0
+#: field:product.property.unit,create_date:0
+#: field:product.property.value,create_date:0
+#: field:sale.quotation.property,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: product_properties
+#: field:product.property,default_value:0
+msgid "Default value"
+msgstr "Valeur par défaut"
+
+#. module: product_properties
+#: view:product.category:product_properties.product_category_form_view_inherit_product_properties
+msgid "Fill product properties"
+msgstr "Remplissez les propriétés du produit"
+
+#. module: product_properties
+#: field:product.property,id:0 field:product.property.category,id:0
+#: field:product.property.unit,id:0 field:product.property.value,id:0
+#: field:sale.quotation.property,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: product_properties
+#: field:product.property,write_uid:0
+#: field:product.property.category,write_uid:0
+#: field:product.property.unit,write_uid:0
+#: field:product.property.value,write_uid:0
+#: field:sale.quotation.property,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière modification par"
+
+#. module: product_properties
+#: field:product.property,write_date:0
+#: field:product.property.category,write_date:0
+#: field:product.property.unit,write_date:0
+#: field:product.property.value,write_date:0
+#: field:sale.quotation.property,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: product_properties
+#: field:product.property,name:0 field:product.property.category,name:0
+#: field:product.property.unit,name:0 field:product.property.value,name:0
+#: field:sale.quotation.property,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: product_properties
+#: model:ir.model,name:product_properties.model_product_product
+#: field:product.property.value,product_id:0
+msgid "Product"
+msgstr "Produit"
+
+#. module: product_properties
+#: model:ir.model,name:product_properties.model_product_category
+msgid "Product Category"
+msgstr "Catégorie de produits"
+
+#. module: product_properties
+#: field:product.property.category,product_category_id:0
+#: field:product.property.value,product_category_id:0
+msgid "Product category"
+msgstr "Catégorie de produit"
+
+#. module: product_properties
+#: view:product.category:product_properties.product_category_form_view_inherit_product_properties
+#: view:product.product:product_properties.product_normal_form_view_inherit_product_properties
+#: view:product.property.category:product_properties.product_property_category_form_view
+msgid "Product properties"
+msgstr "Propriétés de produit"
+
+#. module: product_properties
+#: view:product.category:product_properties.product_category_form_view_inherit_product_properties
+#: view:product.property:product_properties.product_property_form_view
+#: view:product.property:product_properties.product_property_tree_view
+msgid "Product property"
+msgstr "Propriété du produit"
+
+#. module: product_properties
+#: view:product.category:product_properties.product_category_form_view_inherit_product_properties
+#: view:product.property.category:product_properties.product_property_category_form_view
+#: view:product.property.category:product_properties.product_property_category_tree_view
+msgid "Product property category"
+msgstr "Catégorie de propriété de produit"
+
+#. module: product_properties
+#: view:product.property.unit:product_properties.product_property_unit_form_view
+#: view:product.property.unit:product_properties.product_property_unit_tree_view
+msgid "Product property unit"
+msgstr "Unité de propriété de produit"
+
+#. module: product_properties
+#: view:product.property.value:product_properties.product_property_value_form_view
+#: view:product.property.value:product_properties.product_property_value_tree_view
+msgid "Product property value"
+msgstr "Valeur de la propriété de produit"
+
+#. module: product_properties
+#: model:ir.ui.menu,name:product_properties.menu_properties
+#: field:product.product,product_property_values:0
+#: field:product.property.category,product_properties:0
+#: view:sale.order:product_properties.sale_order_form_view_inherit_product_properties
+#: field:sale.order.line,sale_quotation_properties:0
+msgid "Properties"
+msgstr "Propriétés"
+
+#. module: product_properties
+#: model:ir.actions.act_window,name:product_properties.action_product_property
+#: model:ir.ui.menu,name:product_properties.menu_product_property
+#: field:product.property.value,product_property_id:0
+msgid "Property"
+msgstr "Propriété"
+
+#. module: product_properties
+#: field:product.property.value,product_property_category_id:0
+msgid "Property Category"
+msgstr "Catégorie de Propriété"
+
+#. module: product_properties
+#: view:product.category:product_properties.product_category_form_view_inherit_product_properties
+#: field:product.category,product_property_categories:0
+msgid "Property categories"
+msgstr "Catégories de propriété"
+
+#. module: product_properties
+#: model:ir.actions.act_window,name:product_properties.action_product_property_category
+#: model:ir.ui.menu,name:product_properties.menu_product_property_category
+msgid "Property category"
+msgstr "Catégorie de propriété"
+
+#. module: product_properties
+#: field:sale.quotation.property,sale_order_line_id:0
+msgid "Sale order line"
+msgstr "Ligne de vente"
+
+#. module: product_properties
+#: view:sale.quotation.property:product_properties.sale_quotation_property_form_view
+#: view:sale.quotation.property:product_properties.sale_quotation_property_tree_view
+msgid "Sale quotation properties"
+msgstr "Propriétés d'Offre"
+
+#. module: product_properties
+#: model:ir.model,name:product_properties.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
+
+#. module: product_properties
+#: model:ir.model,name:product_properties.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bon de commandes"
+
+#. module: product_properties
+#: field:product.property,sequence:0
+#: field:product.property.category,sequence:0
+#: field:product.property.value,sequence:0
+#: field:sale.quotation.property,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: product_properties
+#: model:ir.model,name:product_properties.model_product_property
+msgid "Technical data"
+msgstr "Données techniques"
+
+#. module: product_properties
+#: field:product.property,unit_id:0 field:product.property.value,unit_id:0
+#: field:sale.quotation.property,unit:0
+msgid "Unit"
+msgstr "Unité"
+
+#. module: product_properties
+#: model:ir.model,name:product_properties.model_product_property_unit
+msgid "Unit of properties"
+msgstr "Unité des propriétés"
+
+#. module: product_properties
+#: field:product.property.value,use_default_name:0
+msgid "Use default name"
+msgstr "Utiliser le nom par défaut"
+
+#. module: product_properties
+#: field:product.property.value,use_default_unit:0
+msgid "Use default unit"
+msgstr "Utiliser l'unité par défaut"
+
+#. module: product_properties
+#: field:product.property.value,use_default_value:0
+msgid "Use default value"
+msgstr "Utiliser la valeur par défaut"
+
+#. module: product_properties
+#: field:product.property.value,value:0 field:sale.quotation.property,value:0
+msgid "Value"
+msgstr "Valeur"
+
+#. module: product_properties
+#: view:product.property.value:product_properties.product_property_value_form_view
+msgid "Values from property"
+msgstr "Valeurs des propriétés"
+
+#. module: product_properties
+#: view:product.property.value:product_properties.product_property_value_form_view
+msgid "Values used for this record"
+msgstr "Valeurs utilisées pour cet enregistrement"
+
+#. module: product_properties
+#: model:ir.model,name:product_properties.model_sale_quotation_property
+msgid "properties for quotation"
+msgstr "propriétés d'offre"

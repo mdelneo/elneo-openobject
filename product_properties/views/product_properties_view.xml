@@ -118,9 +118,7 @@
 					<group>
 						<separator string="Parent property" colspan="4" />
 						<field name="product_property_category_id" />
-						<field name="product_property_id"  
-							on_change="onchange_product_property_id(product_property_id,use_default_value, parent.id)" 
-							/>
+						<field name="product_property_id"/>
 						<separator string="Values from property" colspan="4" />
 						<field name="default_name" />
 						<field name="use_default_name" />

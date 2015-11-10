@@ -1,0 +1,38 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_default_route_shop_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 14:40+0000\n"
+"PO-Revision-Date: 2015-11-09 15:41+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: sale_default_route_shop_sale
+#: field:sale.config.settings,default_route_shop_sale:0
+msgid "Default route (shop sale)"
+msgstr "Route par défaut (vente magasin)"
+
+#. module: sale_default_route_shop_sale
+#: model:ir.model,name:sale_default_route_shop_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bon de commandes"
+
+#. module: sale_default_route_shop_sale
+#: help:sale.config.settings,default_route_shop_sale:0
+msgid "The Default Route proposed on new sale order line for shop sale"
+msgstr "La route par défaut proposée pour une nouvelle ligne de vente magasin"
+
+#. module: sale_default_route_shop_sale
+#: view:sale.order:sale_default_route_shop_sale.view_order_form_sale_default_route_shop_sale
+msgid "{'shop_sale':parent.shop_sale,'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}"
+msgstr "{'shop_sale':parent.shop_sale,'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}"

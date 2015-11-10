@@ -1,0 +1,103 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* default_payment_term
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-10 08:40+0000\n"
+"PO-Revision-Date: 2015-11-10 10:45+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.5\n"
+
+#. module: default_payment_term
+#: view:account.payment.settings:default_payment_term.view_account_payment_settings
+msgid "Apply"
+msgstr "Toepassen"
+
+#. module: default_payment_term
+#: view:account.payment.settings:default_payment_term.view_account_payment_settings
+msgid "Cancel"
+msgstr "Annuleer"
+
+#. module: default_payment_term
+#: view:account.payment.settings:default_payment_term.view_account_payment_settings
+msgid "Configure Payment"
+msgstr "Configureer betaling"
+
+#. module: default_payment_term
+#: model:ir.actions.act_window,name:default_payment_term.action_payment_config
+msgid "Configure Payments"
+msgstr "Configureer betalingen"
+
+#. module: default_payment_term
+#: field:account.payment.settings,create_uid:0
+msgid "Created by"
+msgstr "Gecreëerd door"
+
+#. module: default_payment_term
+#: field:account.payment.settings,create_date:0
+msgid "Created on"
+msgstr "Gecreëerd op"
+
+#. module: default_payment_term
+#: field:account.payment.settings,payment_term_customer:0
+msgid "Customer Default Payment Term"
+msgstr "Klant standaard betalingsconditie"
+
+#. module: default_payment_term
+#: field:account.payment.settings,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: default_payment_term
+#: field:account.payment.settings,write_uid:0
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: default_payment_term
+#: field:account.payment.settings,write_date:0
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: default_payment_term
+#: model:ir.model,name:default_payment_term.model_res_partner
+msgid "Partner"
+msgstr "Relatie"
+
+#. module: default_payment_term
+#: field:account.payment.settings,payment_term_partner:0
+msgid "Partner Default Payment Term"
+msgstr "Relatie standaard betalingsconditie"
+
+#. module: default_payment_term
+#: model:ir.ui.menu,name:default_payment_term.menu_payment_config
+msgid "Payment"
+msgstr "Betaling"
+
+#. module: default_payment_term
+#: help:account.payment.settings,payment_term_customer:0
+msgid ""
+"The Payment Term used by default for a new Customer (or for a Partner which "
+"becomes a Customer)"
+msgstr ""
+"De standaard betalingsconditie voor een nieuwe klant (of voor een relatie "
+"die klant wordt )"
+
+#. module: default_payment_term
+#: help:account.payment.settings,payment_term_partner:0
+msgid ""
+"The Payment Term used by default for a new Partner (which is not a Customer)"
+msgstr ""
+"De standaard betalingsconditie voor een nieuwe relatie (de nog geen klant is)"
+
+#. module: default_payment_term
+#: view:account.payment.settings:default_payment_term.view_account_payment_settings
+msgid "or"
+msgstr "of"

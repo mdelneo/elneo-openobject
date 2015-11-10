@@ -10,8 +10,8 @@ class res_partner(models.Model):
     ref = fields.Char('Reference', size=10,index=True, readonly=True)
     alias = fields.Char('Alias', size=255,index=True)
     sales_count = fields.Integer('Number of sales', compute='_get_sales_count')
-    
     type = fields.Selection([('contact', 'Contact'),('delivery', 'Shipping'), ('invoice', 'Invoice')], string='Address Type')
+    property_account_position = fields.Many2one(required=True)
     
     
     @api.multi
@@ -28,11 +28,10 @@ class res_partner(models.Model):
         result = []
         for partner in self:
             
-            
             name = ''
             name = name_add(name, partner.name)
             
-            if not partner.is_company:
+            if not partner.is_company or self._context.get('contact_display',False):
                 name = name_add(name, partner.street)
                 name = name_add(name, partner.street2)
                 name = name_add(name, partner.zip)

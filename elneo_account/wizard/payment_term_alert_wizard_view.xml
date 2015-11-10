@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+    	<record id="payment_term_wizard_form_view" model="ir.ui.view">			
+            <field name="name">payment.term.wizard.form.view</field>
+            <field name="model">payment.term.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                	<p>Warning : payment cash !</p>
+                </form>
+                <footer>
+                	<button string="Confirm Order" type="object" name="order_confirm" class="oe_highlight"/>
+					<button string="Cancel" special="cancel" />
+                </footer>
+            </field>
+        </record>
+    
+    </data>
+</openerp>

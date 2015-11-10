@@ -11,7 +11,8 @@
     "data" : ['views/elneo_account_view.xml',
               'views/sale_view.xml',
               'views/purchase_view.xml',
-              'views/product_view.xml'
+              'views/product_view.xml',
+              'wizard/payment_term_alert_wizard_view.xml'
         ],
     'installable': True,
     'auto_install': False,

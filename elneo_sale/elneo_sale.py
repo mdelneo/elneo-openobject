@@ -132,6 +132,22 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     
+    def action_cancel_draft(self, cr, uid, ids, *args):
+        if not len(ids):
+            return False
+        cr.execute('select id from sale_order_line where order_id IN %s and state=%s', (tuple(ids), 'cancel'))
+        line_ids = map(lambda x: x[0], cr.fetchall())
+        self.write(cr, uid, ids, {'state': 'draft', 'invoice_ids': [], 'shipped': 0})
+        self.pool.get('sale.order.line').write(cr, uid, line_ids, {'invoiced': False, 'state': 'draft', 'invoice_lines': [(6, 0, [])]})
+        for inv_id in ids:
+            # Deleting the existing instance of workflow for PO
+            self.delete_workflow(cr, uid, [inv_id]) # TODO is it necessary to interleave the calls?
+            self.create_workflow(cr, uid, [inv_id])
+        for (id,name) in self.name_get(cr, uid, ids):
+            message = _("The sales order '%s' has been set in draft state.") %(name,)
+            self.log(cr, uid, id, message)
+        return True
+    
     #own template to send by email
     @api.multi
     def action_quotation_send(self):

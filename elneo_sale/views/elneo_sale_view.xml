@@ -93,6 +93,9 @@
             <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
             <field name="arch" type="xml">
             	
+            	<xpath expr="//header" position="inside">
+            		<button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object" icon="gtk-convert"/>
+            	</xpath>
             
             	<xpath expr="//field[@name='address_allotment_id']" position="replace" />
             	<xpath expr="//field[@name='invoice_lines']" position="replace" />

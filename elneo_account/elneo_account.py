@@ -2,6 +2,12 @@
 from openerp import models,fields,api
 from openerp.tools.float_utils import float_compare, float_round
 
+class account_payment_term(models.Model):
+    _inherit = 'account.payment.term'
+    
+    alert = fields.Boolean('Alerte', help='Alert when confirm a sale order with this payment term')
+
+
 class stock_move(models.Model):
     _inherit = 'stock.move'
     

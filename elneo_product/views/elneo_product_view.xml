@@ -31,6 +31,12 @@
 		<record id="product.menu_attribute_action" model="ir.ui.menu">
 		    <field name="groups_id" eval="[(3,ref('base.group_no_one'))]"/>
 		</record>
+		<record id="product.prod_config_main" model="ir.ui.menu">
+		    <field name="groups_id" eval="[(3,ref('base.group_no_one'))]"/>
+		</record>
+		<record id="product.menu_products_category" model="ir.ui.menu">
+		    <field name="groups_id" eval="[(3,ref('base.group_no_one'))]"/>
+		</record>
 		
 		
 		<!-- ACTION (change order of vues : tree,form,kanban) -->

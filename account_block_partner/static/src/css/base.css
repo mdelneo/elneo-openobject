@@ -1,0 +1,10 @@
+@charset "UTF-8";
+.openerp .oe_block_warning{
+
+	color: #FF0000;
+}
+
+.openerp .oe_block_warning .stat_button_icon{
+
+	color: #FF0000;
+}

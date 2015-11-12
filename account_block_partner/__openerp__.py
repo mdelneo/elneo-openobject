@@ -13,10 +13,12 @@
     'website': 'http://www.elneo.com',
     'depends': ['account','purchase','purchase_sale','account_followup'],
     "data" : ['views/account_block_partner_view.xml',
+              'views/template.xml',
               'security/account_block_partner_security.xml',
               'purchase_workflow.xml'
               ],
     'installable': True,
     'auto_install': False,
     'application': False,
+    'css': ['static/src/css/base.css'],
 }

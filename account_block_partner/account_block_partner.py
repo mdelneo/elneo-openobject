@@ -35,8 +35,65 @@ class purchase_order(models.Model):
         for order in self:
             for sale in order.sale_ids:
                 if sale.partner_id.blocked:
-                    order.message_post(body=_('Purchase blocked due to customer: %s.') % (self.name or ''),
+                    order.message_post(body=_('Purchase blocked due to customer: %s.') % (sale.partner_id.name or ''),
                 subtype="purchase.customer_blocked",type="email")
+                    
+    @api.multi
+    def unblocked(self):
+        for order in self.filtered(lambda r:r.is_blocked == True):
+            order.account_unblocked = True
+            order.message_post(body=_('Purchase unblocked'),
+                subtype="purchase.customer_unblocked",type="notification")
+            
+    @api.one
+    def _is_blocked(self):
+        self.is_blocked = False
+
+        for sale in self.sale_ids:
+            if sale.partner_id.blocked:
+                self.is_blocked = sale.partner_id.blocked
+                
+    @api.multi
+    def action_blocked_partners(self):
+        mod_obj = self.env['ir.model.data']
+        dummy, action_id = tuple(mod_obj.get_object_reference('base', 'action_partner_tree_view1'))
+        action = self.env['ir.actions.act_window'].browse(action_id)
+        #action = action_obj.read()[0]
+
+        #override the context to get rid of the default filtering on picking type
+        #action['context'] = {}
+        #choose the view_mode accordingly
+        if self.sale_count > 1:
+            action['domain'] = "[('id','in',[" + ','.join(map(str, self.sale_ids.mapped('partner_id.id'))) + "])]"
+            action['view_mode']="tree"
+        else:
+            dummy, action_id = tuple(mod_obj.get_object_reference('base', 'action_partner_form'))
+            action = self.env['ir.actions.act_window'].browse(action_id)
+            #action['views'] = [(res and res[1] or False, 'form')]
+            action['res_id'] = self.sale_ids.mapped('partner_id.id')[0] or False
+            action['view_mode']= "form"
+        return {'name':action.name,
+                'view_mode':action.view_mode,
+                'view_id':action.view_id.id,
+                'view_type':action.view_type,
+                'res_model':action.res_model,
+                'res_id':action.res_id,
+                'type':action.type,
+                'target':'self',
+                'domain':action.domain,
+                'context':self.env.context
+                
+                }
+    
+    @api.one
+    def _count_blocked_partners(self):
+        self.count_blocked_partners = len(self.sale_ids.filtered(lambda r:r.partner_id.blocked).mapped('partner_id'))
+                
+                    
+    is_blocked = fields.Boolean(compute='_is_blocked',string="Is Blocked")
+    account_unblocked = fields.Boolean(string="Unblocked (Accounting)", help="The purchase is manually unblocked as it was blocked by accounting (through linked sale orders)")
+    
+    count_blocked_partners = fields.Integer(compute=_count_blocked_partners,help="Blocked Related Partners")
 
 class sale_order(models.Model):
     _inherit = 'sale.order'

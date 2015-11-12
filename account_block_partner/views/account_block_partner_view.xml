@@ -53,8 +53,13 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+            	<button name="invoice_cancel" position="after">
+            		<field name="partner_blocked" invisible="1"/>
+            		<button name="unblock_order" string="Unblock Order" class="oe_highlight" attrs="{'invisible':['|',('partner_blocked','=',False),('unblock','=',True)]}" type="object" groups="account.group_account_user" help="The partner is blocked and this sale order is not unblocked"/>
+            		<button name="reblock_order" string="Reblock Order" class="oe_highlight" attrs="{'invisible':[('partner_blocked','=',True),('unblock','=',False)]}" type="object" groups="account.group_account_user" help="The partner is blocked but this sale order is exclusively unblocked"/>
+            	</button>
                 <field name="origin" position="after">
-                	<field name="unblock" />
+                	<field name="unblock" invisible="1"/>
                 </field>
             </field>
         </record>

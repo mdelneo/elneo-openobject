@@ -98,7 +98,8 @@ class purchase_order(models.Model):
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
-    unblock = fields.Boolean('Unblock')
+    unblock = fields.Boolean('Unblock',help="Use this to unblock this sale only for a blocked customer",track_visibility="onchange")
+    partner_blocked = fields.Boolean(related="partner_id.blocked",string="Partner blocked")
     
     def onchange_partner_id(self, cr, uid, ids, partner_id, context):
         res = super(sale_order, self).onchange_partner_id(cr, uid, ids, partner_id, context) 
@@ -112,6 +113,16 @@ class sale_order(models.Model):
                     'title': _("Customer blocked") ,
                     'message': _("Warning: the customer is blocked"),}
         return res
+    
+    @api.multi
+    def unblock_order(self):
+        for order in self:
+            order.unblock = True
+            
+    @api.multi
+    def reblock_order(self):
+        for order in self:
+            order.unblock=False
       
     
 sale_order()

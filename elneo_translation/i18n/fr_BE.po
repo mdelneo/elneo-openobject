@@ -1,7 +1,7 @@
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_product_variant_config_stock
 msgid "Product Variants"
-msgstr "Articles"
+msgstr "Produits"
 
 #. module: product
 #: model:ir.actions.act_window,name:product.product_normal_action
@@ -11,4 +11,20 @@ msgstr "Articles"
 #: model:ir.ui.menu,name:product.menu_products
 #: view:product.product:product.product_product_tree_view
 msgid "Product Variants"
-msgstr "Articles"
+msgstr "Produits"
+
+
+#. module: product
+#: model:ir.actions.act_window,name:product.product_normal_action
+#: model:ir.actions.act_window,name:product.product_normal_action_sell
+#: model:ir.actions.act_window,name:product.product_normal_action_tree
+#: model:ir.actions.act_window,name:product.product_variant_action
+#: model:ir.ui.menu,name:product.menu_products
+#: view:product.product:product.product_product_tree_view
+msgid "Product Variants"
+msgstr "Produits"
+
+#. module: stock
+#: model:ir.ui.menu,name:stock.menu_product_variant_config_stock
+msgid "Product Variants"
+msgstr "Produits"

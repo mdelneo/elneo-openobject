@@ -131,6 +131,7 @@ sale_order_line()
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
+    _order = 'id desc'
     
     def action_cancel_draft(self, cr, uid, ids, *args):
         if not len(ids):

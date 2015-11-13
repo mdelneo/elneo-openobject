@@ -11,7 +11,7 @@ class sale_order(models.Model):
         mod_obj = self.env['ir.model.data']
         
         for sale in self:
-            if not self._context.get('action_button_confirm',False) and sale.payment_term and sale.payment_term.alert:
+            if not self._context.get('from_payment_term_wizard',False) and sale.payment_term and sale.payment_term.alert:
                 model_data = mod_obj.search([('model','=','ir.ui.view'),('name','=','payment_term_wizard_form_view')])
                 resource = model_data.res_id
                 

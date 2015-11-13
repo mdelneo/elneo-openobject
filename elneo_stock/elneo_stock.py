@@ -45,6 +45,8 @@ sale_order_line()
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
     
+    picking_type_id = fields.Many2one(track_visibility="onchange")
+    
 stock_picking()
 
 class procurement_rule(models.Model):

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+    	<template id="assets_backend_elneo_purchase" name="Purchase template" inherit_id="web.assets_backend">
+			<xpath expr="." position="inside">
+				<link rel="stylesheet" href="/elneo_purchase/static/src/css/elneo.css"/>
+			</xpath>
+		</template>
+    
     	<record id="act_res_partner_2_purchase_order" model="ir.actions.act_window">
             <field name="name">RFQs and Purchases</field>
             <field name="res_model">purchase.order</field>
@@ -62,6 +68,10 @@
 						<label for="picking_ids" string="Pickings" widget="one2many_list"/>
 						<field name="picking_ids"/>
 					</page>
+				</xpath>
+				
+				<xpath expr="//notebook/page/field[@name='order_line']/tree" position="attributes">
+					<attribute name='class'>purchase_line_tree</attribute>
 				</xpath>
 			</field>
 		</record>

@@ -49,6 +49,7 @@ class purchase_order(models.Model):
     _inherit='purchase.order'
     
     purchase_type_id = fields.Many2one('purchase.order.type','Purchase Type')
+
     
     @api.model
     def default_get(self, fields_list):

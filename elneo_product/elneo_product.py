@@ -1,5 +1,6 @@
 from openerp import models, fields,api
 from openerp.tools.translate import _
+from openerp.exceptions import Warning
 
 class product_product(models.Model):
     _inherit = 'product.product'
@@ -7,6 +8,22 @@ class product_product(models.Model):
     alias = fields.Char(string="Alias", size=255, translate=False)
     qty_available_text = fields.Char(compute='_product_available_text')
     barcode_number = fields.Char('Barcode number', size=7, default=lambda obj: obj.env['ir.sequence'].get('product.barcode'), groups='stock.group_stock_manager')
+
+
+    def check_seller_ids(self, vals):
+        if (vals and ((not 'seller_ids' in vals) or not vals['seller_ids'])) and not self.seller_ids:
+            raise Warning(_('You must add at least one supplier to the product.'))
+        return
+
+    @api.multi
+    def write(self, vals):
+        self.check_seller_ids(vals)
+        return super(product_product, self).write(vals)
+    
+    @api.model
+    def create(self, vals):
+        self.check_seller_ids(vals)
+        return super(product_product, self).create(vals)
     
     @api.multi
     def _product_available_text(self):
@@ -82,6 +99,8 @@ class product_product(models.Model):
         result[self.id] = new_name
                 
         return result
+    
+    
     
     
     

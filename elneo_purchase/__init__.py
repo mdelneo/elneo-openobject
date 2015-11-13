@@ -1,1 +1,1 @@
-import purchase
+import elneo_purchase

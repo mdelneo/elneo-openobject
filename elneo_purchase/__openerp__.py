@@ -8,7 +8,7 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['purchase','sale','purchase_sale'],
-    "data" : ['views/purchase_view.xml','views/res_config.xml','security/ir.model.access.csv'],
+    "data" : ['views/elneo_purchase_view.xml','views/res_config.xml','security/ir.model.access.csv'],
     'installable': True,
     'auto_install': False,
     'application': False,

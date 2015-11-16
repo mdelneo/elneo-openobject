@@ -59,7 +59,24 @@ procurement_rule()
 class stock_move(models.Model):
     _inherit = 'stock.move'
     
-    auto_validate_dest_move = fields.Boolean('Auto validate', related='procurement_id.rule_id.autovalidate_dest_move', help='If this move is "autovalidate", when it became assigned, it is automatically set as done.')
+    auto_validate_dest_move = fields.Boolean('Auto validate', related='procurement_id.rule_id.autovalidate_dest_move', help='If this move is "autovalidate", when it became assigned, it is automatically set as done.')    
+    
+    @api.multi
+    def action_assign(self):
+        for move in self:
+            previous_moves = self.search([('move_dest_id','=',move.id)])
+            all_previous_move_done = False
+            if previous_moves:
+                all_previous_move_done = True
+                for previous_move in previous_moves:
+                    if previous_move.state != 'done':
+                        all_previous_move_done = False
+                        break;
+            if all_previous_move_done:
+                move.force_assign()
+            else:
+                return super(stock_move, move).action_assign()
+        
     
     #check availability automatically
     @api.multi

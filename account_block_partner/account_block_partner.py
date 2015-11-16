@@ -107,11 +107,19 @@ class sale_order(models.Model):
         if not partner_id:
             return res
         
-        part = self.pool.get('res.partner').browse(cr, uid, partner_id) 
+        part = self.pool.get('res.partner').browse(cr, uid, partner_id)
+        
         if part.blocked == True:
+            title = _("Customer blocked")
+            message = _("Warning: the customer is blocked")
+            if 'warning' in res and 'title' in res['warning']:
+                title = title + ' & ' + res['warning']['title']
+            if 'warning' in res and 'message' in res['warning']:
+                message = message + ' & ' + res['warning']['message']
+            
             res['warning'] = {
-                    'title': _("Customer blocked") ,
-                    'message': _("Warning: the customer is blocked"),}
+                    'title':  title,
+                    'message': message,}
         return res
     
     @api.multi

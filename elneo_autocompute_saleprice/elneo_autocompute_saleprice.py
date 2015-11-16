@@ -291,6 +291,24 @@ $$
     def reset_maximum_price(self):
         self.write({'maximum_price':0})
         
+        
+    
+    def copy(self, cr, uid, ids, default=None, context=None):
+        if default is None:
+            default = {}
+        if context is None:
+            context = {}
+        
+        default['list_price'] = 0.0
+        default['sale_price_fixed'] = 0.0
+        default['sale_price_seller'] = 0.0
+        default['compute_sale_price'] = False
+        default['last_update_price_fixed'] = None
+        default['maximum_price'] = 0.0
+        
+        return super(product_product, self).copy(cr, uid, ids, default, context=context)
+    
+        
     list_price = fields.Float('Sale Price', compute='_get_list_price', help="Base price for computing the customer price. Sometimes called the catalog price.", store=True, readonly=True)
     sale_price_fixed = fields.Float('Sale price fixed')
     sale_price_seller = fields.Float('Sale price seller')
@@ -298,7 +316,6 @@ $$
     last_update_price_fixed = fields.Date('Date of last update of fixed price') #this field is updated by a psql trigger
     maximum_price = fields.Float('Historical maximum price', readonly=1) #this field is filled by database trigger on list_price update
     
-
 product_template()
 
 class product_product(models.Model):

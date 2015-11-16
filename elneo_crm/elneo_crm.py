@@ -37,6 +37,10 @@ class res_partner(models.Model):
                 name = name_add(name, partner.zip)
                 name = name_add(name, partner.city, ' ')
                 name = name_add(name, partner.country_id.name)
+            else:
+                name = name_add(name, partner.city)
+                name = name_add(name, partner.vat)
+            
             result.append((partner.id, name))
             
         return result

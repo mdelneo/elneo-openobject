@@ -90,8 +90,8 @@ class maintenance_intervention(models.Model):
         res={}
         if self.installation_id and self.installation_id.partner_id and self.installation_id.partner_id.blocked:
             res['warning'] = {
-                    'title': _("Warning: Customer blocked")+'\n' ,
-                    'message': _("Warning: The Customer is blocked")+'\n'}
+                    'title': _("Warning: Customer blocked")+' \n' ,
+                    'message': _("Warning: The Customer is blocked")+' \n'}
         return res
     
     @api.multi

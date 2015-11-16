@@ -9,9 +9,9 @@ class product_product(models.Model):
     qty_available_text = fields.Char(compute='_product_available_text')
     barcode_number = fields.Char('Barcode number', size=7, default=lambda obj: obj.env['ir.sequence'].get('product.barcode'), groups='stock.group_stock_manager')
 
-
+    
     def check_seller_ids(self, vals):
-        if (vals and ((not 'seller_ids' in vals) or not vals['seller_ids'])) and not self.seller_ids:
+        if not self._context.get('copy',False) and (vals and ((not 'seller_ids' in vals) or not vals['seller_ids'])) and not self.seller_ids:
             raise Warning(_('You must add at least one supplier to the product.'))
         return
 
@@ -39,25 +39,26 @@ class product_product(models.Model):
         return res
     
     
-    def copy(self, cr, uid, ids, default=None, context=None):
+    @api.one
+    def copy(self, default=None):
         if default is None:
             default = {}
-        if context is None:
-            context = {}
         
-        default_code = self.browse(cr, uid, ids, context).default_code    
+        default_code = self.default_code
+        if not default_code:
+            default_code = ''    
         
         #add suffix to default_code on duplicate
         suffix = ' - copy'
-        nb = self.search(cr, uid, [('default_code','=',default_code+suffix)],count=True, context=context)
+        nb = len(self.search([('default_code','=',default_code+suffix)]))
         if nb>=1:
             suffix = suffix+' ('+str(nb)+')'
         default.update({'default_code':default_code+suffix})
         
         #new barcode
-        default['barcode_number'] = self.pool.get('ir.sequence').get(cr, uid, 'product.barcode')
+        default['barcode_number'] = self.env['ir.sequence'].get('product.barcode')
         
-        return super(product_product, self).copy(cr, uid, ids, default, context=context)
+        return super(product_product, self.with_context(copy=True)).copy(default)
     
     
     def search_ext_name(self, name, args):

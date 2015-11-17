@@ -175,20 +175,16 @@ class product_template(models.Model):
                         product_tmpl_id = self.id
                     elif self._context and 'params' in self._context and 'id' in self._context['params']:
                         product_tmpl_id = self._context['params']['id']
-                    
+                        
                 if pricelist and product_tmpl_id:
-                    
-                    product_product_id = self.env['product.product'].search([('product_tmpl_id','=',product_tmpl_id)]).id
-                    if not product_product_id:
-                        product_template=self.env['product.template'].browse(product_tmpl_id)
-                        name = ''
-                        if product_template:
-                            name = product_template.name
-                        raise Warning(_('An error occurring during computation of product price. Please check if product %s is active.' % name))
-                    
-                    price = pricelist.price_get(product_product_id, 1.0)[pricelist.id]
-                    cost_price = price
-        
+                    #bypass price_get method in pricelist cause this function require a product_product and sub-functions not. So call directly sub-functions.
+                    product_tmpl = self.env['product.template'].browse(product_tmpl_id)
+                    res_multi = pricelist.price_rule_get_multi(products_by_qty_by_partner=[(product_tmpl, 1, None)])
+                    if res_multi and (product_tmpl.id in res_multi) and (pricelist.id in res_multi[product_tmpl.id]) and len(res_multi[product_tmpl.id][pricelist.id]) > 0:
+                        cost_price = res_multi[product_tmpl.id][pricelist.id][0]
+                    else:
+                        cost_price = 0
+                        
         self.cost_price = cost_price
         return cost_price                    
             

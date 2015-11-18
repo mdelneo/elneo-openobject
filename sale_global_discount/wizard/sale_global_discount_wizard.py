@@ -15,4 +15,10 @@ class sale_global_discount_wizard(models.TransientModel):
         sale_order = self.env['sale.order'].browse(self._context.get('active_id'))
         for wiz in self:
             for line in sale_order.order_line:
-                line.discount = wiz.discount
+                old_discount = line.discount
+                old_brut_price = line.price_unit
+                old_net_price = old_brut_price - (old_discount/100.)*old_brut_price
+                additionnal_discount = wiz.discount
+                new_net_price = old_net_price - (additionnal_discount/100.)*old_net_price
+                new_discount = 100. - (100. * new_net_price / old_brut_price)
+                line.discount = new_discount

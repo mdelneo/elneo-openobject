@@ -115,13 +115,14 @@ class sale_order_line(models.Model):
         
         res['value']['virtual_stock'] = product_obj.with_context(location=warehouse.lot_stock_id.id).virtual_available
         res['value']['real_stock'] = product_obj.with_context(location=warehouse.lot_stock_id.id).qty_available
+        res['value']['brut_sale_price'] = self.product_id.product_tmpl_id.list_price
         
         return res
-        
+    
         
     virtual_stock = fields.Float('Virtual stock', compute=_qty_virtual_stock)
     real_stock = fields.Float('Real stock', compute=_qty_real_stock)
-    brut_sale_price = fields.Float(related='product_id.product_tmpl_id.list_price', string="Brut sale price", readonly=True)
+    brut_sale_price = fields.Float(string="Brut sale price", readonly=True)
 
     purchase_line_ids = fields.Many2many('purchase.order.line', 'purchase_line_sale_line_rel', 'sale_line_id', 'purchase_line_id', 'Purchase lines')
 
@@ -184,6 +185,9 @@ class sale_order(models.Model):
         for sale in self:
             for line in sale.order_line:
                 if line.product_id:
+                    #save brut_sale_price
+                    line.brut_sale_price = line.product_id.product_tmpl_id.list_price
+                    
                     if is_stat_on_invoice_date(line.product_id):
                         sale.stat_on_invoice_date = True
                         break;

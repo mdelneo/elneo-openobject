@@ -51,6 +51,7 @@ class sale_order(models.Model):
         
         return result
     
+    #@api.onchange('discount_type_id') -- don't know why it doesn't works
     @api.one
     def update_all_prices(self):
         for line in self.order_line:
@@ -70,7 +71,11 @@ class sale_order(models.Model):
                 if on_change_res['value'].has_key('brut_sale_price'):    
                     line.purchase_price = on_change_res['value']['brut_sale_price']
             #For Sale price, we get customer price
-            line.price_unit =line.product_id.get_customer_sale_price(self.discount_type_id.id, line.product_id.list_price, line.product_id.cost_price, line.product_uom_qty)
+            customer_price = line.product_id.get_customer_sale_price(self.discount_type_id.id, line.product_id.list_price, line.product_id.cost_price, line.product_uom_qty)
+            product_price = line.product_id.list_price
+            discount = 100-(100*customer_price/product_price)
+            line.price_unit = product_price
+            line.discount = discount
             
         
 sale_order()
@@ -100,7 +105,13 @@ class sale_order_line(models.Model):
                 lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id)
         
         if res.has_key('value') and res['value'].has_key('price_unit') and res['value'].has_key('purchase_price'):
-            res['value']['price_unit'] = self.env['product.product'].browse(product).get_customer_sale_price(discount_type_id, res['value']['price_unit'], res['value']['purchase_price'], qty)
+            product = self.env['product.product'].browse(product)
+            customer_price = product.get_customer_sale_price(discount_type_id, res['value']['price_unit'], res['value']['purchase_price'], qty)
+            product_price = product.list_price
+            discount = 100-(100*customer_price/product_price)
+            res['value']['price_unit'] = product_price
+            res['value']['discount'] = discount
+            
         return res
     
     @api.multi

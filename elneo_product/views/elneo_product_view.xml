@@ -192,9 +192,12 @@
         		
         		<xpath expr="//group[@name='weight']" position="replace"/>
         		
+        		<!-- WRONG PLACE -->
+        		<!-- 
         		<field name="active" position="after">
         			<field name="intrastat_id" />
         		</field>
+        		 -->
         		
         		<field name="active" position="before">
 					<group name="weight" string="Weights" attrs="{'invisible':[('type','=','service')]}">

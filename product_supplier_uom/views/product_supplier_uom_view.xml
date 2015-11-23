@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="product_template_form_view_supplier_uom" model="ir.ui.view">
+            <field name="name">product.template.form.view.supplier.uom</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>           
+            <field name="arch" type="xml">
+            	<field name="seller_ids" position="attributes">
+            		<attribute name="context">{'product_tmpl_id':id}</attribute>
+            	</field>
+            		
+                
+      		</field>
+     	</record>
+     
+	</data>
+</openerp>

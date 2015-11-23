@@ -8,7 +8,18 @@ class crm_case_section(models.Model):
     
     sale_account_id = fields.Many2one('account.account', 'Sale account', required=False)
     purchase_account_id = fields.Many2one("account.account", string="Purchase account")
-     
+    
+class stock_move(models.Model):
+    
+    _inherit = 'stock.move'
+
+    @api.model
+    def _create_invoice_line_from_vals(self, move, invoice_line_vals):
+        if move.create_uid and move.create_uid.default_section_id and move.create_uid.default_section_id.purchase_account_id:
+            invoice_line_vals['account_id'] = move.create_uid.default_section_id.purchase_account_id.id
+        invoice_line_id = super(stock_move,self)._create_invoice_line_from_vals(move,invoice_line_vals)
+        return invoice_line_id
+        
 
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'

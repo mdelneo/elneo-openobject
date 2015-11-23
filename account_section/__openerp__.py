@@ -9,7 +9,7 @@
     ''',
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['account','purchase','sales_team'],
+    'depends': ['account','purchase','sales_team','stock_account'],
     "data" : ['views/account_section_view.xml'],
     'installable': True,
     'auto_install': False,

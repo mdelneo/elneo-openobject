@@ -7,24 +7,17 @@ class account_payment_term(models.Model):
     
     alert = fields.Boolean('Alerte', help='Alert when confirm a sale order with this payment term')
 
-
-class stock_move(models.Model):
-    _inherit = 'stock.move'
+class stock_transfer_details(models.TransientModel):
+    _inherit = 'stock.transfer_details'
     
-    @api.multi
-    def action_done(self):
-        res = super(stock_move,self).action_done()
-        
-        pickings = set()
-        for move in self:
-            pickings.add(move.picking_id)
-            
-        for picking in pickings:
-            if picking.picking_type_id.code == 'incoming':
-                journal = self.env['account.invoice'].with_context(type='in_invoice')._default_journal()
-                picking.action_invoice_create(journal_id=journal.id, group=False, type="in_invoice")
-                
-        return  res
+    def do_detailed_transfer(self):
+        res = super(stock_transfer_details,self).do_detailed_transfer()
+        picking = self.picking_id
+        if picking.picking_type_id.code == 'incoming':
+            journal = self.env['account.invoice'].with_context(type='in_invoice')._default_journal()
+            picking.action_invoice_create(journal_id=journal.id, group=False, type="in_invoice")
+        return res
+    
     
 class stock_picking(models.Model):
     _inherit = 'stock.picking'

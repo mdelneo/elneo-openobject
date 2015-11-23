@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="product_normal_action" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="inherit_id" ref="product.product_normal_action"/>
+            <field name="res_model">product.product</field>
+       	</record>
+       	
+       	<record id="product_variant_action" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="inherit_id" ref="product.product_variant_action"/>
+            <field name="res_model">product.product</field>
+        </record>
+        
+        <record id="product_normal_action_sell" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="inherit_id" ref="product.product_normal_action_sell"/>
+            <field name="res_model">product.product</field>
+        </record>
+        
+        <record id="product_product_tree_view_trans" model="ir.ui.view">
+            <field name="name">product.product.tree.trans</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+				<tree string="Product Variants" position="attributes">
+					<attribute name="string">Products</attribute>
+				</tree>
+            </field>
+        </record>
+    </data>
+</openerp>

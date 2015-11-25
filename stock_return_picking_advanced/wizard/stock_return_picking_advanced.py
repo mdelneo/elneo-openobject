@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Elneo
+#    Copyright (C) 2011-2015 Elneo (Technofluid SA) (<http://www.elneo.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,6 @@
 ##############################################################################
 
 from openerp import models, api, _
-
 
 class StockReturnPicking(models.TransientModel):
     _inherit = 'stock.return.picking'

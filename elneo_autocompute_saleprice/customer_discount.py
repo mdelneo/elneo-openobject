@@ -37,6 +37,7 @@ class sale_order(models.Model):
     
     discount_type_id  = fields.Many2one('product.discount.type', 'Discount type', states={'draft': [('readonly', False)]})
     
+    
     @api.multi
     def onchange_partner_id(self, partner):
         result = super(sale_order, self).onchange_partner_id(partner)
@@ -50,6 +51,7 @@ class sale_order(models.Model):
         result['value'].update({'discount_type_id':partner_obj.discount_type_id.id})
         
         return result
+    
     
     #@api.onchange('discount_type_id') -- don't know why it doesn't works
     @api.one

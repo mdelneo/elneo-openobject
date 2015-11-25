@@ -69,6 +69,7 @@ class sale_order(models.Model):
             'is_delivery': True
         }     
     
+    
     @api.multi
     def onchange_partner_id(self, partner):
         result = super(sale_order, self).onchange_partner_id(partner)
@@ -95,6 +96,7 @@ class sale_order(models.Model):
                 carrier_id = int(carrier_id)
             result['value']['carrier_id'] = carrier_id
         return result
+    
     
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'

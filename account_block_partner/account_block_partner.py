@@ -101,13 +101,14 @@ class sale_order(models.Model):
     unblock = fields.Boolean('Unblock',help="Use this to unblock this sale only for a blocked customer",track_visibility="onchange")
     partner_blocked = fields.Boolean(related="partner_id.blocked",string="Partner blocked")
     
-    def onchange_partner_id(self, cr, uid, ids, partner_id, context):
-        res = super(sale_order, self).onchange_partner_id(cr, uid, ids, partner_id, context) 
+    @api.multi
+    def onchange_partner_id(self, partner):
+        res = super(sale_order, self).onchange_partner_id(partner)
         
-        if not partner_id:
+        if not partner:
             return res
         
-        part = self.pool.get('res.partner').browse(cr, uid, partner_id)
+        part = self.env['res.partner'].browse(partner)
         
         if part.blocked == True:
             title = _("Customer blocked")
@@ -121,6 +122,7 @@ class sale_order(models.Model):
                     'title':  title,
                     'message': message,}
         return res
+    
     
     @api.multi
     def unblock_order(self):

@@ -15,12 +15,17 @@ class sale_drive_link(models.Model):
         if self.product_drive_link_id:
             return self.product_drive_link_id
         
+    @api.one
+    def get_product_display(self):
+        self.product_display = ','.join([p.default_code for p in self.product_ids])
+        
     name = fields.Char('Name',size=255)
     link = fields.Char('Url',size=255)
     sale_order_id = fields.Many2one('sale.order', 'Sale order')    
     product_category_drive_link_id = fields.Many2one('product.category.drive.link', 'Drive link (category)')
     product_drive_link_id = fields.Many2one('product.category.drive.link', 'Drive link (product)')
     product_ids = fields.Many2many('product.product', 'product_drive_link_rel','drive_link_id','product_id','Products')
+    product_display = fields.Char('Products', compute='get_product_display')
     
 sale_drive_link()
 

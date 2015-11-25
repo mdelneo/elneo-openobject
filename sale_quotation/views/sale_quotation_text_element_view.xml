@@ -57,7 +57,7 @@
 			<field name="inherit_id" ref="sale.view_order_form" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='partner_shipping_id']" position="after">
-            		<field name="quotation_address_id" domain="[('parent_id','=',partner_id),('type','in',['default','contact','other'])]" />
+            		<field name="quotation_address_id" domain="['|',('id','=',partner_id),'&amp;',('parent_id','=',partner_id),('type','in',['default','other','contact'])]" />
             	</xpath>
 
 				<xpath expr="//page[@string='Other Information']" position="after">

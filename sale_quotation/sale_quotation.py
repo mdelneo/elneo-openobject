@@ -32,6 +32,7 @@ class sale_quotation_order_text_element(models.Model):
     _description = "Quotation text elements included in a sale order."
     _order = 'sequence'
     
+    '''
     @api.onchange('text_element_id')
     def onchange_text_element(self):    
         return    
@@ -41,7 +42,7 @@ class sale_quotation_order_text_element(models.Model):
             self.position = sale_quotation_text_element.default_position
             self.page_break_before = sale_quotation_text_element.default_page_break_before
             self.page_break_after = sale_quotation_text_element.default_page_break_after
-            self.text_element_name = sale_quotation_text_element.code 
+            self.text_element_name = sale_quotation_text_element.code '''
     
     @api.multi
     def _text_element_name(self):
@@ -96,6 +97,7 @@ class sale_order(models.Model):
         return True
     '''
     
+    
     @api.multi
     def onchange_partner_id(self, partner):
         res = super(sale_order, self).onchange_partner_id(partner)
@@ -106,6 +108,7 @@ class sale_order(models.Model):
         partner_obj = self.env['res.partner'].browse(partner)
         res['value']['quotation_text_elements'] = self._get_default_quotation_text_elements(partner_obj)
         return res
+    
     
     def _get_default_quotation_text_elements(self, partner):
         if partner and partner.lang:

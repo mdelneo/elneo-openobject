@@ -5,6 +5,7 @@ class sale_order(models.Model):
     
     _inherit='sale.order'
 
+    
     @api.multi
     def onchange_partner_id(self, partner):
         res = super(sale_order, self).onchange_partner_id(partner)
@@ -16,5 +17,6 @@ class sale_order(models.Model):
         if partner_obj and partner_obj.property_payment_term.default_order_policy:
             res['value']['order_policy'] = partner_obj.property_payment_term.default_order_policy
         return res
+    
          
 sale_order()

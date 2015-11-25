@@ -115,7 +115,7 @@ class sale_order_line(models.Model):
         
         res['value']['virtual_stock'] = product_obj.with_context(location=warehouse.lot_stock_id.id).virtual_available
         res['value']['real_stock'] = product_obj.with_context(location=warehouse.lot_stock_id.id).qty_available
-        res['value']['brut_sale_price'] = self.product_id.product_tmpl_id.list_price
+        res['value']['brut_sale_price'] = product_obj.list_price
         
         return res
     

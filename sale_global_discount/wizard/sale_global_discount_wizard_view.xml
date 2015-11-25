@@ -13,7 +13,7 @@
 						<label string="Discount" for="discount" class="oe_inline" />
 						<field name="discount" class="oe_inline" />
 						<label string="%" class="oe_inline" />
-						<button string="process" name="process" type="object" icon="gtk-ok" class="oe_inline" />
+						<button string="Apply" name="process" type="object" icon="gtk-ok" class="oe_inline" />
 					</div>
 				</group>
 			</form>

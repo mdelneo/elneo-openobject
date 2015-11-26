@@ -201,7 +201,7 @@ class sale_order(models.Model):
         if self.state in ('draft','sent'):
             return self.env['report'].get_action(self,'sale.report_saleorder')
         else:
-            return self.env['report'].get_action(self,'elneo_sale.report_saleorder_confirmation')
+            return self.env['report'].get_action(self,'elneo_report.report_saleorder_confirmation_template')
     
     @api.multi
     def onchange_pricelist_id(self, pricelist_id, order_lines):

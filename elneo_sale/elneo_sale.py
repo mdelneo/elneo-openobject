@@ -269,6 +269,16 @@ class sale_order(models.Model):
             if (sumInvoice != 0 or sumSale != 0) and sumInvoice >= sumSale:
                 self.is_invoiced = True
                 
+                
+    #function return all pickings visible in sale order
+    @api.multi
+    def _get_out_picking_ids(self):
+        for sale in self:
+            if not sale.procurement_group_id:
+                continue
+            sale.out_picking_ids = self.env['stock.picking'].search([('group_id', '=', sale.procurement_group_id.id),('picking_type_id.code','!=','incoming')])
+    
+    out_picking_ids = fields.One2many(compute='_get_out_picking_ids', comodel_name='stock.picking', method=True, string='Picking associated to this sale')  
     margin = fields.Float(track_visibility='always')
     partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},default=lambda rec: rec.partner_id, help="Order address for current sales order.")
     carrier_id = fields.Many2one('delivery.carrier', 'Delivery Method', help="Complete this field if you plan to invoice the shipping based on picking.")
@@ -285,6 +295,7 @@ class sale_order(models.Model):
     
     user_id = fields.Many2one(required=True)
     section_id = fields.Many2one(required=True)
+    invoice_ids = fields.Many2many(readonly=False)
     
     @api.multi
     def copy(self, default=None):

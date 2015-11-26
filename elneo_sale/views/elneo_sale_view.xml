@@ -143,13 +143,14 @@
 	           	<xpath expr="//notebook/page[@string='Other Information']" position="after">
 	           		<page string="Order tracking">
 						<label for="picking_ids" string="Pickings" widget="one2many_list"/>
-						<field name="picking_ids"/>
+						<field name="out_picking_ids"/>
 	           			<label for="purchase_ids" string="Purchases" widget="one2many_list"/>
 	           			<field name="purchase_ids" />
 	           			<label for="invoice_ids" string="Invoices" widget="one2many_list"/>
 						<field name="invoice_ids"/>
 	           		</page>
 	           	</xpath>
+	           	
                 <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
                 	<field name="brut_sale_price"/>
                 </xpath>

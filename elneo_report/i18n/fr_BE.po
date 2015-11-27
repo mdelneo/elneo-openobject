@@ -1,0 +1,224 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* elneo_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-27 10:03+0000\n"
+"PO-Revision-Date: 2015-11-27 10:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+msgid "Date Ordered:"
+msgstr "Date de commande :"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Date Req."
+msgstr "Date prévue"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Date ordered"
+msgstr "Date de commande"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+#: view:website:purchase.report_purchaseorder_document
+#: view:website:purchase.report_purchasequotation_document
+msgid "Description"
+msgstr "Description"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+msgid "Disc.(%)"
+msgstr "Rem.(%)"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Invoice address:"
+msgstr "Adresse de facturation :"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+msgid "Invoice and shipping address:"
+msgstr "Adresse de facturation et livraison"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Max. requested date"
+msgstr "Date max. attendue"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Net Price"
+msgstr "Prix net"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Net total :"
+msgstr "Total net :"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Order Date:"
+msgstr "Date de la commande"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+msgid "Order N°"
+msgstr "N° de commande"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Our Order Reference:"
+msgstr "Notre référence de commande :"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+msgid "Payment Term:"
+msgstr "Conditions de règlement :"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+msgid "Price"
+msgstr "Prix"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Purchase Order Confirmation N°"
+msgstr "N° de confirmation du bon de commande"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchaseorder_document
+#: view:website:purchase.report_purchasequotation_document
+msgid "Qty"
+msgstr "Qté"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Request for Quotation N°"
+msgstr "Demande de prix N°"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Request for quotation :"
+msgstr "Demande de prix :"
+
+#. module: elneo_report
+#: model:ir.actions.report.xml,name:elneo_report.report_saleorder_confirmation
+msgid "Sale order confirmation"
+msgstr "Confirmation de commande"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+msgid "Salesperson:"
+msgstr "Contact commercial :"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+#: view:website:purchase.report_purchaseorder_document
+#: view:website:purchase.report_purchasequotation_document
+msgid "Shipping address:"
+msgstr "Adresse de livraison :"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Taxes"
+msgstr "Taxes"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Taxes :"
+msgstr "TVA :"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Tel:"
+msgstr "Tél :"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Total"
+msgstr "Total"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Total :"
+msgstr "Total :"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Total Without Taxes"
+msgstr "Total HTVA"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Total price"
+msgstr "Total"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Unit Price"
+msgstr "Prix unit."
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Unit price"
+msgstr "Prix unit."
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "VAT :"
+msgstr "TVA :"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+#: view:website:purchase.report_purchaseorder_document
+#: view:website:purchase.report_purchasequotation_document
+msgid "VAT:"
+msgstr "TVA :"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Validated By:"
+msgstr "Validé par :"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchaseorder_document
+msgid "Your Order Reference"
+msgstr "Votre référence commande"
+
+#. module: elneo_report
+#: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
+msgid "Your Reference:"
+msgstr "Votre référence:"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Your contact"
+msgstr "Votre contact"
+
+#. module: elneo_report
+#: view:website:purchase.report_purchasequotation_document
+msgid "Your reference"
+msgstr "Votre référence"
+

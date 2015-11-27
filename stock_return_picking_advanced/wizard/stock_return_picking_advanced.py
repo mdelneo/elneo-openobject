@@ -19,18 +19,63 @@
 #
 ##############################################################################
 
-from openerp import models, api, _
+from openerp import models, fields, api, _
+import openerp.addons.decimal_precision as dp
+
+class StockReturnPickingLine(models.TransientModel):
+    _inherit = 'stock.return.picking.line'
+
+    qty_already_returned = fields.Float(string="Quantity already returned",digits_compute=dp.get_precision('Product Unit of Measure'), readonly=True)
 
 class StockReturnPicking(models.TransientModel):
     _inherit = 'stock.return.picking'
+    
+    already_returned = fields.Boolean(string='Already Returned',help='Technical field to help to know if products are already returned')
+    
+    @api.model
+    def default_get(self,fields):
+        res = super(StockReturnPicking,self).default_get(fields=fields)
+
+        result1=[]
+        pick = self.env['stock.picking'].browse(self.env.context.get('active_ids',False))
+       
+        if pick:
+           
+            already=False
+            for move in pick.move_lines:
+                
+                #Sum the quants in that location that can be returned (they should have been moved by the moves that were included in the returned picking)
+                qty = 0
+                quants = self.env['stock.quant'].search([('history_ids', 'in', move.id), ('qty', '>', 0.0), ('location_id', 'child_of', move.location_id.id)])
+                for quant in quants:
+                    qty += quant.qty
+                qty = self.env['product.uom']._compute_qty(move.product_id.uom_id.id, qty, move.product_uom.id)
+                if qty > 0 :
+                    already = True
+                    
+                result1.append({'qty_already_returned': qty, 'move_id': move.id})
+
+            if len(result1) > 0:
+                res1=[]
+                if 'product_return_moves' in fields:
+                    for product_return_move in res['product_return_moves']:
+                        for result in result1:
+                            if result['move_id'] == product_return_move['move_id']:
+                                product_return_move['qty_already_returned'] = result['qty_already_returned']
+                                
+                        res1.append(product_return_move)
+                
+                    res.update({'product_return_moves' : res1,'already_returned':already}) 
+        
+        return res
+    
   
     @api.multi
-    def _create_returns(self):
-        res = {}
+    def _create_returns(self):        
         self.ensure_one()
         
         return_valid_auto = self.env['ir.config_parameter'].get_param('stock_return_picking_advanced.return_valid_auto',False)
-        return_create_invoice = self.env['ir.config_parameter'].get_param('stock_return_picking_advanced.return_create_invoice',False)
+
         if return_valid_auto == 'True':
             new_picking_id, pick_type_id = super(StockReturnPicking,self.with_context(advanced_picking=True))._create_returns()
             picking =  self.env['stock.picking'].browse(new_picking_id)
@@ -41,7 +86,6 @@ class StockReturnPicking(models.TransientModel):
  
         return new_picking_id, pick_type_id
          
-    
     @api.multi
     def create_returns(self):
         res = {}
@@ -68,19 +112,5 @@ class StockReturnPicking(models.TransientModel):
                 }
 
         return super(StockReturnPicking,self).create_returns()
-  
-           
-class StockPicking(models.Model):
-    _inherit = 'stock.picking'
-    
-    @api.one
-    def copy(self,default=None):
-        if default == None:
-            default={}
-        if self.env.context.get('advanced_picking',False):
-            default.update({'name':self.name+'-return'})
-            
-        return super(StockPicking,self).copy(default)
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

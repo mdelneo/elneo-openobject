@@ -9,7 +9,7 @@
     'website': 'http://www.elneo.com',
     'depends': ['stock'],
     "data" : [
-              
+              'wizard/stock_return_picking_advanced.xml',
               'views/res_config.xml'
               ],
     'installable': True,

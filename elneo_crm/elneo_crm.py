@@ -12,7 +12,17 @@ class res_partner(models.Model):
     sales_count = fields.Integer('Number of sales', compute='_get_sales_count')
     type = fields.Selection([('contact', 'Contact'),('delivery', 'Shipping'), ('invoice', 'Invoice')], string='Address Type')
     property_account_position = fields.Many2one(required=True)
+    title = fields.Many2one('res.partner.title', compute='get_title')
+    corporation_type = fields.Many2one('res.partner.title', domain=[('domain','=','partner')])
+    contact_title = fields.Many2one('res.partner.title', domain=[('domain','=','contact')])
     
+    @api.multi
+    def get_title(self):
+        for partner in self:
+            if partner.is_company:
+                partner.title = partner.corportation_type
+            else:
+                partner.title = partner.contact_title
     
     @api.multi
     def name_get(self):

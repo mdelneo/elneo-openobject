@@ -119,7 +119,7 @@
                             <field name="fax"/>
                             <field name="user_ids" invisible="1"/>
                             <field name="email" widget="email" attrs="{'required': [('user_ids','!=', [])]}"/>
-                            <field name="title" options='{"no_open": True}'/>
+                            <field name="contact_title" options='{"no_open": True}' attrs="{'invisible':[('type','!=','contact')]}" />
                         </group>
                         
                         
@@ -175,7 +175,7 @@
             	
             	<xpath expr="//field[@name='title']" position="replace" />
             	<xpath expr="//label[@for='street']" position="before">
-            		<field name="title" string="Company type" />
+            		<field name="corporation_type" attrs="{'invisible':[('is_company','=',False)]}"  />
             	</xpath>
             	
             	<xpath expr="//field[@name='email']" position="replace" />

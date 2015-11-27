@@ -12,7 +12,7 @@
 				</xpath>
 				<xpath expr="//page[@name='sales_purchases']/group/group/field[@name='supplier']" position="replace"/>
 				<xpath expr="//field[@name='title']" position="after">
-					<field name="customer_prospect" />
+					<field name="customer_prospect" attrs="{'invisible':[('is_company','=',False)]}" />
 					<field name="supplier" />
 				</xpath>
 			</field>

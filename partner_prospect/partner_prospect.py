@@ -8,6 +8,17 @@ class res_partner(models.Model):
     CUSTOMER_PROSPECT_SELECTION = [('customer','Customer'),('prospect','Prospect'),('no','None')]
     
     prospect = fields.Boolean('Prospect')
+    customer_prospect = fields.Selection(CUSTOMER_PROSPECT_SELECTION, string='Customer relation type', compute='_get_customer_prospect', inverse='_set_customer_prospect', default='prospect')
+
+    
+    @api.one
+    @api.constrains('customer_prospect', 'is_company','prospect','customer')
+    def _check_customer_prospect(self):
+        if self.is_company and not self.customer_prospect:
+            raise ValidationError(_('Please set customer relation type of the company (customer / prospect).'))
+    
+    def _commercial_fields(self, cr, uid, context=None):
+        return super(res_partner, self)._commercial_fields(cr, uid, context=context) + ['prospect']
     
     def _get_customer_prospect(self):
         for partner in self:
@@ -34,4 +45,3 @@ class res_partner(models.Model):
                     partner.prospect = False
         
     
-    customer_prospect = fields.Selection(CUSTOMER_PROSPECT_SELECTION, string='Customer relation type', compute='_get_customer_prospect', inverse='_set_customer_prospect', required=True, default='prospect')

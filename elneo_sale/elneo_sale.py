@@ -311,7 +311,9 @@ class sale_order(models.Model):
             from_opportunity = True
         if self._context.get('copy',False):
             return
-        if not self.shop_sale and not self.carrier_id and not from_opportunity:
+        
+        if not self.shop_sale and not self.carrier_id and (not from_opportunity) and \
+            (not self.outgoing_picking_type or (self.outgoing_picking_type.need_carrier and not self.carrier_id)):
             raise ValidationError("A delivery method has to be chosen")
     
     

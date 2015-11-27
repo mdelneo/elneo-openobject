@@ -8,8 +8,22 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <field name="client_order_ref" position="after">
-                	<field name="outgoing_picking_type" domain="[('code','=','outgoing'), ('warehouse_id','=',warehouse_id)]"/>
+                	<field name="outgoing_picking_type" domain="[('code','=','outgoing'), ('warehouse_id','=',warehouse_id)]" options='{"no_open":True}'/>
                 </field>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_picking_type_form_outgoing_picking_type">
+            <field name="name">view.picking.type.form.outgoing.picking.type</field>
+            <field name="model">stock.picking.type</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='warehouse_id']" position="after">
+            		<field name="special" />
+            		<field name="need_carrier" />
+            	</xpath>
             </field>
         </record>
     </data>

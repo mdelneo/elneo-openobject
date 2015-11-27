@@ -7,7 +7,7 @@
     'description': "Allows to automate stock returns (and force availability - the case you have products in hand). Generates draft invoice automatically when you finish return",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['stock'],
+    'depends': ['stock','stock_account'],
     "data" : [
               'wizard/stock_return_picking_advanced.xml',
               'views/res_config.xml'

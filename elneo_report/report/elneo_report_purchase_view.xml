@@ -13,37 +13,10 @@
 							<col width="50%" />
 							<tr>
 								<td>
-									<strong>Shipping address:</strong>
-									<div t-if="o.dest_address_id">
-										<span t-field="o.dest_address_id.parent_id.name" />
-										<br />
-										<div t-if="o.dest_address_id.lastname or o.dest_address_id.firstname">
-											<span>To </span>
-											<span t-field="o.dest_address_id.title.name" />
-											<span t-field="o.dest_address_id.firstname" />
-											<span t-field="o.dest_address_id.lastname" />
-										</div>
-										<span t-field="o.dest_address_id.street" />
-										<br />
-										<span t-field="o.dest_address_id.zip" />
-										<span t-field="o.dest_address_id.city" />
-										<br />
-										<span t-field="o.dest_address_id.country_id.name" />
-									</div>
-									<div t-if="not o.dest_address_id and o.picking_type_id and o.picking_type_id.warehouse_id">
-										<span t-field="o.picking_type_id.warehouse_id.partner_id.name" />
-										<br />
-										<span t-field="o.picking_type_id.warehouse_id.partner_id.street" />
-										<br />
-										<span t-field="o.picking_type_id.warehouse_id.partner_id.zip" />
-										<span t-field="o.picking_type_id.warehouse_id.partner_id.city" />
-										<br />
-										<span t-field="o.picking_type_id.warehouse_id.partner_id.country_id.name" />
-									</div>
-
-									<br />
-									<p>
-										<strong>Invoice address:</strong>
+									<div t-if="o.picking_type_id.warehouse_id.id == 1">
+										<span>
+											<strong>Shipping and invoice address:</strong>
+										</span>
 										<br />
 										<span t-field="o.company_id.name" />
 										<br />
@@ -54,7 +27,57 @@
 										<br />
 										VAT :
 										<span t-field="o.company_id.vat" />
-									</p>
+									</div>
+									<div t-if="o.picking_type_id.warehouse_id.id != 1">
+										<strong>Shipping address:</strong>
+										<div t-if="o.dest_address_id">
+											<span t-field="o.dest_address_id.parent_id.name" />
+											<br />
+											<div
+												t-if="o.dest_address_id.lastname or o.dest_address_id.firstname">
+												To
+												<span t-field="o.dest_address_id.title.name" />
+												<span t-field="o.dest_address_id.firstname" />
+												<span t-field="o.dest_address_id.lastname" />
+											</div>
+											<span t-field="o.dest_address_id.street" />
+											<br />
+											<span t-field="o.dest_address_id.zip" />
+											<span t-field="o.dest_address_id.city" />
+											<br />
+											<span t-field="o.dest_address_id.country_id.name" />
+										</div>
+										<div
+											t-if="not o.dest_address_id and o.picking_type_id and o.picking_type_id.warehouse_id">
+											<span
+												t-field="o.picking_type_id.warehouse_id.partner_id.parent_id.name" />
+											<br />
+											<span t-field="o.picking_type_id.warehouse_id.partner_id.name" />
+											<br />
+											<span t-field="o.picking_type_id.warehouse_id.partner_id.street" />
+											<br />
+											<span t-field="o.picking_type_id.warehouse_id.partner_id.zip" />
+											<span t-field="o.picking_type_id.warehouse_id.partner_id.city" />
+											<br />
+											<span
+												t-field="o.picking_type_id.warehouse_id.partner_id.country_id.name" />
+										</div>
+
+										<br />
+										<p>
+											<strong>Invoice address:</strong>
+											<br />
+											<span t-field="o.company_id.name" />
+											<br />
+											<span t-field="o.company_id.street" />
+											<br />
+											<span t-field="o.company_id.zip" />
+											<span t-field="o.company_id.city" />
+											<br />
+											VAT :
+											<span t-field="o.company_id.vat" />
+										</p>
+									</div>
 								</td>
 								<td align="left" style="vertical-align:middle">
 									<span t-field="o.partner_id.name" />
@@ -69,61 +92,40 @@
 										<span t-field="o.partner_id.country_id.name" />
 									</span>
 									<br />
-									<br>
-									</br>
-									<span t-if="o.partner_id.phone">Tel:</span>
-									<span t-field="o.partner_id.phone" />
 									<br />
-									<span t-if="o.partner_id.vat">VAT:</span>
-									<span t-field="o.partner_id.vat" />
+									<div t-if="o.partner_id.phone">
+										Tel:
+										<span t-field="o.partner_id.phone" />
+									</div>
+									<div t-if="o.partner_ref">
+										Your reference:
+										<span t-field="o.partner_ref" />
+									</div>
+									<div t-if="o.partner_id.vat">
+										VAT:
+										<span t-field="o.partner_id.vat" />
+									</div>
+
 								</td>
 							</tr>
 						</table>
-
+						<div class="text-right">
+							<span>Date ordered:</span>
+							<span
+								t-esc="time.strftime('%d/%m/%Y',time.strptime(o.date_order,'%Y-%m-%d %H:%M:%S'))" />
+						</div>
 						<h2>
 							<strong>
-								Request for quotation :
-								<span t-field="o.create_uid.default_section_id.code" />
-								<span t-if="o.create_uid.default_section_id">-</span>
+								Request for quotation:
+								<span t-field="user.default_section_id.code" />
+								-
 								<span t-field="o.name" />
 							</strong>
 						</h2>
 						<br />
-						<table class="table-bordered" width="100%">
-							<col width="34%" />
-							<col width="33%" />
-							<col width="33%" />
-							<thead>
-								<tr>
-									<th class="text-center">
-										<strong>Your reference</strong>
-									</th>
-									<th class="text-center">
-										<strong>Date ordered</strong>
-									</th>
-									<th class="text-center">
-										<strong>Your contact</strong>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-center">
-										<span t-field="o.partner_ref" />
-									</td>
-									<td class="text-center">
-										<span t-esc="time.strftime('%d/%m/%Y',time.strptime(o.date_order,'%Y-%m-%d %H:%M:%S'))" />
-									</td>
-									<td class="text-center">
-										<span t-field="user.partner_id.name" />
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<br />
 						<table class="table table-condensed">
 							<thead>
-								<tr>
+								<tr style="background-color:lightgrey;">
 									<th>
 										<strong>Description</strong>
 									</th>
@@ -193,6 +195,8 @@
 						</table>
 
 						<p t-field="o.notes" />
+
+
 						<div class="oe_structure" />
 					</div>
 				</t>
@@ -206,139 +210,192 @@
 				<t t-call="report.external_layout">
 					<div class="page">
 						<div class="oe_structure" />
-						<div class="row">
-							<div class="col-xs-6">
-								<strong>Shipping address:</strong>
-								<div t-if="o.dest_address_id">
-									<div t-field="o.dest_address_id"
-										t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
-								</div>
 
-								<div
-									t-if="not o.dest_address_id and o.picking_type_id and o.picking_type_id.warehouse_id">
-									<span t-field="o.picking_type_id.warehouse_id.name" />
-									<div t-field="o.picking_type_id.warehouse_id.partner_id"
-										t-field-options='{"widget": "contact", "fields": ["address", "phone", "fax"], "no_marker": true}' />
-								</div>
-							</div>
-							<div class="col-xs-5 col-xs-offset-1">
-								<div t-field="o.partner_id"
-									t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
-								<p t-if="o.partner_id.vat">
-									VAT:
-									<span t-field="o.partner_id.vat" />
-								</p>
-							</div>
+						<table width="100%">
+							<col width="50%" />
+							<col width="50%" />
+							<tr>
+								<td>
+									<div t-if="o.picking_type_id.warehouse_id.id == 1">
+										<span>
+											<strong>Shipping and invoice address:</strong>
+										</span>
+										<br />
+										<span t-field="o.company_id.name" />
+										<br />
+										<span t-field="o.company_id.street" />
+										<br />
+										<span t-field="o.company_id.zip" />
+										<span t-field="o.company_id.city" />
+										<br />
+										VAT :
+										<span t-field="o.company_id.vat" />
+									</div>
+									<div t-if="o.picking_type_id.warehouse_id.id != 1">
+										<strong>Shipping address:</strong>
+										<div t-if="o.dest_address_id">
+											<span t-field="o.dest_address_id.parent_id.name" />
+											<br />
+											<div
+												t-if="o.dest_address_id.lastname or o.dest_address_id.firstname">
+												To
+												<span t-field="o.dest_address_id.title.name" />
+												<span t-field="o.dest_address_id.firstname" />
+												<span t-field="o.dest_address_id.lastname" />
+											</div>
+											<span t-field="o.dest_address_id.street" />
+											<br />
+											<span t-field="o.dest_address_id.zip" />
+											<span t-field="o.dest_address_id.city" />
+											<br />
+											<span t-field="o.dest_address_id.country_id.name" />
+										</div>
+										<div
+											t-if="not o.dest_address_id and o.picking_type_id and o.picking_type_id.warehouse_id">
+											<span
+												t-field="o.picking_type_id.warehouse_id.partner_id.parent_id.name" />
+											<br />
+											<span t-field="o.picking_type_id.warehouse_id.partner_id.name" />
+											<br />
+											<span t-field="o.picking_type_id.warehouse_id.partner_id.street" />
+											<br />
+											<span t-field="o.picking_type_id.warehouse_id.partner_id.zip" />
+											<span t-field="o.picking_type_id.warehouse_id.partner_id.city" />
+											<br />
+											<span
+												t-field="o.picking_type_id.warehouse_id.partner_id.country_id.name" />
+										</div>
+
+										<br />
+										<p>
+											<strong>Invoice address:</strong>
+											<br />
+											<span t-field="o.company_id.name" />
+											<br />
+											<span t-field="o.company_id.street" />
+											<br />
+											<span t-field="o.company_id.zip" />
+											<span t-field="o.company_id.city" />
+											<br />
+											VAT :
+											<span t-field="o.company_id.vat" />
+										</p>
+									</div>
+								</td>
+								<td align="left" style="vertical-align:middle">
+									<span t-field="o.partner_id.name" />
+									<br />
+									<span t-field="o.partner_id.street" />
+									<br />
+									<span t-if="o.partner_id.zip and o.partner_id.city" />
+									<span t-field="o.partner_id.zip" />
+									<span t-field="o.partner_id.city" />
+									<br />
+									<span t-if="o.partner_id.country_id">
+										<span t-field="o.partner_id.country_id.name" />
+									</span>
+									<br />
+									<br />
+									<div t-if="o.partner_id.phone">
+										Tel:
+										<span t-field="o.partner_id.phone" />
+									</div>
+									<div t-if="o.partner_ref">
+										Your reference:
+										<span t-field="o.partner_ref" />
+									</div>
+									<div t-if="o.partner_id.vat">
+										VAT:
+										<span t-field="o.partner_id.vat" />
+									</div>
+
+								</td>
+							</tr>
+						</table>
+						<div class="text-right">
+							<span>Date ordered:</span>
+							<span
+								t-esc="time.strftime('%d/%m/%Y',time.strptime(o.date_order,'%Y-%m-%d %H:%M:%S'))" />
 						</div>
-
-						<h2 t-if="o.state != 'draft'">
-							Purchase Order Confirmation N°
-							<span t-field="o.name" />
+						<h2>
+							<strong>
+								Purchase order:
+								<span t-field="user.default_section_id.code" />
+								-
+								<span t-field="o.name" />
+							</strong>
 						</h2>
-						<h2 t-if="o.state == 'draft'">
-							Request for Quotation N°
-							<span t-field="o.name" />
-						</h2>
-
-						<div class="row mt32 mb32">
-							<div t-if="o.name" class="col-xs-3">
-								<strong>Our Order Reference:</strong>
-								<p t-field="o.name" />
-							</div>
-							<div t-if="o.partner_ref" class="col-xs-3">
-								<strong>Your Order Reference</strong>
-								<p t-field="o.partner_ref" />
-							</div>
-							<div t-if="o.date_order" class="col-xs-3">
-								<strong>Order Date:</strong>
-								<p t-field="o.date_order" />
-							</div>
-							<div t-if="o.validator" class="col-xs-3">
-								<strong>Validated By:</strong>
-								<p t-field="o.validator" />
-							</div>
-						</div>
-
+						<br />
 						<table class="table table-condensed">
 							<thead>
-								<tr>
+								<tr style="background-color:lightgrey;">
 									<th>
 										<strong>Description</strong>
 									</th>
-									<th>
-										<strong>Taxes</strong>
-									</th>
 									<th class="text-center">
-										<strong>Date Req.</strong>
+										<strong>Max. requested date</strong>
 									</th>
 									<th class="text-right">
 										<strong>Qty</strong>
 									</th>
 									<th class="text-right">
-										<strong>Unit Price</strong>
+										<strong>Unit price</strong>
 									</th>
 									<th class="text-right">
-										<strong>Net Price</strong>
+										<strong>Total price</strong>
 									</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr t-foreach="o.order_line" t-as="line">
+								<tr t-foreach="o.order_line" t-as="order_line">
 									<td>
-										<span t-field="line.name" />
-									</td>
-									<td>
-										<span t-esc="', '.join(map(lambda x: x.name, line.taxes_id))" />
+										<span t-field="order_line.name" />
 									</td>
 									<td class="text-center">
-										<span t-field="line.date_planned" />
+										<span t-field="order_line.date_planned" />
 									</td>
 									<td class="text-right">
-										<span t-field="line.product_qty" />
-										<span t-field="line.product_uom.name" groups="product.group_uom" />
+										<span t-field="order_line.product_qty" />
+										<span t-field="order_line.product_uom" />
 									</td>
 									<td class="text-right">
-										<span t-field="line.price_unit" />
+										<span t-field="order_line.price_unit" />
 									</td>
 									<td class="text-right">
-										<span t-field="line.price_subtotal"
-											t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}' />
+										<span t-field="order_line.price_subtotal" />
+										<span t-field="o.currency_id.symbol" />
 									</td>
 								</tr>
 							</tbody>
 						</table>
 
-						<div class="row">
-							<div class="col-xs-4 pull-right">
-								<table class="table table-condensed">
-									<tr class="border-black">
-										<td>
-											<strong>Total Without Taxes</strong>
-										</td>
-										<td class="text-right">
-											<span t-field="o.amount_untaxed"
-												t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}' />
-										</td>
-									</tr>
-									<tr>
-										<td>Taxes</td>
-										<td class="text-right">
-											<span t-field="o.amount_tax"
-												t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}' />
-										</td>
-									</tr>
-									<tr class="border-black">
-										<td>
-											<strong>Total</strong>
-										</td>
-										<td class="text-right">
-											<span t-field="o.amount_total"
-												t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}' />
-										</td>
-									</tr>
-								</table>
-							</div>
-						</div>
+						<table width="25%" align="right">
+							<tr>
+								<td class="text-left" style="border-top:1px solid black; padding-top:5px;"> Net total :</td>
+								<td class="text-right" style="border-top:1px solid black; padding-top:5px;">
+									<span t-field="o.amount_untaxed" />
+									<span t-field="o.currency_id.symbol" />
+								</td>
+							</tr>
+							<tr>
+								<td class="text-left" style="padding-bottom:5px; padding-top:2px;">Taxes :</td>
+								<td class="text-right" style="padding-bottom:5px; padding-top:2px">
+									<span t-field="o.amount_tax" />
+									<span t-field="o.currency_id.symbol" />
+								</td>
+							</tr>
+							<tr>
+								<td class="text-left" style="border-top:1px solid black; padding-top:5px;">
+									<strong>Total : </strong>
+								</td>
+								<td class="text-right" style="border-top:1px solid black; padding-top:5px;">
+									<strong>
+										<span t-field="o.amount_total" />
+										<span t-field="o.currency_id.symbol" />
+									</strong>
+								</td>
+							</tr>
+						</table>
 
 						<p t-field="o.notes" />
 						<div class="oe_structure" />

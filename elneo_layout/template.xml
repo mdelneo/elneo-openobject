@@ -18,67 +18,16 @@
 		<template id="external_layout_header_elneo" inherit_id="report.external_layout_header">
 			<xpath expr="//div[@class='header']" position="replace">
 				<div class="header">
-					<div class="row">
-						<div class="col-xs-3">
-							<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 60px;margin-bottom:10px;" />
-						</div>
-						<div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1" />
-					</div>
-					<div class="row zero_min_height">
-						<div class="col-xs-12">
-							<div style="border-bottom: 2px solid black;" />
-						</div>
-					</div>
-					<table width="100%">
-						<col width="25%" />
-						<col width="25%" />
-						<col width="25%" />
-						<col width="25%" />
-						<tbody>
-							<tr>
-								<td class="text-left">
-									<div t-if="user.lang!='nl_BE'">
-										<span>Elneo (Technofluid SA)</span>
-									</div>
-									<div t-if="user.lang=='nl_BE'">
-										<span>Elneo (Technofluid NV)</span>
-									</div>
-									<div t-field="user.partner_id.street" />
-									<div>
-										<span t-field="user.partner_id.zip" />
-										<span t-field="user.partner_id.city" />
-									</div>
-								</td>
-								<td class="text-left">
-									<div>
-										<span>Tel:</span>
-										<span t-field="user.partner_id.phone" />
-									</div>
-									<div>
-										<span>Fax:</span>
-										<span t-field="user.partner_id.fax" />
-									</div>
-									<div><span>E-mail: info@elneo.com</span></div>
-								</td>
-								<td class="text-left">
-									<div>ING: BE29 3400 6157 8264</div>
-									<div>ING (BIC): BBRU BE BB</div>
-									<div>TVA: BE0438681213</div>
-								</td>
-								<td class="text-left">
-									<div>Belfius: BE26 0688 9108 1029</div>
-									<div>Belfius (BIC): GKCC BE BB</div>
-									<div>R.P.R.: Lg 170.141</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="row zero_min_height">
-						<div class="col-xs-12">
-							<div style="border-bottom: 2px solid black;" />
-						</div>
-					</div>
-				</div>
+			        <div class="row">
+						<img src="/elneo_layout/static/src/img/header.png" style="margin-bottom:10px;" />
+			        </div>
+			        <div class="row zero_min_height">
+			            <div class="col-xs-12">
+			                <div style="border-bottom: 1px solid #ddd;"/>
+			            </div>
+			        </div>
+                             
+		    	</div>
 			</xpath>
 		</template>
 

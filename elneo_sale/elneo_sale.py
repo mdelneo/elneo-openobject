@@ -45,21 +45,20 @@ class procurement_order(models.Model):
 class purchase_order(models.Model):
     _inherit = 'purchase.order'
     
-    @api.v7
-    def search(self, cr, uid, args, offset=0, limit=None, order=None, count=False, context=None):
-        #if make_po = True, we simulate that no other purchase order exists, to force new purchase order creation
-        if context.get('make_po',False):
-            return False
-        res = super(purchase_order, self).search(cr, uid, args, offset=offset, limit=limit, order=order, count=count, context=context)
-        return res
-    '''
+    def _downgrade_search(self):
+        if self._context.get('count',False):
+            return self.id
+        return self.ids
+    
+    @api.returns('self', downgrade=_downgrade_search)
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
+        self = self.with_context(count=count)
         #if make_po = True, we simulate that no other purchase order exists, to force new purchase order creation
         if self._context.get('make_po',False):
             return self
         res = super(purchase_order, self).search(args, offset=offset, limit=limit, order=order, count=count)
-        return res'''
+        return res
     
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'

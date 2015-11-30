@@ -58,4 +58,7 @@ class purchase_order(models.Model):
         if purchase_type:
             purchase_type_id = int(purchase_type)
             res['purchase_type_id'] = purchase_type_id
+            
+        if self.env.user.default_warehouse_id:
+            res['picking_type_id']=self.env['stock.picking.type'].search([('warehouse_id','=',self.env.user.default_warehouse_id.id)],limit=1).id
         return res

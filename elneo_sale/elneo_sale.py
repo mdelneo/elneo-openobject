@@ -45,12 +45,21 @@ class procurement_order(models.Model):
 class purchase_order(models.Model):
     _inherit = 'purchase.order'
     
+    @api.v7
+    def search(self, cr, uid, args, offset=0, limit=None, order=None, count=False, context=None):
+        #if make_po = True, we simulate that no other purchase order exists, to force new purchase order creation
+        if context.get('make_po',False):
+            return False
+        res = super(purchase_order, self).search(cr, uid, args, offset=offset, limit=limit, order=order, count=count, context=context)
+        return res
+    '''
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
         #if make_po = True, we simulate that no other purchase order exists, to force new purchase order creation
-        if self.env.context.get('make_po',False):
+        if self._context.get('make_po',False):
             return self
-        return super(purchase_order, self).search(args, offset=offset, limit=limit, order=order, count=count)
+        res = super(purchase_order, self).search(args, offset=offset, limit=limit, order=order, count=count)
+        return res'''
     
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'

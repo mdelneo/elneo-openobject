@@ -6,6 +6,23 @@
 				<link rel="stylesheet" href="/elneo_purchase/static/src/css/elneo.css"/>
 			</xpath>
 		</template>
+		
+		<record id="purchase_order_line_tree_elneo" model="ir.ui.view">
+            <field name="name">purchase.order.line.tree.elneo</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//tree[@string='Purchase Order Lines']" position="attributes">
+            		<attribute name="default_order">order_id</attribute>
+            	</xpath>
+            	<xpath expr="//tree[@string='Purchase Order Lines']/field[@name='state']" position="attributes">
+            		<attribute name="invisible">0</attribute>
+            	</xpath>
+            	<xpath expr="//tree[@string='Purchase Order Lines']/field[@name='invoiced']" position="attributes">
+            		<attribute name="invisible">0</attribute>
+            	</xpath>
+            </field>
+        </record>
     
     	<record id="act_res_partner_2_purchase_order" model="ir.actions.act_window">
             <field name="name">RFQs and Purchases</field>

@@ -7,7 +7,7 @@
     'description': "Adapt purchase to elneo specifics",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['purchase','sale','purchase_sale'],
+    'depends': ['purchase','sale','purchase_sale','elneo_stock'],
     "data" : ['views/elneo_purchase_view.xml','views/res_config.xml','security/ir.model.access.csv'],
     'installable': True,
     'auto_install': False,

@@ -39,6 +39,8 @@ class res_partner(models.Model):
         for partner in self:
             
             name = ''
+            if not partner.is_company and self.env.context.get('show_parent',False):
+                name = name_add(name, partner.parent_name)
             name = name_add(name, partner.name)
             
             if not partner.is_company or self._context.get('contact_display',False):

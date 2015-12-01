@@ -46,6 +46,9 @@
 			<field name="model">account.invoice</field>
 			<field name="priority">2</field>
 			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="attributes">
+					<attribute name="context">{'default_customer':0,'search_default_supplier':1,'default_supplier':1,'show_parent':1}</attribute>
+				</xpath>
 				<xpath expr="//field[@name='origin']" position="after">
 					<field name="purchase_type_id" />
 				</xpath>

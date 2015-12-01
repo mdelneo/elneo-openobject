@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_partner_receivable_payable
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-01 13:51+0000\n"
+"PO-Revision-Date: 2015-12-01 14:52+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: account_partner_receivable_payable
+#: view:res.partner:account_partner_receivable_payable.partner_view_rp_buttons
+msgid "Balance"
+msgstr "Balance"
+
+#. module: account_partner_receivable_payable
+#: model:ir.model,name:account_partner_receivable_payable.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: account_partner_receivable_payable
+#: model:ir.actions.act_window,name:account_partner_receivable_payable.action_partner_receivable_payable
+msgid "Receivables & Payables"
+msgstr "Créditeurs & Débiteurs"

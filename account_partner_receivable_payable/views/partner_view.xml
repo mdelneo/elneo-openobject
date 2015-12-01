@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record model="ir.actions.act_window" id="action_partner_receivable_payable">
+			<field name="context">{'search_default_reconcile_id':False, 'search_default_partner_id':[active_id]}</field> 
+			<field name="domain">[('account_id.reconcile', '=', True),('account_id.type', 'in', ['receivable', 'payable'])]</field> 
+			<field name="name">Receivables &amp; Payables</field> 
+			<field name="res_model">account.move.line</field>
+			<field name="src_model">res.partner</field>
+			<field name="view_type">form</field>
+     		<field name="view_mode">tree,form</field>
+		</record>
+        <record model="ir.ui.view" id="partner_view_rp_buttons">
+            <field name="name">partner.view.rp.buttons</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.partner_view_buttons" />
+            <field name="groups_id" eval="[(4, ref('account.group_account_user'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button type="action" 
+                        class="oe_stat_button"
+                        id="invoice_button"
+                        icon="fa-money"
+                        name="%(action_partner_receivable_payable)d"
+                        context="{'search_default_partner_id': active_id,'default_partner_id': active_id}">
+                        <div><strong><field name="balance" widget="monetary"/></strong><br/>Balance</div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

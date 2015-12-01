@@ -1,5 +1,10 @@
 from openerp import models, fields, api
 
+class StockWarehouse(models.Model):
+    _inherit='stock.warehouse'
+    
+    default_user_ids = fields.One2many('res.users','default_warehouse_id',string='Users Default Warehouse',help='Users that have defined this warehouse as default')
+
 class stock_warehouse_orderpoint(models.Model):
     _inherit = 'stock.warehouse.orderpoint'
     stocked_for_customer = fields.Boolean('Stocked for customer')

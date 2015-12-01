@@ -128,6 +128,7 @@ class maintenance_intervention(models.Model):
     intervention_products = fields.One2many('maintenance.intervention.product', 'intervention_id', 'Maintenance intervention products',auto_join=True)
     #to_plan = fields.Boolean(compute=_get_task_fields,string="To plan", store=True,) #override to_plan cause when to_plan field of task was written, to_plan field of intervention was not re-computed.
     available = fields.Boolean(compute=_get_available, string="Available", store=True)
+    warehouse_id = fields.Many2one(related='sale_order_id.warehouse_id', string="Warehouse")
     #out_picking = fields.Many2one("stock.picking",compute=_get_out_picking, string="Out picking", store=True)
 
     @api.one

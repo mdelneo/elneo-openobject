@@ -113,6 +113,11 @@
 				<xpath expr="/form/sheet/group/group/field[@name='contact_address_id']" position="after">
 					<field name="sale_order_id" />
 				</xpath>
+				<xpath expr="//div[@class='oe_right oe_button_box']" position="inside">
+					<button class="oe_stat_button" name="%(action_maintenance_update_pickings)d" type='action'
+							string='Reservations' states='confirmed' icon="fa-random" help="Update the Reservations according to changes you made"
+							 groups="maintenance.group_maintenance_manager" />
+				</xpath>
 				<xpath expr="/form/sheet/notebook/page[@string='Achievement']"
 					position="before">
 					<page string="Content">
@@ -155,22 +160,16 @@
 				<xpath expr="/form/header/button[@name='action_confirm']"
 					position="replace">
 					<button name="action_create_quotation" type='object'
-						string='Create quotation' states='draft' icon="terp-camera_test"
+						string='Create quotation' states='draft'
 						attrs="{'invisible':['|',('sale_order_id','!=',False)]}" />
 						
 					<button name="action_confirm" type='object'
-						string='Confirm intervention' states='draft' icon="terp-camera_test" class="oe_highlight"/>
-					<!-- DO NOTHING - TO SUPPRESS
-					<button name="action_update" type='object'
-						string='Update' states='draft' icon="gtk-execute"
-						colspan="2" />
-					 -->
+						string='Confirm intervention' states='draft' class="oe_highlight"/>
+					
 						
-					<button name="%(action_maintenance_update_pickings)d" type='action'
-							string='Update Reservations' states='confirmed' icon="gtk-execute"
-							colspan="2" groups="maintenance.group_maintenance_manager" />
+					
 						<button name="%(action_maintenance_update_invoice)d" type='action'
-							string='Update Invoice' states='done' icon="gtk-execute" colspan="2" />
+							string='Update Invoice' states='done'/>
 						
 				</xpath>
 

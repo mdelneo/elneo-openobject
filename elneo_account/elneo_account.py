@@ -2,6 +2,15 @@
 from openerp import models,fields,api
 from openerp.tools.float_utils import float_compare, float_round
 
+JOURNAL_TYPE_MAP = {
+    ('outgoing', 'customer'): ['sale'],
+    ('outgoing', 'supplier'): ['purchase_refund'],
+    ('outgoing', 'transit'): ['sale', 'purchase_refund'],
+    ('incoming', 'supplier'): ['purchase'],
+    ('incoming', 'customer'): ['sale_refund'],
+    ('incoming', 'transit'): ['purchase', 'sale_refund'],
+}
+
 class account_payment_term(models.Model):
     _inherit = 'account.payment.term'
     
@@ -10,14 +19,13 @@ class account_payment_term(models.Model):
 class stock_transfer_details(models.TransientModel):
     _inherit = 'stock.transfer_details'
     
+    @api.one
     def do_detailed_transfer(self):
         res = super(stock_transfer_details,self).do_detailed_transfer()
-        picking = self.picking_id
-        if picking.picking_type_id.code == 'incoming':
-            journal = self.env['account.invoice'].with_context(type='in_invoice')._default_journal()
-            picking.action_invoice_create(journal_id=journal.id, group=False, type="in_invoice")
+        if self.picking_id.invoice_state == '2binvoiced' and self.picking_id.picking_type_id.code == 'incoming' and self.picking_id.move_lines[0].location_id.usage == 'supplier':
+            wizard = self.env['stock.invoice.onshipping'].with_context(active_ids=[self.picking_id.id]).create({})
+            wizard.create_invoice()
         return res
-    
     
 class stock_picking(models.Model):
     _inherit = 'stock.picking'

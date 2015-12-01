@@ -531,6 +531,7 @@
                     <group expand="0" string="Group By...">
                         <filter string="Technician" icon="terp-personal" domain="[]" context="{'group_by':'technicians'}"/>
                         <filter string="Installation" icon="terp-product" domain="[]" context="{'group_by':'installation_id'}"/>
+                        <filter string="Warehouse" domain="[]" context="{'group_by':'installation_warehouse_id'}"/>
                         <filter string="Address" icon="terp-personal+" domain="[]" context="{'group_by':'address_id'}"/>
                         <filter string="Customer" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
                         <filter string="State" domain="[]" context="{'group_by':'state'}"/>

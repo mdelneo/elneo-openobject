@@ -342,6 +342,7 @@ class maintenance_intervention(models.Model):
     task_hours = fields.Float(compute='_get_task_fields', size=255, string="Task hours",store=True)
     task_month = fields.Integer(compute='_get_task_fields', size=255, string="Task month",store=True)
     time_planned = fields.Float('Time planned', help='Time initially planned to do intervention.')
+    installation_warehouse_id = fields.Many2one(related='installation_id.warehouse_id',  string="Warehouse",store=True)
     
     
     _order = 'date_start,id desc'

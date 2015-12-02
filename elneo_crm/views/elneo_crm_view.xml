@@ -192,7 +192,7 @@
             	</xpath>
             	
             	<xpath expr="//field[@name='phone']/.." position="inside">
-            		<field name="blocked" />
+            		<field name="blocked" attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)]}"/>
             		<field name="active" />
             	</xpath>
             	
@@ -335,8 +335,8 @@
             	<xpath expr="//div[@name='vat_info']" position="replace" />
             	
             	<xpath expr="//field[@name='title']" position="after">
-            		<label for="vat"/>
-                    <div name="vat_info">
+            		<label for="vat" attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)]}"/>
+                    <div name="vat_info" attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)]}">
                         <field name="vat" on_change="vat_change(vat)" placeholder="e.g. BE0477472701" class="oe_inline" attrs="{'required':[('is_company','=',True),('vat_subjected','=',True)]}" />
                         <button colspan="2" name="button_check_vat" string="Check Validity" type="object" icon="gtk-execute" class="oe_inline"/>
                         <label for="vat_subjected" />
@@ -345,9 +345,6 @@
             	</xpath>
             </field>
         </record>
-        
-        
-        
         <!-- PARTNER SEARCH -->
         
         <record model="ir.ui.view" id="res_partner_opt_out_search_elneo">

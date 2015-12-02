@@ -78,6 +78,7 @@
             		<field name="origin" />
             	</xpath>
             	<filter string="Period" position="before">
+            		<filter string="Parent Partner" context="{'group_by':'commercial_partner_id'}"/>
             		<filter string="Journal" context="{'group_by':'journal_id'}"/>
             	</filter>
             </field>

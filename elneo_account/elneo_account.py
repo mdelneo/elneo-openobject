@@ -92,8 +92,32 @@ class account_invoice(models.Model):
                 invoice.purchase_type_id = invoice.purchase_ids[0].purchase_type_id.id
             else:
                 invoice.purchase_type_id = None
+                
+    @api.onchange('_partner_id')
+    def _onchange__partner_id(self):
+        if self._partner_id:
+            if self.partner_id.commercial_partner_id != self._partner_id:
+                invoices = self._partner_id.child_ids.filtered(lambda r:r.type == 'invoice')
+                if invoices:
+                    self.partner_id = invoices[0]
+                else:
+                    self.partner_id = self._partner_id
+            
+                
+                
+    def onchange_partner_id(self,cr, uid, ids,type, partner_id, date_invoice, payment_term, partner_bank_id, company_id, context):
+        res = super(account_invoice,self).onchange_partner_id(cr, uid, ids,type, partner_id, date_invoice, payment_term, partner_bank_id, company_id, context)
+        if partner_id:
+            partner = self.pool['res.partner'].browse(cr,uid,partner_id,context=context)
+            vals = res['value']
+            vals.update({'_partner_id':partner.commercial_partner_id.id})
+            res['value'].update(vals)
+        
+        return res
     
     purchase_type_id = fields.Many2one('purchase.order.type', 'Purchase type', compute='_get_purchase_type', readonly=True)
     purchase_ids = fields.Many2many('purchase.order', 'purchase_invoice_rel', 'invoice_id', 'purchase_id', 'Purchases')
+    partner_id = fields.Many2one(string="Invoice Address")
+    _partner_id = fields.Many2one('res.partner',string="Partner",required=True,help="Partner to help selection of invoice address")
     
 account_invoice()

@@ -300,7 +300,7 @@
 		    	</xpath>
 		    </field>
 		</record>
-		
+		<!-- 
 		<record id="view_partner_inv_comm_type_form_elneo_crm" model="ir.ui.view">
 	      <field name="name">view.partner.inv.comm.type.form.elneo.crm</field>
 	      <field name="model">res.partner</field>
@@ -310,7 +310,7 @@
 	      	<xpath expr="//field[@name='out_inv_comm_algorithm']" position='replace' />
 	      </field>
 	    </record>
-
+ --> 
         
 <!--         <record model="ir.ui.view" id="partner_view_button_contracts_count_elneo_crm"> -->
 <!--             <field name="name">partner.view.button.contracts.count.elneo.crm</field> -->

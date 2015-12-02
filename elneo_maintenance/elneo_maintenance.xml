@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+
 	 	<record id="view_maintenance_intervention_search_elneo" model="ir.ui.view">
             <field name="name">maintenance.intervention.search.elneo</field>
             <field name="model">maintenance.intervention</field>
             <field name="inherit_id" ref="maintenance.view_maintenance_intervention_search"/>
             <field name="arch" type="xml">
+            	<filter name="done" position="after">
+            		<separator/>
+            		<filter name="my_warehouse" string="My Warehouse" domain="[('installation_id.warehouse_id.default_user_ids','in',uid)]"/>
+            	</filter>
                 <group string="Group By..." position="before">
                 	<group string="Elneo">
                 		<filter name="awans" string="Awans" domain="[('installation_id.warehouse_id','=',1)]" help="Awans Interventions"/>
@@ -14,6 +19,17 @@
                 </group>
             </field>
         </record>
+        
+        <record id="maintenance.action_maintenance_intervention" model="ir.actions.act_window">
+			<field name="name">Interventions</field>
+			<field name="search_view_id" ref="view_maintenance_intervention_search_elneo" />
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.intervention</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,calendar</field>
+			<field name="context">{'search_default_my_warehouse':1}</field>
+			<field name="help">All maintenance interventions</field>
+		</record>
         
         <record id="view_maintenance_internal_search_elneo" model="ir.ui.view">
             <field name="name">maintenance.intervention.internal.search.elneo</field>

@@ -109,8 +109,7 @@ class maintenance_intervention(models.Model):
         return order_line
         
         
-    warehouse_id = fields.Many2one(related='sale_order_id.warehouse_id', string="Warehouse")
-    installation_warehouse_id = fields.Many2one(related='installation_id.warehouse_id',  string="Warehouse")
+    
     installation_zip = fields.Char(related='installation_id.address_id.zip', string="Zip", store=True)
     blocked = fields.Boolean(related='partner_id.blocked', string='Customer blocked')
 

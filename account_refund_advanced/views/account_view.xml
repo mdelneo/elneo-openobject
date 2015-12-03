@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="view_account_form_refund_advanced" model="ir.ui.view">
+            <field name="name">account.account.form.refund.advanced</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <field name="reconcile" position="after">
+                	<field name="not_refund_auto_rec"/>
+                </field>
+            </field>
+       </record>
+       
+       <record id="view_account_invoice_refund_advanced" model="ir.ui.view">
+            <field name="name">account.invoice.refund.form.advanced</field>
+            <field name="model">account.invoice.refund</field>
+            <field name="inherit_id" ref="account.view_account_invoice_refund"/>
+            <field name="arch" type="xml">
+            	<field name="journal_id" position="attributes">
+            		<attribute name="domain">[('type','in',['sale_refund','purchase_refund'])]</attribute>
+            	</field>
+            </field>
+        </record>
+   </data>
+</openerp>

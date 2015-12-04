@@ -245,13 +245,9 @@ class maintenance_element(models.Model):
     @api.multi
     def get_interventions(self,project):
         
-        date_from = project.intervention_generation_start_date or project.date_start
+        #date_from = project.intervention_generation_start_date or project.date_start
+        date_from = project.used_intervention_generation_start_date
         date_to = project.date_end
-        
-        if not date_from:
-            raise Warning( _('Project start date or date of beginning of generation is required'))
-        if not date_to:
-            raise Warning( _('Project end date is required'))
         
         result = []
        

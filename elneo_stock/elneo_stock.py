@@ -64,7 +64,8 @@ procurement_rule()
 class stock_move(models.Model):
     _inherit = 'stock.move'
     
-    auto_validate_dest_move = fields.Boolean('Auto validate', related='procurement_id.rule_id.autovalidate_dest_move', help='If this move is "autovalidate", when it became assigned, it is automatically set as done.')    
+    auto_validate_dest_move = fields.Boolean('Auto validate', related='procurement_id.rule_id.autovalidate_dest_move', help='If this move is "autovalidate", when it became assigned, it is automatically set as done.')
+    procurement_id = fields.Many2one('procurement.order',index=True)    
     
     @api.multi
     def action_assign(self):

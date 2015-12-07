@@ -30,6 +30,7 @@ class sale_order_line(models.Model):
         if res and len(res)>0:
             invoiced_lines = {}
             for so_line in self:
+                
                 for invoice_line in so_line.invoice_lines:
                     if invoice_line.id in res:
                         account_id = so_line.order_id.section_id and so_line.order_id.section_id.sale_account_id.id
@@ -38,9 +39,8 @@ class sale_order_line(models.Model):
                                 invoiced_lines[account_id] = [invoice_line]
                             else:
                                 invoiced_lines[account_id].append(invoice_line)
-            
+            #TODO: A OPTIMISER (1 SECONDE)
             for account in invoiced_lines.keys():
                 for invoiced_line in invoiced_lines[account]:
                     invoiced_line.account_id = account
-                
         return res

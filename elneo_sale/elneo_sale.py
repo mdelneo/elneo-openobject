@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
-import logging
 from openerp import models,fields,api
 from openerp.exceptions import ValidationError
 from openerp.tools.translate import _
-import openerp
-
-_logger = logging.getLogger(__name__)
 
 class product_product(models.Model):
     _inherit = 'product.product'
@@ -33,6 +29,8 @@ class product_category(models.Model):
 class procurement_order(models.Model):
     _inherit = 'procurement.order'
     
+    sale_line_id = fields.Many2one('sale.order.line', index=True)
+        
     @api.multi
     def make_po(self):
         #to force new purchase order creation, when we call "make po", say to search function of purchase order that it does not exists other purchase order
@@ -133,6 +131,7 @@ class sale_order_line(models.Model):
     brut_sale_price = fields.Float(string="Brut sale price", readonly=True)
 
     purchase_line_ids = fields.Many2many('purchase.order.line', 'purchase_line_sale_line_rel', 'sale_line_id', 'purchase_line_id', 'Purchase lines')
+    procurement_ids=fields.One2many(auto_join=True)
 
 sale_order_line()   
 
@@ -186,9 +185,7 @@ class sale_order(models.Model):
                     return True
                 categ = categ.parent_id
             
-           
-        result = super(sale_order,self).action_button_confirm()
-        
+        result = super(sale_order,self).action_button_confirm() 
         #check sale order stat_on_invoice_date if needed
         for sale in self:
             for line in sale.order_line:
@@ -304,6 +301,8 @@ class sale_order(models.Model):
     user_id = fields.Many2one(required=True)
     section_id = fields.Many2one(required=True)
     invoice_ids = fields.Many2many(readonly=False)
+    order_line=fields.One2many(auto_join=True)
+    procurement_group_id = fields.Many2one(index=True)
     
     @api.multi
     def copy(self, default=None):

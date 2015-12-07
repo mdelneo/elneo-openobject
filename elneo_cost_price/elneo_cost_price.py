@@ -179,7 +179,7 @@ class product_template(models.Model):
                 if pricelist and product_tmpl_id:
                     #bypass price_get method in pricelist cause this function require a product_product and sub-functions not. So call directly sub-functions.
                     product_tmpl = self.env['product.template'].browse(product_tmpl_id)
-                    res_multi = pricelist.price_rule_get_multi(products_by_qty_by_partner=[(product_tmpl, 1, None)])
+                    res_multi = pricelist.price_rule_get_multi(products_by_qty_by_partner=[(product_tmpl, product_tmpl.uom_id.id, None)])
                     if res_multi and (product_tmpl.id in res_multi) and (pricelist.id in res_multi[product_tmpl.id]) and len(res_multi[product_tmpl.id][pricelist.id]) > 0:
                         cost_price = res_multi[product_tmpl.id][pricelist.id][0]
                     else:

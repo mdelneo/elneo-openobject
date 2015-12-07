@@ -1,5 +1,11 @@
 from openerp import models, fields, api
 
+class StockMoveOperationLink(models.Model):
+    _inherit = 'stock.move.operation.link'
+    
+    move_id = fields.Many2one(index=True)
+    reserved_quant_id = fields.Many2one(index=True) 
+    
 class StockWarehouse(models.Model):
     _inherit='stock.warehouse'
     
@@ -51,6 +57,7 @@ class stock_picking(models.Model):
     _inherit = 'stock.picking'
     
     picking_type_id = fields.Many2one(track_visibility="onchange")
+    group_id = fields.Many2one(index=True)
     
 stock_picking()
 
@@ -65,7 +72,10 @@ class stock_move(models.Model):
     _inherit = 'stock.move'
     
     auto_validate_dest_move = fields.Boolean('Auto validate', related='procurement_id.rule_id.autovalidate_dest_move', help='If this move is "autovalidate", when it became assigned, it is automatically set as done.')
-    procurement_id = fields.Many2one('procurement.order',index=True)    
+    procurement_id = fields.Many2one('procurement.order',index=True)
+    split_from = fields.Many2one(index=True)
+    route_ids=fields.Many2many(auto_join=True)
+    product_id=fields.Many2one(auto_join=True)
     
     @api.multi
     def action_assign(self):

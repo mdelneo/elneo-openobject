@@ -117,7 +117,7 @@ class account_invoice(models.Model):
     
     purchase_type_id = fields.Many2one('purchase.order.type', 'Purchase type', compute='_get_purchase_type', readonly=True)
     purchase_ids = fields.Many2many('purchase.order', 'purchase_invoice_rel', 'invoice_id', 'purchase_id', 'Purchases')
-    partner_id = fields.Many2one(string="Invoice Address")
-    _partner_id = fields.Many2one('res.partner',string="Partner",required=True,help="Partner to help selection of invoice address")
+    partner_id = fields.Many2one(string="Invoice Address",index=True)
+    _partner_id = fields.Many2one('res.partner',string="Partner",required=True,index=True,help="Partner to help selection of invoice address")
     
 account_invoice()

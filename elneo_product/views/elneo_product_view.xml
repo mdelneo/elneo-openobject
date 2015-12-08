@@ -158,6 +158,10 @@
             	<xpath expr="//field[@name='description']" position="replace" />
             
             	<xpath expr="//page[@string='Accounting']" position="replace" />
+            	
+            	<xpath expr="//field[@name='virtual_available']" position="after">
+            		<field name="valuation" invisible="1" /> 
+            	</xpath>
             
             	<xpath expr="//field[@name='sale_delay']" position='replace' />
             	<xpath expr="//field[@name='warranty']" position='replace' />

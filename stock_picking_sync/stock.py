@@ -34,7 +34,6 @@ class StockPicking(models.Model):
                 picking.state = state[picking.id]
         return True
     
-    
     @api.multi
     def _get_inconsistent_state(self):
         for picking in self:

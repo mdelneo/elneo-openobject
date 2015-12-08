@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+ 		 <record id="stock_picking_end_form" model="ir.ui.view">
+            <field name="name">stock.picking.sync.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                	<field name="inconsistent_state" invisible="1"/>
+                    <button name="action_sync" string="Sync"
+                        attrs="{'invisible':[('inconsistent_state','=',False)]}" type="object"
+                        confirm="Are you sure you want to sync this picking with moves?" 
+                        help="This picking is in inconsistent state : its state in DB is different from the computed one (depends from stock move states)"
+                        groups="stock.group_stock_manager"/>
+                </field>
+            </field>
+        </record>
+	</data>
+</openerp>

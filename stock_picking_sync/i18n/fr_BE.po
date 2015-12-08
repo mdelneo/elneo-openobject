@@ -1,0 +1,38 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_sync
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-08 08:32+0000\n"
+"PO-Revision-Date: 2015-12-08 09:34+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: stock_picking_sync
+#: view:stock.picking:stock_picking_sync.stock_picking_end_form
+msgid "Are you sure you want to sync this picking with moves?"
+msgstr "Voulez-vous vraiment synchroniser ce transfert avec ses mouvements?"
+
+#. module: stock_picking_sync
+#: model:ir.model,name:stock_picking_sync.model_stock_picking
+msgid "Picking List"
+msgstr "Bon de transfert"
+
+#. module: stock_picking_sync
+#: view:stock.picking:stock_picking_sync.stock_picking_end_form
+msgid "Sync"
+msgstr "Synchroniser"
+
+#. module: stock_picking_sync
+#: view:stock.picking:stock_picking_sync.stock_picking_end_form
+msgid "This picking is in inconsistent state : its state in DB is different from the computed one (depends from stock move states)"
+msgstr "Ce transfert est dans un état inconsistent : son statut en base de données est différent du statut calculé (dépend des états de ses mouvements de stock)"

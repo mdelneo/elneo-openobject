@@ -168,7 +168,8 @@ class stock_picking(models.Model):
     
     @api.multi
     @api.depends('move_lines.state','move_lines.picking_id','move_lines.partially_available','move_type','sale_id.unblock')
-    def _state_get(self):
+    @api.v8
+    def __state_get(self):
         res = super(stock_picking, self)._state_get(['state'], {})
         for pick in self:
             if pick.id in res:

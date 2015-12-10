@@ -6,6 +6,12 @@
 			
 			<!-- Add text elements before -->		
 			<xpath expr="//div[@class='oe_structure']" position="before">
+				<style>
+					ul {
+					    padding-left: 20px;
+					}
+				</style>
+			
 				<t t-if="o.display_quotation_text_elements">
 					<t t-foreach="o.quotation_text_elements_before" t-as="text_element">
 						<t t-if="text_element.page_break_before">

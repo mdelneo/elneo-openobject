@@ -76,6 +76,19 @@ class stock_move(models.Model):
     split_from = fields.Many2one(index=True)
     route_ids=fields.Many2many(auto_join=True)
     product_id=fields.Many2one(auto_join=True)
+  
+    @api.multi
+    def write(self, vals):
+        res = super(stock_move,self).write(vals) 
+        if ('state' in vals) or ('picking_id' in vals):
+            self.state_change()
+        return res
+    
+    @api.multi
+    def state_change(self):
+        for move in self:
+            if move.picking_id:
+                move.picking_id.action_sync()
     
     @api.multi
     def action_assign(self):

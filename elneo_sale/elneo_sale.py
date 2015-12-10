@@ -33,9 +33,9 @@ class procurement_order(models.Model):
         
     @api.multi
     def make_po(self):
-        #to force new purchase order creation, when we call "make po", say to search function of purchase order that it does not exists other purchase order
+        #to force new purchase order creation, when we call "make po", say to search function of purchase order that only purchase order of current sale exists
         #to do it we pass make_po = True to the context
-        self = self.with_context(make_po=self._context.get('make_po',True))
+        self = self.with_context(make_po=self._context.get('make_po',{'group_id':self.group_id.id}))
         res = super(procurement_order, self).make_po()
         return res
     
@@ -52,10 +52,10 @@ class purchase_order(models.Model):
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
         self = self.with_context(count=count)
-        #if make_po = True, we simulate that no other purchase order exists, to force new purchase order creation
+        #if make_po = True, we simulate that only purchase order of current sale exists, to force new purchase order creation
         if self._context.get('make_po',False):
-            return self
-        res = super(purchase_order, self).search(args, offset=offset, limit=limit, order=order, count=count)
+            args.append(('sale_ids.procurement_group_id','=',self._context['make_po']['group_id']))
+        res = super(purchase_order, self.with_context(make_po=False)).search(args, offset=offset, limit=limit, order=order, count=count)
         return res
     
 class sale_order_line(models.Model):

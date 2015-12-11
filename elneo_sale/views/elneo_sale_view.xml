@@ -155,8 +155,13 @@
                 	<field name="brut_sale_price"/>
                 </xpath>
                 
-                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">                
                 	<field name="brut_sale_price"/>
+                	<field name="discount" />
+                </xpath>
+                
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="replace">
+                	<field name="product_code"/>
                 </xpath>
                 
                 <xpath expr="//field[@name='order_line']/tree" position="attributes">

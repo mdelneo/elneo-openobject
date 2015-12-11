@@ -132,6 +132,7 @@ class sale_order_line(models.Model):
 
     purchase_line_ids = fields.Many2many('purchase.order.line', 'purchase_line_sale_line_rel', 'sale_line_id', 'purchase_line_id', 'Purchase lines')
     procurement_ids=fields.One2many(auto_join=True)
+    product_code = fields.Char('Product', related='product_id.default_code')
 
 sale_order_line()   
 

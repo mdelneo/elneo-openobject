@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+		<!-- picking form -->
+		<record id="view_picking_form_elneo_stock" model="ir.ui.view">
+            <field name="name">view.picking.form.elneo.stock</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='do_enter_transfer_details']" position="attributes">
+                 	<attribute name="invisible">['|',('state','not in',['assign','partially_available']),('picking_type_id.code','=','internal')]</attribute> 
+                </xpath>
+            </field>
+        </record>
+	
 		<!-- Stock warehouse orderpoint : add stocked for customer -->
 		<record id="view_warehouse_orderpoint_form_elneo_stock" model="ir.ui.view">
             <field name="name">stock.warehouse.orderpoint.form.elneo.stock</field>

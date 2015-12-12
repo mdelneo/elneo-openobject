@@ -148,7 +148,7 @@ class sale_order(models.Model):
         cr.execute('select id from sale_order_line where order_id IN %s and state=%s', (tuple(ids), 'cancel'))
         line_ids = map(lambda x: x[0], cr.fetchall())
         self.write(cr, uid, ids, {'state': 'draft', 'invoice_ids': [], 'shipped': 0})
-        self.pool.get('sale.order.line').write(cr, uid, line_ids, {'invoiced': False, 'state': 'draft', 'invoice_lines': [(6, 0, [])]})
+        self.pool.get('sale.order.line').write(cr, uid, line_ids, {'procurement_path':False, 'procurement_path_backup':False,'invoiced': False, 'state': 'draft', 'invoice_lines': [(6, 0, [])]})
         for inv_id in ids:
             # Deleting the existing instance of workflow for PO
             self.delete_workflow(cr, uid, [inv_id]) # TODO is it necessary to interleave the calls?

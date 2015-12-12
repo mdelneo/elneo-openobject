@@ -104,7 +104,7 @@ class stock_move(models.Model):
             if all_previous_move_done:
                 move.force_assign()
             else:
-                return super(stock_move, move).action_assign()
+                super(stock_move, move).action_assign()
         
     
     #check availability automatically

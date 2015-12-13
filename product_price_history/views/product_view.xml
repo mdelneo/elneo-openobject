@@ -10,11 +10,11 @@
             		<separator string="History"/>
 	            	<field groups="product.group_purchase_pricelist" name="pricelist_history_ids" string="History">
                         <tree string="Pricelist History">
+                            <field name="date"/>
                             <field name="min_quantity"/>
                             <field name="brut_price"/>
                             <field name="price"/>
                             <field name="discount"/>
-                            <field name="date"/>
                             <field name="update_method"/>
                         </tree>
 	                </field>

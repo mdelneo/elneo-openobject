@@ -71,7 +71,7 @@ class sale_order(models.Model):
                 if on_change_res['value'].has_key('purchase_price'):    
                     line.purchase_price = on_change_res['value']['purchase_price']
                 if on_change_res['value'].has_key('brut_sale_price'):    
-                    line.purchase_price = on_change_res['value']['brut_sale_price']
+                    line.brut_sale_price = on_change_res['value']['brut_sale_price']
             #For Sale price, we get customer price
             customer_price = line.product_id.get_customer_sale_price(self.discount_type_id.id, line.product_id.list_price, line.product_id.cost_price, line.product_uom_qty)
             product_price = line.product_id.list_price

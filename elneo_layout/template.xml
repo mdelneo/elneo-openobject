@@ -35,11 +35,11 @@
                              
 			    <div class="footer" style="transparent !important; padding-top:5px;">
                                     <div class="text-left">
-                                    <div t-if="o.user_id.id != user.id"> <table width="100%">
+                                    <div t-if="o._name in ('sale.order') and o.user_id.id != user.id"> <table width="100%">
                                         <tbody>
                                             <td style="border-left: 1px solid #929191; padding-left:4px; padding-bottom:4px;"> <span style="color:grey;">
-                                                 <div t-if="o._name in ('sale.order') and o.user_id"><span><Strong>Sales contact: <span t-field="o.user_id.name"/></Strong></span><br/>
-                                                <span t-if="o.user_id.phone"> Tel:<span t-field="o.user_id.phone"/> |</span> <span t-if="o.user_id.email">Email: <span t-field="o.user_id.email"/> </span>
+                                                 <div t-if="o._name in ('sale.order') and o.user_id"><span><Strong>Sales contact: <span t-field="o._name in ('sale.order') and o.user_id.name"/></Strong></span><br/>
+                                                <span t-if="o._name in ('sale.order') and o.user_id.phone"> Tel:<span t-field="o._name in ('sale.order') and o.user_id.phone"/> |</span> <span t-if="o._name in ('sale.order') and o.user_id.email">Email: <span t-field="o._name in ('sale.order') and o.user_id.email"/> </span>
                                                 </div> 			            	           
 			                    </span></td>
 			                    <td style="border-left: 1px solid #929191; padding-left:4px;  padding-bottom:4px;"><span style="color:grey;">			                       
@@ -50,11 +50,11 @@
 			                </tbody>
                                    </table></div>
                                   
-                                   <div t-if="o.user_id.id == user.id"> <table width="100%" >
+                                   <div t-if="o._name in ('sale.order') and o.user_id.id == user.id"> <table width="100%" >
                                         <tbody>
                                             <td style="border-left: 1px solid #929191; padding-left:4px;  padding-bottom:4px;"><span style="color:grey;">
-                                                 <div t-if="o._name in ('sale.order') and o.user_id"><span><Strong>Sales contact: <span t-field="o.user_id"/></Strong></span><br/>
-                                                <span t-if="o.user_id.phone"> Tel:<span t-field="o.user_id.phone"/> |</span> <span t-if="o.user_id.email">Email:<span t-field="o.user_id.email"/> </span>
+                                                 <div t-if="o._name in ('sale.order') and o.user_id"><span><Strong>Sales contact: <span t-field="o._name in ('sale.order') and o.user_id"/></Strong></span><br/>
+                                                <span t-if="o._name in ('sale.order') and o.user_id.phone"> Tel:<span t-field="o._name in ('sale.order') and o.user_id.phone"/> |</span> <span t-if="o._name in ('sale.order') and o.user_id.email">Email:<span t-field="o._name in ('sale.order') and o.user_id.email"/> </span>
                                                 </div> 			            	           
 			                    </span></td>
 			                </tbody>

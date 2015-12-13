@@ -47,13 +47,9 @@
             <field eval="4" name="priority"/>
             <field name="arch" type="xml">
             	<xpath expr="//field[@name='product_id']" position="before">
-            		<button 
-            			icon="gtk-go-forward"	
-            			name="%(transfert_move)d"
-                       type="action"
-                       context="{}"
-                       states="assigned"
-                       />
+            		<field name="picking_type_code" invisible="True" />
+            		<button icon="gtk-go-forward" name="1665" type="action" context="{}" 
+            		attrs="{'invisible':['|',('picking_type_code','!=','internal'),('state','!=','assigned')]}" />
             	</xpath>
             </field>
         </record>

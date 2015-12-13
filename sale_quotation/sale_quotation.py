@@ -25,6 +25,7 @@ class sale_quotation_text_element(models.Model):
     default_displayed = fields.Boolean('Displayed')
     lang = fields.Selection(_lang_get, 'Language', size=32)
     
+    
 sale_quotation_text_element()
 
 class sale_quotation_order_text_element(models.Model):
@@ -69,7 +70,13 @@ class sale_quotation_order_text_element(models.Model):
                 content_interpreted = content_interpreted.replace('['+field+']',value)
             self.content_interpreted = content_interpreted
         
+    @api.one
+    def show(self):
+        self.displayed = True
     
+    @api.one    
+    def hide(self):
+        self.displayed = False
     
     displayed = fields.Boolean('Displayed')
     sale_order_id = fields.Many2one('sale.order', 'Sale order', help="Related sale order")        

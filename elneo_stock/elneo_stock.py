@@ -71,6 +71,7 @@ procurement_rule()
 class stock_move(models.Model):
     _inherit = 'stock.move'
     
+    picking_type_code = fields.Selection(related='picking_id.picking_type_id.code')
     auto_validate_dest_move = fields.Boolean('Auto validate', related='procurement_id.rule_id.autovalidate_dest_move', help='If this move is "autovalidate", when it became assigned, it is automatically set as done.')
     procurement_id = fields.Many2one('procurement.order',index=True)
     split_from = fields.Many2one(index=True)

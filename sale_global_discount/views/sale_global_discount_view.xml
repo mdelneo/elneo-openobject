@@ -8,7 +8,7 @@
 			<field name="inherit_id" ref="sale.view_order_form" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='order_line']" position="after">
-					<button name="open_global_discount_wizard"  string="Global discount" type="object" icon="terp-camera_test" colspan="4" attrs="{'invisible': [('state','&lt;&gt;','draft')]}"/>
+					<button name="open_global_discount_wizard"  string="Global discount" type="object" class="oe_stat_button" icon="fa-refresh" colspan="4" states="draft,sent" />
 				</xpath>
 			</field>
 		</record>

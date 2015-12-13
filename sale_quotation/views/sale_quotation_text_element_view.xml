@@ -62,48 +62,50 @@
 
 				<xpath expr="//page[@string='Other Information']" position="after">
 					<page string="Quotation">
-						<separator string="Display options" />
+						<separator string="Display options"/>
 						<group>
 							<group>
-								<field name="display_quotation_text_elements" />
-								<field name="display_discount" />
-								<field name="display_total" />
-								<field name="display_line_price" />
-								<field name="display_payment_term" />
+								<field name="display_quotation_text_elements"/>
+								<field name="display_discount"/>
+								<field name="display_total"/>
+								<field name="display_line_price"/>
+								<field name="display_payment_term"/>
 							</group>
 							<group>
-								<field name="display_delay" />
-								<field name="display_descriptions" />
-								<field name="display_invoice_address" />
-								<field name="display_shipping_address" />
-								<field name="delay_in_week" />
-								<field name="quotation_validity" />
+								<field name="display_delay"/>
+								<field name="display_descriptions"/>
+								<field name="display_invoice_address"/>
+								<field name="display_shipping_address"/>
+								<field name="delay_in_week"/>
+								<field name="quotation_validity"/>
 							</group>
 						</group>
 						
-						<separator string="Quotation text elements" colspan="4" />
+						<separator string="Quotation text elements" colspan="4"/>
 						
 						<field colspan="4" name="quotation_text_elements" nolabel="1">
 							<form string="Quotation text element">
 								<group>
-									<field name="text_element_id" />
-									<field name="position" />
-									<field name="sequence" />
-									<field name="displayed" />
-									<field name="page_break_before" />
-									<field name="page_break_after" />
-									<field name="content" widget="text_ckeditor4" />
+									<field name="text_element_id"/>
+									<field name="position"/>
+									<field name="sequence"/>
+									<field name="displayed"/>
+									<field name="page_break_before"/>
+									<field name="page_break_after"/>
+									<field name="content" widget="text_ckeditor4"/>
 								</group>
 							</form>
 							
 							<tree string="Quotation text element">
-								<field name="displayed" />
-								<field name="text_element_id" invisible='True' />
-								<field name="text_element_name" />
-								<field name="position" />
-								<field name="sequence" />
-								<field name="page_break_before" />
-								<field name="page_break_after" />
+								<field name="displayed" string=""/>
+								<button name="show" string="Show" attrs="{'invisible':[('displayed','=',True)]}" type="object" icon="STOCK_APPLY" />
+								<button name="hide" string="Hide" attrs="{'invisible':[('displayed','!=',True)]}" type="object" icon="STOCK_CANCEL" />
+								<field name="text_element_id" invisible="True"/>
+								<field name="text_element_name"/>
+								<field name="position"/>
+								<field name="sequence"/>
+								<field name="page_break_before"/>
+								<field name="page_break_after"/>
 							</tree>
 						</field>
 					</page>

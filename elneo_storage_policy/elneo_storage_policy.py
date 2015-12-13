@@ -69,7 +69,7 @@ class product_warehouse_detail(models.Model):
 
     @api.one
     def compute_stock(self):
-        if self.product_id:
+        if self.product_id and type(self.product_id.id) is int:
             self.stock_real = self.product_id.with_context({'location':self.warehouse_id.lot_stock_id.id})._product_available(None, False)[self.product_id.id]['qty_available']
             self.stock_virtual = self.product_id.with_context({'location':self.warehouse_id.lot_stock_id.id})._product_available(None, False)[self.product_id.id]['virtual_available']
     

@@ -92,6 +92,11 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
             <field name="arch" type="xml">
+            
+            	<xpath expr="//button[@name='print_quotation' and @class='oe_highlight']" position="replace" />
+            	
+            	<xpath expr="//button[@name='print_quotation' and @states='sent,progress,manual']" position="replace" />
+            
             	<xpath expr="//label[@for='discount']" position="attributes">
             		<attribute name="groups"></attribute>
             	</xpath>

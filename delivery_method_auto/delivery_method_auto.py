@@ -52,6 +52,9 @@ class sale_order(models.Model):
         fpos = self.fiscal_position or False
         if not fpos:
             return False
+        
+        cost_price = self.carrier_id.product_id.cost_price
+        
         taxes = fpos.map_tax(taxes)
         price_unit = grid.get_price(self, time.strftime('%Y-%m-%d'))
         if price_unit:
@@ -65,6 +68,7 @@ class sale_order(models.Model):
             'product_uom': grid.carrier_id.product_id.uom_id.id,
             'product_id': grid.carrier_id.product_id.id,
             'price_unit': price_unit,
+            'purchase_price':cost_price,
             'tax_id': [(6, 0, [taxe.id for taxe in taxes])],
             'is_delivery': True
         }     

@@ -84,6 +84,32 @@ class sale_order_line(models.Model):
             else:
                 sol.real_stock = 0
                 
+    
+    @api.multi
+    def write(self, vals):
+        res = super(sale_order_line,self).write(vals)
+        for line in self:
+            line.set_brut_price()
+        return res
+    
+    @api.model
+    @api.returns('self', lambda value:value.id)
+    def create(self, vals):
+        res = super(sale_order_line,self).create(vals)
+        res.set_brut_price()
+        return res
+    
+    @api.one
+    def set_brut_price(self):
+        if self._context.get('set_brut_price',False):
+            return
+        if self.order_id and self.order_id.state == 'draft':
+            if self.product_id:
+                self.with_context(set_brut_price=True).brut_sale_price = self.product_id.list_price
+            else:
+                self.with_context(set_brut_price=True).brut_sale_price = 0
+    
+    
     @api.multi
     def copy(self, default=None):
         if not default:
@@ -141,6 +167,14 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     _order = 'id desc'
+    
+    @api.multi
+    def action_cancel(self):
+        res = super(sale_order, self).action_cancel()
+        for sale in self:
+            for pick in sale.picking_ids:
+                pick.action_cancel()
+        return res
     
     def action_cancel_draft(self, cr, uid, ids, *args):
         if not len(ids):

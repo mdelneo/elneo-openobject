@@ -10,6 +10,9 @@
                 <xpath expr="//button[@name='do_enter_transfer_details']" position="attributes">
                  	<attribute name="invisible">['|',('state','not in',['assign','partially_available']),('picking_type_id.code','=','internal')]</attribute> 
                 </xpath>
+                
+                <xpath expr="//button[@name='do_print_picking']" position="replace" />
+                
             </field>
         </record>
 	

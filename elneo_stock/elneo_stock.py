@@ -1,4 +1,6 @@
 from openerp import models, fields, api
+from openerp.exceptions import Warning
+from openerp.tools.translate import _
 
 class StockMoveOperationLink(models.Model):
     _inherit = 'stock.move.operation.link'
@@ -58,6 +60,15 @@ class stock_picking(models.Model):
     
     picking_type_id = fields.Many2one(track_visibility="onchange")
     group_id = fields.Many2one(index=True)
+    
+    @api.cr_uid_ids_context
+    def do_enter_transfer_details(self, cr, uid, picking, context=None):
+        pick = self.browse(cr, uid, picking, context)
+        if pick.picking_type_id and pick.picking_type_id.code == 'internal':
+            raise Warning(_('You must validate a reservation line by line'))
+        
+        return super(stock_picking,self).do_enter_transfer_details(cr, uid, picking, context)
+        
     
 stock_picking()
 

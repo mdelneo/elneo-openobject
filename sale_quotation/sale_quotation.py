@@ -80,7 +80,7 @@ class sale_quotation_order_text_element(models.Model):
     
     displayed = fields.Boolean('Displayed')
     sale_order_id = fields.Many2one('sale.order', 'Sale order', help="Related sale order")        
-    text_element_id = fields.Many2one('sale_quotation.text.element', 'Text element', required=True, help="Related text element")
+    text_element_id = fields.Many2one('sale_quotation.text.element', 'Text element', help="Related text element")
     text_element_name = fields.Char(method=True, string="Text element", readonly=True, type="char", compute='_text_element_name') 
     content = fields.Text('Content', help="content copied from Quotation Elements")
     content_interpreted = fields.Text('Content interpreted', help='Content, with text between "[[]]" replaced by t-field.', compute='_get_content_interpreted') 

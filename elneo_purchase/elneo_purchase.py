@@ -48,8 +48,20 @@ class purchase_order(models.Model):
     
     _inherit='purchase.order'
     
+    
+    STATE_SELECTION = [
+        ('draft', 'Draft PO'),
+        ('confirmed', 'Waiting Approval'),
+        ('approved', 'Purchase Confirmed'),
+        ('except_picking', 'Shipping Exception'),
+        ('except_invoice', 'Invoice Exception'),
+        ('done', 'Done'),
+        ('cancel', 'Cancelled')
+    ]
+    
+    
     purchase_type_id = fields.Many2one('purchase.order.type','Purchase Type')
-
+    state = fields.Selection(STATE_SELECTION, 'Status', readonly=True)
     
     @api.model
     def default_get(self, fields_list):

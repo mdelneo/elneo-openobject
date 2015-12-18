@@ -18,29 +18,25 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-
 {
-    'name': 'Elneo Cost Price',
-    'version': '1.0',
-    'category': 'Generic Modules/CRM & SRM',
-    'description': """
-add a cost price based on a pricelist
-""",
-    'author': 'Elneo',
-    'website': 'http://www.elneo.com',
-    'depends': ["sale_margin","product"],
-    'init_xml': [
-    ],
+    'name' : 'Supplier Product Price Update History with module Purchase Validation',
+    'version' : '1.0',
+    'author' : 'Elneo',
+    'category' : 'Purchases',
+    'description' : """
+Purchases Management.
+====================================
 
-    'data': [
-        'views/elneo_cost_price_view.xml','views/elneo_cost_price_wizard_view.xml',  
-    ],
-    'demo_xml': [
-    ],
-    'test': [],
+
+Keep tracks of supplier price history
+    """,
+    'website': 'https://www.elneo.com',
+    'depends' : ['product_price_history','purchase_validation'],
+    'data': [],
+    
     'installable': True,
-    'active': False,
+    'auto_install': False,
+    'application': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

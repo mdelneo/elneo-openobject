@@ -3,23 +3,38 @@ from openerp.tools.float_utils import float_compare, float_round
 from datetime import datetime
 from openerp.exceptions import Warning
 
-class purchase_validation_wizard(models.TransientModel):
-    _inherit = "purchase.validation.wizard"
+class purchase_order_line(models.Model):
+    _inherit = 'purchase.order.line'
+    
+    def _get_sale_order_lines(self):
+        for move in self.move_ids:
+            current_stock_move = move
+            while current_stock_move:
+                if current_stock_move.procurement_id.sale_line_id:
+                    sale_lines = current_stock_move.procurement_id.sale_line_id
+                current_stock_move = current_stock_move.move_dest_id
+        return sale_lines
     
     @api.multi
-    def update_purchase(self):
-
-        for purchase_validation in self:
-            for purchase_validation_line in purchase_validation.purchase_validation_lines:
-                if self._is_update_needed(purchase_validation_line):
-                    sale_lines = self._get_sale_order_lines(purchase_validation_line)
-                    sale_lines.purchase_price = purchase_validation_line.new_price
-        
-        res = super(purchase_validation_wizard,self).update_purchase()
-        
+    def write(self, vals):
+        #update cost price of related sale orders when price change in a purchase order line
+        res = super(purchase_order_line, self).write(vals)
+        if 'price_unit' in vals:
+            sale_order_lines = self._get_sale_order_lines()
+            if sale_order_lines:
+                supplier_id = vals.get('partner_id',False)
+                if not supplier_id:
+                    supplier = self.partner_id
+                else:
+                    supplier = self.env['res.partner'].browse(supplier_id)
+                supplier = supplier.commercial_partner_id
+                
+                product_id = vals.get('product_id',self.product_id.id)
+                qty = vals.get('product_qty',self.product_qty)
+                cost_pricelist = supplier.cost_price_product_pricelist                   
+                cost_price = cost_pricelist.price_get(product_id, qty, supplier.id)[cost_pricelist.id]
+                sale_order_lines.purchase_price = cost_price
         return res
-
-purchase_validation_wizard()
         
 
 class sale_order_line(models.Model):

@@ -39,94 +39,99 @@ class pricelist_partnerinfo(models.Model):
 
     @api.one
     def write(self,vals):
-        value = {}
         
-        if (vals.has_key('suppinfo_id')):
-            value.update({'suppinfo_id':vals['suppinfo_id']})
-        else:
-            if self.suppinfo_id:
-                value.update({'suppinfo_id':self.suppinfo_id.id})
+        if not self._context.get('no_price_history',False):
+        
+            value = {}
+            
+            if (vals.has_key('suppinfo_id')):
+                value.update({'suppinfo_id':vals['suppinfo_id']})
             else:
-                raise Warning(_('Error'),('The supplier information is missing to modify this pricelist line. Contact Support!'))
-        
-        
-        if (vals.has_key('min_quantity')):
-            value.update({'min_quantity':vals['min_quantity']})
-        else:
-            value.update({'min_quantity':self.min_quantity})
+                if self.suppinfo_id:
+                    value.update({'suppinfo_id':self.suppinfo_id.id})
+                else:
+                    raise Warning(_('Error'),('The supplier information is missing to modify this pricelist line. Contact Support!'))
             
-        if (vals.has_key('discount')):
-            value.update({'discount':vals['discount']})
-        else:
-            value.update({'discount':self.discount})
             
-        if (vals.has_key('price')):
-            value.update({'price':vals['price']})
-        else:
-            value.update({'price':self.price})
+            if (vals.has_key('min_quantity')):
+                value.update({'min_quantity':vals['min_quantity']})
+            else:
+                value.update({'min_quantity':self.min_quantity})
+                
+            if (vals.has_key('discount')):
+                value.update({'discount':vals['discount']})
+            else:
+                value.update({'discount':self.discount})
+                
+            if (vals.has_key('price')):
+                value.update({'price':vals['price']})
+            else:
+                value.update({'price':self.price})
+                
+            if (vals.has_key('brut_price')):
+                value.update({'brut_price':vals['brut_price']})
+            else:
+                value.update({'brut_price':self.brut_price})
+                
+            value.update({'date':datetime.now()})
             
-        if (vals.has_key('brut_price')):
-            value.update({'brut_price':vals['brut_price']})
-        else:
-            value.update({'brut_price':self.brut_price})
+            value.update({'update_method':'manual'})
             
-        value.update({'date':datetime.now()})
-        
-        value.update({'update_method':'manual'})
-        
-        '''    
-        if (vals.has_key('public_price')):
-            value.update({'public_price':vals['public_price']})
-        else:
-            value.update({'public_price':self.public_price})
-            
-        '''    
-        self.env['pricelist.partnerinfo.history'].create(value)
+            '''    
+            if (vals.has_key('public_price')):
+                value.update({'public_price':vals['public_price']})
+            else:
+                value.update({'public_price':self.public_price})
+                
+            '''    
+            self.env['pricelist.partnerinfo.history'].create(value)
         
         
         return super(pricelist_partnerinfo,self).write(vals)
     
     @api.model
     def create(self,vals):
-        value = {}
+        if not self._context.get('no_price_history',False):
         
-        if (vals.has_key('suppinfo_id')):
-            value.update({'suppinfo_id':vals['suppinfo_id']})
-        else:
-            raise Warning(_('Error'),('The supplier information is missing to insert this pricelist line. Contact Support!'))
-        
-        
-        if (vals.has_key('min_quantity')):
-            value.update({'min_quantity':vals['min_quantity']})
-        else:
-            value.update({'min_quantity':1.0})
+            value = {}
             
-        if (vals.has_key('discount')):
-            value.update({'discount':vals['discount']})
-        else:
-            value.update({'discount':0.0})
+            if (vals.has_key('suppinfo_id')):
+                value.update({'suppinfo_id':vals['suppinfo_id']})
+            else:
+                raise Warning(_('Error'),('The supplier information is missing to insert this pricelist line. Contact Support!'))
             
-        if (vals.has_key('price')):
-            value.update({'price':vals['price']})
-        else:
-            value.update({'price':0.0})
             
-        if (vals.has_key('brut_price')):
-            value.update({'brut_price':vals['brut_price']})
-        else:
-            value.update({'brut_price':0.0})
-            
-        value.update({'date':datetime.now()})
-        value.update({'update_method':'manual'})
-            
-        '''
-        if (vals.has_key('public_price')):
-            value.update({'public_price':vals['public_price']})
-        else:
-            value.update({'public_price':0.0})
-  
-        '''    
-        self.env['pricelist.partnerinfo.history'].create(value)
+            if (vals.has_key('min_quantity')):
+                value.update({'min_quantity':vals['min_quantity']})
+            else:
+                value.update({'min_quantity':1.0})
+                
+            if (vals.has_key('discount')):
+                value.update({'discount':vals['discount']})
+            else:
+                value.update({'discount':0.0})
+                
+            if (vals.has_key('price')):
+                value.update({'price':vals['price']})
+            else:
+                value.update({'price':0.0})
+                
+            if (vals.has_key('brut_price')):
+                value.update({'brut_price':vals['brut_price']})
+            else:
+                value.update({'brut_price':0.0})
+                
+            value.update({'date':datetime.now()})
+            value.update({'update_method':'manual'})
+                
+            '''
+            if (vals.has_key('public_price')):
+                value.update({'public_price':vals['public_price']})
+            else:
+                value.update({'public_price':0.0})
+      
+            '''    
+            self.env['pricelist.partnerinfo.history'].create(value)
         
         
         return super(pricelist_partnerinfo,self).create(vals)

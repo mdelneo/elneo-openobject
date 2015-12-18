@@ -35,13 +35,11 @@ class purchase_validation_wizard(models.TransientModel):
         return res
     
     def _get_sale_order_lines(self, purchase_validation_line):
-        sale_lines = self.env['sale.order.line']
         for move in purchase_validation_line.purchase_line.move_ids:
             current_stock_move = move
             while current_stock_move:
                 if current_stock_move.procurement_id.sale_line_id:
-                    sale_lines = sale_lines | current_stock_move.procurement_id.sale_line_id
-                    #sale_lines.append(current_stock_move.procurement_id.sale_line_id)
+                    sale_lines = current_stock_move.procurement_id.sale_line_id
                 current_stock_move = current_stock_move.move_dest_id
         return sale_lines
     
@@ -99,26 +97,6 @@ class purchase_validation_wizard(models.TransientModel):
                 
         return True
     
-    # Check if a price update is needed
-    def _is_update_needed(self,line):
-        
-        #check if update is needed:
-        need_update = True
-        supplier_id = line.purchase_line.order_id.partner_id.id
-        for supplierinfo in line.purchase_line.product_id.product_tmpl_id.seller_ids:
-            if supplierinfo.name.id == supplier_id:
-                for pricelist in supplierinfo.pricelist_ids: #depends technofluid_interne module, else use .pricelist_ids
-                    if round(line.new_price,4) == round(line.purchase_line.price_unit,4) and\
-                        line.price_quantity == pricelist.min_quantity and \
-                        round(line.new_price,4) == round(pricelist.price,4) and \
-                        (not line.new_discount or round(line.new_discount,4) == round(pricelist.discount,4)) and \
-                        (not line.new_brut_price or round(line.new_brut_price,4) == round(pricelist.brut_price,4)):
-                        need_update = False
-                        break
-            if not need_update:
-                break
-    
-        return need_update
     
     def _update_delivery_date(self,line):
         #UPDATE DATE
@@ -218,19 +196,31 @@ class purchase_validation_wizard(models.TransientModel):
                 sale_lines = None
                 
                 #UPDATE PRICE
-                if self._is_update_needed(purchase_validation_line):
+                
+                pricelist_to_update = purchase_validation_line.get_good_pricelist_partnerinfo()
+                
+                if not pricelist_to_update:
+                    break
+                
+                #no price history if no update_product
+                if not purchase_validation_line.update_product:
+                    pricelist_to_update = pricelist_to_update.with_context(no_price_history=True)
+                
+                #compute new prices
+                net_price = purchase_validation_line.new_price
+                discount = pricelist_to_update.discount
+                brut_price = (100 * net_price) / (100-discount)
+                
+                #in all case begin to update product price
+                old_net_price = pricelist_to_update.price
+                old_brut_price = pricelist_to_update.brut_price
+                pricelist_to_update.write({'price':net_price, 'brut_price':brut_price})
+                
+                
+                if purchase_validation_line._is_update_purchase_needed():
                     #Update price in purchase order line
-                    line = self.env['purchase.order.line'].browse([purchase_validation_line.purchase_line.id])
-                    line.write({'price_unit':purchase_validation_line.new_price})
+                    purchase_validation_line.purchase_line.write({'price_unit':purchase_validation_line.new_price})
                     
-                    
-                    #Update price in invoice lines
-                    #account_invoice_line_pool.write(cr, uid, [invoice_line.id for invoice_line in purchase_validation_line.purchase_line.invoice_lines if invoice_line.invoice_id.state == 'draft'], {'price_unit':purchase_validation_line.new_price}, context)
-                    
-                    #Update price in product
-                    products = self.env['product.product'].browse([purchase_validation_line.purchase_line.product_id.id])
-                    old_supplier_prices = products.update_price_for_supplier(purchase_validation_line.purchase_line.order_id.partner_id.commercial_partner_id.id, purchase_validation_line.new_price, purchase_validation_line.update_product,purchase_validation_line.new_brut_price, purchase_validation_line.price_quantity)                    
-            
                     #Update price on invoice line
                     for purchase_invoice in purchase_validation_line.purchase_line.order_id.invoice_ids:
                         if purchase_invoice.state == 'draft':
@@ -238,20 +228,16 @@ class purchase_validation_wizard(models.TransientModel):
                                 if purchase_invoice_line.product_id.id == purchase_validation_line.purchase_line.product_id.id and purchase_invoice_line.quantity == purchase_validation_line.purchase_line.product_qty:
                                     purchase_invoice_line.write({'price_unit':purchase_validation_line.new_price})
                                     purchase_invoice.button_reset_taxes()
-                   
-                                                    
-                    #reset old product supplier price
-                    if not purchase_validation_line.update_product and old_supplier_prices:
-                        products.update_price_for_supplier( purchase_validation_line.purchase_line.order_id.partner_id.id, old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][0], purchase_validation_line.update_product, old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][1],old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][2], old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][3], ignore_history=True)
-                    else:
-                        warning_message.append(_("Product '%s' price has been updated from %s to %s.")%(purchase_validation_line.purchase_line.product_id.name, old_supplier_prices[purchase_validation_line.purchase_line.product_id.id] and old_supplier_prices[purchase_validation_line.purchase_line.product_id.id][0] or '0', purchase_validation_line.new_price))
-                        
-                    sale_lines = self._get_sale_order_lines(purchase_validation_line)
-                    sale_orders_to_update = sale_orders_to_update |  sale_lines.mapped('order_id')
-                        
+                    
+                
+                #reset all product price 
+                if not purchase_validation_line.update_product:
+                    pricelist_to_update.write({'price':old_net_price, 'brut_price':old_brut_price})
+                    
+                    
+                sale_lines = self._get_sale_order_lines(purchase_validation_line)
+                sale_orders_to_update = sale_orders_to_update |  sale_lines.mapped('order_id')
                 old_dates, order_to_update = self._update_delivery_date(purchase_validation_line)
-                
-                
                 sale_orders_to_update = sale_orders_to_update | order_to_update
                 old_sale_order_delivery_date.update(old_dates)
         
@@ -299,9 +285,31 @@ class purchase_validation_line_wizard(models.TransientModel):
     update_product=fields.Boolean("Update Product Price ?")
     new_price = fields.Float("New Price",digits=(20,6))
     new_date_planned=fields.Date("Scheduled Date",index=True)
-    new_brut_price=fields.Float("New Brut Price",digits=(20,6))
-    new_discount=fields.Float("New Discount")
-    price_quantity=fields.Float("Quantity",default=1)
- 
+    
+    
+    def get_good_pricelist_partnerinfo(self):
+        product = self.purchase_line.product_id
+        qty = self.purchase_line.product_qty
+        seller = False
+        for suppinfo in product.seller_ids:
+            if suppinfo.name.id == self.purchase_line.order_id.partner_id.commercial_partner_id.id:
+                seller = suppinfo 
+        if not seller:
+            return False
+        qty_uom_id = self._context.get('uom') or product.uom_id.id
+        qty_uom = self.env['product.uom'].browse(qty_uom_id)
+        
+        qty_in_seller_uom = qty
+        seller_uom = seller.product_uom.id
+        if qty_uom_id != seller_uom:
+            qty_in_seller_uom = qty_uom._compute_qty(qty, to_uom_id=seller_uom)
+        for line in seller.pricelist_ids:
+            if line.min_quantity <= qty_in_seller_uom:
+                return line
+        return False
+    
+    # Check if a price update is needed
+    def _is_update_purchase_needed(self):
+        return self.new_price and self.purchase_line and round(self.new_price,4) != round(self.purchase_line.price_unit,4)
     
 purchase_validation_line_wizard()

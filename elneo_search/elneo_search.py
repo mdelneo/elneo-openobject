@@ -75,6 +75,17 @@ class res_partner(models.Model):
         for product_id in self:                    
             result[product_id] = ''
         return result
+    
+    @api.returns('self')
+    def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
+        i = 0
+        while i < len(args):
+            arg = args[i]
+            #check if search_field_layout criteria follow a '|' and is followed by another search_field_layout criteria. Then change '|' by '&'
+            if type(arg) is list and len(arg) > 0 and arg[0] == 'search_field_layout' and i > 0 and args[i-1] == '|' and i < len(args) and type(args[i+1]) is list and args[i+1][0] == 'search_field_layout':
+                args[i-1] = '&'
+            i = i+1
+        return super(res_partner, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
      
     @api.multi
     def search_ext_name(self, operator, value):

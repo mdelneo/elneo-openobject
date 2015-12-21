@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_general_configuration_production_server" model="ir.ui.view">
+            <field name="name">base.config.settings.production.server</field>
+            <field name="model">base.config.settings</field>
+            <field name="inherit_id" ref="base_setup.view_general_configuration"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='multi_company']" position='before'>
+                    <div name="production_server">
+                        <label for="production_server_address" class="oe_inline"/>
+                        <field name="production_server_address" placeholder="127.0.0.1" class="oe_inline"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

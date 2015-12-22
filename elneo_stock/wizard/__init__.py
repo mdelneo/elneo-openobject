@@ -1,1 +1,2 @@
 import transfert_move_wizard
+import stock_transfer_details

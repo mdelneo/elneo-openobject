@@ -1,6 +1,8 @@
 from openerp import models, fields, api
 from openerp.exceptions import Warning
 from openerp.tools.translate import _
+import time
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 
 class StockMoveOperationLink(models.Model):
     _inherit = 'stock.move.operation.link'
@@ -68,9 +70,49 @@ class stock_picking(models.Model):
             raise Warning(_('You must validate a reservation line by line'))
         
         return super(stock_picking,self).do_enter_transfer_details(cr, uid, picking, context)
+    
+    @api.cr_uid_ids_context
+    def do_transfer(self, cr, uid, picking_ids, context=None):
+        res = super(stock_picking,self).do_transfer(cr, uid, picking_ids, context)
+        for pick in self.browse(cr, uid, picking_ids, context):
+            pick.action_sync()
+        return res
         
     
 stock_picking()
+
+class stock_picking_type(models.Model):
+    _inherit = 'stock.picking.type'
+    
+    def _get_picking_count(self, cr, uid, ids, field_names, arg, context=None):
+        obj = self.pool.get('stock.picking')
+        domains = {
+            'count_picking_draft': [('state', '=', 'draft')],
+            'count_picking_waiting': [('state', 'in', ['confirmed','waiting'])],
+            'count_picking_ready': [('state', 'in', ('assigned', 'partially_available'))],
+            'count_picking': [('state', 'in', ('assigned', 'waiting', 'confirmed', 'partially_available'))],
+            'count_picking_late': [('min_date', '<', time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)), ('state', 'in', ('assigned', 'waiting', 'confirmed', 'partially_available'))],
+            'count_picking_backorders': [('backorder_id', '!=', False), ('state', 'in', ('confirmed', 'assigned', 'waiting', 'partially_available'))],
+        }
+        result = {}
+        for field in domains:
+            data = obj.read_group(cr, uid, domains[field] +
+                [('state', 'not in', ('done', 'cancel')), ('picking_type_id', 'in', ids)],
+                ['picking_type_id'], ['picking_type_id'], context=context)
+            count = dict(map(lambda x: (x['picking_type_id'] and x['picking_type_id'][0], x['picking_type_id_count']), data))
+            for tid in ids:
+                result.setdefault(tid, {})[field] = count.get(tid, 0)
+        for tid in ids:
+            if result[tid]['count_picking']:
+                result[tid]['rate_picking_late'] = result[tid]['count_picking_late'] * 100 / result[tid]['count_picking']
+                result[tid]['rate_picking_backorders'] = result[tid]['count_picking_backorders'] * 100 / result[tid]['count_picking']
+            else:
+                result[tid]['rate_picking_late'] = 0
+                result[tid]['rate_picking_backorders'] = 0
+        return result
+    
+stock_picking_type()
+    
 
 class procurement_rule(models.Model):
     _inherit = 'procurement.rule'

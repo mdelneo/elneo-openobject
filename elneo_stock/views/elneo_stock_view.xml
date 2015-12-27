@@ -60,6 +60,11 @@
 				<field name="name" position="before">
 					<field name="origin" />
 				</field>
+				
+				<filter name="waiting" position="attributes">
+					<attribute name="domain">[('state','in', ['confirmed', 'waiting'])]</attribute>
+				</filter>
+				
 			</field>
 		</record>
 

@@ -1,31 +1,56 @@
 <?xml version="1.0"?>
 <openerp>
-    <data>
-    	<report 
-            string="Picking list" 
-            id="report_picking_list_elneo" 
-            model="stock.picking" 
-            report_type="qweb-pdf"
-            name="elneo_report.stock_picking_list_document" 
-            file="elneo_report.stock_picking_list_document"
-        />
-        
-        <template id="stock_picking_list">
-		    <t t-call="report.html_container">
-		        <t t-foreach="doc_ids" t-as="doc_id">
-		            <t t-raw="translate_doc(doc_id, doc_model, 'lang', 'elneo_report.stock_picking_list_document')"/>
-		        </t>
-		    </t>
+	<data>
+		<report string="Picking list" id="report_picking_list_elneo"
+			model="stock.picking" report_type="qweb-pdf"
+			name="elneo_report.stock_picking_list_document" file="elneo_report.stock_picking_list_document" />
+
+		<template id="stock_picking_list">
+			<t t-call="report.html_container">
+				<t t-foreach="doc_ids" t-as="doc_id">
+					<t
+						t-raw="translate_doc(doc_id, doc_model, 'lang', 'elneo_report.stock_picking_list_document')" />
+				</t>
+			</t>
 		</template>
-		
+
 		<template id="stock_picking_list_document">
-		    <t t-call="report.internal_layout">
-		        <div class="page">
-		            <div class="oe_structure"/>
-		            <h1>PICKING LIST</h1>
+			<t t-call="report.internal_layout">
+				<div class="page">
+					<div class="oe_structure" />
+					<h1>PICKING LIST</h1>
 				</div>
-		    </t>
+			</t>
 		</template>
-				
-    </data>
+
+
+		<template id="report_picking_elneo_report" inherit_id="delivery.report_shipping2">
+			<xpath expr="//t[@t-call='report.external_layout']" position="replace">
+				<t t-call="report.external_layout">
+					<div class="page">
+						<div class="oe_structure" />
+						<h1>PICKING</h1>
+						<ul>
+							<li><span t-field="o.name" /></li>
+							<li><span t-field="o.picking_type_id.code" /></li>
+							
+							<li>
+								<table>
+									<tr t-foreach="o.move_lines" t-as="m">
+										<td>
+											<span t-field="m.product_id.default_code" />
+											<span t-field="m.name" />
+											<span t-field="m.product_uom_qty" />
+											<span t-field="m.state" />
+										</td>
+									</tr>
+								</table>
+							</li>
+						</ul>
+					</div>
+				</t>
+			</xpath>
+		</template>
+
+	</data>
 </openerp>

@@ -43,15 +43,8 @@ class procurement_order(models.Model):
 class purchase_order(models.Model):
     _inherit = 'purchase.order'
     
-    def _downgrade_search(self):
-        if self._context.get('count',False):
-            return self.id
-        return self.ids
-    
-    @api.returns('self', downgrade=_downgrade_search)
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
-        self = self.with_context(count=count)
         #if make_po = True, we simulate that only purchase order of current sale exists, to force new purchase order creation
         if self._context.get('make_po',False):
             args.append(('sale_ids.procurement_group_id','=',self._context['make_po']['group_id']))

@@ -65,6 +65,10 @@ class account_invoice_line(models.Model):
 class account_invoice(models.Model):
     _inherit = 'account.invoice'
     
+    @api.multi
+    def test_virtual(self):
+        return False
+     
     @api.model
     def default_get(self, fields_list):
         res = super(account_invoice,self).default_get(fields_list)

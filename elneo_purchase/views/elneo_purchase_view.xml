@@ -140,5 +140,36 @@
             	</xpath>
             </field>
        	</record>
+       	
+       	
+       	<!-- MENUS -->
+       	<menuitem name="Purchases"
+            id="base.menu_purchase_root"
+            groups="purchase.group_purchase_manager,purchase.group_purchase_user"
+            sequence="21" />
+        <menuitem id="menu_purchase_miscellaneous" parent="base.menu_purchase_root" name="Miscellaneous" sequence="900" />
+        <menuitem name="Shipping cost and currency"
+		    action="product.product_pricelist_action_for_purchase" id="purchase.menu_product_pricelist_action2_purchase"
+		    parent="menu_purchase_miscellaneous" sequence="1" groups="product.group_purchase_pricelist" />
+       	
+       	<!-- TRASH -->
+        <menuitem id="menu_trash" parent="base.menu_purchase_root" name="Trash" sequence="999" />
+        <menuitem id="menu_trash_trash" parent="menu_trash" name="Trash" sequence="999" />
+       	<menuitem id="base.menu_procurement_management_supplier_name" name="Suppliers"
+	        parent="menu_trash_trash"
+	        action="base.action_partner_supplier_form" sequence="15"/>
+        <menuitem id="purchase.menu_procurement_management_inventory" name="Incoming Products"
+            parent="menu_trash_trash" sequence="4"/>
+        <menuitem id="purchase.menu_procurement_management_invoice" name="Invoice Control"
+        	parent="menu_trash_trash" sequence="6"/>
+       	<menuitem id="purchase.menu_procurement_management_product" name="Products"
+          parent="menu_trash_trash" sequence="8"/>
+        <menuitem id="purchase.menu_purchase_config_purchase" name="Configuration"
+            groups="purchase.group_purchase_manager"
+            parent="menu_trash_trash" sequence="100"/>
+         
+       	
+       	
+       	
 	</data>
 </openerp>

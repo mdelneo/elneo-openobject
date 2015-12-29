@@ -12,7 +12,7 @@
             </field>
         </record>
 	
-		<record id="action_partner_form_elneo" model="ir.actions.act_window">
+		<record id="action_partner_form_elneo_company" model="ir.actions.act_window">
             <field name="name">Companies</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
@@ -22,14 +22,55 @@
             <field name="context">{'force_is_company':True}</field>
         </record>
         
-        <record id="action_partner_form_elneo_contacts" model="ir.actions.act_window">
+        <record id="action_partner_form_elneo_customer" model="ir.actions.act_window">
+            <field name="name">Companies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[('is_company','=',True)]</field>
+            <field name="context">{'force_is_company':True,'search_default_customer':True}</field>
+        </record>
+        
+        <record id="action_partner_form_elneo_supplier" model="ir.actions.act_window">
+            <field name="name">Companies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[('is_company','=',True),('supplier','=',True)]</field>
+            <field name="context">{'force_is_company':True,'search_default_supplier':True}</field>
+        </record>
+        
+        <record id="action_partner_form_elneo_contact" model="ir.actions.act_window">
             <field name="name">Contacts</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,kanban</field>
-            <field name="domain">[('is_company','=',False)]</field>
+            <field name="domain">[('is_company','=',False),('type','=','contact')]</field>
         </record>
+        
+        <record id="action_partner_form_elneo_delivery" model="ir.actions.act_window">
+            <field name="name">Addresses</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[('is_company','=',False),('type','!=','contact')]</field>
+            <field name="context">{'search_default_type':'delivery'}</field>
+        </record>
+        
+        <record id="action_partner_form_elneo_invoice" model="ir.actions.act_window">
+            <field name="name">Addresses</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[('is_company','=',False),('type','!=','contact')]</field>
+            <field name="context">{'search_default_type':'invoice'}</field>
+        </record>
+     
         
 		<!-- CONTACT TREE -->
 		<record id="view_partner_contact_tree" model="ir.ui.view">
@@ -139,7 +180,17 @@
             <field name="arch" type="xml">
             	<xpath expr="//field[@name='name']" position="after">
             		<field name="vat" />
+            		<field name="type" />
             	</xpath>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="res_partner_opt_out_search_elneo">
+            <field name="name">res.partner.opt_out.search.elneo</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="email_template.res_partner_opt_out_search"/>
+            <field name="arch" type="xml">
+            	<filter name="not_opt_out" position="replace"/>
             </field>
         </record>
         
@@ -345,16 +396,8 @@
             	</xpath>
             </field>
         </record>
-        <!-- PARTNER SEARCH -->
         
-        <record model="ir.ui.view" id="res_partner_opt_out_search_elneo">
-            <field name="name">res.partner.opt_out.search.elneo</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="email_template.res_partner_opt_out_search"/>
-            <field name="arch" type="xml">
-            	<filter name="not_opt_out" position="replace"/>
-            </field>
-        </record>
+        
         
         <!-- Menu CRM -->
         <menuitem 
@@ -364,25 +407,73 @@
         	/>
         	
         <menuitem 
-        	id="crm_partners"
+        	id="crm_company"
         	parent = 'crm'
-        	name="Partners" 
+        	name="Companies" 
         	sequence="15"        
         	/>
         	
         <menuitem 
-        	id="crm_partners_companies"
-        	parent = 'crm_partners'
-        	name="Companies" 
-        	action="action_partner_form_elneo"        	
+        	id="crm_company_company"
+        	parent = 'crm_company'
+        	name="All companies" 
+        	action="action_partner_form_elneo_company"        	
         	sequence="10"        
         	/>
         	
         <menuitem 
-        	id="crm_partners_contacts"
-        	parent = 'crm_partners'
-        	name="Contacts" 
-        	action="action_partner_form_elneo_contacts"
+        	id="crm_company_customer"
+        	parent = 'crm_company'
+        	name="Customers" 
+        	action="action_partner_form_elneo_customer"        	
+        	sequence="10"        
+        	/>
+        	
+        <menuitem 
+        	id="crm_company_supplier"
+        	parent = 'crm_company'
+        	name="Suppliers" 
+        	action="action_partner_form_elneo_supplier"        	
+        	sequence="10"        
+        	/>
+        	
+        	
+        <menuitem 
+        	id="crm_contact"
+        	parent = 'crm'
+        	name="Persons" 
+        	sequence="15"        
+        	/>
+        	
+        <menuitem 
+        	id="crm_contact_contact"
+        	parent = 'crm_contact'
+        	name="Persons" 
+        	action="action_partner_form_elneo_contact"
+        	sequence="15"        
+        	/>
+        	
+        <menuitem 
+        	id="crm_address"
+        	parent = 'crm'
+        	name="Addresses" 
+        	sequence="15"        
+        	/>
+        	
+        	
+        <menuitem 
+        	id="crm_address_delivery"
+        	parent = 'crm_address'
+        	name="Shipping address" 
+        	action="action_partner_form_elneo_delivery"
+        	sequence="20"        
+        	/>
+        	
+        <menuitem 
+        	id="crm_address_invoice"
+        	parent = 'crm_address'
+        	name="Invoicing address" 
+        	action="action_partner_form_elneo_invoice"
         	sequence="20"        
         	/>
         	
@@ -390,13 +481,13 @@
             <field name="sequence" eval="1"/>
             <field name="view_mode">tree</field>
             <field name="view_id" ref="view_partner_contact_tree"/>
-            <field name="act_window_id" ref="action_partner_form_elneo_contacts"/>
+            <field name="act_window_id" ref="action_partner_form_elneo_contact"/>
         </record>
         <record id="action_crm_partners_contacts_form" model="ir.actions.act_window.view">
             <field name="sequence" eval="1"/>
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_partner_contact_form"/>
-            <field name="act_window_id" ref="action_partner_form_elneo_contacts"/>
+            <field name="act_window_id" ref="action_partner_form_elneo_contact"/>
         </record>
         	
 	</data>

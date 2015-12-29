@@ -3,7 +3,7 @@
 	<data>
 		<!-- MAIN MAINTENANCE MENU -->
 		<menuitem id="menu_maintenance" name="Maintenance"
-			sequence="20" groups="group_maintenance_user" />
+			sequence="30" groups="group_maintenance_user" />
 			
 		<!-- MAINTENANCE CONFIGURATION MENU -->
 		<menuitem id="menu_maintenance_config" parent="menu_maintenance" 

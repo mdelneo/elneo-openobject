@@ -235,9 +235,6 @@
               <p class="oe_view_nocontent_create">
                 Click to create a quotation that can be converted into a sales
                 order.
-              </p><p>
-                Odoo will help you efficiently handle the complete sales flow:
-                quotation, sales order, delivery, invoicing and payment.
               </p>
             </field>
         </record>
@@ -257,18 +254,77 @@
               <p class="oe_view_nocontent_create">
                 Click to create a quotation that can be converted into a sales
                 order.
-              </p><p>
-                Odoo will help you efficiently handle the complete sales flow:
-                quotation, sales order, delivery, invoicing and payment.
               </p>
             </field>
         </record>
         
-        <menuitem id="sale.menu_sale_order" name="Sales" parent="base.menu_sales" action="action_orders_salesteams_elneo" sequence="2"/>
-        <menuitem id="sale.menu_sale_quotations" name="Quotations" parent="base.menu_sales" action="action_quotations_salesteams_elneo" sequence="1"/>
-        <menuitem id="sales_team.menu_sales_team_act" name="Sales Teams" parent="base.menu_sales" sequence="5" />
+        
+        <record id="action_orders_quotations" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="view_sales_order_filter_elneo"/>
+            <field name="context">{'search_default_my_sale_team_orders_filter':1}
+            </field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation that can be converted into a sales
+                order.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="sale.menu_quotation_sale_order" name="Sales and quotations" parent="base.menu_sales" action="action_orders_quotations" sequence="1"/>
+        <menuitem id="sale.menu_sale_order" name="Sales" parent="base.menu_sales" action="action_orders_salesteams_elneo" sequence="2" />
+        <menuitem id="sale.menu_sale_quotations" name="Quotations" parent="base.menu_sales" action="action_quotations_salesteams_elneo" sequence="3"/>
+        
+        <menuitem id="menu_opportunities" parent="base.menu_base_partner" name="Opportunities" sequence="2" />
+        <menuitem name="Logged Calls" id="crm.menu_crm_case_phone_inbound"
+	        parent="menu_opportunities"
+	        action="crm.crm_case_categ_phone_incoming0" />
+	    <menuitem name="Leads" id="crm.menu_crm_leads" parent="menu_opportunities" sequence="3"
+            action="crm.crm_case_category_act_leads_all"/>
+        <menuitem id="sales_team.menu_sales_team_act" name="Sales Teams" parent="menu_opportunities" sequence="5" />
+<!--         <menuitem name="Claims" id="crm_claim.menu_crm_case_claims" -->
+<!--             parent="menu_opportunities" action="crm_claim.crm_case_categ_claim0" sequence="1"/> -->
+        <menuitem icon="STOCK_PREFERENCES" id="base.menu_tools"
+                    name="Tools" sequence="900" />
+		<menuitem id="product_properties.menu_properties" parent="base.menu_sale_config_sales" name="Properties" sequence="50" />
+		<menuitem 
+            action="sale_layout.report_configuration_action" 
+            id="sale_layout.Report_configuration" 
+            parent="base.menu_sale_config_sales" 
+            sequence="25" 
+            name="Report Layout Categories" 
+            groups="base.group_sale_manager,base.group_sale_salesman,account.group_account_manager,account.group_account_user"
+        />           
+        <menuitem parent="base.menu_base_config" id="crm_profiling.menu_segm_questionnaire"
+                  action="crm_profiling.open_questionnaires" sequence="999"/>
+        <menuitem id="product.menu_product_pricelist_main" name="Pricelists" 
+            parent="base.menu_base_config" groups="product.group_sale_pricelist" sequence="12"/>   
+                    
             
+        <!-- TRASH -->
+        <menuitem id="menu_trash" parent="base.menu_base_partner" name="Trash" sequence="999" />
+        <menuitem id="menu_trash_trash" parent="menu_trash" name="Trash" sequence="999" />
+	    <menuitem name="Opportunities" id="crm.menu_crm_opportunities" parent="menu_trash_trash" sequence="4"
+	            action="crm.crm_case_category_act_oppor11"
+	            groups="base.group_sale_salesman,base.group_sale_manager"/>
+        <menuitem id="base.menu_partner_form" parent="menu_trash_trash" action="base.action_partner_form" sequence="2"/>
+        <menuitem id="account_followup.menu_sale_followup" parent="menu_trash_trash" sequence="10" 
+                  action="account_followup.action_customer_my_followup" />
+        <menuitem
+            action="product.product_pricelist_action" id="product.menu_product_pricelist_action"
+            parent="menu_trash_trash" sequence="2"/>
+        <menuitem action="crm.crm_segmentation_tree-act"
+            id="crm.menu_crm_segmentation-act"
+            groups="base.group_no_one" sequence="15"
+            parent="menu_trash_trash"/>
+		<menuitem parent="menu_trash_trash" id="crm_profiling.menu_segm_answer"
+                  action="crm_profiling.open_questions" sequence="37" groups="base.group_no_one"/>
+        
 	</data>
-	
-	
 </openerp>

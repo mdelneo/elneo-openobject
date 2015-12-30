@@ -19,81 +19,81 @@ msgstr ""
 #: view:product.product:elneo_product.product_normal_form_view_elneo_product
 #: field:product.product,alias:0
 msgid "Alias"
-msgstr "Alias"
+msgstr ""
 
 #. module: elneo_product
 #: field:product.product,barcode_number:0
 msgid "Barcode number"
-msgstr "Code Barre"
+msgstr ""
 
 #. module: elneo_product
 #: view:product.product:elneo_product.product_normal_form_view_elneo_product
 msgid "Code"
-msgstr "Code"
+msgstr ""
 
 #. module: elneo_product
 #: model:ir.ui.menu,name:elneo_product.product_configuration
 msgid "Configuration"
-msgstr "Configuration"
+msgstr ""
 
 #. module: elneo_product
 #: view:product.product:elneo_product.product_normal_form_view_elneo_product
 msgid "General"
-msgstr "Général"
+msgstr ""
 
 #. module: elneo_product
 #: model:res.groups,name:elneo_product.group_hidden_menu
 msgid "Hidden menus"
-msgstr "Menus cachés"
+msgstr ""
 
 #. module: elneo_product
 #: model:ir.model,name:elneo_product.model_product_product
 msgid "Product"
-msgstr "Produit"
+msgstr ""
 
 #. module: elneo_product
 #: view:product.product:elneo_product.product_normal_form_view_elneo_product
 msgid "Product Name"
-msgstr "Nom de l'article"
+msgstr ""
 
 #. module: elneo_product
 #: model:ir.model,name:elneo_product.model_product_template
 msgid "Product Template"
-msgstr "Modèle de produit"
+msgstr ""
 
 #. module: elneo_product
 #: model:ir.ui.menu,name:elneo_product.main_menu_product
 msgid "Products"
-msgstr "Produits"
+msgstr ""
 
 #. module: elneo_product
 #: view:product.product:elneo_product.product_normal_form_view_elneo_product
 msgid "Sale Conditions"
-msgstr "Conditions de vente"
+msgstr ""
 
 #. module: elneo_product
 #: view:product.product:elneo_product.product_normal_form_view_elneo_product
 msgid "Stock"
-msgstr "Stock"
+msgstr ""
 
 #. module: elneo_product
 #: view:product.product:elneo_product.product_normal_form_view_elneo_product
 msgid "Weights"
-msgstr "Poids"
+msgstr ""
 
 #. module: elneo_product
 #: code:addons/elneo_product/elneo_product.py:15
 #, python-format
 msgid "You must add at least one supplier to the product."
-msgstr "Vous devez ajouter au moins un fournisseur au produit"
+msgstr ""
 
 #. module: elneo_product
 #: view:product.product:elneo_product.product_normal_form_view_elneo_product
 msgid "days"
-msgstr "jours"
+msgstr ""
 
 #. module: elneo_product
 #: view:product.product:elneo_product.product_normal_form_view_elneo_product
 msgid "months"
-msgstr "mois"
+msgstr ""
 

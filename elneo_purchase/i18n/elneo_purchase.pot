@@ -25,148 +25,141 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 "                    of the products and the supplier invoice.\n"
 "                </p>\n"
 "            "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
-"                    This supplier has no purchase order. Click to create a new RfQ.\n"
-"                </p><p>\n"
-"                    The request for quotation is the first step of the purchases flow. Once\n"
-"                    converted into a purchase order, you will be able to control the receipt\n"
-"                    of the products and the supplier invoice.\n"
-"                </p>\n"
-"            "
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Accounting"
-msgstr "Comptabilité"
+msgstr ""
 
 #. module: elneo_purchase
 #: field:purchase.order.type,create_uid:0
 msgid "Created by"
-msgstr "Créé par"
+msgstr ""
 
 #. module: elneo_purchase
 #: field:purchase.order.type,create_date:0
 msgid "Created on"
-msgstr "Créé le"
+msgstr ""
 
 #. module: elneo_purchase
 #: field:purchase.config.settings,default_purchase_type_id:0
 msgid "Default purchase type"
-msgstr "Type d'achat par défaut"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Delivery"
-msgstr "Livraison"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "History"
-msgstr "Historique"
+msgstr ""
 
 #. module: elneo_purchase
 #: field:purchase.order.type,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Invoice"
-msgstr "Facture"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Invoices"
-msgstr "Factures"
+msgstr ""
 
 #. module: elneo_purchase
 #: field:purchase.order.type,write_uid:0
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr ""
 
 #. module: elneo_purchase
 #: field:purchase.order.type,write_date:0
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr ""
 
 #. module: elneo_purchase
 #: model:ir.ui.menu,name:elneo_purchase.menu_purchase_miscellaneous
 msgid "Miscellaneous"
-msgstr "Divers"
+msgstr ""
 
 #. module: elneo_purchase
 #: field:purchase.order.type,name:0
 msgid "Name"
-msgstr "Nom"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Notes..."
-msgstr "Notes..."
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Pickings"
-msgstr "Entrées et sorties"
+msgstr ""
 
 #. module: elneo_purchase
 #: model:ir.model,name:elneo_purchase.model_product_product
 msgid "Product"
-msgstr "Produit"
+msgstr ""
 
 #. module: elneo_purchase
 #: model:ir.model,name:elneo_purchase.model_purchase_order
 msgid "Purchase Order"
-msgstr "Achat"
+msgstr ""
 
 #. module: elneo_purchase
 #: field:purchase.order,purchase_type_id:0
 msgid "Purchase Type"
-msgstr "Type d'achat"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.config.settings:elneo_purchase.view_important_purchase_configuration
 msgid "Purchase type"
-msgstr "Type d'Achat"
+msgstr ""
 
 #. module: elneo_purchase
 #: model:ir.actions.act_window,name:elneo_purchase.act_res_partner_2_purchase_order
 msgid "RFQs and Purchases"
-msgstr "Demandes de devis et achats"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Supplier"
-msgstr "Fournisseur"
+msgstr ""
 
 #. module: elneo_purchase
 #: help:purchase.config.settings,default_purchase_type_id:0
 msgid "The Default purchase type proposed on new sale purchase order"
-msgstr "Le type d'achat par défaut proposé pour un nouvel achat"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Total Amount"
-msgstr "Montant total"
+msgstr ""
 
 #. module: elneo_purchase
 #: model:ir.ui.menu,name:elneo_purchase.menu_trash
 #: model:ir.ui.menu,name:elneo_purchase.menu_trash_trash
 msgid "Trash"
-msgstr "Corbeille"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Untaxed Amount"
-msgstr "Montant HT"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order.line:elneo_purchase.purchase_order_line_tree_elneo
 msgid "order_id"
-msgstr "order_id"
+msgstr ""
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "purchase_line_tree"
-msgstr "purchase_line_tree"
+msgstr ""
 

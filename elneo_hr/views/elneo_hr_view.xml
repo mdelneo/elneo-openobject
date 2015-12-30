@@ -16,7 +16,7 @@
 	        sequence="110"/>
             
 		<!-- TRASH -->
-        <menuitem id="menu_trash" parent="stock.menu_stock_root" name="Trash" sequence="999" />
+        <menuitem id="menu_trash" parent="stock.menu_stock_root" name="Trash" sequence="999" groups="base.group_no_one" />
         <menuitem id="menu_trash_trash" parent="menu_trash" name="Trash" sequence="999" />
         
 	</data>

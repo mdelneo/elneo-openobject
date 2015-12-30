@@ -18,106 +18,106 @@ msgstr ""
 #. module: elneo_hr
 #: field:hr.holidays.status,count:0
 msgid "Count"
-msgstr "Compter"
+msgstr ""
 
 #. module: elneo_hr
 #: model:ir.model,name:elneo_hr.model_hr_employee
 msgid "Employee"
-msgstr "Employé"
+msgstr ""
 
 #. module: elneo_hr
 #: model:ir.model,name:elneo_hr.model_hr_equipment
 msgid "Equipment"
-msgstr "Équipement"
+msgstr ""
 
 #. module: elneo_hr
 #: help:hr.holidays.status,count:0
 msgid "First type with 'count' and with several remaining days will be used as default type "
-msgstr "Le premier type coché 'compter' avec plusieurs jours restants sera utilisé par défaut"
+msgstr ""
 
 #. module: elneo_hr
 #: code:addons/elneo_hr/elneo_hr_holidays.py:271
 #, python-format
 msgid "Holidays"
-msgstr "Vacances"
+msgstr ""
 
 #. module: elneo_hr
 #: model:ir.model,name:elneo_hr.model_hr_holidays
 msgid "Leave"
-msgstr "Congé"
+msgstr ""
 
 #. module: elneo_hr
 #: model:ir.model,name:elneo_hr.model_hr_holidays_status
 msgid "Leave Type"
-msgstr "Type de congé"
+msgstr ""
 
 #. module: elneo_hr
 #: field:hr.holidays,manager_user_id:0
 msgid "Manager user"
-msgstr "Utilisateur Responsable"
+msgstr ""
 
 #. module: elneo_hr
 #: field:hr.holidays,manager_user_id2:0
 msgid "Manager user 2"
-msgstr "Utilisateur Responsable 2"
+msgstr ""
 
 #. module: elneo_hr
 #: view:hr.holidays:elneo_hr.view_hr_holidays_filter_elneo_inherit
 msgid "My approvals"
-msgstr "Mes approbations"
+msgstr ""
 
 #. module: elneo_hr
 #: code:addons/elneo_hr/elneo_hr_holidays.py:227
 #, python-format
 msgid "Only %s or hr managers can approve this holiday !"
-msgstr "Seulement %s ou les responsables ressources humaines peuvent approuver ce congé!"
+msgstr ""
 
 #. module: elneo_hr
 #: code:addons/elneo_hr/elneo_hr_holidays.py:229
 #: code:addons/elneo_hr/elneo_hr_holidays.py:237
 #, python-format
 msgid "Only hr managers can approve this holiday !"
-msgstr "Seuls les responsables ressources humaines peuvent approuver ce congé!"
+msgstr ""
 
 #. module: elneo_hr
 #: field:hr.equipment,purchase_date:0
 msgid "Purchase date"
-msgstr "Date d'achat"
+msgstr ""
 
 #. module: elneo_hr
 #: help:hr.holidays,manager_user_id:0
 #: help:hr.holidays,manager_user_id2:0
 msgid "Related user name for the resource to manage its access."
-msgstr "Nom d'utilisateur lié à la ressource pour gérer ses accès."
+msgstr ""
 
 #. module: elneo_hr
 #: field:hr.holidays.status,sequence:0
 msgid "Sequence"
-msgstr "Séquence"
+msgstr ""
 
 #. module: elneo_hr
 #: help:hr.holidays.status,sequence:0
 msgid "Sequence is used to choose the first type with remaining days as default type."
-msgstr "La séquence est utilisée pour choisir le premier type avec les jours restants comme type par défaut."
+msgstr ""
 
 #. module: elneo_hr
 #: model:ir.ui.menu,name:elneo_hr.menu_trash
 #: model:ir.ui.menu,name:elneo_hr.menu_trash_trash
 msgid "Trash"
-msgstr "Corbeille"
+msgstr ""
 
 #. module: elneo_hr
 #: constraint:hr.holidays:0
 msgid "You can not have 2 leaves that overlaps on same day!"
-msgstr "Vous ne pouvez pas avoir 2 demandes de congés qui se chevauchent dans la même journée."
+msgstr ""
 
 #. module: elneo_hr
 #: view:hr.holidays:elneo_hr.edit_holiday_new_elneo_hr
 msgid "onchange_date_from(date_to, date_from, employee_id)"
-msgstr "onchange_date_from(date_to, date_from, employee_id)"
+msgstr ""
 
 #. module: elneo_hr
 #: view:hr.holidays:elneo_hr.edit_holiday_new_elneo_hr
 msgid "onchange_date_to(date_to, date_from, employee_id)"
-msgstr "onchange_date_to(date_to, date_from, employee_id)"
+msgstr ""
 

@@ -19,139 +19,139 @@ msgstr ""
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_picking
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_picking
 msgid "All pickings"
-msgstr "Toutes les entrées/sorties"
+msgstr ""
 
 #. module: elneo_stock
 #: field:procurement.rule,autovalidate_dest_move:0
 msgid "Auto-validate destination move"
-msgstr "Valider automatiquement les mouvements de destination"
+msgstr ""
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,create_uid:0
 msgid "Created by"
-msgstr "Créé par"
+msgstr ""
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,create_date:0
 msgid "Created on"
-msgstr "Créé le"
+msgstr ""
 
 #. module: elneo_stock
 #: field:res.users,default_warehouse_id:0
 msgid "Default Warehouse"
-msgstr "Entrepôt par défaut"
+msgstr ""
 
 #. module: elneo_stock
 #: help:res.users,default_warehouse_id:0
 msgid "Default Warehouse to match some specific needs"
-msgstr "Entrepôt par défaut pour répndre à des besoins spécifiques"
+msgstr ""
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: elneo_stock
 #: field:stock.transfer_details_items,initial_quantity:0
 msgid "Initial quantity"
-msgstr "Quantité initiale"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_input_output
 msgid "Inputs and output"
-msgstr "Entrées et sorties"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_input_output_awans
 msgid "Inputs and output (Awans)"
-msgstr "Entrées et sorties (Awans)"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_input_output_wetteren
 msgid "Inputs and output (Wetteren)"
-msgstr "Entrées et sorties (Wetteren)"
+msgstr ""
 
 #. module: elneo_stock
 #: view:stock.transfer_details:elneo_stock.view_stock_enter_transfer_details_elneo_stock
 msgid "Inventory Details"
-msgstr "Détails de stock"
+msgstr ""
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,write_uid:0
 msgid "Last Updated by"
-msgstr "Dernière Mise à jour par"
+msgstr ""
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,write_date:0
 msgid "Last Updated on"
-msgstr "Dernière Mise à jour le"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_move_operation_link
 msgid "Link between stock moves and pack operations"
-msgstr "Lien entre les mouvements et les colisages"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_location
 msgid "Location"
-msgstr "Emplacement"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_warehouse_orderpoint
 msgid "Minimum Inventory Rule"
-msgstr "Règle du stock minimum."
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_picking
 msgid "Picking List"
-msgstr "Liste de colisage"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_transfer_details
 msgid "Picking wizard"
-msgstr "Assistant de préparation"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_transfer_details_items
 msgid "Picking wizard items"
-msgstr "Ligne d'assistant de préparation"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_procurement_order
 msgid "Procurement"
-msgstr "Approvisionnement"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_procurement_rule
 msgid "Procurement Rule"
-msgstr "Règle d'approvisionnement"
+msgstr ""
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,product_id:0
 msgid "Product"
-msgstr "Produit"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_product_template
 msgid "Product Template"
-msgstr "Modèle de produit"
+msgstr ""
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,quantity:0
 msgid "Quantity"
-msgstr "Quantité"
+msgstr ""
 
 #. module: elneo_stock
 #: view:stock.picking.type:elneo_stock.stock_picking_type_kanban_awans
 #: view:stock.picking.type:elneo_stock.stock_picking_type_kanban_wetteren
 msgid "Ready"
-msgstr "Prêt"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_picking_special_awans
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_picking_special_wetteren
 msgid "Ready Transfers"
-msgstr "Transferts prêts"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_reception_awans
@@ -159,7 +159,7 @@ msgstr "Transferts prêts"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reception_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reception_wetteren
 msgid "Receptions"
-msgstr "Réceptions"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_reservation_awans
@@ -167,12 +167,12 @@ msgstr "Réceptions"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reservation_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reservation_wetteren
 msgid "Reservations"
-msgstr "Reservations"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Ligne du bon de commande"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_shipment_awans
@@ -180,7 +180,7 @@ msgstr "Ligne du bon de commande"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_shipment_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_shipment_wetteren
 msgid "Shipments"
-msgstr "Expéditions"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_picking_special_type_awans
@@ -188,83 +188,83 @@ msgstr "Expéditions"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_picking_special_type_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_picking_special_type_wetteren
 msgid "Special pickings"
-msgstr "Bons de livraison spécifiques"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_move
 msgid "Stock Move"
-msgstr "Mouvement de stock"
+msgstr ""
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,move_id:0
 msgid "Stock move"
-msgstr "Mouvement de stock"
+msgstr ""
 
 #. module: elneo_stock
 #: field:stock.warehouse.orderpoint,stocked_for_customer:0
 msgid "Stocked for customer"
-msgstr "Stocké pour le client"
+msgstr ""
 
 #. module: elneo_stock
 #: field:stock.transfer_details_items,supplier_code:0
 msgid "Supplier code"
-msgstr "Supplier code"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_picking_type
 msgid "The picking type determines the picking view"
-msgstr "Le type de préparation détermine la vue de préparation"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.transfert_move
 #: view:transfert.move.wizard:elneo_stock.view_transfert_move_wizard
 msgid "Transfert move"
-msgstr "Mouvement de transfert"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.ui.menu,name:elneo_stock.menu_trash
 #: model:ir.ui.menu,name:elneo_stock.menu_trash_trash
 msgid "Trash"
-msgstr "Corbeille"
+msgstr ""
 
 #. module: elneo_stock
 #: field:stock.warehouse,default_user_ids:0
 msgid "Users Default Warehouse"
-msgstr "Entrepôt utilisateur par défault"
+msgstr ""
 
 #. module: elneo_stock
 #: help:stock.warehouse,default_user_ids:0
 msgid "Users that have defined this warehouse as default"
-msgstr "Utilisateurs qui ont définis cet entrepôt par défaut"
+msgstr ""
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_warehouse
 msgid "Warehouse"
-msgstr "Entrepôt"
+msgstr ""
 
 #. module: elneo_stock
 #: code:addons/elneo_stock/elneo_stock.py:70
 #, python-format
 msgid "You must validate a reservation line by line"
-msgstr "Vous devez valider les réservations ligne par ligne"
+msgstr ""
 
 #. module: elneo_stock
 #: view:stock.picking:elneo_stock.view_picking_internal_search_elneo_stock
 msgid "[('state','in', ['confirmed', 'waiting'])]"
-msgstr "[('state','in', ['confirmed', 'waiting'])]"
+msgstr ""
 
 #. module: elneo_stock
 #: view:transfert.move.wizard:elneo_stock.view_transfert_move_wizard
 msgid "_Apply"
-msgstr "_Appliquer"
+msgstr ""
 
 #. module: elneo_stock
 #: view:transfert.move.wizard:elneo_stock.view_transfert_move_wizard
 msgid "_Cancel"
-msgstr "_Annuler"
+msgstr ""
 
 #. module: elneo_stock
 #: view:transfert.move.wizard:elneo_stock.view_transfert_move_wizard
 msgid "or"
-msgstr "ou"
+msgstr ""
 

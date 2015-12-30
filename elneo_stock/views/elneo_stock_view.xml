@@ -208,7 +208,7 @@
         
         
         <!-- TRASH -->
-        <menuitem id="menu_trash" parent="stock.menu_stock_root" name="Trash" sequence="999" />
+        <menuitem id="menu_trash" parent="stock.menu_stock_root" name="Trash" sequence="999" groups="base.group_no_one" />
         <menuitem id="menu_trash_trash" parent="menu_trash" name="Trash" sequence="999" />
         <menuitem id="stock.menu_stock_inventory_control" name="Inventory Control" parent="menu_trash_trash" sequence="2"/>
         <menuitem

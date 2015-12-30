@@ -9,8 +9,10 @@
 		<menuitem id="menu_maintenance_config" parent="menu_maintenance" 
 			name="Configuration" sequence="20" groups="group_maintenance_user" />
 			
-		<menuitem id="menu_maintenance_maintenance" parent="menu_maintenance" 
-			name="Maintenance" sequence="10" groups="group_maintenance_user" />
+		<menuitem id="menu_maintenance_intervention" parent="menu_maintenance" 
+			name="Interventions" sequence="1" groups="group_maintenance_user" />
+		<menuitem id="menu_maintenance_installation" parent="menu_maintenance" 
+			name="Installations" sequence="2" groups="group_maintenance_user" />
 			
 			
 		<record id="view_maintenance_intervention_type_form" model="ir.ui.view">
@@ -229,7 +231,7 @@
         <menuitem
             action="action_maintenance_type_form"
             id="menu_action_maintenance_type_form"
-            parent="menu_maintenance_maintenance" sequence="1"/>
+            parent="menu_maintenance_intervention" sequence="1"/>
 		
 		<menuitem action="action_maintenance_intervention_type" id="menu_maintenance_intervention_type"
 			parent="menu_maintenance_config" sequence="5"/>
@@ -273,7 +275,7 @@
 			<field name="help">All maintenance elements</field>
 		</record>
 		<menuitem action="action_maintenance_element" id="menu_maintenance_element"
-			parent="menu_maintenance_maintenance" sequence="20"/>
+			parent="menu_maintenance_installation" sequence="20"/>
 			
 		<record id="view_maintenance_element_tree" model="ir.ui.view">
 			<field name="name">maintenance.element.tree</field>
@@ -386,8 +388,8 @@
 			<field name="help">All maintenance installations</field>
 		</record>
 
-		<menuitem action="action_maintenance_installation" id="menu_maintenance_installation"
-			parent="menu_maintenance_maintenance" sequence="15"/>
+		<menuitem action="action_maintenance_installation" id="menu_maintenance_installation_installation"
+			parent="menu_maintenance_installation" sequence="15"/>
 			
 		<record id="view_maintenance_installation_tree" model="ir.ui.view">
 			<field name="name">maintenance.installation.tree</field>
@@ -554,8 +556,8 @@
 			<field name="help">All maintenance interventions</field>
 		</record>
 
-		<menuitem action="action_maintenance_intervention" id="menu_maintenance_intervention"
-			parent="menu_maintenance_maintenance" sequence="5"/>
+		<menuitem action="action_maintenance_intervention" id="menu_maintenance_intervention_intervention"
+			parent="menu_maintenance_intervention" sequence="5"/>
 
 		<record id="view_maintenance_intervention_tree" model="ir.ui.view">
 			<field name="name">maintenance.intervention.tree</field>

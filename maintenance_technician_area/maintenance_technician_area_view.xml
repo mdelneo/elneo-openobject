@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- Intervention inheritance -->
+		<record id="view_maintenance_intervention_form_technician_area" model="ir.ui.view">
+			<field name="name">maintenance.intervention.form.technician.area</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="inherit_id" ref="maintenance.view_maintenance_intervention_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="tasks" position="attributes">
+					<attribute name="context">{'installation_id':installation_id}</attribute>
+				</field>
+			</field>
+		</record>
+	
+	
+		<!-- maintenance technician area -->
+		<record id="view_maintenance_technician_area_form" model="ir.ui.view">
+			<field name="name">maintenance.technician.area.form</field>
+			<field name="model">maintenance.technician.area</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Technician area">
+					<field name="user_id" />
+					<field name="zip_min" />
+					<field name="zip_max" />
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_maintenance_technician_area_tree" model="ir.ui.view">
+			<field name="name">maintenance.technician.area.tree</field>
+			<field name="model">maintenance.technician.area</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Technician area">
+					<field name="user_id" />
+					<field name="zip_min" />
+					<field name="zip_max" />
+				</tree>
+			</field>
+		</record>
+			
+		
+		<record id="action_maintenance_technician_area" model="ir.actions.act_window">
+			<field name="name">Technician areas</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.technician.area</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<!-- maintenance technician area installation exception -->
+		<record id="view_maintenance_technician_area_installation_exception_form" model="ir.ui.view">
+			<field name="name">maintenance.technician.area.installation.exception.form</field>
+			<field name="model">maintenance.technician.area.installation.exception</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Maintenance oil type">
+					<field name="user_id" />
+					<field name="installation_id" />
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_maintenance_technician_area_installation_exception_tree" model="ir.ui.view">
+			<field name="name">maintenance.technician.area.installation.exception.tree</field>
+			<field name="model">maintenance.technician.area.installation.exception</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Maintenance oil type">
+					<field name="user_id" />
+					<field name="installation_id" />
+				</tree>
+			</field>
+		</record>
+			
+		
+		<record id="action_maintenance_technician_area_installation_exception" model="ir.actions.act_window">
+			<field name="name">Technician areas installation exceptions</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">maintenance.technician.area.installation.exception</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		
+		<menuitem name="Technician Area" id="menu_maintenance_technician_area_main"
+			parent="maintenance.menu_maintenance_config" />
+		
+		<menuitem action="action_maintenance_technician_area" id="menu_maintenance_technician_area"
+			parent="menu_maintenance_technician_area_main" />
+			
+		<menuitem action="action_maintenance_technician_area_installation_exception" id="menu_maintenance_technician_area_installation_exception"
+			parent="menu_maintenance_technician_area_main" />
+	
+	</data>
+</openerp>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Menus -->
+        <menuitem name="Human Resources"
+            id="hr.menu_hr_root"
+            groups="base.group_hr_manager,base.group_hr_user,base.group_user"
+            sequence="25"/>
+            
+        <menuitem name="Leaves" parent="hr.menu_hr_root" id="hr_holidays.menu_open_ask_holidays" sequence="1"/>
+        <menuitem id="hr.menu_hr_main" parent="hr.menu_hr_root" name="Human Resources" sequence="2"/>
+        <menuitem
+	        id="hr_equipment.menu_equipment_title"
+	        parent="hr.menu_hr_root" 
+	        name="Equipments"
+	        sequence="110"/>
+            
+		<!-- TRASH -->
+        <menuitem id="menu_trash" parent="stock.menu_stock_root" name="Trash" sequence="999" />
+        <menuitem id="menu_trash_trash" parent="menu_trash" name="Trash" sequence="999" />
+        
+	</data>
+</openerp>

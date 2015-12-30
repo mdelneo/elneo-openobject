@@ -7,13 +7,18 @@
     
     	<!-- MENU -->
     	<!-- create main menu -->
-    	<menuitem id="main_menu_product" name="Products" sequence="65" groups="base.group_user" />
+    	<menuitem id="main_menu_product" name="Products" sequence="23" groups="base.group_user" />
     	
     	<!-- move product sub-menu from sales to Product main menu -->
     	<menuitem id="base.menu_product" parent="main_menu_product" name="Products" groups="base.group_user" sequence="17" />
     	
     	<!-- move product_config sub-menu from sale config to product main menu -->
     	<menuitem id="product.prod_config_main" name="Product Categories &amp; Attributes" parent="main_menu_product" sequence="70" />
+    	
+    	<!-- Menu product configuration -->
+    	<menuitem id="product_configuration" name="Configuration" parent="main_menu_product" sequence="80" />
+    	<menuitem id="product_harmonized_system.hs_code_menu" action="product_harmonized_system.hs_code_action" parent="product_configuration" sequence="1"/>
+    	<menuitem action="product.product_ul_form_action" groups="product.group_stock_packaging" id="product.menu_product_ul_form_action" parent="product_configuration" sequence="5"/>
     	
     	<menuitem id="product.menu_products"  parent="base.menu_product" name="Products"  groups="base.group_user" />
     	

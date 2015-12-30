@@ -1,6 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+            
+		<!-- ACTIONS -->
+		<record id="action_stock_reception_awans" model="ir.actions.act_window">
+            <field name="name">Receptions</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id','=',1),('state','=','assigned')]</field>
+        </record>
+        
+        <record id="action_stock_reservation_awans" model="ir.actions.act_window">
+            <field name="name">Reservations</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id','=',3),('state','=','assigned')]</field>
+        </record>
+        
+        <record id="action_stock_shipment_awans" model="ir.actions.act_window">
+            <field name="name">Shipments</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id','=',2),('state','=','assigned')]</field>
+        </record>
+        
+        <record id="action_stock_picking_special_type_awans" model="ir.actions.act_window">
+            <field name="name">Special pickings</field>
+            <field name="res_model">stock.picking.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="domain">[('special','=',True),('warehouse_id','=',1)]</field>
+        </record>
+        
+        <record id="action_stock_picking_special_awans" model="ir.actions.act_window">
+            <field name="name">Ready Transfers</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('warehouse_id','=',1)]</field>
+            <field name="context">{
+                    'search_default_picking_type_id': [active_id],
+                    'default_picking_type_id': active_id,
+                    'contact_display': 'partner_address',
+                    'search_default_available': 1,
+            }
+            </field>
+        </record>
+        
+        <record id="action_stock_reception_wetteren" model="ir.actions.act_window">
+            <field name="name">Receptions</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id','=',6),('state','=','assigned')]</field>
+        </record>
+        
+        <record id="action_stock_reservation_wetteren" model="ir.actions.act_window">
+            <field name="name">Reservations</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id','=',8),('state','=','assigned')]</field>
+        </record>
+        
+        <record id="action_stock_shipment_wetteren" model="ir.actions.act_window">
+            <field name="name">Shipments</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id','=',7),('state','=','assigned')]</field>
+        </record>
+        
+        <record id="action_stock_picking_special_type_wetteren" model="ir.actions.act_window">
+            <field name="name">Special pickings</field>
+            <field name="res_model">stock.picking.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="domain">[('special','=',True),('warehouse_id','=',2)]</field>
+        </record>
+        
+        <record id="action_stock_picking_special_wetteren" model="ir.actions.act_window">
+            <field name="name">Ready Transfers</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('warehouse_id','=',2)]</field>
+            <field name="context">{
+                    'search_default_picking_type_id': [active_id],
+                    'default_picking_type_id': active_id,
+                    'contact_display': 'partner_address',
+                    'search_default_available': 1,
+            }
+            </field>
+        </record>
+        
+        
+        
+        <record id="action_stock_picking" model="ir.actions.act_window">
+            <field name="name">All pickings</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+            
+            
+            
+		<!-- Menus -->
+		<menuitem name="Warehouse"
+            id="stock.menu_stock_root"
+            groups="stock.group_stock_manager,stock.group_stock_user"
+            sequence="24" />
+            
+        <menuitem id="menu_stock_input_output_awans"
+        	name="Inputs and output (Awans)"
+        	parent="stock.menu_stock_root"
+        	sequence="1"
+        	groups="elneo_rights.group_warehouse_awans"
+        	/>
+        <menuitem id="menu_stock_reception_awans"
+        	name="Receptions"
+        	parent="menu_stock_input_output_awans"
+        	action="action_stock_reception_awans"
+        	sequence="1"
+        	/>
+        <menuitem id="menu_stock_reservation_awans"
+        	name="Reservations"
+        	parent="menu_stock_input_output_awans"
+        	action="action_stock_reservation_awans"
+        	sequence="2"
+        	/>
+        <menuitem id="menu_stock_shipment_awans"
+        	name="Shipments"
+        	parent="menu_stock_input_output_awans"
+        	action="action_stock_shipment_awans"
+        	sequence="3"
+        	/>
+        	
+       	<menuitem id="menu_stock_picking_special_type_awans"
+        	name="Special pickings"
+        	parent="menu_stock_input_output_awans"
+        	action="action_stock_picking_special_type_awans"
+        	sequence="4"
+        	/>
+        	
+       	<menuitem id="menu_stock_input_output_wetteren"
+        	name="Inputs and output (Wetteren)"
+        	parent="stock.menu_stock_root"
+        	sequence="2"
+        	groups="elneo_rights.group_warehouse_wetteren"
+        	/>
+        <menuitem id="menu_stock_reception_wetteren"
+        	name="Receptions"
+        	parent="menu_stock_input_output_wetteren"
+        	action="action_stock_reception_wetteren"
+        	sequence="1"
+        	/>
+        <menuitem id="menu_stock_reservation_wetteren"
+        	name="Reservations"
+        	parent="menu_stock_input_output_wetteren"
+        	action="action_stock_reservation_wetteren"
+        	sequence="2"
+        	/>
+        <menuitem id="menu_stock_shipment_wetteren"
+        	name="Shipments"
+        	parent="menu_stock_input_output_wetteren"
+        	action="action_stock_shipment_wetteren"
+        	sequence="3"
+        	/>
+        	
+        <menuitem id="menu_stock_picking_special_type_wetteren"
+        	name="Special pickings"
+        	parent="menu_stock_input_output_wetteren"
+        	action="action_stock_picking_special_type_wetteren"
+        	sequence="4"
+        	/>
+        	
+        <menuitem id="menu_stock_input_output"
+        	name="Inputs and output"
+        	parent="stock.menu_stock_root"
+        	sequence="3"
+        	/>
+        <menuitem id="menu_stock_picking"
+        	name="All pickings"
+        	parent="menu_stock_input_output"
+        	action="action_stock_picking"
+        	sequence="1"
+        	/>
+        	
+        <menuitem id="stock.menu_stock_sched" name="Schedulers" parent="stock.menu_stock_configuration" sequence="4" groups="stock.group_stock_manager"/>
+        	
+        
+        
+        <!-- TRASH -->
+        <menuitem id="menu_trash" parent="stock.menu_stock_root" name="Trash" sequence="999" />
+        <menuitem id="menu_trash_trash" parent="menu_trash" name="Trash" sequence="999" />
+        <menuitem id="stock.menu_stock_inventory_control" name="Inventory Control" parent="menu_trash_trash" sequence="2"/>
+        <menuitem
+            id="stock.menu_product_in_config_stock" name="Products"
+            parent="menu_trash_trash" sequence="45" groups="base.group_no_one"/>
+        <menuitem id="stock.menu_stock_warehouse_mgmt" name="Operations" parent="stock.menu_stock_root" sequence="4"/>
+        <menuitem id="stock.menu_stock_product" name="Products" parent="menu_trash_trash" sequence="6"/>
+	
+	
+		<!-- Picking type kanban -->
+		<record id="stock_picking_type_kanban_awans" model="ir.ui.view">
+            <field name="name">stock.picking.type.kanban.awans</field>
+            <field name="model">stock.picking.type</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey" create="0">
+					<field name="count_picking_ready"/>
+                    <templates>
+                        <t t-name="kanban-box">
+							<div class="oe_kanban_content">
+								<h4 class="text-center"><strong><field name="complete_name"/></strong></h4>
+								<a name="%(action_stock_picking_special_awans)d" type="action">
+									<field name="count_picking_ready"/> Ready
+								</a>
+							</div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <record id="stock_picking_type_kanban_wetteren" model="ir.ui.view">
+            <field name="name">stock.picking.type.kanban.wetteren</field>
+            <field name="model">stock.picking.type</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey" create="0">
+					<field name="count_picking_ready"/>
+                    <templates>
+                        <t t-name="kanban-box">
+							<div class="oe_kanban_content">
+								<h4 class="text-center"><strong><field name="complete_name"/></strong></h4>
+								<a name="%(action_stock_picking_special_wetteren)d" type="action">
+									<field name="count_picking_ready"/> Ready
+								</a>
+							</div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_stock_picking_special_type_awans_kanban">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="stock_picking_type_kanban_awans"/>
+            <field name="act_window_id" ref="action_stock_picking_special_type_awans"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_stock_picking_special_type_wetteren_kanban">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="stock_picking_type_kanban_wetteren"/>
+            <field name="act_window_id" ref="action_stock_picking_special_type_wetteren"/>
+        </record>
+	
+	
+		<!-- VIEW INHERITANCE -->
+	
+	
 		<!-- picking form -->
 		<record id="view_picking_form_elneo_stock" model="ir.ui.view">
             <field name="name">view.picking.form.elneo.stock</field>

@@ -18,7 +18,7 @@
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
     'depends': ['base','hr_equipment', 'hr_holidays'],
-    "data" : ['views/elneo_hr_equipment_view.xml','views/elneo_hr_holidays_view.xml'],
+    "data" : ['views/elneo_hr_equipment_view.xml','views/elneo_hr_holidays_view.xml','views/elneo_hr_view.xml'],
     'installable': True,
     'auto_install': False,
     'application': True,

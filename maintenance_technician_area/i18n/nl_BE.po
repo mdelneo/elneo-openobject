@@ -1,0 +1,80 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* maintenance_technician_area
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2015-06-25 15:41+0000\n"
+"PO-Revision-Date: 2015-06-25 15:41+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: maintenance_technician_area
+#: field:maintenance.technician.area.installation.exception,installation_id:0
+msgid "Installation"
+msgstr "Installation"
+
+#. module: maintenance_technician_area
+#: model:ir.model,name:maintenance_technician_area.model_maintenance_intervention
+msgid "maintenance.intervention"
+msgstr "onderhoud.interventie"
+
+#. module: maintenance_technician_area
+#: view:maintenance.technician.area.installation.exception:0
+msgid "Technician area"
+msgstr "Technician area"
+
+#. module: maintenance_technician_area
+#: model:ir.model,name:maintenance_technician_area.model_maintenance_technician_area_installation_exception
+msgid "maintenance.technician.area.installation.exception"
+msgstr "maintenance.technician.area.installation.exception"
+
+#. module: maintenance_technician_area
+#: model:ir.model,name:maintenance_technician_area.model_maintenance_technician_area
+msgid "maintenance.technician.area"
+msgstr "maintenance.technician.area"
+
+#. module: maintenance_technician_area
+#: field:maintenance.technician.area,zip_min:0
+msgid "Zip min"
+msgstr "Zip min"
+
+#. module: maintenance_technician_area
+#: model:ir.model,name:maintenance_technician_area.model_maintenance_intervention_task
+msgid "maintenance.intervention.task"
+msgstr "maintenance.intervention.task"
+
+#. module: maintenance_technician_area
+#: view:maintenance.technician.area:0
+msgid "Technician area"
+msgstr "Technician area"
+
+#. module: maintenance_technician_area
+#: model:ir.actions.act_window,name:maintenance_technician_area.action_maintenance_technician_area
+#: model:ir.ui.menu,name:maintenance_technician_area.menu_maintenance_technician_area
+msgid "Technician areas"
+msgstr "Technician areas"
+
+#. module: maintenance_technician_area
+#: model:ir.actions.act_window,name:maintenance_technician_area.action_maintenance_technician_area_installation_exception
+#: model:ir.ui.menu,name:maintenance_technician_area.menu_maintenance_technician_area_installation_exception
+msgid "Technician areas installation exceptions"
+msgstr "Technician areas installation exceptions"
+
+#. module: maintenance_technician_area
+#: field:maintenance.technician.area,user_id:0
+#: field:maintenance.technician.area.installation.exception,user_id:0
+msgid "Technician"
+msgstr "Technician"
+
+#. module: maintenance_technician_area
+#: field:maintenance.technician.area,zip_max:0
+msgid "Zip max"
+msgstr "Zip max"
+

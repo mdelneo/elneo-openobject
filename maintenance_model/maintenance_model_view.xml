@@ -264,7 +264,7 @@
 		</record>
 		
 		<menuitem action="action_maintenance_element_model" id="menu_maintenance_element_model"
-			parent="maintenance.menu_maintenance_maintenance" sequence="30" />
+			parent="maintenance.menu_maintenance_installation" sequence="30" />
 			
 		
 		<!-- Maintenance intervention -->

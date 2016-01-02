@@ -139,7 +139,7 @@ class res_partner(models.Model):
         if (not self.parent_id and not self.name):
             raise ValidationError("You must fill in the name for this partner!")
         
-        if self.name:
+        if self.name and self.is_company:
             self._cr.execute('select id from res_partner where active = True and parent_id is null and id != %s and upper(name) = %s',(self.id,self.name.upper()))
             
             for t in self._cr.fetchall():

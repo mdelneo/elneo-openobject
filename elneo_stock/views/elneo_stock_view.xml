@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-            
+        
+        <!-- to open wizard from button on move lines -->  
+		<record id="action_partial_move_server" model="ir.actions.server">
+            <field name="name">Deliver/Receive Products</field>
+            <field name="model_id" ref="model_stock_move"/>
+            <field name="state">code</field>
+            <field name="code">action = obj.action_partial_move()</field>
+        </record>
+		
+		
 		<!-- ACTIONS -->
 		<record id="action_stock_reception_awans" model="ir.actions.act_window">
             <field name="name">Receptions</field>
@@ -18,7 +27,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('picking_type_id','=',3),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',5),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_shipment_awans" model="ir.actions.act_window">
@@ -70,7 +79,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('picking_type_id','=',8),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',10),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_shipment_wetteren" model="ir.actions.act_window">
@@ -319,7 +328,7 @@
             <field name="arch" type="xml">
             	<xpath expr="//field[@name='product_id']" position="before">
             		<field name="picking_type_code" invisible="True" />
-            		<button icon="gtk-go-forward" name="1665" type="action" context="{}" 
+            		<button icon="gtk-go-forward" name="%(action_partial_move_server)d" type="action" context="{}" 
             		attrs="{'invisible':['|',('picking_type_code','!=','internal'),('state','!=','assigned')]}" />
             	</xpath>
             </field>

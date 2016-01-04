@@ -6,6 +6,7 @@ Created on 10 juil. 2012
 from datetime import datetime, timedelta
 from openerp import models, fields, api
 from openerp.osv.fields import related
+import openerp.addons.decimal_precision as dp
 
 class procurement_order(models.Model):
     _inherit = 'procurement.order'
@@ -75,8 +76,8 @@ class product_warehouse_detail(models.Model):
     
     product_id = fields.Many2one('product.product', string='Product', ondelete='cascade')
     warehouse_id = fields.Many2one('stock.warehouse', string='Warehouse')
-    stock_real = fields.Float('Real stock', compute='compute_stock')
-    stock_virtual = fields.Float('Virtual stock', compute='compute_stock')
+    stock_real = fields.Float('Real stock', compute='compute_stock', digits= dp.get_precision('Product Unit of Measure'))
+    stock_virtual = fields.Float('Virtual stock', compute='compute_stock', digits= dp.get_precision('Product Unit of Measure'))
     aisle = fields.Char('Aisle')
     storage_policy = fields.Selection([('stocked', 'Stocked'),('not_stocked','Not stocked'),('downgraded','Downgraded'),('drop','Drop')], string='Storage policy', compute='compute_storage_policy')
     depreciation_policy = fields.Selection([('not_downgraded', 'Not downgraded'), ('downgraded', 'Downgraded'), ('drop', 'Drop')], string='Depreciation policy', default='not_downgraded')

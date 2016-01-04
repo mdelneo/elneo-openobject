@@ -130,6 +130,23 @@ class stock_move(models.Model):
     split_from = fields.Many2one(index=True)
     route_ids=fields.Many2many(auto_join=True)
     product_id=fields.Many2one(auto_join=True)
+    
+    @api.multi
+    def action_partial_move(self):
+        partial_id = self.env["transfert.move.wizard"].create({})
+        return {
+            'name':_("Products to Process"),
+            'view_mode': 'form',
+            'view_id': False,
+            'view_type': 'form',
+            'res_model': 'transfert.move.wizard',
+            'res_id': partial_id.id,
+            'type': 'ir.actions.act_window',
+            'nodestroy': True,
+            'target': 'new',
+            'domain': '[]',
+            'context': self._context
+        }
   
     @api.multi
     def write(self, vals):

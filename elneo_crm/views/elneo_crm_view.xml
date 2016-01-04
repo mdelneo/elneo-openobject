@@ -243,7 +243,7 @@
             	</xpath>
             	
             	<xpath expr="//field[@name='phone']/.." position="inside">
-            		<field name="blocked" attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)]}"/>
+            		<field name="blocked" attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)]}" readonly="1" />
             		<field name="active" />
             	</xpath>
             	
@@ -284,6 +284,18 @@
             	
             </field>
         </record>
+        
+        <record id="view_partner_form_elneo_ro" model="ir.ui.view">
+            <field name="name">res.partner.form.elneo</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="view_partner_form_elneo" />
+            <field name="groups_id" eval="[(6, 0, [ref('account.group_account_user') ])]" />                
+            <field name="arch" type="xml">                                   
+                <field name="blocked" position="attributes">
+                   <attribute name="readonly">0</attribute>                   
+                </field>  
+            </field>
+		</record>
         
         <record id="view_partners_form_crm1_elneo_crm" model="ir.ui.view">
             <field name="name">view.partners.form.crm1.elneo.crm</field>

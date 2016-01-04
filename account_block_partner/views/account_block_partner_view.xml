@@ -72,10 +72,10 @@
             <field name="arch" type="xml">
             	<xpath expr="//field[@name='unreconciled_aml_ids']" position="after">
             		<group>
-	                	<field name="blocked"/>
-						<field name="block_reason_title" colspan="4" />				
-		     			<field name="unpaid_comment" colspan="4" />
-		     			<field name="unpaid_history" colspan="4" />
+	                	<field name="blocked" readonly="1" />
+						<field name="block_reason_title" colspan="4" readonly="1" />				
+		     			<field name="unpaid_comment" colspan="4" readonly="1" />
+		     			<field name="unpaid_history" colspan="4" readonly="1" />
 	     			</group>
             	</xpath>
             	<xpath expr="//button[@name='action_done']" position="replace" />
@@ -85,6 +85,28 @@
             	<xpath expr="//field[@name='payment_note']" position="replace" />
             </field>
         </record>
+        
+        <record id="view_partner_inherit_followup_form_account_block_partner_ro" model="ir.ui.view">
+            <field name="name">view.partner.inherit.followup.form.account.block.partner.ro</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="view_partner_inherit_followup_form_account_block_partner" />
+            <field name="groups_id" eval="[(6, 0, [ref('account.group_account_user') ])]" />                
+            <field name="arch" type="xml">                                   
+                <field name="blocked" position="attributes">
+                   <attribute name="readonly">0</attribute>                   
+                </field>  
+                <field name="block_reason_title" position="attributes">
+                   <attribute name="readonly">0</attribute>                   
+                </field>  
+                <field name="unpaid_comment" position="attributes">
+                   <attribute name="readonly">0</attribute>                   
+                </field>  
+                <field name="unpaid_history" position="attributes">
+                   <attribute name="readonly">0</attribute>                   
+                </field>                             
+            </field>
+		</record>
+		
         
         <record id="view_picking_internal_blocked_search" model="ir.ui.view">
             <field name="name">stock.picking.internal.blocked.search</field>

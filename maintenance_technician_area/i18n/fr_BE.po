@@ -59,7 +59,7 @@ msgstr "Secteur technicien"
 #: model:ir.actions.act_window,name:maintenance_technician_area.action_maintenance_technician_area
 #: model:ir.ui.menu,name:maintenance_technician_area.menu_maintenance_technician_area
 msgid "Technician areas"
-msgstr "Secteurs techniciens"
+msgstr "Secteurs des techniciens"
 
 #. module: maintenance_technician_area
 #: model:ir.actions.act_window,name:maintenance_technician_area.action_maintenance_technician_area_installation_exception

@@ -123,7 +123,7 @@
 		</record>
 
 		<menuitem action="action_product_discount_type" id="menu_product_discount_type"
-			parent="product.menu_product_pricelist_main" sequence="1" />
+			parent="product.menu_product_pricelist_main" sequence="0" />
 			
 	</data>
 </openerp>			

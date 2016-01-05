@@ -84,7 +84,7 @@ msgstr "Factures (Projets)"
 #: model:ir.ui.menu,name:maintenance_project_invoicing.menu_maintenance_project_to_invoice
 #: view:maintenance.project:maintenance_project_invoicing.view_maintenance_project_invoicing_search
 msgid "Projects To Invoice"
-msgstr "Projets à facturer"
+msgstr "Contrats à facturer"
 
 #. module: maintenance_project_invoicing
 #: view:maintenance.project:maintenance_project_invoicing.view_maintenance_project_invoicing_search

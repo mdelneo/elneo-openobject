@@ -141,7 +141,7 @@ msgstr "Prix"
 #: model:ir.actions.act_window,name:maintenance_project_quotation.action_maintenance_project_quotation
 #: model:ir.ui.menu,name:maintenance_project_quotation.menu_maintenance_project_quotation
 msgid "Project Quotations"
-msgstr "Offres"
+msgstr "Projets de contrats"
 
 #. module: maintenance_project_quotation
 #: model:ir.actions.act_window,name:maintenance_project_quotation.action_maintenance_project_not_quotation

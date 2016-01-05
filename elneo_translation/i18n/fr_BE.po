@@ -34,3 +34,72 @@ msgstr "Produits"
 #: view:stock.picking:elneo_translation.view_picking_form_elneo_trans
 msgid "Return Products"
 msgstr "Retour Produits"
+
+#. module: mail
+#: model:ir.actions.client,name:mail.action_mail_to_me_feeds
+#: model:ir.ui.menu,name:mail.mail_tomefeeds
+msgid "To: me"
+msgstr "À mon attention"
+
+#. module: mail
+#: model:ir.actions.client,name:mail.action_mail_star_feeds
+#: model:ir.ui.menu,name:mail.mail_starfeeds
+msgid "To-do"
+msgstr "Mes tâches"
+
+#. module: elneo_sale
+#: model:ir.ui.menu,name:sale.menu_quotation_sale_order
+msgid "Sales and quotations"
+msgstr "Ventes et offres"
+
+#. module: sale
+#: view:crm.case.section:sale.crm_case_section_salesteams_view_kanban
+#: model:ir.actions.act_window,name:sale.action_orders
+#: model:ir.actions.act_window,name:sale.action_orders_salesteams
+#: model:ir.ui.menu,name:sale.menu_sale_order
+#: view:sale.order:sale.view_order_tree
+#: view:sale.order:sale.view_sale_order_calendar
+#: view:sale.order:sale.view_sale_order_graph
+msgid "Sales Orders"
+msgstr "Ventes"
+
+#. module: sale
+#: view:crm.case.section:sale.crm_case_section_salesteams_view_kanban
+#: field:crm.case.section,use_quotations:0
+#: model:ir.actions.act_window,name:sale.action_quotations
+#: model:ir.actions.act_window,name:sale.action_quotations_salesteams
+#: model:ir.ui.menu,name:sale.menu_sale_quotations
+#: view:sale.order:sale.view_sales_order_filter
+msgid "Quotations"
+msgstr "Offres"
+
+
+#. module: product
+#: model:ir.ui.menu,name:product.menu_product_pricelist_main
+msgid "Pricelists"
+msgstr "Gestion des remises"
+
+#. module: product
+#: model:ir.actions.act_window,name:product.product_pricelist_action2
+#: model:ir.actions.act_window,name:product.product_pricelist_action_for_purchase
+#: model:ir.ui.menu,name:product.menu_product_pricelist_action2
+msgid "Pricelists"
+msgstr "Remises des autres départements"
+
+#. module: purchase
+#: model:ir.ui.menu,name:purchase.menu_product_pricelist_action2_purchase
+#: model:ir.ui.menu,name:purchase.menu_purchase_config_pricelist
+msgid "Pricelists"
+msgstr "Frais de port et devises"
+
+#. module: product_harmonized_system
+#: view:hs.code:product_harmonized_system.hs_code_tree
+#: model:ir.actions.act_window,name:product_harmonized_system.hs_code_act
+#: model:ir.ui.menu,name:product_harmonized_system.hs_code_menu
+msgid "HS Codes"
+msgstr "Codes H.S. (Intrastat)"
+
+#. module: elneo_product
+#: model:ir.ui.menu,name:product.prod_config_main
+msgid "Product Categories & Attributes"
+msgstr "Catégories"

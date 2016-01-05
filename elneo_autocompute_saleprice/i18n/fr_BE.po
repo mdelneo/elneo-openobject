@@ -116,7 +116,7 @@ msgstr "Type de remise"
 #: model:ir.actions.act_window,name:elneo_autocompute_saleprice.action_product_discount_type
 #: model:ir.ui.menu,name:elneo_autocompute_saleprice.menu_product_discount_type
 msgid "Discount types"
-msgstr "Types de remise"
+msgstr "Remises du département pneumatique"
 
 #. module: elneo_autocompute_saleprice
 #: view:product.discount.type:elneo_autocompute_saleprice.view_product_discount_type_form
@@ -240,7 +240,7 @@ msgstr "Catégorie de produit"
 #: view:product.group:elneo_autocompute_saleprice.view_product_group_tree
 #: field:product.group.discount,product_group_id:0
 msgid "Product group"
-msgstr "Product group"
+msgstr "Product groups Landefeld"
 
 #. module: elneo_autocompute_saleprice
 #: field:product.discount.type,product_group_discounts:0

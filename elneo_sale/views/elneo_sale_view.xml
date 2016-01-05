@@ -260,7 +260,7 @@
         
         
         <record id="action_orders_quotations" model="ir.actions.act_window">
-            <field name="name">Quotations</field>
+            <field name="name">Sales and quotations</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.order</field>
             <field name="view_id" ref="sale.view_quotation_tree"/>

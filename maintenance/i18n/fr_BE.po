@@ -310,7 +310,7 @@ msgstr "Modifier..."
 #: view:maintenance.installation:maintenance.view_maintenance_installation_form
 #: field:maintenance.installation,elements:0
 msgid "Elements"
-msgstr "Elements"
+msgstr "Eléments"
 
 #. module: maintenance
 #: view:website:maintenance.report_maintenance_installation_document
@@ -502,7 +502,7 @@ msgstr "Interventions"
 #: model:ir.actions.act_window,name:maintenance.action_maintenance_type_form
 #: model:ir.ui.menu,name:maintenance.menu_action_maintenance_type_form
 msgid "Interventions (By Type)"
-msgstr "Interventions (By Type)"
+msgstr "Graphiques par type"
 
 #. module: maintenance
 #: model:ir.actions.act_window,name:maintenance.action_maintenance_tree_done

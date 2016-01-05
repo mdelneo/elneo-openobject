@@ -1,286 +1,608 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* maintenance_project
+#	* maintenance_model
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-30 10:10+0000\n"
-"PO-Revision-Date: 2015-06-30 12:17+0100\n"
+"POT-Creation-Date: 2016-01-05 11:05+0000\n"
+"PO-Revision-Date: 2016-01-05 11:05+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: fr\n"
-"X-Generator: Poedit 1.8.1\n"
 
-#. module: maintenance_project
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-msgid "Activate"
-msgstr "Activer"
+#. module: maintenance_model
+#: code:addons/maintenance_model/maintenance_model.py:412
+#, python-format
+msgid " (at %sh)"
+msgstr " (à %sh)"
 
-#. module: maintenance_project
-#: view:maintenance.project:maintenance_project.view_maintenance_project_account_search
-msgid "Active"
-msgstr "Actif"
+#. module: maintenance_model
+#: field:maintenance.installation,additional_labor_time:0
+msgid "Additional labor time"
+msgstr "Temps de travail additionnel"
 
-#. module: maintenance_project
-#: field:maintenance.element,expected_time_of_use:0
-msgid "Annual expected hour of use"
-msgstr "Heures d'utilisation prévues"
+#. module: maintenance_model
+#: field:generate.project.wizard,date_start:0
+msgid "Begin"
+msgstr "Début"
 
-#. module: maintenance_project
-#: view:maintenance.element:maintenance_project.view_maintenance_element_search_inherit
-msgid "Assets purchased in current month"
-msgstr "Biens achetés dans le mois en cours"
+#. module: maintenance_model
+#: view:maintenance.element:maintenance_model.view_maintenance_element_form_model_inherit
+msgid "Calc Start Hour"
+msgstr "Calc Date Début"
 
-#. module: maintenance_project
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-msgid "Budget"
-msgstr "Budget"
+#. module: maintenance_model
+#: view:maintenance.element:maintenance_model.view_maintenance_element_form_model_inherit
+msgid "Calculate the counter value at the beginning of the project from known times of use"
+msgstr "Calculer la valeur du compteur au début du project à partir des relevés connus"
 
-#. module: maintenance_project
-#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
-msgid "Budget Rules"
-msgstr "Règles de budget"
+#. module: maintenance_model
+#: view:generate.project.wizard:maintenance_model.view_generate_project_wizard_form
+msgid "Cancel"
+msgstr "Annuler"
 
-#. module: maintenance_project
-#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_budget_line_type
-#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_budget_line_type
-msgid "Budget line type"
-msgstr "Type de ligne de budget"
+#. module: maintenance_model
+#: help:maintenance.element.model,time_counter:0
+msgid "Check if this type of element has time counter."
+msgstr "Vérifier si ce type d'élément a un compteur horaire"
 
-#. module: maintenance_project
-#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
-msgid "Budget rules"
-msgstr "règles de Budget"
+#. module: maintenance_model
+#: field:product.product,maintenance_element_model_ids:0
+msgid "Concerned intervention models"
+msgstr "Modèles d'intervention concernés"
 
-#. module: maintenance_project
-#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-msgid "Create/update sale"
-msgstr "Créer/mettre à jour la vente"
+#. module: maintenance_model
+#: field:maintenance.element.model,product_ids:0
+msgid "Concerned products"
+msgstr "Produits concernés"
 
-#. module: maintenance_project
-#: field:maintenance.project,create_uid:0
-#: field:maintenance.project.budget.line,create_uid:0
-#: field:maintenance.project.budget.line.type,create_uid:0
-#: field:maintenance.project.budget.rule,create_uid:0
-#: field:maintenance.project.delay,create_uid:0
-#: field:maintenance.project.type,create_uid:0
-#: field:maintenance.project.type.line,create_uid:0
+#. module: maintenance_model
+#: view:maintenance.project.budget.line.type:maintenance_model.view_maintenance_project_budget_line_type_form_inherit
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: maintenance_model
+#: field:maintenance.element,intervention_generation_start_hours:0
+msgid "Counter at beginning of generation"
+msgstr "Valeur du compteur au début de la génération"
+
+#. module: maintenance_model
+#: field:generate.project.wizard,create_uid:0
+#: field:maintenance.element.model,create_uid:0
+#: field:maintenance.generation.detail,create_uid:0
+#: field:maintenance.intervention.model,create_uid:0
+#: field:maintenance.intervention.product.model,create_uid:0
 msgid "Created by"
 msgstr "Créé par"
 
-#. module: maintenance_project
-#: field:maintenance.project,create_date:0
-#: field:maintenance.project.budget.line,create_date:0
-#: field:maintenance.project.budget.line.type,create_date:0
-#: field:maintenance.project.budget.rule,create_date:0
-#: field:maintenance.project.delay,create_date:0
-#: field:maintenance.project.type,create_date:0
-#: field:maintenance.project.type.line,create_date:0
+#. module: maintenance_model
+#: field:generate.project.wizard,create_date:0
+#: field:maintenance.element.model,create_date:0
+#: field:maintenance.generation.detail,create_date:0
+#: field:maintenance.intervention.model,create_date:0
+#: field:maintenance.intervention.product.model,create_date:0
 msgid "Created on"
 msgstr "Créé le"
 
-#. module: maintenance_project
-#: view:maintenance.project:maintenance_project.view_maintenance_project_account_search
-msgid "Current Accounts"
-msgstr "Current Accounts"
+#. module: maintenance_model
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_form
+#: view:maintenance.intervention.model:maintenance_model.view_maintenance_intervention_model_form
+msgid "Cycle"
+msgstr "Cycle"
 
-#. module: maintenance_project
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-msgid "Disable"
-msgstr "Désactiver"
+#. module: maintenance_model
+#: help:maintenance.project,intervention_generation_start_date:0
+msgid "Date from which interventions will be generated"
+msgstr "La date à partir de laquelle les interventions seront générées"
 
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_installation
-#: model:ir.model,name:maintenance_project.model_maintenance_intervention
-msgid "Email Thread"
-msgstr "Discussion par courriel"
+#. module: maintenance_model
+#: field:maintenance.element,intervention_generation_first_date:0
+msgid "Date of first intervention (auto. generation)"
+msgstr "Date de première intervention (génération auto.)"
 
-#. module: maintenance_project
-#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-msgid "General"
-msgstr "Général"
+#. module: maintenance_model
+#: field:maintenance.project.budget.line.type,default_for_labor_time:0
+msgid "Default for Labor Time"
+msgstr "Défaut pour temps de main d'oeuvre"
 
-#. module: maintenance_project
-#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+#. module: maintenance_model
+#: field:maintenance.project.budget.line.type,default_for_product:0
+msgid "Default for Products"
+msgstr "Défaut pour produit"
+
+#. module: maintenance_model
+#: field:maintenance.project.budget.line.type,default_for_travel_cost:0
+msgid "Default for Travel Cost"
+msgstr "Défaut pour frais de déplacement"
+
+#. module: maintenance_model
+#: view:maintenance.project:maintenance_model.view_maintenance_project_form_maintenance_model_inherit
+msgid "Delete and Regenerate"
+msgstr "Supprimer et regénerer"
+
+#. module: maintenance_model
+#: field:maintenance.element.model,description:0
+#: field:maintenance.intervention.model,description:0
+msgid "Description"
+msgstr "Description"
+
+#. module: maintenance_model
+#: help:maintenance.config.settings,timeofuse_threshold_mail:0
+msgid "Do you want to send a mail when an element time of use exceed expected time for active projects?"
+msgstr "Voulez vous envoyer un e-mail lorsque le compteur horaire d'un elément excède celui prévu pour le projet courant ?"
+
+#. module: maintenance_model
+#: field:maintenance.intervention.model,duration:0
+msgid "Duration of intervention"
+msgstr "Durée de l'intervention"
+
+#. module: maintenance_model
+#: model:ir.actions.act_window,name:maintenance_model.action_maintenance_element_model
+#: model:ir.ui.menu,name:maintenance_model.menu_maintenance_element_model
+msgid "Element Model"
+msgstr "Modèle d'élément"
+
+#. module: maintenance_model
+#: field:maintenance.element,element_model_id:0
+#: field:maintenance.intervention.model,element_model_id:0
+msgid "Element model"
+msgstr "Modèle d'élément"
+
+#. module: maintenance_model
+#: view:generate.project.wizard:maintenance_model.view_generate_project_wizard_form
+msgid "Elements"
+msgstr "Éléments"
+
+#. module: maintenance_model
+#: field:generate.project.wizard,date_end:0
+msgid "End"
+msgstr "Fin"
+
+#. module: maintenance_model
+#: view:maintenance.installation:maintenance_model.view_maintenance_installation_form_maintenance_model_inherit
+#: view:maintenance.project:maintenance_model.view_maintenance_project_form_maintenance_model_inherit
+#: field:maintenance.project,intervention_ids:0
+msgid "Expected interventions under project"
+msgstr "Interventions prévues au cours du projet"
+
+#. module: maintenance_model
+#: field:maintenance.intervention.product,expected_time_of_use:0
+#: field:maintenance.intervention.timeofuse,expected_time_of_use:0
+msgid "Expected time of use"
+msgstr "Temps d'utilisation prévu"
+
+#. module: maintenance_model
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_form
+#: view:maintenance.intervention.model:maintenance_model.view_maintenance_intervention_model_form
+msgid "First intervention"
+msgstr "Première intervention"
+
+#. module: maintenance_model
+#: view:maintenance.element:maintenance_model.view_maintenance_element_form_model_inherit
+msgid "First intervention (at beginning of generation)"
+msgstr "Première intervention (au début de la génération)"
+
+#. module: maintenance_model
+#: field:maintenance.project,intervention_generation_start_date:0
+msgid "From"
+msgstr "A partir"
+
+#. module: maintenance_model
+#: selection:maintenance.project,intervention_generation_type:0
+msgid "From models"
+msgstr "A partir des modèles"
+
+#. module: maintenance_model
+#: field:maintenance.element.model,serial_number_from:0
+msgid "From serial number"
+msgstr "Du numéro de série"
+
+#. module: maintenance_model
+#: view:generate.project.wizard:maintenance_model.view_generate_project_wizard_form
+#: view:maintenance.project:maintenance_model.view_maintenance_project_form_maintenance_model_inherit
+msgid "Generate"
+msgstr "Générer"
+
+#. module: maintenance_model
+#: view:maintenance.installation:maintenance_model.view_maintenance_installation_form_maintenance_model_inherit
+#: view:maintenance.project:maintenance_model.view_maintenance_project_form_maintenance_model_inherit
+msgid "Generate Interventions"
+msgstr "Générer les interventions"
+
+#. module: maintenance_model
+#: code:addons/maintenance_model/maintenance_model.py:635
+#: view:maintenance.installation:maintenance_model.view_maintenance_installation_form_model_inherit
+#, python-format
+msgid "Generate project"
+msgstr "Générer un projet"
+
+#. module: maintenance_model
+#: view:maintenance.installation:maintenance_model.view_maintenance_installation_form_model_inherit
+msgid "Generate project (contract) for this installation."
+msgstr "Générer un projet (contract) pour cette installation."
+
+#. module: maintenance_model
+#: view:generate.project.wizard:maintenance_model.view_generate_project_wizard_form
+msgid "Generate project wizard"
+msgstr "Génération de projet"
+
+#. module: maintenance_model
+#: view:maintenance.project:maintenance_model.view_maintenance_project_form_maintenance_model_inherit
 msgid "History"
 msgstr "Historique"
 
-#. module: maintenance_project
-#: field:maintenance.project,id:0 field:maintenance.project.budget.line,id:0
-#: field:maintenance.project.budget.line.type,id:0
-#: field:maintenance.project.budget.rule,id:0
-#: field:maintenance.project.delay,id:0 field:maintenance.project.type,id:0
-#: field:maintenance.project.type.line,id:0
+#. module: maintenance_model
+#: view:maintenance.element:maintenance_model.view_maintenance_element_form_model_inherit
+msgid "Hours (at beginning of generation)"
+msgstr "Heures (au début de la génération)"
+
+#. module: maintenance_model
+#: help:maintenance.project,intervention_generation_type:0
+msgid "How to generate intervention?"
+msgstr "Comment générer une intervention ?"
+
+#. module: maintenance_model
+#: field:generate.project.wizard,id:0
+#: field:maintenance.element.model,id:0
+#: field:maintenance.generation.detail,id:0
+#: field:maintenance.intervention.model,id:0
+#: field:maintenance.intervention.product.model,id:0
 msgid "ID"
 msgstr "ID"
 
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_account_invoice
-msgid "Invoice"
-msgstr "Facture"
+#. module: maintenance_model
+#: help:maintenance.element,main_element:0
+msgid "If other elements of the project do not have expected time of use, we use expected time of use of main element"
+msgstr "Si d'autres éléments du projet n'ont pas de temps attendu d'utilisation, on utilise le temps attendu de l'élément principal"
 
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Ligne de facture"
+#. module: maintenance_model
+#: field:generate.project.wizard,installation_id:0
+msgid "Installation"
+msgstr "Installation"
 
-#. module: maintenance_project
-#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
-msgid "Invoiced Categories"
-msgstr "Catégories facturées"
+#. module: maintenance_model
+#: field:maintenance.generation.detail,intervention_id:0
+msgid "Intervention"
+msgstr "Intervention"
 
-#. module: maintenance_project
-#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
-msgid "Invoiced categories"
-msgstr "Catégories facturées"
+#. module: maintenance_model
+#: field:maintenance.intervention.product,intervention_model:0
+#: field:maintenance.project.budget.line,intervention_model_id:0
+msgid "Intervention Model"
+msgstr "Modèle d'intervention"
 
-#. module: maintenance_project
-#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-msgid "Invoices"
-msgstr "Factures"
+#. module: maintenance_model
+#: field:generate.project.wizard,intervention_delay_id:0
+msgid "Intervention delay"
+msgstr "Délai d'intervention"
 
-#. module: maintenance_project
-#: field:maintenance.project,write_uid:0
-#: field:maintenance.project.budget.line,write_uid:0
-#: field:maintenance.project.budget.line.type,write_uid:0
-#: field:maintenance.project.budget.rule,write_uid:0
-#: field:maintenance.project.delay,write_uid:0
-#: field:maintenance.project.type,write_uid:0
-#: field:maintenance.project.type.line,write_uid:0
+#. module: maintenance_model
+#: view:maintenance.element:maintenance_model.view_maintenance_element_form_model_inherit
+#: field:maintenance.project,intervention_generation_type:0
+msgid "Intervention generation"
+msgstr "Génération d'intervention"
+
+#. module: maintenance_model
+#: field:maintenance.generation.detail,intervention_model_id:0
+#: field:maintenance.intervention,element_model_id:0
+#: field:maintenance.intervention,intervention_model_id:0
+#: field:maintenance.intervention.product.model,intervention_model_id:0
+msgid "Intervention model"
+msgstr "Modèle d'intervention"
+
+#. module: maintenance_model
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_form
+#: field:maintenance.element.model,intervention_model_ids:0
+msgid "Intervention plan"
+msgstr "Plan d'intervention"
+
+#. module: maintenance_model
+#: field:maintenance.project.budget.line,intervention_product_model_id:0
+msgid "Intervention product model"
+msgstr "Modèle de produit d'intervention"
+
+#. module: maintenance_model
+#: model:ir.actions.act_window,name:maintenance_model.act_maintenance_project_interventions
+msgid "Interventions"
+msgstr "Interventions"
+
+#. module: maintenance_model
+#: field:generate.project.wizard,write_uid:0
+#: field:maintenance.element.model,write_uid:0
+#: field:maintenance.generation.detail,write_uid:0
+#: field:maintenance.intervention.model,write_uid:0
+#: field:maintenance.intervention.product.model,write_uid:0
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
-#. module: maintenance_project
-#: field:maintenance.project,write_date:0
-#: field:maintenance.project.budget.line,write_date:0
-#: field:maintenance.project.budget.line.type,write_date:0
-#: field:maintenance.project.budget.rule,write_date:0
-#: field:maintenance.project.delay,write_date:0
-#: field:maintenance.project.type,write_date:0
-#: field:maintenance.project.type.line,write_date:0
+#. module: maintenance_model
+#: field:generate.project.wizard,write_date:0
+#: field:maintenance.element.model,write_date:0
+#: field:maintenance.generation.detail,write_date:0
+#: field:maintenance.intervention.model,write_date:0
+#: field:maintenance.intervention.product.model,write_date:0
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
-#. module: maintenance_project
-#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
+#. module: maintenance_model
+#: field:maintenance.element,main_element:0
+msgid "Main element"
+msgstr "Elément principal"
+
+#. module: maintenance_model
+#: field:maintenance.generation.detail,maintenance_element_id:0
+msgid "Maintenance element"
+msgstr "Elément de maintenance"
+
+#. module: maintenance_model
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_account_search
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_form
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_tree
+msgid "Maintenance element model"
+msgstr "Modèle d'élément"
+
+#. module: maintenance_model
+#: field:generate.project.wizard,maintenance_element_ids:0
 msgid "Maintenance elements"
 msgstr "Éléments de maintenance"
 
-#. module: maintenance_project
-#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project
-#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project
-#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
-#: field:maintenance.intervention,maintenance_project_id:0
-#: view:maintenance.project:maintenance_project.view_maintenance_project_account_search
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-#: view:maintenance.project:maintenance_project.view_maintenance_project_tree
-msgid "Maintenance project"
-msgstr "Projet de maintenance"
+#. module: maintenance_model
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_form
+#: view:maintenance.intervention.model:maintenance_model.view_maintenance_intervention_model_form
+#: view:maintenance.intervention.model:maintenance_model.view_maintenance_intervention_model_tree
+msgid "Maintenance intervention model"
+msgstr "Modèle d'intervention"
 
-#. module: maintenance_project
-#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_delay
-#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_delay
-#: view:maintenance.project.delay:maintenance_project.view_maintenance_project_delay_form
-#: view:maintenance.project.delay:maintenance_project.view_maintenance_project_delay_tree
-msgid "Maintenance project delay"
-msgstr "Délais d'intervention"
+#. module: maintenance_model
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_form
+#: view:maintenance.intervention.model:maintenance_model.view_maintenance_intervention_model_form
+#: view:maintenance.intervention.product.model:maintenance_model.view_maintenance_intervention_product_model_form
+#: view:maintenance.intervention.product.model:maintenance_model.view_maintenance_intervention_product_model_tree
+msgid "Maintenance intervention product model"
+msgstr "Modèle de produit d'intervention"
 
-#. module: maintenance_project
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-#: view:maintenance.project.budget.line:maintenance_project.view_maintenance_project_budget_line_form
-#: view:maintenance.project.budget.line.type:maintenance_project.view_maintenance_project_budget_line_type_form
-msgid "Maintenance project line"
-msgstr "Ligne de projet de maintenance"
+#. module: maintenance_model
+#: field:maintenance.intervention,model_and_iteration_json:0
+msgid "Model and iteration"
+msgstr "Modèle et itération"
 
-#. module: maintenance_project
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-#: view:maintenance.project.budget.line:maintenance_project.view_maintenance_project_budget_line_tree
-#: view:maintenance.project.budget.line.type:maintenance_project.view_maintenance_project_budget_line_type_tree
-msgid "Maintenance project lines"
-msgstr "Lignes de projet de maintenance"
+#. module: maintenance_model
+#: view:maintenance.config.settings:maintenance_model.view_maintenance_model_configuration
+msgid "Models"
+msgstr "Modèles"
 
-#. module: maintenance_project
-#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_type
-#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_type
-#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
-#: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_tree
-msgid "Maintenance project type"
-msgstr "Type de projet de maintenance"
+#. module: maintenance_model
+#: field:maintenance.element.model,name:0
+#: field:maintenance.intervention.model,name:0
+msgid "Name"
+msgstr "Nom"
 
-#. module: maintenance_project
-#: field:maintenance.element,maintenance_projects:0
-#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
-msgid "Maintenance projects"
-msgstr "Projets de maintenance"
+#. module: maintenance_model
+#: field:maintenance.intervention.model,no_generation_of_intervention:0
+msgid "Non-contracted"
+msgstr "Sans contrat"
 
-#. module: maintenance_project
-#: view:maintenance.installation:maintenance_project.view_maintenance_installation_form_maintenance_project_inherit
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-msgid "Notes"
-msgstr "Notes"
+#. module: maintenance_model
+#: field:maintenance.intervention.model,months_first:0
+msgid "Number of months before first intervention"
+msgstr "Mois"
 
-#. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:124
+#. module: maintenance_model
+#: field:maintenance.intervention.model,months_cycle:0
+msgid "Number of months between two interventions"
+msgstr "Mois"
+
+#. module: maintenance_model
+#: field:maintenance.intervention.model,hours_first:0
+msgid "Number of operating hours before first intervention"
+msgstr "Heures"
+
+#. module: maintenance_model
+#: field:maintenance.intervention.model,hours_cycle:0
+msgid "Number of operating hours between two intervention"
+msgstr "Heures"
+
+#. module: maintenance_model
+#: code:addons/maintenance_model/maintenance_model.py:472
 #, python-format
-msgid "Please disable maintenance project %s before delete it."
-msgstr "Veuillez désactiver le projet de maintenance %s avant de le supprimer"
+msgid "Please set at least one project line type as default for labor time"
+msgstr "Merci d'indiquer au moins un type de ligne de projet par défaut pour le temps de main d'oeuvre"
 
-#. module: maintenance_project
-#: field:maintenance.intervention,maintenance_project_type:0
-msgid "Project type"
-msgstr "Type de projet"
-
-#. module: maintenance_project
-#: field:maintenance.installation,maintenance_projects:0
-msgid "Projects"
-msgstr "Projets"
-
-#. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:223
+#. module: maintenance_model
+#: code:addons/maintenance_model/maintenance_model.py:466
 #, python-format
-msgid "Sale order is already confirmed."
-msgstr "La vente est déjà confirmée"
+msgid "Please set at least one project line type as default for products"
+msgstr "Veuillez cocher au moins un type de ligne de projet comme défaut pour les produits"
 
-#. module: maintenance_project
-#: field:maintenance.intervention,date_scheduled:0
-msgid "Scheduled date"
-msgstr "Date prévue"
-
-#. module: maintenance_project
-#: view:maintenance.project:maintenance_project.view_maintenance_project_form
-msgid "Set to Draft"
-msgstr "Mettre en Brouillon"
-
-#. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:183
+#. module: maintenance_model
+#: code:addons/maintenance_model/maintenance_model.py:478
 #, python-format
-msgid "Several maintenance projects are enable during the same period"
-msgstr "Plusieurs projets de maintenance sont actifs durant la même période"
+msgid "Please set at least one project line type as default for travel cost"
+msgstr "Merci de définir au moins un type de ligne de projet par défaut pour les frais de déplacement"
 
-#. module: maintenance_project
-#: view:maintenance.project:maintenance_project.view_maintenance_project_tree
-msgid "Status"
-msgstr "Statut"
+#. module: maintenance_model
+#: model:ir.model,name:maintenance_model.model_product_product
+#: field:maintenance.intervention.product.model,product_id:0
+msgid "Product"
+msgstr "Produit"
 
-#. module: maintenance_project
-#: view:maintenance.element:maintenance_project.view_maintenance_element_search_inherit
-#: field:maintenance.element,with_project:0
-msgid "Under contract"
-msgstr "Sous contrat"
+#. module: maintenance_model
+#: field:maintenance.intervention.product,intervention_product_model:0
+msgid "Product model"
+msgstr "Modèle de produit"
 
-#. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:124
+#. module: maintenance_model
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_form
+#: field:maintenance.intervention.model,intervention_product_model_ids:0
+msgid "Products"
+msgstr "Produits"
+
+#. module: maintenance_model
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_form
+#: view:maintenance.intervention.model:maintenance_model.view_maintenance_intervention_model_form
+msgid "Products of intervention"
+msgstr "Produits de l'intervention"
+
+#. module: maintenance_model
+#: view:maintenance.intervention:maintenance_model.view_maintenance_intervention_search_inherit
+#: field:maintenance.intervention,project_id:0
+msgid "Project"
+msgstr "Projet"
+
+#. module: maintenance_model
+#: code:addons/maintenance_model/maintenance_model.py:461
 #, python-format
-msgid "UserError"
-msgstr "Erreur utilisateur"
+msgid "Project dates must be filled"
+msgstr "Les dates de projet doivent être remplies"
+
+#. module: maintenance_model
+#: view:maintenance.installation:maintenance_model.view_maintenance_installation_form_maintenance_model_inherit
+#: view:maintenance.project:maintenance_model.view_maintenance_project_form_maintenance_model_inherit
+msgid "Project interventions"
+msgstr "Interventions du projet"
+
+#. module: maintenance_model
+#: field:maintenance.intervention,project_state:0
+msgid "Project state"
+msgstr "Etat du projet"
+
+#. module: maintenance_model
+#: field:maintenance.intervention.product.model,quantity:0
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: maintenance_model
+#: code:addons/maintenance_model/wizard/maintenance_model_wizard.py:37
+#, python-format
+msgid "Start date must be before end date"
+msgstr "La date de début doit être avant la date de fin"
+
+#. module: maintenance_model
+#: code:addons/maintenance_model/maintenance_model.py:322
+#, python-format
+msgid "Technical problem, please call your IT support."
+msgstr "Problème technique, contacter votre support IT"
+
+#. module: maintenance_model
+#: help:maintenance.project,intervention_ids:0
+msgid "These are interventions generated under the project. Not to be confounded with interventions history that are all the interventions done on the installation during the contract period"
+msgstr "Ce sont les interventions générées dans le projet. Elles ne doivent pas être confondues avec l'historique des interventions, qui sont les interventions terminées effectuées sur l'installation au cours de la période du contrat."
+
+#. module: maintenance_model
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_form
+msgid "This action will update all interventions that are in draft state linked to this model, do you want to continue?"
+msgstr "Cette action mettra à jour les interventions brouillons qui sont liées à ce modèle, voulez-vous continuer?"
+
+#. module: maintenance_model
+#: field:maintenance.element.model,time_counter:0
+msgid "Time counter"
+msgstr "Compteur horaire"
+
+#. module: maintenance_model
+#: view:maintenance.config.settings:maintenance_model.view_maintenance_model_configuration
+msgid "Time of Use"
+msgstr "Temps d'utilisation"
+
+#. module: maintenance_model
+#: view:maintenance.intervention:maintenance_model.view_maintenance_intervention_search_inherit
+msgid "To confirm"
+msgstr "À confirmer"
+
+#. module: maintenance_model
+#: field:maintenance.element.model,serial_number_to:0
+msgid "To serial number"
+msgstr "Au numéro de série"
+
+#. module: maintenance_model
+#: field:generate.project.wizard,project_type_id:0
+msgid "Type"
+msgstr "Type"
+
+#. module: maintenance_model
+#: field:maintenance.intervention.model,intervention_type_id:0
+msgid "Type of intervention"
+msgstr "Type d'intervention"
+
+#. module: maintenance_model
+#: view:maintenance.element.model:maintenance_model.view_maintenance_element_model_form
+msgid "Update interventions"
+msgstr "Mettre à jours les interventions"
+
+#. module: maintenance_model
+#: help:maintenance.project.budget.line.type,default_for_labor_time:0
+msgid "Used as default type for labor time generated by intervention models"
+msgstr "Utilisé comme type par défault pour la main d'oeuvre générée par le modèle d'intervention"
+
+#. module: maintenance_model
+#: help:maintenance.project.budget.line.type,default_for_product:0
+msgid "Used as default type for products generated by intervention models"
+msgstr "Utilisé comme type par défault pour les produits générés par le modèle d'intervention"
+
+#. module: maintenance_model
+#: help:maintenance.project.budget.line.type,default_for_travel_cost:0
+msgid "Used as default type for travel cost generated by intervention models"
+msgstr "Utilisé comme type par défault pour les frais de déplacement générés par le modèle d'intervention"
+
+#. module: maintenance_model
+#: field:maintenance.config.settings,timeofuse_threshold_mail:0
+msgid "Warn on element time of use exceed?"
+msgstr "Avertir lorsque le compteur d'un élément dépasse ?"
+
+#. module: maintenance_model
+#: help:maintenance.element,intervention_generation_start_hours:0
+msgid "When we do generation of interventions from project, we consider this value as beginning counter."
+msgstr "Lorsqu'on effectue la génération des interventions à partir des projets, nous considerons cette valeur comme le compteur de départ."
+
+#. module: maintenance_model
+#: help:maintenance.element,intervention_generation_first_date:0
+msgid "When we do generation of interventions from project, we consider this value as first intervention date. This date is not used if start hours are filled."
+msgstr "Lorsqu'on effectue la génération des interventions à partir des projets, nous considerons cette valeur comme la date de première intervention. Cette date n'est pas utilisée si le date de début est remplie."
+
+#. module: maintenance_model
+#: code:addons/maintenance_model/maintenance_model.py:281
+#, python-format
+msgid "You have to define expected annual time of use of element %s."
+msgstr "Vous devez définir le temps d'utilisation  annuel attendu de l'élément %s."
+
+#. module: maintenance_model
+#: code:addons/maintenance_model/maintenance_model.py:278
+#, python-format
+msgid "You have to fill at least cycle months or cycle hours for intervention %s of model %s."
+msgstr "Vous devez remplir au moins le cycle par mois ou par heure pour l'intervention %s du modèle %s."
+
+#. module: maintenance_model
+#: code:addons/maintenance_model/maintenance_model.py:275
+#, python-format
+msgid "You have to fill at least months or hours for first intervention for intervention %s of model %s."
+msgstr "Vous devez remplir au moins les mois ou les heures pour la première intervention pour l'intervention %s du modèle %s."
+
+#. module: maintenance_model
+#: model:maintenance.intervention,project_state:0
+msgid "active"
+msgstr "active"
+
+#. module: maintenance_model
+#: model:maintenance.intervention,project_state:0
+msgid "disabled"
+msgstr "disabled"
+
+#. module: maintenance_model
+#: model:maintenance.intervention,project_state:0
+msgid "draft"
+msgstr "draft"
+
+#. module: maintenance_model
+#: model:maintenance.intervention,project_state:0
+msgid "quotation_done"
+msgstr "quotation_done"
+
+#. module: maintenance_model
+#: model:maintenance.intervention,project_state:0
+msgid "quotation_todo"
+msgstr "quotation_todo"
+

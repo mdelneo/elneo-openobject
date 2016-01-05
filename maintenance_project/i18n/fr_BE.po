@@ -349,7 +349,7 @@ msgstr "Lignes de projet"
 #: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_form
 #: view:maintenance.project.type:maintenance_project.view_maintenance_project_type_tree
 msgid "Maintenance project type"
-msgstr "Type de projet"
+msgstr "Types de contrats"
 
 #. module: maintenance_project
 #: field:maintenance.element,maintenance_projects:0
@@ -464,7 +464,7 @@ msgstr "Type de projet"
 #: model:ir.ui.menu,name:maintenance_project.menu_maintenance_projects
 #: field:maintenance.installation,maintenance_projects:0
 msgid "Projects"
-msgstr "Projets"
+msgstr "Contrats"
 
 #. module: maintenance_project
 #: field:maintenance.project.budget.line,quantity:0

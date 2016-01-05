@@ -70,8 +70,9 @@ msgstr "Commande de ventes"
 
 #. module: seller_area
 #: model:ir.ui.menu,name:seller_area.menu_zip_user_correspondances
+#: model:ir.ui.menu,name:seller_area.menu_sale_config_areas
 msgid "Seller Areas"
-msgstr "Secteurs de Vente"
+msgstr "Secteurs des délégués"
 
 #. module: seller_area
 #: model:ir.actions.act_window,name:seller_area.act_correspondance

@@ -48,13 +48,12 @@
             <field name="domain">[('special','=',True),('warehouse_id','=',1)]</field>
         </record>
         
-        <record id="action_stock_picking_special_awans" model="ir.actions.act_window">
-            <field name="name">Ready Transfers</field>
+        <record id="action_stock_picking_special" model="ir.actions.act_window">
+            <field name="name">Special pickings</field>
             <field name="res_model">stock.picking</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
-            <field name="domain">[('warehouse_id','=',1)]</field>
             <field name="context">{
                     'search_default_picking_type_id': [active_id],
                     'default_picking_type_id': active_id,
@@ -100,23 +99,7 @@
             <field name="domain">[('special','=',True),('warehouse_id','=',2)]</field>
         </record>
         
-        <record id="action_stock_picking_special_wetteren" model="ir.actions.act_window">
-            <field name="name">Ready Transfers</field>
-            <field name="res_model">stock.picking</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form,calendar</field>
-            <field name="domain">[('warehouse_id','=',2)]</field>
-            <field name="context">{
-                    'search_default_picking_type_id': [active_id],
-                    'default_picking_type_id': active_id,
-                    'contact_display': 'partner_address',
-                    'search_default_available': 1,
-            }
-            </field>
-        </record>
-        
-        
+     
         
         <record id="action_stock_picking" model="ir.actions.act_window">
             <field name="name">All pickings</field>
@@ -238,7 +221,7 @@
                         <t t-name="kanban-box">
 							<div class="oe_kanban_content">
 								<h4 class="text-center"><strong><field name="complete_name"/></strong></h4>
-								<a name="%(action_stock_picking_special_awans)d" type="action">
+								<a name="%(action_stock_picking_special)d" type="action">
 									<field name="count_picking_ready"/> Ready
 								</a>
 							</div>
@@ -258,7 +241,7 @@
                         <t t-name="kanban-box">
 							<div class="oe_kanban_content">
 								<h4 class="text-center"><strong><field name="complete_name"/></strong></h4>
-								<a name="%(action_stock_picking_special_wetteren)d" type="action">
+								<a name="%(action_stock_picking_special)d" type="action">
 									<field name="count_picking_ready"/> Ready
 								</a>
 							</div>

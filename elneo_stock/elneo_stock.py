@@ -62,6 +62,11 @@ class stock_picking(models.Model):
     
     picking_type_id = fields.Many2one(track_visibility="onchange")
     group_id = fields.Many2one(index=True)
+    section_id = fields.Many2one('crm.case.section', string="Sales team", compute="_get_section_id", store=True)
+    
+    @api.one
+    def _get_section_id(self):
+        self.section_id = self.create_uid.default_section_id
     
     @api.cr_uid_ids_context
     def do_enter_transfer_details(self, cr, uid, picking, context=None):

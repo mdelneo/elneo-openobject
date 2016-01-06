@@ -288,7 +288,7 @@
 	        action="crm.crm_case_categ_phone_incoming0" />
 	    <menuitem name="Leads" id="crm.menu_crm_leads" parent="menu_customer_relation" sequence="3"
             action="crm.crm_case_category_act_leads_all"/>
-        <menuitem id="sales_team.menu_sales_team_act" name="Sales Teams" parent="menu_customer_relation" sequence="5" />
+        <menuitem id="sales_team.menu_sales_team_act" name="Sales Teams" parent="menu_customer_relation" sequence="5" action="sales_team.crm_case_section_salesteams_act"  />
 <!--         <menuitem name="Claims" id="crm_claim.menu_crm_case_claims" -->
 <!--             parent="menu_customer_relation" action="crm_claim.crm_case_categ_claim0" sequence="1"/> -->
         <menuitem icon="STOCK_PREFERENCES" id="base.menu_tools"

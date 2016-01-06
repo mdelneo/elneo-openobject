@@ -17,6 +17,9 @@
 	                	<button name="get_procurement_path" string="Refresh" class="oe_inline"/>
                 	</div>
                 </xpath>
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                	<attribute name="options">{'always_reload':True}</attribute>
+                </xpath>
             </field>
         </record>
 	

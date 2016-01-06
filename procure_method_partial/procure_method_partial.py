@@ -39,8 +39,21 @@ class sale_order_line(models.Model):
         if self.procurement_path_backup:
             self.procurement_path = self.procurement_path_backup
         else:
+            #find if other lines with same rule and same product exists
+            #for the moment self.order_id.order_line return a table with only current_line (self). When the framework works, we can uncomment following lines to test 
+            #the goal is to compute procurement path in accordance with quantity of other lines with the same product
+            '''
+            other_line_qty = 0
+            for line in self.order_id.order_line:
+                self_ok = False
+                if line == self:
+                    self_ok = True #don't consider lines after current line.
+                if self_ok and line != self and line.product_id and self.product_id and line.product_id.id == self.product_id.id and line.route_id and self.route_id and line.route_id.id == self.route_id.id:
+                    other_line_qty = other_line_qty+line.product_uom_qty
+            '''
             rule = self.env['procurement.rule'].search([('route_id','=',self.route_id.id),('location_id','=',self.order_id.warehouse_id.wh_output_stock_loc_id.id)])
             if rule:
+                #self.procurement_path = rule.get_path(self.product_id, self.product_uom_qty, other_line_qty)
                 self.procurement_path = rule.get_path(self.product_id, self.product_uom_qty)
                 
     
@@ -60,6 +73,7 @@ class procurement_rule(models.Model):
     
     procure_methods = fields.One2many('procurement.rule.procure.method', 'rule_id', string='Procure methods')
     
+    #def get_path(self, product, quantity,other_line_qty):
     def get_path(self, product, quantity):
         remaining_qty = quantity
         path = ''
@@ -73,6 +87,7 @@ class procurement_rule(models.Model):
             else:
                 purchase = True
             
+            #if remaining_qty > 0 and self.env['procurement.order'].use_procure_method(product, procure_method, remaining_qty+other_line_qty, qty_in_stock):
             if remaining_qty > 0 and self.env['procurement.order'].use_procure_method(product, procure_method, remaining_qty, qty_in_stock):
                 if purchase: 
                     move_qty = remaining_qty

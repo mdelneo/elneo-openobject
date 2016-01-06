@@ -4,7 +4,7 @@ from openerp import models, api, fields
 class stock_transfer_details_items(models.TransientModel):
     _inherit = 'stock.transfer_details_items'
     
-    initial_quantity = fields.Float('Initial quantity')
+    initial_quantity = fields.Float('Ordered quantity')
     supplier_code = fields.Char('Supplier code')
             
             
@@ -36,4 +36,3 @@ class stock_transfer_details(models.TransientModel):
                             item['supplier_code'] = suppinfo.product_code
                 item['initial_quantity'] = item['quantity']
         return res
-  

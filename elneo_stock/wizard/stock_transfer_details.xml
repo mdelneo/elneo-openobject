@@ -21,6 +21,11 @@
 						<field name="change_quantity" colspan="2" />
 					</group>
 				</xpath>
+				
+				<xpath expr="//group/field[@name='item_ids']/tree" position="attributes">
+					<attribute name="delete">false</attribute>
+				</xpath>
+				
 			</field>
 		</record>
 	</data>

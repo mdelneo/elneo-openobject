@@ -1,0 +1,1 @@
+import shop_sale_procurement_jit_thread

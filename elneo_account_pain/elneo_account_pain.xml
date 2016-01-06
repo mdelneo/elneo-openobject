@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Payment order create -->
+		<record id="view_create_payment_order_elneo_supplier_invoice" model="ir.ui.view">
+            <field name="name">payment.order.create.form.elneo.supplier.invoice</field>
+            <field name="model">payment.order.create</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account_payment.view_create_payment_order" />
+            <field name="arch" type="xml">
+				<field name="duedate" position="after">
+					<field name="journal_id" widget="selection" />
+					<field name="without_litigation"/>
+					<separator string="Supplier" colspan="4" />
+					<field name="partner_ids" colspan="4" nolabel="1" />
+					<separator string="Invoice number" colspan="4" />
+					<field name="number_start" />
+					<field name="number_end" />
+				</field>
+            </field>
+        </record>
+		
+	</data>
+</openerp>

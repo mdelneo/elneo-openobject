@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-06 13:57+0000\n"
-"PO-Revision-Date: 2016-01-06 14:59+0100\n"
+"PO-Revision-Date: 2016-01-06 15:09+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: Elneo <support@elneo.com>\n"
 "MIME-Version: 1.0\n"
@@ -71,15 +71,15 @@ msgstr "Journal"
 #: code:addons/elneo_account_pain/elneo_account_pain.py:78
 #, python-format
 msgid "Populate Payment"
-msgstr "Populate Payment"
+msgstr "Ajouter à l'ordre de paiement"
 
 #. module: elneo_account_pain
 #: view:payment.order.create:elneo_account_pain.view_create_payment_order_elneo_supplier_invoice
 #: field:payment.order.create,partner_ids:0
 msgid "Supplier"
-msgstr "Supplier"
+msgstr "Fournisseur"
 
 #. module: elneo_account_pain
 #: field:payment.order.create,without_litigation:0
 msgid "Without litigations"
-msgstr "Without litigations"
+msgstr "Sans litiges"

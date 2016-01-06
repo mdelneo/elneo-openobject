@@ -7,7 +7,7 @@
     'description': "Adapt accounting flows to elneo specifics",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['base','account','sale','purchase','elneo_purchase', 'sale_layout','elneo_crm'],
+    'depends': ['base','account','sale','purchase','elneo_purchase', 'sale_layout','elneo_crm','purchase_invoice_validation'],
     "data" : ['views/elneo_account_view.xml',
               'views/sale_view.xml',
               'views/purchase_view.xml',

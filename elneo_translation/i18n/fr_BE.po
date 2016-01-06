@@ -103,3 +103,20 @@ msgstr "Codes H.S. (Intrastat)"
 #: model:ir.ui.menu,name:product.prod_config_main
 msgid "Product Categories & Attributes"
 msgstr "Catégories"
+
+#. module: crm
+#: model:ir.actions.act_window,name:crm.crm_case_categ_phone_incoming0
+#: model:ir.ui.menu,name:crm.menu_crm_case_phone_inbound
+msgid "Logged Calls"
+msgstr "Appels téléphoniques"
+
+
+#. module: purchase
+#: code:addons/purchase/wizard/purchase_order_group.py:72
+#: model:ir.actions.act_window,name:purchase.purchase_form_action
+#: model:ir.ui.menu,name:purchase.menu_purchase_form_action
+#: view:purchase.order:purchase.view_purchase_order_filter
+#: view:purchase.report:purchase.view_purchase_order_search
+#, python-format
+msgid "Purchase Orders"
+msgstr "Achats"

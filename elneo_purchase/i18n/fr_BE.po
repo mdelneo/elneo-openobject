@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-30 12:29+0000\n"
-"PO-Revision-Date: 2015-12-30 12:29+0000\n"
+"POT-Creation-Date: 2016-01-06 10:42+0000\n"
+"PO-Revision-Date: 2016-01-06 10:42+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,17 @@ msgstr "<p class=\"oe_view_nocontent_create\">\n"
 "                    converted into a purchase order, you will be able to control the receipt\n"
 "                    of the products and the supplier invoice.\n"
 "                </p>\n"
+"            "
+
+#. module: elneo_purchase
+#: model:ir.actions.act_window,help:elneo_purchase.action_purchase_and_purchase_rfq
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a request for quotation.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a request for quotation.\n"
+"              </p>\n"
 "            "
 
 #. module: elneo_purchase
@@ -107,7 +118,7 @@ msgstr "Notes..."
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Pickings"
-msgstr "Entrées et sorties"
+msgstr "Pickings"
 
 #. module: elneo_purchase
 #: model:ir.model,name:elneo_purchase.model_product_product
@@ -130,9 +141,14 @@ msgid "Purchase type"
 msgstr "Type d'Achat"
 
 #. module: elneo_purchase
+#: model:ir.actions.act_window,name:elneo_purchase.action_purchase_and_purchase_rfq
+msgid "Purchases and Requests for Quotation"
+msgstr "Achats et demandes de prix"
+
+#. module: elneo_purchase
 #: model:ir.actions.act_window,name:elneo_purchase.act_res_partner_2_purchase_order
 msgid "RFQs and Purchases"
-msgstr "Demandes de devis et achats"
+msgstr "Achats et demandes de prix"
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
@@ -170,3 +186,8 @@ msgstr "order_id"
 msgid "purchase_line_tree"
 msgstr "purchase_line_tree"
 
+#. module: purchase
+#: model:ir.actions.act_window,name:purchase.purchase_rfq
+#: model:ir.ui.menu,name:purchase.menu_purchase_rfq
+msgid "Requests for Quotation"
+msgstr "Demande de prix"

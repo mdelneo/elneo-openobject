@@ -367,7 +367,7 @@
         	/>
         	
         <menuitem id="stock.menu_stock_sched" name="Schedulers" parent="stock.menu_stock_configuration" sequence="4" groups="stock.group_stock_manager"/>
-        	
+        <menuitem id="stock.menu_traceability" name="Traceability" parent="stock.menu_stock_root" sequence="4"/>
         
         
         <!-- TRASH -->

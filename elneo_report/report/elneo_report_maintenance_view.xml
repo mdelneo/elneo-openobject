@@ -1,6 +1,117 @@
 <?xml version="1.0"?>
 <openerp>
-    <data>
-    	
-    </data>
+	<data>
+		<template id="report_maintenance_intervention_document_elneo_report"
+			inherit_id="maintenance.report_maintenance_intervention_document">
+			<xpath expr="//t[@t-call='report.external_layout']" position="replace">
+				<t t-call="report.external_layout">
+					<div class="page">
+						<div class="oe_structure" />
+						<div class="row">
+							<div class="col-xs-6">
+								<strong t-if="o.address_id">Intervention address:</strong>
+								<div t-field="o.address_id"
+									t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
+							</div>
+							<div class="dest_address">
+								<div t-field="o.partner_id"
+									t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
+							</div>
+						</div>
+						<h2>
+							<span>Intervention </span>
+							<span t-field="o.code" />
+						</h2>
+						<table class="table table-bordered" name="intervention_tasks">
+							<thead>
+								<tr style="background-color:lightgrey;">
+									<th style="text-align:center;">Start Date</th>
+									<th style="text-align:center;">End Date</th>
+									<th style="text-align:center;">Break Time</th>
+									<th style="text-align:center;">Time (Quarter(s))</th>
+									<th style="text-align:center;">Worker</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr t-foreach="o.tasks" t-as="t">
+									<td style="text-align:center;">
+										<span t-field="t.date_start" />
+									</td>
+									<td style="text-align:center;">
+										<span t-field="t.date_end" />
+									</td>
+									<td style="text-align:center;">
+										<span t-field="t.break_time" />
+									</td>
+									<td style="text-align:center;">
+										<span t-field="t.maintenance_time" />
+									</td>
+									<td style="text-align:center;">
+										<span t-field="t.user_id.name" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<h4>Spare parts</h4>
+						<table class="table table-bordered" name="spare_parts">
+							<thead>
+								<tr style="background-color:lightgrey;">
+									<th style="text-align:center;">Quantity</th>
+									<th style="text-align:center;">Product Name</th>
+									<th style="text-align:center;">Maintenance Element</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr t-foreach="o.intervention_products" t-as="p">
+									<td style="text-align:center;">
+										<span t-field="p.quantity" />
+									</td>
+									<td style="text-align:center;">
+										<span t-field="p.description" />
+									</td>
+									<td style="text-align:center;">
+										<span t-field="p.maintenance_element_id" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<h4>Worker Comments</h4>
+						<table class="table table-bordered" name="intervention_comment">
+							<thead>
+								<tr style="background-color:lightgrey;">
+									<th style="text-align:center;">Comment</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<span t-field="o.ext_comment" />
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+						<h4>Customer</h4>
+						<table class="table table-bordered" name="intervention_sign">
+							<thead>
+								<tr style="background-color:lightgrey;">
+									<th style="text-align:center;">Name</th>
+									<th style="text-align:center;">Signature</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr style="height:100px;">
+									<td></td>
+									<td></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</t>
+			</xpath>
+		</template>
+	</data>
 </openerp>

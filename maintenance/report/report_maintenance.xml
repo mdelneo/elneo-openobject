@@ -5,7 +5,7 @@
 <template id="report_maintenance_intervention_document">
         <t t-call="report.external_layout">
             <div class="page">
-            	<div class="oe_structure"/>
+				<div class="oe_structure" />
                 	<div class="row">
 		                <div class="col-xs-6">
 		                    <strong t-if="o.address_id">Intervention address:</strong>

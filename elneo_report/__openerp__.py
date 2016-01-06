@@ -7,7 +7,7 @@
     'description': '''Inheritance of all reports.''',
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['report','sale', 'purchase', 'stock'],
+    'depends': ['report','sale', 'purchase', 'stock','maintenance'],
     "data" : ['report/elneo_report_invoice_view.xml',
               'report/elneo_report_maintenance_view.xml',
               'report/elneo_report_purchase_view.xml',

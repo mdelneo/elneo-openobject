@@ -163,8 +163,8 @@
         <!-- TRASH -->
         <menuitem id="menu_account_trash" parent="base.menu_base_partner" name="Account Trash" sequence="999" groups="base.group_no_one" />
         <menuitem id="menu_account_trash_trash" parent="menu_account_trash" name="Account Trash" sequence="999" />
-        <menuitem id="account.menu_account_customer" parent="menu_account_trash_trash" action="action_partner_customer_form" groups="base.group_no_one" sequence="2"/>
-        <menuitem id="account.menu_account_supplier" parent="menu_account_trash_trash" action="action_partner_supplier_form" groups="base.group_no_one" sequence="2"/>
+        <menuitem id="account.menu_account_customer" parent="menu_account_trash_trash" action="account.action_partner_customer_form" groups="base.group_no_one" sequence="2"/>
+        <menuitem id="account.menu_account_supplier" parent="menu_account_trash_trash" action="account.action_partner_supplier_form" groups="base.group_no_one" sequence="2"/>
         
 		
 	</data>

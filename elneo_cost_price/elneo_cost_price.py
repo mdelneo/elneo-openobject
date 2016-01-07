@@ -7,11 +7,12 @@ class purchase_order_line(models.Model):
     _inherit = 'purchase.order.line'
     
     def _get_sale_order_lines(self):
+        sale_lines = []
         for move in self.move_ids:
             current_stock_move = move
             while current_stock_move:
                 if current_stock_move.procurement_id.sale_line_id:
-                    sale_lines = current_stock_move.procurement_id.sale_line_id
+                    sale_lines.append(current_stock_move.procurement_id.sale_line_id)
                 current_stock_move = current_stock_move.move_dest_id
         return sale_lines
     
@@ -33,7 +34,8 @@ class purchase_order_line(models.Model):
                 qty = vals.get('product_qty',self.product_qty)
                 cost_pricelist = supplier.cost_price_product_pricelist                   
                 cost_price = cost_pricelist.price_get(product_id, qty, supplier.id)[cost_pricelist.id]
-                sale_order_lines.purchase_price = cost_price
+                for line in sale_order_lines:
+                    line.purchase_price = cost_price
         return res
         
 

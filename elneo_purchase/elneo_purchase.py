@@ -1,6 +1,14 @@
 from openerp import models, fields, api
 
-
+class stock_move(models.Model):
+    _inherit = 'stock.move'
+    
+    @api.model
+    def _prepare_procurement_from_move(self, move):
+        res = super(stock_move,self)._prepare_procurement_from_move(move)
+        res['origin'] = move.group_id and move.group_id.name or ''
+        return res
+        
 class product_product(models.Model):
     _inherit = 'product.product'
     
@@ -62,6 +70,21 @@ class purchase_order(models.Model):
     
     purchase_type_id = fields.Many2one('purchase.order.type','Purchase Type')
     state = fields.Selection(STATE_SELECTION, 'Status', readonly=True)
+
+    #super method is in old api so we can't browse res so I rewrite the method in new API    
+    @api.multi
+    def action_picking_create(self):
+        for order in self:
+            picking_vals = {
+                'picking_type_id': order.picking_type_id.id,
+                'partner_id': order.partner_id.id,
+                'date': order.date_order,
+                'origin': order.name+' '+','.join([so.name for so in order.sale_ids])
+            }
+            picking = self.env['stock.picking'].create(picking_vals)
+            order._create_stock_moves(order, order.order_line, picking.id)
+        return picking.id
+    
     
     @api.model
     def default_get(self, fields_list):

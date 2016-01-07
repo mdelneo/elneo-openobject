@@ -105,6 +105,67 @@
 				<xpath expr="//group/group/field[@name='sale_layout_cat_id']" position="replace" />
             </field>
         </record>
+        
+        <record model='ir.ui.view' id='view_partner_form'>
+			<field name='name'>res.partner.vat.inherit.base.vat.unique.elneo</field>
+			<field name='model'>res.partner</field>
+			<field name='inherit_id' ref='base_vat_unique.view_partner_form'/>
+			<field name='arch' type='xml'>
+                <field name="vat" position="attributes">
+                    <attribute name="attrs">{'required':[('vat_subjected','=',True)]}</attribute>
+                </field>                
+			</field>
+		</record>
+        
+        <!-- 
+        <record id="action_partner_customer_form" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[('parent_id','=',False)]</field>
+            <field name="context">{'default_customer':1, 'search_default_customer':1}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                Odoo helps you easily track all activities related to
+                a customer: discussions, history of business opportunities,
+                documents, etc.
+              </p>
+            </field>
+        </record>
+        
+        <record id="action_partner_supplier_form" model="ir.actions.act_window">
+            <field name="name">Suppliers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('parent_id','=',False)]</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{'search_default_supplier': 1,'default_customer': 0,'default_supplier': 1}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                Odoo helps you easily track all activities related to
+                a supplier: discussions, history of purchases,
+                documents, etc.
+              </p>
+            </field>
+        </record>
+        
+         -->
+        
+        <!-- TRASH -->
+        <menuitem id="menu_account_trash" parent="base.menu_base_partner" name="Account Trash" sequence="999" groups="base.group_no_one" />
+        <menuitem id="menu_account_trash_trash" parent="menu_account_trash" name="Account Trash" sequence="999" />
+        <menuitem id="account.menu_account_customer" parent="menu_account_trash_trash" action="action_partner_customer_form" groups="base.group_no_one" sequence="2"/>
+        <menuitem id="account.menu_account_supplier" parent="menu_account_trash_trash" action="action_partner_supplier_form" groups="base.group_no_one" sequence="2"/>
+        
 		
 	</data>
 </openerp>

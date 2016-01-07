@@ -105,6 +105,10 @@
 					<attribute name="options">{'always_reload': True}</attribute>
 					<attribute name="domain">['|',('id','=',partner_id),'&amp;',('parent_id','=',partner_id),('type','in',['default','invoice','other'])]</attribute>
 				</field>
+				
+				<field name="contact_address_id" position="attributes">
+					<attribute name="context">{'show_parent':1}</attribute>
+				</field>
 				<separator string="Notes" position="before">
 					<separator string="Maintenance Spare Parts"/>
 					<field name="maintenance_product_description"/>

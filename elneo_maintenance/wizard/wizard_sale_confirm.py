@@ -58,7 +58,8 @@ class wizard_sale_confirm(models.TransientModel):
                             'name':line.product_id.default_code,
                             'product_id':line.product_id.id, 
                             'sale_order_line_id':line.id, 
-                            'element_model_id':model_id,                             
+                            'element_model_id':model_id,   
+                            'serialnumber_required':line.product_id.serialnumber_required                          
                         }
                         
                         if line.product_id.maintenance_element_type_id:

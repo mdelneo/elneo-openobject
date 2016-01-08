@@ -46,14 +46,24 @@ class maintenance_intervention(models.Model):
         for intervention in self:
             for intervention_product in intervention.intervention_products:
                 if intervention_product.serial_number and intervention_product.serial_number.count(';')+1 == intervention_product.sale_order_line_id.product_uom_qty:
-                    self.env['maintenance.element'].create_default(intervention_product.serial_number, intervention_product.sale_order_line_id.id, product_id = intervention_product.product_id.id, sale_order_id = intervention_product.intervention_id.sale_order_id.id, installation_id = intervention.installation_id.id)
+                    maintenance_element = self.env['maintenance.element'].create_default(intervention_product.serial_number, intervention_product.sale_order_line_id.id, product_id = intervention_product.product_id.id, sale_order_id = intervention_product.intervention_id.sale_order_id.id, installation_id = intervention.installation_id.id)
+                    lot_ids = [me.lot_id.id for me in maintenance_element]
+                    #link lot_ids to stock_moves
+                    procurements = self.env['procurement.order'].search([('sale_line_id','=',intervention_product.sale_order_line_id.id)])
+                    for procurement in procurements:
+                        moves = self.env['stock.move'].search([('procurement_id','=',procurement.id)])
+                        for move in moves:
+                            move.restrict_lot_id = lot_ids.pop() 
                 #TODO : BEST MANAGEMENT (WITHOUT ;)
                 elif intervention_product.sale_order_line_id and intervention_product.product_id.track_outgoing:
                     raise Warning(_('Please enter %s serial number of product %s')%(str(intervention_product.sale_order_line_id.product_uom_qty), intervention_product.product_id.default_code))
                 
-
+        
         return super(maintenance_intervention, self).action_done()
 
+class stock_transfer_details_items(models.TransientModel):
+    _inherit = 'stock.transfer_details_items'
+    maintenance_element_id = fields.Many2one('maintenance.element', 'Maintenance element')
     
 class stock_transfer_details(models.TransientModel):
     _inherit = 'stock.transfer_details'
@@ -82,7 +92,23 @@ class stock_transfer_details(models.TransientModel):
                     split=True
                 if product.unique_serial_number and product.track_outgoing and dest.usage in ('customer', 'transit') and src.usage == 'internal':
                     split=True
-            
+                
+                #find maintenance elements of current sale order line
+                maintenance_elements = []
+                if item.get('packop_id',False):
+                    packop_id = self.env['stock.pack.operation'].browse(item['packop_id'])
+                    if packop_id.linked_move_operation_ids:
+                        for linked_move in packop_id.linked_move_operation_ids:
+                            if linked_move.move_id and linked_move.move_id.procurement_id and linked_move.move_id.procurement_id.sale_line_id and linked_move.move_id.procurement_id.sale_line_id.maintenance_element_ids:
+                                maintenance_elements.extend(linked_move.move_id.procurement_id.sale_line_id.maintenance_element_ids)
+                item['maintenance_elements'] = maintenance_elements
+                if maintenance_elements and len(maintenance_elements) == 1:
+                    if maintenance_elements[0].lot_id:
+                        item['lot_id'] = maintenance_elements[0].lot_id.id
+                        item['serial_number'] = maintenance_elements[0].lot_id.name
+                    item['maintenance_element_id'] = maintenance_elements[0].id
+                
+                    
                 if split:
                     items = self._split_quantities(item)
                     res_items.extend(items)
@@ -102,6 +128,12 @@ class stock_transfer_details(models.TransientModel):
             new_item = item.copy()
             new_item['quantity'] = 1
             new_item['packop_id'] = False
+            maintenance_elt = new_item['maintenance_elements'].pop()
+            if maintenance_elt:
+                if maintenance_elt.lot_id:
+                    new_item['lot_id'] = maintenance_elt.lot_id.id
+                    new_item['serial_number'] = maintenance_elt.lot_id.name
+                new_item['maintenance_element_id'] = maintenance_elt.id
             res.append(new_item)
             res.extend(self._split_quantities(item))
         else:
@@ -112,27 +144,15 @@ class stock_transfer_details(models.TransientModel):
     
     @api.one
     def do_detailed_transfer(self):
-        '''
+        res = super(stock_transfer_details,self).do_detailed_transfer()
+        
+        #update serial number of linked maintenance elements
         for item in self.item_ids:
-            if item.serialnumber_required:
-                print 'ok'
-        '''       
-        if super(stock_transfer_details,self).do_detailed_transfer():
-            processed_ids = []
-            # Create new and update existing pack operations
-            for lstits in [self.item_ids, self.packop_ids]:
-                for prod in lstits:
-                    for item in prod.filtered(lambda r:r.product_id.maintenance_product):
-                        for move_op in item.packop_id.linked_move_operation_ids:
-                            if move_op.move_id.procurement_id.sale_line_id and move_op.move_id.procurement_id.sale_line_id.product_id:
-                                self.env['maintenance.element'].create_default(item.lot_id.name, move_op.move_id.procurement_id.sale_line_id.id)  
+            if item.lot_id and item.maintenance_element_id:
+                item.maintenance_element_id.lot_id = item.lot_id
         
-        else:
-            return False
-        
-        return True          
-     
-
+        return res
+            
 
 class maintenance_element(models.Model):
     _inherit = 'maintenance.element'
@@ -157,7 +177,7 @@ class maintenance_element(models.Model):
                         #'contact_address_id':contact_address_id,                         
                     })
         
-        if not serial_number:
+        if not serial_number and product_id and product_id.serialnumber_req:
             raise Warning(_('Serial number needed'))
         
         if not sale_order_line_id and (not product_id or not sale_order_id) and (not product_id or not installation_id):
@@ -201,75 +221,22 @@ class maintenance_element(models.Model):
         if product and product.maintenance_element_type_id:
             element_type_id = product.maintenance_element_type_id.id
             
-        serial_numbers = serial_number.split(';')
         maint_elt_ids = []
         
-        for serial in serial_numbers:
-            #refresh sale order line
-            sol = self.env['sale.order.line'].browse(sol.id)
-            if sol and sol.maintenance_element_ids:
-                for element in sol.maintenance_element_ids:
-                    #maintenance element linked to sale_order_line : only update serial number, and installation and warranty dates
-                    if (not element.serial_number or element.serial_number == serial) and (element.id not in maint_elt_ids):
-                        #if partner is different, update installation
-                        if element.partner_id.id != partner.id:
-                            self.env['maintenance.installation'].write([element.installation_id.id], {'partner_id':partner.id, 
-                                    'address_id':delivery_address_id, 
-                                    'invoice_address_id':invoice_address_id, 
-                                    })
-                        
-                        element.serial_number = serial
-                        element.installation_date=datetime.now().strftime('%Y-%m-%d')
-                        element.warranty_date=(datetime.now()+year).strftime('%Y-%m-%d')
-                        element.serialnumber_required=True
-                        element.type_id=element_type_id
-                        
-                        found = True
-                        break
-            else:
-                #search through existing maintenance elements any with the same serial number and link it to the customer
-                maint_elements = maint_elt_pool.search([('serial_number', '=', serial)])
-                if len(maint_elements) > 1:
-                    raise Warning(_('There are %s lines with the same serial number') % len(maint_elements))
-                elif len(maint_elements) == 1:
-                    maint_elt_id = maint_elements[0]
-                    
-                    maint_element = maint_elt_pool.browse(maint_elements[0]) 
-                    
-                    elt = {
-                      'serial_number':serial, 
-                      'name':me_name, 
-                      'product_id':product_id,
-                      'installation_date':datetime.now().strftime('%Y-%m-%d'), 
-                      'warranty_date':(datetime.now()+year).strftime('%Y-%m-%d'),
-                      'serialnumber_required':True, 
-                      'sale_order_line_id':sale_order_line_id,
-                      'element_type_id':element_type_id,
-                      }
-                    
-                    #if partner is different, change installation
-                    if maint_element.partner_id.id != partner.id:
-                        elt['installation_id'] = get_installation(partner, invoice_address_id, delivery_address_id)
-                    
-                    maint_elt_pool.write([maint_elt_id], elt)
-                    
-                    found = True
-            
-            if not found:
-                #if not any maintenance element found create it
-                if not installation_id:
-                    installation_id = get_installation(partner, invoice_address_id, delivery_address_id)
-                maint_elt_id = maint_elt_pool.create({
-                    'installation_id':installation_id.id,
-                    'serial_number':serial, 
-                    'name':me_name, 
-                    'product_id':product_id, 
-                    'installation_date':datetime.now().strftime('%Y-%m-%d'), 
-                    'warranty_date':(datetime.now()+year).strftime('%Y-%m-%d'), 
-                    'serialnumber_required':True, 
-                    'sale_order_line_id':sale_order_line_id, 
-                    'element_type_id':element_type_id,
-                    })
+        for serial in serial_number.split(';'):
+            if not installation_id:
+                installation_id = get_installation(partner, invoice_address_id, delivery_address_id).id
+            maint_elt_id = maint_elt_pool.create({
+                'installation_id':installation_id,
+                'serial_number':serial, 
+                'name':me_name, 
+                'product_id':product_id, 
+                'installation_date':datetime.now().strftime('%Y-%m-%d'), 
+                'warranty_date':(datetime.now()+year).strftime('%Y-%m-%d'), 
+                'serialnumber_required':True, 
+                'sale_order_line_id':sale_order_line_id, 
+                'element_type_id':element_type_id,
+                })
             
             maint_elt_ids.append(maint_elt_id)
             

@@ -179,9 +179,7 @@
 			<field name="arch" type="xml">
 			<field name="name"/>
 				<xpath expr="//field[@name='order_line']//field[@name='name']" position="after">
-					<page string="Properties">
-						<field name="sale_quotation_properties" nolabel="1" colspan="4" />
-					</page>
+					<field name="sale_quotation_properties" nolabel="1" colspan="4" />
 				</xpath>
 			</field>
 		</record>

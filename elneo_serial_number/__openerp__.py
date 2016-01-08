@@ -7,7 +7,7 @@
     'description': "Allows the management of a simpler view for serial number checkbox on products",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['stock','stock_serial_number'],
+    'depends': ['stock','maintenance_serial_number'],
     "data" : ["elneo_serial_number_view.xml",],
     'installable': True,
     'active': False,

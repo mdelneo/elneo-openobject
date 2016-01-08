@@ -96,7 +96,9 @@ class sale_order(models.Model):
             
             
             carrier_id = self.env['ir.config_parameter'].get_param('delivery_method_auto.default_carrier_id',False)
-            if carrier_id and carrier_id != 'False':
+            if carrier_id == 'False':
+                carrier_id = None
+            if carrier_id:
                 carrier_id = int(carrier_id)
             result['value']['carrier_id'] = carrier_id
         return result

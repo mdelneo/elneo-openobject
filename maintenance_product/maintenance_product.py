@@ -241,7 +241,7 @@ class maintenance_intervention(models.Model):
         order_line['order_id'] = sale_order.id
         
 
-        order_line['name'] = intervention_product.description
+        order_line['name'] = intervention_product.description or '-'
             
        
         order_line['price_unit'] = intervention_product.sale_price

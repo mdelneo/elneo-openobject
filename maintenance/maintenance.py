@@ -416,12 +416,35 @@ class maintenance_element(models.Model):
     def _get_code(self):
         return self.env['ir.sequence'].get('maintenance.element')
     
+    def update_vals_lot(self,vals):
+        #if we update serial_number and lot_id does not exists : create new lot
+        if vals.get('serial_number',False) and not vals.get('lot_id',False) and not self.lot_id:
+            new_lot = {'name':vals['serial_number']}
+            product_id = vals.get('product_id',self.product_id.id)
+            if product_id:
+                new_lot['product_id'] = product_id
+            vals['lot_id'] = self.env['stock.production.lot'].create(new_lot).id
+        return vals
+        
+    
+    @api.model
+    @api.returns('self', lambda value:value.id)
+    def create(self, vals):
+        vals = self.update_vals_lot(vals)
+        return super(maintenance_element,self).create(vals)
+    
+    @api.multi
+    def write(self, vals):
+        vals = self.update_vals_lot(vals)
+        return super(maintenance_element,self).write(vals)
+    
     installation_id = fields.Many2one('maintenance.installation', 'Installation', index=True)
     code = fields.Char("Reference", size=255, index=True,default=_get_code)
     partner_id = fields.Many2one(related="installation_id.partner_id", relation="res.partner", readonly=True, string="Customer", store=True)
     name = fields.Char("Name", size=255, index=True) 
     product_id = fields.Many2one('product.product', 'Product', index=True)
-    serial_number = fields.Char("Serial Number", size=255, index=True)
+    lot_id = fields.Many2one('stock.production.lot',"Serial Number", size=255, index=True)
+    serial_number = fields.Char(related='lot_id.name', string="Serial number")
     description = fields.Text("Description")
     installation_date = fields.Date("Installation date")
     warranty_date = fields.Date("Warranty date")

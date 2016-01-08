@@ -177,6 +177,16 @@
                 	<attribute name="context">{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'price_unit':price_unit}</attribute>
                 </xpath>
                 
+                <xpath expr="//field[@name='sale_quotation_properties']" position="replace">
+                	<notebook>
+                		<page string="Properties">
+                			<field name="sale_quotation_properties" nolabel="1" colspan="4" />
+                		</page>
+                		<page string="Maintenance elements">
+                			<field name="maintenance_element_ids" />
+                		</page>
+                	</notebook>
+                </xpath>
 			</field>
         </record>
         

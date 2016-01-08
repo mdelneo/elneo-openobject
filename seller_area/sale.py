@@ -5,8 +5,12 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     @api.model
-    def _find_sale_man_id(self,partner_shipping_id):
-        if not partner_shipping_id or not self.env.user.default_section_id:
+    def _find_sale_man_id(self,partner_shipping_id,section_id=None):
+        
+        if section_id is None:
+            section_id = self.env.user.default_section_id.id
+        
+        if not partner_shipping_id or not section_id:
             return None
         
         corr_obj = self.env['res.user.zip.rel']
@@ -17,12 +21,12 @@ class sale_order(models.Model):
         else:
             partner = addr
             
-        partner_exceptions = exception_obj.search([('partner', '=', partner.id), ('department', '=', self.env.user.default_section_id.id)])
+        partner_exceptions = exception_obj.search([('partner', '=', partner.id), ('department', '=', section_id)])
         if partner_exceptions:
             sale_exception = partner_exceptions[0]
             return sale_exception.user.id
         
-        corr_ids = corr_obj.search([('zip_min', '<=', addr.zip), ('zip_max', '>=', addr.zip), ('department', '=', self.env.user.default_section_id.id)])
+        corr_ids = corr_obj.search([('zip_min', '<=', addr.zip), ('zip_max', '>=', addr.zip), ('department', '=',section_id)])
         if corr_ids:
             corr = corr_ids[0]
             return corr.user.id

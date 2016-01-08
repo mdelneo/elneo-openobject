@@ -68,6 +68,24 @@ class account_invoice(models.Model):
     @api.multi
     def test_virtual(self):
         return False
+    
+    @api.multi
+    def write(self,vals):
+        if vals.get('partner_id',False):
+            self._onchange__partner_id()
+        
+        return super(account_invoice,self).write(vals)
+    
+    @api.model
+    def create(self,vals):
+            
+        if vals.get('partner_id',False):
+            partner = self.env['res.partner'].browse(vals.get('partner_id'))
+            
+            vals['_partner_id'] = partner.commercial_partner_id.id
+            
+        return super(account_invoice,self).create(vals)            
+       
      
     @api.model
     def default_get(self, fields_list):
@@ -107,17 +125,18 @@ class account_invoice(models.Model):
                 else:
                     self.partner_id = self._partner_id
             
-                
-                
-    def onchange_partner_id(self,cr, uid, ids,type, partner_id, date_invoice, payment_term, partner_bank_id, company_id, context):
-        res = super(account_invoice,self).onchange_partner_id(cr, uid, ids,type, partner_id, date_invoice, payment_term, partner_bank_id, company_id, context)
-        if partner_id:
-            partner = self.pool['res.partner'].browse(cr,uid,partner_id,context=context)
-            vals = res['value']
-            vals.update({'_partner_id':partner.commercial_partner_id.id})
-            res['value'].update(vals)
-        
-        return res
+    
+    @api.multi
+    def onchange_partner_id(self, type, partner_id, date_invoice=False,
+                            payment_term=False, partner_bank_id=False,
+                            company_id=False):
+        result = super(account_invoice, self).onchange_partner_id(
+            type, partner_id, date_invoice, payment_term, partner_bank_id,
+            company_id)
+        if type == 'out_invoice' and partner_id:
+            partner = self.env['res.partner'].browse(partner_id)
+            result['value']['_partner_id'] = partner.commercial_partner_id
+        return result            
     
     purchase_type_id = fields.Many2one(comodel_name='purchase.order.type', string='Purchase type', compute='_get_purchase_type', readonly=True)
     purchase_ids = fields.Many2many('purchase.order', 'purchase_invoice_rel', 'invoice_id', 'purchase_id', 'Purchases')

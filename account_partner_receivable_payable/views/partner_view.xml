@@ -2,7 +2,7 @@
 <openerp>
     <data>
 		<record model="ir.actions.act_window" id="action_partner_receivable_payable">
-			<field name="context">{'search_default_reconcile_id':False, 'search_default_partner_id':[active_id]}</field> 
+			<field name="context">{'search_default_unreconciled': 1, 'search_default_partner_id':[active_id]}</field> 
 			<field name="domain">[('account_id.reconcile', '=', True),('account_id.type', 'in', ['receivable', 'payable'])]</field> 
 			<field name="name">Receivables &amp; Payables</field> 
 			<field name="res_model">account.move.line</field>

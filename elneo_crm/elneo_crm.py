@@ -4,6 +4,7 @@ from openerp.exceptions import ValidationError
 from openerp.exceptions import Warning
 import re
 
+
 class res_partner(models.Model):
     _inherit = 'res.partner'
     
@@ -132,12 +133,12 @@ class res_partner(models.Model):
     
     @api.constrains('name')
     def _check_name(self):
-        if self._context.get('copy',False):
+        if self._context.get('copy',False) or self._context.get('NewMeeting',False):
             return True
         
         #Mother companies must have name
         if (not self.parent_id and not self.name):
-            raise ValidationError("You must fill in the name for this partner!")
+            raise ValidationError("You must fill in the name for partner '%s' !"%(str(self.id),))
         
         if self.name and self.is_company:
             self._cr.execute('select id from res_partner where active = True and parent_id is null and id != %s and upper(name) = %s',(self.id,self.name.upper()))

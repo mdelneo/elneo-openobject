@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+	
+		<!-- CALENDAR -->
+		
+		<record id="calendar.action_calendar_event" model="ir.actions.act_window">
+	        <field name="context">{'search_default_myevents':1}</field>
+	    </record>
+		
+		
+		<record id="view_calendar_event_search_elneo_crm" model="ir.ui.view">
+	        <field name="name">view.calendar.event.search.elneo.crm</field>
+	        <field name="inherit_id" ref="calendar.view_calendar_event_search"/>
+	        <field name="model">calendar.event</field>
+	        <field name="arch" type="xml">
+	        
+	        	<xpath expr="//filter[@string='My Events']" position="attributes">
+	        		<attribute name="name">myevents</attribute>
+	        	</xpath>
+	        
+	        	<xpath expr="//filter[@name='mymeetings']" position="after">
+	        		<group string="Classification">
+	        			<filter string="Unclassifieds events" domain="[('categ_ids','=',False)]" help="Events without tag" />
+	        		</group>
+	        	</xpath>
+	        </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_calendar_event_form_elneo_crm">
+	    	<field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+	        <field name="name">view.calendar.event.form.elneo.crm</field>
+	        <field name="model">calendar.event</field>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='alarm_ids']" position="after">
+	        		<field name="validated" />
+	        	</xpath>
+			</field>
+		</record>	
+		
+		<record model="ir.ui.view" id="view_calendar_event_form_popup_elneo_crm">
+			<field name="inherit_id" ref="calendar.view_calendar_event_form_popup"/>
+	        <field name="name">view.calendar.event.form.popup.elneo.crm</field>
+	        <field name="model">calendar.event</field>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='alarm_ids']" position="after">
+	        		<field name="validated" />
+	        	</xpath>
+	        </field>
+	    </record>
+	    
+	    <record id="view_calendar_event_type_tree_elneo_crm" model="ir.ui.view">
+	        <field name="name">view.calendar.event.type.tree.elneo.crm</field>
+	        <field name="inherit_id" ref="calendar.view_calendar_event_type_tree"/>
+	        <field name="model">calendar.event.type</field>
+	        <field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="google_prefix" />
+				</field>
+	        </field>
+	    </record>   
+		    
+		
+		
+		<!-- PARTNERS -->
 		<!-- delete purchase_order_count to increase performance -->
 		<record model="ir.ui.view" id="purchase_partner_kanban_view_elneo_crm">
             <field name="name">purchase.partner.kanban.view.elneo.crm</field>

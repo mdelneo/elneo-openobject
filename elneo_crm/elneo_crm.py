@@ -4,6 +4,43 @@ from openerp.exceptions import ValidationError
 from openerp.exceptions import Warning
 import re
 
+class calendar_event_type(models.Model):
+    _inherit = 'calendar.event.type'
+    google_prefix = fields.Char('google_prefix')
+     
+
+class calendar_event(models.Model):
+    _inherit = 'calendar.event'
+    
+    validated = fields.Boolean('Validated')
+    
+    @api.one
+    @api.depends('categ_ids','validated')
+    @api.onchange('categ_ids','validated')
+    def update_name(self):
+        name = self.name
+        if not name:
+            name = ''
+        
+        #compute prefix
+        if self.validated:
+            prefix = '[V]'
+        else:
+            prefix = ''
+        
+        if self.categ_ids:
+            for categ in self.categ_ids:
+                if categ.google_prefix:
+                    prefix = prefix + '[' + categ.google_prefix + ']'
+                
+        #keep original name
+        name = name[name.rfind(']')+1:]
+        
+        #add prefix
+        self.name = prefix+name
+        
+    
+        
 
 class res_partner(models.Model):
     _inherit = 'res.partner'

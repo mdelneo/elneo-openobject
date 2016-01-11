@@ -222,7 +222,7 @@
             <field name="inherit_id" ref="sale.view_sales_order_filter"/>
             <field name="arch" type="xml">
             	<xpath expr="//filter[@string='My']" position="after">
-            		<filter string="My Team" domain="[('section_id.member_ids','in',[uid])]" name="my_sale_team_orders_filter"/>
+            		<filter string="My Team" context="{'my_dpt':True}" name="my_sale_team_orders_filter"/>
             	</xpath>
             	<xpath expr="//filter[@string='To Invoice']" position="after">
             		<filter string="Invoiced" domain="[('is_invoiced','in',[True])]" name="orders_invoiced_filter"/>

@@ -82,9 +82,21 @@ class stock_picking(models.Model):
         for pick in self.browse(cr, uid, picking_ids, context):
             pick.action_sync()
         return res
-        
+    
+    @api.model
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        #if my_dpt : display picking of sale teams of current user. If user is not linked to a sale team, display all picks 
+        section_ids = self.env['crm.case.section'].search([('member_ids','in',self._uid)])
+        if self._context.get('my_dpt',True) and section_ids:
+            args.append(('section_id','in',[s.id for s in section_ids]))
+        return super(stock_picking, self).search(args, offset, limit, order, count=count)
     
 stock_picking()
+
+class res_users(models.Model):
+    _inherit = 'res.users'
+    section_ids = fields.Many2many('crm.case.section', 'sale_member_rel', 'member_id', 'section_id', 'Sale teams'),
+    
 
 class stock_picking_type(models.Model):
     _inherit = 'stock.picking.type'

@@ -2,7 +2,19 @@
 from openerp import models,fields,api,_
 from openerp.exceptions import ValidationError
 from openerp.exceptions import Warning
+from openerp.addons.mail.mail_thread import mail_thread
 import re
+
+
+class mail_thread(mail_thread):
+    """ Disable autofollow
+    """
+    def message_post(self, *args, **kwargs):
+        if kwargs.get('context') is None:
+            kwargs['context'] = {}
+        kwargs['context']['mail_post_autofollow'] = False
+        kwargs['context']['mail_create_nosubscribe'] = True
+        return super(mail_thread, self).message_post(*args, **kwargs)
 
 class calendar_event_type(models.Model):
     _inherit = 'calendar.event.type'

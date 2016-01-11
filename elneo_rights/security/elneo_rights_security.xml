@@ -13,6 +13,31 @@
 	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
 	    </record>
 	    
+	    <!-- NOT USED FOR THE MOMENT
+	    <record id="group_adm_awans" model="res.groups">
+	        <field name="name">Administrative Awans</field>
+	        <field name="category_id" ref="base.module_category_warehouse_management"/>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	    </record>
+	    
+	    <record id="group_adm_wetteren" model="res.groups">
+	        <field name="name">Administrative Wetteren</field>
+	        <field name="category_id" ref="base.module_category_warehouse_management"/>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	    </record>
+	    
+	    <record id="group_seller_awans" model="res.groups">
+	        <field name="name">Seller Awans</field>
+	        <field name="category_id" ref="base.module_category_warehouse_management"/>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	    </record>
+	    
+	    <record id="group_seller_wetteren" model="res.groups">
+	        <field name="name">Seller Wetteren</field>
+	        <field name="category_id" ref="base.module_category_warehouse_management"/>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	    </record>
+	     -->
 	    
 	</data>
 </openerp>

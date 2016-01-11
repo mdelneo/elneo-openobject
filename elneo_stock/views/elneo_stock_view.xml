@@ -59,7 +59,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt':1}</field>
-            <field name="domain">[('picking_type_id','=',23),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',33),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_verif_adm_awans" model="ir.actions.act_window">
@@ -79,7 +79,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt':1}</field>
-            <field name="domain">[('picking_type_id','=',22),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',18),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_account_block_delivery_awans" model="ir.actions.act_window">
@@ -139,7 +139,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt':1}</field>
-            <field name="domain">[('picking_type_id','=',21),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',25),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_montage_wetteren" model="ir.actions.act_window">
@@ -149,7 +149,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt':1}</field>
-            <field name="domain">[('picking_type_id','=',23),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',27),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_verif_adm_wetteren" model="ir.actions.act_window">
@@ -159,7 +159,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt':1}</field>
-            <field name="domain">[('picking_type_id','=',22),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',24),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_decale_wetteren" model="ir.actions.act_window">
@@ -169,7 +169,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt':1}</field>
-            <field name="domain">[('picking_type_id','=',22),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',7),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_account_block_delivery_wetteren" model="ir.actions.act_window">

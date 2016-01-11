@@ -33,7 +33,7 @@
 									<div t-if="o.partner_shipping_id == o.partner_invoice_id">
 										<strong>Invoice and shipping address:</strong>
 										<br />
-										<span t-field="o.partner_shipping_id.parent_id.name" />
+										<span t-field="o.partner_shipping_id.commercial_partner_id.name" />
 										<br />
 										<div
 											t-if="o.partner_shipping_id.lastname or o.partner_shipping_id.firstname">
@@ -56,7 +56,7 @@
 										class="mt8">
 										<strong>Shipping address:</strong>
 										<br />
-										<span t-field="o.partner_shipping_id.parent_id.name" />
+										<span t-field="o.partner_shipping_id.commercial_partner_id.name" />
 										<br />
 										<div
 											t-if="o.partner_shipping_id.lastname or o.partner_shipping_id.firstname">
@@ -80,7 +80,7 @@
 									<div t-if="o.partner_shipping_id != o.partner_invoice_id">
 										<strong>Invoice address:</strong>
 										<br />
-										<span t-field="o.partner_invoice_id.parent_id.name" />
+										<span t-field="o.partner_invoice_id.commercial_partner_id.name" />
 										<br />
 										<span t-if="o.partner_shipping_id.street">
 											<span t-field="o.partner_invoice_id.street" />
@@ -97,7 +97,7 @@
 								</td>
 								<td>
 									<strong>
-										<span t-field="o.partner_order_id.parent_id.name" />
+										<span t-field="o.partner_order_id.commercial_partner_id.name" />
 									</strong>
 									<br />
 									<div
@@ -213,7 +213,6 @@
 							</div>
 						</div>
 
-						<p t-field="o.note" />
 						<div>
 							<p t-if="o.delivery_date">
 								<strong>Delivery time :</strong>
@@ -223,11 +222,17 @@
 								<strong>Payment Term:</strong>
 								<span t-field="o.payment_term.note" />
 							</p>
+							<p t-if="o.note">
+								<strong>Note:</strong>
+								<span t-field="o.note" />
+							</p>
 						</div>
 						<span> Thank you to check all the information in this order
 							aknowledgment, in particular shipping and biling addresses. If
 							information prove erroneous, thank you to contact us as soon as
-							possible</span>
+							possible
+						</span>
+
 						<div class="oe_structure" />
 					</div>
 				</t>
@@ -254,137 +259,237 @@
 		<template
 			id="report_saleorder_confirmation_discount_document_elneo_report">
 			<t t-name="elneo_report.report_saleorder_confirmation_document_elneo_report">
-		    <t t-call="report.external_layout">
-		        <div class="page">
-		            <div class="oe_structure"/>
+				<t t-call="report.external_layout">
+					<div class="page">
+						<div class="oe_structure" />
 
-                           <table width="100%"> 
-                              <col width="50%"/> 
-                              <col width="50%"/>
-                                     <tr>
-                                        <td>
-                                           <div t-if="o.partner_shipping_id == o.partner_invoice_id"><strong>Invoice and shipping address:</strong><br/>
-                                              <span t-field="o.partner_shipping_id.parent_id.name"/><br/>
-                                              <div t-if="o.partner_shipping_id.lastname or o.partner_shipping_id.firstname"> 
-                                                 <span t-field="o.partner_shipping_id.title.name"/> <span t-field="o.partner_shipping_id.firstname"/>
-                                                  <span t-field="o.partner_shipping_id.lastname"/>
-                                              </div>
-                                          <span t-if="o.partner_shipping_id.street"> <span t-field="o.partner_shipping_id.street"/><br/></span>
-                                         <span t-field="o.partner_shipping_id.zip"/> <span t-field="o.partner_shipping_id.city"/><br/>
-                                         <span t-if="o.partner_shipping_id.country_id.name"> <span t-field="o.partner_shipping_id.country_id.name"/></span>
-                                           </div>
-	                                   <div t-if="o.partner_shipping_id != o.partner_invoice_id" class="mt8">
-		                           <strong>Shipping address:</strong><br/>
-                                           <span t-field="o.partner_shipping_id.parent_id.name"/><br/>
-                                           <div t-if="o.partner_shipping_id.lastname or o.partner_shipping_id.firstname"> <span>To </span> <span t-field="o.partner_shipping_id.title.name"/> <span t-field="o.partner_shipping_id.firstname"/> <span t-field="o.partner_shipping_id.lastname"/></div>
-                                          <span t-if="o.partner_shipping_id.street"> <span t-field="o.partner_shipping_id.street"/><br/></span>
-                                          <span t-field="o.partner_shipping_id.zip"/> <span t-field="o.partner_shipping_id.city"/><br/>
-                                          <span t-if="o.partner_shipping_id.country_id.name"> <span t-field="o.partner_shipping_id.country_id.name"/></span>
-		                    </div> <br/>
-		                    <div t-if="o.partner_shipping_id != o.partner_invoice_id"><strong>Invoice address:</strong><br/>
-                                    <span t-field="o.partner_invoice_id.parent_id.name"/><br/>
-                                         <span t-if="o.partner_shipping_id.street"> <span t-field="o.partner_invoice_id.street"/><br/></span>
-                                         <span t-field="o.partner_invoice_id.zip"/> <span t-field="o.partner_invoice_id.city"/><br/>
-                                         <span t-if="o.partner_shipping_id.country_id.name"> <span t-field="o.partner_invoice_id.country_id.name"/></span>
-		                    </div> <br/>                  
-                                        </td>
-                                        <td>
-                                           <strong><span t-field="o.partner_order_id.parent_id.name"/></strong><br/>
-                                           <div t-if="o.partner_order_id.lastname or o.partner_order_id.firstname"><span t-field="o.partner_order_id.title.name"/> <span t-field="o.partner_order_id.firstname"/> <span t-field="o.partner_order_id.lastname"/></div>
-                                           <span t-if="o.partner_shipping_id.street"> <span t-field="o.partner_order_id.street"/><br/></span>
-                                           <span t-field="o.partner_order_id.zip"/> <span t-field="o.partner_order_id.city"/><br/>
-                                           <span t-if="o.partner_shipping_id.country_id.name"> <span t-field="o.partner_order_id.country_id.name"/><br/></span>
-                                           <br/>
-                                           <span t-if="o.partner_order_id.phone"><span>Tel:</span> <span t-field="o.partner_order_id.phone"/><br/></span>
-                                           <span t-if="o.partner_order_id.fax"><span>Fax:</span> <span t-field="o.partner_order_id.fax"/><br/></span>
-                                           <span t-if="o.partner_vat"><span>VAT:</span>  <span t-field="o.partner_vat"/><br/></span>
-                                        </td>
-                                    </tr> 
-                            </table>
+						<table width="100%">
+							<col width="50%" />
+							<col width="50%" />
+							<tr>
+								<td>
+									<div t-if="o.partner_shipping_id == o.partner_invoice_id">
+										<strong>Invoice and shipping address:</strong>
+										<br />
+										<span t-field="o.partner_shipping_id.commercial_partner_id.name" />
+										<br />
+										<div
+											t-if="o.partner_shipping_id.lastname or o.partner_shipping_id.firstname">
+											<span t-field="o.partner_shipping_id.title.name" />
+											<span t-field="o.partner_shipping_id.firstname" />
+											<span t-field="o.partner_shipping_id.lastname" />
+										</div>
+										<span t-if="o.partner_shipping_id.street">
+											<span t-field="o.partner_shipping_id.street" />
+											<br />
+										</span>
+										<span t-field="o.partner_shipping_id.zip" />
+										<span t-field="o.partner_shipping_id.city" />
+										<br />
+										<span t-if="o.partner_shipping_id.country_id.name">
+											<span t-field="o.partner_shipping_id.country_id.name" />
+										</span>
+									</div>
+									<div t-if="o.partner_shipping_id != o.partner_invoice_id"
+										class="mt8">
+										<strong>Shipping address:</strong>
+										<br />
+										<span t-field="o.partner_shipping_id.commercial_partner_id.name" />
+										<br />
+										<div
+											t-if="o.partner_shipping_id.lastname or o.partner_shipping_id.firstname">
+											<span>To </span>
+											<span t-field="o.partner_shipping_id.title.name" />
+											<span t-field="o.partner_shipping_id.firstname" />
+											<span t-field="o.partner_shipping_id.lastname" />
+										</div>
+										<span t-if="o.partner_shipping_id.street">
+											<span t-field="o.partner_shipping_id.street" />
+											<br />
+										</span>
+										<span t-field="o.partner_shipping_id.zip" />
+										<span t-field="o.partner_shipping_id.city" />
+										<br />
+										<span t-if="o.partner_shipping_id.country_id.name">
+											<span t-field="o.partner_shipping_id.country_id.name" />
+										</span>
+									</div>
+									<br />
+									<div t-if="o.partner_shipping_id != o.partner_invoice_id">
+										<strong>Invoice address:</strong>
+										<br />
+										<span t-field="o.partner_invoice_id.commercial_partner_id.name" />
+										<br />
+										<span t-if="o.partner_shipping_id.street">
+											<span t-field="o.partner_invoice_id.street" />
+											<br />
+										</span>
+										<span t-field="o.partner_invoice_id.zip" />
+										<span t-field="o.partner_invoice_id.city" />
+										<br />
+										<span t-if="o.partner_shipping_id.country_id.name">
+											<span t-field="o.partner_invoice_id.country_id.name" />
+										</span>
+									</div>
+									<br />
+								</td>
+								<td>
+									<strong>
+										<span t-field="o.partner_order_id.commercial_partner_id.name" />
+									</strong>
+									<br />
+									<div
+										t-if="o.partner_order_id.lastname or o.partner_order_id.firstname">
+										<span t-field="o.partner_order_id.title.name" />
+										<span t-field="o.partner_order_id.firstname" />
+										<span t-field="o.partner_order_id.lastname" />
+									</div>
+									<span t-if="o.partner_shipping_id.street">
+										<span t-field="o.partner_order_id.street" />
+										<br />
+									</span>
+									<span t-field="o.partner_order_id.zip" />
+									<span t-field="o.partner_order_id.city" />
+									<br />
+									<span t-if="o.partner_shipping_id.country_id.name">
+										<span t-field="o.partner_order_id.country_id.name" />
+										<br />
+									</span>
+									<br />
+									<span t-if="o.partner_order_id.phone">
+										<span>Tel:</span>
+										<span t-field="o.partner_order_id.phone" />
+										<br />
+									</span>
+									<span t-if="o.partner_order_id.fax">
+										<span>Fax:</span>
+										<span t-field="o.partner_order_id.fax" />
+										<br />
+									</span>
+									<span t-if="o.partner_vat">
+										<span>VAT:</span>
+										<span t-field="o.partner_vat" />
+										<br />
+									</span>
+								</td>
+							</tr>
+						</table>
 
-                           <div class="text-right"> <span t-esc="time.strftime('%d/%m/%Y',time.strptime(o.date_order,'%Y-%m-%d %H:%M:%S'))"/> </div> 		
-		            <h2>
-		                <div><strong>Order acknowledgment: <span t-field="user.default_section_id.code"/>-<span t-field="o.name"/></strong></div>
-		            </h2>
-                                <div><span t-if="o.client_order_ref"><strong> Your order reference: <span t-field="o.client_order_ref"/></strong></span></div>		
+						<div class="text-right">
+							<span
+								t-esc="time.strftime('%d/%m/%Y',time.strptime(o.date_order,'%Y-%m-%d %H:%M:%S'))" />
+						</div>
+						<h2>
+							<div>
+								<strong>
+									Order acknowledgment:
+									<span t-field="user.default_section_id.code" />
+									-
+									<span t-field="o.name" />
+								</strong>
+							</div>
+						</h2>
+						<div>
+							<span t-if="o.client_order_ref">
+								<strong>
+									Your order reference:
+									<span t-field="o.client_order_ref" />
+								</strong>
+							</span>
+						</div>
 
-		            <table width="100%" class="table table-condensed">
-                             <col width="45%"/>
-		                <thead>
-		                    <tr style="background-color:lightgrey;">
-		                        <th class="text-left">Description</th>
-		                        <th class="text-right">Quantity</th>
-		                        <th class="text-right">Unit gross grice</th>
-		                        <th class="text-right">Discount</th>
-		                        <th class="text-right">Unit Price</th>
-		                        <th class="text-right">Price</th>
-		                    </tr>
-		               </thead>
-		               <tbody class="sale_tbody">
-		                    <tr t-foreach="o.order_line" t-as="order_line">
-		                        <td>
-		                           <span t-esc="order_line.name.split('\n')[0]"/>
-		                        </td>
-		                            <td class="text-right">
-		                            <span t-field="order_line.product_uom_qty"/> <span groups="product.group_uom" t-field="order_line.product_uom"/>
-		                        </td>
-		                        <td class="text-right">
-		                            <span t-field="order_line.brut_sale_price"/>
-		                        </td>	
- 	                                <td class="text-right">
-		                            <span t-field="order_line.discount"/>
-		                        </td>
-		                        <td class="text-right">
-		                            <span t-field="order_line.price_unit"/>
-		                        </td>
-		                        <td class="text-right">
-		                            <span t-field="order_line.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
-		                        </td>
-		                    </tr>
-		                </tbody>
-		            </table>
-		
-		            <div class="row">
-		                <div class="col-xs-4 pull-right">
-		                    <table class="table table-condensed">
-		                        <tr class="border-black">
-		                            <td><strong>Total Net</strong></td>
-		                            <td class="text-right">
-		                                <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
-		                            </td>
-		                        </tr>
-		                        <tr>
-		                            <td>Taxes</td>
-		                            <td class="text-right">
-		                                <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
-		                            </td>
-		                        </tr>
-		                        <tr class="border-black">
-		                            <td><strong>Total</strong></td>
-		                            <td class="text-right">
-		                                <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
-		                            </td>
-		                        </tr>
-		                    </table>
-		                </div>
-		            </div>
+						<table width="100%" class="table table-condensed">
+							<col width="45%" />
+							<thead>
+								<tr style="background-color:lightgrey;">
+									<th class="text-left">Description</th>
+									<th class="text-right">Quantity</th>
+									<th class="text-right">Unit gross grice</th>
+									<th class="text-right">Discount</th>
+									<th class="text-right">Unit Price</th>
+									<th class="text-right">Price</th>
+								</tr>
+							</thead>
+							<tbody class="sale_tbody">
+								<tr t-foreach="o.order_line" t-as="order_line">
+									<td>
+										<span t-esc="order_line.name.split('\n')[0]" />
+									</td>
+									<td class="text-right">
+										<span t-field="order_line.product_uom_qty" />
+										<span groups="product.group_uom" t-field="order_line.product_uom" />
+									</td>
+									<td class="text-right">
+										<span t-field="order_line.brut_sale_price" />
+									</td>
+									<td class="text-right">
+										<span t-field="order_line.discount" />
+									</td>
+									<td class="text-right">
+										<span t-field="order_line.price_unit" />
+									</td>
+									<td class="text-right">
+										<span t-field="order_line.price_subtotal"
+											t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
 
-		            <p t-if="o.note"> <span t-field="o.note"/><br/></p>
-                            <div>
-                              <p t-if="o.delivery_date">
-		                <strong>Delivery time :</strong>
-		                <span t-field="o.delivery_date"/>
-		             </p>
-		             <p t-if="o.payment_term.note">
-		                <strong>Payment Term:</strong>
-		                <span t-field="o.payment_term.note"/>
-		             </p>
-                            </div>
-                            <span> Thank you to check all the information in this order aknowledgment, in particular shipping and biling addresses. If information prove erroneous, thank you to contact us as soon as possible</span>
-		            <div class="oe_structure"/>
-		        </div>
-		    </t>
-		</t>
+						<div class="row">
+							<div class="col-xs-4 pull-right">
+								<table class="table table-condensed">
+									<tr class="border-black">
+										<td>
+											<strong>Total Net</strong>
+										</td>
+										<td class="text-right">
+											<span t-field="o.amount_untaxed"
+												t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}" />
+										</td>
+									</tr>
+									<tr>
+										<td>Taxes</td>
+										<td class="text-right">
+											<span t-field="o.amount_tax"
+												t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}" />
+										</td>
+									</tr>
+									<tr class="border-black">
+										<td>
+											<strong>Total</strong>
+										</td>
+										<td class="text-right">
+											<span t-field="o.amount_total"
+												t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}" />
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div>
+							<p t-if="o.delivery_date">
+								<strong>Delivery time :</strong>
+								<span t-field="o.delivery_date" />
+							</p>
+							<p t-if="o.payment_term.note">
+								<strong>Payment Term:</strong>
+								<span t-field="o.payment_term.note" />
+							</p>
+							<p t-if="o.note">
+								<strong>Note:</strong>
+								<span t-field="o.note" />
+							</p>
+						</div>
+						<span> Thank you to check all the information in this order
+							aknowledgment, in particular shipping and biling addresses. If
+							information prove erroneous, thank you to contact us as soon as
+							possible
+						</span>
+						<div class="oe_structure" />
+					</div>
+				</t>
+			</t>
 		</template>
 
 
@@ -416,7 +521,7 @@
 								<div t-if="o.partner_shipping_id == o.partner_invoice_id">
 									<strong>Invoice and shipping address:</strong>
 									<br />
-									<span t-field="o.partner_shipping_id.parent_id.name" />
+									<span t-field="o.partner_shipping_id.commercial_partner_id.name" />
 									<br />
 									<div
 										t-if="o.partner_shipping_id.lastname or o.partner_shipping_id.firstname">
@@ -431,11 +536,11 @@
 									<br />
 									<span t-field="o.partner_shipping_id.country_id.name" />
 								</div>
-								<div t-if="o.partner_shipping_id != o.partner_invoice_id"
-									class="mt8">
+								<div t-if="o.partner_shipping_id != o.partner_invoice_id">
 									<strong>Shipping address:</strong>
 									<br />
-									<span t-field="o.partner_shipping_id.parent_id.name" />
+									<span t-field="o.partner_shipping_id.commercial_partner_id.name"
+										class="mt8" />
 									<br />
 									<div
 										t-if="o.partner_shipping_id.lastname or o.partner_shipping_id.firstname">
@@ -455,7 +560,7 @@
 								<div t-if="o.partner_shipping_id != o.partner_invoice_id">
 									<strong>Invoice address:</strong>
 									<br />
-									<span t-field="o.partner_invoice_id.parent_id.name" />
+									<span t-field="o.partner_invoice_id.commercial_partner_id.name" />
 									<br />
 									<span t-field="o.partner_invoice_id.street" />
 									<br />
@@ -467,7 +572,7 @@
 								<br />
 							</td>
 							<td>
-								<span t-field="o.partner_order_id.parent_id.name" />
+								<span t-field="o.partner_order_id.commercial_partner_id.name" />
 								<br />
 								<div
 									t-if="o.partner_order_id.lastname or o.partner_order_id.firstname">
@@ -505,8 +610,6 @@
 							<strong>
 								Order acknowledgment:
 								<span t-field="user.default_section_id.code" />
-								-
-								<span t-field="o.name" />
 							</strong>
 						</div>
 					</h2>
@@ -514,8 +617,6 @@
 						<strong>
 							Your order reference:
 							<span t-field="o.client_order_ref" />
-							-
-							<span t-field="o.name" />
 						</strong>
 					</div>
 					<br />
@@ -581,12 +682,25 @@
 							</table>
 						</div>
 					</div>
-
-					<p t-field="o.note" />
-					<p t-if="o.payment_term.note">
-						<strong>Payment Term:</strong>
-						<span t-field="o.payment_term.note" />
-					</p>
+					<div>
+						<p t-if="o.delivery_date">
+							<strong>Delivery time :</strong>
+							<span t-field="o.delivery_date" />
+						</p>
+						<p t-if="o.payment_term.note">
+							<strong>Payment Term:</strong>
+							<span t-field="o.payment_term.note" />
+						</p>
+						<p t-if="o.note">
+							<strong>Note:</strong>
+							<span t-field="o.note" />
+						</p>
+					</div>
+					<span> Thank you to check all the information in this order
+						aknowledgment, in particular shipping and biling addresses. If
+						information prove erroneous, thank you to contact us as soon as
+						possible
+					</span>
 					<div class="oe_structure" />
 				</div>
 			</t>

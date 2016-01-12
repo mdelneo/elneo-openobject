@@ -1,13 +1,5 @@
 from openerp import models, fields, api
 
-class stock_move(models.Model):
-    _inherit = 'stock.move'
-    
-    @api.model
-    def _prepare_procurement_from_move(self, move):
-        res = super(stock_move,self)._prepare_procurement_from_move(move)
-        res['origin'] = move.group_id and move.group_id.name or ''
-        return res
         
 class product_product(models.Model):
     _inherit = 'product.product'

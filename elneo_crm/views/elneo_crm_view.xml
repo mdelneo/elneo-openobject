@@ -35,6 +35,9 @@
 	        	<xpath expr="//field[@name='alarm_ids']" position="after">
 	        		<field name="validated" />
 	        	</xpath>
+	        	<xpath expr="//field[@name='partner_ids']" position="attributes">
+	        		<attribute name="on_change">1</attribute>
+	        	</xpath>
 			</field>
 		</record>	
 		

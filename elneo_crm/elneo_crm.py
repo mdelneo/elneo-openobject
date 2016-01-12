@@ -27,9 +27,10 @@ class calendar_event(models.Model):
     validated = fields.Boolean('Validated')
     
     @api.one
-    @api.depends('categ_ids','validated')
-    @api.onchange('categ_ids','validated')
+    @api.depends('categ_ids','validated','partner_ids')
+    @api.onchange('categ_ids','validated','partner_ids')
     def update_name(self):
+        
         name = self.name
         if not name:
             name = ''
@@ -44,9 +45,19 @@ class calendar_event(models.Model):
             for categ in self.categ_ids:
                 if categ.google_prefix:
                     prefix = prefix + '[' + categ.google_prefix + ']'
+                   
+        for p in self.partner_ids:
+            if self.env['res.users'].search([('partner_id','=',p.id)], count=True) > 0:
+                continue
+            if p.commercial_partner_id and p.commercial_partner_id.id != p.id:
+                prefix = prefix + p.commercial_partner_id.name
+            if p.name:
+                prefix = prefix + p.name
+         
+        prefix = prefix + ' ~ '
                 
         #keep original name
-        name = name[name.rfind(']')+1:]
+        name = name[name.rfind(' ~ ')+3:]
         
         #add prefix
         self.name = prefix+name
@@ -65,6 +76,20 @@ class res_partner(models.Model):
     title = fields.Many2one('res.partner.title', compute='get_title')
     corporation_type = fields.Many2one('res.partner.title', domain=[('domain','=','partner')])
     contact_title = fields.Many2one('res.partner.title', domain=[('domain','=','contact')])
+    meeting_count = fields.Integer(compute='_meeting_count', string="# Meetings")
+    
+    @api.multi
+    def _meeting_count(self):
+        def count_p(p):
+            total = len(p.meeting_ids)
+            if len(p.child_ids) > 0:
+                for c in p.child_ids:
+                    total = total + count_p(c)
+            return total
+        for partner in self:
+            partner.meeting_count = count_p(partner)
+            
+            
     
     @api.multi
     def get_title(self):

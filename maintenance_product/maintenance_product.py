@@ -253,8 +253,6 @@ class maintenance_intervention(models.Model):
         
         order_line['delay'] = intervention_product.delay
 
-        order_line['route_id'] = False
-       
         order_line['discount'] = intervention_product.discount
         
         return order_line
@@ -768,9 +766,19 @@ class sale_order(models.Model):
             if order.intervention_id:
                 order.intervention_id.state = 'confirmed'
                 
+                #find pickings:
+                if order.procurement_group_id:
+                    picks = set()
+                    for proc in order.procurement_group_id.procurement_ids:
+                        for move in proc.move_ids:
+                            picks.add(move.picking_id)
+                    picks = list(picks)
+                else:
+                    picks = order.picking_ids
+                
                 #set intervention_product_id reference for stock_moves
-                for picking in order.picking_ids:
-                    picking.origin = str(picking.origin)+' '+picking.sale_id.intervention_id.code
+                for picking in picks:
+                    picking.origin = str(picking.origin)+' '+order.intervention_id.code
                     if picking.state != 'cancel':
                         for move in picking.move_lines:
                             move.intervention_product_id = move.procurement_id.sale_line_id.intervention_product_id

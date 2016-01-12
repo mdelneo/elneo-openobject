@@ -155,6 +155,8 @@ class stock_move(models.Model):
         res['origin'] = move.group_id and move.group_id.name or ''
         if move.product_id:
             res['name'] = move.product_id.name_get()[0][1]
+        if move.procurement_id and move.procurement_id.sale_line_id:
+            res['sale_line_id'] = move.procurement_id.sale_line_id.id
         return res
     
     @api.multi

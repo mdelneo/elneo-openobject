@@ -93,6 +93,10 @@
             <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
             <field name="arch" type="xml">
             
+            	<field name="user_id" position="attributes">
+            		<attribute name="required">1</attribute>
+            	</field>
+            
             	<xpath expr="//button[@name='print_quotation' and @class='oe_highlight']" position="replace" />
             	
             	<xpath expr="//button[@name='print_quotation' and @states='sent,progress,manual']" position="replace" />

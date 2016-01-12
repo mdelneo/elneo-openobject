@@ -334,7 +334,6 @@ class sale_order(models.Model):
     
     stat_on_invoice_date = fields.Boolean("Stats on invoice date")
     
-    user_id = fields.Many2one(required=True)
     section_id = fields.Many2one(required=True)
     invoice_ids = fields.Many2many(readonly=False)
     order_line=fields.One2many(auto_join=True)

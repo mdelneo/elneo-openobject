@@ -174,6 +174,7 @@ class res_partner(models.Model):
                 partner.sales_count = 0
         return res
             
+    '''
     @api.constrains('vat')
     def _check_unique_vat(self):
         if self._context.get('copy',False):
@@ -185,6 +186,7 @@ class res_partner(models.Model):
                 if (sames):
                     raise ValidationError("There is partner with the same VAT ! Please change it or go to the good partner.\n\n%s" % (sames[0].name))
         return True
+    '''
     
     @api.constrains('ref')
     def _check_ref(self):

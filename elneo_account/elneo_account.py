@@ -144,3 +144,5 @@ class account_invoice(models.Model):
     _partner_id = fields.Many2one('res.partner',string="Partner",required=True,index=True,help="Partner to help selection of invoice address")
     
 account_invoice()
+
+    

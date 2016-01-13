@@ -25,7 +25,8 @@ class procurement_order(models.Model):
     @api.model
     def _procure_orderpoint_confirm(self, use_new_cursor=False, company_id = False):
         return super(procurement_order, self.with_context(make_po=False))._procure_orderpoint_confirm(use_new_cursor,company_id)
-        
+    
+  
 
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
@@ -147,6 +148,14 @@ class stock_move(models.Model):
     split_from = fields.Many2one(index=True)
     route_ids=fields.Many2many(auto_join=True)
     product_id=fields.Many2one(auto_join=True)
+    
+    @api.model
+    def _prepare_procurement_from_move(self, move):
+        res = super(stock_move,self)._prepare_procurement_from_move(move)
+        res['origin'] = move.group_id and move.group_id.name or ''
+        if move.product_id:
+            res['name'] = move.product_id.name_get()[0][1]
+        return res
     
     @api.multi
     def action_partial_move(self):

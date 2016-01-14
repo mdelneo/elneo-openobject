@@ -161,14 +161,16 @@ class sale_order(models.Model):
     
     _order = 'id desc'
     
-    @api.model
-    def search(self, args, offset=0, limit=None, order=None, count=False):
-        #if my_dpt : display picking of sale teams of current user. If user is not linked to a sale team, display all picks 
-        section_ids = self.env['crm.case.section'].search([('member_ids','in',self._uid)])
-        if self._context.get('my_dpt',True) and section_ids:
-            args.append(('section_id','in',[s.id for s in section_ids]))
-        return super(sale_order, self).search(args, offset, limit, order, count=count)
+    @api.returns('self')
+    def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
+        #if my_dpt : display picking of sale teams of current user. If user is not linked to a sale team, display all picks
+        section_ids = self.pool.get('crm.case.section').search(cr, user, [('member_ids','in',user)], context=context)
+        if context.get('my_dpt',True) and section_ids:
+            args.append(('section_id','in',section_ids)) 
+        res = super(sale_order, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
+        return res
     
+
     @api.multi
     def action_cancel(self):
         res = super(sale_order, self).action_cancel()

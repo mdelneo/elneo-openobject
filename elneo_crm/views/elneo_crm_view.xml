@@ -155,6 +155,36 @@
         
         <!-- CONTACT FORM -->
         
+        <record id="view_partner_simple_form_firstname_elneo" model="ir.ui.view">
+		    <field name="name">Add firstname and lastname Elneo</field>
+		    <field name="model">res.partner</field>
+		    <field name="inherit_id" ref="partner_firstname.view_partner_simple_form_firstname"/>
+		    <field name="arch" type="xml">
+		       
+		       
+		            <xpath expr="//field[@name='name']" position="attributes">
+		                <attribute name="attrs">{'readonly': ['|',('is_company', '=', False),('type','not in',['delivery','invoice'])],'required': [('is_company', '=', True)]}</attribute>
+		            </xpath>
+		            
+		            <xpath expr="//field[@name='firstname']" position="attributes">
+		            	<attribute name="attrs">{'invisible':[('type','in',['delivery','invoice'])],
+	                        'required': [('lastname', '=', False),
+	                                       ('is_company', '=', False)],
+	                          }
+	                    </attribute>
+		            </xpath>
+		            
+		            <xpath expr="//field[@name='lastname']" position="attributes">
+		            	<attribute name="attrs">{'invisible':[('type','in',['delivery','invoice'])],
+	                        'required': [('firstname', '=', False),
+	                                       ('is_company', '=', False)],
+	                          }
+	                    </attribute>
+		            </xpath>
+		
+		    </field>
+		</record>
+        
         <record id="view_partner_contact_form" model="ir.ui.view">
             <field name="name">view.partner.contact.form</field>
             <field name="model">res.partner</field>
@@ -172,11 +202,15 @@
                         </h1>
 	                    <group>
 	                        <field name="lastname" attrs=
-	                        "{'required': [('firstname', '=', False),
-	                                       ('is_company', '=', False)]}"/>
+	                        "{
+	                        'required': [('firstname', '=', False),
+	                                       ('is_company', '=', False)],
+	                          }"/>
 		                    <field name="firstname" attrs=
-		                        "{'required': [('lastname', '=', False),
-		                                       ('is_company', '=', False)]}"/>
+		                        "{
+		                        'required': [('lastname', '=', False),
+		                                       ('is_company', '=', False)],
+		                          }"/>
 	                        <field name="parent_id"
 	                            placeholder="Company"
 	                            domain="[('is_company', '=', True)]" context="{'default_is_company': True, 'default_supplier': supplier, 'default_customer': customer}"
@@ -346,7 +380,12 @@
             		</tree>
             	</xpath>
             	
+            	<xpath expr="//field[@name='child_ids']/form//field[@name='function']" position="before">
+            		<field name="active"/>
+            	</xpath>
             	
+            	
+
             </field>
         </record>
         

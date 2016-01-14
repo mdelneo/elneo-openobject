@@ -310,6 +310,17 @@ class sale_order(models.Model):
             if (sumInvoice != 0 or sumSale != 0) and sumInvoice >= sumSale:
                 self.is_invoiced = True
                 
+    @api.one
+    @api.depends('order_line.margin','amount_untaxed')        
+    def _sale_margin(self):
+        self.sale_margin = 1.0
+        margin_amount = 0.0
+        for line in self.order_line:
+            margin_amount += line.margin or 0.0
+        
+        if (self.amount_untaxed - margin_amount) != 0.0:
+            self.sale_margin = (self.amount_untaxed / (self.amount_untaxed - margin_amount))
+        
                 
     #function return all pickings visible in sale order
     @api.multi
@@ -319,6 +330,7 @@ class sale_order(models.Model):
                 continue
             sale.out_picking_ids = self.env['stock.picking'].search([('group_id', '=', sale.procurement_group_id.id),('picking_type_id.code','!=','incoming')])
     
+    sale_margin = fields.Float(compute='_sale_margin', string='Marge Coefficient', store=True, help="it gives a ratio representing the margin.")
     out_picking_ids = fields.One2many(compute='_get_out_picking_ids', comodel_name='stock.picking', method=True, string='Picking associated to this sale')  
     margin = fields.Float(track_visibility='always')
     partner_order_id = fields.Many2one('res.partner', 'Order Address', readonly=True, required=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},default=lambda rec: rec.partner_id, help="Order address for current sales order.")

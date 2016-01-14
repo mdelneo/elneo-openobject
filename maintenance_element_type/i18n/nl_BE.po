@@ -40,7 +40,7 @@ msgstr "maintenance.element"
 #: model:ir.ui.menu,name:maintenance_element_type.menu_maintenance_element_type
 #: view:maintenance.element.type:0
 msgid "Maintenance element type"
-msgstr "Maintenance element type"
+msgstr "Types elementen"
 
 #. module: maintenance_element_type
 #: field:maintenance.element.type,description:0

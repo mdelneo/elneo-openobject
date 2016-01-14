@@ -1,0 +1,332 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* elneo_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-06 10:31+0000\n"
+"PO-Revision-Date: 2016-01-06 10:31+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: elneo_sale
+#: model:email.template,body_html:elneo_sale.email_template_sale_confirmation
+msgid "\n"
+"            <div>\n"
+"Hello,<br />\n"
+"<br />\n"
+"Please find enclosed our acknowledgement for your order :<br /> \n"
+"<br />\n"
+"- Your reference : ${object.client_order_ref or ''}<br />\n"
+"- Our reference: ${object.name}<br />\n"
+"<br />\n"
+"Best regards,<br /> \n"
+"			</div>\n"
+"\n"
+"            "
+msgstr "\n"
+"            <div>\n"
+"Hello,<br />\n"
+"<br />\n"
+"Please find enclosed our acknowledgement for your order :<br /> \n"
+"<br />\n"
+"- Your reference : ${object.client_order_ref or ''}<br />\n"
+"- Our reference: ${object.name}<br />\n"
+"<br />\n"
+"Best regards,<br /> \n"
+"			</div>\n"
+"\n"
+"            "
+
+#. module: elneo_sale
+#: model:email.template,body_html:elneo_sale.email_template_quotation
+msgid "\n"
+"<div>\n"
+"    ${object.quotation_address_id.title.name or ''} ${object.quotation_address_id.name or ''},<br />\n"
+"\n"
+"Thank you for your quote request, we are pleased to send you our proposal (ref : ${object.name}) . <br />\n"
+"\n"
+"It is agreed that we remain at your disposal for any further information or any development that you would like us to make to this offer.<br />\n"
+"\n"
+"waiting for your news, please accept, ${object.quotation_address_id.title.name or ''},the expression of our devoted feelings.<br />\n"
+"\n"
+"</div>\n"
+"            "
+msgstr "\n"
+"<div>\n"
+"    ${object.quotation_address_id.title.name or ''} ${object.quotation_address_id.name or ''},<br />\n"
+"\n"
+"Nous vous remercions pour votre demande de prix, nous avons le plaisir de vous envoyer notre proposition (ref : ${object.name}) . <br />\n"
+"\n"
+"Il est entendu que nous restons à votre entière disposition pour toute information complémentaire ou tout aménagement que vous souhaiteriez voir apporter à cette offre.<br />\n"
+"\n"
+"Nous vous remercions de la suite qu'il vous plaira de réserver à celle-ci et, dans l'attente de vos nouvelles, nous vous prions d'agréer, ${object.quotation_address_id.title.name or ''},l'expression de nos sentiments dévoués.<br />\n"
+"\n"
+"</div>\n"
+"            "
+
+#. module: elneo_sale
+#: model:ir.actions.act_window,help:elneo_sale.action_orders_quotations
+#: model:ir.actions.act_window,help:elneo_sale.action_orders_salesteams_elneo
+#: model:ir.actions.act_window,help:elneo_sale.action_quotations_salesteams_elneo
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a quotation that can be converted into a sales\n"
+"                order.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a quotation that can be converted into a sales\n"
+"                order.\n"
+"              </p>\n"
+"            "
+
+#. module: elneo_sale
+#: field:pricelist.partnerinfo,brut_price:0
+msgid "Brut price"
+msgstr "Prix brut"
+
+#. module: elneo_sale
+#: field:sale.order.line,brut_sale_price:0
+msgid "Brut sale price"
+msgstr "Prix de vente brut"
+
+#. module: elneo_sale
+#: help:sale.order,is_invoiced:0
+msgid "Checked if the sale order is completely invoiced"
+msgstr "Coché si la vente magasin est facturée complètement"
+
+#. module: elneo_sale
+#: code:addons/elneo_sale/elneo_sale.py:123
+#, python-format
+msgid "Configuration Error!"
+msgstr "Erreur de configuration!"
+
+#. module: elneo_sale
+#: model:ir.ui.menu,name:elneo_sale.menu_customer_relation
+msgid "Customers relations"
+msgstr "Commercieële relatiess"
+
+#. module: elneo_sale
+#: field:pricelist.partnerinfo,discount:0
+msgid "Discount"
+msgstr "Remise"
+
+#. module: elneo_sale
+#: field:sale.order,force_is_invoiced:0
+msgid "Force is invoiced"
+msgstr "Est facturé"
+
+#. module: elneo_sale
+#: help:sale.order,force_is_invoiced:0
+msgid "Force the 'invoiced' state for this sale order"
+msgstr "Forcer l'état facturé dans la vente"
+
+#. module: elneo_sale
+#: help:product.category,stat_on_invoice_date_default:0
+msgid "If this box is checked, if a sale order contains a product of this category, when it will be confirmed, sale order 'Stats on invoice date' box will be checked."
+msgstr "Si cette case est cochée, si une vente contient un produit de cette catégorie, elle sera automatiquement configurée sur 'Statistique basée sur la date de facturation'."
+
+#. module: elneo_sale
+#: model:ir.model,name:elneo_sale.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_sales_order_filter_elneo
+msgid "Invoiced"
+msgstr "Facturé"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "Invoices"
+msgstr "Factures"
+
+#. module: elneo_sale
+#: field:sale.order,is_invoiced:0
+msgid "Is invoiced"
+msgstr "Facturé"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_sales_order_filter_elneo
+msgid "My Team"
+msgstr "Mon Département"
+
+#. module: elneo_sale
+#: model:ir.ui.menu,name:elneo_sale.menu_opportunities
+msgid "Opportunities"
+msgstr "Opportunités"
+
+#. module: elneo_sale
+#: model:email.template,subject:elneo_sale.email_template_sale_confirmation
+msgid "Order confirmation ${object.name or ''}"
+msgstr "Confirmation de commande ${object.name or ''}"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "Order tracking"
+msgstr "Suivi de commande"
+
+#. module: elneo_sale
+#: model:email.template,report_name:elneo_sale.email_template_sale_confirmation
+msgid "Order_Confirmation_${object.name}"
+msgstr "Confirmation_de_commande_${object.name}"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "Pickings"
+msgstr "Transferts"
+
+#. module: elneo_sale
+#: model:ir.model,name:elneo_sale.model_procurement_order
+msgid "Procurement"
+msgstr "Approvisionnement"
+
+#. module: elneo_sale
+#: model:ir.model,name:elneo_sale.model_product_product
+msgid "Product"
+msgstr "Produit"
+
+#. module: elneo_sale
+#: model:ir.model,name:elneo_sale.model_product_category
+msgid "Product Category"
+msgstr "Catégorie de produits"
+
+#. module: elneo_sale
+#: model:ir.model,name:elneo_sale.model_purchase_order
+msgid "Purchase Order"
+msgstr "Achat"
+
+#. module: elneo_sale
+#: field:sale.order.line,purchase_line_ids:0
+msgid "Purchase lines"
+msgstr "Lignes d'achat"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "Purchases"
+msgstr "Achats"
+
+#. module: elneo_sale
+#: model:email.template,subject:elneo_sale.email_template_quotation
+msgid "Quotation ${object.name or ''}"
+msgstr "Offre ${object.name or ''}"
+
+#. module: elneo_sale
+#: view:website:sale.report_saleorder_document
+msgid "Quotation Date:"
+msgstr "Date du devis:"
+
+#. module: elneo_sale
+#: view:website:sale.report_saleorder_document
+msgid "Quotation N°"
+msgstr "Devis N°"
+
+#. module: elneo_sale
+#: model:email.template,report_name:elneo_sale.email_template_quotation
+msgid "Quotation_Elneo_${object.name}"
+msgstr "Offre_Elneo_${object.name}"
+
+#. module: elneo_sale
+#: model:ir.actions.act_window,name:elneo_sale.action_quotations_salesteams_elneo
+msgid "Quotations"
+msgstr "Devis"
+
+#. module: elneo_sale
+#: field:procurement.order,sale_line_id:0
+msgid "Sale Order Line"
+msgstr "Ligne de commande"
+
+#. module: elneo_sale
+#: field:account.invoice,sale_order_ids:0
+msgid "Sale orders"
+msgstr "Ventes"
+
+#. module: elneo_sale
+#: model:ir.model,name:elneo_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
+
+#. module: elneo_sale
+#: model:ir.model,name:elneo_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne du bon de commande"
+
+#. module: elneo_sale
+#: model:ir.actions.act_window,name:elneo_sale.action_orders_salesteams_elneo
+msgid "Sales Orders"
+msgstr "Ventes"
+
+#. module: elneo_sale
+#: model:ir.actions.act_window,name:elneo_sale.action_orders_quotations
+msgid "Sales and quotations"
+msgstr "Verkopen en Offertes"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "Set to Draft"
+msgstr "Mettre en brouillon"
+
+#. module: elneo_sale
+#: field:sale.order,stat_on_invoice_date:0
+msgid "Stats on invoice date"
+msgstr "Stats sur date de facture"
+
+#. module: elneo_sale
+#: field:product.category,stat_on_invoice_date_default:0
+msgid "Stats on invoice date by default"
+msgstr "Stats sur date de facture par défault"
+
+#. module: elneo_sale
+#: code:addons/elneo_sale/elneo_sale.py:184
+#, python-format
+msgid "The sales order '%s' has been set in draft state."
+msgstr "Les ventes '%s' ont été mises dans l'état brouillon."
+
+#. module: elneo_sale
+#: model:ir.ui.menu,name:elneo_sale.menu_trash
+#: model:ir.ui.menu,name:elneo_sale.menu_trash_trash
+msgid "Trash"
+msgstr "Corbeille"
+
+#. module: elneo_sale
+#: code:addons/elneo_sale/elneo_sale.py:131
+#, python-format
+msgid "Unit price has been changed from %s to %s."
+msgstr "Le prix unitaire a changé de %s à %s."
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "['|',('id','=',partner_id),'&',('parent_id','=',partner_id),('type','in',['default','delivery','other'])]"
+msgstr "['|',('id','=',partner_id),'&',('parent_id','=',partner_id),('type','in',['default','delivery','other'])]"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "[('is_company','=',True)]"
+msgstr "[('is_company','=',True)]"
+
+#. module: elneo_sale
+#: view:website:sale.report_saleorder_document
+msgid "o.quotation_address_id"
+msgstr "o.quotation_address_id"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "{'always_reload': True}"
+msgstr "{'always_reload': True}"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "{'contact_display':1,'show_address':1,'show_ref_inline':1}"
+msgstr "{'contact_display':1,'show_address':1,'show_ref_inline':1}"
+
+#. module: elneo_sale
+#: view:sale.order:elneo_sale.view_order_form_elneo_sale
+msgid "{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'price_unit':price_unit}"
+msgstr "{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'price_unit':price_unit}"
+

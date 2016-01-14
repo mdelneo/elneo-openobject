@@ -80,7 +80,7 @@ msgstr "maintenance.project.type"
 #: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_type
 #: view:maintenance.project.type:0
 msgid "Maintenance project type"
-msgstr "Onderhoud project type"
+msgstr "Types contracten"
 
 #. module: maintenance_project
 #: field:maintenance.project,installation_id:0
@@ -131,7 +131,7 @@ msgstr "Project line type"
 #: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_delay
 #: view:maintenance.project.delay:0
 msgid "Maintenance project delay"
-msgstr "Onderhoud project vertraging"
+msgstr "Contracttermijnen"
 
 #. module: maintenance_project
 #: field:maintenance.project.line,maintenance_product_id:0
@@ -227,7 +227,7 @@ msgstr "Verschillende onderhoudsprojecten zijn geactiveerd tijdens dezelfde peri
 #: field:maintenance.intervention,maintenance_project_id:0
 #: view:maintenance.project:0
 msgid "Maintenance project"
-msgstr "Onderhoud project"
+msgstr "Contracten"
 
 #. module: maintenance_project
 #: view:maintenance.installation:0

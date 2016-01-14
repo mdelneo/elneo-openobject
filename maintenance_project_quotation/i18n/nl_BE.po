@@ -1,13 +1,13 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* maintenance_project
+#	* maintenance_project_quotation
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.4\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2014-07-01 16:15+0000\n"
-"PO-Revision-Date: 2014-07-01 16:15+0000\n"
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-14 08:11+0000\n"
+"PO-Revision-Date: 2016-01-14 08:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,366 +15,417 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: maintenance_project
-#: view:maintenance.project:0
-#: view:maintenance.project.line:0
-#: view:maintenance.project.line.type:0
-msgid "Maintenance project line"
-msgstr "Maintenance project line"
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "\"draft,quotation_todo,quotation_done,active,disabled\""
+msgstr "\"draft,quotation_todo,quotation_done,active,disabled\""
 
-#. module: maintenance_project
-#: field:maintenance.project.type.line,product_category_id:0
-msgid "Product category"
-msgstr "Product categorie"
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2014-11-21 10:32:32"
+msgstr "2014-11-21 10:32:32"
 
-#. module: maintenance_project
-#: sql_constraint:account.invoice:0
-msgid "The Invoice Number must be unique !"
-msgstr "Het factuurnummer moet uniek zijn !"
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_done_date:0
+msgid "2014-11-21 10:52:14"
+msgstr "2014-11-21 10:52:14"
 
-#. module: maintenance_project
-#: field:account.invoice.line,maintenance_invoiced_percent:0
-msgid "Percent invoiced (if intervention)"
-msgstr "Percentage gefactureerd (indien interventie)"
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2014-12-17 14:44:21"
+msgstr "2014-12-17 14:44:21"
 
-#. module: maintenance_project
-#: view:maintenance.project:0
-msgid "Detail"
-msgstr "Detail"
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_done_date:0
+msgid "2014-12-17 14:44:30"
+msgstr "2014-12-17 14:44:30"
 
-#. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:216
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2014-12-17 15:27:20"
+msgstr "2014-12-17 15:27:20"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-01-15 09:00:18"
+msgstr "2015-01-15 09:00:18"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-02-06 09:33:40"
+msgstr "2015-02-06 09:33:40"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-02-23 15:07:08"
+msgstr "2015-02-23 15:07:08"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-03-05 10:52:36"
+msgstr "2015-03-05 10:52:36"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-03-09 13:48:24"
+msgstr "2015-03-09 13:48:24"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-03-09 14:29:40"
+msgstr "2015-03-09 14:29:40"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-03-12 10:46:56"
+msgstr "2015-03-12 10:46:56"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-03-18 07:30:49"
+msgstr "2015-03-18 07:30:49"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-03-23 09:10:53"
+msgstr "2015-03-23 09:10:53"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_done_date:0
+msgid "2015-03-23 09:35:13"
+msgstr "2015-03-23 09:35:13"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-03-23 13:47:33"
+msgstr "2015-03-23 13:47:33"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_done_date:0
+msgid "2015-03-23 13:47:35"
+msgstr "2015-03-23 13:47:35"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-03-30 08:08:46"
+msgstr "2015-03-30 08:08:46"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_done_date:0
+msgid "2015-03-30 08:30:52"
+msgstr "2015-03-30 08:30:52"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-03-31 07:45:40"
+msgstr "2015-03-31 07:45:40"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-03-31 14:46:55"
+msgstr "2015-03-31 14:46:55"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_done_date:0
+msgid "2015-03-31 14:46:57"
+msgstr "2015-03-31 14:46:57"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-05-11 13:04:30"
+msgstr "2015-05-11 13:04:30"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_done_date:0
+msgid "2015-05-11 13:04:32"
+msgstr "2015-05-11 13:04:32"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_done_date:0
+msgid "2015-05-12 14:33:30"
+msgstr "2015-05-12 14:33:30"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-09-04 13:12:33"
+msgstr "2015-09-04 13:12:33"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_done_date:0
+msgid "2015-09-04 13:12:35"
+msgstr "2015-09-04 13:12:35"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-10-08 14:52:09"
+msgstr "2015-10-08 14:52:09"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_todo_date:0
+msgid "2015-10-12 12:31:45"
+msgstr "2015-10-12 12:31:45"
+
+#. module: maintenance_project_quotation
+#: model:maintenance.project,quotation_done_date:0
+msgid "2015-10-12 12:31:48"
+msgstr "2015-10-12 12:31:48"
+
+#. module: maintenance_project_quotation
+#: code:addons/maintenance_project_quotation/maintenance_project_quotation.py:155
 #, python-format
-msgid "Sale order is already confirmed."
-msgstr "Verkooporder is reeds bevestigd."
+msgid "A maintenance quotation(%s) has just been done by %s<br/>"
+msgstr "A maintenance quotation(%s) has just been done by %s<br/>"
 
-#. module: maintenance_project
-#: model:maintenance.project.line.type,name:maintenance_project.Labor
-msgid "Labor"
-msgstr "Labor"
+#. module: maintenance_project_quotation
+#: code:addons/maintenance_project_quotation/maintenance_project_quotation.py:128
+#, python-format
+msgid "A new maintenance quotation(Project : %s) has just been asked by %s<br/>"
+msgstr "A new maintenance quotation(Project : %s) has just been asked by %s<br/>"
 
-#. module: maintenance_project
-#: view:maintenance.installation:0
-#: view:maintenance.project:0
-#: field:maintenance.project,maintenance_elements:0
-msgid "Maintenance elements"
-msgstr "Maintenance elements"
+#. module: maintenance_project_quotation
+#: field:maintenance.project,quotation_todo_date:0
+msgid "Ask Date"
+msgstr "Ask Date"
 
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_installation
-msgid "maintenance.installation"
-msgstr "onderhoud.installatie"
+#. module: maintenance_project_quotation
+#: field:maintenance.project.quotation.price,brut_sale_price:0
+msgid "Brut sale price"
+msgstr "Brut sale price"
 
-#. module: maintenance_project
-#: view:maintenance.project:0
-msgid "Draft"
-msgstr "Draft"
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "Budget"
+msgstr "Budget"
 
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_project_type
-msgid "maintenance.project.type"
-msgstr "maintenance.project.type"
+#. module: maintenance_project_quotation
+#: field:maintenance.project.quotation.price,cost_price:0
+msgid "Cost price"
+msgstr "Cost price"
 
-#. module: maintenance_project
-#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_type
-#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_type
-#: view:maintenance.project.type:0
-msgid "Maintenance project type"
-msgstr "Onderhoud project type"
+#. module: maintenance_project_quotation
+#: help:maintenance.project.quotation.price,cost_price:0
+msgid "Cost price for the duration of the project"
+msgstr "Cost price for the duration of the project"
 
-#. module: maintenance_project
-#: field:maintenance.project,installation_id:0
+#. module: maintenance_project_quotation
+#: field:maintenance.project.quotation.price,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: maintenance_project_quotation
+#: field:maintenance.project.quotation.price,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: maintenance_project_quotation
+#: field:maintenance.project,quotation_done_date:0
+msgid "Date Done"
+msgstr "Date Done"
+
+#. module: maintenance_project_quotation
+#: field:maintenance.project.quotation.price,discount:0
+msgid "Discount"
+msgstr "Discount"
+
+#. module: maintenance_project_quotation
+#: help:maintenance.project.quotation.price,discount:0
+msgid "Discount in %"
+msgstr "Discount in %"
+
+#. module: maintenance_project_quotation
+#: view:res.users:maintenance_project_quotation.view_users_form_simple_modif_maint_project
+msgid "Email Preferences"
+msgstr "E-mail voorkeuren"
+
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "Generate"
+msgstr "Generate"
+
+#. module: maintenance_project_quotation
+#: field:maintenance.project.quotation.price,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: maintenance_project_quotation
+#: help:res.users,receive_project_quotation_request:0
+msgid "If you want to receive a mail notification when somebody wants an offer for a maintenance project."
+msgstr "If you want to receive a mail notification when somebody wants an offer for a maintenance project."
+
+#. module: maintenance_project_quotation
+#: field:sale.order,installation_id:0
 msgid "Installation"
-msgstr "Installatie"
+msgstr "Installation"
 
-#. module: maintenance_project
-#: field:maintenance.project,date_start:0
-msgid "Start date"
-msgstr "Startdatum"
+#. module: maintenance_project_quotation
+#: help:maintenance.installation,is_quotation_installation:0
+msgid "Installation created by a request for quotation of maintenance project."
+msgstr "Installation created by a request for quotation of maintenance project."
 
-#. module: maintenance_project
-#: field:maintenance.project,intervention_delay_id:0
-msgid "Intervention delay"
-msgstr "Interventie vertraging"
+#. module: maintenance_project_quotation
+#: field:maintenance.project.quotation.price,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
 
-#. module: maintenance_project
-#: view:maintenance.project:0
-msgid "Status"
-msgstr "Status"
+#. module: maintenance_project_quotation
+#: field:maintenance.project.quotation.price,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
 
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_intervention_product
-msgid "maintenance.intervention.product"
-msgstr "onderhoud.interventie.product"
+#. module: maintenance_project_quotation
+#: view:res.users:maintenance_project_quotation.view_users_form_simple_modif_maint_project
+msgid "Maintenance Preferences"
+msgstr "Maintenance Preferences"
 
-#. module: maintenance_project
-#: view:maintenance.project.type:0
-#: field:maintenance.project.type,project_type_lines:0
-msgid "Invoiced categories"
-msgstr "Gefactureerde categories"
-
-#. module: maintenance_project
-#: field:maintenance.project.line,product_id:0
-#: model:maintenance.project.line.type,name:maintenance_project.Product
-#: field:maintenance.project.type,product_id:0
-msgid "Product"
-msgstr "Product"
-
-#. module: maintenance_project
-#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_line_type
-#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_line_type
-msgid "Project line type"
-msgstr "Project line type"
-
-#. module: maintenance_project
-#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project_delay
-#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project_delay
-#: view:maintenance.project.delay:0
-msgid "Maintenance project delay"
-msgstr "Onderhoud project vertraging"
-
-#. module: maintenance_project
-#: field:maintenance.project.line,maintenance_product_id:0
-msgid "Maintenance Product"
-msgstr "Maintenance Product"
-
-#. module: maintenance_project
-#: field:maintenance.project.type.line,invoiced_percent:0
-msgid "Invoiced percent"
-msgstr "Percentage gefactureerd"
-
-#. module: maintenance_project
-#: help:maintenance.project.line,intervention_id:0
-msgid "Intervention generated (among other) by this project detail."
-msgstr "Intervention generated (among other) by this project detail."
-
-#. module: maintenance_project
-#: field:maintenance.project,interventions:0
-msgid "Interventions history"
-msgstr "Interventions history"
-
-#. module: maintenance_project
-#: field:maintenance.project.line,element_id:0
-msgid "Maintenance element"
-msgstr "Maintenance element"
-
-#. module: maintenance_project
-#: field:maintenance.intervention,maintenance_project_type:0
-msgid "Project type"
-msgstr "Project type"
-
-#. module: maintenance_project
-#: view:maintenance.project:0
-msgid "Disable"
-msgstr "Disable"
-
-#. module: maintenance_project
-#: view:maintenance.project:0
-#: field:maintenance.project,enable:0
-msgid "Active"
-msgstr "Active"
-
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_intervention
-msgid "maintenance.intervention"
-msgstr "onderhoud.interventie"
-
-#. module: maintenance_project
-#: field:maintenance.installation,maintenance_projects:0
-msgid "Projects"
-msgstr "Projects"
-
-#. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:216
-#: code:addons/maintenance_project/maintenance_project.py:394
-#, python-format
-msgid "UserError"
-msgstr "Gebruikersfout"
-
-#. module: maintenance_project
-#: field:maintenance.project.line,cost_price:0
-msgid "Cost Price"
-msgstr "Cost Price"
-
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_project
-msgid "maintenance.project"
-msgstr "onderhoud.project"
-
-#. module: maintenance_project
-#: field:maintenance.intervention.product,project_percent_invoiced:0
-msgid "Amount invoiced"
-msgstr "Bedrag gefactureerd"
-
-#. module: maintenance_project
-#: field:maintenance.project.delay,name:0
-#: field:maintenance.project.line.type,name:0
-#: field:maintenance.project.type,name:0
-msgid "Name"
-msgstr "Naam"
-
-#. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:177
-#: constraint:maintenance.project:0
-#, python-format
-msgid "Several maintenance projects are enable during the same period"
-msgstr "Verschillende onderhoudsprojecten zijn geactiveerd tijdens dezelfde periode"
-
-#. module: maintenance_project
-#: model:ir.actions.act_window,name:maintenance_project.action_maintenance_project
-#: model:ir.ui.menu,name:maintenance_project.menu_maintenance_project
-#: view:maintenance.installation:0
-#: field:maintenance.intervention,maintenance_project_id:0
-#: view:maintenance.project:0
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_quotation_search
+#: field:sale.order,maintenance_project_id:0
 msgid "Maintenance project"
-msgstr "Onderhoud project"
+msgstr "Contracten"
 
-#. module: maintenance_project
-#: view:maintenance.installation:0
-#: view:maintenance.project:0
-#: field:maintenance.project,note:0
-msgid "Notes"
-msgstr "Opmerkingen"
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_quotation_search
+msgid "Maintenance project requested for quotation"
+msgstr "Maintenance project requested for quotation"
 
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_element
-msgid "maintenance.element"
-msgstr "maintenance.element"
-
-#. module: maintenance_project
-#: view:maintenance.project:0
-#: view:maintenance.project.line:0
-#: view:maintenance.project.line.type:0
-msgid "Maintenance project lines"
-msgstr "Maintenance project lines"
-
-#. module: maintenance_project
-#: code:addons/maintenance_project/maintenance_project.py:394
+#. module: maintenance_project_quotation
+#: code:addons/maintenance_project_quotation/maintenance_project_quotation.py:164
 #, python-format
-msgid "Several projects for installation %s (%s) from %s"
-msgstr "Verschillende projecten voor installatie %s (%s) van %s"
+msgid "Maintenance quotation done: %s"
+msgstr "Maintenance quotation done: %s"
 
-#. module: maintenance_project
-#: field:maintenance.project.line,project_id:0
-#: field:maintenance.project.type.line,project_type_id:0
+#. module: maintenance_project_quotation
+#: code:addons/maintenance_project_quotation/maintenance_project_quotation.py:137
+#, python-format
+msgid "New maintenance quotation asked: %s"
+msgstr "New maintenance quotation asked: %s"
+
+#. module: maintenance_project_quotation
+#: code:addons/maintenance_project_quotation/maintenance_project_quotation.py:219
+#, python-format
+msgid "Please configure budget rule for project type \"%s\", intervention type \"%s\" and budget line type \"%s\"."
+msgstr "Please configure budget rule for project type \"%s\", intervention type \"%s\" and budget line type \"%s\"."
+
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "Prices"
+msgstr "Prijzen"
+
+#. module: maintenance_project_quotation
+#: field:maintenance.project.quotation.price,project_id:0
+#: field:maintenance.project.quotation.price,project_type_id:0
 msgid "Project"
 msgstr "Project"
 
-#. module: maintenance_project
-#: field:maintenance.project,sale_order_id:0
-msgid "Sale order"
+#. module: maintenance_project_quotation
+#: model:ir.actions.act_window,name:maintenance_project_quotation.action_maintenance_project_quotation
+#: model:ir.ui.menu,name:maintenance_project_quotation.menu_maintenance_project_quotation
+msgid "Project Quotations"
+msgstr "Ontwerpcontracten"
+
+#. module: maintenance_project_quotation
+#: model:ir.actions.act_window,name:maintenance_project_quotation.action_maintenance_project_not_quotation
+msgid "Projects"
+msgstr "Projecten"
+
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "Quotation Done"
+msgstr "Quotation Done"
+
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "Quotation To Do"
+msgstr "Quotation To Do"
+
+#. module: maintenance_project_quotation
+#: field:maintenance.installation,is_quotation_installation:0
+msgid "Quotation installation"
+msgstr "Quotation installation"
+
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+#: field:maintenance.project,quotation_prices:0
+msgid "Quotation prices"
+msgstr "Quotation prices"
+
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_quotation_search
+msgid "Quotation to do"
+msgstr "Quotation to do"
+
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "Quotations"
+msgstr "Quotations"
+
+#. module: maintenance_project_quotation
+#: field:res.users,receive_project_quotation_request:0
+msgid "Receive maintenance project quotation request"
+msgstr "Receive maintenance project quotation request"
+
+#. module: maintenance_project_quotation
+#: help:maintenance.project.quotation.price,brut_sale_price:0
+msgid "Sale price for the duration of the project"
+msgstr "Sale price for the duration of the project"
+
+#. module: maintenance_project_quotation
+#: model:ir.model,name:maintenance_project_quotation.model_sale_order
+msgid "Sales Order"
 msgstr "Verkooporder"
 
-#. module: maintenance_project
-#: field:maintenance.project,code:0
-msgid "Code"
-msgstr "Code"
+#. module: maintenance_project_quotation
+#: model:ir.model,name:maintenance_project_quotation.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Verkooporderlijn"
 
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_project_line
-msgid "maintenance.project.line"
-msgstr "maintenance.project.line"
+#. module: maintenance_project_quotation
+#: view:maintenance.installation:maintenance_project_quotation.view_maintenance_installation_project_quotation
+msgid "Set to draft"
+msgstr "Set to draft"
 
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_project_type_line
-msgid "maintenance.project.type.line"
-msgstr "maintenance.project.type.line"
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "Status"
+msgstr "Status"
 
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_project_delay
-msgid "maintenance.project.delay"
-msgstr "onderhoud.project.vertraging"
+#. module: maintenance_project_quotation
+#: help:maintenance.project.quotation.price,project_id:0
+msgid "The project linked to this price"
+msgstr "The project linked to this price"
 
-#. module: maintenance_project
-#: field:maintenance.project.line,quantity:0
-msgid "Quantity"
-msgstr "Quantity"
+#. module: maintenance_project_quotation
+#: view:maintenance.installation:maintenance_project_quotation.view_maintenance_installation_project_quotation
+msgid "draft,active,inactive"
+msgstr "draft,active,inactive"
 
-#. module: maintenance_project
-#: field:maintenance.project.type.line,intervention_type_id:0
-msgid "Intervention type"
-msgstr "Interventie type"
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "draft,quotation_done"
+msgstr "draft,quotation_done"
 
-#. module: maintenance_project
-#: field:maintenance.project,date_end:0
-msgid "End date"
-msgstr "Einddatum"
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_model_form_quotation
+msgid "draft,quotation_todo"
+msgstr "draft,quotation_todo"
 
-#. module: maintenance_project
-#: field:maintenance.project,project_type_id:0
-#: field:maintenance.project.line,type_id:0
-msgid "Type"
-msgstr "Type"
+#. module: maintenance_project_quotation
+#: view:maintenance.installation:maintenance_project_quotation.view_maintenance_installation_project_quotation
+msgid "inactive,quotation"
+msgstr "inactive,quotation"
 
-#. module: maintenance_project
-#: view:maintenance.project:0
-msgid "Activate"
-msgstr "Activate"
+#. module: maintenance_project_quotation
+#: field:sale.order.line,product_type:0
+msgid "product_id.type"
+msgstr "product_id.type"
 
-#. module: maintenance_project
-#: view:maintenance.installation:0
-#: view:maintenance.project:0
-msgid "Interventions"
-msgstr "Interventies"
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "quotation_done,active"
+msgstr "quotation_done,active"
 
-#. module: maintenance_project
-#: view:maintenance.installation:0
-#: view:maintenance.project:0
-#: field:maintenance.project,invoices:0
-msgid "Invoices"
-msgstr "Invoices"
-
-#. module: maintenance_project
-#: field:account.invoice,maintenance_projects:0
-#: field:maintenance.element,maintenance_projects:0
-#: view:maintenance.installation:0
-msgid "Maintenance projects"
-msgstr "Onderhoudsprojecten"
-
-#. module: maintenance_project
-#: constraint:account.invoice:0
-msgid "Invalid BBA Structured Communication !"
-msgstr "Ongeldige BBA gestructureerde communicatie !"
-
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Factuurregel"
-
-#. module: maintenance_project
-#: view:maintenance.installation:0
-#: view:maintenance.project:0
-msgid "General"
-msgstr "General"
-
-#. module: maintenance_project
-#: field:maintenance.project.line,sale_price:0
-msgid "Sale Price"
-msgstr "Sale Price"
-
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_maintenance_project_line_type
-msgid "maintenance.project.line.type"
-msgstr "maintenance.project.line.type"
-
-#. module: maintenance_project
-#: model:ir.model,name:maintenance_project.model_account_invoice
-msgid "Invoice"
-msgstr "Factuur"
-
-#. module: maintenance_project
-#: view:maintenance.installation:0
-#: view:maintenance.project:0
-msgid "Create/update sale"
-msgstr "Create/update sale"
-
-#. module: maintenance_project
-#: field:maintenance.project.delay,price:0
-msgid "Price"
-msgstr "Prijs"
-
-#. module: maintenance_project
-#: field:maintenance.project.line,intervention_id:0
-msgid "Intervention"
-msgstr "Intervention"
+#. module: maintenance_project_quotation
+#: view:maintenance.project:maintenance_project_quotation.view_maintenance_project_form_quotation
+msgid "quotation_done,disabled"
+msgstr "quotation_done,disabled"
 

@@ -1,0 +1,403 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_autocompute_saleprice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-07 15:50+0000\n"
+"PO-Revision-Date: 2015-12-13 02:47+0100\n"
+"Last-Translator: Clément Thomas <clement.thomas@elneo.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.template,compute_sale_price:0
+msgid "Autocompute sale price"
+msgstr "Calcul automatique du prix de vente"
+
+#. module: elneo_autocompute_saleprice
+#: view:elneo_autocompute_saleprice.confirm_update_wizard:elneo_autocompute_saleprice.view_wizard_confirm_update_form
+#: view:product.group.update.price.wizard:elneo_autocompute_saleprice.view_product_group_update_price_wizard_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: elneo_autocompute_saleprice
+#: field:elneo_autocompute_saleprice.category_coefficientlist,categ_id:0
+msgid "Category of Product"
+msgstr "Catégorie de produit"
+
+#. module: elneo_autocompute_saleprice
+#: view:elneo_autocompute_saleprice.category_coefficientlist:elneo_autocompute_saleprice.category_coefficientlist_form_view
+#: view:elneo_autocompute_saleprice.category_coefficientlist:elneo_autocompute_saleprice.category_coefficientlist_search_view
+#: field:elneo_autocompute_saleprice.category_coefficientlist,coefficient:0
+#: model:ir.actions.act_window,name:elneo_autocompute_saleprice.action_category_coefficientlist_form
+#: model:ir.ui.menu,name:elneo_autocompute_saleprice.category_coefficientlist_menuitem
+#: field:product.group,coeff_sale_price:0
+msgid "Coefficient"
+msgstr "Coefficient"
+
+#. module: elneo_autocompute_saleprice
+#: help:product.group,coeff_sale_price:0
+msgid "Coefficient between public price and sale price"
+msgstr "Coefficient entre le prix publique et le prix de vente"
+
+#. module: elneo_autocompute_saleprice
+#: view:elneo_autocompute_saleprice.confirm_update_wizard:elneo_autocompute_saleprice.view_wizard_confirm_update_form
+#: model:ir.actions.act_window,name:elneo_autocompute_saleprice.action_wizard_confirm_update
+msgid "Confirm Update"
+msgstr "Confirmer la mise à jour"
+
+#. module: elneo_autocompute_saleprice
+#: model:ir.model,name:elneo_autocompute_saleprice.model_elneo_autocompute_saleprice_confirm_update_wizard
+msgid "Confirm Update Sale Price's Product"
+msgstr "Confirmer la mise à jour des prix de vente des produits"
+
+#. module: elneo_autocompute_saleprice
+#: field:customer.discount.exception,create_uid:0
+#: field:discount.type.discount,create_uid:0
+#: field:elneo_autocompute_saleprice.category_coefficientlist,create_uid:0
+#: field:product.discount.type,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_autocompute_saleprice
+#: field:customer.discount.exception,create_date:0
+#: field:discount.type.discount,create_date:0
+#: field:elneo_autocompute_saleprice.category_coefficientlist,create_date:0
+#: field:product.discount.type,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.template,last_update_price_fixed:0
+msgid "Date of last update of fixed price"
+msgstr "Date de dernière mise à jour du prix fixé"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.group,description:0
+msgid "Description"
+msgstr "Description"
+
+#. module: elneo_autocompute_saleprice
+#: field:customer.discount.exception,discount:0
+msgid "Discount"
+msgstr "Remise"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.group.discount,discount:0
+msgid "Discount (%)"
+msgstr "Remise (%)"
+
+#. module: elneo_autocompute_saleprice
+#: field:discount.type.discount,discount_percent:0
+msgid "Discount (percent)"
+msgstr "Remise (pourcent)"
+
+#. module: elneo_autocompute_saleprice
+#: view:res.partner:elneo_autocompute_saleprice.view_partner_elneo_sale_price_form
+#: field:res.partner,discount_exceptions:0
+msgid "Discount exceptions"
+msgstr "Exceptions de remises"
+
+#. module: elneo_autocompute_saleprice
+#: field:discount.type.discount,discount_type_id:0
+#: field:product.group.discount,discount_type_id:0
+#: field:res.partner,discount_type_id:0 field:sale.order,discount_type_id:0
+msgid "Discount type"
+msgstr "Kortingen departement pneumatics"
+
+#. module: elneo_autocompute_saleprice
+#: model:ir.actions.act_window,name:elneo_autocompute_saleprice.action_product_discount_type
+#: model:ir.ui.menu,name:elneo_autocompute_saleprice.menu_product_discount_type
+msgid "Discount types"
+msgstr "Kortingen departement pneumatics"
+
+#. module: elneo_autocompute_saleprice
+#: view:product.discount.type:elneo_autocompute_saleprice.view_product_discount_type_form
+#: field:product.discount.type,discounts:0
+msgid "Discounts"
+msgstr "Remises"
+
+#. module: elneo_autocompute_saleprice
+#: model:product.group,description:0
+msgid "FESTO"
+msgstr "FESTO"
+
+#. module: elneo_autocompute_saleprice
+#: model:product.group,description:0
+msgid "Flasques, Raccords vissés, Raccords à souder (Inox)"
+msgstr "Flasques, Raccords vissés, Raccords à souder (Inox)"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.template,maximum_price:0
+msgid "Historical maximum price"
+msgstr "Prix maximum (historique)"
+
+#. module: elneo_autocompute_saleprice
+#: field:customer.discount.exception,id:0 field:discount.type.discount,id:0
+#: field:elneo_autocompute_saleprice.category_coefficientlist,id:0
+#: field:product.discount.type,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: elneo_autocompute_saleprice
+#: field:elneo_autocompute_saleprice.category_coefficientlist,is_brutprice:0
+msgid "Is Same as Brut Price"
+msgstr "Identique au prix brut"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.template,product_group_id:0
+msgid "Landefeld product group"
+msgstr "Product Group Landefeld"
+
+#. module: elneo_autocompute_saleprice
+#: field:customer.discount.exception,write_uid:0
+#: field:discount.type.discount,write_uid:0
+#: field:elneo_autocompute_saleprice.category_coefficientlist,write_uid:0
+#: field:product.discount.type,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: elneo_autocompute_saleprice
+#: field:customer.discount.exception,write_date:0
+#: field:discount.type.discount,write_date:0
+#: field:elneo_autocompute_saleprice.category_coefficientlist,write_date:0
+#: field:product.discount.type,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: elneo_autocompute_saleprice
+#: model:ir.model,name:elneo_autocompute_saleprice.model_elneo_autocompute_saleprice_category_coefficientlist
+msgid "List of coefficient for partner and product category "
+msgstr "Liste de coefficient par fournisseur et catégorie de produit"
+
+#. module: elneo_autocompute_saleprice
+#: field:discount.type.discount,margin_max:0
+msgid "Maximum margin"
+msgstr "Marge maximum"
+
+#. module: elneo_autocompute_saleprice
+#: help:product.group,min_margin_coef:0
+msgid "Minimum coefficient between Landefeld purchase price and sale price"
+msgstr ""
+"Coefficient minimum entre le prix d'achat landefeld et le prix de vente"
+
+#. module: elneo_autocompute_saleprice
+#: field:discount.type.discount,margin_min:0
+msgid "Minimum margin"
+msgstr "Marge minimum"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.group,min_margin_coef:0
+msgid "Minimum margin coef."
+msgstr "Coefficient de marge minimum"
+
+#. module: elneo_autocompute_saleprice
+#: model:product.group,description:0
+msgid "NORGREN"
+msgstr "NORGREN"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.group,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: elneo_autocompute_saleprice
+#: field:customer.discount.exception,partner_id:0
+#: field:elneo_autocompute_saleprice.category_coefficientlist,partner_id:0
+#: model:ir.model,name:elneo_autocompute_saleprice.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: elneo_autocompute_saleprice
+#: model:ir.model,name:elneo_autocompute_saleprice.model_product_product
+msgid "Product"
+msgstr "Produit"
+
+#. module: elneo_autocompute_saleprice
+#: model:ir.model,name:elneo_autocompute_saleprice.model_product_template
+msgid "Product Template"
+msgstr "Modèle de produit"
+
+#. module: elneo_autocompute_saleprice
+#: field:customer.discount.exception,categ_id:0
+msgid "Product category"
+msgstr "Catégorie de produit"
+
+#. module: elneo_autocompute_saleprice
+#: field:customer.discount.exception,product_group_id:0
+#: model:ir.actions.act_window,name:elneo_autocompute_saleprice.action_product_group
+#: model:ir.ui.menu,name:elneo_autocompute_saleprice.menu_product_group
+#: view:product.discount.type:elneo_autocompute_saleprice.view_product_discount_type_form
+#: view:product.discount.type:elneo_autocompute_saleprice.view_product_discount_type_tree
+#: view:product.group:elneo_autocompute_saleprice.view_product_group_form
+#: view:product.group:elneo_autocompute_saleprice.view_product_group_tree
+#: field:product.group.discount,product_group_id:0
+msgid "Product group"
+msgstr "Product groups Landefeld"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.discount.type,product_group_discounts:0
+msgid "Product group discounts"
+msgstr "Remises product group"
+
+#. module: elneo_autocompute_saleprice
+#: selection:product.group,web_shop_price_base:0
+msgid "Public price"
+msgstr "Prix publique"
+
+#. module: elneo_autocompute_saleprice
+#: selection:product.group,web_shop_price_base:0
+msgid "Purchase price"
+msgstr "Prix d'achat"
+
+#. module: elneo_autocompute_saleprice
+#: model:product.group,description:0
+msgid "Raccords de Mesure"
+msgstr "Raccords de Mesure"
+
+#. module: elneo_autocompute_saleprice
+#: view:product.template:elneo_autocompute_saleprice.elneo_product_sale_price_form_view
+msgid "Reset"
+msgstr "Remise à zéro"
+
+#. module: elneo_autocompute_saleprice
+#: view:product.template:elneo_autocompute_saleprice.elneo_product_sale_price_form_view
+msgid "Sale price"
+msgstr "Prix de vente"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.template,sale_price_fixed:0
+msgid "Sale price fixed"
+msgstr "Prix de vente fixé"
+
+#. module: elneo_autocompute_saleprice
+#: help:product.template,compute_sale_price:0
+msgid ""
+"Sale price is always the highest price, between fixed, seller and cumputed "
+"price if checked, between fixed and seller if not checked"
+msgstr ""
+"Le prix de vente est toujours le prix le plus haut entre le prix fixé, le "
+"prix vendeur et le prix calculé si coché et entre le prix fixé et le prix "
+"vendeur si non coché"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.template,sale_price_seller:0
+msgid "Sale price seller"
+msgstr "Prix de vente vendeur"
+
+#. module: elneo_autocompute_saleprice
+#: model:ir.model,name:elneo_autocompute_saleprice.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
+
+#. module: elneo_autocompute_saleprice
+#: model:ir.model,name:elneo_autocompute_saleprice.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bon de commandes"
+
+#. module: elneo_autocompute_saleprice
+#: model:product.group,description:0
+msgid "Soufflettes, Vortex, Busettes, suceur"
+msgstr "Soufflettes, Vortex, Busettes, suceur"
+
+#. module: elneo_autocompute_saleprice
+#: field:sale.order,stat_on_invoice_date:0
+msgid "Stats on invoice date"
+msgstr "Stats sur date de facture"
+
+#. module: elneo_autocompute_saleprice
+#: view:elneo_autocompute_saleprice.category_coefficientlist:elneo_autocompute_saleprice.category_coefficientlist_form_view
+#: view:elneo_autocompute_saleprice.confirm_update_wizard:elneo_autocompute_saleprice.view_wizard_confirm_update_form
+#: view:product.group.update.price.wizard:elneo_autocompute_saleprice.view_product_group_update_price_wizard_form
+#: view:update.product.prices.wizard:elneo_autocompute_saleprice.update_product_prices_view
+msgid "Update"
+msgstr "Mise à jour"
+
+#. module: elneo_autocompute_saleprice
+#: model:ir.actions.act_window,name:elneo_autocompute_saleprice.action_category_coefficientlist_form_multi
+msgid "Update Product Price"
+msgstr "Mettre à jour le prix"
+
+#. module: elneo_autocompute_saleprice
+#: view:sale.order:elneo_autocompute_saleprice.view_order_form_elneo_sale_price
+#: view:update.product.prices.wizard:elneo_autocompute_saleprice.update_product_prices_view
+msgid "Update prices"
+msgstr "MàJ prix"
+
+#. module: elneo_autocompute_saleprice
+#: model:ir.actions.act_window,name:elneo_autocompute_saleprice.act_update_product_prices
+#: model:ir.actions.act_window,name:elneo_autocompute_saleprice.action_product_group_update_price_wizard
+#: view:product.group.update.price.wizard:elneo_autocompute_saleprice.view_product_group_update_price_wizard_form
+msgid "Update product prices"
+msgstr "Mise à jour des prix"
+
+#. module: elneo_autocompute_saleprice
+#: view:product.discount.type:elneo_autocompute_saleprice.view_product_discount_type_form
+msgid "Values"
+msgstr "Valeurs"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.group,web_shop_price_base:0
+msgid "Web shop price base"
+msgstr "Prix de base web"
+
+#. module: elneo_autocompute_saleprice
+#: model:ir.actions.act_window,name:elneo_autocompute_saleprice.action_update_product_prices
+msgid "action.update.product.prices"
+msgstr "action.update.product.prices"
+
+#. module: elneo_autocompute_saleprice
+#: view:product.product:elneo_autocompute_saleprice.product_normal_form_view_elneo_autocompute_saleprice
+msgid "list_price"
+msgstr "list_price"
+
+#. module: elneo_autocompute_saleprice
+#: field:product.discount.type,name:0
+msgid "name"
+msgstr "name"
+
+#. module: elneo_autocompute_saleprice
+#: view:sale.order:elneo_autocompute_saleprice.view_order_form_elneo_sale_price
+msgid ""
+"product_id_change_with_wh_discount_type(parent.pricelist_id,product_id,"
+"product_uom_qty,False,product_uos_qty,False,name,parent.partner_id, False, "
+"True, parent.date_order, product_packaging, parent.fiscal_position, False, "
+"parent.warehouse_id, parent.discount_type_id, context)"
+msgstr ""
+"product_id_change_with_wh_discount_type(parent.pricelist_id,product_id,"
+"product_uom_qty,False,product_uos_qty,False,name,parent.partner_id, False, "
+"True, parent.date_order, product_packaging, parent.fiscal_position, False, "
+"parent.warehouse_id, parent.discount_type_id, context)"
+
+#. module: elneo_autocompute_saleprice
+#: view:sale.order:elneo_autocompute_saleprice.view_order_form_elneo_sale_price
+msgid ""
+"product_id_change_with_wh_discount_type(parent.pricelist_id,product_id,"
+"product_uom_qty,product_uom,product_uos_qty,False,name,parent.partner_id, "
+"False, False, parent.date_order, product_packaging, parent.fiscal_position, "
+"True, parent.warehouse_id, parent.discount_type_id, context)"
+msgstr ""
+"product_id_change_with_wh_discount_type(parent.pricelist_id,product_id,"
+"product_uom_qty,product_uom,product_uos_qty,False,name,parent.partner_id, "
+"False, False, parent.date_order, product_packaging, parent.fiscal_position, "
+"True, parent.warehouse_id, parent.discount_type_id, context)"
+
+#. module: elneo_autocompute_saleprice
+#: view:sale.order:elneo_autocompute_saleprice.view_order_form_elneo_sale_price
+msgid ""
+"product_id_change_with_wh_discount_type(parent.pricelist_id,product_id,"
+"product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent."
+"partner_id, False, False, parent.date_order, product_packaging, parent."
+"fiscal_position, True, parent.warehouse_id, parent.discount_type_id, context)"
+msgstr ""
+"product_id_change_with_wh_discount_type(parent.pricelist_id,product_id,"
+"product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent."
+"partner_id, False, False, parent.date_order, product_packaging, parent."
+"fiscal_position, True, parent.warehouse_id, parent.discount_type_id, context)"

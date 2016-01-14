@@ -1,0 +1,821 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_equipment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 10:36+0000\n"
+"PO-Revision-Date: 2015-11-09 12:06+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: hr_equipment
+#: code:addons/hr_equipment/models/hr_equipment.py:320
+#, python-format
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                            Click to add a new maintenance request or send an email to: <a>%(alias_name)s</a>\n"
+"                        </p>\n"
+"                        <p>\n"
+"                            Follow the process of the request and communicate with the collaborator.\n"
+"                        </p>"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                            Cliquer pour créer une nouvelle demande de maintenance ou pour envoyer un mail à: <a>%(alias_name)s</a>\n"
+"                        </p>\n"
+"                        <p>\n"
+"                            Suivre le traitement de la demande et communiquer avec le collaborateur.\n"
+"                        </p>"
+
+#. module: hr_equipment
+#: model:ir.actions.act_window,help:hr_equipment.hr_equipment_action_from_category_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a new Engine.\n"
+"            </p><p>\n"
+"                This application helps you to track all equipment allocated to employees.\n"
+"                Create some laptop, printer or phone and link each equipment to an employee or departement.\n"
+"                You will manage allocations, issues and mainteannce of equipment.\n"
+"            </p>\n"
+"        "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Cliquez pour ajouter un nouveau moteur.\n"
+"            </p><p>\n"
+"                Cette application vous aide à suivre tous les équipements alloués aux employés.\n"
+"                Créez des portables, imprimantes ou téléphones et reliez chacun à un employé ou à un département.\n"
+"                Vous gèrerez les attributions, les problèmes et la maintenance des équipements.\n"
+"            </p>\n"
+"        "
+
+#. module: hr_equipment
+#: model:ir.actions.act_window,help:hr_equipment.hr_equipment_category_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a new equipment category.\n"
+"            </p>\n"
+"        "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Cliquez pour ajouter une nouvelle catégorie d'équipement.\n"
+"            </p>\n"
+"        "
+
+#. module: hr_equipment
+#: model:ir.actions.act_window,help:hr_equipment.hr_equipment_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a new equipment.\n"
+"            </p><p>\n"
+"                This application helps you to track all equipment allocated to employees.\n"
+"                Create some laptop, printer or phone and link each equipment to an employee or departement.\n"
+"                You will manage allocations, issues and maintenance of equipment.\n"
+"            </p>\n"
+"        "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"               Cliquez pour ajouter une nouvel équipement.\n"
+"            </p><p>\n"
+"                Cette application vous aide à suivre tous les équipements alloués aux employés.\n"
+"                Créez des portables, imprimantes ou téléphones et reliez chacun à un employé ou à un département.\n"
+"                Vous gèrerez les attributions, les problèmes et la maintenance des équipements.\n"
+"            </p>\n"
+"        "
+
+#. module: hr_equipment
+#: model:ir.actions.act_window,help:hr_equipment.hr_equipment_request_action
+#: model:ir.actions.act_window,help:hr_equipment.hr_equipment_request_action_link
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a new maintenance request.\n"
+"            </p><p>\n"
+"                Follow the process of the request and communicate with the collaborator.\n"
+"            </p>\n"
+"        "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Cliquez pour créer une nouvelle demande de maintenance.\n"
+"            </p><p>\n"
+"                Suivez le traitement de la requête et communiquez avec le collaborateur.\n"
+"            </p>\n"
+"        "
+
+#. module: hr_equipment
+#: model:ir.actions.act_window,help:hr_equipment.hr_equipment_stage_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"            Click to add a stage in the maintenance request.\n"
+"          </p>\n"
+"        "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"            Cliquez pour ajouter une étape à la requête de maintenance.\n"
+"          </p>\n"
+"        "
+
+#. module: hr_equipment
+#: field:hr.equipment.category,alias_id:0
+msgid "Alias"
+msgstr "Alias"
+
+#. module: hr_equipment
+#: field:hr.equipment.config.settings,alias_domain:0
+msgid "Alias Domain"
+msgstr "Alias de Domaine"
+
+#. module: hr_equipment
+#: field:hr.equipment.config.settings,alias_manage:0
+msgid "Alias Manage"
+msgstr "Gérer les Alias"
+
+#. module: hr_equipment
+#: field:hr.equipment,equipment_assign_to:0
+msgid "Allocate To"
+msgstr "Allouer à"
+
+#. module: hr_equipment
+#: view:hr.equipment.config.settings:hr_equipment.hr_equipment_config_settings_view_form
+msgid "Apply"
+msgstr "Appliquer"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_tree
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_tree
+msgid "Assign To Employee"
+msgstr "Allouer à l'employé"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+msgid "Assigned"
+msgstr "Attribué"
+
+#. module: hr_equipment
+#: field:hr.equipment,assign_date:0
+msgid "Assigned Date"
+msgstr "Date d'attribution"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+#: field:hr.equipment.request,user_id:0
+msgid "Assigned to"
+msgstr "Attribué à"
+
+#. module: hr_equipment
+#: field:hr.equipment,department_id:0
+msgid "Assigned to Department"
+msgstr "Attribué au Département"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+msgid "Assigned to Departments"
+msgstr "Attribué aux Départements"
+
+#. module: hr_equipment
+#: field:hr.equipment,employee_id:0
+msgid "Assigned to Employee"
+msgstr "Attribué à l'employé"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+msgid "Assigned to Employees"
+msgstr "Attribué aux employés"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+msgid "Assigned to Employees and Departments"
+msgstr "Attribué aux employés et aux départements"
+
+#. module: hr_equipment
+#: selection:hr.equipment.request,kanban_state:0
+msgid "Blocked"
+msgstr "Bloqué"
+
+#. module: hr_equipment
+#: selection:hr.equipment,equipment_assign_to:0
+msgid "By Department"
+msgstr "Par Département"
+
+#. module: hr_equipment
+#: selection:hr.equipment,equipment_assign_to:0
+msgid "By Employee"
+msgstr "Par Employé"
+
+#. module: hr_equipment
+#: help:hr.equipment,equipment_assign_to:0
+msgid "By Employee: equipment assigned to individual Employee, By Department: equipment assigned to group of employees in department"
+msgstr "Par Employé : équipement assigné à un employé, Par Département : équipement assigné à un groupe d'employés dans le département"
+
+#. module: hr_equipment
+#: view:hr.equipment.config.settings:hr_equipment.hr_equipment_config_settings_view_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: hr_equipment
+#: model:hr.equipment.stage,name:hr_equipment.stage_5
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_search
+#: field:hr.equipment.request,category_id:0
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: hr_equipment
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_form
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_search
+#: field:hr.equipment.category,name:0
+msgid "Category Name"
+msgstr "Nom de la Catégorie"
+
+#. module: hr_equipment
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_kanban
+msgid "Category:"
+msgstr "Catégorie:"
+
+#. module: hr_equipment
+#: field:hr.equipment.request,close_date:0
+msgid "Close Date"
+msgstr "Date de fermeture"
+
+#. module: hr_equipment
+#: field:hr.equipment,color:0 field:hr.equipment.category,color:0
+#: field:hr.equipment.request,color:0
+msgid "Color Index"
+msgstr "Color Index"
+
+#. module: hr_equipment
+#: field:hr.equipment.category,note:0
+msgid "Comments"
+msgstr "Commentaires"
+
+#. module: hr_equipment
+#: model:ir.ui.menu,name:hr_equipment.menu_equipment_configuration
+msgid "Configuration"
+msgstr "Instellingen"
+
+#. module: hr_equipment
+#: model:ir.actions.act_window,name:hr_equipment.action_hr_equipment_configuration
+msgid "Configure Equipments"
+msgstr "Configurer les équipements"
+
+#. module: hr_equipment
+#: view:hr.equipment.config.settings:hr_equipment.hr_equipment_config_settings_view_form
+msgid "Configure Equipments Settings"
+msgstr "Configurer les Paramètres des équipements"
+
+#. module: hr_equipment
+#: field:hr.equipment,cost:0
+msgid "Cost"
+msgstr "Coût"
+
+#. module: hr_equipment
+#: field:hr.equipment,create_uid:0 field:hr.equipment.category,create_uid:0
+#: field:hr.equipment.config.settings,create_uid:0
+#: field:hr.equipment.request,create_uid:0
+#: field:hr.equipment.stage,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: hr_equipment
+#: field:hr.equipment,create_date:0 field:hr.equipment.category,create_date:0
+#: field:hr.equipment.config.settings,create_date:0
+#: field:hr.equipment.request,create_date:0
+#: field:hr.equipment.stage,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: hr_equipment
+#: help:hr.equipment,message_last_post:0
+#: help:hr.equipment.category,message_last_post:0
+#: help:hr.equipment.request,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_kanban
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_kanban
+msgid "Delete"
+msgstr "Supprimer"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_form
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+#: view:hr.equipment:hr_equipment.hr_equipment_view_tree
+#: field:hr.equipment.request,department_id:0
+msgid "Department"
+msgstr "Département"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_form
+#: field:hr.equipment.request,description:0
+msgid "Description"
+msgstr "Description"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_kanban
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_kanban
+msgid "Edit..."
+msgstr "Éditer..."
+
+#. module: hr_equipment
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_form
+msgid "Email Alias"
+msgstr "Alias Email"
+
+#. module: hr_equipment
+#: help:hr.equipment.category,alias_id:0
+msgid "Email alias for this equipment category. New emails will automatically create new maintenance request for this equipment category."
+msgstr "Email Alias pour cette catégorie d'équipement. Les nouveaux emails créeront automatiquement de nouvelles requêtes de maintenance pour cette catégorie d'équipement."
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_form
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+#: view:hr.equipment:hr_equipment.hr_equipment_view_tree
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_search
+#: field:hr.equipment.request,employee_id:0
+msgid "Employee"
+msgstr "Employé"
+
+#. module: hr_equipment
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_form
+#: field:hr.equipment.request,equipment_id:0
+#: model:ir.model,name:hr_equipment.model_hr_equipment
+#: model:ir.ui.menu,name:hr_equipment.menu_equipment_equipment
+msgid "Equipment"
+msgstr "Uitrustingen"
+
+#. module: hr_equipment
+#: model:mail.message.subtype,description:hr_equipment.mt_mat_assign
+#: model:mail.message.subtype,name:hr_equipment.mt_cat_mat_assign
+#: model:mail.message.subtype,name:hr_equipment.mt_mat_assign
+msgid "Equipment Assigned"
+msgstr "Équipment Attribué"
+
+#. module: hr_equipment
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_form
+#: model:ir.actions.act_window,name:hr_equipment.hr_equipment_category_action
+#: model:ir.ui.menu,name:hr_equipment.menu_equipment_cat
+msgid "Equipment Categories"
+msgstr "Uitrustingscategorieen"
+
+#. module: hr_equipment
+#: field:hr.equipment,category_id:0
+#: model:ir.model,name:hr_equipment.model_hr_equipment_category
+msgid "Equipment Category"
+msgstr "Catégorie d'équipement"
+
+#. module: hr_equipment
+#: model:ir.model,name:hr_equipment.model_hr_equipment_request
+msgid "Equipment Request"
+msgstr "Requête d'équipement"
+
+#. module: hr_equipment
+#: model:ir.model,name:hr_equipment.model_hr_equipment_stage
+msgid "Equipment Stage"
+msgstr "Étape d'équipement"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_form
+#: field:hr.equipment.category,equipment_ids:0
+#: model:ir.actions.act_window,name:hr_equipment.hr_equipment_action
+#: model:ir.actions.act_window,name:hr_equipment.hr_equipment_action_from_category_form
+#: model:ir.ui.menu,name:hr_equipment.menu_equipment_title
+#: model:ir.ui.menu,name:hr_equipment.menu_hr_equipment_form
+msgid "Equipments"
+msgstr "Uitrustingen"
+
+#. module: hr_equipment
+#: field:hr.equipment.category,fold:0 field:hr.equipment.stage,fold:0
+msgid "Folded in Kanban View"
+msgstr "Replié dans la vue Kanban"
+
+#. module: hr_equipment
+#: field:hr.equipment,message_follower_ids:0
+#: field:hr.equipment.category,message_follower_ids:0
+#: field:hr.equipment.request,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_search
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_search
+msgid "Group by..."
+msgstr "Grouper par..."
+
+#. module: hr_equipment
+#: selection:hr.equipment.request,priority:0
+msgid "High"
+msgstr "Haut"
+
+#. module: hr_equipment
+#: help:hr.equipment,message_summary:0
+#: help:hr.equipment.category,message_summary:0
+#: help:hr.equipment.request,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+
+#. module: hr_equipment
+#: field:hr.equipment,id:0 field:hr.equipment.category,id:0
+#: field:hr.equipment.config.settings,id:0 field:hr.equipment.request,id:0
+#: field:hr.equipment.stage,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_equipment
+#: help:hr.equipment,message_unread:0
+#: help:hr.equipment.category,message_unread:0
+#: help:hr.equipment.request,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, les nouveaux messages requièreront votre attention."
+
+#. module: hr_equipment
+#: selection:hr.equipment.request,kanban_state:0
+#: model:hr.equipment.stage,name:hr_equipment.stage_1
+msgid "In Progress"
+msgstr "En cours"
+
+#. module: hr_equipment
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_form
+msgid "Internal Note ......."
+msgstr "Note interne ......."
+
+#. module: hr_equipment
+#: field:hr.equipment,message_is_follower:0
+#: field:hr.equipment.category,message_is_follower:0
+#: field:hr.equipment.request,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est un abonné"
+
+#. module: hr_equipment
+#: field:hr.equipment.request,kanban_state:0
+msgid "Kanban State"
+msgstr "État du Kanban"
+
+#. module: hr_equipment
+#: field:hr.equipment,message_last_post:0
+#: field:hr.equipment.category,message_last_post:0
+#: field:hr.equipment.request,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: hr_equipment
+#: field:hr.equipment,write_uid:0 field:hr.equipment.category,write_uid:0
+#: field:hr.equipment.config.settings,write_uid:0
+#: field:hr.equipment.request,write_uid:0 field:hr.equipment.stage,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: hr_equipment
+#: field:hr.equipment,write_date:0 field:hr.equipment.category,write_date:0
+#: field:hr.equipment.config.settings,write_date:0
+#: field:hr.equipment.request,write_date:0
+#: field:hr.equipment.stage,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: hr_equipment
+#: selection:hr.equipment.request,priority:0
+msgid "Low"
+msgstr "Bas"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_form
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_form
+msgid "Maintenance"
+msgstr "Maintenance"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_kanban
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_form
+msgid "Maintenance Request"
+msgstr "Requête de maintenance"
+
+#. module: hr_equipment
+#: model:mail.message.subtype,name:hr_equipment.mt_cat_req_created
+msgid "Maintenance Request Created"
+msgstr "Requête de Maintenance créée"
+
+#. module: hr_equipment
+#: view:hr.equipment.stage:hr_equipment.hr_equipment_stage_view_tree
+msgid "Maintenance Request Stage"
+msgstr "Étape de requête de maintenance"
+
+#. module: hr_equipment
+#: view:hr.equipment.stage:hr_equipment.hr_equipment_stage_view_search
+msgid "Maintenance Request Stages"
+msgstr "Étapes des requêtes de maintenance"
+
+#. module: hr_equipment
+#: model:mail.message.subtype,description:hr_equipment.mt_req_created
+msgid "Maintenance Request created"
+msgstr "Requête de maintenance créée"
+
+#. module: hr_equipment
+#: model:ir.actions.act_window,name:hr_equipment.hr_equipment_request_action
+#: model:ir.actions.act_window,name:hr_equipment.hr_equipment_request_action_from_equipment
+#: model:ir.actions.act_window,name:hr_equipment.hr_equipment_request_action_link
+#: model:ir.ui.menu,name:hr_equipment.menu_m_request_form
+msgid "Maintenance Requests"
+msgstr "Aanvraag herstellingen"
+
+#. module: hr_equipment
+#: field:hr.equipment,maintenance_ids:0
+#: field:hr.equipment.category,maintenance_ids:0
+msgid "Maintenance ids"
+msgstr "Ids de maintenance"
+
+#. module: hr_equipment
+#: field:hr.equipment,message_ids:0 field:hr.equipment.category,message_ids:0
+#: field:hr.equipment.request,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: hr_equipment
+#: help:hr.equipment,message_ids:0 help:hr.equipment.category,message_ids:0
+#: help:hr.equipment.request,message_ids:0
+msgid "Messages and communication history"
+msgstr "Messages et historique de communication"
+
+#. module: hr_equipment
+#: field:hr.equipment,model:0
+msgid "Model"
+msgstr "Modèle"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_kanban
+msgid "Model Number:"
+msgstr "Numéro de modèle:"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+msgid "My Equipments"
+msgstr "Mes Équipements"
+
+#. module: hr_equipment
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_search
+msgid "My Requests"
+msgstr "Mes requêtes"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_form
+#: field:hr.equipment,name:0
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_tree
+#: field:hr.equipment.stage,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+msgid "New"
+msgstr "Nouveau"
+
+#. module: hr_equipment
+#: model:hr.equipment.stage,name:hr_equipment.stage_0
+msgid "New Request"
+msgstr "Nouvelle requête"
+
+#. module: hr_equipment
+#: selection:hr.equipment.request,priority:0
+msgid "Normal"
+msgstr "Normal"
+
+#. module: hr_equipment
+#: field:hr.equipment,note:0
+msgid "Note"
+msgstr "Note"
+
+#. module: hr_equipment
+#: model:ir.actions.client,name:hr_equipment.action_client_hr_menu
+msgid "Open HR Menu"
+msgstr "Ouvrir le menu RH"
+
+#. module: hr_equipment
+#: field:hr.equipment.request,priority:0
+msgid "Priority"
+msgstr "Priorité"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_form
+msgid "Product Information"
+msgstr "Information Produit"
+
+#. module: hr_equipment
+#: selection:hr.equipment.request,kanban_state:0
+msgid "Ready for next stage"
+msgstr "Prêt pour l'étape suivante"
+
+#. module: hr_equipment
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_form
+msgid "Repair Responsible"
+msgstr "Responsable de réparation"
+
+#. module: hr_equipment
+#: model:hr.equipment.stage,name:hr_equipment.stage_3
+msgid "Repaired"
+msgstr "Réparé"
+
+#. module: hr_equipment
+#: model:mail.message.subtype,name:hr_equipment.mt_req_created
+msgid "Request Created"
+msgstr "Requête créée"
+
+#. module: hr_equipment
+#: field:hr.equipment.request,request_date:0
+msgid "Request Date"
+msgstr "Date de requête"
+
+#. module: hr_equipment
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_kanban
+msgid "Request to:"
+msgstr "Requête à:"
+
+#. module: hr_equipment
+#: view:hr.equipment.config.settings:hr_equipment.hr_equipment_config_settings_view_form
+msgid "Requests Alias"
+msgstr "Alias de requête"
+
+#. module: hr_equipment
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_search
+#: field:hr.equipment.category,user_id:0
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: hr_equipment
+#: model:hr.equipment.stage,name:hr_equipment.stage_4
+msgid "Scrap"
+msgstr "Scrap"
+
+#. module: hr_equipment
+#: field:hr.equipment,scrap_date:0
+msgid "Scrap Date"
+msgstr "Scrap Date"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+#: view:hr.equipment.category:hr_equipment.hr_equipment_category_view_search
+msgid "Search"
+msgstr "Recherche"
+
+#. module: hr_equipment
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_form
+msgid "Sender"
+msgstr "Demandeur"
+
+#. module: hr_equipment
+#: field:hr.equipment.stage,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: hr_equipment
+#: field:hr.equipment,serial_no:0
+msgid "Serial Number"
+msgstr "Numéro de Série"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_kanban
+msgid "Serial Number:"
+msgstr "Numéro de série:"
+
+#. module: hr_equipment
+#: model:ir.ui.menu,name:hr_equipment.menu_equipment_global_settings
+msgid "Settings"
+msgstr "Instellingen"
+
+#. module: hr_equipment
+#: field:hr.equipment.request,stage_id:0
+msgid "Stage"
+msgstr "Étape"
+
+#. module: hr_equipment
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_search
+#: model:ir.actions.act_window,name:hr_equipment.hr_equipment_stage_action
+#: model:ir.ui.menu,name:hr_equipment.menu_equipment_stage_configuration
+msgid "Stages"
+msgstr "Herstellingsphasen"
+
+#. module: hr_equipment
+#: model:mail.message.subtype,name:hr_equipment.mt_req_status
+msgid "Status Changed"
+msgstr "Statut changé"
+
+#. module: hr_equipment
+#: model:mail.message.subtype,description:hr_equipment.mt_req_status
+msgid "Status changed"
+msgstr "État modifié"
+
+#. module: hr_equipment
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_form
+msgid "Subject"
+msgstr "Sujet"
+
+#. module: hr_equipment
+#: field:hr.equipment.request,name:0
+msgid "Subjects"
+msgstr "Sujets"
+
+#. module: hr_equipment
+#: field:hr.equipment,message_summary:0
+#: field:hr.equipment.category,message_summary:0
+#: field:hr.equipment.request,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: hr_equipment
+#: field:hr.equipment,user_id:0
+msgid "Technician"
+msgstr "Technicien"
+
+#. module: hr_equipment
+#: sql_constraint:hr.equipment:0
+msgid "The serial number of this equipment must be unique !"
+msgstr "Le numéro de série pour cet équipement doit être unique!"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+msgid "To Do"
+msgstr "À faire"
+
+#. module: hr_equipment
+#: view:hr.equipment.config.settings:hr_equipment.hr_equipment_config_settings_view_form
+msgid "Track Equipments"
+msgstr "Suivre les équipements"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_kanban
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+msgid "Unassigned"
+msgstr "Non attribué"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+msgid "Under Maintenance"
+msgstr "En maintenance"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+#: field:hr.equipment,message_unread:0
+#: field:hr.equipment.category,message_unread:0
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_search
+#: field:hr.equipment.request,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: hr_equipment
+#: field:hr.equipment.config.settings,equipment_alias_prefix:0
+msgid "Use the following alias to report internal equipment issue"
+msgstr "Utilisez l'alias suivant pour rapporter un problème sur un équipement interne"
+
+#. module: hr_equipment
+#: code:addons/hr_equipment/models/hr_equipment.py:70
+#, python-format
+msgid "UserError"
+msgstr "UserError"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_search
+msgid "Users"
+msgstr "Utilisateurs"
+
+#. module: hr_equipment
+#: view:hr.equipment:hr_equipment.hr_equipment_view_search
+#: field:hr.equipment,partner_id:0
+msgid "Vendor"
+msgstr "Fabricant"
+
+#. module: hr_equipment
+#: selection:hr.equipment.request,priority:0
+msgid "Very Low"
+msgstr "Très bas"
+
+#. module: hr_equipment
+#: code:addons/hr_equipment/models/hr_equipment.py:70
+#, python-format
+msgid "You cannot delete an equipment category containing equipments or maintenance requests."
+msgstr "Vous ne pouvez pas supprimer une catégorie d'équipement qui contient des équipements ou des requêtes de maintenance."
+
+#. module: hr_equipment
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_tree
+msgid "maintenance Request"
+msgstr "Requête de maintenance"
+
+#. module: hr_equipment
+#: view:hr.equipment.request:hr_equipment.hr_equipment_request_view_search
+msgid "maintenance Request Search"
+msgstr "Recherche de requête de maintenance"
+
+#. module: hr_equipment
+#: view:hr.equipment.config.settings:hr_equipment.hr_equipment_config_settings_view_form
+msgid "or"
+msgstr "ou"

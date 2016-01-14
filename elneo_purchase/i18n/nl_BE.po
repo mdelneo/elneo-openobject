@@ -1,0 +1,193 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* elneo_purchase
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-06 10:42+0000\n"
+"PO-Revision-Date: 2016-01-06 10:42+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: elneo_purchase
+#: model:ir.actions.act_window,help:elneo_purchase.act_res_partner_2_purchase_order
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                    This supplier has no purchase order. Click to create a new RfQ.\n"
+"                </p><p>\n"
+"                    The request for quotation is the first step of the purchases flow. Once\n"
+"                    converted into a purchase order, you will be able to control the receipt\n"
+"                    of the products and the supplier invoice.\n"
+"                </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                    This supplier has no purchase order. Click to create a new RfQ.\n"
+"                </p><p>\n"
+"                    The request for quotation is the first step of the purchases flow. Once\n"
+"                    converted into a purchase order, you will be able to control the receipt\n"
+"                    of the products and the supplier invoice.\n"
+"                </p>\n"
+"            "
+
+#. module: elneo_purchase
+#: model:ir.actions.act_window,help:elneo_purchase.action_purchase_and_purchase_rfq
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a request for quotation.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a request for quotation.\n"
+"              </p>\n"
+"            "
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "Accounting"
+msgstr "Comptabilité"
+
+#. module: elneo_purchase
+#: field:purchase.order.type,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_purchase
+#: field:purchase.order.type,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_purchase
+#: field:purchase.config.settings,default_purchase_type_id:0
+msgid "Default purchase type"
+msgstr "Type d'achat par défaut"
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "Delivery"
+msgstr "Livraison"
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "History"
+msgstr "Historique"
+
+#. module: elneo_purchase
+#: field:purchase.order.type,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "Invoices"
+msgstr "Factures"
+
+#. module: elneo_purchase
+#: field:purchase.order.type,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: elneo_purchase
+#: field:purchase.order.type,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: elneo_purchase
+#: model:ir.ui.menu,name:elneo_purchase.menu_purchase_miscellaneous
+msgid "Miscellaneous"
+msgstr "Diversen"
+
+#. module: elneo_purchase
+#: field:purchase.order.type,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "Notes..."
+msgstr "Notes..."
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "Pickings"
+msgstr "Pickings"
+
+#. module: elneo_purchase
+#: model:ir.model,name:elneo_purchase.model_product_product
+msgid "Product"
+msgstr "Produit"
+
+#. module: elneo_purchase
+#: model:ir.model,name:elneo_purchase.model_purchase_order
+msgid "Purchase Order"
+msgstr "Achat"
+
+#. module: elneo_purchase
+#: field:purchase.order,purchase_type_id:0
+msgid "Purchase Type"
+msgstr "Type d'achat"
+
+#. module: elneo_purchase
+#: view:purchase.config.settings:elneo_purchase.view_important_purchase_configuration
+msgid "Purchase type"
+msgstr "Type d'Achat"
+
+#. module: elneo_purchase
+#: model:ir.actions.act_window,name:elneo_purchase.action_purchase_and_purchase_rfq
+msgid "Purchases and Requests for Quotation"
+msgstr "Aankopen en prijsaanvragen"
+
+#. module: elneo_purchase
+#: model:ir.actions.act_window,name:elneo_purchase.act_res_partner_2_purchase_order
+msgid "RFQs and Purchases"
+msgstr "Aankopen en prijsaanvragen"
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "Supplier"
+msgstr "Fournisseur"
+
+#. module: elneo_purchase
+#: help:purchase.config.settings,default_purchase_type_id:0
+msgid "The Default purchase type proposed on new sale purchase order"
+msgstr "Le type d'achat par défaut proposé pour un nouvel achat"
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "Total Amount"
+msgstr "Montant total"
+
+#. module: elneo_purchase
+#: model:ir.ui.menu,name:elneo_purchase.menu_trash
+#: model:ir.ui.menu,name:elneo_purchase.menu_trash_trash
+msgid "Trash"
+msgstr "Corbeille"
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "Untaxed Amount"
+msgstr "Montant HT"
+
+#. module: elneo_purchase
+#: view:purchase.order.line:elneo_purchase.purchase_order_line_tree_elneo
+msgid "order_id"
+msgstr "order_id"
+
+#. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.purchase_order_form_elneo
+msgid "purchase_line_tree"
+msgstr "purchase_line_tree"
+
+#. module: purchase
+#: model:ir.actions.act_window,name:purchase.purchase_rfq
+#: model:ir.ui.menu,name:purchase.menu_purchase_rfq
+msgid "Requests for Quotation"
+msgstr "Prijsaanvragen"

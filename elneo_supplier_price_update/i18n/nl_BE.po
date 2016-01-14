@@ -641,13 +641,13 @@ msgstr "Historiques des Messages d'Import de Prix Fournisseurs"
 #. module: elneo_supplier_price_update
 #: model:ir.ui.menu,name:elneo_supplier_price_update.menu_supplier_price_update
 msgid "Supplier Price Update"
-msgstr "Mise à jour des prix fournisseur"
+msgstr "Bijwerken prijzen leverenciers"
 
 #. module: elneo_supplier_price_update
 #: model:ir.actions.act_window,name:elneo_supplier_price_update.action_supplier_price_update
 #: model:ir.ui.menu,name:elneo_supplier_price_update.menu_supplier_price_history
 msgid "Supplier Price Update History"
-msgstr "Historique des Mises à jour de Prix Fournisseur"
+msgstr "Historiek"
 
 #. module: elneo_supplier_price_update
 #: help:elneo.supplier.price.update,code:0
@@ -726,13 +726,13 @@ msgstr "Mettre à jour les Prix de Vente"
 #: model:ir.actions.act_window,name:elneo_supplier_price_update.action_wizard_update_landefeld_prices
 #: model:ir.ui.menu,name:elneo_supplier_price_update.update_landefeld_prices_menu
 msgid "Update landefeld prices"
-msgstr "Mettre à jour les prix landefeld"
+msgstr "Bijwerken prijzen Landefeld"
 
 #. module: elneo_supplier_price_update
 #: model:ir.actions.act_window,name:elneo_supplier_price_update.action_supplier_price_update_wizard
 #: model:ir.ui.menu,name:elneo_supplier_price_update.menu_supplier_price_wizard
 msgid "Update supplier prices (%)"
-msgstr "Mettre à jour les prix fournisseur (%)"
+msgstr "Bijwerken prijzen (%) leverenciers"
 
 #. module: elneo_supplier_price_update
 #: selection:elneo.supplier.price.update.line,state:0

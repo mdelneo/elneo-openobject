@@ -19,7 +19,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_picking
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_picking
 msgid "All pickings"
-msgstr "Toutes les entrées/sorties"
+msgstr "Alle inkomende en uitgaande zendingen"
 
 #. module: elneo_stock
 #: field:procurement.rule,autovalidate_dest_move:0
@@ -34,7 +34,7 @@ msgstr "Valider automatiquement les mouvements de destination"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_block_delivery_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_block_delivery_wetteren
 msgid "Blocked deliveries"
-msgstr "Blocked deliveries"
+msgstr "Boekhoudkunding geblokkeerd"
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,create_uid:0
@@ -52,7 +52,7 @@ msgstr "Créé le"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_customer_pick_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_customer_pick_wetteren
 msgid "Customer picking"
-msgstr "Customer picking"
+msgstr "Afhaling klant"
 
 #. module: elneo_stock
 #: field:res.users,default_warehouse_id:0
@@ -67,7 +67,7 @@ msgstr "Entrepôt par défaut pour répndre à des besoins spécifiques"
 #. module: elneo_stock
 #: model:ir.actions.server,name:elneo_stock.action_partial_move_server
 msgid "Deliver/Receive Products"
-msgstr "Livrer/recevoir des produits"
+msgstr "Producten leveren/ontvangen"
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,id:0
@@ -77,7 +77,7 @@ msgstr "ID"
 #. module: elneo_stock
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_input_output
 msgid "Inputs and output"
-msgstr "Entrées et sorties"
+msgstr "Inkomende en uitgaande zendingen"
 
 #. module: elneo_stock
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_input_output_awans
@@ -107,7 +107,7 @@ msgstr "Dernière Mise à jour le"
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_move_operation_link
 msgid "Link between stock moves and pack operations"
-msgstr "Lien entre les mouvements et les colisages"
+msgstr "Koppeling tussen voorraadmutaties en verpakking bewerkingen"
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_decale_awans
@@ -115,7 +115,7 @@ msgstr "Lien entre les mouvements et les colisages"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_decale_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_decale_wetteren
 msgid "Livraisons décalées"
-msgstr "Livraisons décalées"
+msgstr "Uitgestelde leveringen"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_location
@@ -128,12 +128,12 @@ msgstr "Emplacement"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_maintenance_return_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_maintenance_return_wetteren
 msgid "Maintenance return"
-msgstr "Maintenance return"
+msgstr "Terugkeer goederen techniekers"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_warehouse_orderpoint
 msgid "Minimum Inventory Rule"
-msgstr "Règle du stock minimum."
+msgstr "Minimale voorraadregel"
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_montage_awans
@@ -156,17 +156,17 @@ msgstr "Ordered quantity"
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_picking
 msgid "Picking List"
-msgstr "Liste de colisage"
+msgstr "Zendnota"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_transfer_details
 msgid "Picking wizard"
-msgstr "Assistant de préparation"
+msgstr "Verzamelen wizzard"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_transfer_details_items
 msgid "Picking wizard items"
-msgstr "Ligne d'assistant de préparation"
+msgstr "Verzamelen wizzard items"
 
 #. module: elneo_stock
 #: view:stock.picking:elneo_stock.view_picking_internal_search_elneo_stock
@@ -176,12 +176,12 @@ msgstr "Pickings created by member of your team."
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_procurement_order
 msgid "Procurement"
-msgstr "Approvisionnement"
+msgstr "Verwerving"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_procurement_rule
 msgid "Procurement Rule"
-msgstr "Règle d'approvisionnement"
+msgstr "Verwerving regel"
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,product_id:0
@@ -191,7 +191,7 @@ msgstr "Produit"
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_product_template
 msgid "Product Template"
-msgstr "Modèle de produit"
+msgstr "Productsjabloon"
 
 #. module: elneo_stock
 #: code:addons/elneo_stock/elneo_stock.py:166
@@ -210,7 +210,7 @@ msgstr "Quantité"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reception_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reception_wetteren
 msgid "Receptions"
-msgstr "Réceptions"
+msgstr "Inkomende zendingen (IN)"
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_reservation_awans
@@ -218,12 +218,12 @@ msgstr "Réceptions"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reservation_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reservation_wetteren
 msgid "Reservations"
-msgstr "Reservations"
+msgstr "Reservaties (INT)"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Ligne du bon de commande"
+msgstr "Verkooporderlijn"
 
 #. module: elneo_stock
 #: field:stock.picking,section_id:0
@@ -236,12 +236,12 @@ msgstr "Sales team"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_shipment_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_shipment_wetteren
 msgid "Shipments"
-msgstr "Expéditions"
+msgstr "Uitgaade zendingen (OUT)"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_move
 msgid "Stock Move"
-msgstr "Mouvement de stock"
+msgstr "Voorraadbeweging"
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,move_id:0
@@ -261,7 +261,7 @@ msgstr "Supplier code"
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_picking_type
 msgid "The picking type determines the picking view"
-msgstr "Le type de préparation détermine la vue de préparation"
+msgstr "De verzamelsoort bepaald de weergave van de levering"
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.transfert_move
@@ -291,12 +291,12 @@ msgstr "Utilisateurs qui ont définis cet entrepôt par défaut"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_verif_adm_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_verif_adm_wetteren
 msgid "Verif Adm."
-msgstr "Verif Adm."
+msgstr "Administratieve correcties"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_warehouse
 msgid "Warehouse"
-msgstr "Entrepôt"
+msgstr "Magazijn"
 
 #. module: elneo_stock
 #: code:addons/elneo_stock/elneo_stock.py:76

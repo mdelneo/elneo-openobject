@@ -1,0 +1,178 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* maintenance_failure_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-14 08:17+0000\n"
+"PO-Revision-Date: 2016-01-14 08:17+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.report,nbr:0
+msgid "# of Interventions"
+msgstr "# of Interventions"
+
+#. module: maintenance_failure_type
+#: field:maintenance.element,brand:0
+#: field:maintenance.failure.report,brand:0
+msgid "Brand"
+msgstr "Merk"
+
+#. module: maintenance_failure_type
+#: field:maintenance.element.brand,create_uid:0
+#: field:maintenance.failure.type,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: maintenance_failure_type
+#: field:maintenance.element.brand,create_date:0
+#: field:maintenance.failure.type,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: maintenance_failure_type
+#: help:maintenance.intervention.type,is_reparation:0
+msgid "Depending on this field, user must complete reparation type before closing intervention"
+msgstr "Depending on this field, user must complete reparation type before closing intervention"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.type,description:0
+msgid "Description"
+msgstr "Description"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.report,effective_duration:0
+msgid "Effective Duration"
+msgstr "Effective Duration"
+
+#. module: maintenance_failure_type
+#: view:maintenance.failure.report:maintenance_failure_type.view_maintenance_failure_search
+msgid "Element"
+msgstr "Element"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.report,failure_element_id:0
+#: field:maintenance.intervention,failure_element_id:0
+msgid "Element damaged"
+msgstr "Element damaged"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.report,date_end:0
+msgid "End Date"
+msgstr "End Date"
+
+#. module: maintenance_failure_type
+#: view:maintenance.failure.report:maintenance_failure_type.view_maintenance_failure_graph
+msgid "Failure Analysis"
+msgstr "Failure Analysis"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.report,failure_type_id:0
+msgid "Failure Type"
+msgstr "Failure Type"
+
+#. module: maintenance_failure_type
+#: field:maintenance.intervention,failure_type_id:0
+msgid "Failure type"
+msgstr "Failure type"
+
+#. module: maintenance_failure_type
+#: code:addons/maintenance_failure_type/maintenance_failure_type.py:59
+#, python-format
+msgid "For a reparation you must complete type of failure and element damaged."
+msgstr "For a reparation you must complete type of failure and element damaged."
+
+#. module: maintenance_failure_type
+#: view:maintenance.failure.report:maintenance_failure_type.view_maintenance_failure_search
+msgid "Group By"
+msgstr "Group By"
+
+#. module: maintenance_failure_type
+#: field:maintenance.element.brand,id:0
+#: field:maintenance.failure.report,id:0
+#: field:maintenance.failure.type,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.report,intervention_id:0
+msgid "Intervention"
+msgstr "Intervention"
+
+#. module: maintenance_failure_type
+#: field:maintenance.intervention.type,is_reparation:0
+msgid "Is reparation"
+msgstr "Is reparation"
+
+#. module: maintenance_failure_type
+#: field:maintenance.element.brand,write_uid:0
+#: field:maintenance.failure.type,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: maintenance_failure_type
+#: field:maintenance.element.brand,write_date:0
+#: field:maintenance.failure.type,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: maintenance_failure_type
+#: model:ir.actions.act_window,name:maintenance_failure_type.action_maintenance_failure_tree
+#: model:ir.model,name:maintenance_failure_type.model_maintenance_failure_report
+#: model:ir.ui.menu,name:maintenance_failure_type.menu_maintenance_failure_tree
+#: view:maintenance.failure.report:maintenance_failure_type.view_maintenance_failure_search
+msgid "Maintenance Failure Analysis"
+msgstr "Maintenance Failure Analysis"
+
+#. module: maintenance_failure_type
+#: model:ir.actions.act_window,name:maintenance_failure_type.action_maintenance_failure_type
+#: model:ir.ui.menu,name:maintenance_failure_type.menu_maintenance_failure_type
+#: view:maintenance.failure.type:maintenance_failure_type.view_maintenance_failure_type_form
+msgid "Maintenance failure type"
+msgstr "Types pannes"
+
+#. module: maintenance_failure_type
+#: field:maintenance.element.brand,name:0
+#: field:maintenance.failure.type,name:0
+msgid "Name"
+msgstr "Naam"
+
+#. module: maintenance_failure_type
+#: view:maintenance.failure.type:maintenance_failure_type.view_maintenance_failure_type_form
+msgid "Name :"
+msgstr "Name :"
+
+#. module: maintenance_failure_type
+#: view:maintenance.failure.report:maintenance_failure_type.view_maintenance_failure_search
+#: field:maintenance.failure.report,partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.report,date_start:0
+msgid "Start Date"
+msgstr "Start Date"
+
+#. module: maintenance_failure_type
+#: model:ir.actions.act_window,help:maintenance_failure_type.action_maintenance_failure_tree
+msgid "This report allows you to analyse the performance of your projects and users. You can analyse the quantities of tasks, the hours spent compared to the planned hours, the average number of days to open or close a task, etc."
+msgstr "Met dit rapport kunt u de prestaties van uw projecten en gebruikers analyseren. U kunt het aantal taken, de bestede uren ten opzichte van de geplande, het gemiddelde aantal dagen om een taak te openen of af te sluiten, enz."
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.report,time_planned:0
+msgid "Time Planned"
+msgstr "Time Planned"
+
+#. module: maintenance_failure_type
+#: field:maintenance.failure.report,name:0
+msgid "Year"
+msgstr "Year"
+

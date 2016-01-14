@@ -148,6 +148,26 @@ class stock_move(models.Model):
     split_from = fields.Many2one(index=True)
     route_ids=fields.Many2many(auto_join=True)
     product_id=fields.Many2one(auto_join=True)
+    puchased = fields.Boolean('Purchased', compute='_purchased')
+    
+    @api.multi
+    def _purchased(self):
+        def has_purchase(m):
+            if m.purchase_line_id:
+                return True
+            else:
+                #find parent
+                parent_moves = self.search([('move_dest_id','=',m.id)])
+                if not parent_moves:
+                    return False
+                for parent_move in parent_moves:
+                    if has_purchase(parent_move):
+                        return True
+            return False
+                    
+        for move in self:
+            #find if a move linked to this move has purchase_line_id
+            move.purchased = has_purchase(move)
     
     @api.model
     def _prepare_procurement_from_move(self, move):

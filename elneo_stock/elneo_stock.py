@@ -96,7 +96,7 @@ stock_picking()
 
 class res_users(models.Model):
     _inherit = 'res.users'
-    section_ids = fields.Many2many('crm.case.section', 'sale_member_rel', 'member_id', 'section_id', 'Sale teams'),
+    section_ids = fields.Many2many('crm.case.section', 'sale_member_rel', 'member_id', 'section_id', 'Sale teams')
     
 
 class stock_picking_type(models.Model):

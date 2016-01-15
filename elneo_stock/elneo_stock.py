@@ -87,11 +87,12 @@ class stock_picking(models.Model):
     @api.returns('self')
     def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
         #if my_dpt : display picking of sale teams of current user. If user is not linked to a sale team, display all picks 
-        section_ids = self.pool.get('crm.case.section').search(cr, user, [('member_ids','in',self._uid)], context=context)
+        section_ids = self.pool.get('crm.case.section').search(cr, user, [('member_ids','in',user)], context=context)
         if context.get('my_dpt',True) and section_ids:
             args.append(('section_id','in',section_ids))
         res = super(stock_picking, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
         return res
+    
     
     
 stock_picking()

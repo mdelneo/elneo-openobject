@@ -27,12 +27,16 @@ msgid "Auto-validate destination move"
 msgstr "Valider automatiquement les mouvements de destination"
 
 #. module: elneo_stock
+#: model:ir.ui.menu,name:elneo_stock.menu_stock_block_delivery_awans
+#: model:ir.ui.menu,name:elneo_stock.menu_stock_block_delivery_wetteren
+msgid "Blocked deliveries"
+msgstr "Blocked deliveries"
+
+#. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_account_block_delivery_awans
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_account_block_delivery_wetteren
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_account_block_delivery_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_account_block_delivery_wetteren
-#: model:ir.ui.menu,name:elneo_stock.menu_stock_block_delivery_awans
-#: model:ir.ui.menu,name:elneo_stock.menu_stock_block_delivery_wetteren
 msgid "Blocked deliveries"
 msgstr "Boekhoudkunding geblokkeerd"
 

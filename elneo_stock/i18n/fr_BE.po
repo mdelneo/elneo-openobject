@@ -27,14 +27,18 @@ msgid "Auto-validate destination move"
 msgstr "Valider automatiquement les mouvements de destination"
 
 #. module: elneo_stock
+#: model:ir.ui.menu,name:elneo_stock.menu_stock_block_delivery_awans
+#: model:ir.ui.menu,name:elneo_stock.menu_stock_block_delivery_wetteren
+msgid "Blocked deliveries"
+msgstr "Livraisons bloquées"
+
+#. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_account_block_delivery_awans
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_account_block_delivery_wetteren
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_account_block_delivery_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_account_block_delivery_wetteren
-#: model:ir.ui.menu,name:elneo_stock.menu_stock_block_delivery_awans
-#: model:ir.ui.menu,name:elneo_stock.menu_stock_block_delivery_wetteren
 msgid "Blocked deliveries"
-msgstr "Blocked deliveries"
+msgstr "Blocage comptable"
 
 #. module: elneo_stock
 #: field:transfert.move.wizard,create_uid:0
@@ -52,7 +56,7 @@ msgstr "Créé le"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_customer_pick_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_customer_pick_wetteren
 msgid "Customer picking"
-msgstr "Customer picking"
+msgstr "Enlèvement client"
 
 #. module: elneo_stock
 #: field:res.users,default_warehouse_id:0
@@ -128,7 +132,7 @@ msgstr "Emplacement"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_maintenance_return_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_maintenance_return_wetteren
 msgid "Maintenance return"
-msgstr "Maintenance return"
+msgstr "Retour des techniciens"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_warehouse_orderpoint
@@ -210,7 +214,7 @@ msgstr "Quantité"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reception_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reception_wetteren
 msgid "Receptions"
-msgstr "Réceptions"
+msgstr "Réceptions (IN)"
 
 #. module: elneo_stock
 #: model:ir.actions.act_window,name:elneo_stock.action_stock_reservation_awans
@@ -218,7 +222,7 @@ msgstr "Réceptions"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reservation_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_reservation_wetteren
 msgid "Reservations"
-msgstr "Reservations"
+msgstr "Reservations (INT)"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_sale_order_line
@@ -236,7 +240,7 @@ msgstr "Sales team"
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_shipment_awans
 #: model:ir.ui.menu,name:elneo_stock.menu_stock_shipment_wetteren
 msgid "Shipments"
-msgstr "Expéditions"
+msgstr "Expéditions (OUT)"
 
 #. module: elneo_stock
 #: model:ir.model,name:elneo_stock.model_stock_move

@@ -43,12 +43,12 @@ class procurement_order(models.Model):
 class purchase_order(models.Model):
     _inherit = 'purchase.order'
     
-    @api.model
-    def search(self, args, offset=0, limit=None, order=None, count=False):
+    @api.returns('self')
+    def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
         #if make_po = True, we simulate that only purchase order of current sale exists, to force new purchase order creation
-        if self._context.get('make_po',False):
-            args.append(('sale_ids.procurement_group_id','=',self._context['make_po']['group_id']))
-        res = super(purchase_order, self.with_context(make_po=False)).search(args, offset=offset, limit=limit, order=order, count=count)
+        if context.get('make_po',False):
+            args.append(('sale_ids.procurement_group_id','=',context['make_po']['group_id']))
+        res = super(purchase_order, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
         return res
     
 class sale_order_line(models.Model):

@@ -22,9 +22,10 @@ class ProcurementOrder(models.Model):
 class PurchaseOrder(models.Model):
     _inherit='purchase.order'
     
-    @api.model
-    def search(self, args, offset=0, limit=None, order=None, count=False):
-        if self._context.get('from_orderpoint',False) and self.env.context.get('existing_purchases',False):
-            args.append(('id','not in',self.env.context.get('existing_purchases')))
-        res = super(PurchaseOrder, self).search(args, offset=offset, limit=limit, order=order, count=count)
+    @api.returns('self')
+    def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
+        if context.get('from_orderpoint',False) and context.get('existing_purchases',False):
+            args.append(('id','not in',context.get('existing_purchases')))
+        res = super(PurchaseOrder, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
         return res
+    

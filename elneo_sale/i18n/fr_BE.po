@@ -265,7 +265,7 @@ msgstr "Ventes"
 #. module: elneo_sale
 #: model:ir.actions.act_window,name:elneo_sale.action_orders_quotations
 msgid "Sales and quotations"
-msgstr "Sales and quotations"
+msgstr "Ventes et offres"
 
 #. module: elneo_sale
 #: view:sale.order:elneo_sale.view_order_form_elneo_sale

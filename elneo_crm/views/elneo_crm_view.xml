@@ -383,11 +383,25 @@
             	<xpath expr="//field[@name='child_ids']/form//field[@name='function']" position="before">
             		<field name="active"/>
             	</xpath>
-            	
-            	
-
+      
             </field>
         </record>
+        
+        <record id="view_partner_form_firstname_elneo" model="ir.ui.view">
+		    <field name="name">Add firstname and surnames</field>
+		    <field name="model">res.partner</field>
+		    <field name="inherit_id" ref="partner_firstname.view_partner_form_firstname"/>
+		    <field name="arch" type="xml">
+		    	<!-- Modify inner contact form of child_ids -->
+            	<xpath expr="//field[@name='child_ids']/form//field[@name='lastname']" position="attributes">
+            		<attribute name="attrs">{'required': [('type','not in',['invoice','delivery']),('firstname','=',False)]}</attribute>
+            	</xpath>
+            	<xpath expr="//field[@name='child_ids']/form//field[@name='firstname']" position="attributes">
+            		<attribute name="attrs">{'required': [('type','not in',['invoice','delivery']),('lastname','=',False)]}</attribute>
+            	</xpath>
+            </field>
+        </record>
+		    
         
         <record id="view_partner_form_elneo_ro" model="ir.ui.view">
             <field name="name">res.partner.form.elneo</field>

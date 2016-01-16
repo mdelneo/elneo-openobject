@@ -2,6 +2,7 @@ from openerp import models, fields, api
 from openerp.tools.translate import _
 from datetime import datetime
 from dateutil import relativedelta
+#from account_section.account_section import sale_order_line
 
 
 class sale_order(models.Model):
@@ -52,15 +53,13 @@ class sale_order_line(models.Model):
                     other_line_qty = other_line_qty+line.product_uom_qty
             '''
             rule = self.env['procurement.rule'].search([('route_id','=',self.route_id.id),('location_id','=',self.order_id.warehouse_id.wh_output_stock_loc_id.id)])
-            if rule:
+            if rule and self.product_id:
                 #self.procurement_path = rule.get_path(self.product_id, self.product_uom_qty, other_line_qty)
                 self.procurement_path = rule.get_path(self.product_id, self.product_uom_qty)
-                
-    
+
     procurement_path = fields.Char('Procurement path', compute='get_procurement_path')
     procurement_path_backup = fields.Char('Procurement path (backup)')
-    
-sale_order_line()
+
 
 class procurement_rule(models.Model):
     

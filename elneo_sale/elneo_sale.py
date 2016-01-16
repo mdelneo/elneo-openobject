@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models,fields,api
-from openerp.exceptions import ValidationError
+from openerp.exceptions import ValidationError, Warning
 from openerp.tools.translate import _
 
 class product_product(models.Model):
@@ -358,6 +358,29 @@ class sale_order(models.Model):
         if not default:
             default = {}
         return super(sale_order, self.with_context(copy=True)).copy(default) 
+    
+    @api.one
+    def write(self,values):
+    
+        #Make sure that address changing is allowed
+        # Invoice Address
+        if(values.has_key('partner_invoice_id')):
+            for invoice in self.invoice_ids:
+                if invoice.state!='draft':
+                    raise Warning(_("Can't change address"),_("You cannot change the invoice address as there is an invoice which is not draft at most!"))
+            
+            for invoice in self.invoice_ids:
+                self.invoice_ids.address_id = values['partner_invoice_id']
+        
+        # Shipping Address
+        if(values.has_key('partner_shipping_id')):
+            if self.picking_ids.filtered(lambda r:r.picking_type_id.code=='outgoing' and r.state == 'done'):
+                raise Warning(_("Can't change address"),_("You cannot change the shipping address as there is a shipment which is done at most!"))
+                
+            pickings = self.picking_ids.filtered(lambda r:r.picking_type_id.code=='outgoing' and r.state == 'done')
+            pickings.address_id=values['partner_shipping_id']
+        
+        return super(sale_order,self).write(values)
     
     @api.constrains('carrier_id','shop_sale')
     @api.one

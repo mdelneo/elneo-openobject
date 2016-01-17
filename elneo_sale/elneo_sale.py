@@ -375,15 +375,15 @@ class sale_order(models.Model):
                     raise Warning(_("Can't change address"),_("You cannot change the invoice address as there is an invoice which is not draft at most!"))
             
             for invoice in self.invoice_ids:
-                self.invoice_ids.address_id = values['partner_invoice_id']
+                self.invoice_ids.partner_id = values['partner_invoice_id']
         
         # Shipping Address
         if(values.has_key('partner_shipping_id')):
             if self.picking_ids.filtered(lambda r:r.picking_type_id.code=='outgoing' and r.state == 'done'):
                 raise Warning(_("Can't change address"),_("You cannot change the shipping address as there is a shipment which is done at most!"))
                 
-            pickings = self.picking_ids.filtered(lambda r:r.picking_type_id.code=='outgoing' and r.state == 'done')
-            pickings.address_id=values['partner_shipping_id']
+            pickings = self.picking_ids.filtered(lambda r:r.picking_type_id.code=='outgoing' and r.state != 'done')
+            pickings.partner_id=values['partner_shipping_id']
         
         return super(sale_order,self).write(values)
     

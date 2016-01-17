@@ -40,7 +40,7 @@ class purchase_validation_wizard(models.TransientModel):
             current_stock_move = move
             while current_stock_move:
                 if current_stock_move.procurement_id.sale_line_id:
-                    sale_lines.append(current_stock_move.procurement_id.sale_line_id)
+                    sale_lines += current_stock_move.procurement_id.sale_line_id
                 current_stock_move = current_stock_move.move_dest_id
         return sale_lines
     

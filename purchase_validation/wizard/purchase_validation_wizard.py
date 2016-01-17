@@ -34,9 +34,9 @@ class purchase_validation_wizard(models.TransientModel):
                 
         return res
     
-    def _get_sale_order_lines(self):
-        sale_lines = []
-        for move in self.move_ids:
+    def _get_sale_order_lines(self,line):
+        sale_lines = self.env['sale.order.line']
+        for move in line.purchase_line.move_ids:
             current_stock_move = move
             while current_stock_move:
                 if current_stock_move.procurement_id.sale_line_id:

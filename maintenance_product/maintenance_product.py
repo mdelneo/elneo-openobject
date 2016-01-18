@@ -616,7 +616,7 @@ class maintenance_intervention_product(models.Model):
 
     description= fields.Char(string="Description", size=255)
     product_id = fields.Many2one('product.product', string="Product", required=True)
-    sale_order_line_id = fields.Many2one( comodel_name="sale.order.line",  string="Sale order line", readonly=True)
+    sale_order_line_id = fields.Many2one( comodel_name="sale.order.line",  string="Sale order line", readonly=True,copy=False)
     intervention_id = fields.Many2one('maintenance.intervention', string="Maintenance intervention", ondelete='cascade',index=True)
     maintenance_element_id = fields.Many2one('maintenance.element', string="Maintenance element",index=True) 
     quantity = fields.Float("Quantity",default=1)

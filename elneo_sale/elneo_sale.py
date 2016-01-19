@@ -465,6 +465,18 @@ class pricelist_partnerinfo(models.Model):
     
     brut_price = fields.Float('Brut price')
     discount = fields.Float('Discount')
+    
+    @api.one
+    @api.onchange('discount')
+    def onchange_discount(self):
+        if self.discount and self.brut_price:
+            self.price = self.brut_price - (self.brut_price * (self.discount/100))
+    
+    @api.one        
+    @api.onchange('price')
+    def onchange_price(self):
+        if self.price and self.brut_price:
+            self.discount = 100 - ((self.price / self.brut_price) * 100)
 
 
 

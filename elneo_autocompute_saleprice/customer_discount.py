@@ -92,6 +92,20 @@ res_partner()
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
     
+    @api.one
+    @api.onchange('discount')
+    def update_price_unit(self):
+        self.price_unit = self.brut_sale_price - (self.brut_sale_price*self.discount/100)
+    
+    @api.one
+    @api.onchange('price_unit')
+    def update_discount(self):
+        if self.brut_sale_price:
+            self.discount = 100 - (self.price_unit / self.brut_sale_price) * 100
+        else:
+            self.discount = 0
+    
+    
     @api.multi
     def product_id_change_with_wh_discount_type(self, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
@@ -111,7 +125,7 @@ class sale_order_line(models.Model):
             customer_price = product.get_customer_sale_price(discount_type_id, res['value']['price_unit'], res['value']['purchase_price'], qty)
             product_price = product.list_price
             discount = 100-(100*customer_price/product_price)
-            res['value']['price_unit'] = product_price
+            res['value']['price_unit'] = customer_price
             res['value']['discount'] = discount
             
         return res

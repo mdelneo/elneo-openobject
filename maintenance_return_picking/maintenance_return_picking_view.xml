@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_warehouse_maintenance_return" model="ir.ui.view">
+            <field name="name">stock.warehouse</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+            	<field name="out_type_id" position="after">
+            		<field name="maint_ret_type_id"/>
+            	</field>
+            </field>
+        </record>
+        
+        <record id="view_picking_mreturns_search" model="ir.ui.view">
+            <field name="name">stock.picking.mreturns.search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+            	<filter name="backorder" position="after">
+            		<separator/>
+            		<filter name="my_mreturns" string="My Maintenance Returns" domain="[('maint_restocking_user','=',uid),('state','in',['draft','assigned'])]"/>
+            	</filter>
+            </field>
+        </record>
+        
+        
+        <record id="action_maintenance_return_picking_tree" model="ir.actions.act_window">
+            <field name="name">Maintenance Returns</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="stock.vpicktree"/>
+            <field name="context">{'search_default_my_mreturns':1}</field>
+            <field name="domain">[('is_maint_restocking','=',True)]</field>
+            <field name="search_view_id" ref="view_picking_mreturns_search"/>
+        </record>
+        
+        
+        <!-- MAINTENANCE RETURNS MENU -->
+		<menuitem id="menu_maintenance_returns" name="Returns" action="action_maintenance_return_picking_tree"
+			sequence="30" parent="maintenance.menu_maintenance_intervention" groups="maintenance.group_maintenance_user" />
+	</data>
+</openerp>

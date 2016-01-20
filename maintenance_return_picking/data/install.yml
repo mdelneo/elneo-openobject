@@ -1,0 +1,3 @@
+# -*- coding: utf-8 -*-
+
+- !function {model: stock.warehouse, name: _install_maintenance_return_picking_type}

@@ -16,6 +16,10 @@ class purchase_order(models.Model):
         
         purchase_validate_amount = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_amount',False)
         
+        purchase_validate_group = int(self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_group',0))
+        
+        group = self.env['res.groups'].browse(purchase_validate_group)
+        
         if purchase_validate_amount:
             amount=int(purchase_validate_amount)
         else:
@@ -25,7 +29,12 @@ class purchase_order(models.Model):
             if self.amount_untaxed < amount:
                 res = False
             if self.amount_untaxed >= amount:
-                res = True    
+                if group and self.env.user in group.users:
+                    res = True
+                else :
+                    res=False
+                    raise Warning(_('You cannot validate this purchase as you are not member of the validation group (%s)!') % group.name)
+            
                 
         return res
     

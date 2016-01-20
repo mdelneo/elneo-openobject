@@ -25,33 +25,15 @@ class transfert_move_wizard(models.TransientModel):
             elif move.product_uos_qty:
                 res['quantity'] = move.product_uos_qty
         return res
-
     @api.multi
     def do_transfert(self):
-        self.move_id.product_uom_qty = self.quantity
-        self.move_id.product_uos_qty = self.quantity
-        self.move_id.action_done()
-        
-        '''
-        processed_ids = []
-        pack_datas = {
-            'product_id': self.product_id.id,
-            'product_uom_id': self.move_id.product_uom_id.id,
-            'product_qty': self.quantity,
-            'package_id': self.move_id.package_id.id,
-            'lot_id': self.move_id.lot_id.id,
-            'location_id': self.move_id.sourceloc_id.id,
-            'location_dest_id': self.move_id.destinationloc_id.id,
-            'result_package_id': self.move_id.result_package_id.id,
-            'date': datetime.now(),
-        }
-        pack_datas['picking_id'] = self.move_id.picking_id.id
-        packop_id = self.env['stock.pack.operation'].create(pack_datas)
-        processed_ids.append(packop_id.id)
-            
-
-        # Execute the transfer of the picking
-        self.picking_id.do_transfer()
-        '''
-    
+        move = self.move_id
+        remaining_qty = move.product_uom_qty-self.quantity
+        new_move_id = move.split(move, remaining_qty)
+        move.product_uom_qty = self.quantity
+        move.product_uos_qty = self.quantity
+        move.action_done()
+        if new_move_id != move.id:
+            self.env['stock.move'].browse(new_move_id).action_assign()
         return True
+      

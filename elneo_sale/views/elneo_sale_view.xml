@@ -168,8 +168,15 @@
 	           		</page>
 	           	</xpath>
 	           	
+	           	<xpath expr="//label[@for='discount']" position="replace" />
+	           	<xpath expr="//div[@name='discount']" position="replace" />
+	           	
                 <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
-                	<field name="brut_sale_price"/>
+                	<field name="brut_sale_price" />
+                	<label for="discount" groups="sale.group_discount_per_so_line"/>
+                    <div name="discount" groups="sale.group_discount_per_so_line">
+                        <field name="discount" class="oe_inline"/> %%
+                    </div>
                 </xpath>
                 
                 <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">                

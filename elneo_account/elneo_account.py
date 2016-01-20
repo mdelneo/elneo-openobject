@@ -136,7 +136,20 @@ class account_invoice(models.Model):
         if type == 'out_invoice' and partner_id:
             partner = self.env['res.partner'].browse(partner_id)
             result['value']['_partner_id'] = partner.commercial_partner_id
-        return result            
+        return result
+    
+    
+    def _auto_init(self,cr,args):
+        res = super(account_invoice, self)._auto_init(cr,args)
+        
+        '''UPDATE invoices that dont have _partner_id'''
+        
+        
+        cr.execute('''UPDATE account_invoice ai SET _partner_id =
+            (SELECT commercial_partner_id FROM res_partner WHERE id = ai.partner_id)
+             WHERE _partner_id IS NULL''')
+                
+        return res      
     
     purchase_type_id = fields.Many2one(comodel_name='purchase.order.type', string='Purchase type', compute='_get_purchase_type', readonly=True)
     purchase_ids = fields.Many2many('purchase.order', 'purchase_invoice_rel', 'invoice_id', 'purchase_id', 'Purchases')

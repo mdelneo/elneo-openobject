@@ -1,0 +1,76 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* maintenance_return_picking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-20 10:11+0000\n"
+"PO-Revision-Date: 2016-01-20 11:28+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.5\n"
+
+#. module: maintenance_return_picking
+#: model:ir.actions.act_window,name:maintenance_return_picking.action_maintenance_return_picking_tree
+msgid "Maintenance Returns"
+msgstr "Onderhoud teruggave"
+
+#. module: maintenance_return_picking
+#: field:stock.picking,is_maint_restocking:0
+msgid "Maintenance restocking"
+msgstr "Onderhoud bevoorrading"
+
+#. module: maintenance_return_picking
+#: field:stock.warehouse,maint_ret_type_id:0
+msgid "Maintenance return type"
+msgstr "Onderhoud type teruggave"
+
+#. module: maintenance_return_picking
+#: view:stock.picking:maintenance_return_picking.view_picking_mreturns_search
+msgid "My Maintenance Returns"
+msgstr "Mijn  teruggave onderhoud"
+
+#. module: maintenance_return_picking
+#: model:ir.model,name:maintenance_return_picking.model_stock_picking
+msgid "Picking List"
+msgstr "Zendnota"
+
+#. module: maintenance_return_picking
+#: model:ir.model,name:maintenance_return_picking.model_stock_transfer_details
+msgid "Picking wizard"
+msgstr "Verzamelen wizzard"
+
+#. module: maintenance_return_picking
+#: model:ir.ui.menu,name:maintenance_return_picking.menu_maintenance_returns
+msgid "Returns"
+msgstr "Teruggave"
+
+#. module: maintenance_return_picking
+#: field:stock.picking,maint_restocking_user:0
+msgid "Technician"
+msgstr "Technicus"
+
+#. module: maintenance_return_picking
+#: model:ir.model,name:maintenance_return_picking.model_stock_warehouse
+msgid "Warehouse"
+msgstr "Magazijn"
+
+#. module: maintenance_return_picking
+#: code:addons/maintenance_return_picking/maintenance_return_picking.py:86
+#, python-format
+msgid ""
+"Your warehouse is not well configured. You don t have a picking type for "
+"maintenance returns defined for your warehouse.\n"
+"\n"
+"Please contact your warehouse administrator"
+msgstr ""
+"Uw magazijn is niet goed geconfigureerd.  U heeft geen type ophaling voor   "
+"teruggave onderhoud gedefinieerd voor uw magazijn .\n"
+"\n"
+"Contacteer   administrator magazijn"

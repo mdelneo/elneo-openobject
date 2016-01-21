@@ -95,15 +95,20 @@ class sale_order_line(models.Model):
     @api.one
     @api.onchange('discount')
     def update_price_unit(self):
-        self.price_unit = self.brut_sale_price - (self.brut_sale_price*self.discount/100)
+        new_price_unit = self.brut_sale_price - (self.brut_sale_price*self.discount/100)
+        self.price_unit = new_price_unit
+        self.price_unit = new_price_unit
+        
     
     @api.one
     @api.onchange('price_unit')
     def update_discount(self):
         if self.brut_sale_price:
-            self.discount = 100 - (self.price_unit / self.brut_sale_price) * 100
+            new_discount = 100 - (self.price_unit / self.brut_sale_price) * 100
         else:
-            self.discount = 0
+            new_discount = 0
+        self.discount = new_discount
+        self.discount = new_discount
     
     
     @api.multi
@@ -124,7 +129,10 @@ class sale_order_line(models.Model):
             product = self.env['product.product'].browse(product)
             customer_price = product.get_customer_sale_price(discount_type_id, res['value']['price_unit'], res['value']['purchase_price'], qty)
             product_price = product.list_price
-            discount = 100-(100*customer_price/product_price)
+            if product_price:
+                discount = 100-(100*customer_price/product_price)
+            else:
+                discount = 0
             res['value']['price_unit'] = customer_price
             res['value']['discount'] = discount
             

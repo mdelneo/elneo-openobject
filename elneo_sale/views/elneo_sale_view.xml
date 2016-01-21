@@ -173,8 +173,8 @@
 	           	
                 <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
                 	<field name="brut_sale_price" />
-                	<label for="discount" groups="sale.group_discount_per_so_line"/>
-                    <div name="discount" groups="sale.group_discount_per_so_line">
+                	<label for="discount" />
+                    <div name="discount">
                         <field name="discount" class="oe_inline"/> %%
                     </div>
                 </xpath>

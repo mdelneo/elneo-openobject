@@ -19,6 +19,7 @@
 #
 ##############################################################################
 from openerp import models, fields, api, _
+from openerp.exceptions import Warning
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime, timedelta
 import time
@@ -423,6 +424,8 @@ class maintenance_element(models.Model):
             product_id = vals.get('product_id',self.product_id.id)
             if product_id:
                 new_lot['product_id'] = product_id
+            else:
+                raise Warning(_('You cannot create or update the serial number of this element if there is no product associated to it.'))
             vals['lot_id'] = self.env['stock.production.lot'].create(new_lot).id
         return vals
         

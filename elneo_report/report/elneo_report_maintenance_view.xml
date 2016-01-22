@@ -31,7 +31,7 @@
 	
 	
 		<template id="report_intervention_document_elneo_report"
-			inherit_id="maintenance.report_intervention_document">
+			inherit_id="maintenance.report_maintenance_intervention_document">
 			<xpath expr="//t[@t-call='report.external_layout']" position="replace">
 				<t t-call="report.external_layout">
 					<div class="page">

@@ -152,6 +152,17 @@ class stock_move(models.Model):
     route_ids=fields.Many2many(auto_join=True)
     product_id=fields.Many2one(auto_join=True)
     puchased = fields.Boolean('Purchased', compute='_purchased')
+    aisle = fields.Char('Aisle', compute='_aisle')
+    
+    @api.multi
+    def _aisle(self):
+        for m in self:
+            if m.product_id and m.product_id.warehouse_detail and m.picking_id and m.picking_id.picking_type_id and m.picking_id.picking_type_id.warehouse_id:
+                for detail in m.product_id.warehouse_detail:
+                    if detail.warehouse_id.id == m.picking_id.picking_type_id.warehouse_id.id:
+                        m.aisle = detail.aisle
+                        break;
+                    
     
     @api.multi
     def _purchased(self):

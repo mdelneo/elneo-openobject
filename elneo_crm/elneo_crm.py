@@ -5,6 +5,10 @@ from openerp.exceptions import Warning
 #from openerp.addons.mail.mail_thread import mail_thread
 import re
 
+class crm_case_section(models.Model):
+    _inherit = 'crm.case.section'
+    
+    administrative_user_id = fields.Many2one('res.users', string="Administrative")
 
 class mail_thread(models.AbstractModel):
     _inherit='mail.thread'

@@ -24,11 +24,21 @@ def nl2br(string, options=None):
     :param dict options:
     :rtype: HTMLSafe
     """
+    
     if options is None: options = {}
     
-    if options.get('html-escape', True):
-        string = escape(string.replace('\n', '<br>\n'))
-    else:
+    html_escape = options.get('html-escape', True) #html escape True by default
+    richtext = options.get('richtext', False) #display rich text
+
+    #escape
+    if html_escape and not richtext:
+        string = escape(string)
+
+    #replace
+    if richtext:
         string = string.replace('\n', '')
+    else:
+        string = string.replace('\n', '<br>\n')
+    
         
-    return HTMLSafe(string) 
+    return HTMLSafe(string)

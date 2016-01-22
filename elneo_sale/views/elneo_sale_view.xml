@@ -99,9 +99,9 @@
             		<attribute name="required">1</attribute>
             	</field>
             
-            	<xpath expr="//button[@name='print_quotation' and @class='oe_highlight']" position="replace" />
+<!--             	<xpath expr="//button[@name='print_quotation' and @class='oe_highlight']" position="replace" /> -->
             	
-            	<xpath expr="//button[@name='print_quotation' and @states='sent,progress,manual']" position="replace" />
+<!--             	<xpath expr="//button[@name='print_quotation' and @states='sent,progress,manual']" position="replace" /> -->
             
             	<xpath expr="//label[@for='discount']" position="attributes">
             		<attribute name="groups"></attribute>
@@ -173,8 +173,8 @@
 	           	
                 <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
                 	<field name="brut_sale_price" />
-                	<label for="discount" groups="sale.group_discount_per_so_line"/>
-                    <div name="discount" groups="sale.group_discount_per_so_line">
+                	<label for="discount" />
+                    <div name="discount">
                         <field name="discount" class="oe_inline"/> %%
                     </div>
                 </xpath>

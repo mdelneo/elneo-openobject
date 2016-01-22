@@ -383,7 +383,8 @@ class sale_order(models.Model):
                 raise Warning(_("Can't change address"),_("You cannot change the shipping address as there is a shipment which is done at most!"))
                 
             pickings = self.picking_ids.filtered(lambda r:r.picking_type_id.code=='outgoing' and r.state != 'done')
-            pickings.partner_id=values['partner_shipping_id']
+            for pick in pickings: 
+                pick.partner_id=values['partner_shipping_id']
         
         return super(sale_order,self).write(values)
     

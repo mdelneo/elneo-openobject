@@ -227,6 +227,8 @@ class res_partner(models.Model):
     
     @api.constrains('name')
     def _check_name(self):
+        return True
+        
         if self._context.get('copy',False) or self._context.get('NewMeeting',False):
             return True
         

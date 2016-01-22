@@ -36,9 +36,9 @@ def nl2br(string, options=None):
 
     #replace
     if richtext:
-        string.replace('\n', '')
+        string = string.replace('\n', '')
     else:
-        string.replace('\n', '<br>\n')
+        string = string.replace('\n', '<br>\n')
     
         
     return HTMLSafe(string)

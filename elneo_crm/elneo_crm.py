@@ -5,6 +5,14 @@ from openerp.exceptions import Warning
 #from openerp.addons.mail.mail_thread import mail_thread
 import re
 
+class mail_followers(models.Model):
+    _inherit = 'mail.followers'
+    
+    @api.model
+    def create(self, vals):
+        res = super(mail_followers,self.with_context(NewMeeting=True)).create(vals)
+        return res
+
 class crm_case_section(models.Model):
     _inherit = 'crm.case.section'
     

@@ -5,20 +5,20 @@
 		<!-- Intervention instructions -->
 		<report string="Intervention instructions" id="report_intervention_instruction"
 			model="maintenance.intervention" report_type="qweb-pdf"
-			name="elneo_report.report_maintenance_intervention_instruction_template"
-			file="elneo_report.report_maintenance_intervention_instruction_template" />
+			name="elneo_report.report_intervention_instruction_template"
+			file="elneo_report.report_intervention_instruction_template" />
 
-		<template id="report_maintenance_intervention_instruction_template">
+		<template id="report_intervention_instruction_template">
 			<t t-call="report.html_container">
 				<t t-foreach="doc_ids" t-as="doc_id">
-					<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'elneo_report.report_maintenance_intervention_instruction_document_elneo_report')" />
+					<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'elneo_report.report_intervention_instruction_document_elneo_report')" />
 				</t>
 			</t>
 		</template>
 
 		<template
-			id="report_maintenance_intervention_instruction_document_elneo_report">
-			<t t-name="elneo_report.report_maintenance_intervention_instruction">
+			id="report_intervention_instruction_document_elneo_report">
+			<t t-name="elneo_report.report_intervention_instruction">
 				<t t-call="report.external_layout">
 					<div class="page">
 						<div class="oe_structure" />
@@ -30,8 +30,8 @@
 	
 	
 	
-		<template id="report_maintenance_intervention_document_elneo_report"
-			inherit_id="maintenance.report_maintenance_intervention_document">
+		<template id="report_intervention_document_elneo_report"
+			inherit_id="maintenance.report_intervention_document">
 			<xpath expr="//t[@t-call='report.external_layout']" position="replace">
 				<t t-call="report.external_layout">
 					<div class="page">

@@ -65,7 +65,7 @@ class calendar_event(models.Model):
                     prefix = prefix + '[' + categ.google_prefix + ']'
                    
         for p in self.partner_ids:
-            if self.env['res.users'].search([('partner_id','=',p.id)], count=True) > 0:
+            if len(self.env['res.users'].search([('partner_id','=',p.id)])) > 0:
                 continue
             if p.commercial_partner_id and p.commercial_partner_id.id != p.id:
                 prefix = prefix + p.commercial_partner_id.name

@@ -188,6 +188,8 @@
                 	<field name="product_code"/>
                 </xpath>
                 
+                
+                
                 <xpath expr="//field[@name='order_line']/tree" position="attributes">
                 	<attribute name="editable" />
                 </xpath>
@@ -198,6 +200,9 @@
                 
                 <xpath expr="//field[@name='sale_quotation_properties']" position="replace">
                 	<notebook>
+	                	<page string="Notes">
+	                		<field name="notes"/>
+	                	</page>
                 		<page string="Properties">
                 			<field name="sale_quotation_properties" nolabel="1" colspan="4" />
                 		</page>
@@ -206,6 +211,7 @@
                 		</page>
                 	</notebook>
                 </xpath>
+             
 			</field>
         </record>
         

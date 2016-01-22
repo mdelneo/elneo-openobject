@@ -113,7 +113,38 @@ class sale_order_line(models.Model):
         if not default:
             default = {}
         default['purchase_line_ids'] = None
-        return super(sale_order_line, self).copy(default) 
+        return super(sale_order_line, self).copy(default)
+    
+    @api.multi
+    def product_id_change(self, pricelist, product, qty=0,
+            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False):
+        
+        # We change the default behaviour : 
+        #     Product sale description is not appended to sale_order_line.name
+        #     but to sale_order_line_notes
+        
+        updated= False
+        if not flag and product:
+            name = self.env['product.product'].browse(product).name_get()[0][1]
+            flag = True
+            updated=True
+        
+        res = super(sale_order_line,self).product_id_change(pricelist=pricelist, product=product, qty=qty,
+            uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
+            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag)
+        
+        product = self.env['product.product'].browse(product)
+        
+        if product:
+            res['value']['notes'] = product.description_sale
+        
+        if updated:
+            res['value']['name'] = name
+          
+        
+        return res
+        
 
 
     @api.multi
@@ -157,6 +188,8 @@ class sale_order_line(models.Model):
     purchase_line_ids = fields.Many2many('purchase.order.line', 'purchase_line_sale_line_rel', 'sale_line_id', 'purchase_line_id', 'Purchase lines')
     procurement_ids=fields.One2many(auto_join=True)
     product_code = fields.Char('Product', related='product_id.default_code')
+    
+    notes = fields.Text(string='Notes',help='This is automatically filled by the product sale description if it is not blank.')
 
 sale_order_line()   
 

@@ -5,6 +5,14 @@ from openerp.exceptions import Warning
 #from openerp.addons.mail.mail_thread import mail_thread
 import re
 
+class mail_followers(models.Model):
+    _inherit = 'mail.followers'
+    
+    @api.model
+    def create(self, vals):
+        res = super(mail_followers,self.with_context(NewMeeting=True)).create(vals)
+        return res
+
 class crm_case_section(models.Model):
     _inherit = 'crm.case.section'
     
@@ -57,7 +65,7 @@ class calendar_event(models.Model):
                     prefix = prefix + '[' + categ.google_prefix + ']'
                    
         for p in self.partner_ids:
-            if self.env['res.users'].search([('partner_id','=',p.id)], count=True) > 0:
+            if len(self.env['res.users'].search([('partner_id','=',p.id)])) > 0:
                 continue
             if p.commercial_partner_id and p.commercial_partner_id.id != p.id:
                 prefix = prefix + p.commercial_partner_id.name
@@ -219,6 +227,8 @@ class res_partner(models.Model):
     
     @api.constrains('name')
     def _check_name(self):
+        return True
+        
         if self._context.get('copy',False) or self._context.get('NewMeeting',False):
             return True
         

@@ -45,7 +45,6 @@ class calendar_event(models.Model):
     validated = fields.Boolean('Validated')
     
     @api.one
-    @api.depends('categ_ids','validated','partner_ids')
     @api.onchange('categ_ids','validated','partner_ids')
     def update_name(self):
         
@@ -78,9 +77,7 @@ class calendar_event(models.Model):
         name = name[name.rfind(' ~ ')+3:]
         
         #add prefix
-        self.name = prefix+name
-        
-    
+        #self.name = prefix+name
         
 
 class res_partner(models.Model):

@@ -29,7 +29,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt_stock':1}</field>
-            <field name="domain">[('picking_type_id','=',5),('state','in',['assigned','partially_available'])]</field>
+            <field name="domain">[('picking_type_id','=',3),('state','in',['assigned','partially_available'])]</field>
         </record>
         
         <record id="action_stock_shipment_awans" model="ir.actions.act_window">
@@ -59,7 +59,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt_stock':1}</field>
-            <field name="domain">[('picking_type_id','=',33),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',23),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_verif_adm_awans" model="ir.actions.act_window">
@@ -79,7 +79,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt_stock':1}</field>
-            <field name="domain">[('picking_type_id','=',18),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',35),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_account_block_delivery_awans" model="ir.actions.act_window">
@@ -100,7 +100,7 @@
             <field name="view_id" ref="stock.vpicktree"/>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt_stock':1}</field>
-            <field name="domain">[('state','in',['draft','assigned']),('is_maint_restocking','=',True)]</field>
+            <field name="domain">[('state','in',['draft','assigned']),('picking_type_id','=',17)]</field>
             <field name="search_view_id" ref="maintenance_return_picking.view_picking_mreturns_search"/>
         </record>
         
@@ -121,7 +121,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt_stock':1}</field>
-            <field name="domain">[('picking_type_id','=',10),,('state','in',['assigned','partially_available'])]</field>
+            <field name="domain">[('picking_type_id','=',8),('state','in',['assigned','partially_available'])]</field>
         </record>
         
         <record id="action_stock_shipment_wetteren" model="ir.actions.act_window">
@@ -171,7 +171,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt_stock':1}</field>
-            <field name="domain">[('picking_type_id','=',7),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',35),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_account_block_delivery_wetteren" model="ir.actions.act_window">
@@ -192,7 +192,7 @@
             <field name="view_id" ref="stock.vpicktree"/>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt_stock':1}</field>
-            <field name="domain">[('state','in',['draft','assigned']),('is_maint_restocking','=',True)]</field>
+            <field name="domain">[('state','in',['draft','assigned']),('picking_type_id','=',18)]</field>
             <field name="search_view_id" ref="maintenance_return_picking.view_picking_mreturns_search"/>
         </record>
         

@@ -44,29 +44,50 @@ class calendar_event(models.Model):
     
     validated = fields.Boolean('Validated')
     
+    
     @api.one
-    @api.onchange('categ_ids','validated','partner_ids')
-    def update_name(self):
+    @api.onchange('categ_ids')
+    def update_name_categ(self):
+        new_name = self.name
+        for categ in self.categ_ids:
+            if categ.google_prefix:
+                prefix = '[' + str(categ.google_prefix) + ']'
+                if categ.google_prefix:
+                    if (categ.id in [c.id for c in self.categ_ids]):
+                        new_name = prefix+new_name
+                    else:
+                        new_name = ''.join(new_name.split(prefix))
+                    
+        self.name = new_name
         
-        name = self.name
-        if not name:
-            name = ''
-        
+    @api.one
+    @api.onchange('validated')
+    def update_name_validated(self):
+        new_name = self.name
         #compute prefix
         if self.validated:
             prefix = '[V]'
         else:
             prefix = ''
+            if '[V]' in new_name:
+                new_name = ''.join(new_name.split('[V]'))
+        self.name = prefix+new_name
+    
+    @api.one
+    @api.onchange('partner_ids')
+    def update_name(self):
         
-        if self.categ_ids:
-            for categ in self.categ_ids:
-                if categ.google_prefix:
-                    prefix = prefix + '[' + categ.google_prefix + ']'
-                   
+        if self.name:
+            name = self.name
+        else:
+            name = ''
+            
+        prefix = ''
+        
         for p in self.partner_ids:
             if len(self.env['res.users'].search([('partner_id','=',p.id)])) > 0:
                 continue
-            if p.commercial_partner_id and p.commercial_partner_id.id != p.id:
+            if p.commercial_partner_id and p.commercial_partner_id.id != p.id and p.commercial_partner_id.name:
                 prefix = prefix + p.commercial_partner_id.name
             if p.name:
                 prefix = prefix + p.name
@@ -74,10 +95,11 @@ class calendar_event(models.Model):
         prefix = prefix + ' ~ '
                 
         #keep original name
-        name = name[name.rfind(' ~ ')+3:]
+        if ' ~ ' in name:
+            name = name[name.rfind(' ~ ')+3:]
         
         #add prefix
-        #self.name = prefix+name
+        self.name = prefix+name
         
 
 class res_partner(models.Model):

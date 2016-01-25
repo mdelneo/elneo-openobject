@@ -19,10 +19,21 @@
 #
 ##############################################################################
 
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class res_users(models.Model):
     _inherit = 'res.users'
     
     default_warehouse_id = fields.Many2one('stock.warehouse','Default Warehouse',help='Default Warehouse to match some specific needs')
+    
+class sale_order(models.Model):
+    _inherit = 'sale.order'
+    
+    def _get_default_warehouse(self):
+        user_default_warehouse = self.env['res.users'].browse(self._uid).default_warehouse_id
+        if user_default_warehouse:
+            return user_default_warehouse
+    
+    warehouse_id = fields.Many2one(default=_get_default_warehouse)
+    

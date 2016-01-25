@@ -76,12 +76,12 @@ class calendar_event(models.Model):
     @api.one
     @api.onchange('partner_ids')
     def update_name(self):
-        
         if self.name:
             name = self.name
         else:
             name = ''
             
+        address = ''
         prefix = ''
         
         for p in self.partner_ids:
@@ -91,6 +91,17 @@ class calendar_event(models.Model):
                 prefix = prefix + p.commercial_partner_id.name
             if p.name:
                 prefix = prefix + p.name
+            #set address
+            if p.street:
+                address = address+p.street+' '
+            if p.city:
+                address = address+p.city+' '
+            if p.mobile:
+                address = address+p.mobile+' '
+            elif p.phone:
+                address = address+p.phone+' '
+                
+        self.location = address[:-2]
          
         prefix = prefix + ' ~ '
                 

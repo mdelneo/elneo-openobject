@@ -775,7 +775,7 @@ class sale_order(models.Model):
                     picks = list(picks)
                 else:
                     picks = order.picking_ids
-                
+                    
                 #set intervention_product_id reference for stock_moves
                 for picking in picks:
                     picking.origin = str(picking.origin)+' '+order.intervention_id.code

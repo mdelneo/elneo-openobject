@@ -162,8 +162,38 @@ class maintenance_project(models.Model):
     client_visual = fields.Char("Client visual", size=255, readonly=True)
     personne_visual = fields.Char("Personne visual", size=255, readonly=True)
     
+
+class stock_warehouse(models.Model):
+    _inherit = 'stock.warehouse'
+    
+    maintenance_picking_type_id = fields.Many2one('stock.picking.type', string='Maintenance picking type')
+        
+
 class sale_order(models.Model):
     _inherit='sale.order'
+    
+    @api.multi
+    def action_ship_create(self):
+        result = super(sale_order, self).action_ship_create()
+        for order in self:
+            if order.intervention_id:
+                picks = []
+                order.intervention_id.state = 'confirmed'
+                #find pickings:
+                if order.procurement_group_id:
+                    picks = set()
+                    for proc in order.procurement_group_id.procurement_ids:
+                        for move in proc.move_ids:
+                            picks.add(move.picking_id)
+                    picks = list(picks)
+                else:
+                    picks = order.picking_ids
+                if picks:
+                    for pick in picks:
+                        if pick.picking_type_id.code == 'outgoing':
+                            pick.picking_type_id = order.warehouse_id.maintenance_picking_type_id
+          
+        return result
     
     
     @api.model

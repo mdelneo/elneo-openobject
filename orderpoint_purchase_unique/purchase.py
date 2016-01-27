@@ -15,7 +15,8 @@ class ProcurementOrder(models.Model):
             #make a purchase order for the procurement
             if unique == 'True':
                 procs = self.search([('state','in',['running','exception']),('group_id','!=',False),('purchase_id','!=',False)])
-            return super(ProcurementOrder, self.with_context(from_orderpoint=True,existing_purchases=procs.mapped('purchase_id.id')))._run(procurement)
+                if procs:
+                    return super(ProcurementOrder, self.with_context(from_orderpoint=True,existing_purchases=procs.mapped('purchase_id.id')))._run(procurement)
         return super(ProcurementOrder, self)._run(procurement)
 
 

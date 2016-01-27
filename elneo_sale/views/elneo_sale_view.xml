@@ -122,6 +122,7 @@
             	</xpath>
             	<xpath expr="//field[@name='partner_id']" position="attributes">
             		<attribute name="domain">[('is_company','=',True)]</attribute>
+            		<attribute name="context">{'is_company':True}</attribute>
             	</xpath>
             	
             	<xpath expr="//field[@name='partner_invoice_id']" position="replace" />

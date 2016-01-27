@@ -3,6 +3,16 @@ from openerp import models,fields,api
 from openerp.exceptions import ValidationError, Warning
 from openerp.tools.translate import _
 
+class res_partner(models.Model):
+    _inherit = 'res.partner'
+    
+    @api.model
+    def default_get(self, fields_list):
+        res = super(res_partner, self).default_get(fields_list)
+        if self._context.get('is_company',False):
+            res['is_company'] = True 
+        return res
+
 class product_product(models.Model):
     _inherit = 'product.product'
     

@@ -13,6 +13,12 @@
 	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
 	    </record>
 	    
+		<record id="group_sale_prices" model="res.groups">
+            <field name="name">Sale prices</field>
+            <field name="group_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="description">Set a product with sale price fixed and set fixed price.</field>
+        </record>
+	    
 	    <!-- NOT USED FOR THE MOMENT
 	    <record id="group_adm_awans" model="res.groups">
 	        <field name="name">Administrative Awans</field>

@@ -468,22 +468,24 @@ class sale_order(models.Model):
             res['value']['sale_note'] = super(sale_order,self).get_salenote(partner)
         return res
 
-    @api.onchange('partner_order_id')
-    def onchange_partner_order_id(self):
-        if not self.partner_order_id:
-            self.partner_id = False
-            self.partner_invoice_id = False
-            self.partner_shipping_id = False
-            self.quotation_address_id = False
-            self.payment_term = False
-            self.fiscal_position = False
-        else:
-            # GET the commercial entity
-            if self.partner_order_id.commercial_partner_id:
-                self.partner_id = self.partner_order_id.commercial_partner_id
-                addr = self.partner_id.address_get(['delivery', 'invoice', 'contact'])
-                self.partner_shipping_id = addr['delivery']
-                self.partner_invoice_id = addr['invoice']
+    ''' uncomment if we want to select customer from contact
+        @api.onchange('partner_order_id')
+        def onchange_partner_order_id(self):
+            if not self.partner_order_id:
+                self.partner_id = False
+                self.partner_invoice_id = False
+                self.partner_shipping_id = False
+                self.quotation_address_id = False
+                self.payment_term = False
+                self.fiscal_position = False
+            else:
+                # GET the commercial entity
+                if self.partner_order_id.commercial_partner_id:
+                    self.partner_id = self.partner_order_id.commercial_partner_id
+                    addr = self.partner_id.address_get(['delivery', 'invoice', 'contact'])
+                    self.partner_shipping_id = addr['delivery']
+                    self.partner_invoice_id = addr['invoice']
+    '''
                 
     @api.onchange('quotation_address_id')
     def onchange_quotation_address_id(self):

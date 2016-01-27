@@ -3,20 +3,20 @@
 	<data>
 		<!-- PRODUCT VARIANT VIEW -->
 		<record id="product_normal_form_view_elneo_autocompute_saleprice" model="ir.ui.view">
-            <field name="name">product.normal.form.view.elneo.autocompute.saleprice</field>
-            <field name="inherit_id" ref="product.product_normal_form_view" />
-            <field name="model">product.product</field>
-            <field name="mode">primary</field>
-            <field eval="7" name="priority"/>
-            <field name="arch" type="xml">
-                <field name="lst_price" position="attributes">
-                   <attribute name="readonly">1</attribute>
-                   <attribute name="name">list_price</attribute>
-                </field>
-            </field>
-        </record>
-	
-	
+			<field name="name">product.normal.form.view.elneo.autocompute.saleprice</field>
+			<field name="inherit_id" ref="product.product_normal_form_view" />
+			<field name="model">product.product</field>
+			<field name="mode">primary</field>
+			<field eval="7" name="priority" />
+			<field name="arch" type="xml">
+				<field name="lst_price" position="attributes">
+					<attribute name="readonly">1</attribute>
+					<attribute name="name">list_price</attribute>
+				</field>
+			</field>
+		</record>
+
+
 		<!-- PRODUCT VIEW -->
 		<record id="elneo_product_sale_price_form_view" model="ir.ui.view">
 			<field name="name">elneo.product.sale.price.form.view</field>
@@ -29,20 +29,32 @@
 					<newline />
 				</field>
 				<field name="list_price" position="after">
-					<field name="compute_sale_price" />
-					<!-- groups="technofluid_interne.group_supermanager" -->
-					
-					<field name="sale_price_fixed" />
-					<!-- groups="technofluid_interne.group_supermanager" -->
-					
+					<field name="compute_sale_price" readonly="1" />
+					<field name="sale_price_fixed" readonly="1" />
 					<field name="sale_price_seller" />
-					
 					<field name="maximum_price" />
-					<button name="reset_maximum_price" string="Reset" type="object" />
+					<button name="reset_maximum_price" string="Reset" type="object" groups="elneo_rights.group_sale_prices" />
 				</field>
 			</field>
 		</record>
-	
+
+		<record id="elneo_product_sale_price_form_view_managers" model="ir.ui.view">
+			<field name="name">elneo.product.sale.price.form.view.managers</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="elneo_product_sale_price_form_view" />
+			<field name="groups_id" eval="[(6, 0, [ref('elneo_rights.group_sale_prices') ])]" />
+			<field name="arch" type="xml">
+				<field name="compute_sale_price" position="attributes">
+					<attribute name="readonly">0</attribute>
+				</field>
+				<field name="sale_price_fixed" position="attributes">
+					<attribute name="readonly">0</attribute>
+				</field>
+			</field>
+		</record>
+
+
+
 		<!-- COEFFICIENT VIEWS -->
 		<record model="ir.ui.view" id="category_coefficientlist_search_view">
 			<field name="name">category_coefficientlist.search</field>
@@ -55,7 +67,7 @@
 				</search>
 			</field>
 		</record>
-		
+
 		<record model="ir.ui.view" id="category_coefficientlist_tree_view">
 			<field name="name">category_coefficientlist.tree</field>
 			<field name="model">elneo_autocompute_saleprice.category_coefficientlist</field>
@@ -69,7 +81,7 @@
 				</tree>
 			</field>
 		</record>
-		
+
 		<record model="ir.ui.view" id="category_coefficientlist_form_view">
 			<field name="name">category_coefficientlist.form</field>
 			<field name="model">elneo_autocompute_saleprice.category_coefficientlist</field>
@@ -81,36 +93,32 @@
 						<field name="partner_id" />
 						<field name="coefficient" attrs="{'readonly':[('is_brutprice', '!=', False)]}" />
 						<field name="is_brutprice" />
-						<button name="action_update_product_sale_price"
-							string="Update" 
-							type="object" 
-							icon="gtk-execute"
-							colspan="2"/>
+						<button name="action_update_product_sale_price" string="Update" type="object" icon="gtk-execute" colspan="2" />
 					</group>
 				</form>
 			</field>
 		</record>
-		
-	
+
+
 		<record model="ir.actions.act_window" id="action_category_coefficientlist_form">
 			<field name="name">Coefficient</field>
 			<field name="res_model">elneo_autocompute_saleprice.category_coefficientlist</field>
 			<field name="view_type">form</field>
-    		<field name="view_mode">tree,form</field>
-    		<field name="view_id" ref="category_coefficientlist_tree_view"/>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="category_coefficientlist_tree_view" />
 		</record>
 
-		<menuitem name="Coefficient" parent="product.prod_config_main" id="category_coefficientlist_menuitem" sequence="15" action="action_category_coefficientlist_form"/>
-		
-<!-- 		<act_window id="action_category_coefficientlist_form_multi" -->
-<!--                 name="Update Product Price" -->
-<!--                 res_model="elneo_autocompute_saleprice.confirm_update_wizard" -->
-<!--                 src_model="elneo_autocompute_saleprice.category_coefficientlist" -->
-<!--                 view_mode="form" view_type="form" -->
-<!--                 target="new" key2="client_action_multi" /> -->
+		<menuitem name="Coefficient" parent="product.prod_config_main" id="category_coefficientlist_menuitem" sequence="15" action="action_category_coefficientlist_form" />
+
+		<!-- <act_window id="action_category_coefficientlist_form_multi" -->
+		<!-- name="Update Product Price" -->
+		<!-- res_model="elneo_autocompute_saleprice.confirm_update_wizard" -->
+		<!-- src_model="elneo_autocompute_saleprice.category_coefficientlist" -->
+		<!-- view_mode="form" view_type="form" -->
+		<!-- target="new" key2="client_action_multi" /> -->
 
 
 
-		
+
 	</data>
 </openerp>

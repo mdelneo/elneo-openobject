@@ -216,16 +216,19 @@
         </record>
         
         
+        <!-- 
         <record model="ir.ui.view" id="view_order_form_inherit_1_elneo_sale">
             <field name="name">view.order.form.inherit.1.elneo.sale</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_layout.view_order_form_inherit_1"/>
             <field name="arch" type="xml">
-			        <!-- remove sale dpt from sale order lines --> 
+            
                     <xpath expr="//notebook/page/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='sale_layout_cat_id']" position="replace" />
                     <xpath expr="//field[@name='order_line']/form/group/group/field[@name='sale_layout_cat_id']" position="replace" />
+                    
             </field>
         </record>
+          -->
         
         <record model="ir.ui.view" id="sale_view_inherit123_elneo_sale">
             <field name="name">sale.order.inherit.elneo.sale</field>

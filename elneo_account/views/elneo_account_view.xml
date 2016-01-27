@@ -87,7 +87,8 @@
         
         
         
-        <!-- Remove sale dpt from account invoice lines -->
+        <!-- Remove sale dpt from account invoice lines - UPDT : THATS NOT THE SALE DEPARTMENT -->
+        <!-- 
         <record model="ir.ui.view" id="view_invoice_form_inherit_1">
              <field name="name">account.invoice.form.inherit_1</field>
              <field name="model">account.invoice</field>
@@ -105,6 +106,7 @@
 				<xpath expr="//group/group/field[@name='sale_layout_cat_id']" position="replace" />
             </field>
         </record>
+         -->
         <!-- 
         <record model='ir.ui.view' id='view_partner_form'>
 			<field name='name'>res.partner.vat.inherit.base.vat.unique.elneo</field>

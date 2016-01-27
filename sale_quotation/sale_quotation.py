@@ -64,7 +64,11 @@ class sale_quotation_order_text_element(models.Model):
                 sub_fields = field.split('.')
                 value = self.sale_order_id
                 for sub_field in sub_fields:
-                    value = value[sub_field]
+                    try:
+                        #test if field is date
+                        value = datetime.strptime(value[sub_field],'%Y-%m-%d %H:%M:%S').strftime('%d/%m/%Y')
+                    except:
+                        value = value[sub_field]
                 if not value:
                     value = ''
                 content_interpreted = content_interpreted.replace('['+field+']',value)

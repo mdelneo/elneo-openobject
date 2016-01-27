@@ -1,11 +1,9 @@
 <?xml version="1.0"?>
 <openerp>
 	<data>
-		
+
 		<!-- Intervention instructions -->
-		<report string="Intervention instructions" id="report_intervention_instruction"
-			model="maintenance.intervention" report_type="qweb-pdf"
-			name="elneo_report.report_intervention_instruction_template"
+		<report string="Intervention instructions" id="report_intervention_instruction" model="maintenance.intervention" report_type="qweb-pdf" name="elneo_report.report_intervention_instruction_template"
 			file="elneo_report.report_intervention_instruction_template" />
 
 		<template id="report_intervention_instruction_template">
@@ -16,8 +14,7 @@
 			</t>
 		</template>
 
-		<template
-			id="report_intervention_instruction_document_elneo_report">
+		<template id="report_intervention_instruction_document_elneo_report">
 			<t t-name="elneo_report.report_intervention_instruction">
 				<t t-call="report.external_layout">
 					<div class="page">
@@ -27,11 +24,10 @@
 				</t>
 			</t>
 		</template>
-	
-	
-	
-		<template id="report_intervention_document_elneo_report"
-			inherit_id="maintenance.report_maintenance_intervention_document">
+
+
+
+		<template id="report_intervention_document_elneo_report" inherit_id="maintenance.report_maintenance_intervention_document">
 			<xpath expr="//t[@t-call='report.external_layout']" position="replace">
 				<t t-call="report.external_layout">
 					<div class="page">
@@ -39,12 +35,10 @@
 						<div class="row">
 							<div class="col-xs-6">
 								<strong t-if="o.address_id">Intervention address:</strong>
-								<div t-field="o.address_id"
-									t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
+								<div t-field="o.address_id" t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
 							</div>
 							<div class="dest_address">
-								<div t-field="o.partner_id"
-									t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
+								<div t-field="o.partner_id" t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
 							</div>
 						</div>
 						<h2>

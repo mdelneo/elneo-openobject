@@ -15,10 +15,15 @@ class sale_drive_link(models.Model):
         if self.product_drive_link_id:
             return self.product_drive_link_id
         
+    @api.multi
+    def _get_a_tag(self):
+        self.a_tag = '<a href="'+self.link+'">'+self.name+'</a>'
+        
     @api.one
     def get_product_display(self):
         self.product_display = ','.join([p.default_code for p in self.product_ids])
-        
+    
+    a_tag = fields.Char('<a>', compute='_get_a_tag')
     name = fields.Char('Name',size=255)
     link = fields.Char('Url',size=255)
     sale_order_id = fields.Many2one('sale.order', 'Sale order')    

@@ -32,6 +32,7 @@ class product_drive_link(models.Model):
         res = obj.search([])
         return [(r.code, r.name) for r in res] + [('','')]
     
+    
     name = fields.Char('Name') 
     product_id = fields.Many2one('product.product', string='Product')
     link = fields.Char('Url')

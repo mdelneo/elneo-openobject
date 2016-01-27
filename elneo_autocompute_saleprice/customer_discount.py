@@ -92,22 +92,30 @@ res_partner()
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
     
+    @api.model
+    def _calc_line_base_price(self, line):
+        return line.price_unit
+    
     @api.one
     @api.onchange('discount')
     def update_price_unit(self):
+        #prevent loop
+        if round(self.brut_sale_price - (self.brut_sale_price*self.discount/100),2) == round(self.price_unit,2):
+            return
         new_price_unit = self.brut_sale_price - (self.brut_sale_price*self.discount/100)
-        self.price_unit = new_price_unit
         self.price_unit = new_price_unit
         
     
     @api.one
     @api.onchange('price_unit')
     def update_discount(self):
+        #prevent loop
+        if round(self.brut_sale_price - (self.brut_sale_price*self.discount/100),2) == round(self.price_unit,2):
+            return
         if self.brut_sale_price:
             new_discount = 100 - (self.price_unit / self.brut_sale_price) * 100
         else:
             new_discount = 0
-        self.discount = new_discount
         self.discount = new_discount
     
     

@@ -362,9 +362,13 @@ class maintenance_intervention(models.Model):
                     #add new moves
                     if intervention_product not in products_of_moves.mapped('intervention_product_id'):
                         location_id = intervention_product.get_move_location_id()
+                        if location_id :
+                            location_id = location_id[0]
                         location_dest_id = intervention_product.get_move_location_dest_id()
-                        values = self.env['stock.move'].onchange_product_id([0], prod_id=intervention_product.product_id.id, loc_id=location_id,
-                                                                     loc_dest_id=location_dest_id, address_id=order.partner_shipping_id.id)['value']
+                        if location_dest_id:
+                            location_dest_id = location_dest_id[0]
+                        values = self.env['stock.move'].onchange_product_id(prod_id=intervention_product.product_id.id, loc_id=location_id,
+                                                                     loc_dest_id=location_dest_id, partner_id=order.partner_shipping_id.id)['value']
                                                                      
                                                                      
                         values.update({
@@ -373,7 +377,7 @@ class maintenance_intervention(models.Model):
                             'product_id': intervention_product.product_id.id,
                             'date': intervention.date_start or time.strftime('%Y-%m-%d'),
                             'date_expected': intervention.date_start or time.strftime('%Y-%m-%d'),
-                            'product_qty': intervention_product.quantity,
+                            'product_uom_qty': intervention_product.quantity,
                             'product_uos_qty': intervention_product.quantity,
                             'address_id': order.partner_shipping_id.id,
                             'location_id': location_id,
@@ -410,10 +414,14 @@ class maintenance_intervention(models.Model):
                         
             
             if out_picking:
-                moves=out_picking.move_lines - moves_todelete
+                out_picking.force_assign()
+                out_picking.do_transfer()
+                '''
+                moves=out_picking.move_lines
                 for move in moves:
                     move.action_done()
                 out_picking.action_done()
+                '''
                 #self.env['stock.move'].action_done([move.id for move in out_picking.move_lines if move.id not in moves_todelete])
                 #self.env['stock.picking'].action_done([out_picking.id])
             
@@ -453,8 +461,17 @@ class maintenance_intervention(models.Model):
             out_picking.invoice_state = '2binvoiced'
             intervention.sale_order_id.order_line.write({'invoiced': False})
             
-            created_invoices_res = out_picking.sale_id.action_invoice_create()
-            invoice = self.env['account.invoice'].browse(created_invoices_res)
+            #out_picking.do_transfer()
+            journal_id = self.env['ir.config_parameter'].get_param('maintenance_product.account_sale_journal',False)
+            if not journal_id:
+                raise Warning(_('Please configure default Sale Journal for Maintenance'))
+            invoice_ids = out_picking.action_invoice_create(journal_id=int(journal_id))
+            
+            #created_invoices_res = out_picking.sale_id.action_invoice_create()
+            invoice = self.env['account.invoice'].browse(invoice_ids)
+            
+            if invoice not in intervention.sale_order_id.invoice_ids:
+                intervention.sale_order_id.invoice_ids+=invoice
             
             maintenance_product = intervention.maint_type.workforce_product_id
             
@@ -557,8 +574,9 @@ class maintenance_intervention_product(models.Model):
         Get Intervention Product Move Destination Location
         @return: location recordset
         '''
-        location_dest_id = self.env['stock.location'].chained_location_get(self.intervention_id.sale_order_id.shop_id.warehouse_id.lot_output_id, self.intervention_id.sale_order_id.partner_id, self.product_id)[0]
-        res = location_dest_id
+        res = self.intervention_id.sale_order_id.partner_shipping_id.property_stock_customer.id
+        #location_dest_id = self.env['stock.location'].chained_location_get(self.intervention_id.sale_order_id.shop_id.warehouse_id.lot_output_id, self.intervention_id.sale_order_id.partner_id, self.product_id)[0]
+        #res = location_dest_id
         return res
 
     @api.onchange('quantity')

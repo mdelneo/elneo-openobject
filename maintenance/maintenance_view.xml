@@ -53,7 +53,7 @@
                     <filter name="done" string="Done" domain="[('state','=','done')]" help="Interventions done"/>
                     <separator/>
                     <filter name="late" string="Late" domain="[('date_start','&lt;', time.strftime('%%Y-%%m-%%d %%H:%%M:%%S')),('state','=','confirmed')]" help="Interventions that are late on scheduled time"/>
-<!--                    <field name="maint_type"/> --> 
+                    <field name="maint_type"/>
                     <separator/>
                     <group expand="0" string="Group By...">
                         <filter string="Technician" icon="terp-personal" domain="[]" context="{'group_by':'technicians'}"/>

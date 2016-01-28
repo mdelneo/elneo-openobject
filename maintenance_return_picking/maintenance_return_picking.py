@@ -147,14 +147,15 @@ class StockTransferDetails(models.TransientModel):
     def do_detailed_transfer(self):
         res = super(StockTransferDetails, self).do_detailed_transfer()
         
-        warehouse = self.env['stock.warehouse'].search([('view_location_id.child_ids','in',self.picking_id.location_dest_id.id)])
-        if warehouse.maint_ret_type_id == self.picking_id.picking_type_id:
-            '''
-            We take the return's backorders and cancel them (If we dont return the whole picking)
-            ''' 
-            
-            backorders = self.env['stock.picking'].search([('backorder_id','=',self.picking_id.id)])
-            if backorders:
-                backorders.action_cancel()
+        if self.picking_id:
+            warehouse = self.env['stock.warehouse'].search([('view_location_id.child_ids','in',self.picking_id.location_dest_id.id)])
+            if warehouse.maint_ret_type_id and warehouse.maint_ret_type_id == self.picking_id.picking_type_id:
+                '''
+                We take the return's backorders and cancel them (If we dont return the whole picking)
+                ''' 
+                
+                backorders = self.env['stock.picking'].search([('backorder_id','=',self.picking_id.id)])
+                if backorders:
+                    backorders.action_cancel()
 
         return res

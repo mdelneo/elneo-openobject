@@ -93,7 +93,7 @@ class sale_order_line(models.Model):
         for line in self.browse(cr, uid, ids, context=context):
             res[line.id] = 0
             if line.product_id:
-                res[line.id] = round((line.price_unit*line.product_uom_qty*(100.0-line.discount)/100.0) -(line.purchase_price*line.product_uom_qty), 2)
+                res[line.id] = round(line.price_unit*line.product_uom_qty -(line.purchase_price*line.product_uom_qty), 2)
         return res
 
 

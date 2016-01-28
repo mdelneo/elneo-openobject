@@ -289,8 +289,9 @@ $$
     
     @api.multi
     def reset_maximum_price(self):
+        if not self.env['res.users'].browse(self._uid).has_group('elneo_rights.group_sale_prices'):
+            raise ValidationError(_('Please ask managers to reset historical maximum price.'))
         self.write({'maximum_price':0})
-        
         
     
     def copy(self, cr, uid, ids, default=None, context=None):
@@ -341,6 +342,11 @@ class product_product(models.Model):
                         'compute_sale_price':True})
         
         return super(product_product, self).copy(cr, uid, ids, default, context=context)
+    
+    @api.multi
+    def reset_maximum_price(self):
+        for p in self:
+            p.product_tmpl_id.reset_maximum_price()
     
     list_price = fields.Float('Sale Price', related='product_tmpl_id.list_price', help="Base price for computing the customer price. Sometimes called the catalog price.")
 

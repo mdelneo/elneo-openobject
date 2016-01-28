@@ -329,7 +329,7 @@ msgstr "Mettre à jour le prix"
 #: view:sale.order:elneo_autocompute_saleprice.view_order_form_elneo_sale_price
 #: view:update.product.prices.wizard:elneo_autocompute_saleprice.update_product_prices_view
 msgid "Update prices"
-msgstr "MàJ prix"
+msgstr "MàJ prix actuels et remise par défaut"
 
 #. module: elneo_autocompute_saleprice
 #: model:ir.actions.act_window,name:elneo_autocompute_saleprice.act_update_product_prices

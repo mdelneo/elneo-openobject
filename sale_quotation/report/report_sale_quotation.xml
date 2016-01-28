@@ -58,7 +58,7 @@ margin-left : 10px;
 							<div class="mt8" t-if="o.display_shipping_address">
 								<strong>Shipping address:</strong>
                                                                 <div t-field="o.partner_shipping_id.commercial_partner_id.name"/>
-                                                                 <div t-if="o.partner_shipping_id.lastname!=o.partner_shipping_id.commercial_partner_id.name and (o.partner_shipping_id.lastname or o.partner_shipping_id.firstname)">aaa
+                                                                 <div t-if="o.partner_shipping_id.lastname!=o.partner_shipping_id.commercial_partner_id.name and (o.partner_shipping_id.lastname or o.partner_shipping_id.firstname)">
 										<span t-field="o.partner_shipping_id.title.name"/>
 										<span t-field="o.partner_shipping_id.firstname"/>
 										<span t-field="o.partner_shipping_id.lastname"/>
@@ -170,13 +170,19 @@ margin-left : 10px;
 									</td>
 </tr>
 <t t-if="[link for link in o.drive_links if l.product_id.id in [p.id for p in link.product_ids]]">
-<tr style="border:0;">
-<td colspan="6" style="padding-left:10px;">Documentation : <t t-foreach="[link for link in o.drive_links if l.product_id.id in [p.id for p in link.product_ids]]" t-as="link">
-			<span t-field="link.name" />
+	<tr style="border:0;">
+		<td colspan="6" style="padding-left:10px;">
+			Documentation :
+			<t t-foreach="[link for link in o.drive_links if l.product_id.id in [p.id for p in link.product_ids]]" t-as="link">
+				<span t-field="link.a_tag" t-field-options="{&quot;html-escape&quot;:false}" target="_blank" />
+			</t>
+		</td>
+	</tr>
 </t>
-									</td>
-</tr>
-</t>
+
+
+
+
 
 
 <t t-if="p['lines'].index(l)+1 != len(p['lines'])">
@@ -248,11 +254,11 @@ margin-left : 10px;
 						</div>
 					</div>
 
-<div t-if="o.display_quotation_text_elements" style="line-height:10px;page-break-before:always;" />
-
-
                                         <div class="text-right" t-if="o.display_delay and not o.delay_in_week"><i>Delivery time in work day</i><br/></div>
                                         <div class="text-right" t-if="o.display_delay and o.delay_in_week"><i>Delivery time in week</i><br/></div>
+
+<div t-if="o.display_quotation_text_elements" style="line-height:10px;page-break-before:always;" />
+
 					<div t-if="o.note" style="margin-bottom:20px;"><p>
 						<span style="font-size:14px"><strong>Note</strong></span>
                                                  <hr style="border-with:1px;" />

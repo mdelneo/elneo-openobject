@@ -118,7 +118,7 @@
             	<xpath expr="//field[@name='invoice_lines']" position="replace" />
             
             	<xpath expr="//field[@name='partner_invoice_id']" position="before">
-            		<field name="partner_order_id" options="{'always_reload': True}" context="{'show_address':1,'show_ref_inline':1,'contact_display':1}" domain="['|',('id','=',partner_id),'&amp;',('parent_id','=',partner_id),('type','in',['default','other','contact'])]" />
+            		<field name="partner_order_id" options="{'always_reload': True}" context="{'show_address':1,'show_ref_inline':1,'contact_display':1,'default_parent_id':partner_id}" domain="['|',('id','=',partner_id),'&amp;',('parent_id','=',partner_id),('type','in',['default','other','contact'])]" />
             	</xpath>
             	<xpath expr="//field[@name='partner_id']" position="attributes">
             		<attribute name="domain">[('is_company','=',True)]</attribute>

@@ -552,8 +552,8 @@
 										<span t-field="o.partner_shipping_id.firstname"/>
 										<span t-field="o.partner_shipping_id.lastname"/>
 									</div>
-									<span t-field="o.partner_shipping_id.street"/>
-									<br/>
+									<div t-if="o.partner_shipping_id.street" t-field="o.partner_shipping_id.street"/>
+									<div t-if="o.partner_shipping_id.street2" t-field="o.partner_shipping_id.street2"/>
 									<span t-field="o.partner_shipping_id.zip"/>
 									<span t-field="o.partner_shipping_id.city"/>
 									<br/>
@@ -565,13 +565,13 @@
 									<span t-field="o.partner_shipping_id.commercial_partner_id.name" class="mt8"/>
 									<br/>
 									<div t-if="o.partner_shipping_id.lastname or o.partner_shipping_id.firstname">
-										<span>To </span>
+                                                                                To
 										<span t-field="o.partner_shipping_id.title.name"/>
 										<span t-field="o.partner_shipping_id.firstname"/>
 										<span t-field="o.partner_shipping_id.lastname"/>
 									</div>
-									<span t-field="o.partner_shipping_id.street"/>
-									<br/>
+									<div t-if="o.partner_shipping_id.street" t-field="o.partner_shipping_id.street"/>
+									<div t-if="o.partner_shipping_id.street2" t-field="o.partner_shipping_id.street2"/>
 									<span t-field="o.partner_shipping_id.zip"/>
 									<span t-field="o.partner_shipping_id.city"/>
 									<br/>
@@ -583,8 +583,8 @@
 									<br/>
 									<span t-field="o.partner_invoice_id.commercial_partner_id.name"/>
 									<br/>
-									<span t-field="o.partner_invoice_id.street"/>
-									<br/>
+									<div  t-if="o.partner_invoice_id.street" t-field="o.partner_invoice_id.street"/>
+  								       <div t-if="o.partner_invoice_id.street2" t-field="o.partner_invoice_id.street2"/>
 									<span t-field="o.partner_invoice_id.zip"/>
 									<span t-field="o.partner_invoice_id.city"/>
 									<br/>
@@ -593,16 +593,15 @@
 								<br/>
 							</td>
 							<td>
-								<span t-field="o.partner_order_id.commercial_partner_id.name"/>
+								<strong><span t-field="o.partner_order_id.commercial_partner_id.name"/></strong>
 								<br/>
 								<div t-if="o.partner_order_id.lastname or o.partner_order_id.firstname">
-									<span>To </span>
 									<span t-field="o.partner_order_id.title.name"/>
 									<span t-field="o.partner_order_id.firstname"/>
 									<span t-field="o.partner_order_id.lastname"/>
 								</div>
-								<span t-field="o.partner_order_id.street"/>
-								<br/>
+								<div t-if="o.partner_order_id.street" t-field="o.partner_order_id.street"/>
+								<div t-if="o.partner_order_id.street" t-field="o.partner_order_id.street"/>
 								<span t-field="o.partner_order_id.zip"/>
 								<span t-field="o.partner_order_id.city"/>
 								<br/>

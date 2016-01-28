@@ -22,3 +22,4 @@ class sale_global_discount_wizard(models.TransientModel):
                 new_net_price = old_net_price - (additionnal_discount/100.)*old_net_price
                 new_discount = 100. - (100. * new_net_price / old_brut_price)
                 line.discount = new_discount
+                line.price_unit = line.brut_sale_price - (line.brut_sale_price*line.discount/100)

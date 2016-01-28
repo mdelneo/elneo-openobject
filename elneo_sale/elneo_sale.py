@@ -16,6 +16,13 @@ class res_partner(models.Model):
 class product_product(models.Model):
     _inherit = 'product.product'
     
+    @api.model
+    def default_get(self, fields_list):
+        if self._context.get('default_name'):
+            self = self.with_context(default_name=None,default_default_code=self._context.get('default_name'))
+        res = super(product_product, self).default_get(fields_list)
+        return res
+    
     def _sales_count(self):
         self._cr.execute('select product_id, count(distinct order_id) from sale_order_line where product_id in (%s) group by product_id',(tuple([p.id for p in self]),))
         req_res = self._cr.fetchall()
@@ -513,17 +520,29 @@ class pricelist_partnerinfo(models.Model):
     discount = fields.Float('Discount')
     
     @api.one
+    @api.onchange('brut_price')
+    def onchange_brut_price(self):
+        if self.discount and self.brut_price:
+            self.price = self.brut_price - (self.brut_price * (self.discount/100))
+        else:
+            self.price = self.brut_price
+    
+    @api.one
     @api.onchange('discount')
     def onchange_discount(self):
         if self.discount and self.brut_price:
             self.price = self.brut_price - (self.brut_price * (self.discount/100))
+        else:
+            self.price = self.brut_price
     
     @api.one        
     @api.onchange('price')
     def onchange_price(self):
         if self.price and self.brut_price:
-            self.discount = 100 - ((self.price / self.brut_price) * 100)
-
+            self.brut_price = (100*self.price)/(100-self.discount)
+        else:
+            self.brut_price = self.brut_price
+            
 
 
 class account_invoice(models.Model):

@@ -371,7 +371,6 @@
 
 				<xpath expr="//page//field[@name='is_company']" position="replace" />
 
-				<xpath expr="//field[@name='title']" position="replace" />
 				<xpath expr="//label[@for='street']" position="before">
 					<field name="corporation_type" attrs="{'invisible':[('is_company','=',False)]}" />
 				</xpath>

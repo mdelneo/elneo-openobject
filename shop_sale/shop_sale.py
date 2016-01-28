@@ -39,7 +39,7 @@ class sale_order(models.Model):
             
         assert len(self.invoice_ids) == 1, 'This option should only be used for a single id at a time.'
                 
-        return self.env['report'].get_action(self.invoice_ids, 'account.report_invoice')
+        return self.env['report'].get_action(self.invoice_ids, 'l10n_be_invoice_layout.report_be_invoice')
     
     
     def shop_sale_ship(self):

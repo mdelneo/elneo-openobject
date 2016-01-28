@@ -434,13 +434,14 @@
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='do_print_picking']" position="replace" />
+<!--                 <xpath expr="//button[@name='do_print_picking']" position="replace" /> -->
                 <xpath expr="//field[@name='move_lines']" position="attributes">
                 	<attribute name="options">{"reload_on_button": True}</attribute>
                 </xpath>
             </field>
         </record>
-	
+        
+        
 		<!-- Stock warehouse orderpoint : add stocked for customer -->
 		<record id="view_warehouse_orderpoint_form_elneo_stock" model="ir.ui.view">
             <field name="name">stock.warehouse.orderpoint.form.elneo.stock</field>

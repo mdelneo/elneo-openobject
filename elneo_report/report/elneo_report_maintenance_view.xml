@@ -16,10 +16,170 @@
 
 		<template id="report_intervention_instruction_document_elneo_report">
 			<t t-name="elneo_report.report_intervention_instruction">
-				<t t-call="report.external_layout">
+				<t t-call="report.internal_layout">
 					<div class="page">
 						<div class="oe_structure" />
-						<h1>Intructions</h1>
+
+						<style>
+							hr {
+							margin:0;
+							}
+						</style>
+
+						<br />
+						<div class="text-center">
+							<h1>
+								<strong>
+									Intervention instructions:
+									<span t-field="o.code" />
+								</strong>
+							</h1>
+						</div>
+						<br />
+						<table width="100%">
+							<tr>
+								<td>
+									<strong t-if="o.installation_id.address_id">Intervention address:</strong>
+									<br />
+									<span t-field="o.installation_id.address_id.commercial_partner_id.name" />
+									<br />
+									<span t-field="o.installation_id.address_id.street" />
+									<br />
+									<span t-field="o.installation_id.address_id.zip" />
+									<span t-field="o.installation_id.address_id.city" />
+									<br />
+									<span t-field="o.installation_id.address_id.country_id.name" />
+								</td>
+								<td>
+									<strong t-if="o.address_id">Contact:</strong>
+									<br />
+									<span t-field="o.contact_address_id.contact_title" />
+									<span t-field="o.contact_address_id.name" />
+									<br />
+									<span t-if="o.contact_address_id.phone">
+										Tel:
+										<span t-field="o.contact_address_id.phone" />
+										<br />
+									</span>
+									<span t-if="o.contact_address_id.mobile">
+										Mobile:
+										<span t-field="o.contact_address_id.mobile" />
+										<br />
+									</span>
+									Company tel:
+									<span t-field="o.address_id.commercial_partner_id.phone" />
+
+								</td>
+								<td>
+									<strong t-if="o.address_id">Invoice address:</strong>
+									<br />
+									<span t-field="o.partner_id.commercial_partner_id.name" />
+									<br />
+									<span t-field="o.partner_id.street" />
+									<br />
+									<span t-field="o.partner_id.zip" />
+									<span t-field="o.partner_id.city" />
+									<br />
+									<span t-field="o.partner_id.country_id.name" />
+								</td>
+
+							</tr>
+						</table>
+						<br />
+
+
+						<h3>
+							<strong>Installation's elements</strong>
+						</h3>
+						<table class="table table-condensed" name="installation_description">
+							<thead>
+								<tr style="background-color:lightgrey;">
+									<th style="text-align:center;">Name</th>
+									<th style="text-align:center;">Serial number</th>
+									<th style="text-align:center;">End of warranty</th>
+									<th style="text-align:center;">Contrat</th>
+									<th style="text-align:center;">Last intervention date</th>
+									<th style="text-align:center;">Counter</th>
+									<th style="text-align:center;">Date of counter statement</th>
+									<th style="text-align:center;">Intervention ?</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr t-foreach="o.installation_id.elements" t-as="e">
+									<t t-set="last_counter" t-value="e.timeofuse_history and e.timeofuse_history.sorted(key=lambda t:t.date, reverse=True)[0]" />
+									<t t-set="intervention_products" t-value="[p for p in o.intervention_products if e.id == p.maintenance_element_id.id]" />
+									<t t-set="last_element_intervention" t-value="e.intervention_products and e.intervention_products.sorted(key=lambda p:p.intervention_id.date_start, reverse=True)[0]" />
+
+									<td style="text-align:left;">
+										<span t-field="e.name" />
+									</td>
+									<td style="text-align:left;">
+										<span t-field="e.serial_number" />
+									</td>
+									<td style="text-align:center;">
+										<span t-field="e.warranty_date" />
+									</td>
+									<td style="text-align:center;">
+										<span t-esc="','.join([p.project_type_id.name for p in e.maintenance_projects if p.state == 'active'])" />
+									</td>
+									<td style="text-align:center;">
+										<div t-if="last_element_intervention.intervention_id.date_start">
+											<span
+												t-esc="str(last_element_intervention.intervention_id.date_start)[8:10]+'/'+str(last_element_intervention.intervention_id.date_start)[5:7]+'/'+str(last_element_intervention.intervention_id.date_start)[0:4]" />
+										</div>
+									</td>
+									<td style="text-align:center;">
+										<span t-field="last_counter.time_of_use" />
+									</td>
+									<td style="text-align:center;">
+										<div t-if="last_counter.date">
+											<span t-esc="str(last_counter.date)[8:10]+'/'+str(last_counter.date)[5:7]+'/'+str(last_counter.date)[0:4]" />
+										</div>
+									</td>
+									<td style="text-align:center;">
+										<span t-if="intervention_products">X</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<br />
+						<t t-if="o.todo_assigned_ids">
+							<h3>
+								<strong>Installation's to do</strong>
+							</h3>
+							<hr />
+							<t t-foreach="o.todo_assigned_ids" t-as="todo">
+								<div>
+									<span t-field="todo.description" />
+								</div>
+							</t>
+						</t>
+
+						<h3>
+							<strong>Last interventions</strong>
+						</h3>
+						<hr />
+						<t t-foreach="o.installation_id.last_interventions" t-as='i'>
+							<div>
+								<span t-field="i.name" />
+							</div>
+						</t>
+
+
+						<h3>
+							<strong>Intervention description</strong>
+						</h3>
+						<hr />
+						<h4>
+							Intervention type:
+							<span t-field="o.maint_type" />
+						</h4>
+						<br />
+						<span t-if="o.name">
+							<span t-field="o.name" />
+						</span>
+						<br />
+
 					</div>
 				</t>
 			</t>

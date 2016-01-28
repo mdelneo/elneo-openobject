@@ -4,6 +4,15 @@ from openerp.tools.translate import _
 import time
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 
+class stock_transfer_details(models.TransientModel):
+    _inherit = 'stock.transfer_details'
+    
+    @api.multi
+    def do_detailed_transfer(self):
+        res = super(stock_transfer_details,self).do_detailed_transfer()
+        return self.picking_id.do_print_picking()
+
+
 class StockMoveOperationLink(models.Model):
     _inherit = 'stock.move.operation.link'
     

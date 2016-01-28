@@ -434,8 +434,10 @@
 				<xpath expr="//field[@name='child_ids']/form//field[@name='function']"
 					position="before">
 					<field name="active" />
+					<field name="title" />
+					<field name="lang" />
 				</xpath>
-
+				
 			</field>
 		</record>
 

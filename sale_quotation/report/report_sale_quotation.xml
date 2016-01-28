@@ -5,222 +5,201 @@
 		<template id="sale_quotation.report_saleorder_document"
 			inherit_id="sale.report_saleorder_document">
 			<xpath expr="//div[@class='page']" position="replace">
+
+
+
+
 				<div class="page">
-					<style>
 
-						p {
-						margin-top : 5px;
-						margin-bottom : 5px;
-						}
+<style>
 
-						hr {
-						margin : 0;
-						}
+p {
+margin-top : 5px;
+margin-bottom : 5px;
+}
 
-						ul {
-						margin-left : 20px;
-						}
+hr {
+margin : 0;
+border-color:#ddd;
+border-width: 1px;
+}
 
-						li {
-						margin-left : 10px;
-						}
+ul {
+margin-left : 20px;
+}
+
+li {
+margin-left : 10px;
+}
 
 
-					</style>
+</style>
 
 
 					<!-- Text elements before -->
 					<t t-if="o.display_quotation_text_elements">
 						<t t-foreach="o.quotation_text_elements_before" t-as="text_element">
 							<t t-if="text_element.page_break_before">
-								<div t-field="text_element.content_interpreted"
-									t-field-options="{&quot;html-escape&quot;:false}" style="line-height:10px;page-break-before:always;" />
+								<div t-field="text_element.content_interpreted" t-field-options="{&quot;richtext&quot;:true}" style="line-height:10px;page-break-before:always;"/>
 							</t>
 							<t t-if="not text_element.page_break_before">
-								<div t-field="text_element.content_interpreted"
-									t-field-options="{&quot;html-escape&quot;:false}" />
+								<div t-field="text_element.content_interpreted" t-field-options="{&quot;richtext&quot;:true}"/>
 							</t>
 							<t t-if="text_element.page_break_after">
-								<p style="page-break-before:always;" />
+								<p style="page-break-before:always;"/>
 							</t>
 						</t>
 					</t>
 
-					<div class="oe_structure" />
+					<div class="oe_structure"/>
+<br/>
 					<div class="row">
 						<div class="col-xs-6">
 							<div class="mt8" t-if="o.display_shipping_address">
 								<strong>Shipping address:</strong>
-								<div t-field="o.partner_shipping_id.commercial_partner_id.name" />
-								<div
-									t-if="o.partner_shipping_id.lastname!=o.partner_shipping_id.commercial_partner_id.name and (o.partner_shipping_id.lastname or o.partner_shipping_id.firstname)">
-									aaa
-									<span t-field="o.partner_shipping_id.title.name" />
-									<span t-field="o.partner_shipping_id.firstname" />
-									<span t-field="o.partner_shipping_id.lastname" />
-								</div>
-								<div t-if="o.partner_shipping_id.street">
-									<span t-field="o.partner_shipping_id.street" />
-								</div>
-								<div t-if="o.partner_shipping_id.street2">
-									<span t-field="o.partner_shipping_id.street2" />
-								</div>
-								<div t-if="o.partner_shipping_id.zip or o.partner_shipping_id.city">
-									<span t-field="o.partner_shipping_id.zip" />
-									<span t-field="o.partner_shipping_id.city" />
-								</div>
-								<div t-if="o.partner_shipping_id.country_id.name">
-									<span t-field="o.partner_shipping_id.country_id.name" />
-								</div>
+                                                                <div t-field="o.partner_shipping_id.commercial_partner_id.name"/>
+                                                                 <div t-if="o.partner_shipping_id.lastname!=o.partner_shipping_id.commercial_partner_id.name and (o.partner_shipping_id.lastname or o.partner_shipping_id.firstname)">aaa
+										<span t-field="o.partner_shipping_id.title.name"/>
+										<span t-field="o.partner_shipping_id.firstname"/>
+										<span t-field="o.partner_shipping_id.lastname"/>
+									</div>
+									<div t-if="o.partner_shipping_id.street"><span t-field="o.partner_shipping_id.street"/></div>
+									<div t-if="o.partner_shipping_id.street2"><span t-field="o.partner_shipping_id.street2"/></div>
+									<div t-if="o.partner_shipping_id.zip or o.partner_shipping_id.city"><span t-field="o.partner_shipping_id.zip"/> <span t-field="o.partner_shipping_id.city"/></div>
+									<div t-if="o.partner_shipping_id.country_id.name"><span t-field="o.partner_shipping_id.country_id.name"/></div>
 							</div>
 							<div class="mt8" t-if="o.display_invoice_address">
 								<strong>Invoice address:</strong>
-								<div t-field="o.partner_invoice_id.commercial_partner_id.name" />
-								<div
-									t-if="o.partner_shipping_id.lastname!=o.partner_shipping_id.commercial_partner_id.name and (o.partner_invoice_id.lastname or o.partner_invoice_id.firstname)">
-									<span t-field="o.partner_invoice_id.title.name" />
-									<span t-field="o.partner_invoice_id.firstname" />
-									<span t-field="o.partner_invoice_id.lastname" />
-								</div>
-								<div t-if="o.partner_invoice_id.street">
-									<span t-field="o.partner_invoice_id.street" />
-								</div>
-								<div t-if="o.partner_invoice_id.street2">
-									<span t-field="o.partner_invoice_id.street2" />
-								</div>
-								<div t-if="o.partner_invoice_id.zip or o.partner_invoice_id.city">
-									<span t-field="o.partner_invoice_id.zip" />
-									<span t-field="o.partner_invoice_id.city" />
-								</div>
-								<div t-if="o.partner_invoice_id.country_id.name">
-									<span t-field="o.partner_invoice_id.country_id.name" />
-								</div>
+                                                                <div t-field="o.partner_invoice_id.commercial_partner_id.name"/>
+                                                                 <div t-if="o.partner_shipping_id.lastname!=o.partner_shipping_id.commercial_partner_id.name and (o.partner_invoice_id.lastname or o.partner_invoice_id.firstname)">
+										<span t-field="o.partner_invoice_id.title.name"/>
+										<span t-field="o.partner_invoice_id.firstname"/>
+										<span t-field="o.partner_invoice_id.lastname"/>
+									</div>
+									<div t-if="o.partner_invoice_id.street"> <span t-field="o.partner_invoice_id.street"/></div>
+									<div t-if="o.partner_invoice_id.street2"> <span t-field="o.partner_invoice_id.street2"/></div>
+									<div t-if="o.partner_invoice_id.zip or o.partner_invoice_id.city"> <span t-field="o.partner_invoice_id.zip"/> <span t-field="o.partner_invoice_id.city"/></div>
+									<div t-if="o.partner_invoice_id.country_id.name"> <span t-field="o.partner_invoice_id.country_id.name"/></div>
 								<p t-if="o.partner_id.vat">
 									VAT:
-									<span t-field="o.partner_id.vat" />
+									<span t-field="o.partner_id.vat"/>
 								</p>
 							</div>
 						</div>
 						<div class="col-xs-5 col-xs-offset-1">
-							<strong>
-								<div t-field="o.quotation_address_id.commercial_partner_id.name" />
-							</strong>
-							<div
-								t-if="o.partner_shipping_id.lastname!=o.partner_shipping_id.commercial_partner_id.name and(o.quotation_address_id.lastname or o.quotation_address_id.firstname)">
-								<span t-field="o.quotation_address_id.title.name" />
-								<span t-field="o.quotation_address_id.firstname" />
-								<span t-field="o.quotation_address_id.lastname" />
-								<br />
-							</div>
-							<div t-if="o.quotation_address_id.street">
-								<span t-field="o.quotation_address_id.street" />
-							</div>
-							<div t-if="o.quotation_address_id.street2">
-								<span t-field="o.quotation_address_id.street2" />
-							</div>
-							<div t-if="o.quotation_address_id.zip or o.quotation_address_id.city">
-								<span t-field="o.quotation_address_id.zip" />
-								<span t-field="o.quotation_address_id.city" />
-							</div>
-							<div t-if="o.quotation_address_id.country_id.name">
-								<span t-field="o.quotation_address_id.country_id.name" />
-							</div>
-
+							<strong><div t-field="o.quotation_address_id.commercial_partner_id.name"/></strong>
+                                                        <div t-if="o.partner_shipping_id.lastname!=o.partner_shipping_id.commercial_partner_id.name and(o.quotation_address_id.lastname or o.quotation_address_id.firstname)">
+										<span t-field="o.quotation_address_id.title.name"/>
+										<span t-field="o.quotation_address_id.firstname"/>
+										<span t-field="o.quotation_address_id.lastname"/><br/>
+									</div>
+									<div t-if="o.quotation_address_id.street"> <span t-field="o.quotation_address_id.street"/></div>
+									<div t-if="o.quotation_address_id.street2"> <span t-field="o.quotation_address_id.street2"/></div>
+									<div t-if="o.quotation_address_id.zip or o.quotation_address_id.city"> <span t-field="o.quotation_address_id.zip"/> <span t-field="o.quotation_address_id.city"/></div>
+									<div t-if="o.quotation_address_id.country_id.name"> <span t-field="o.quotation_address_id.country_id.name"/></div>
+                                                        
 						</div>
 					</div>
-					<br />
-					<div class="text-right">
-						<span
-							t-esc="time.strftime('%d/%m/%Y',time.strptime(o.date_order,'%Y-%m-%d %H:%M:%S'))" />
-					</div>
-					<br />
-					<h2>
-						<span t-if="o.state not in ['draft','sent']">Order N° </span>
-						<span t-if="o.state in ['draft','sent']">Quotation N° </span>
+                                         <br/>
+                                         <div class="text-right"><span t-esc="time.strftime('%d/%m/%Y',time.strptime(o.date_order,'%Y-%m-%d %H:%M:%S'))"/></div>
+                                         <br/>
+					<h2><strong>
+						<span>Quotation N° </span>
 						<span t-field="o.name" />
-					</h2>
+					</strong></h2>
 
 
-					<strong>
-						<div t-if="o.client_order_ref">
-							Your Reference:
-							<span t-field="o.client_order_ref" />
-						</div>
-					</strong>
+                                        <strong><div t-if="o.client_order_ref">Your Reference: <span t-field="o.client_order_ref"/></div></strong>
 
-					<table width="100%" class="table-condensed">
+                                             <table width="100%" class="table-condensed">
 						<thead>
 							<tr style="background-color:lightgrey;">
-								<th>Description</th>
-								<th class="text-right">Quantity</th>
-								<th class="text-right" t-if="o.display_line_price">Unit Price</th>
-								<th class="text-right" t-if="o.display_discount and o.display_line_price">Disc.(%)</th>
-								<th class="text-right" t-if="o.display_line_price">Price</th>
+								<th width="50%">Description</th>
 								<th class="text-right" t-if="o.display_delay and not o.delay_in_week">Delay (d)</th>
 								<th class="text-right" t-if="o.display_delay and o.delay_in_week">Delay (w)</th>
+								<th class="text-right">Quantity</th>
+								<th class="text-right" t-if="o.display_discount and o.display_line_price">Unit brut price</th>
+								<th class="text-right" t-if="o.display_discount and o.display_line_price">Disc.(%)</th>
+								<th class="text-right" t-if="o.display_discount and o.display_line_price">Unit net Price</th>
+								<th class="text-right" t-if="o.display_line_price and not o.display_discount">Unit Price</th>
+								<th class="text-right" t-if="o.display_line_price">Price</th>
+
 							</tr>
 						</thead>
 						<t t-foreach="o.sale_layout_lines(order_id = o.id)" t-as="p">
 							<!-- Name of the category -->
-							<t t-call="sale_layout.category_template" />
+							<t t-call="sale_layout.category_template"/>
 
 							<!-- Lines associated -->
 							<t t-foreach="p['lines']" t-as="l">
 								<tr style="border:0;">
 									<td style="border:0;">
-										<span t-field="l.name" />
-									</td>
-									<td class="text-right" style="border:0;">
-										<span t-field="l.product_uom_qty" />
-										<span groups="product.group_uom" t-field="l.product_uom" />
-									</td>
-									<td class="text-right" t-if="o.display_line_price" style="border:0;">
-										<span t-field="l.price_unit" />
-									</td>
-									<td class="text-right" t-if="o.display_discount and o.display_line_price"
-										style="border:0;">
-										<span t-field="l.discount" />
-									</td>
-									<td class="text-right" t-if="o.display_line_price" style="border:0;">
-										<span t-field="l.price_subtotal"
-											t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}" />
+										<span t-field="l.name"/>
 									</td>
 									<td class="text-right" t-if="o.display_delay" style="border:0;">
 										<t t-if="o.delay_in_week">
-											<span
-												t-esc="l.delay/7. == int(l.delay/7.) and int(l.delay/7.) or int(l.delay/7.)+1" />
+											<span t-esc="l.delay/7. == int(l.delay/7.) and int(l.delay/7.) or int(l.delay/7.)+1"/>
 										</t>
 										<t t-if="not o.delay_in_week">
-											<span t-esc="int(l.delay)" />
+											<span t-esc="int(l.delay)"/>
 										</t>
 									</td>
-								</tr>
-								<tr style="border:0;">
-									<td colspan="6" style="border-bottom:0px solid #ddd;">
-										<span
-											t-if="o.display_descriptions and l.product_id.description_sale"
-											t-field="l.product_id.description_sale" style="font-style:italic;" />
+									<td class="text-right" style="border:0;">
+										<span t-if="l.product_uom_id==1" t-esc="'%.0f' %l.product_uom_qty"/>
+										<span groups="product.group_uom" t-field="l.product_uom"/>
 									</td>
+									<td class="text-right" t-if="o.display_discount and o.display_line_price" style="border:0;">
+										<span t-field="l.brut_sale_price"/>
+									</td>
+									<td class="text-right" t-if="o.display_discount and o.display_line_price" style="border:0;">
+										<span t-field="l.discount"/>
+									</td>
+									<td class="text-right" t-if="o.display_line_price" style="border:0;">
+										<span t-field="l.price_unit"/>
+									</td>
+									<td class="text-right" t-if="o.display_line_price" style="border:0;">
+										<span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+									</td>
+
 								</tr>
-							</t>
+
+
+								<tr style="border:0;">
+<td colspan="6" style="padding-left:10px;">
+										<span t-if="o.display_descriptions and l.product_id.description_sale" t-field="l.product_id.description_sale" style="font-style:italic;"/>
+									</td>
+</tr>
+<t t-if="[link for link in o.drive_links if l.product_id.id in [p.id for p in link.product_ids]]">
+<tr style="border:0;">
+<td colspan="6" style="padding-left:10px;">Documentation : <t t-foreach="[link for link in o.drive_links if l.product_id.id in [p.id for p in link.product_ids]]" t-as="link">
+			<span t-field="link.name" />
+</t>
+									</td>
+</tr>
+</t>
+
+
+<t t-if="p['lines'].index(l)+1 != len(p['lines'])">
+<tr><td colspan="7" style="border-bottom:0px solid black"></td></tr>
+</t>
+</t>
+
+
 
 							<!-- Subtotal -->
-							<t t-call="sale_layout.subtotal_template" />
+							<t t-call="sale_layout.subtotal_template"/>
 
 							<!-- Separator -->
-							<t t-call="sale_layout.separator_template" />
+					                <t t-call="sale_layout.separator_template"/>
 
 							<!-- Pagebreak -->
-							<t
-								t-if="'pagebreak' in p['category'] and p['category'].pagebreak is True">
+							<t t-if="'pagebreak' in p['category'] and p['category'].pagebreak is True">
 								<t t-if="p_index &lt; p_size - 1">
 
 									&lt;/tbody&gt;
 									&lt;/table&gt;
-									&lt;p
-									style="page-break-before:always;"&gt; &lt;/p&gt;
-									&lt;table
-									class="table table-condensed"&gt;
+									&lt;p style="page-break-before:always;"&gt; &lt;/p&gt;
+									&lt;table class="table table-condensed"&gt;
 
 									<thead>
 										<tr>
@@ -242,21 +221,19 @@
 
 					<div class="row" t-if="o.display_total">
 						<div class="col-xs-4 pull-right">
-							<table class="table-condensed">
+							<table  class="table table-condensed">
 								<tr class="border-black">
 									<td>
 										<strong>Total Without Taxes</strong>
 									</td>
 									<td class="text-right">
-										<span t-field="o.amount_untaxed"
-											t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}" />
+										<span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
 									</td>
 								</tr>
 								<tr>
 									<td>Taxes</td>
 									<td class="text-right">
-										<span t-field="o.amount_tax"
-											t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}" />
+										<span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
 									</td>
 								</tr>
 								<tr class="border-black">
@@ -264,60 +241,61 @@
 										<strong>Total</strong>
 									</td>
 									<td class="text-right">
-										<span t-field="o.amount_total"
-											t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}" />
+										<span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
 									</td>
 								</tr>
 							</table>
 						</div>
 					</div>
 
-					<p>
-						<strong>Quotation validity</strong>
-						:
-						<span t-field="o.quotation_validity" />
+<div t-if="o.display_quotation_text_elements" style="line-height:10px;page-break-before:always;" />
+
+
+                                        <div class="text-right" t-if="o.display_delay and not o.delay_in_week"><i>Delivery time in work day</i><br/></div>
+                                        <div class="text-right" t-if="o.display_delay and o.delay_in_week"><i>Delivery time in week</i><br/></div>
+					<div t-if="o.note" style="margin-bottom:20px;"><p>
+						<span style="font-size:14px"><strong>Note</strong></span>
+                                                 <hr style="border-with:1px;" />
+						<span t-field="o.note"/>
+					</p></div>
+					<div style="margin-bottom:20px;"><p>
+						<span style="font-size:14px"><strong>Quotation validity</strong></span>
+                                                 <hr style="border-with:1px;" />
+						<span t-field="o.quotation_validity"/>
 						<t t-if="not o.quotation_validity">One month</t>
-					</p>
-					<p t-field="o.note" />
-					<p t-if="o.payment_term.note and o.display_payment_term">
-						<strong>Payment Term:</strong>
-						<span t-field="o.payment_term.note" />
-						<br />
-						<br />
-						<br />
-					</p>
+					</p></div>
+					<div style="margin-bottom:20px;"><p t-if="o.payment_term.note and o.display_payment_term">
+						<span style="font-size:14px"><strong>Payment Term</strong></span>
+                                                 <hr style="border-with:1px;" />
+						<span t-field="o.payment_term.note"/>
+					</p></div>
 					<t t-if="o.display_quotation_text_elements" name="text_elements_after">
 						<t t-foreach="o.quotation_text_elements_after" t-as="text_element">
 							<t t-if="text_element.page_break_before">
-								<div t-field="text_element.content_interpreted"
-									t-field-options="{&quot;html-escape&quot;:false}"
-									style="line-height:10px;page-break-before:always;margin-bottom:20px;" />
+								<div t-field="text_element.content_interpreted" t-field-options="{&quot;richtext&quot;:true}" style="line-height:10px;page-break-before:always;margin-bottom:20px;"/>
 							</t>
 							<t t-if="not text_element.page_break_before">
-								<div t-field="text_element.content_interpreted"
-									t-field-options="{&quot;html-escape&quot;:false}" style="margin-bottom:20px;" />
+								<div t-field="text_element.content_interpreted" t-field-options="{&quot;richtext&quot;:true}" style="margin-bottom:20px;" />
 							</t>
 							<t t-if="text_element.page_break_after">
-								<p style="page-break-before:always;" />
+								<p style="page-break-before:always;"/>
 							</t>
 						</t>
 					</t>
 					<t t-if="o.display_quotation_text_elements" name="text_elements_final">
 						<t t-foreach="o.quotation_text_elements_final" t-as="text_element">
 							<t t-if="text_element.page_break_before">
-								<div t-field="text_element.content_interpreted"
-									t-field-options="{&quot;html-escape&quot;:false}" style="line-height:10px;page-break-before:always;" />
+								<div t-field="text_element.content_interpreted" t-field-options="{&quot;richtext&quot;:true}" style="line-height:10px;page-break-before:always;"/>
 							</t>
 							<t t-if="not text_element.page_break_before">
-								<div t-field="text_element.content_interpreted"
-									t-field-options="{&quot;html-escape&quot;:false}" />
+								<div t-field="text_element.content_interpreted" t-field-options="{&quot;richtext&quot;:true}"/>
 							</t>
 							<t t-if="text_element.page_break_after">
-								<p style="page-break-before:always;" />
+								<p style="page-break-before:always;"/>
 							</t>
 						</t>
 					</t>
-					<div class="oe_structure" />
+					<div class="oe_structure"/>
 				</div>
 			</xpath>
 		</template>

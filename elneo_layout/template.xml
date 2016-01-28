@@ -32,8 +32,20 @@
 
 		<template id="external_layout_footer_elneo" inherit_id="report.external_layout_footer">
 			<xpath expr="//div[@class='footer']" position="replace">
-                             
-			    <div class="footer" style="transparent !important; padding-top:5px;">
+<t t-set="u" t-value="user" />                             
+<t t-if="o._name in ('sale.order')">
+<t t-set="u" t-value="o.user_id" />
+</t>
+<t t-if="o._name in ('account.invoice')">
+<t t-set="u" t-value="user" />
+<t t-set="sale" t-value="o.sale_order_ids and o.sale_order_ids[0]"/>
+</t>
+<t t-if="o._name in ('maintenance.intervention')">
+<t t-set="sale_inter" t-value="o.sale_order_id" />
+</t>
+
+
+			    <div class="footer" style="transparent !important; padding-top:30px;">
                                     <div class="text-left">
                                     <div t-if="o._name in ('sale.order') and o.user_id.id != user.id"> <table width="100%">
                                         <tbody>
@@ -43,14 +55,14 @@
                                                 </div> 			            	           
 			                    </span></td>
 			                    <td style="border-left: 1px solid #929191; padding-left:4px;  padding-bottom:4px;"><span style="color:grey;">			                       
-                                                <div><div><Strong>Administrative contact: <span t-field="user.partner_id.name"/></Strong></div>
-                                                <div>Tel: <span t-field="user.partner_id.phone"/> | E-mail: <span t-field="user.partner_id.email"/></div>
+                                                <div><div><Strong>Administrative contact: <span t-field="o.section_id.administrative_user_id"/></Strong></div>
+                                                <div>Tel: <span t-field="o.section_id.administrative_user_id.phone"/> | E-mail: <span t-field="o.section_id.administrative_user_id.email"/></div>
                                                 </div> 
                                            </span> </td>
 			                </tbody>
                                    </table></div>
                                   
-                                   <div t-if="o._name in ('sale.order') and o.user_id.id == user.id"> <table width="100%" >
+                                   <div t-if="o._name in ('sale.order') and o.user_id.id == user.id"> <table width="100%">
                                         <tbody>
                                             <td style="border-left: 1px solid #929191; padding-left:4px;  padding-bottom:4px;"><span style="color:grey;">
                                                  <div t-if="o._name in ('sale.order') and o.user_id"><span><Strong>Sales contact: <span t-field="o._name in ('sale.order') and o.user_id"/></Strong></span><br/>
@@ -59,8 +71,35 @@
 			                    </span></td>
 			                </tbody>
                                    </table>	</div>
+
+                                    <div t-if="o._name in ('account.invoice')"> <table width="100%">
+                                        <tbody>
+			                    <td style="border-left: 1px solid #929191; padding-left:4px;  padding-bottom:4px;"><span style="color:grey;">			                       
+                                                <div><div><Strong>Administrative contact: <span t-field="sale.section_id.administrative_user_id"/></Strong></div>
+                                                <div>Tel: <span t-field="sale.section_id.administrative_user_id.phone"/> | E-mail: <span t-field="sale.section_id.administrative_user_id.partner_id.email"/></div>
+                                                </div> 
+                                           </span> </td>
+			                </tbody>
+                                   </table></div>
+
+
+
+                                    <div t-if="o._name in ('maintenance.intervention')"><table width="100%">
+                                        <tbody>
+                                            <td style="border-left: 1px solid #929191; padding-left:4px; padding-bottom:4px;"> <span style="color:grey;">
+                                               <span><Strong>Sales contact: <span t-field="sale_inter.section_id.user_id"/></Strong></span><br/>
+                                                Tel:<span t-field="sale_inter.section_id.user_id.phone"/> | Email: <span t-field="sale_inter.section_id.user_id.email"/>			            	           
+			                    </span></td>
+			                    <td style="border-left: 1px solid #929191; padding-left:4px;  padding-bottom:4px;"><span style="color:grey;">			                       
+                                                <div><Strong>Administrative contact: <span t-field="sale_inter.section_id.administrative_user_id"/></Strong></div>
+                                                <div>Tel: <span t-field="sale_inter.section_id.administrative_user_id.phone"/> | E-mail: <span t-field="sale_inter.section_id.administrative_user_id.email"/></div>
+                                           </span> </td>
+			                </tbody>
+                                   </table>
+                                  </div>
+
 	                               
-                                        <table width="100%"  style="background-color:#929191 ;transparent !important;" >
+                                        <table width="100%" style="background-color:#929191 ;transparent !important;">
                                         <col width="85%"/> 
                                         <col width="15%"/>
                                         <tbody>
@@ -68,7 +107,7 @@
                                                 <td style="padding-top:4px; padding-left:4px;"> 	                       
                                                 <span style="color:white;" t-if="user.lang != 'nl_BE'"><strong>Elneo (Technofluid SA) </strong> | TVA: BE0438681213 </span> 
                                                 <span style="color:white;" t-if="user.lang=='nl_BE'"><strong>Elneo (Technofluid NV) </strong> | TVA: BE0438681213</span><br/>
-                                                <div> <span style="color:white;">  <span t-field="user.partner_id.street"/> - <span t-field="user.partner_id.zip"/>  <span t-field="user.partner_id.city"/> | <span>Tel : <span t-field="user.partner_id.phone"/> </span> | <span>Fax : <span t-field="user.partner_id.fax"/></span> | <span>E-mail : info@elneo.com</span>  </span></div>
+                                                <div> <span style="color:white;">  <span t-field="user.partner_id.street"/> - <span t-field="user.partner_id.zip"/>  <span t-field="user.partner_id.city"/> | <span>Tel : <span t-field="user.default_warehouse_id.partner_id.phone"/> </span> | <span>Fax : <span t-field="user.default_warehouse_id.partner_id.fax"/></span> | <span>E-mail : info@elneo.com</span>  </span></div>
                                                  <span style="color:white;"> ING: BE29 3400 6157 8264 - BIC: BBRU BE BB | Belfius: BE26 0688 9108 1029 - BIC: GKCC BE BB</span>		            	           
                                                   </td>
                                                 <td class="text-right" style="padding-right:4px;">	
@@ -77,7 +116,7 @@
 			                    </tr>
 			                </tbody>
                                    </table>			       
-		                   
+
 			            <t t-if="company.custom_footer">
 			                <span t-raw="company.rml_footer"/>
 			            </t>

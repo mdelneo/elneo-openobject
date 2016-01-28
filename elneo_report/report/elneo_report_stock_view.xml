@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
 <openerp>
 	<data>
-		<report string="Picking list" id="report_picking_list_elneo"
-			model="stock.picking" report_type="qweb-pdf"
-			name="elneo_report.stock_picking_list_document" file="elneo_report.stock_picking_list_document" />
+		<report string="Picking list" id="report_picking_list_elneo" model="stock.picking" report_type="qweb-pdf" name="elneo_report.stock_picking_list_document" file="elneo_report.stock_picking_list_document" />
 
 		<template id="stock_picking_list">
 			<t t-call="report.html_container">
@@ -14,38 +12,917 @@
 		</template>
 
 		<template id="stock_picking_list_document">
-			<t t-call="report.internal_layout">
-				<div class="page">
-					<div class="oe_structure" />
-					<h1>PICKING LIST</h1>
-				</div>
+			<t t-foreach="docs" t-as="o">
+				<t t-call="report.internal_layout">
+					<div class="page">
+						<div class="oe_structure" />
+
+
+						<div class="text-right">
+							<span t-field="o.write_date" />
+						</div>
+						<h2>
+							<strong>
+								PICKING LIST: for reservation
+								<span t-field="o.create_uid.default_section_id.code" />
+								-
+								<span t-field="o.name" />
+							</strong>
+						</h2>
+						<h3>
+							<strong>
+								For:
+								<span t-field="o.partner_id.commercial_partner_id.ref" />
+								-
+								<span t-field="o.origin" />
+							</strong>
+						</h3>
+						<br />
+						<table width="100%" class="table table-condensed">
+							<thead>
+								<tr style="background-color:lightgrey;">
+									<th class="text-left">Warehouse</th>
+									<th class="text-left">Family</th>
+									<th class="text-left">Sub-family</th>
+									<th class="text-left">Reference</th>
+									<th width="10%" class="text-center">Aisle</th>
+									<th width="10%" class="text-center">Qty in stock</th>
+									<th width="10%" class="text-right">Qty to pick</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr t-foreach="o.move_lines.sorted(key=lambda m:str(m.aisle)+str(m.product_id.categ_family)+str(m.product_id.categ_subfamily)+str(m.product_id.code))" t-as="m">
+									<td class="text-left">
+										<span t-field="m.location_id.name" />
+									</td>
+									<td class="text-left">
+										<span t-field="m.product_id.categ_family" />
+									</td>
+									<td class="text-left">
+										<span t-field="m.product_id.categ_subfamily" />
+									</td>
+									<td class="text-left">
+										<span t-field="m.name" />
+									</td>
+									<td class="text-left">
+										<span t-field="m.aisle" />
+									</td>
+									<td class="text-center">
+										<span t-field="[d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1] and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1][0].stock_real" />
+									</td>
+									<td class="text-right">
+										<span t-if="m.state=='assigned'">
+											<span t-field="m.product_uom_qty" />
+											<span t-field="m.product_uom.name" />
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<br />
+						<span t-if="o.sale_id.note">
+							Note:
+							<span t-field="o.sale_id.note" />
+						</span>
+
+					</div>
+				</t>
 			</t>
 		</template>
 
 
 		<template id="report_picking_elneo_report" inherit_id="delivery.report_shipping2">
 			<xpath expr="//t[@t-call='report.external_layout']" position="replace">
-				<t t-call="report.external_layout">
-					<div class="page">
-						<div class="oe_structure" />
-						<h1>PICKING</h1>
-						<ul>
-							<li><span t-field="o.name" /></li>
-							<li><span t-field="o.picking_type_id.code" /></li>
-							
-							<li>
-								<table>
-									<tr t-foreach="o.move_lines" t-as="m">
+				<div t-if="o.picking_type_id.code == 'incoming' or o.picking_type_id.code == 'internal'">
+					<t t-call="report.internal_layout">
+
+						<div class="page">
+							<div class="oe_structure" />
+							<div t-if="o.picking_type_id.code == 'incoming'">
+								<div class="text-right">
+									<span t-field="o.date_done" />
+								</div>
+								<h1>
+									<strong>
+										RECEPTION:
+										<span t-field="o.create_uid.default_section_id.code" />
+										-
+										<span t-field="o.name" />
+									</strong>
+								</h1>
+
+								<h2>
+									<strong>
+										Origin:
+										<span t-field="o.partner_id.commercial_partner_id.ref" />
+										-
+										<span t-field="o.origin" />
+									</strong>
+								</h2>
+								<br />
+								<table width="100%" class="table table-condensed">
+									<thead>
+										<tr style="background-color:lightgrey;">
+											<th width="20%" class="text-left">Reference</th>
+											<th class="text-left">Supplier reference</th>
+											<th width="10%" class="text-center">Aisle</th>
+											<th width="10%" class="text-center">Qty receipt</th>
+											<th width="10%" class="text-center">Qty for reservation</th>
+											<th width="10%" class="text-right">Reservation</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr t-foreach="o.move_lines" t-as="m">
+											<td class="text-left">
+												<span t-field="m.product_id.default_code" />
+											</td>
+											<td class="text-left">
+												<span t-field="m.name" />
+											</td>
+											<td class="text-center">
+												<span
+													t-esc="len([d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id]) > 0 and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id][0].aisle" />
+											</td>
+											<td class="text-center">
+												<span t-field="m.product_uom_qty" />
+											</td>
+											<td class="text-center">
+												<div t-if="m.move_dest_id and m.move_dest_id.product_uom_qty">
+													<span t-field="m.move_dest_id.product_uom_qty" />
+													<span t-field="m.product_uom.name" />
+												</div>
+											</td>
+											<td class="text-right">
+												<div t-if="m.move_dest_id.picking_id.sale_id.intervention_id">
+													<span t-field="m.move_dest_id.picking_id.sale_id.intervention_id.code" />
+												</div>
+												<div t-if="not m.move_dest_id.picking_id.sale_id.intervention_id">
+													<span t-field="m.move_dest_id.picking_id.name" />
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<br />
+								<span t-if="o.note">
+									Note:
+									<span t-field="o.note" />
+								</span>
+								<br />
+								<span>
+									User:
+									<span t-field="o.write_uid.name" />
+								</span>
+								<p style="page-break-before:always;" />
+								<h1>
+									<strong>
+										RESTOCKING LIST:
+										<span t-field="o.name" />
+									</strong>
+								</h1>
+								<table width="100%" class="table table-condensed">
+									<thead>
+										<tr style="background-color:lightgrey;">
+											<th width="10%" class="text-center">Aisle</th>
+											<th width="10%" class="text-left">Family</th>
+											<th width="10%" class="text-left">Sub-family</th>
+											<th width="20%" class="text-left">Reference</th>
+											<th width="30%" class="text-left">Name</th>
+											<th width="20%" class="text-left">stock</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr t-foreach="o.move_lines" t-as="m">
+											<td class="text-center">
+												<span
+													t-esc="len([d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id]) > 0 and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id][0].aisle" />
+											</td>
+											<td class="text-left">
+												<span t-field="m.product_id.categ_family" />
+											</td>
+											<td class="text-left">
+												<span t-field="m.product_id.categ_subfamily" />
+											</td>
+											<td class="text-left">
+												<span t-field="m.product_id.default_code" />
+											</td>
+											<td class="text-left">
+												<span t-field="m.product_id.name" />
+											</td>
+											<td class="text-center">
+												<span t-field="[d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1] and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1][0].stock_real" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<br />
+							</div>
+
+
+							<div t-if="o.picking_type_id.code == 'internal'">
+								<div class="text-right">
+									<span t-field="o.write_date" />
+								</div>
+								<div t-if="o.sale_id.intervention_id">
+									<div t-if="o.state=='done'">
+										<h1>
+											<strong>
+												<div style="background-color:grey;color:white;text-align:center;padding-top:10px;padding-bottom:10px;">
+													COMPLETE RESERVATION
+													<div t-if="o.sale_id.partner_id.blocked">STOP: the customer is blocked for delivery </div>
+												</div>
+											</strong>
+										</h1>
+									</div>
+									<div t-if="o.state!='done'">
+										<h1>
+											<strong>
+												<div style="text-align:center;padding-top:10px;padding-bottom:10px;">
+													INCOMPLETE RESERVATION
+													<div t-if="o.sale_id.partner_id.blocked">STOP: the customer is blocked for delivery </div>
+												</div>
+											</strong>
+										</h1>
+									</div>
+									<h1>
+										INTERVENTION:
+										<strong>
+											<span t-field="o.sale_id.intervention_id.code" />
+										</strong>
+									</h1>
+									<h3>
+										For:
+										<strong>
+											<span t-field="o.partner_id.commercial_partner_id.name" />
+										</strong>
+										- Sales:
+										<span t-field="o.sale_id.name" />
+										- Reservation:
+										<span t-field="o.name" />
+									</h3>
+									<br />
+									<table width="100%" class="table table-condensed">
+										<thead>
+											<tr style="background-color:lightgrey;">
+												<th width="10%" class="text-left">Take back</th>
+												<th class="text-left">Reference</th>
+												<th class="text-left">Element</th>
+												<th width="10%" class="text-left">State</th>
+												<th width="10%" class="text-center">Qty</th>
+												<th width="10%" class="text-right">Sale price</th>
+												<th width="10%" class="text-right">Purchase</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr
+												t-foreach="o.move_lines.sorted(key=lambda r :(r.intervention_product_id and r.intervention_product_id.maintenance_element_id and unicode(r.intervention_product_id.maintenance_element_id.code) or '')+unicode(r.name) or unicode(r.name))"
+												t-as="m">
+												<td class="text-left">
+													<span t-field="m.intervention_product_id.warehouse_return" />
+												</td>
+												<td class="text-left">
+													<span t-field="m.name" />
+												</td>
+												<td class="text-left">
+													<span t-if="m.intervention_product_id">
+														<span t-field="m.intervention_product_id.maintenance_element_id.name" />
+													</span>
+													<span t-if="m.intervention_product_id.maintenance_element_id.serial_number">
+														-N°
+														<span t-field="m.intervention_product_id.maintenance_element_id.serial_number" />
+													</span>
+												</td>
+												<td class="text-right">
+													<span t-field="m.state" />
+												</td>
+												<td class="text-center">
+													<span t-field="m.product_uom_qty" />
+												</td>
+												<td class="text-right">
+													<span t-field="m.product_id.list_price" />
+												</td>
+												<td class="text-right">
+													<span t-field="m.purchased" />
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<br />
+									<span t-if="o.sale_id.note">
+										Note:
+										<span t-field="o.sale_id.note" />
+									</span>
+									<br />
+									<span>
+										User:
+										<span t-field="o.write_uid.name" />
+									</span>
+								</div>
+
+								<div t-if="not o.sale_id.intervention_id">
+									<div t-if="not o.sale_id.outgoing_picking_type">
+										<h2>
+											<strong>
+												<div style="background-color:grey;color:white;text-align:center;padding-top:10px;padding-bottom:10px;">
+													<div t-if="o.state=='done'">TO SEND</div>
+													<div t-if="o.sale_id.partner_id.blocked">STOP: the customer is blocked for delivery </div>
+												</div>
+											</strong>
+										</h2>
+									</div>
+									<div t-if="o.sale_id.outgoing_picking_type">
+										<h2>
+											<strong>
+												<div style="background-color:grey;color:white;text-align:center;padding-top:10px;padding-bottom:10px;">
+													<div t-if="o.state=='done'">
+														<span t-field="o.sale_id.outgoing_picking_type.name" />
+													</div>
+													<div t-if="o.sale_id.partner_id.blocked">STOP: the customer is blocked for delivery </div>
+												</div>
+											</strong>
+										</h2>
+									</div>
+									<h1>
+										<strong>
+											RESERVATION:
+											<span t-if="user.default_section_id.code">
+												<span t-field="user.default_section_id.code" />
+												-
+											</span>
+											<span t-field="o.name" />
+										</strong>
+									</h1>
+									<h3>
+										<strong>
+											For:
+											<span t-field="o.partner_id.commercial_partner_id.name" />
+											- Sales:
+											<span t-if="o.sale_id.section_id.code">
+												<span t-field="o.sale_id.section_id.code" />
+												-
+											</span>
+											<span t-field="o.sale_id.name" />
+										</strong>
+									</h3>
+									<br />
+									<table width="100%" class="table table-condensed">
+										<thead>
+											<tr style="background-color:lightgrey;">
+												<th class="text-left">Reference</th>
+												<th class="text-left">Warehouse</th>
+												<th width="10%" class="text-center">Aisle</th>
+												<th width="10%" class="text-center">Qty</th>
+												<th width="10%" class="text-right">State</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr t-foreach="o.move_lines" t-as="m">
+												<td class="text-left">
+													<span t-field="m.name" />
+												</td>
+												<td class="text-left">
+													<span t-field="m.location_id.name" />
+												</td>
+												<td class="text-center">
+													<span
+														t-esc="len([d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id]) > 0 and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id][0].aisle" />
+												</td>
+												<td class="text-center">
+													<span t-field="m.product_uom_qty" />
+													<span t-field="m.product_uom.name" />
+												</td>
+												<td class="text-right">
+													<span t-field="m.state" />
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<br />
+									<span t-if="o.sale_id.note">
+										Note:
+										<span t-field="o.sale_id.note" />
+									</span>
+									<br />
+									<span>
+										User:
+										<span t-field="o.write_uid.name" />
+									</span>
+								</div>
+							</div>
+
+
+						</div>
+
+					</t>
+				</div>
+				<div t-if="o.picking_type_id.code == 'outgoing'">
+					<t t-call="report.external_layout">
+
+						<div class="page">
+							<div class="oe_structure" />
+
+							<div t-if="o.picking_type_id.code == 'outgoing'">
+								<br />
+								<table width="100%">
+									<col width="50%" />
+									<col width="50%" />
+									<tr>
+										<td></td>
 										<td>
-											<span t-field="m.product_id.default_code" />
-											<span t-field="m.name" />
-											<span t-field="m.product_uom_qty" />
-											<span t-field="m.state" />
+											<strong>
+												<span t-field="o.sale_id.partner_shipping_id.commercial_partner_id.name" />
+											</strong>
+											<br />
+											<div t-if="o.sale_id.partner_shipping_id.lastname or o.sale_id.partner_shipping_id.firstname">
+												<span>To </span>
+												<span t-field="o.sale_id.partner_shipping_id.title.name" />
+												<span t-field="o.sale_id.partner_shipping_id.firstname" />
+												<span t-field="o.sale_id.partner_shipping_id.lastname" />
+											</div>
+											<span t-field="o.sale_id.partner_shipping_id.street" />
+											<br />
+											<span t-field="o.sale_id.partner_shipping_id.zip" />
+											<span t-field="o.sale_id.partner_shipping_id.city" />
+											<br />
+											<span t-field="o.sale_id.partner_shipping_id.country_id.name" />
 										</td>
 									</tr>
 								</table>
-							</li>
-						</ul>
+								<br />
+								<div class="text-right" t-if="o.date_done">
+									Delivery date:
+									<span t-esc="time.strftime('%d/%m/%Y',time.strptime(o.date_done,'%Y-%m-%d %H:%M:%S'))" />
+								</div>
+								<h3>
+									<strong>
+										Delivery bon:
+										<span t-field="o.create_uid.default_section_id.code" />
+										-
+										<span t-field="o.name" />
+									</strong>
+								</h3>
+								<strong>
+									Our order reference:
+									<span t-field="o.sale_id.name" />
+									<span t-esc="o.sale_id.client_order_ref and str(' - Your order reference: '+o.sale_id.client_order_ref)" />
+								</strong>
+								<table width="100%" class="table table-condensed" style="margin-top:10px">
+									<thead>
+										<tr style="background-color:lightgrey;">
+											<th class="text-left">[Reference] Description</th>
+											<th width="10%" class="text-center">Serialnumber</th>
+											<th width="10%" class="text-center">Qty</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr t-foreach="o.move_lines" t-as="m">
+											<td>
+												<span t-field="m.name" />
+											</td>
+											<td class="text-center">
+												<span t-esc="m.quant_ids and str(m.quant_ids[0].lot_id)" />
+											</td>
+											<td class="text-center">
+												<span t-field="m.product_uom_qty" />
+												<span t-field="m.product_uom.name" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<strong>
+									<div t-if="o.carrier_id" style="text-align:right">
+										Carrier:
+										<span t-field="o.carrier_id.product_id.code" />
+									</div>
+								</strong>
+								<span t-if="o.note">
+									Note:
+									<span t-field="o.note" />
+								</span>
+							</div>
+						</div>
+
+					</t>
+
+
+
+				</div>
+
+				<!-- LIEN 1 -->
+
+				<t t-set="link1" t-value="list(set([m.move_dest_id.picking_id for m in o.move_lines if m.move_dest_id and m.state == 'done' and m.move_dest_id.state == 'done']))" />
+
+				<t t-foreach="link1" t-as="o">
+					<div t-if="o.picking_type_id.code == 'incoming' or o.picking_type_id.code == 'internal'">
+						<t t-call="report.internal_layout">
+
+							<div class="page">
+								<div class="oe_structure" />
+								<div t-if="o.picking_type_id.code == 'incoming'">
+									<div class="text-right">
+										<span t-field="o.date_done" />
+									</div>
+									<h1>
+										<strong>
+											RECEPTION:
+											<span t-field="o.create_uid.default_section_id.code" />
+											-
+											<span t-field="o.name" />
+										</strong>
+									</h1>
+
+									<h2>
+										<strong>
+											Origin:
+											<span t-field="o.partner_id.commercial_partner_id.ref" />
+											-
+											<span t-field="o.origin" />
+										</strong>
+									</h2>
+									<br />
+									<table width="100%" class="table table-condensed">
+										<thead>
+											<tr style="background-color:lightgrey;">
+												<th width="20%" class="text-left">Reference</th>
+												<th class="text-left">Supplier reference</th>
+												<th width="10%" class="text-center">Aisle</th>
+												<th width="10%" class="text-center">Qty receipt</th>
+												<th width="10%" class="text-center">Qty for reservation</th>
+												<th width="10%" class="text-right">Reservation</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr t-foreach="o.move_lines" t-as="m">
+												<td class="text-left">
+													<span t-field="m.product_id.default_code" />
+												</td>
+												<td class="text-left">
+													<span t-field="m.name" />
+												</td>
+												<td class="text-center">
+													<span
+														t-esc="len([d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id]) > 0 and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id][0].aisle" />
+												</td>
+												<td class="text-center">
+													<span t-field="m.product_uom_qty" />
+												</td>
+												<td class="text-center">
+													<div t-if="m.move_dest_id and m.move_dest_id.product_uom_qty">
+														<span t-field="m.move_dest_id.product_uom_qty" />
+														<span t-field="m.product_uom.name" />
+													</div>
+												</td>
+												<td class="text-right">
+													<div t-if="m.move_dest_id.picking_id.sale_id.intervention_id">
+														<span t-field="m.move_dest_id.picking_id.sale_id.intervention_id.code" />
+													</div>
+													<div t-if="not m.move_dest_id.picking_id.sale_id.intervention_id">
+														<span t-field="m.move_dest_id.picking_id.name" />
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<br />
+									<span t-if="o.note">
+										Note:
+										<span t-field="o.note" />
+									</span>
+									<br />
+									<span>
+										User:
+										<span t-field="o.write_uid.name" />
+									</span>
+									<p style="page-break-before:always;" />
+									<h1>
+										<strong>
+											RESTOCKING LIST:
+											<span t-field="o.name" />
+										</strong>
+									</h1>
+									<table width="100%" class="table table-condensed">
+										<thead>
+											<tr style="background-color:lightgrey;">
+												<th width="10%" class="text-center">Aisle</th>
+												<th width="10%" class="text-left">Family</th>
+												<th width="10%" class="text-left">Sub-family</th>
+												<th width="20%" class="text-left">Reference</th>
+												<th width="30%" class="text-left">Name</th>
+												<th width="20%" class="text-left">stock</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr t-foreach="o.move_lines" t-as="m">
+												<td class="text-center">
+													<span
+														t-esc="len([d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id]) > 0 and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id][0].aisle" />
+												</td>
+												<td class="text-left">
+													<span t-field="m.product_id.categ_family" />
+												</td>
+												<td class="text-left">
+													<span t-field="m.product_id.categ_subfamily" />
+												</td>
+												<td class="text-left">
+													<span t-field="m.product_id.default_code" />
+												</td>
+												<td class="text-left">
+													<span t-field="m.product_id.name" />
+												</td>
+												<td class="text-center">
+													<span t-field="[d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1] and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1][0].stock_real" />
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<br />
+								</div>
+
+
+								<div t-if="o.picking_type_id.code == 'internal'">
+									<div class="text-right">
+										<span t-field="o.write_date" />
+									</div>
+									<div t-if="o.sale_id.intervention_id">
+										<div t-if="o.state=='done'">
+											<h1>
+												<strong>
+													<div style="background-color:grey;color:white;text-align:center;padding-top:10px;padding-bottom:10px;">
+														COMPLETE RESERVATION
+														<div t-if="o.sale_id.partner_id.blocked">STOP: the customer is blocked for delivery </div>
+													</div>
+												</strong>
+											</h1>
+										</div>
+										<div t-if="o.state!='done'">
+											<h1>
+												<strong>
+													<div style="text-align:center;padding-top:10px;padding-bottom:10px;">
+														INCOMPLETE RESERVATION
+														<div t-if="o.sale_id.partner_id.blocked">STOP: the customer is blocked for delivery </div>
+													</div>
+												</strong>
+											</h1>
+										</div>
+										<h1>
+											INTERVENTION:
+											<strong>
+												<span t-field="o.sale_id.intervention_id.code" />
+											</strong>
+										</h1>
+										<h3>
+											For:
+											<strong>
+												<span t-field="o.partner_id.commercial_partner_id.name" />
+											</strong>
+											- Sales:
+											<span t-field="o.sale_id.name" />
+											- Reservation:
+											<span t-field="o.name" />
+										</h3>
+										<br />
+										<table width="100%" class="table table-condensed">
+											<thead>
+												<tr style="background-color:lightgrey;">
+													<th width="10%" class="text-left">Take back</th>
+													<th class="text-left">Reference</th>
+													<th class="text-left">Element</th>
+													<th width="10%" class="text-left">State</th>
+													<th width="10%" class="text-center">Qty</th>
+													<th width="10%" class="text-right">Sale price</th>
+													<th width="10%" class="text-right">Purchase</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr
+													t-foreach="o.move_lines.sorted(key=lambda r :(r.intervention_product_id and r.intervention_product_id.maintenance_element_id and unicode(r.intervention_product_id.maintenance_element_id.code) or '')+unicode(r.name) or unicode(r.name))"
+													t-as="m">
+													<td class="text-left">
+														<span t-field="m.intervention_product_id.warehouse_return" />
+													</td>
+													<td class="text-left">
+														<span t-field="m.name" />
+													</td>
+													<td class="text-left">
+														<span t-if="m.intervention_product_id">
+															<span t-field="m.intervention_product_id.maintenance_element_id.name" />
+														</span>
+														<span t-if="m.intervention_product_id.maintenance_element_id.serial_number">
+															-N°
+															<span t-field="m.intervention_product_id.maintenance_element_id.serial_number" />
+														</span>
+													</td>
+													<td class="text-right">
+														<span t-field="m.state" />
+													</td>
+													<td class="text-center">
+														<span t-field="m.product_uom_qty" />
+													</td>
+													<td class="text-right">
+														<span t-field="m.product_id.list_price" />
+													</td>
+													<td class="text-right">
+														<span t-field="m.purchased" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<br />
+										<span t-if="o.sale_id.note">
+											Note:
+											<span t-field="o.sale_id.note" />
+										</span>
+										<br />
+										<span>
+											User:
+											<span t-field="o.write_uid.name" />
+										</span>
+									</div>
+
+									<div t-if="not o.sale_id.intervention_id">
+										<div t-if="not o.sale_id.outgoing_picking_type">
+											<h2>
+												<strong>
+													<div style="background-color:grey;color:white;text-align:center;padding-top:10px;padding-bottom:10px;">
+														<div t-if="o.state=='done'">TO SEND</div>
+														<div t-if="o.sale_id.partner_id.blocked">STOP: the customer is blocked for delivery </div>
+													</div>
+												</strong>
+											</h2>
+										</div>
+										<div t-if="o.sale_id.outgoing_picking_type">
+											<h2>
+												<strong>
+													<div style="background-color:grey;color:white;text-align:center;padding-top:10px;padding-bottom:10px;">
+														<div t-if="o.state=='done'">
+															<span t-field="o.sale_id.outgoing_picking_type.name" />
+														</div>
+														<div t-if="o.sale_id.partner_id.blocked">STOP: the customer is blocked for delivery </div>
+													</div>
+												</strong>
+											</h2>
+										</div>
+										<h1>
+											<strong>
+												RESERVATION:
+												<span t-if="user.default_section_id.code">
+													<span t-field="user.default_section_id.code" />
+													-
+												</span>
+												<span t-field="o.name" />
+											</strong>
+										</h1>
+										<h3>
+											<strong>
+												For:
+												<span t-field="o.partner_id.commercial_partner_id.name" />
+												- Sales:
+												<span t-if="o.sale_id.section_id.code">
+													<span t-field="o.sale_id.section_id.code" />
+													-
+												</span>
+												<span t-field="o.sale_id.name" />
+											</strong>
+										</h3>
+										<br />
+										<table width="100%" class="table table-condensed">
+											<thead>
+												<tr style="background-color:lightgrey;">
+													<th class="text-left">Reference</th>
+													<th class="text-left">Warehouse</th>
+													<th width="10%" class="text-center">Aisle</th>
+													<th width="10%" class="text-center">Qty</th>
+													<th width="10%" class="text-right">State</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr t-foreach="o.move_lines" t-as="m">
+													<td class="text-left">
+														<span t-field="m.name" />
+													</td>
+													<td class="text-left">
+														<span t-field="m.location_id.name" />
+													</td>
+													<td class="text-center">
+														<span
+															t-esc="len([d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id]) > 0 and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id == o.picking_type_id.warehouse_id.id][0].aisle" />
+													</td>
+													<td class="text-center">
+														<span t-field="m.product_uom_qty" />
+														<span t-field="m.product_uom.name" />
+													</td>
+													<td class="text-right">
+														<span t-field="m.state" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<br />
+										<span t-if="o.sale_id.note">
+											Note:
+											<span t-field="o.sale_id.note" />
+										</span>
+										<br />
+										<span>
+											User:
+											<span t-field="o.write_uid.name" />
+										</span>
+									</div>
+								</div>
+
+
+							</div>
+
+						</t>
+					</div>
+					<div t-if="o.picking_type_id.code == 'outgoing'">
+						<t t-call="report.external_layout">
+
+							<div class="page">
+								<div class="oe_structure" />
+
+								<div t-if="o.picking_type_id.code == 'outgoing'">
+									<br />
+									<table width="100%">
+										<col width="50%" />
+										<col width="50%" />
+										<tr>
+											<td></td>
+											<td>
+												<strong>
+													<span t-field="o.sale_id.partner_shipping_id.commercial_partner_id.name" />
+												</strong>
+												<br />
+												<div t-if="o.sale_id.partner_shipping_id.lastname or o.sale_id.partner_shipping_id.firstname">
+													<span>To </span>
+													<span t-field="o.sale_id.partner_shipping_id.title.name" />
+													<span t-field="o.sale_id.partner_shipping_id.firstname" />
+													<span t-field="o.sale_id.partner_shipping_id.lastname" />
+												</div>
+												<span t-field="o.sale_id.partner_shipping_id.street" />
+												<br />
+												<span t-field="o.sale_id.partner_shipping_id.zip" />
+												<span t-field="o.sale_id.partner_shipping_id.city" />
+												<br />
+												<span t-field="o.sale_id.partner_shipping_id.country_id.name" />
+											</td>
+										</tr>
+									</table>
+									<br />
+									<div class="text-right" t-if="o.date_done">
+										Delivery date:
+										<span t-esc="time.strftime('%d/%m/%Y',time.strptime(o.date_done,'%Y-%m-%d %H:%M:%S'))" />
+									</div>
+									<h3>
+										<strong>
+											Delivery bon:
+											<span t-field="o.create_uid.default_section_id.code" />
+											-
+											<span t-field="o.name" />
+										</strong>
+									</h3>
+									<strong>
+										Our order reference:
+										<span t-field="o.sale_id.name" />
+										<span t-esc="o.sale_id.client_order_ref and str(' - Your order reference: '+o.sale_id.client_order_ref)" />
+									</strong>
+									<table width="100%" class="table table-condensed" style="margin-top:10px">
+										<thead>
+											<tr style="background-color:lightgrey;">
+												<th class="text-left">[Reference] Description</th>
+												<th width="10%" class="text-center">Serialnumber</th>
+												<th width="10%" class="text-center">Qty</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr t-foreach="o.move_lines" t-as="m">
+												<td>
+													<span t-field="m.name" />
+												</td>
+												<td class="text-center">
+													<span t-esc="m.quant_ids and str(m.quant_ids[0].lot_id)" />
+												</td>
+												<td class="text-center">
+													<span t-field="m.product_uom_qty" />
+													<span t-field="m.product_uom.name" />
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<strong>
+										<div t-if="o.carrier_id" style="text-align:right">
+											Carrier:
+											<span t-field="o.carrier_id.product_id.code" />
+										</div>
+									</strong>
+									<span t-if="o.note">
+										Note:
+										<span t-field="o.note" />
+									</span>
+								</div>
+							</div>
+
+						</t>
 					</div>
 				</t>
 			</xpath>

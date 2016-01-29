@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<record id="view_edi_process_wizard_form" model="ir.ui.view">
+			<field name="name">edi.process.wizard.form</field>
+			<field name="model">edi.process.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Process Wizard">
+					<sheet>
+						<group>
+							<field name="all" />
+						</group>
+					</sheet>
+					<footer>
+						<group>
+							<button name="run" type="object" string="Process" class="oe_highlight"/>
+						</group>
+					</footer>
+				</form>
+			</field>
+		</record>
+			
+		<record id="action_edi_process_wizard" model="ir.actions.act_window">
+			<field name="name">Process EDI Messages</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">edi.process.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
+		
+		<menuitem id="menu_edi_process_wizard" action="action_edi_process_wizard" name="Process EDI Messages" parent="menu_edi_edi" sequence="51"/>
+	</data>
+</openerp>

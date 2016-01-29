@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record id="trans_done_assigned" model="workflow.transition">
+            <field name="act_from" ref="stock.act_draft"/>
+            <field name="act_to" ref="stock.act_assigned"/>
+            <field name="signal">correction</field>
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<record id="edi_purchase_order_form" model="ir.ui.view">
+            <field name="name">edi.purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            	<field name="message_ids" position="after">
+            		<field name="edi_message_ids" widget="edi_thread"/>
+            	</field>
+            </field>
+        </record>
+        
+        <record id="purchase_order_form_edi_opentrans" model="ir.ui.view">
+            <field name="name">purchase.order.form.edi.opentrans</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_2_stock_picking"/>
+            <field name="arch" type="xml">
+            	
+            	<xpath expr="//div[contains(@class, 'oe_button_box')]" position="inside">
+
+                    	 <button type="object"
+                            name="button_simple_edi_export"
+                            string="EDI Export"
+                            class="oe_stat_button"
+                            icon="fa-paper-plane-o"/>
+
+                </xpath>
+            </field>
+        </record>
+     </data>
+</openerp>

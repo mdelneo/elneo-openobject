@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<template id="assets_backend" name="EDI Template"
+			inherit_id="web.assets_backend">
+			
+			<xpath expr="//script[@src='/web/static/src/js/view_form.js']"
+				position="after">
+				<script type="text/javascript" src="/edi_simple/static/src/js/edi.js"></script>
+				
+			</xpath>
+		</template>
+    	
+    	
+    	<record id="view_edi_message_type_form" model="ir.ui.view">
+			<field name="name">edi.message.type.form</field>
+			<field name="model">edi.message.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="EDI Message Type">
+					<sheet>
+						<h1>
+							<label string="Type : "/><field name="name" class="oe_inline"/>
+						</h1>
+						<group>
+							<field name="usage" />
+							<field name="processor"/>
+							<field name="color" widget="color_picker"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+			
+		<record id="action_edi_message_type" model="ir.actions.act_window">
+			<field name="name">EDI Message Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">edi.message.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<record id="view_edi_message_tree" model="ir.ui.view">
+			<field name="name">edi.message.tree</field>
+			<field name="model">edi.message</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="EDI Message">
+					<field name="name"/>
+					<field name="type"/>
+					<field name="origin"/>
+					<field name="model"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_edi_message_form" model="ir.ui.view">
+			<field name="name">edi.message.form</field>
+			<field name="model">edi.message</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="EDI Message">
+					<header>
+						<field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors='{"confirmed":"blue"}'/>
+					</header>
+					<sheet>
+						<h1>
+							<label string="Name : "/><field name="name" class="oe_inline"/>
+						</h1>
+						<group>
+							<field name="type" />
+							<field name="origin"/>
+						</group>
+						<group>
+							<field name="attachment_ids" />
+						</group>
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+			
+		<record id="action_edi_message" model="ir.actions.act_window">
+			<field name="name">EDI Message</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">edi.message</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<record id="view_edi_processor_form" model="ir.ui.view">
+			<field name="name">edi.processor.form</field>
+			<field name="model">edi.processor</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="EDI Processor">
+					<sheet>
+						<h1>
+							<label string="Name : "/><field name="name" class="oe_inline"/>
+						</h1>
+						<group>
+							<field name="active" />
+							<field name="processor_type" />
+						</group>
+						<notebook>
+							<page string="General">
+								<group>
+									<field name="message_type_ids" />
+									<field name="partner_ids" />
+								</group>
+							</page>
+							<page string="Reports">
+								<group>
+									<field name="send_error_users" />
+									<field name="send_warning_users" />
+								</group>
+							</page>
+							<page string="Logs">
+								<group>
+									<field name="log_ids">
+										<tree>
+											<field name="date"/>
+											<field name="type"/>
+											<field name="log_summary"/>
+										</tree>
+										
+									</field>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+			
+		<record id="action_edi_message_processors" model="ir.actions.act_window">
+			<field name="name">EDI Processor</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">edi.processor</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		<menuitem id="menu_edi" name="EDI" sequence="400"/>
+		
+		<menuitem id="menu_edi_edi" name="EDI" parent="menu_edi"/>
+		
+		<menuitem id="menu_edi_settings" name="Settings" parent="menu_edi" sequence="100"/>
+		
+		<menuitem id="menu_settings_edi_messages" action="action_edi_message" name="EDI Messages" parent="menu_edi_edi" sequence="10"/>
+		<menuitem id="menu_settings_edi_message_types" action="action_edi_message_type" name="EDI Messages Types" parent="menu_edi_edi" sequence="20"/>
+		<menuitem id="menu_settings_edi_message_processor" action="action_edi_message_processors" name="EDI Processors" parent="menu_edi_edi" sequence="30"/>
+		
+		
+		
+		
+		
+	</data>
+</openerp>

@@ -137,7 +137,7 @@ msgstr "HR"
 #: model:ir.ui.menu,name:base.menu_sale_config_sales
 #: model:ir.ui.menu,name:base.menu_sales model:ir.ui.menu,name:base.next_id_64
 msgid "Sales"
-msgstr "Offres"
+msgstr "Ventes"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_traceability

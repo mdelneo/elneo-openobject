@@ -1,0 +1,109 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* elneo_layout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-28 16:40+0000\n"
+"PO-Revision-Date: 2016-01-28 16:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "Administrative contact:"
+msgstr "Administratief contact:"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "E-mail : info@elneo.com"
+msgstr "E-mail : info@elneo.com"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "Elneo (Technofluid NV)"
+msgstr "Elneo (Technofluid NV)"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "Elneo (Technofluid SA)"
+msgstr "Elneo (Technofluid SA)"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "Email:"
+msgstr "E-mail:"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "Fax :"
+msgstr "Fax :"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "ING: BE29 3400 6157 8264 - BIC: BBRU BE BB | Belfius: BE26 0688 9108 1029 - BIC: GKCC BE BB"
+msgstr "ING: BE29 3400 6157 8264 - BIC: BBRU BE BB | Belfius: BE26 0688 9108 1029 - BIC: GKCC BE BB"
+
+#. module: elneo_layout
+#. openerp-web
+#: code:addons/elneo_layout/static/src/js/view_form.js:285
+#, python-format
+msgid "No value found for the field  for value "
+msgstr "No value found for the field  for value "
+
+#. module: elneo_layout
+#. openerp-web
+#: code:addons/elneo_layout/static/src/js/view_form.js:105
+#: code:addons/elneo_layout/static/src/js/view_form.js:335
+#, python-format
+msgid "Open: "
+msgstr "Open: "
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "Page:"
+msgstr "Pagina:"
+
+#. module: elneo_layout
+#. openerp-web
+#: code:addons/elneo_layout/static/src/js/view_form.js:285
+#, python-format
+msgid "Render"
+msgstr "Render"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "Sales contact:"
+msgstr "Sales contact:"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "Tel :"
+msgstr "Tel :"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "Tel:"
+msgstr "Tel:"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "| E-mail:"
+msgstr "| E-mail:"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "| Email:"
+msgstr "| Email:"
+
+#. module: elneo_layout
+#: view:website:report.external_layout_footer
+msgid "| TVA: BE0438681213"
+msgstr "| TVA: BE0438681213"
+

@@ -174,7 +174,7 @@ msgstr "HR"
 #: model:ir.ui.menu,name:base.menu_sale_config_sales
 #: model:ir.ui.menu,name:base.menu_sales model:ir.ui.menu,name:base.next_id_64
 msgid "Sales"
-msgstr "Offertes"
+msgstr "Verkoop"
 
 #. module: sale_layout
 #: field:account.invoice.line,sale_layout_cat_id:0

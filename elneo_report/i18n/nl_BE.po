@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-27 15:47+0000\n"
-"PO-Revision-Date: 2016-01-27 15:47+0000\n"
+"POT-Creation-Date: 2016-01-27 15:50+0000\n"
+"PO-Revision-Date: 2016-01-27 15:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,74 +18,74 @@ msgstr ""
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Base VAT"
-msgstr "Base TVA"
+msgstr "Basis BTW"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Break Time"
-msgstr "Temps de pause"
+msgstr "Rustpauze"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Cancelled Invoice"
-msgstr "Facture annulée"
+msgstr "Geannuleerde factuur"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Comment"
-msgstr "Commentaire"
+msgstr "Commentaar"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Company tel:"
-msgstr "Tél société:"
+msgstr "Tel. bedrijf :"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Contact:"
-msgstr "Contact :"
+msgstr "Contact:"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Contrat"
-msgstr "Contrat"
+msgstr "Contract"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Counter"
-msgstr "Compteur horaire"
+msgstr "Teller"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Customer"
-msgstr "Client"
+msgstr "Klant"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Date of counter statement"
-msgstr "Date de relevé compteur horaire"
+msgstr "Datum afschrift teller"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Date ordered:"
-msgstr "Date de commande :"
+msgstr "Besteldatum:"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 msgid "Delivery time :"
-msgstr "Délai de livraison :"
+msgstr "Levertermijn :"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Delivery time:"
-msgstr "Délai de livraison :"
+msgstr "Levertermijn :"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Delivery:"
-msgstr "Délai de livraison "
+msgstr "Levertermijn :"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
@@ -95,33 +95,33 @@ msgstr "Délai de livraison "
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Description"
-msgstr "Description"
+msgstr "Omschrijving"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 msgid "Disc.(%)"
-msgstr "Rem.(%)"
+msgstr "Korting(%)"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Discount"
-msgstr "Remise"
+msgstr "Korting"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Draft Invoice"
-msgstr "Facture Brouillon"
+msgstr "Voorlopige factuur"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "End Date"
-msgstr "Date de fin"
+msgstr "Einddatum"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "End of warranty"
-msgstr "Fin de garantie"
+msgstr "Einde garantie"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
@@ -133,69 +133,69 @@ msgstr "Fax :"
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Goods will be collected by the purchaser. We will contact you as\n"
 "								soon as the goods will be available"
-msgstr "Les marchandises seront enlevées par vos soins. Nous vous contacterons\n"
-"								dès que celles-ci seront disponibles"
+msgstr "De goederen worden opgehaald door uw diensten. Wij zullen u contacteren \n"
+"								zodra de goederen beschikbaar zijn"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Installation's elements"
-msgstr "Eléments de l'installation"
+msgstr "Installatie onderdelen"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Installation's to do"
-msgstr "To do de l'installation"
+msgstr "To do installatie"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Intervention"
-msgstr "Intervention"
+msgstr "Interventies"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Intervention ?"
-msgstr "A entretenir"
+msgstr "Te honderhouden element"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Intervention address:"
-msgstr "Adresse d'intervention :"
+msgstr "Interventie adres:"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Intervention description"
-msgstr "Description de l'intervention"
+msgstr "Omschrijving interventie"
 
 #. module: elneo_report
 #: model:ir.actions.report.xml,name:elneo_report.report_intervention_instruction
 msgid "Intervention instructions"
-msgstr "Instructions d'intervention"
+msgstr "Instructie interventie"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Intervention instructions:"
-msgstr "Instructions d'intervention :"
+msgstr "Instructies interventie:"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Intervention type:"
-msgstr "Type d'intervention :"
+msgstr "Interventie type:"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Invoice"
-msgstr "Facture"
+msgstr "Factuur"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Invoice Due Date"
-msgstr "Date d'échéance"
+msgstr "Vervaldatum factuur"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Invoice Number"
-msgstr "N° de facture"
+msgstr "Factuurnummer"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
@@ -205,113 +205,113 @@ msgstr "N° de facture"
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Invoice address:"
-msgstr "Adresse de facturation :"
+msgstr "Facturatie adres:"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Invoice and shipping address:"
-msgstr "Adresse de facturation et livraison"
+msgstr "Leverings- en facturatie adres:"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Last intervention date"
-msgstr "Date dernière intervention"
+msgstr "Datum laatste interventie"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Last interventions"
-msgstr "Dernières interventions"
+msgstr "Laatste interventies"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Maintenance Element"
-msgstr "Element de maintenance"
+msgstr "Maintenance onderdeel"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Max. requested date"
-msgstr "Date max. attendue"
+msgstr "Max. aangevraagde datum"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Mobile:"
-msgstr "GSM :"
+msgstr "GSM:"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Name"
-msgstr "Description"
+msgstr "Naam"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Net Total"
-msgstr "Total Net"
+msgstr "Netto totaal"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Net total :"
-msgstr "Total net :"
+msgstr "Netto totaal :"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Note:"
-msgstr "Note :"
+msgstr "Nota:"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Order acknowledgment:"
-msgstr "Confirmation de commande :"
+msgstr "Orderbevestiging:"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Our order reference:"
-msgstr "Notre référence :"
+msgstr "Onze referentie:"
 
 #. module: elneo_report
 #: view:website:stock.report_picking
 msgid "PICKING"
-msgstr "Colisage"
+msgstr "PICKING"
 
 #. module: elneo_report
 #: view:website:elneo_report.stock_picking_list_document
 msgid "PICKING LIST"
-msgstr "Liste de colisage"
+msgstr "Paklijst"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "PRO-FORMA"
-msgstr "PRO-FORMA"
+msgstr "PRO FORMA"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Paid via"
-msgstr "Payée avec"
+msgstr "Betaald via"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Payable with"
-msgstr "Veuillez payer en mentionnant"
+msgstr "Te betalen met"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Payment Term:"
-msgstr "Conditions de règlement:"
+msgstr "Betalingstermijn:"
 
 #. module: elneo_report
 #: model:ir.actions.report.xml,name:elneo_report.report_picking_list_elneo
 msgid "Picking list"
-msgstr "Liste de colisage"
+msgstr "Paklijst"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
@@ -319,24 +319,24 @@ msgstr "Liste de colisage"
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Price"
-msgstr "Prix"
+msgstr "Prijs"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Product Name"
-msgstr "Description"
+msgstr "Productnaam"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 msgid "Purchase order:"
-msgstr "Achat:"
+msgstr "Aankooporder:"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Qty"
-msgstr "Qté"
+msgstr "Hvh"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
@@ -344,37 +344,37 @@ msgstr "Qté"
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Quantity"
-msgstr "Quantité"
+msgstr "Hoeveelheid"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Refund"
-msgstr "Rembourser"
+msgstr "Creditnota"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchasequotation_document
 msgid "Request for quotation:"
-msgstr "Demande de prix:"
+msgstr "Prijsaanvraag:"
 
 #. module: elneo_report
 #: model:ir.actions.report.xml,name:elneo_report.report_saleorder_confirmation
 msgid "Sale order confirmation"
-msgstr "Confirmation de commande"
+msgstr "Orderbevestiging"
 
 #. module: elneo_report
 #: model:ir.actions.report.xml,name:elneo_report.report_saleorder_confirmation_discount
 msgid "Sale order confirmation (with discount)"
-msgstr "Confirmation de commande (avec remise)"
+msgstr "Orderbevestiging (met korting)"
 
 #. module: elneo_report
 #: model:ir.actions.report.xml,name:elneo_report.report_saleorder_confirmation_without_detail
 msgid "Sale order confirmation (without detail)"
-msgstr "Confirmation de commande (sans detail)"
+msgstr "Orderbevestiging (zonder detail)"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
 msgid "Serial number"
-msgstr "N° de série"
+msgstr "Serienummer"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
@@ -383,51 +383,51 @@ msgstr "N° de série"
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Shipping address:"
-msgstr "Adresse de livraison :"
+msgstr "Afleveradres:"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Shipping and invoice address:"
-msgstr "Adresse de livraison et de facturation:"
+msgstr "Leverings- en facturatie adres:"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Signature"
-msgstr "Signature"
+msgstr "Handtekening"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Spare parts"
-msgstr "Pièces de rechange"
+msgstr "Wisselstukken"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Start Date"
-msgstr "Date de début"
+msgstr "Startdatum"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Supplier Invoice"
-msgstr "Facture fournisseur"
+msgstr "Aankoopfactuur"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Supplier Refund"
-msgstr "Note de Crédit Fournisseur"
+msgstr "Aankoopcreditnota"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Taxes"
-msgstr "TVA"
+msgstr "BTW"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Taxes :"
-msgstr "TVA :"
+msgstr "BTW :"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_intervention_instruction_document_elneo_report
@@ -436,12 +436,12 @@ msgstr "TVA :"
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Tel:"
-msgstr "Tél :"
+msgstr "Tel:"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Term of sales: see here attached"
-msgstr "Conditions générales de vente : voir ci-joint"
+msgstr "Verkoopsvoorwaarden: in bijlage"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
@@ -449,10 +449,10 @@ msgid "Thank you to check all the information in this order\n"
 "							aknowledgment, in particular shipping and biling addresses. If\n"
 "							information prove erroneous, thank you to contact us as soon as\n"
 "							possible"
-msgstr "Merci de vérifier toutes les informations reprises dans cette\n"
-"							confirmation de vente, en particulier, les adresses de livraison \n"
-"							et de facturation. Si des informations sont erronées, merci de \n"
-"							nous prévenir."
+msgstr "Gelieve alle informatie na te kijken op deze\n"
+"							orderbevestiging, in het bijzonder het leverings- en facturatie adres. Indien\n"
+"							deze informatie niet correct is,gelieve ons dan zo spoedig mogelijk te contacteren \n"
+"							 
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
@@ -460,10 +460,10 @@ msgid "Thank you to check all the information in this order\n"
 "							aknowledgment, in particular shipping and billing addresses. If\n"
 "							information prove erroneous, thank you to contact us as soon as\n"
 "							possible"
-msgstr "Merci de vérifier toutes les informations reprises dans cette\n"
-"							confirmation de vente, en particulier, les adresses de livraison \n"
-"							et de facturation. Si des informations sont erronées, merci de \n"
-"							nous prévenir."
+msgstr "Gelieve alle informatie na te kijken op deze\n"
+"							orderbevestiging, in het bijzonder het leverings- en facturatie adres. Indien\n"
+"							deze informatie niet correct is,gelieve ons dan zo spoedig mogelijk te contacteren \n"
+
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
@@ -471,55 +471,55 @@ msgid "Thank you to check all the information in this order\n"
 "						aknowledgment, in particular shipping and biling addresses. If\n"
 "						information prove erroneous, thank you to contact us as soon as\n"
 "						possible"
-msgstr "Merci de vérifier toutes les informations reprises dans cette\n"
-"							confirmation de vente, en particulier, les adresses de livraison \n"
-"							et de facturation. Si des informations sont erronées, merci de \n"
-"							nous prévenir."
+msgstr "Gelieve alle informatie na te kijken op deze\n"
+"							orderbevestiging, in het bijzonder het leverings- en facturatie adres. Indien\n"
+"							deze informatie niet correct is,gelieve ons dan zo spoedig mogelijk te contacteren \n"
+
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Time (Quarter(s))"
-msgstr "Temps (Quart(s) d'heure)"
+msgstr "Tijd (Kwartier(en))"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Total"
-msgstr "Total"
+msgstr "Totaal"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Total :"
-msgstr "Total :"
+msgstr "Totaal :"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
 msgid "Total Net"
-msgstr "Total Net"
+msgstr "Totaal netto"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Total Payable"
-msgstr "Total à payer"
+msgstr "Te Betalen"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Total VAT"
-msgstr "Total TVA"
+msgstr "Totaal BTW"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Total Without Taxes"
-msgstr "Total HTVA"
+msgstr "Totaal exclusief BTW"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Total price"
-msgstr "Total"
+msgstr "Totaalprijs"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
@@ -527,45 +527,45 @@ msgstr "Total"
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Unit Price"
-msgstr "Prix unit."
+msgstr "Eenheidsprijs"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 msgid "Unit brut price"
-msgstr "Prix unit. brut"
+msgstr "Bruto eenheidsprijs"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 msgid "Unit gross grice"
-msgstr "Prix unit. brut"
+msgstr "Bruto eenheidsprijs"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_document_elneo_report
 msgid "Unit net Price"
-msgstr "Prix unit. net"
+msgstr "Netto eenheidsprijs"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Unit price"
-msgstr "Prix unit."
+msgstr "Eenheidsprijs"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "VAT"
-msgstr "TVA"
+msgstr "BTW"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "VAT :"
-msgstr "TVA :"
+msgstr "BTW :"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "VAT Amount"
-msgstr "Montant TVA"
+msgstr "Bedrag BTW"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
@@ -575,17 +575,17 @@ msgstr "Montant TVA"
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "VAT:"
-msgstr "TVA :"
+msgstr "BTW:"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Worker"
-msgstr "Technicien"
+msgstr "Technieker"
 
 #. module: elneo_report
 #: view:website:maintenance.report_maintenance_intervention_document
 msgid "Worker Comments"
-msgstr "Commentaires du technicien"
+msgstr "Commentaar technieker"
 
 #. module: elneo_report
 #: view:website:elneo_report.report_saleorder_confirmation_discount_document_elneo_report
@@ -593,16 +593,17 @@ msgstr "Commentaires du technicien"
 #: view:website:elneo_report.report_saleorder_confirmation_without_detail_document_elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "Your order reference:"
-msgstr "Votre référence :"
+msgstr "Uw referentie:"
 
 #. module: elneo_report
 #: view:website:purchase.report_purchaseorder_document
 #: view:website:purchase.report_purchasequotation_document
 msgid "Your reference:"
-msgstr "Votre référence :"
+msgstr "Uw referentie:"
 
 #. module: elneo_report
 #: view:website:l10n_be_invoice_layout.report_be_invoice_document
 msgid "as Payment Reference."
-msgstr "comme référence."
+msgstr "als referentie."
+
 

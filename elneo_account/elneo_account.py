@@ -22,7 +22,7 @@ class stock_transfer_details(models.TransientModel):
     @api.one
     def do_detailed_transfer(self):
         res = super(stock_transfer_details,self).do_detailed_transfer()
-        if self.picking_id.invoice_state == '2binvoiced' and self.picking_id.picking_type_id.code == 'incoming' and self.picking_id.move_lines[0].location_id.usage == 'supplier':
+        if self.picking_id.invoice_state == '2binvoiced' and (self.picking_id.picking_type_id.code == 'incoming' or self.picking_id.picking_type_id.code == 'outgoing'):
             wizard = self.env['stock.invoice.onshipping'].with_context(active_ids=[self.picking_id.id]).create({})
             wizard.create_invoice()
         return res

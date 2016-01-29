@@ -1,0 +1,7 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_edi_message_user","edi.message","model_edi_message","base.group_user",1,1,1,1
+"access_edi_message_type_user","edi.message.type","model_edi_message_type","base.group_user",1,1,1,1
+"access_edi_processor_user","edi.processor","model_edi_processor","base.group_user",1,1,1,1
+"access_edi_processor_log_user","edi.processor.log","model_edi_processor_log","base.group_user",1,1,1,1
+"access_edi_process_wizard_user","edi.process.wizard","model_edi_process_wizard","base.group_user",1,1,1,1
+"access_edi_import_wizard_user","edi.import.wizard","model_edi_import_wizard","base.group_user",1,1,1,1

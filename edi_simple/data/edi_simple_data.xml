@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<openerp>
+	<data noupdate="1">
+		
+		<record model="ir.cron" id="cronjob_edi_simple_import">
+			<field name='name'>Import EDI Messages</field>
+			<field name='interval_number'>15</field>
+			<field name='interval_type'>minutes</field>
+			<field name="numbercall">-1</field>
+			<field name="active">True</field>
+			<field name="doall" eval="False" />
+			<field name="model">edi.import.scheduler</field>
+			<field name="function">import_messages</field>
+			<field name="args">()</field>
+		</record>
+		
+		<record model="ir.cron" id="cronjob_edi_simple_process">
+			<field name='name'>Process EDI Messages</field>
+			<field name='interval_number'>15</field>
+			<field name='interval_type'>minutes</field>
+			<field name="numbercall">-1</field>
+			<field name="active">True</field>
+			<field name="doall" eval="False" />
+			<field name="model">edi.process.scheduler</field>
+			<field name="function">process_messages</field>
+			<field name="args">()</field>
+		</record>
+
+	</data>
+</openerp>

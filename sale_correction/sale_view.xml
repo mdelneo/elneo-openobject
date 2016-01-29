@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_order_form_inherit_1">
+			<field name="name">sale.order.form.inherit_1</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+					<button 
+						name="%(sale_correction.sale_change_quantity_wizard_action)d" 
+						string="Modify the line"
+                    	type="action" 
+                    	icon="gtk-execute" 
+						attrs="{'invisible':[('state','!=','confirmed')]}"
+                    	/>
+                    <button 
+						name="%(sale_correction.sale_delete_line_wizard_action)d" 
+						string="Delete the line"
+                    	type="action" 
+                    	icon="gtk-delete" 
+						attrs="{'invisible':[('state','!=','confirmed')]}"
+                    	/>
+                    <field name="state" />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

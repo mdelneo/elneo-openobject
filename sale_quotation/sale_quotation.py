@@ -142,15 +142,15 @@ class sale_order(models.Model):
         result = sorted(result, key=itemgetter('sequence'))
         return result
     
-    @api.multi
+    @api.one
     def _get_quotation_text_elements_before(self):
         self.quotation_text_elements_before = self.env['sale_quotation.order.text.element'].search([('sale_order_id','=',self.id),('position','=','before'),('displayed','=',True)])
     
-    @api.multi
+    @api.one
     def _get_quotation_text_elements_after(self):
         self.quotation_text_elements_after = self.env['sale_quotation.order.text.element'].search([('sale_order_id','=',self.id),('position','=','after'),('displayed','=',True)])
         
-    @api.multi
+    @api.one
     def _get_quotation_text_elements_final(self):
         self.quotation_text_elements_final = self.env['sale_quotation.order.text.element'].search([('sale_order_id','=',self.id),('position','=','final'),('displayed','=',True)])
         

@@ -95,6 +95,45 @@ class sale_order_line(models.Model):
             if line.product_id:
                 res[line.id] = round(line.price_unit*line.product_uom_qty -(line.purchase_price*line.product_uom_qty), 2)
         return res
+    
+    @api.one
+    @api.depends('price_unit','product_uom_qty','purchase_price')
+    def _get_margin_elneo(self):
+        self.margin_elneo = round(self.price_unit*self.product_uom_qty -(self.purchase_price*self.product_uom_qty), 2)
+    
+    margin_elneo = fields.Float('Margin', compute='_get_margin_elneo', store=True)
+    
+    
+class sale_order(models.Model):
+    _inherit = 'sale.order'
+    
+    @api.one
+    @api.onchange('order_line')
+    @api.depends('order_line')
+    def _get_margin_elneo(self):
+        margin = 0
+        for line in self.order_line:
+            margin = margin + line.margin_elneo
+        self.margin_elneo = margin
+        
+        
+    @api.one
+    @api.onchange('order_line')
+    @api.depends('order_line')
+    def _get_margin_elneo_coeff(self):
+        sale_price = 0
+        cost_price = 0
+        for line in self.order_line:
+            sale_price = sale_price + line.price_unit*line.product_uom_qty
+            cost_price = cost_price + line.purchase_price*line.product_uom_qty
+        if cost_price:
+            self.margin_elneo_coeff = sale_price / cost_price
+        else:
+            self.margin_elneo_coeff = 0
+        
+    
+    margin_elneo = fields.Float('Margin', compute='_get_margin_elneo', store=True)
+    margin_elneo_coeff = fields.Float('Margin (Coeff)', compute='_get_margin_elneo_coeff', store=True)
 
 
 class res_partner(models.Model):

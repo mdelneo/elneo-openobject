@@ -100,7 +100,7 @@ class sale_order_line(models.Model):
     @api.onchange('discount')
     def update_price_unit(self):
         #prevent loop
-        if round(self.brut_sale_price - (self.brut_sale_price*self.discount/100),2) == round(self.price_unit,2):
+        if round(self.brut_sale_price - (self.brut_sale_price*self.discount/100)) == round(self.price_unit):
             return
         new_price_unit = self.brut_sale_price - (self.brut_sale_price*self.discount/100)
         self.price_unit = new_price_unit
@@ -110,7 +110,7 @@ class sale_order_line(models.Model):
     @api.onchange('price_unit')
     def update_discount(self):
         #prevent loop
-        if round(self.brut_sale_price - (self.brut_sale_price*self.discount/100),2) == round(self.price_unit,2):
+        if round(self.brut_sale_price - (self.brut_sale_price*self.discount/100)) == round(self.price_unit):
             return
         if self.brut_sale_price:
             new_discount = 100 - (self.price_unit / self.brut_sale_price) * 100

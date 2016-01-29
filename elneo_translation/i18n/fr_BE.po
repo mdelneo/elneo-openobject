@@ -147,3 +147,14 @@ msgstr "Offres"
 #: view:stock.tracking:0
 msgid "Traceability"
 msgstr "Traçabilité"
+
+#. module: sale_layout
+#: field:account.invoice.line,sale_layout_cat_id:0
+#: field:sale.order.line,sale_layout_cat_id:0
+msgid "Section"
+msgstr "Section d'offre"
+
+#. module: sale_stock
+#: field:sale.order,picking_policy:0
+msgid "Shipping Policy"
+msgstr "Politique de facturation"

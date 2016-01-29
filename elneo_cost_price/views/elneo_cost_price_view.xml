@@ -1,6 +1,20 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
+    
+    	<!-- SALE VIEW -->
+    	<record model="ir.ui.view" id="sale_margin_sale_order_elneo_cost_price">
+	        <field name="name">sale.margin.sale.order.elneo.cost.price</field>
+	        <field name="model">sale.order</field>
+	        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//group[@name='sale_margin_grp']/field[@name='margin']" position="replace">
+					<field name="margin_elneo" widget='monetary' options="{'currency_field': 'currency_id'}" groups="base.group_user"/>
+					<field name="margin_elneo_coeff" />
+	            </xpath>
+	        </field>
+	    </record>
+    
     	
     	<!-- PARTNER VIEW -->
 		<record id="view_partner_elneo_cost_price_form" model="ir.ui.view">

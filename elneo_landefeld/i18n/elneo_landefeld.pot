@@ -1,0 +1,452 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* elneo_landefeld
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2013-04-18 19:32+0000\n"
+"PO-Revision-Date: 2013-04-18 19:32+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: elneo_landefeld
+#: selection:elneo_landefeld.imports_landefeld,status:0
+msgid "Imported"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:elneo_landefeld.exports_landefeld,log:0
+#: field:elneo_landefeld.imports_landefeld,log:0
+msgid "Log"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_dispatchnote_received:0
+msgid "Landefeld dispatch note received"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_scheduler_check_landefeld
+msgid "scheduler.check_landefeld"
+msgstr ""
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/elneo_landefeld_schedulers.py:23
+#, python-format
+msgid "No order confirmation received for %s"
+msgstr ""
+
+#. module: elneo_landefeld
+#: constraint:product.product:0
+#: sql_constraint:product.product:0
+msgid "Reference has to be unique. There is an other product with the same reference."
+msgstr ""
+
+#. module: elneo_landefeld
+#: constraint:product.template:0
+msgid "Error: The default UOM and the purchase UOM must be in the same category."
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.sale.wizard:0
+msgid "No, i would like send it from our warehouse"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:purchase.order:0
+msgid "OpenTrans Landefeld"
+msgstr ""
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/elneo_landefeld_schedulers.py:24
+#, python-format
+msgid "No order confirmation received for purchase order %s, sent from %s"
+msgstr ""
+
+#. module: elneo_landefeld
+#: selection:elneo_landefeld.exports_landefeld,status:0
+#: selection:elneo_landefeld.imports_landefeld,status:0
+msgid "Draft"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.actions.act_window,name:elneo_landefeld.action_imports_landefeld_form
+#: model:ir.ui.menu,name:elneo_landefeld.imports_landefeld_obj
+msgid "Landefeld import history"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.imports_landefeld:0
+#: view:elneo_landefeld.imports_landefeld_wizard:0
+msgid "Import"
+msgstr ""
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/exports_landefeld.py:171
+#, python-format
+msgid "OpenTrans ERROR"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:elneo_landefeld.exports_landefeld,type:0
+#: field:elneo_landefeld.imports_landefeld,type:0
+msgid "Type"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.imports_landefeld:0
+msgid "Import in DB"
+msgstr ""
+
+#. module: elneo_landefeld
+#: constraint:res.partner:0
+msgid "You can not create account with this vat number."
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:elneo_landefeld.exports_landefeld,status:0
+#: field:elneo_landefeld.imports_landefeld,status:0
+msgid "Status"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_orderresponse_received:0
+msgid "Landefeld order response received"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.exports_landefeld:0
+msgid "Exports"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_automatic_purchase:0
+msgid "Landefeld automatic purchase"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_internet_purchase:0
+msgid "Landefeld internet purchase"
+msgstr ""
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/elneo_landefeld_schedulers.py:44
+#, python-format
+msgid "No dispatchnote received for purchase order %s, sent from %s"
+msgstr ""
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/imports_landefeld.py:530
+#, python-format
+msgid "OpenTrans Landefeld : Warning when validate order confirmation"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_elneo_landefeld_exports_landefeld_wizard
+msgid "Export Landefeld Order"
+msgstr ""
+
+#. module: elneo_landefeld
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.imports_landefeld_wizard:0
+#: model:ir.actions.act_window,name:elneo_landefeld.action_wizard_imports_landefeld_responseorder
+#: model:ir.ui.menu,name:elneo_landefeld.imports_landefeld_responseorder
+msgid "Import Response Order"
+msgstr ""
+
+#. module: elneo_landefeld
+#: selection:elneo_landefeld.imports_landefeld,type:0
+msgid "Order response"
+msgstr ""
+
+#. module: elneo_landefeld
+#: selection:elneo_landefeld.imports_landefeld,type:0
+msgid "Dispatch note"
+msgstr ""
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/imports_landefeld.py:509
+#, python-format
+msgid "Error when importing Landefeld order response of %s : the product code %s is not found. Please check it."
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_elneo_landefeld_imports_landefeld_wizard
+msgid "Import Landefeld Order Response"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_scheduler_import_landefeld
+msgid "scheduler.import_landefeld"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.exports_landefeld:0
+msgid "Send to landefeld"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.imports_landefeld_wizard:0
+#: model:ir.actions.act_window,name:elneo_landefeld.action_wizard_imports_landefeld_dispatchnote
+#: model:ir.ui.menu,name:elneo_landefeld.imports_landefeld_dispatchnote
+msgid "Import Dispatchnote"
+msgstr ""
+
+#. module: elneo_landefeld
+#: selection:elneo_landefeld.exports_landefeld,status:0
+msgid "Sent"
+msgstr ""
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/elneo_landefeld_schedulers.py:43
+#, python-format
+msgid "No dispatchnote received for %s"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:purchase.order:0
+msgid "The order will be sent to Landefeld. Are you sure ?"
+msgstr ""
+
+#. module: elneo_landefeld
+#: constraint:res.partner:0
+msgid "Reference has to be unique. There is an other partner with the same reference."
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:elneo_landefeld.exports_landefeld,end_date:0
+#: field:elneo_landefeld.imports_landefeld,end_date:0
+msgid "End Date"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.exports_landefeld_wizard:0
+#: model:ir.actions.act_window,name:elneo_landefeld.action_wizard_export_landefeld_order
+msgid "Export Order"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:sale.order,all_landefeld:0
+msgid "All landefeld"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_ref:0
+#: field:sale.order,landefeld_ref:0
+msgid "Landefeld Ref"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.ui.menu,name:elneo_landefeld.imports_landefeld_menu
+msgid "Landefeld"
+msgstr ""
+
+#. module: elneo_landefeld
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.sale.wizard:0
+msgid "All products must be purchase to Landefeld. The sale order will be sent from Landefeld warehouse."
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_elneo_landefeld_imports_landefeld
+msgid "Import history of Landefeld"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_elneo_landefeld_sale_wizard
+msgid "elneo_landefeld.sale.wizard"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_procurement_order
+msgid "Procurement"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.actions.act_window,name:elneo_landefeld.action_exports_landefeld_form
+#: model:ir.ui.menu,name:elneo_landefeld.exports_landefeld_obj
+msgid "Landefeld export history"
+msgstr ""
+
+#. module: elneo_landefeld
+#: selection:elneo_landefeld.exports_landefeld,status:0
+#: selection:elneo_landefeld.imports_landefeld,status:0
+msgid "Error"
+msgstr ""
+
+#. module: elneo_landefeld
+#: selection:elneo_landefeld.exports_landefeld,status:0
+#: selection:elneo_landefeld.imports_landefeld,status:0
+#: view:elneo_landefeld.sale.wizard:0
+msgid "Warning"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.exports_landefeld:0
+#: view:elneo_landefeld.imports_landefeld:0
+msgid "This file will be imported in our system. Are you sure ?"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:elneo_landefeld.exports_landefeld,origin:0
+#: field:elneo_landefeld.imports_landefeld,origin:0
+msgid "Origin"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_elneo_landefeld_exports_landefeld
+msgid "Export history of Landefeld"
+msgstr ""
+
+#. module: elneo_landefeld
+#: selection:sale.order,all_landefeld:0
+msgid "All"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_orderresponse_alert_sent:0
+msgid "Landefeld order response alert sent"
+msgstr ""
+
+#. module: elneo_landefeld
+#: selection:sale.order,all_landefeld:0
+msgid "False"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:sale.order,disable_automatic_landefeld:0
+msgid "Disable automatic landefeld"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.sale.wizard:0
+msgid "Ok, send it from Landefeld"
+msgstr ""
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/elneo_landefeld.py:136
+#, python-format
+msgid "Landefeld order"
+msgstr ""
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/exports_landefeld.py:171
+#, python-format
+msgid "Can't find delivery address."
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_dispatchnote_alert_sent:0
+msgid "Landefeld dispatch note alert sent"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:sale.order,landefeld_internet_sale:0
+#: field:stock.move,landefeld_internet_sale:0
+msgid "Landefeld internet sale"
+msgstr ""
+
+#. module: elneo_landefeld
+#: sql_constraint:purchase.order:0
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique !"
+msgstr ""
+
+#. module: elneo_landefeld
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.exports_landefeld_wizard:0
+msgid "Export"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.exports_landefeld_wizard:0
+#: view:elneo_landefeld.imports_landefeld_wizard:0
+#: view:elneo_landefeld.sale.wizard:0
+msgid "Cancel"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.ui.menu,name:elneo_landefeld.export_landefeld_order
+msgid "Export Orders"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:elneo_landefeld.exports_landefeld,start_date:0
+#: field:elneo_landefeld.imports_landefeld,start_date:0
+msgid "Start Date"
+msgstr ""
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_res_partner_address
+msgid "Partner Addresses"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:elneo_landefeld.imports_landefeld,name:0
+msgid "Import Reference"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:elneo_landefeld.exports_landefeld,name:0
+msgid "Export Reference"
+msgstr ""
+
+#. module: elneo_landefeld
+#: field:sale.order,landefeld_automatic_sale:0
+#: field:stock.move,landefeld_automatic_sale:0
+msgid "Landefeld automatic sale"
+msgstr ""
+

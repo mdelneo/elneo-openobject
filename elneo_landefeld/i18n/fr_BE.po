@@ -1,0 +1,585 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* elneo_landefeld
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-30 11:01+0000\n"
+"PO-Revision-Date: 2016-01-30 12:25+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Elneo <support@elneo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/process_landefeld_edi.py:24
+#, python-format
+msgid "A warning has occured during Landefeld EDI document processing."
+msgstr "Un avertissement a eu lieu durant le traitement du document EDI Landefeld"
+
+#. module: elneo_landefeld
+#: view:res.partner:elneo_landefeld.view_partner_form
+msgid "Accounts"
+msgstr "Comptes"
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.sale.wizard:elneo_landefeld.elneo_landefeld_sale_wizard_form_view
+msgid "All products seem to be purchased to Landefeld."
+msgstr "Tous les produits semblent devoir être achetés à Landefeld."
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/process_landefeld_edi.py:32
+#, python-format
+msgid "An error has occured during Landefeld EDI document processing."
+msgstr "Une erreur a eu lieu durant le traitement du document EDI Landefeld."
+
+#. module: elneo_landefeld
+#: view:edi.landefeld.config.settings:elneo_landefeld.view_edi_landefeld_config_settings
+msgid "Apply"
+msgstr "Appliquer"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/landefeld_edi_export_wizard.py:278
+#, python-format
+msgid "Can't find delivery address for purchase. Maybe the address is not defined on the partner "
+msgstr "Impossible de trouver une adresse de livraison pour l'achat. Peut-être que l'adresse n'est pas définie dans le partenaire"
+
+#. module: elneo_landefeld
+#: view:edi.landefeld.config.settings:elneo_landefeld.view_edi_landefeld_config_settings
+#: view:elneo_landefeld.sale.wizard:elneo_landefeld.elneo_landefeld_sale_wizard_form_view
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/landefeld_edi_export_wizard.py:59
+#, python-format
+msgid ""
+"Configuration Error.\n"
+"\n"
+"You don't have an EDI Message Type configured for Landefeld exports. Please contact your administrator"
+msgstr ""
+"Erreur de Configuration.\n"
+"\n"
+"Vous n'avez pas de type de message EDI défini pour les exports Landefeld. Veuillez contacter votre administrateur"
+
+#. module: elneo_landefeld
+#: view:edi.landefeld.config.settings:elneo_landefeld.view_edi_landefeld_config_settings
+#: model:ir.actions.act_window,name:elneo_landefeld.action_edi_landefeld_settings
+msgid "Configure Landefeld"
+msgstr "Configurer Landefeld"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,create_uid:0
+#: field:edi.processor.landefeld,create_uid:0
+#: field:elneo.webshop.account,create_uid:0
+#: field:elneo_landefeld.sale.wizard,create_uid:0
+#: field:landefeld.edi.export,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,create_date:0
+#: field:edi.processor.landefeld,create_date:0
+#: field:elneo.webshop.account,create_date:0
+#: field:elneo_landefeld.sale.wizard,create_date:0
+#: field:landefeld.edi.export,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: elneo_landefeld
+#: field:elneo.webshop.account,partner_id:0
+msgid "Customer"
+msgstr "Client"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:764
+#, python-format
+msgid "Delivery Address is not supplied in Landefeld dispatch notification"
+msgstr "L'adresse de livraison n'est pas fournie dans le bon de livraison Landefeld"
+
+#. module: elneo_landefeld
+#: field:sale.order,disable_automatic_landefeld:0
+msgid "Disable automatic landefeld"
+msgstr "Désactiver l'envoi automatique vers Landefeld"
+
+#. module: elneo_landefeld
+#: selection:edi.processor.landefeld,state:0
+#: selection:landefeld.edi.export,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: elneo_landefeld
+#: field:landefeld.edi.export,message_id:0
+msgid "EDI Message"
+msgstr "Message EDI"
+
+#. module: elneo_landefeld
+#: field:edi.processor.landefeld,edi_processor:0
+msgid "EDI Processor"
+msgstr "Processeur EDI"
+
+#. module: elneo_landefeld
+#: field:edi.processor.landefeld,edi_message:0
+msgid "Edi Message"
+msgstr "Message Edi"
+
+#. module: elneo_landefeld
+#: selection:edi.processor.landefeld,state:0
+#: selection:landefeld.edi.export,state:0
+msgid "Error"
+msgstr "Erreur"
+
+#. module: elneo_landefeld
+#: field:edi.processor.landefeld,error_message:0
+#: field:landefeld.edi.export,error_message:0
+msgid "Error Message"
+msgstr "Message d'erreur"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:311
+#, python-format
+msgid "Error when importing Landefeld order confirmation of %s : product %s is not in order confirmation."
+msgstr "Erreur lors de l'importation de la confirmation de commande Landefeld %s : le produit %s n'est pas dans la confirmation de commande."
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:348
+#, python-format
+msgid "Error when importing Landefeld order response of %s : the product code %s is not found. Please check it."
+msgstr "Erreur lors de l'importation de la confirmation de commande Landefeld %s : tle code produit %s n'a pas été trouvé. Veuillez le vérifier"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:647
+#, python-format
+msgid "Error when validating dispatch note from Landefeld : No product %s found in delivery picking %s for quantity %s."
+msgstr "Erreur lors de la validation de la note d'envoi Landefeld : le produit %s n'a pas été trouvé dans le bon de livraison %s pour la quantité %s"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:623
+#, python-format
+msgid "Error when validating dispatch note from Landefeld : Product %s not found in database."
+msgstr "Erreur lors de la validation de la note d'envoi Landefeld : le produit %s n'a pas été trouvé dans la base de données."
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:631
+#, python-format
+msgid "Error when validating dispatch note from Landefeld : Product %s not found in delivery picking %s."
+msgstr "Erreur lors de la validation de a note d'envoi Landefeld : le produit %s n'a pas été trouvé dans le bon de livraison %s."
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,ftp_export_dir:0
+msgid "Export Directory"
+msgstr "Réprtoire d'export"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_elneo_landefeld_exports_landefeld_wizard
+msgid "Export Landefeld Order"
+msgstr "Exportation des commandes landefeld"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_elneo_landefeld_exports_landefeld
+msgid "Export history of Landefeld"
+msgstr "Historique des imports Landefeld"
+
+#. module: elneo_landefeld
+#: view:edi.landefeld.config.settings:elneo_landefeld.view_edi_landefeld_config_settings
+msgid "FTP"
+msgstr "FTP"
+
+#. module: elneo_landefeld
+#: view:edi.landefeld.config.settings:elneo_landefeld.view_edi_landefeld_config_settings
+msgid "Features"
+msgstr "Fonctionnalités"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,ftp_history_dir:0
+msgid "History Directory"
+msgstr "Répertoire d'historique"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,id:0 field:edi.processor.landefeld,id:0
+#: field:elneo.webshop.account,id:0 field:elneo_landefeld.sale.wizard,id:0
+#: field:landefeld.edi.export,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: elneo_landefeld
+#: help:stock.location.route,landefeld_dropship:0
+msgid "If this is checked, when a sale order is forced to be send from Landefeld to customer directly, use this route."
+msgstr "Si ceci est coché, lorsqu'une vente est forcée pour être envoyée de Landefeld au client directement, utiliser cette route."
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,ftp_import_dir:0
+msgid "Import Directory"
+msgstr "Répertoire d'import"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_elneo_landefeld_imports_landefeld_wizard
+msgid "Import Landefeld Order Response"
+msgstr "Importation des confirmations de commande Landefeld"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_elneo_landefeld_imports_landefeld
+msgid "Import history of Landefeld"
+msgstr "Importer l'historique de Landefeld"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/elneo_web_shop.py:77
+#, python-format
+msgid "Impossible to create default webshop acccount for the contact or partner you want to create. Missing name, firstname or lastname"
+msgstr "Impossible de créer le compte webshop par défaut pour le contact ou le partenaire que vous voulez créer. Il manque le nom, le prénom ou le nom de famille"
+
+#. module: elneo_landefeld
+#: field:elneo.webshop.account,password:0
+msgid "Initial password"
+msgstr "Mot de passe initial"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:421
+#, python-format
+msgid "Internet sale order behavior"
+msgstr "Comportement de vente internet"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_stock_location_route
+msgid "Inventory Routes"
+msgstr "Routes logistiques"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,ftp_isPassive:0
+msgid "Is Passive"
+msgstr "Est Passif"
+
+#. module: elneo_landefeld
+#: model:ir.ui.menu,name:elneo_landefeld.menu_settings_edi_landefeld
+msgid "Landefeld"
+msgstr "Landefeld"
+
+#. module: elneo_landefeld
+#: field:sale.config.settings,landefeld_direct_min_amount:0
+msgid "Landefeld Direct Min Amount"
+msgstr "Montant min. pour vente directe Landefeld"
+
+#. module: elneo_landefeld
+#: field:stock.location.route,landefeld_dropship:0
+msgid "Landefeld Dropship"
+msgstr "Livraison directe Landefeld"
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_ref:0
+msgid "Landefeld Ref"
+msgstr "Ref. Landefeld"
+
+#. module: elneo_landefeld
+#: field:sale.order,landefeld_ref:0
+msgid "Landefeld Reference"
+msgstr "Référence Landefeld"
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_automatic_purchase:0
+msgid "Landefeld automatic purchase"
+msgstr "Achat automatique Landefeld"
+
+#. module: elneo_landefeld
+#: field:sale.order,landefeld_automatic_sale:0
+msgid "Landefeld automatic sale"
+msgstr "Vente automatique Landefeld"
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_customer_ref:0
+msgid "Landefeld customer ref"
+msgstr "Référence Client Landefeld"
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_dispatchnote_alert_sent:0
+msgid "Landefeld dispatch note alert sent"
+msgstr "Alerte de notification d'envoi Landefeld envoyée"
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_dispatchnote_received:0
+msgid "Landefeld dispatch note received"
+msgstr "Notification d'envoi Landefeld reçue"
+
+#. module: elneo_landefeld
+#: field:elneo.webshop.account,landefeld_id:0
+msgid "Landefeld id"
+msgstr "Landefeld id"
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_internet_purchase:0
+msgid "Landefeld internet purchase"
+msgstr "Achat par internet Landefeld"
+
+#. module: elneo_landefeld
+#: field:sale.order,landefeld_internet_sale:0
+msgid "Landefeld internet sale"
+msgstr "Vente internet Landefeld"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/elneo_landefeld.py:195
+#, python-format
+msgid "Landefeld order"
+msgstr "Commande Landefeld"
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_orderresponse_alert_sent:0
+msgid "Landefeld order response alert sent"
+msgstr "Alerte de confirmation de commande Landefeld envoyée"
+
+#. module: elneo_landefeld
+#: field:purchase.order,landefeld_orderresponse_received:0
+msgid "Landefeld order response received"
+msgstr "Confirmation de commande Landefeld reçue"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,route_dropshipping:0
+msgid "Landfeld Internet Order Dropshipping Route"
+msgstr "Route de livraison directe de vente Landefeld"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,write_uid:0
+#: field:edi.processor.landefeld,write_uid:0
+#: field:elneo.webshop.account,write_uid:0
+#: field:elneo_landefeld.sale.wizard,write_uid:0
+#: field:landefeld.edi.export,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,write_date:0
+#: field:edi.processor.landefeld,write_date:0
+#: field:elneo.webshop.account,write_date:0
+#: field:elneo_landefeld.sale.wizard,write_date:0
+#: field:landefeld.edi.export,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: elneo_landefeld
+#: field:elneo.webshop.account,login:0
+msgid "Login"
+msgstr "Login"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:776
+#, python-format
+msgid "No Order ID in Landefeld dispatch notification for OPENTRANS purchase order"
+msgstr "Le champ 'ORDER ID' de la note d'envoi Landefeld OPENTRANS n'est pas rempli"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:433
+#, python-format
+msgid "No account found with login : %s or with id %s"
+msgstr "Pas de compte trouvé pour le login : % ou avec l'id %s"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:770
+#, python-format
+msgid "No items in Landefeld dispatch notification"
+msgstr "Pas d'éléments dans la note d'envoi Landefeld"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:787
+#, python-format
+msgid "No purchase order"
+msgstr "Pas d'achat"
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.sale.wizard:elneo_landefeld.elneo_landefeld_sale_wizard_form_view
+msgid "No, i would like send it from our warehouse"
+msgstr "Non, je veux l'envoyer de notre entrepôt"
+
+#. module: elneo_landefeld
+#: selection:edi.processor.landefeld,state:0
+#: selection:landefeld.edi.export,state:0
+msgid "OK"
+msgstr "OK"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/landefeld_edi_export_wizard.py:278
+#, python-format
+msgid "OPENTRANS ERROR"
+msgstr "OPENTRANS ERROR"
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.sale.wizard:elneo_landefeld.elneo_landefeld_sale_wizard_form_view
+msgid "Ok, send it from Landefeld"
+msgstr "Ok, envoyer à partir de Landefeld"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:370
+#, python-format
+msgid "OpenTrans Landefeld : Warning when validate order confirmation"
+msgstr "OpenTrans Landefeld : Avertissement lors de la confirmation de la commande"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_res_partner_address
+msgid "Partner Addresses"
+msgstr "Carnet d'adresses"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,ftp_password:0
+msgid "Password"
+msgstr "Mot de passe"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,ftp_port:0
+msgid "Port"
+msgstr "Port"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_procurement_order
+msgid "Procurement"
+msgstr "Approvisionnement"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_product_product
+msgid "Product"
+msgstr "Produit"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_product_template
+msgid "Product Template"
+msgstr "Modèle de produit"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_purchase_order
+#: field:landefeld.edi.export,purchase_id:0
+msgid "Purchase Order"
+msgstr "Achat"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Ligne de commande"
+
+#. module: elneo_landefeld
+#: help:landefeld.edi.export,purchase_id:0
+msgid "Purchase Order that launch the export"
+msgstr "Achat qui lance l'export"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:126
+#, python-format
+msgid "Purchase order found with criteria %s"
+msgstr "Achat trouvé avec les critères %s"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:116
+#, python-format
+msgid "Purchase order found with criteria %s:%s"
+msgstr "Achat trouvé avec les critères %s:%s"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:140
+#, python-format
+msgid "Purchase order found with name like %s"
+msgstr "Acaht trouvé avec le nom %s"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:417
+#, python-format
+msgid "Sale order found : %s"
+msgstr "Vente trouvée : %s"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_sale_order
+msgid "Sales Order"
+msgstr "Commande de ventes"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,ftp_host:0
+msgid "Server Address"
+msgstr "Adresse du serveur"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/process_landefeld_edi_wizard.py:793
+#, python-format
+msgid "Several purchases found with landefeld ref : %s"
+msgstr "Plusieurs achats trouvés avec la référence landefeld : %s"
+
+#. module: elneo_landefeld
+#: field:edi.processor.landefeld,state:0 field:landefeld.edi.export,state:0
+msgid "State"
+msgstr "Etat"
+
+#. module: elneo_landefeld
+#: model:ir.model,name:elneo_landefeld.model_stock_move
+msgid "Stock Move"
+msgstr "Mouvement de stock"
+
+#. module: elneo_landefeld
+#: help:sale.config.settings,landefeld_direct_min_amount:0
+msgid "The minimum amount to warn user if he wants to deliver from Landefeld directly"
+msgstr "Le montant minimum pour avertir l'utilisateur s'il veut livrer directement de Landefeld"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/landefeld_edi_export_wizard.py:286
+#, python-format
+msgid "The name of the delivery address is not defined!"
+msgstr "Le nom de l'adresse de livraison n'est pas défini!"
+
+#. module: elneo_landefeld
+#: code:addons/elneo_landefeld/wizard/landefeld_sale_wizard.py:37
+#, python-format
+msgid ""
+"There is no route defined to supply directly your customer from the supplier directly.\n"
+"\n"
+"Please contact your administrator"
+msgstr ""
+"Il n'y a pas de route définie pour fournir directement le client à partir du fournisseur.\n"
+"\n"
+"Veuillez contacter votre administrateur"
+
+#. module: elneo_landefeld
+#: field:edi.landefeld.config.settings,ftp_user:0
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: elneo_landefeld
+#: selection:edi.processor.landefeld,state:0
+#: view:elneo_landefeld.sale.wizard:elneo_landefeld.elneo_landefeld_sale_wizard_form_view
+#: selection:landefeld.edi.export,state:0
+msgid "Warning"
+msgstr "Avertissement"
+
+#. module: elneo_landefeld
+#: field:edi.processor.landefeld,warning_message:0
+#: field:landefeld.edi.export,warning_message:0
+msgid "Warning Message"
+msgstr "Message d'avertissement"
+
+#. module: elneo_landefeld
+#: view:res.partner:elneo_landefeld.view_partner_form
+msgid "Web shop"
+msgstr "Web shop"
+
+#. module: elneo_landefeld
+#: view:res.partner:elneo_landefeld.view_partner_form
+#: field:res.partner,webshop_accounts:0
+msgid "Web shop accounts"
+msgstr "Comptes Web shop"
+
+#. module: elneo_landefeld
+#: view:elneo_landefeld.sale.wizard:elneo_landefeld.elneo_landefeld_sale_wizard_form_view
+msgid "You can choose to deliver products directly from Landefeld to customer directly."
+msgstr "Vous pouvez choisir de livrer les produits directement de Landefeld au client."
+
+#. module: elneo_landefeld
+#: field:elneo.webshop.account,email:0
+msgid "email"
+msgstr "email"
+
+#. module: elneo_landefeld
+#: view:edi.landefeld.config.settings:elneo_landefeld.view_edi_landefeld_config_settings
+msgid "or"
+msgstr "or"

@@ -7,23 +7,19 @@
 			<field name="inherit_id" ref="purchase.purchase_order_form" />
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<xpath expr="/form/notebook/page/field/tree/field[@name='price_subtotal']" position="after">
+				<xpath expr="//field[@name='order_line']//tree//field[@name='price_subtotal']" position="after">
 					<button 
 						name="%(sale_correction.purchase_change_quantity_wizard_action)d" 
 						string="Modify the line"
                     	type="action" 
                     	icon="gtk-execute" 
-                    	groups="base.group_extended"						
                     	/>
                     <button 
 						name="%(sale_correction.purchase_delete_line_wizard_action)d" 
 						string="Delete the line"
                     	type="action" 
                     	icon="gtk-delete" 
-                    	groups="base.group_extended"
-						attrs="{'invisible':[('order_id_state','!=','approved')]}"
                     	/>
-                    <field name="order_id_state" />
 				</xpath>
 			</field>
 		</record>

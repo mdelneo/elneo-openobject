@@ -7,9 +7,35 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Change quantity">
-					<field name="new_quantity" colspan="1"/>
-					<button name="change_quantity" string="Change quantity"
-						colspan="1" type="object" icon="terp-check" />
+					<p>
+						You can change the sale order line quantity. It will affect all linked moves and purchase lines.
+					</p>
+					<h2>New Quantity</h2>
+					<field name="new_quantity" />
+					<separator />
+					<p class="oe_grey">
+						You have here below the purchase order line and the different stock moves
+					</p>
+					<h2>Purchase line</h2>
+					<field name="purchase_order_line_id" />
+					<h2>Stock moves</h2>
+					<field name="stock_move_ids">
+						<tree edit="false">
+							<field name="picking_id" />
+							<field name="product_id" />
+							<field name="product_uom_qty" />
+							<field name="product_uom" />
+							<field name="location_dest_id" />
+							<field name="state" />
+						</tree>
+					</field>
+
+
+					<footer>
+						<button name="change_quantity" string="Change quantity" type="object" class="oe_highlight" />
+						<button special="cancel" string="Cancel" />
+					</footer>
+
 				</form>
 			</field>
 		</record>

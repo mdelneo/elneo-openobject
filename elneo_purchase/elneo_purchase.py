@@ -89,3 +89,23 @@ class purchase_order(models.Model):
         if self.env.user.default_warehouse_id:
             res['picking_type_id']=self.env['stock.picking.type'].search([('warehouse_id','=',self.env.user.default_warehouse_id.id)],limit=1).id
         return res
+    
+    @api.multi
+    def write(self,vals):
+        if self.env.context.get('from_procurement',False):
+            if 'origin' in vals:
+                position = vals['origin'].find(self.origin)
+                if position != -1:
+                    del vals['origin']
+
+        return super(purchase_order,self).write(vals)
+    
+    
+class ProcurementOrder(models.Model):
+    _inherit='procurement.order'
+    
+    @api.multi
+    def make_po(self):
+        return super(ProcurementOrder,self.with_context(from_procurement=True)).make_po()
+        
+        

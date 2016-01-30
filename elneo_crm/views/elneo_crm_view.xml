@@ -426,6 +426,10 @@
 					<tree default_order="type,lastname">
 						<field name="type" />
 						<field name="name" />
+						<field name="email" />
+						<field name="phone" />
+						<field name="mobile" />
+						<field name="function" />
 						<field name="lastname" invisible="1" />
 					</tree>
 				</xpath>

@@ -29,7 +29,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt_stock':1}</field>
-            <field name="domain">[('picking_type_id','=',3),('state','in',['assigned','partially_available'])]</field>
+            <field name="domain">[('picking_type_id','=',5),('state','in',['assigned','partially_available'])]</field>
         </record>
         
         <record id="action_stock_shipment_awans" model="ir.actions.act_window">
@@ -132,7 +132,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt_stock':1}</field>
-            <field name="domain">[('picking_type_id','=',8),('state','in',['assigned','partially_available'])]</field>
+            <field name="domain">[('picking_type_id','=',10),('state','in',['assigned','partially_available'])]</field>
         </record>
         
         <record id="action_stock_shipment_wetteren" model="ir.actions.act_window">
@@ -182,7 +182,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_dpt_stock':1}</field>
-            <field name="domain">[('picking_type_id','=',35),('state','=','assigned')]</field>
+            <field name="domain">[('picking_type_id','=',28),('state','=','assigned')]</field>
         </record>
         
         <record id="action_stock_account_block_delivery_wetteren" model="ir.actions.act_window">

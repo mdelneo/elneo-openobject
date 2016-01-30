@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+	<data noupdate="1">
+		<record id="seq_type_webshop_account_id" model="ir.sequence.type">
+            <field name="name">Elneo store account number</field>
+            <field name="code">webshop.account_number</field>
+        </record>
+
+        <record id="seq_webshop_account_id" model="ir.sequence">
+            <field name="name">Account number</field>
+            <field name="code">webshop.account_number</field>
+            <field name="prefix"></field>
+            <field name="padding">0</field>
+        </record>
+    </data>
+</openerp>

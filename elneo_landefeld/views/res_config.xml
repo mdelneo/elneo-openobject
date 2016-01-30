@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+ 		<record id="view_sale_landefeld_direct_settings" model="ir.ui.view">
+            <field name="name">sale landefeld direct settings</field>
+            <field name="model">sale.config.settings</field>
+            <field name="inherit_id" ref="sale_stock.view_sales_config_sale_stock"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//div[@name='Sale Features']" position="inside">
+                        <div>
+							<label for="landefeld_direct_min_amount" />
+							<field name="landefeld_direct_min_amount" class="oe_inline" />
+                        </div>
+                    </xpath>
+            </field>
+        </record>
+	</data>
+</openerp>

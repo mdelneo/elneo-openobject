@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<record id="view_sale_order_form_elneo_land" model="ir.ui.view">
+	      <field name="name">sale.order.form.elneo.land</field>
+	      <field name="model">sale.order</field>
+	      <field name="inherit_id" ref="sale.view_order_form"/>
+	      <field name="arch" type="xml">
+	      	<field name="state" position="before">
+	      		<field name="all_landefeld" invisible="1"/>
+	      	</field>
+	    </field>
+</record>
+</data>
+</openerp>

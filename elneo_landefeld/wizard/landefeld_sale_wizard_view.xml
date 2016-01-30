@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="elneo_landefeld_sale_wizard_form_view"
+			model="ir.ui.view">
+			<field name="name">Drop Ship Landefeld</field>
+			<field name="model">elneo_landefeld.sale.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Warning">
+				<img style="max-height:45px;" src="/elneo_landefeld/static/src/img/landefeld.png"/>
+				<p>
+					<span>All products seem to be purchased to Landefeld.</span><br/>
+					<span>You can choose to deliver products directly from Landefeld to customer directly.It will change the route on every line to a Dropship route.</span>
+					<span>Then, the purchase order will be confirmed and sent to Landefeld automatically.</span>
+					</p>
+					<footer>
+							<button string="Ok, send it from Landefeld" type="object" name="action_confirm_landefeld" class="oe_highlight" colspan="2" />
+							<button string="No, i would like send it from our warehouse" type="object" name="action_confirm_classic" colspan="2" />
+							<button string="Cancel" special="cancel" class="oe_link"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+	</data>
+</openerp>

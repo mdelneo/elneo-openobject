@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_partner_form">
+			<field name="name">res.partner.form.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<notebook position="inside">
+					<page string="Web shop">
+						<separator string="Accounts" colspan="4" />
+						<field name="webshop_accounts" nolabel='1' colspan="4">
+							<form string="Web shop accounts">
+								<field name="login" />
+								<field name="landefeld_id" />
+								<field name="password" />
+								<field name="email" />
+							</form>
+							<tree string="Web shop accounts">
+								<field name="login" />
+								<field name="landefeld_id" />
+								<field name="password" />
+								<field name="email" />
+							</tree>
+						</field>
+					</page>
+				</notebook>
+			</field>
+		</record>
+	</data>
+</openerp>

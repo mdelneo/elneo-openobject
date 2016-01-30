@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_elneo_landefeld_exports_landefeld","elneo_landefeld.exports_landefeld","model_elneo_landefeld_exports_landefeld","base.group_user",1,1,1,1
+"access_elneo_landefeld_imports_landefeld","elneo_landefeld.imports_landefeld","model_elneo_landefeld_imports_landefeld","base.group_user",1,1,1,1
+"access_elneo_webshop_account","elneo_landefeld.elneo_webshop_account","model_elneo_webshop_account","base.group_user",1,1,1,1
+

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+
+        <record id="view_edi_landefeld_config_settings" model="ir.ui.view">
+            <field name="name">Landefeld Settings</field>
+            <field name="model">edi.landefeld.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="Configure Landefeld" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <div name="landefeld_general">
+	                    <group name="EDI Landefeld">
+	                    	<label for="id" string="Features"/>
+	                    	<div class="oe_inline">
+	                    		<label for="route_dropshipping"/>
+		                    	<field name="route_dropshipping" class="oe_inline"/>
+		                    	
+	                    	</div>
+	                    </group>
+                    </div>
+                    
+                    
+                    <separator string="FTP"/>
+                    <group>
+	                    <field name="ftp_isPassive" />
+	                    <field name="ftp_port" />
+	                    <field name="ftp_host" />
+	                    <field name="ftp_user" />
+	                    <field name="ftp_password" password="True"/>
+	                    <field name="ftp_import_dir" />
+	                    <field name="ftp_export_dir" />
+	                    <field name="ftp_history_dir" />
+
+                    </group>
+                </form>
+            </field>
+        </record>
+
+      	<record id="action_edi_landefeld_settings" model="ir.actions.act_window">
+            <field name="name">Configure Landefeld</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">edi.landefeld.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+		
+		
+		<menuitem id="menu_settings_edi_landefeld" action="action_edi_landefeld_settings" name="Landefeld" parent="edi_simple.menu_edi_settings" sequence="10"/>
+		
+	</data>
+</openerp>

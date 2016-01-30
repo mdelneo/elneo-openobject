@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_elneo_landefeld_sale_wizard","elneo_landefeld.elneo_landefeld.sale.wizard","model_elneo_landefeld_sale_wizard","base.group_user",1,1,1,1
+"access_edi_landefeld_config_settings","edi.landefeld.config.settings","model_edi_landefeld_config_settings","base.group_user",1,1,1,1
+"access_elneo_webshop_account_user","elneo.webshop.account","model_elneo_webshop_account","base.group_user",1,1,1,1

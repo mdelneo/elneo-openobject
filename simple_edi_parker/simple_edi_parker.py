@@ -32,6 +32,7 @@ class purchase_order(models.Model):
         servers = self.env['ir.mail_server'].search([('smtp_user','=',email_from)])
         
         mail = self.env['mail.mail'].create({
+                'reply_to':None,
                 'mail_server_id':servers[0].id,
                 'email_from':email_from,
                 'author_id':self.env['res.users'].browse(self._uid).partner_id.id,

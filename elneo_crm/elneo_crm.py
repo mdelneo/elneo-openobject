@@ -143,7 +143,7 @@ class res_partner(models.Model):
     def get_title(self):
         for partner in self:
             if partner.is_company:
-                partner.title = partner.corportation_type
+                partner.title = partner.corporation_type
             else:
                 partner.title = partner.contact_title
     

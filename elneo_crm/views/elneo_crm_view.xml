@@ -253,6 +253,7 @@
 
 						<group>
 							<group>
+								<field name="active" />
 								<field name="lang" />
 
 								<label for="type" attrs="{'invisible': [('parent_id','=', False)]}" />

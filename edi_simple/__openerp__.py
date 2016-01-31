@@ -14,7 +14,7 @@
                     'wizard/edi_import_wizard.xml',
                     'wizard/edi_process_wizard.xml',
                     'edi_simple_data.xml',
-                    'views/purchase_view.xml'
+                    'views/purchase_view.xml',
                     'data/edi_simple_data.xml'
                     ],
     'qweb' : [

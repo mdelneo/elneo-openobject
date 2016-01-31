@@ -25,7 +25,8 @@
                             name="button_simple_edi_export"
                             string="EDI Export"
                             class="oe_stat_button"
-                            icon="fa-paper-plane-o"/>
+                            icon="fa-paper-plane-o"
+                            confirm="Do you really want to send your order through EDI?"/>
 
                 </xpath>
             </field>

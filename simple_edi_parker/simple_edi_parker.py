@@ -30,8 +30,8 @@ class purchase_order(models.Model):
         
         mail = self.env['mail.mail'].create({
                 'author_id':self.env['res.users'].browse(self._uid).partner_id.id,
-                'email_to':'ECOMDATA@parker.come',
-                'email_cc':'Simple_EDI_Belgium@parker.come, nbral@parker.come',
+                'email_to':'ECOMDATA@parker.com',
+                'email_cc':'Simple_EDI_Belgium@parker.com, nbral@parker.com',
                 'subject':'TNF55850 Order '+str(self.name), 
                 'type':'email',
                 'attachment_ids':[(4,attachment.id)]

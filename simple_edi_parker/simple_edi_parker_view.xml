@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="purchase_order_form_simple_edi_parker">
+			<field name="name">purchase.order.form.simple.edi.parker</field>
+			<field name="model">purchase.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//notebook" position="after">
+					<button name="send_simple_edi_parker"  string="EDI parker" type="object" class="oe_stat_button" icon="fa-refresh" colspan="4" confirm="EDI will be sent to parker. Are you sure ?" />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

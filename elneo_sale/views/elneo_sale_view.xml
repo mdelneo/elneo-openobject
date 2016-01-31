@@ -199,8 +199,13 @@
                 	<attribute name="context">{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'price_unit':price_unit}</attribute>
                 </xpath>
                 
+                <xpath expr="//form[@string='Sales Order Lines']//field[@name='name']" position="replace" />
+                
                 <xpath expr="//field[@name='sale_quotation_properties']" position="replace">
                 	<notebook>
+                		<page string="Code + nom (ou remarque)">
+	                		<field name="name"/>
+	                	</page>
 	                	<page string="Notes">
 	                		<field name="notes"/>
 	                	</page>
@@ -250,6 +255,9 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_sales_order_filter"/>
             <field name="arch" type="xml">
+            	<xpath expr="//field[@name='partner_id']" position="after">
+            		<field name="client_order_ref" />
+            	</xpath>
             	<xpath expr="//filter[@string='My']" position="after">
             		<filter string="My Team" context="{'my_dpt':True}" name="my_sale_team_orders_filter"/>
             	</xpath>

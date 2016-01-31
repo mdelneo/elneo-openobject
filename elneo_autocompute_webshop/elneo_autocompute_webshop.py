@@ -77,7 +77,7 @@ class product_template(models.Model):
                 if self.product_group_id.web_shop_price_base == 'purchase_price' and purchase_price:
                     computed_price = purchase_price*self.product_group_id.coeff_sale_price
                 elif public_price:
-                    computed_price = public_price*self.product_group_id.coeff_sale_price
+                    computed_price = public_price*self.product_group_id
                 else:
                     computed_price = 0
                     

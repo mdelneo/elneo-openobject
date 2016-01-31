@@ -10,6 +10,7 @@ from openerp.exceptions import Warning, ValidationError
 class EDIImportScheduler(models.TransientModel):
     _name='edi.import.scheduler'
     
+    @api.model
     def import_messages(self):
         for processor in self.env['edi.processor'].search([('active','=',True)]):
             processor.import_messages()
@@ -17,6 +18,7 @@ class EDIImportScheduler(models.TransientModel):
 class EDIProcessScheduler(models.TransientModel):
     _name='edi.process.scheduler'
     
+    @api.model
     def process_messages(self):
         for processor in self.env['edi.processor'].search([('active','=',True)]):
             processor.process_messages()

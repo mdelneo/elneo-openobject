@@ -1,5 +1,4 @@
 from openerp import models, fields, api
-
         
 class product_product(models.Model):
     _inherit = 'product.product'
@@ -96,8 +95,12 @@ class purchase_order(models.Model):
             if 'origin' in vals:
                 position = vals['origin'].find(self.origin)
                 if position != -1:
-                    del vals['origin']
-
+                    #If there is a trailing string
+                    if (len(vals['origin']) > len (self.origin)):
+                        if (vals['origin'][len(self.origin)+1:len(vals['origin'])]).find(self.origin) != -1:
+                            #If the trailing string is equals to the original string
+                            del vals['origin']
+                   
         return super(purchase_order,self).write(vals)
     
     

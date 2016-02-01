@@ -5,6 +5,59 @@ from openerp.exceptions import Warning
 #from openerp.addons.mail.mail_thread import mail_thread
 import re
 
+
+class mail_mail(models.Model):
+    
+    _inherit = 'mail.mail'
+    
+    @api.multi
+    def send(self):
+        if self.env['production.server'].is_production_server():
+            return super(mail_mail,self).send()
+        return True
+
+
+class mail_compose_message(models.TransientModel):
+    _inherit = 'mail.compose.message'
+    
+    
+    @api.multi
+    def send_mail(self):
+        res = super(mail_compose_message,self).send_mail()
+
+        for wizard in self:
+            mass_mode = wizard.composition_mode in ('mass_mail', 'mass_post')
+            active_model_pool = self.pool[wizard.model if wizard.model else 'mail.thread']
+            if not hasattr(active_model_pool, 'message_post'):
+                self = self.with_context(thread_model=wizard.model) 
+                active_model_pool = self.env['mail.thread']
+
+            # wizard works in batch mode: [res_id] or active_ids or active_domain
+            if mass_mode and wizard.use_active_domain and wizard.model:
+                res_ids = self.pool[wizard.model].search(eval(wizard.active_domain))
+            elif mass_mode and wizard.model and self._context.get('active_ids'):
+                res_ids = self._context['active_ids']
+            else:
+                res_ids = [wizard.res_id]
+
+            batch_size = int(self.sudo().env['ir.config_parameter'].get_param('mail.batch_size')) or self._batch_size
+            sliced_res_ids = [res_ids[i:i + batch_size] for i in range(0, len(res_ids), batch_size)]
+            
+            for res_ids in sliced_res_ids:
+                all_mail_values = self.get_mail_values(wizard, res_ids)
+                for res_id, mail_values in all_mail_values.iteritems():
+                    mail_values['body_html'] = mail_values['body']
+                    mail_values['reply_to'] = None
+                    mail_values['email_to'] = ','.join([p.email for p in self.env['res.partner'].browse(mail_values['partner_ids'])])
+                    servers = self.env['ir.mail_server'].search([('smtp_user','=',mail_values['email_from'])])
+                    if servers:
+                        mail_values['mail_server_id'] = servers[0].id
+                    mail_values['attachment_ids'] = [(4,a) for a in mail_values['attachment_ids']]
+                    self.env['mail.mail'].create(mail_values)
+                    
+        return res
+    
+
 class mail_followers(models.Model):
     _inherit = 'mail.followers'
     

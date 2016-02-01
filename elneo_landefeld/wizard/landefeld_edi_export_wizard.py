@@ -73,10 +73,10 @@ class LandefeldEdiExport(models.TransientModel):
         return True
         
     def _transmit(self):
-        '''
+        
         if not self.env['production.server'].is_production_server():
             return True
-        '''
+        
         
         '''    
         if not '10.0.0.117' in os.popen("cat /etc/network/interfaces | grep address","r").read()[8:]:

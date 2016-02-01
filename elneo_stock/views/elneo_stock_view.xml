@@ -441,6 +441,18 @@
             </field>
         </record>
         
+        <!-- picking tree -->
+        <record id="view_picking_tree_elneo_stock" model="ir.ui.view">
+            <field name="name">view.picking.tree.elneo.stock</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='backorder_id']" position="after">
+                	<field name="reservation_name" />
+                </xpath>
+            </field>
+        </record>
+        
         
 		<!-- Stock warehouse orderpoint : add stocked for customer -->
 		<record id="view_warehouse_orderpoint_form_elneo_stock" model="ir.ui.view">

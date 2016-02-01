@@ -23,7 +23,7 @@ from openerp import models, fields, api
 import os
 
 
-class ProductionServer(models.Model):
+class ProductionServer(models.TransientModel):
     _name='production.server'
     
     

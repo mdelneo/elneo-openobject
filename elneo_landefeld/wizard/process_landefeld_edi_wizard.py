@@ -226,7 +226,8 @@ class EDIProcessorLandefeld(models.TransientModel):
                         discount_absolute += -((price_amount/price_quantity)*discount_relative)
             
             #discount_absolute = -((price_amount/price_quantity)*discount_relative)
-            discount_relative = (((price_amount/price_quantity)-discount_absolute)/(price_amount/price_quantity))/100
+            if (price_amount != 0 or price_quantity != 0) and (price_amount/price_quantity) !=0:
+                discount_relative = (((price_amount/price_quantity)-discount_absolute)/(price_amount/price_quantity))/100
             if item.shop_price_amount is not None:
                 sale_unit_price = float(item.shop_price_amount)
                 sale_discount = float(item.shop_rebate_factor)

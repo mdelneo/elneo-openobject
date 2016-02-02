@@ -186,7 +186,7 @@ class EDIProcessorLandefeld(models.TransientModel):
         client_id=None
         buyer=None
         email=None
-        note=None
+        note=""
         for remark in document.element.order_response_header.order_response_info.remarks:
             if len(remark) > 0 and remark.find("Kundennummer:") > -1:
                 client_id=remark[14:len(remark)].strip()
@@ -625,7 +625,7 @@ class EDIProcessorLandefeld(models.TransientModel):
                     self.warning_message+=_("Error when validating dispatch note from Landefeld : Product %s not found in database.")%(item.product_id.supplier_pid)
                     return False
                 
-                stock_moves = self.env['stock.move'].search([('product_id','=',products.mapped('id')),('picking_id','in',out_pickings.mapped('id'))])
+                stock_moves = self.env['stock.move'].search([('product_id','in',products.mapped('id')),('picking_id','in',out_pickings.mapped('id'))])
                 
                 stock_moves_tmp = stock_moves.filtered(lambda r:r not in stock_moves_ok)
                 

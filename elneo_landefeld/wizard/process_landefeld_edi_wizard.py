@@ -461,7 +461,7 @@ class EDIProcessorLandefeld(models.TransientModel):
                     if addr_order_ids:
                         addr_order_id = addr_order_ids[0]
                     else:
-                        self.env['res.partner'].write([addr_delivery_id], {'email':email})
+                        addr_delivery_id.write({'email':email})
                 if not addr_order_id:
                     addr_order_id = addr_delivery_id
                     

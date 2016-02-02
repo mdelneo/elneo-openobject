@@ -99,7 +99,7 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     unblock = fields.Boolean('Unblock',help="Use this to unblock this sale only for a blocked customer",track_visibility="onchange")
-    partner_blocked = fields.Boolean(related="partner_id.blocked",string="Partner blocked")
+    partner_blocked = fields.Boolean(related="partner_id.commercial_partner_id.blocked",string="Partner blocked")
     
     @api.multi
     def onchange_partner_id(self, partner):

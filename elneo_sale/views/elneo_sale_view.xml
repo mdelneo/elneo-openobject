@@ -110,9 +110,11 @@
             		<attribute name="groups"></attribute>
             	</xpath>
             	
+            	<!-- 
             	<xpath expr="//header" position="inside">
             		<button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object" icon="gtk-convert"/>
             	</xpath>
+            	 -->
             
             	<xpath expr="//field[@name='address_allotment_id']" position="replace" />
             	<xpath expr="//field[@name='invoice_lines']" position="replace" />
@@ -200,6 +202,7 @@
                 </xpath>
                 
                 <xpath expr="//form[@string='Sales Order Lines']//field[@name='name']" position="replace" />
+                <xpath expr="//form[@string='Sales Order Lines']//label[@for='name']" position="replace" />
                 
                 <xpath expr="//field[@name='sale_quotation_properties']" position="replace">
                 	<notebook>

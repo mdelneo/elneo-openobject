@@ -73,6 +73,13 @@ class stock_picking(models.Model):
     picking_type_id = fields.Many2one(track_visibility="onchange")
     group_id = fields.Many2one(index=True)
     section_id = fields.Many2one('crm.case.section', string="Sales team", compute="_get_section_id", store=True)
+    reservation_name = fields.Char('Linked reservation', compute='_get_reservation_name')
+    
+    @api.one
+    def _get_reservation_name(self):
+        if self.group_id:
+            int_pickings = self.env['stock.picking'].search([('group_id','=',self.group_id.id), ('picking_type_id.code','=','internal')])
+            self.reservation_name = ','.join([int_picking.name for int_picking in int_pickings])
     
     @api.one
     def _get_section_id(self):

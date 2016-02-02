@@ -126,6 +126,7 @@ class maintenance_intervention(models.Model):
     stock_pickings = fields.One2many(related='sale_order_id.picking_ids', relation='stock.picking', string="Pickings")
     sale_order_id = fields.Many2one('sale.order',string='Sale order', readonly=True)
     intervention_products = fields.One2many('maintenance.intervention.product', 'intervention_id', 'Maintenance intervention products',auto_join=True)
+
     #to_plan = fields.Boolean(compute=_get_task_fields,string="To plan", store=True,) #override to_plan cause when to_plan field of task was written, to_plan field of intervention was not re-computed.
     available = fields.Boolean(compute=_get_available, string="Available", store=True)
     warehouse_id = fields.Many2one(related='sale_order_id.warehouse_id', string="Warehouse")
@@ -154,6 +155,31 @@ class maintenance_intervention(models.Model):
     def action_create_quotation(self):
         return self.with_context(quotation=True).action_create_update_sale_order()
     
+    @api.multi
+    def _update_sale_workforce_line(self,sale_order):
+        if (sale_order.order_line and sale_order.order_line.mapped('product_id') not in self.maint_type.workforce_product_id) or not sale_order.order_line:
+            order_line={}
+            order_line['product_id'] = self.maint_type.workforce_product_id.id
+            order_line['product_uom_qty'] = 0
+            order_line['product_uos_qty'] = 0
+            
+            order_line['order_id'] = sale_order.id
+            
+    
+            order_line['name'] = self.maint_type.workforce_product_id.description or '-'
+                
+           
+            order_line['price_unit'] = self.maint_type.workforce_product_id.list_price
+            
+            
+            #re-check every time the cost price at intervention validation
+            order_line['purchase_price'] = self.maint_type.workforce_product_id.cost_price
+                
+            
+            order_line['delay'] = self.maint_type.workforce_product_id.seller_delay
+    
+            
+            self.env['sale.order.line'].create(order_line)
     
     @api.multi
     def action_create_update_sale_order(self): 
@@ -221,9 +247,12 @@ class maintenance_intervention(models.Model):
                 #update intervention
                 intervention.sale_order_id = sale_order
                 
+            self._update_sale_workforce_line(sale_order)
+            
             #confirm sale order
             if not self._context.get("quotation",False):
                 intervention.sale_order_id.signal_workflow('order_confirm')
+                
               
         return True
     
@@ -336,24 +365,24 @@ class maintenance_intervention(models.Model):
                     out_picking = picking 
                 if picking.picking_type_id.code == 'internal':
                     int_picking = picking
-            if not out_picking:
-                raise Warning(_('Their is no delivery order for this intervention.'))
             
-            
-            #Delete moves
-            products_of_moves = self.env['stock.move']
-            moves_todelete = self.env['stock.move']
-            for move in out_picking.move_lines:
-                if move.intervention_product_id:
-                    products_of_moves += move
-                elif move.sale_line_id:
-                    moves_todelete = move | moves_todelete
-                    diff_qty.append((move.product_id.id, - move.sale_line_id.product_uom_qty, move.sale_line_id.id))
-                else:
-                    moves_todelete = move | moves_todelete
-                    diff_qty.append((move.product_id.id, - move.product_qty, None))
-                    
-            moves_todelete.unlink()
+            #There are products
+            if out_picking:
+                
+                #Delete moves
+                products_of_moves = self.env['stock.move']
+                moves_todelete = self.env['stock.move']
+                for move in out_picking.move_lines:
+                    if move.intervention_product_id:
+                        products_of_moves += move
+                    elif move.procurement_id.sale_line_id:
+                        moves_todelete = move | moves_todelete
+                        diff_qty.append((move.product_id.id, - move.procurement_id.sale_line_id.product_uom_qty, move.procurement_id.sale_line_id.id))
+                    else:
+                        moves_todelete = move | moves_todelete
+                        diff_qty.append((move.product_id.id, - move.product_qty, None))
+                        
+                moves_todelete.write({'state':'cancel'})
             
             
             #NEW LOOP#
@@ -369,8 +398,21 @@ class maintenance_intervention(models.Model):
                             location_dest_id = location_dest_id[0]
                         values = self.env['stock.move'].onchange_product_id(prod_id=intervention_product.product_id.id, loc_id=location_id,
                                                                      loc_dest_id=location_dest_id, partner_id=order.partner_shipping_id.id)['value']
-                                                                     
-                                                                     
+                        # There is no out picking (maybe a void spare part list)                                             
+                        if not out_picking:
+                            name = intervention.warehouse_id.maintenance_picking_type_id.sequence_id._next() or '/'
+                            
+                            pick_values={
+                                         'name':name,
+                                         'origin':intervention.code+' '+intervention.sale_order_id.name,
+                                         'state':'assigned',
+                                         'partner_id':intervention.partner_id.id,
+                                         'location_id':intervention.warehouse_id.maintenance.picking_type_id.default_location_src_id.id,
+                                         'location_dest_id':intervention.warehouse_id.maintenance.picking_type_id.default_location_dest_id.id,
+                                         
+                                         }
+                            out_picking = self.env['stock.picking'].create(pick_values)
+                                                                
                         values.update({
                             'name': intervention_product.product_id.name_get()[0][1],
                             'picking_id': out_picking.id,
@@ -379,13 +421,13 @@ class maintenance_intervention(models.Model):
                             'date_expected': intervention.date_start or time.strftime('%Y-%m-%d'),
                             'product_uom_qty': intervention_product.quantity,
                             'product_uos_qty': intervention_product.quantity,
-                            'address_id': order.partner_shipping_id.id,
+                            'partner_id': order.partner_shipping_id.id,
                             'location_id': location_id,
                             'location_dest_id': location_dest_id,                            
-                            'tracking_id': False,
                             'company_id': order.company_id.id,
                             'state':'done',
-                            'intervention_product_id':intervention_product.id
+                            'intervention_product_id':intervention_product.id,
+                            'group_id':intervention.sale_order_id.procurement_group_id.id
                         })
                         
                         diff_qty.append((intervention_product.product_id.id, intervention_product.quantity, intervention_product.sale_order_line_id.id))
@@ -445,8 +487,8 @@ class maintenance_intervention(models.Model):
             out_picking = self.env['stock.picking']
             out_picking = intervention.sale_order_id.picking_ids.filtered(lambda r:r.picking_type_id.code=='outgoing')
             
-            if not out_picking:
-                raise Warning(_('There is no delivery order for this intervention.'))
+            if not out_picking and intervention.intervention_products:
+                raise Warning(_('The intervention spare parts is not void and there is no delivery order for this intervention.'))
             
             maintenance_time = 0
             for task in intervention.tasks:
@@ -458,14 +500,21 @@ class maintenance_intervention(models.Model):
             
             out_picking.mapped('sale_id').invoice_ids.filtered(lambda r:r.state == 'draft').unlink()
             
-            out_picking.invoice_state = '2binvoiced'
-            intervention.sale_order_id.order_line.write({'invoiced': False})
+            # FROM PICKING INVOICE GENERATION BEHAVIOUR
+            if out_picking:
+                out_picking.invoice_state = '2binvoiced'
+                intervention.sale_order_id.order_line.write({'invoiced': False})
+                
+                #out_picking.do_transfer()
+                journal_id = self.env['ir.config_parameter'].get_param('maintenance_product.account_sale_journal',False)
+                if not journal_id:
+                    raise Warning(_('Please configure default Sale Journal for Maintenance'))
+                invoice_ids = out_picking.action_invoice_create(journal_id=int(journal_id))
             
-            #out_picking.do_transfer()
-            journal_id = self.env['ir.config_parameter'].get_param('maintenance_product.account_sale_journal',False)
-            if not journal_id:
-                raise Warning(_('Please configure default Sale Journal for Maintenance'))
-            invoice_ids = out_picking.action_invoice_create(journal_id=int(journal_id))
+            # FROM SALE ORDER INVOICE GENERATION (THERE IS NO SPARE PARTS)
+            else:
+                invoice_ids=intervention.sale_order_id.action_invoice_create()
+                intervention.sale_order_id.order_line.write({'invoiced': False})
             
             #created_invoices_res = out_picking.sale_id.action_invoice_create()
             invoice = self.env['account.invoice'].browse(invoice_ids)

@@ -69,9 +69,7 @@ class maintenance_installation(models.Model):
 class maintenance_intervention(models.Model):
     _inherit='maintenance.intervention'
     
-    @api.multi
-    def action_create_update_sale_order(self):
-        return super(maintenance_intervention,self.with_context(from_intervention=True)).action_create_update_sale_order()
+  
     
     @api.multi
     def write(self,vals):
@@ -107,6 +105,10 @@ class maintenance_intervention(models.Model):
         order_line['route_id'] = intervention_product.route_id.id
         
         return order_line
+    
+    @api.multi
+    def action_create_update_sale_order(self):
+        return super(maintenance_intervention,self.with_context(from_intervention=True)).action_create_update_sale_order()
         
         
     

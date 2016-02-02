@@ -11,9 +11,9 @@ class mail_mail(models.Model):
     _inherit = 'mail.mail'
     
     @api.multi
-    def send(self):
+    def send(self,auto_commit=False,raise_exception=False):
         if self.env['production.server'].is_production_server():
-            return super(mail_mail,self).send()
+            return super(mail_mail,self).send(auto_commit=auto_commit,raise_exception=raise_exception)
         return True
 
 

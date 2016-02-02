@@ -445,10 +445,17 @@
         <record id="view_picking_tree_elneo_stock" model="ir.ui.view">
             <field name="name">view.picking.tree.elneo.stock</field>
             <field name="model">stock.picking</field>
-            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="inherit_id" ref="stock_account.view_picking_inherit_tree2"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='backorder_id']" position="after">
-                	<field name="reservation_name" />
+                <xpath expr="//tree" position="replace">
+                	<tree colors="blue:state == 'draft';grey:state == 'cancel';red:state not in ('cancel', 'done') and min_date &lt; current_date" string="Picking list">
+	                    <field name="name" />
+	                    <field name="partner_id" />
+	                    <field name="origin" />
+                		<field name="state" />
+                		<field name="min_date" />
+                		<field name="reservation_name" />
+                	</tree>
                 </xpath>
             </field>
         </record>

@@ -583,7 +583,7 @@
 									<br/>
 									<span t-field="o.partner_invoice_id.commercial_partner_id.name"/>
 									<br/>
-									<div  t-if="o.partner_invoice_id.street" t-field="o.partner_invoice_id.street"/>
+									<div t-if="o.partner_invoice_id.street" t-field="o.partner_invoice_id.street"/>
   								       <div t-if="o.partner_invoice_id.street2" t-field="o.partner_invoice_id.street2"/>
 									<span t-field="o.partner_invoice_id.zip"/>
 									<span t-field="o.partner_invoice_id.city"/>
@@ -601,7 +601,7 @@
 									<span t-field="o.partner_order_id.lastname"/>
 								</div>
 								<div t-if="o.partner_order_id.street" t-field="o.partner_order_id.street"/>
-								<div t-if="o.partner_order_id.street" t-field="o.partner_order_id.street"/>
+								<div t-if="o.partner_order_id.street2" t-field="o.partner_order_id.street2"/>
 								<span t-field="o.partner_order_id.zip"/>
 								<span t-field="o.partner_order_id.city"/>
 								<br/>

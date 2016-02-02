@@ -63,11 +63,9 @@ class procurement_order(models.Model):
         res = super(procurement_order,self).make_po()
         #link sales with purchase in accordance with procurement group
         for procurement in self:
-            if procurement.purchase_line_id and procurement.group_id:
-                for other_procurement in procurement.group_id.procurement_ids:
-                    if other_procurement.sale_line_id:
-                        other_procurement.sale_line_id.order_id.write({'purchase_ids':[(4,procurement.purchase_id.id)]})
-                        other_procurement.sale_line_id.write({'purchase_line_ids':[(4,procurement.purchase_line_id.id)]})
+            if procurement.sale_line_id and procurement.purchase_line_id:
+                procurement.sale_line_id.write({'purchase_line_ids':[(4,procurement.purchase_line_id.id)]})
+                procurement.sale_line_id.order_id.write({'purchase_ids':[(4,procurement.purchase_line_id.order_id.id)]})
         return res
     
 class sale_order(models.Model):

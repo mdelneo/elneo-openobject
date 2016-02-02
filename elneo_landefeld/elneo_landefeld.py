@@ -111,6 +111,24 @@ class ProductProduct(models.Model):
                 product_type = 'service'
             else:
                 product_type = 'product'
+                
+            pricelist_values = {
+                                                                    'min_quantity' : 1, 
+                                                                    'price':unit_price+discount_absolute,
+                                                                    'brut_price':unit_price,
+                                                                    'discount':discount_relative*100,
+                                                                    
+                                                                        }
+            
+            supplierinfo_values={'name':self.LANDEFELD_PARTNER_ID,
+                                                               'company_id':1,
+                                                               'min_qty':1,
+                                                               'delay':0,
+                                                               'product_code':product_code,
+                                                               'pricelist_ids':[(0,0,pricelist_values)]
+                                 
+                                 }
+            
             product_id = self.env['product.product'].create({
                                                                            'valuation':'manual_periodic',
                                                                            'categ_dpt':1,
@@ -128,29 +146,10 @@ class ProductProduct(models.Model):
                                                                            'categ_id':1,  
                                                                            'cost_price':unit_price, 
                                                                            'description_sale':product_description,
+                                                                           'seller_ids':[(0,0,supplierinfo_values)]
                                                           })
             
             
-            product_template_id = self.env['product.product'].browse([product_id])[0].product_tmpl_id.id
-            
-            #create supplier info    
-            supplierinfo_id = self.env['product.supplierinfo'].create({
-                                                               'name':self.LANDEFELD_PARTNER_ID,
-                                                               'company_id':1,
-                                                               'min_qty':1,
-                                                               'delay':0,
-                                                               'product_id':product_template_id,
-                                                               'product_code':product_code,
-                                                          })
-            
-            #create pricelist_partnerinfo
-            self.env['pricelist.partnerinfo'].create({
-                                                                    'min_quantity' : 1, 
-                                                                    'price':unit_price+discount_absolute,
-                                                                    'brut_price':unit_price,
-                                                                    'discount':discount_relative*100,
-                                                                    'suppinfo_id':supplierinfo_id
-                                                                        })
             
         return product_id
     

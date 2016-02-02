@@ -590,6 +590,7 @@
 						<button name="action_confirm" type="object" string="Confirm" states="draft" groups="maintenance.group_maintenance_manager" class="oe_highlight"/>
 						<button name="action_done" type="object" string="Done" states="confirmed" class="oe_highlight"/>
 						<button name="print_intervention" string="Print" type="object" class="oe_highlight" groups="maintenance.group_maintenance_user"/>
+						<button name="print_installation" string="Print Installation" type="object" groups="maintenance.group_maintenance_user"/>
 						<field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors='{"confirmed":"blue"}'/>
 					</header>
 					<sheet>

@@ -216,6 +216,17 @@ class maintenance_intervention(models.Model):
         
         return self.env['report'].get_action(self,'maintenance.report_maintenance_intervention')
     
+    @api.multi
+    def print_installation(self):
+        '''
+        This function prints the maintenance intervention
+        '''
+        assert len(self) == 1, 'This option should only be used for a single id at a time'
+        
+        return self.env['report'].get_action(
+            self.installation_id, 'maintenance.report_maintenance_installation')
+
+    
     @api.model
     def _needaction_domain_get(self):
         return ['&',('tasks.user_id','=', self.env.uid),('state','=', 'confirmed')]
@@ -418,14 +429,10 @@ class maintenance_element(models.Model):
         return self.env['ir.sequence'].get('maintenance.element')
     
     def update_vals_lot(self,vals):
-        #if we update serial_number and lot_id does not exists : create new lot
-        if vals.get('serial_number',False) and not vals.get('lot_id',False) and not self.lot_id:
-            new_lot = {'name':vals['serial_number']}
-            product_id = vals.get('product_id',self.product_id.id)
-            if product_id:
-                new_lot['product_id'] = product_id
-            else:
-                raise Warning(_('You cannot create or update the serial number of this element if there is no product associated to it.'))
+        #if we update serial_number and lot_id does not exists : create new lot => Only if product is defined
+        if vals.get('serial_number',False) and not vals.get('lot_id',False) and not self.lot_id and self.product_id:
+            new_lot = {'name':vals['serial_number'],'product_id':vals['product_id']}
+            
             vals['lot_id'] = self.env['stock.production.lot'].create(new_lot).id
         return vals
         
@@ -447,7 +454,7 @@ class maintenance_element(models.Model):
     name = fields.Char("Name", size=255, index=True) 
     product_id = fields.Many2one('product.product', 'Product', index=True)
     lot_id = fields.Many2one('stock.production.lot',"Serial Number", size=255, index=True)
-    serial_number = fields.Char(related='lot_id.name', string="Serial number")
+    serial_number = fields.Char(string="Serial number")
     description = fields.Text("Description")
     installation_date = fields.Date("Installation date")
     warranty_date = fields.Date("Warranty date")

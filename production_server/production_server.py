@@ -29,7 +29,7 @@ class ProductionServer(models.TransientModel):
     
     @api.model
     def is_production_server(self):
-        production_server = self.env['ir.config_parameter'].get_param('production_server_address')
+        production_server = self.env['ir.config_parameter'].get_param('production_server.production_server_address')
         if production_server:
             if production_server in os.popen("cat /etc/network/interfaces | grep address","r").read()[8:]:
                 return True

@@ -195,7 +195,8 @@ class EDIProcessorLandefeld(models.TransientModel):
             elif len(remark) > 0 and remark.find("Besteller-Email:") > -1:
                 email=remark[17:len(remark)].strip()
             else :
-                note += '\n' + remark
+                if remark:
+                    note += '\n' + remark
         
         return client_id,buyer,email,note
     

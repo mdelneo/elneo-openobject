@@ -28,10 +28,16 @@ class ProductionServer(models.TransientModel):
     
     @api.model
     def is_production_server(self):
+        import logging
+        _logger = logging.getLogger(__name__)
         production_server = self.env['ir.config_parameter'].get_param('production_server.production_server_address')
         if production_server:
-            if production_server in os.popen("cat /etc/network/interfaces | grep address","r").read()[8:]:
+            _logger.warn("=== PARAM :" + production_server)
+            address = os.popen("cat /etc/network/interfaces | grep address","r").read()[8:]
+            _logger.warn("=== ADDRESS :" + address)
+            if production_server in address:
                 return True
+        _logger.warn("=== PARAM ADDRESS NOT FOUND ===")
         return False
     
 

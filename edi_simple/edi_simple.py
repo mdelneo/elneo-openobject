@@ -204,6 +204,12 @@ class EDIMessage(models.Model):
         
         return True
     
+    @api.multi
+    def process(self):
+        for message in self:
+            if self.state == 'confirmed' and self.type and self.type.processor:
+                self.type.processor.process(message)
+    
     '''
     @api.model
     def create(self,vals):

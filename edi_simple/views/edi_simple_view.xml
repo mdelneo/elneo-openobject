@@ -62,6 +62,7 @@
 			<field name="arch" type="xml">
 				<form string="EDI Message">
 					<header>
+						<button name="process" type="object" string="Process" class="oe_highlight" attrs="{'invisible':[('state','not in','confirmed')]}"/>
 						<field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors='{"confirmed":"blue"}'/>
 					</header>
 					<sheet>

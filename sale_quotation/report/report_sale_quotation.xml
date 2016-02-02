@@ -88,7 +88,7 @@ margin-left : 10px;
 						</div>
 						<div class="col-xs-5 col-xs-offset-1">
 							<strong><div t-field="o.quotation_address_id.commercial_partner_id.name"/></strong>
-                                                        <div t-if="o.partner_shipping_id.lastname!=o.partner_shipping_id.commercial_partner_id.name and(o.quotation_address_id.lastname or o.quotation_address_id.firstname)">
+                                                        <div t-if="o.quotation_address_id.lastname!=o.quotation_address_id.commercial_partner_id.name and(o.quotation_address_id.lastname or o.quotation_address_id.firstname)">
 										<span t-field="o.quotation_address_id.title.name"/>
 										<span t-field="o.quotation_address_id.firstname"/>
 										<span t-field="o.quotation_address_id.lastname"/><br/>

@@ -15,74 +15,76 @@
 			<t t-foreach="docs" t-as="o">
 				<t t-call="report.internal_layout">
 					<div class="page">
-						<div class="oe_structure" />
+						<div class="oe_structure"/>
 
 
 						<div class="text-right">
-							<span t-field="o.write_date" />
+							<span t-field="o.write_date"/>
 						</div>
 						<h2>
 							<strong>
 								PICKING LIST: for reservation
-								<span t-field="o.create_uid.default_section_id.code" />
+								<span t-field="o.create_uid.default_section_id.code"/>
 								-
-								<span t-field="o.name" />
+								<span t-field="o.name"/>
 							</strong>
 						</h2>
 						<h3>
 							<strong>
 								For:
-								<span t-field="o.partner_id.commercial_partner_id.ref" />
+								<span t-field="o.partner_id.commercial_partner_id.ref"/>
 								-
-								<span t-field="o.origin" />
+								<span t-field="o.origin"/>
 							</strong>
 						</h3>
-						<br />
+						<br/>
 						<table width="100%" class="table table-condensed">
 							<thead>
 								<tr style="background-color:lightgrey;">
+									<th class="text-left">Reference</th>
+									<th width="10%" class="text-right">Qty to pick</th>
+									<th width="10%" class="text-center">Aisle</th>
 									<th class="text-left">Warehouse</th>
 									<th class="text-left">Family</th>
 									<th class="text-left">Sub-family</th>
-									<th class="text-left">Reference</th>
-									<th width="10%" class="text-center">Aisle</th>
 									<th width="10%" class="text-center">Qty in stock</th>
-									<th width="10%" class="text-right">Qty to pick</th>
+
 								</tr>
 							</thead>
 							<tbody>
-								<tr t-foreach="o.move_lines.sorted(key=lambda m:str(m.aisle)+str(m.product_id.categ_family)+str(m.product_id.categ_subfamily)+str(m.product_id.code))" t-as="m">
+								<tr t-if="m.state=='assigned'" t-foreach="o.move_lines.sorted(key=lambda m:str(m.aisle)+str(m.product_id.categ_family)+str(m.product_id.categ_subfamily)+str(m.product_id.code))" t-as="m">
 									<td class="text-left">
-										<span t-field="m.location_id.name" />
-									</td>
-									<td class="text-left">
-										<span t-field="m.product_id.categ_family" />
-									</td>
-									<td class="text-left">
-										<span t-field="m.product_id.categ_subfamily" />
-									</td>
-									<td class="text-left">
-										<span t-field="m.name" />
-									</td>
-									<td class="text-left">
-										<span t-field="m.aisle" />
+										<span t-field="m.name"/>
 									</td>
 									<td class="text-center">
-										<span t-field="[d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1] and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1][0].stock_real" />
+										<span t-if="m.state=='assigned'">
+											<span t-esc="'%.0f' %m.product_uom_qty"/>
+											<span t-field="m.product_uom.name"/>
+										</span>
+									</td>
+									<td class="text-center">
+										<span t-field="m.aisle"/>
+									</td>
+									<td class="text-left">
+										<span t-field="m.location_id.name"/>
+									</td>
+									<td class="text-left">
+										<span t-field="m.product_id.categ_family"/>
+									</td>
+									<td class="text-left">
+									         <span t-field="m.product_id.categ_subfamily"/>
 									</td>
 									<td class="text-right">
-										<span t-if="m.state=='assigned'">
-											<span t-field="m.product_uom_qty" />
-											<span t-field="m.product_uom.name" />
-										</span>
+<span t-esc="[d for d in m.product_id.warehouse_detail if d.warehouse_id.id==o.picking_type_id.warehouse_id.id] and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id==o.picking_type_id.warehouse_id.id][0].stock_real"/> <span t-field="m.product_uom.name"/>
+										
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						<br />
+						<br/>
 						<span t-if="o.sale_id.note">
 							Note:
-							<span t-field="o.sale_id.note" />
+							<span t-field="o.sale_id.note"/>
 						</span>
 
 					</div>
@@ -210,7 +212,9 @@
 												<span t-field="m.product_id.name" />
 											</td>
 											<td class="text-center">
-												<span t-field="[d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1] and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1][0].stock_real" />
+												<div t-if="o.picking_type_id">
+													<span t-esc="[d for d in m.product_id.warehouse_detail if d.warehouse_id.id==o.picking_type_id.warehouse_id.id] and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id==o.picking_type_id.warehouse_id.id][0].stock_real" />
+												</div>
 											</td>
 										</tr>
 									</tbody>
@@ -510,7 +514,7 @@
 
 				<!-- LIEN 1 -->
 
-				<t t-set="link1" t-value="list(set([m.move_dest_id.picking_id for m in o.move_lines if m.move_dest_id and m.state == 'done' and m.move_dest_id.state == 'done']))" />
+				<t t-set="link1" t-value="list(set([m.move_dest_id.picking_id for m in o.move_lines if m.move_dest_id and m.state == 'done' and m.move_dest_id.picking_id.picking_type_id.code == 'internal']))" />
 
 				<t t-foreach="link1" t-as="o">
 					<div t-if="o.picking_type_id.code == 'incoming' or o.picking_type_id.code == 'internal'">
@@ -630,7 +634,9 @@
 													<span t-field="m.product_id.name" />
 												</td>
 												<td class="text-center">
-													<span t-field="[d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1] and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id==1][0].stock_real" />
+													<div t-if="o.picking_type_id">
+														<span t-esc="[d for d in m.product_id.warehouse_detail if d.warehouse_id.id==o.picking_type_id.warehouse_id.id] and [d for d in m.product_id.warehouse_detail if d.warehouse_id.id==o.picking_type_id.warehouse_id.id][0].stock_real" />
+													</div>
 												</td>
 											</tr>
 										</tbody>

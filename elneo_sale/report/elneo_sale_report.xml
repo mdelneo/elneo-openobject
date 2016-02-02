@@ -32,13 +32,23 @@ waiting for your news, please accept, ${object.quotation_address_id.title.name o
 	</data>
 
 	<data>
+		
+	
 	
 		<!-- QUOTATION REPORT -->
 		<template id="elneo_sale.report_saleorder_document" inherit_id="sale_quotation.report_saleorder_document">
 		</template>
 		
-		
-		
+		<template id="sale.report_saleorder">
+		    <t t-call="report.html_container">
+		        <t t-if="docs[0].quotation_address_id">
+				   <t t-raw="translate_doc(doc_id, doc_model, 'quotation_address_id.lang', 'sale.report_saleorder_document')"/>
+				</t>
+				<t t-if="not docs[0].quotation_address_id">
+					<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sale.report_saleorder_document')"/>
+				</t>
+		    </t>
+		</template>
 		
 		
 	

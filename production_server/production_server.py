@@ -26,7 +26,6 @@ import os
 class ProductionServer(models.TransientModel):
     _name='production.server'
     
-    
     @api.model
     def is_production_server(self):
         production_server = self.env['ir.config_parameter'].get_param('production_server.production_server_address')

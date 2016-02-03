@@ -120,13 +120,13 @@ class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
     
     @api.multi    
-    def product_id_change(self, pricelist, product, qty=0,
+    def product_id_change_with_wh_quotation_address(self, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
-            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False):
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, quotation_address_id=False):
         
-        res = super(sale_order_line, self).product_id_change(pricelist, product, qty=qty,
+        res = super(sale_order_line, self).product_id_change_with_wh(pricelist, product, qty=qty,
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
-            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag)
+            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id)
         
         def convert_product_property_value_to_quotation_property(product_property_value):
             unit = ''
@@ -149,7 +149,14 @@ class sale_order_line(models.Model):
            
         sale_quotation_properties = []
         product_obj = self.env['product.product'].browse(product)
-        if product_obj:     
+        
+        #set lang depending on quotation_address_id or partner_id
+        if quotation_address_id:
+            lang = self.env['res.partner'].browse(quotation_address_id).lang
+        elif partner_id:
+            lang = self.env['res.partner'].browse(partner_id).lang
+        
+        if product_obj:
             context = {'lang': lang, 'partner_id': partner_id, 'product_id':product_obj}       
             ppvs = self.with_context(context).env["product.property.value"].search([('product_id','=',product)])
             for ppv in ppvs:

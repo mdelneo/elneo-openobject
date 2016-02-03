@@ -120,18 +120,18 @@ class sale_order_line(models.Model):
     
     
     @api.multi
-    def product_id_change_with_wh_discount_type(self, pricelist, product, qty=0,
+    def product_id_change_with_wh_quotation_address_discount_type(self, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
-            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, discount_type_id=False):
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, quotation_address_id=False, discount_type_id=False):
         
         #for pneumatics product, don't use price list. Discount is computed in get_customer_sale_price function below via discount type.
         product_obj = self.env['product.product'].browse(product)
         if product_obj and product_obj.is_pneumatics:
             pricelist = 1
         
-        res = super(sale_order_line, self).product_id_change_with_wh(pricelist, product, qty=qty,
+        res = super(sale_order_line, self).product_id_change_with_wh_quotation_address(pricelist, product, qty=qty,
                 uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
-                lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id)
+                lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, quotation_address_id=quotation_address_id)
         
         if res.has_key('value') and res['value'].has_key('price_unit') and res['value'].has_key('purchase_price'):
             product = self.env['product.product'].browse(product)

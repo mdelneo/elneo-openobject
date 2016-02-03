@@ -29,7 +29,7 @@ Add product_properties objects, to manage specifications of products. Templates 
 """,
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['product','sale', 'sale_layout'],
+    'depends': ['product','sale', 'sale_layout', 'sale_stock'],
     'init_xml': [],
     'update_xml': [
         'views/product_properties_view.xml', 

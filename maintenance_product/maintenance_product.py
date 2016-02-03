@@ -367,10 +367,10 @@ class maintenance_intervention(models.Model):
                     int_picking = picking
             
             #There are products
+            products_of_moves = self.env['stock.move']
             if out_picking:
                 
                 #Delete moves
-                products_of_moves = self.env['stock.move']
                 moves_todelete = self.env['stock.move']
                 for move in out_picking.move_lines:
                     if move.intervention_product_id:
@@ -553,9 +553,8 @@ class maintenance_intervention(models.Model):
                     'intervention_id':intervention.id
                 })
             else:
-                self.env['account.invoice.line'].write(invoice_maintenance_lines[0],{
-                    'quantity': maintenance_time,
-                })
+                invoice_maintenance_lines.write({'quantity':maintenance_time})
+                
                 
             self.env['account.invoice.line'].search([('invoice_id','=',invoice.id)]).write({'intervention_id':intervention.id})
             

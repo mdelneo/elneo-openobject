@@ -371,7 +371,6 @@ class maintenance_intervention(models.Model):
             if out_picking:
                 
                 #Delete moves
-                
                 moves_todelete = self.env['stock.move']
                 for move in out_picking.move_lines:
                     if move.intervention_product_id:

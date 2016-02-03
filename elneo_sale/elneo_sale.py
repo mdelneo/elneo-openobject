@@ -387,6 +387,7 @@ class sale_order(models.Model):
                 continue
             sale.out_picking_ids = self.env['stock.picking'].search([('group_id', '=', sale.procurement_group_id.id),('picking_type_id.code','!=','incoming')])
     
+    partner_name = fields.Char('Customer name', related="partner_id.name")
     sale_margin = fields.Float(compute='_sale_margin', string='Marge Coefficient', store=True, help="it gives a ratio representing the margin.")
     out_picking_ids = fields.One2many(compute='_get_out_picking_ids', comodel_name='stock.picking', method=True, string='Picking associated to this sale')  
     margin = fields.Float(track_visibility='always')

@@ -37,14 +37,17 @@
             <field name="inherit_id" ref="sale.view_order_tree"/>
             <field name="priority">2</field>
             <field name="arch" type="xml">
-            	<xpath expr="//tree/field[@name='partner_id']" position="after">
-            		<field name="client_order_ref"/>
-            		<field name="section_id"/>
-            	</xpath>
-            	<xpath expr="//tree/field[@name='amount_total']" position="before">
-            		<field name="sale_margin"/>
-            		<field name="margin"/>
-            		<field name="amount_untaxed"/>
+            	<xpath expr="//tree" position="replace">
+            		<tree>
+	            		<field name="name" />
+	            		<field name="date_order"/>
+	            		<field name="date_confirm" />
+	            		<field name="partner_name" />
+	            		<field name="client_order_ref"/>
+	            		<field name="section_id" />
+	            		<field name="amount_untaxed"/>
+	            		<field name="state" />
+            		</tree>
             	</xpath>
             </field>
         </record>

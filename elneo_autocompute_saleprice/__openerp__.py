@@ -7,7 +7,7 @@
     'summary': '',
     'description': "Adapt To Elneo specifics to calculate Sale Price",
     'author': 'Elneo',
-    'depends': ['sale_stock','elneo_cost_price', 'elneo_default_supplier', 'elneo_product', 'elneo_product_category','elneo_sale', 'elneo_rights'],
+    'depends': ['sale_stock','elneo_cost_price', 'elneo_default_supplier', 'elneo_product', 'elneo_product_category','elneo_sale', 'elneo_rights','product_properties'],
     'data': [
         'security/ir.model.access.csv','views/elneo_autocompute_saleprice_view.xml','views/customer_discount_view.xml','data/install.yml',
     ],

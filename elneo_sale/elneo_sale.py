@@ -47,6 +47,22 @@ class procurement_order(models.Model):
     _inherit = 'procurement.order'
     
     sale_line_id = fields.Many2one('sale.order.line', index=True)
+    
+    @api.model
+    @api.returns('self', lambda value:value.id)
+    def create(self, vals):
+        new_procurement = super(procurement_order, self).create(vals)
+        
+        jit = False
+        if vals.get('sale_line_id'):
+            line = self.env['sale.order.line'].browse(vals['sale_line_id'])
+            jit = line.order_id.jit
+            
+        if jit:
+            new_procurement.run()
+            new_procurement.check()
+            
+        return new_procurement
         
     @api.multi
     def make_po(self):
@@ -264,6 +280,21 @@ class sale_order(models.Model):
             pass
         return action_dict
     
+    @api.multi
+    def action_print_delivery_note(self):
+        assert len(self) == 1, 'This option should only be used for a single id at a time'
+        return self.env['report'].get_action(self,'elneo_report.report_saleorder_deliverynote')
+    
+    @api.multi 
+    def action_button_confirm_jit(self):
+        self.jit = True
+        return self.action_button_confirm()
+    
+    @api.multi 
+    def action_button_confirm_no_jit(self):
+        self.jit = False
+        return self.action_button_confirm()
+    
     
     #Override order confirmation to check 'stat on invoice date' if a product is in a category checked as 'stat on invoice date default'
     @api.multi 
@@ -385,6 +416,8 @@ class sale_order(models.Model):
                 continue
             sale.out_picking_ids = self.env['stock.picking'].search([('group_id', '=', sale.procurement_group_id.id),('picking_type_id.code','!=','incoming')])
     
+    
+    jit = fields.Boolean('Just in time ?')
     partner_name = fields.Char('Customer name', related="partner_id.name")
     sale_margin = fields.Float(compute='_sale_margin', string='Marge Coefficient', store=True, help="it gives a ratio representing the margin.")
     out_picking_ids = fields.One2many(compute='_get_out_picking_ids', comodel_name='stock.picking', method=True, string='Picking associated to this sale')  

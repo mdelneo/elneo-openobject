@@ -58,10 +58,26 @@ class purchase_order(models.Model):
         ('cancel', 'Cancelled')
     ]
     
-    
     purchase_type_id = fields.Many2one('purchase.order.type','Purchase Type')
     state = fields.Selection(STATE_SELECTION, 'Status', readonly=True)
-
+    section_id = fields.Many2one('crm.case.section', string='Section', compute='get_section_id', store=True)
+    
+    @api.returns('self')
+    def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
+        #if my_dpt : display picking of sale teams of current user. If user is not linked to a sale team, display all picks
+        section_ids = self.pool.get('crm.case.section').search(cr, user, [('member_ids','in',user)], context=context)
+        if context.get('my_dpt',False) and section_ids:
+            args.append(('section_id','in',section_ids)) 
+        res = super(purchase_order, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
+        return res
+    
+    @api.multi
+    @api.depends('create_uid')
+    def get_section_id(self):
+        for order in self:
+            create_user = self.env['res.users'].browse(self._uid)
+            order.section_id = create_user.default_section_id
+            
     #super method is in old api so we can't browse res so I rewrite the method in new API    
     @api.multi
     def action_picking_create(self):

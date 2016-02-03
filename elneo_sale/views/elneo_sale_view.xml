@@ -100,12 +100,12 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
             <field name="arch" type="xml">
-            	<xpath expr="//form/header/button[@name='action_button_confirm' and @class='oe_highlight']" position="replace" />
-            	<xpath expr="//form/header/button[@name='action_button_confirm']" position="replace" />
+<!--             	<xpath expr="//form/header/button[@name='action_button_confirm' and @class='oe_highlight']" position="replace" /> -->
+<!--             	<xpath expr="//form/header/button[@name='action_button_confirm']" position="replace" /> -->
             	
-            	<xpath expr="//form/header/button[@name='action_button_confirm']" position="replace">
-            		<button name="action_button_confirm" states="draft" string="Confirm sale now" type="object" groups="base.group_user" context="{}" />
-            	</xpath>
+<!--             	<xpath expr="//form/header/button[@name='action_button_confirm']" position="replace"> -->
+<!--             		<button name="action_button_confirm" states="draft" string="Confirm sale now" type="object" groups="base.group_user" context="{}" /> -->
+<!--             	</xpath> -->
             
             	<field name="user_id" position="attributes">
             		<attribute name="required">1</attribute>

@@ -115,12 +115,16 @@ class maintenance_intervention(models.Model):
     
     
     @api.one
-    @api.depends('sale_order_id.picking_ids.move_type','sale_order_id.picking_ids.move_lines.state','sale_order_id.picking_ids.move_lines.picking_id', 'sale_order_id.picking_ids.move_lines.partially_available')
+    @api.depends('state','intervention_products','sale_order_id.picking_ids.move_type','sale_order_id.picking_ids.move_lines.state','sale_order_id.picking_ids.move_lines.picking_id', 'sale_order_id.picking_ids.move_lines.partially_available')
     def _get_available(self):
         if self.state != 'confirmed':
             self.available = False
         else:
-            self.available = len([picking.id for picking in self.sale_order_id.picking_ids if ((picking.state == 'assigned' and picking.picking_type_id.code == 'outgoing') or not picking.move_lines)])>0
+            if not self.intervention_products:
+                # No spare parts to wait for
+                self.available = True
+            else:
+                self.available = len([picking.id for picking in self.sale_order_id.picking_ids if ((picking.state == 'assigned' and picking.picking_type_id.code == 'outgoing') or not picking.move_lines)])>0
     
     
     stock_pickings = fields.One2many(related='sale_order_id.picking_ids', relation='stock.picking', string="Pickings")

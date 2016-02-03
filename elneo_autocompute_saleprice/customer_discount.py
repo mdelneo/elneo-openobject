@@ -155,9 +155,9 @@ class sale_order_line(models.Model):
         product_obj = self.env['product.product'].browse(product)
         if product_obj and product_obj.is_pneumatics:
             pricelist = 1
-            return self.product_id_change_with_wh_discount_type(pricelist, product, qty=qty,
+            return self.product_id_change_with_wh_quotation_address_discount_type(pricelist, product, qty=qty,
                     uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
-                    lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, discount_type_id=discount_type_id)
+                    lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, quotation_address_id=False, discount_type_id=discount_type_id)
                 
         return {}
       

@@ -100,14 +100,16 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
             <field name="arch" type="xml">
+            	<xpath expr="//form/header/button[@name='action_button_confirm' and @class='oe_highlight']" position="replace" />
+            	<xpath expr="//form/header/button[@name='action_button_confirm']" position="replace" />
+            	
+            	<xpath expr="//form/header/button[@name='action_button_confirm']" position="replace">
+            		<button name="action_button_confirm" states="draft" string="Confirm sale now" type="object" groups="base.group_user" context="{}" />
+            	</xpath>
             
             	<field name="user_id" position="attributes">
             		<attribute name="required">1</attribute>
             	</field>
-            
-<!--             	<xpath expr="//button[@name='print_quotation' and @class='oe_highlight']" position="replace" /> -->
-            	
-<!--             	<xpath expr="//button[@name='print_quotation' and @states='sent,progress,manual']" position="replace" /> -->
             
             	<xpath expr="//label[@for='discount']" position="attributes">
             		<attribute name="groups"></attribute>
@@ -115,12 +117,6 @@
             	<xpath expr="//div[@name='discount']" position="attributes">
             		<attribute name="groups"></attribute>
             	</xpath>
-            	
-            	<!-- 
-            	<xpath expr="//header" position="inside">
-            		<button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object" icon="gtk-convert"/>
-            	</xpath>
-            	 -->
             
             	<xpath expr="//field[@name='address_allotment_id']" position="replace" />
             	<xpath expr="//field[@name='invoice_lines']" position="replace" />
@@ -231,19 +227,6 @@
         </record>
         
         
-        <!-- 
-        <record model="ir.ui.view" id="view_order_form_inherit_1_elneo_sale">
-            <field name="name">view.order.form.inherit.1.elneo.sale</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale_layout.view_order_form_inherit_1"/>
-            <field name="arch" type="xml">
-            
-                    <xpath expr="//notebook/page/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='sale_layout_cat_id']" position="replace" />
-                    <xpath expr="//field[@name='order_line']/form/group/group/field[@name='sale_layout_cat_id']" position="replace" />
-                    
-            </field>
-        </record>
-          -->
         
         <record model="ir.ui.view" id="sale_view_inherit123_elneo_sale">
             <field name="name">sale.order.inherit.elneo.sale</field>

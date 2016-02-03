@@ -161,17 +161,15 @@ class sale_order_line(models.Model):
           
         
         return res
-        
 
-
-    @api.multi
-    def product_id_change_with_wh(self, pricelist, product, qty=0,
+    @api.multi    
+    def product_id_change_with_wh_quotation_address(self, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
-            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False):
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, quotation_address_id=False):
         
-        res = super(sale_order_line, self).product_id_change_with_wh(pricelist, product, qty=qty,
+        res = super(sale_order_line, self).product_id_change_with_wh_quotation_address(pricelist, product, qty=qty,
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
-            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id)
+            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, quotation_address_id=quotation_address_id)
         
         if res and res.get('warning',False) and res['warning'].get('title',False) and res['warning']['title'] == _('Configuration Error!'):
             del res['warning'] 

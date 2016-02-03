@@ -407,8 +407,8 @@ class maintenance_intervention(models.Model):
                                          'origin':intervention.code+' '+intervention.sale_order_id.name,
                                          'state':'assigned',
                                          'partner_id':intervention.partner_id.id,
-                                         'location_id':intervention.warehouse_id.maintenance.picking_type_id.default_location_src_id.id,
-                                         'location_dest_id':intervention.warehouse_id.maintenance.picking_type_id.default_location_dest_id.id,
+                                         'location_id':intervention.warehouse_id.maintenance_picking_type_id.default_location_src_id.id,
+                                         'location_dest_id':intervention.warehouse_id.maintenance_picking_type_id.default_location_dest_id.id,
                                          
                                          }
                             out_picking = self.env['stock.picking'].create(pick_values)

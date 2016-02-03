@@ -412,7 +412,6 @@ class maintenance_intervention(models.Model):
                                          
                                          }
                             out_picking = self.env['stock.picking'].create(pick_values)
-                                                                
                         values.update({
                             'name': intervention_product.product_id.name_get()[0][1],
                             'picking_id': out_picking.id,

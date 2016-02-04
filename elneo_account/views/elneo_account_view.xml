@@ -12,6 +12,19 @@
             	<field name="partner_id" position="before">
             		<field name="_partner_id" />
             	</field>
+            	
+            	<!-- CHANGE PERIOD_ID LOCATION -->
+            	<field name="period_id" position="replace"/>
+            	
+            	<field name="date_invoice" position="after">
+            		<field name="period_id" domain="[('state', '=', 'draft'), ('company_id', '=', company_id)]"
+                                        groups="base.group_user"
+                                        string="Accounting Period"
+                                        placeholder="force period"/>
+            	</field>
+            	
+                                        
+                
             </field>
         </record>	
 		<!-- Account payment term form view -->
@@ -65,6 +78,16 @@
 				<xpath expr="//field[@name='origin']" position="after">
 					<field name="purchase_type_id" />
 				</xpath>
+				
+				<!-- CHANGE PERIOD_ID LOCATION -->
+            	<field name="period_id" position="replace"/>
+            	
+            	<field name="date_invoice" position="after">
+            		<field name="period_id" domain="[('state', '=', 'draft'), ('company_id', '=', company_id)]"
+                                        groups="base.group_user"
+                                        string="Accounting Period"
+                                        placeholder="force period"/>
+            	</field>
 			</field>
 		</record>
 		

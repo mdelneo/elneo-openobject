@@ -55,6 +55,31 @@ class maintenance_intervention_product(models.Model):
                 self.real_stock = 0
         else:
             self.real_stock = 0
+            
+    @api.model
+    def create(self,vals):
+        if vals and 'route_id' not in vals:
+            default_route = self.env['ir.config_parameter'].get_param('sale_default_route.default_route',False)
+            if default_route:
+                vals.update({'route_id':int(default_route)})
+                
+        return super(maintenance_intervention_product,self).create(vals)
+            
+    def _default_route(self):
+        route_id = self.env['ir.config_parameter'].get_param('sale_default_route.default_route',False)
+        if not (type(route_id) is int):
+            try:
+                route_id = int(route_id)
+            except Exception,e:
+                route_id = None
+        return route_id
+    
+    @api.model
+    def default_get(self, fields_list):
+        res = super(maintenance_intervention_product,self).default_get(fields_list)
+        if 'route_id' in fields_list:
+            res['route_id'] = self._default_route()
+        return res
    
     virtual_stock = fields.Float(compute=_qty_virtual_stock,  string='Virtual stock')
     real_stock = fields.Float(compute=_qty_real_stock,  string='Real stock')
@@ -102,7 +127,13 @@ class maintenance_intervention(models.Model):
 
         order_line = super(maintenance_intervention,self).get_sale_order_line(sale_order,intervention_product,partner)
         
-        order_line['route_id'] = intervention_product.route_id.id
+        if intervention_product.route_id:
+            route_id = intervention_product.route_id.id
+        else:
+            route_id = self.env['ir.config_parameter'].get_param('sale_default_route.default_route',False)
+            route_id = int(route_id)
+            
+        order_line['route_id'] = route_id
         
         return order_line
     

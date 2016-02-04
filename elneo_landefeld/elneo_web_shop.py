@@ -69,10 +69,12 @@ class ResPartner(models.Model):
             #set password
             if vals.has_key('name'):            
                 account['password'] = self.get_webshop_password(vals['name'])
-            elif vals.has_key('firstname') and vals.has_key('lastname'):
+            elif (vals.has_key('firstname') and vals['firstname']) and (vals.has_key('lastname') and vals['lastname']):
                 account['password'] = self.get_webshop_password(vals['firstname']+vals['lastname'])
-            elif vals.has_key('firstname'):
+            elif vals.has_key('firstname') and vals['firstname']:
                 account['password'] = self.get_webshop_password(vals['firstname'])
+            elif vals.has_key('lastname') and vals['lastname']:
+                account['lastname'] = self.get_webshop_password(vals['lastname'])
             else:
                 raise Warning(_('Impossible to create default webshop acccount for the contact or partner you want to create. Missing name, firstname or lastname'))
                 

@@ -22,7 +22,7 @@ class EDIProcessor(models.Model):
                 if wizard.warning_message:
                     message.message_post( 
                         body = _("A warning has occured during Landefeld EDI document processing.") + " <b><a href='#id=" + str(message.id) + "&view_type=form&model=edi.message'> " + message.name + " </a></b><br/><br/>" + wizard.warning_message,
-                        type = 'comment',
+                        type = 'mail',
                         subtype = "mail.mt_comment",
                         model = 'edi.message', res_id = message.id, 
                         partner_ids = [self.send_warning_users])
@@ -30,7 +30,7 @@ class EDIProcessor(models.Model):
                 if wizard.error_message:
                     message.message_post( 
                         body = _("An error has occured during Landefeld EDI document processing.") + " <b><a href='#id=" + str(message.id) + "&view_type=form&model=edi.message'> " + message.name + " </a></b><br/><br/>" + wizard.error_message,
-                        type = 'comment',
+                        type = 'mail',
                         subtype = "mail.mt_comment",
                         model = 'edi.message', res_id = message.id, 
                         partner_ids = [self.send_error_users])

@@ -48,6 +48,8 @@ class procurement_order(models.Model):
     
     sale_line_id = fields.Many2one('sale.order.line', index=True)
     
+    #TODO: A REMETTRE EN PLACE
+    '''
     @api.model
     @api.returns('self', lambda value:value.id)
     def create(self, vals):
@@ -63,6 +65,7 @@ class procurement_order(models.Model):
             new_procurement.check()
             
         return new_procurement
+    '''
         
     @api.multi
     def make_po(self):

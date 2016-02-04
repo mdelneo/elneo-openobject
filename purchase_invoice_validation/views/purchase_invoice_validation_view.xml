@@ -69,7 +69,6 @@
 							<field name="validation_problem_comment" colspan="4" />
 							<field name="supplier_invoice_file" />
 							<separator string="Advanced" colspan="4" />
-							<field name="internal_number" string="Define/Change Invoice Number" />
 							<field name="validation_problem" />
 							<newline />
 							<field name="problem_solving_in_progress" attrs="{'invisible':[('validation_problem','!=',True)]}" />

@@ -343,7 +343,7 @@ class maintenance_update_pickings(models.TransientModel):
                                     location_dest_id = order.warehouse_id.wh_output_stock_loc_id.id #output
                                 elif picking.picking_type_id.code == 'outgoing':
                                     location_id = order.warehouse_id.wh_output_stock_loc_id.id #output
-                                    location_dest_id = order.partner_shipping_id.property_stock_customer
+                                    location_dest_id = order.partner_shipping_id.property_stock_customer.id
                                     #location_dest_id = order.warehouse_id.wh_output_stock_loc_id.chained_location_get(order.partner_id, product.product_id)[0] #customer
                             else:
                                 raise Warning(_('Error'),_('Not implemented'))
@@ -359,13 +359,11 @@ class maintenance_update_pickings(models.TransientModel):
                                 'date_expected': intervention.date_start or time.strftime('%Y-%m-%d'),
                                 'product_uom_qty': product.quantity,
                                 'product_uos_qty': product.quantity,
-                                'partner_id': order.partner_shipping_id.id,
-                                'location_id': location_id,
-                                'location_dest_id': location_dest_id.id,                            
+                                'partner_id': order.partner_shipping_id.id,                            
                                 'company_id': order.company_id.id,
                                 'state':new_id and 'confirmed' or 'waiting',
                                 'intervention_product_id':product.id,
-                                'move_dest_id':new_id
+                                'move_dest_id':new_id and new_id.id or False
                             })
                             
                             new_id = self.env['stock.move'].create(values)

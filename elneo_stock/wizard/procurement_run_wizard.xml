@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--  Compute Stock Minimum Rules Only -->
+
+        <record id="view_procurement_run_wizard" model="ir.ui.view">
+            <field name="name">Run all confirmed procurements</field>
+            <field name="model">procurement.run.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Parameters">
+                    <group>
+                        <label string="Wizard will run all procurements in confirmed state"/>
+                    </group>
+                    <footer>
+                        <button name="run_procurements" string="Run" type="object"  class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Run confirmed procurements"
+            res_model="procurement.run.wizard"
+            src_model="procurement.order"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_procurement_run"/>
+            
+		<menuitem action="action_procurement_run" id="menu_procurement_run" parent="stock.menu_stock_sched" />
+            
+
+    </data>
+</openerp>

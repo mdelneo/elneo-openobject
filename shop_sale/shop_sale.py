@@ -20,6 +20,12 @@ class sale_order_line(models.Model):
 class sale_order(models.Model):
     _inherit='sale.order'
     
+    out_picking_ids = fields.One2many('stock.picking', compute='get_out_picking_ids')
+    
+    @api.multi
+    def get_out_picking_ids(self):
+        self.out_picking_ids = self.env['stock.picking'].search([('group_id', '=', self.procurement_group_id.id),('picking_type_id.code','=','outgoing')])
+    
     def _default_shop_sale(self):
         
         user = self.env['res.users'].search([('id','=',self.env.uid),('groups_id.name','=','Warehouse / Shop seller')])
@@ -29,17 +35,20 @@ class sale_order(models.Model):
             return False
         
     @api.multi
-    def print_invoice(self):
-        '''
-        This function prints the sales order invoice and mark it as sent, so that we can see more easily the next step of the workflow
-        '''
-        
-        for invoice in self.invoice_ids:
-            invoice.signal_workflow('invoice_open')
-            
-        assert len(self.invoice_ids) == 1, 'This option should only be used for a single id at a time.'
-                
-        return self.env['report'].get_action(self.invoice_ids, 'l10n_be_invoice_layout.report_be_invoice')
+    def action_print_delivery_note(self):
+        assert len(self) == 1, 'This option should only be used for a single id at a time'
+        self.picking_ids
+        return self.env['report'].get_action(self.out_picking_ids, 'stock.report_picking')
+    
+    @api.multi
+    def action_print_confirm_invoice(self):
+        assert len(self) == 1, 'This option should only be used for a single id at a time'
+        if not self.invoice_ids:
+            invoice_id = self.action_invoice_create()
+            invoice = self.env['account.invoice'].browse(invoice_id)
+        invoice = self.invoice_ids
+        invoice.signal_workflow('invoice_open')
+        return self.env['report'].get_action(invoice, 'l10n_be_invoice_layout.report_be_invoice')
     
     
     def shop_sale_ship(self):
@@ -50,8 +59,8 @@ class sale_order(models.Model):
                     #move.invoice_state='2binvoiced'
                     move.action_done()
                 
-            if not self.invoice_ids:
-                picking.action_invoice_create(self.warehouse_id.shop_sale_journal_id.id, False)
+            #if not self.invoice_ids:
+            #    picking.action_invoice_create(self.warehouse_id.shop_sale_journal_id.id, False)
             
             
             #for invoice in self.invoice_ids:

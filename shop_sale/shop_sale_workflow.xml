@@ -13,12 +13,12 @@
 <!--             <field name="act_to" ref="account.act_open"/> -->
 <!--             <field name="condition">test_shop_sale()</field> -->
 <!--         </record> -->
-        
-        <record id="trans_wait_invoice_invoice_shop_sale" model="workflow.transition">
-            <field name="act_from" ref="sale.act_wait_invoice"/>
-            <field name="act_to" ref="sale.act_invoice"/>
-            <field name="condition">test_shop_sale()</field>
-        </record>
+
+<!--         <record id="trans_wait_invoice_invoice_shop_sale" model="workflow.transition"> -->
+<!--             <field name="act_from" ref="sale.act_wait_invoice"/> -->
+<!--             <field name="act_to" ref="sale.act_invoice"/> -->
+<!--             <field name="condition">test_shop_sale()</field> -->
+<!--         </record> -->
         
         <record id="trans_ship_ship_shop_sale" model="workflow.transition">
             <field name="act_from" ref="sale.act_ship"/>

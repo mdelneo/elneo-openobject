@@ -48,8 +48,6 @@ class procurement_order(models.Model):
     
     sale_line_id = fields.Many2one('sale.order.line', index=True)
     
-    #TODO: A REMETTRE EN PLACE
-    '''
     @api.model
     @api.returns('self', lambda value:value.id)
     def create(self, vals):
@@ -65,7 +63,6 @@ class procurement_order(models.Model):
             new_procurement.check()
             
         return new_procurement
-    '''
         
     @api.multi
     def make_po(self):
@@ -283,10 +280,7 @@ class sale_order(models.Model):
             pass
         return action_dict
     
-    @api.multi
-    def action_print_delivery_note(self):
-        assert len(self) == 1, 'This option should only be used for a single id at a time'
-        return self.env['report'].get_action(self,'elneo_report.report_saleorder_deliverynote')
+    
     
     @api.multi 
     def action_button_confirm_jit(self):

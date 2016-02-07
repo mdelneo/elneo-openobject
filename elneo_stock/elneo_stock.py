@@ -3,6 +3,8 @@ from openerp.exceptions import Warning
 from openerp.tools.translate import _
 import time
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
+import logging
+_logger = logging.getLogger(__name__)
 
 class stock_transfer_details(models.TransientModel):
     _inherit = 'stock.transfer_details'
@@ -32,10 +34,32 @@ class procurement_order(models.Model):
     _inherit = 'procurement.order'
     
     @api.model
+    @api.returns('self', lambda value:value.id)
+    def create(self, vals):
+        new_procurement = super(procurement_order, self).create(vals)
+        if self._context.get('from_scheduler'):
+            new_procurement.run()
+            new_procurement.check()
+        return new_procurement
+    
+    @api.model
     def _procure_orderpoint_confirm(self, use_new_cursor=False, company_id = False):
         return super(procurement_order, self.with_context(make_po=False))._procure_orderpoint_confirm(use_new_cursor,company_id)
     
-  
+    @api.model
+    def run_procurements(self):
+        procurements_confirmed = self.sudo().search([('state', '=', 'confirmed')])
+        _logger.warn('Running %s procurements', str(len(procurements_confirmed)))        
+        procurements_confirmed.with_context(from_scheduler=True).run()
+        return {}
+        
+    @api.model
+    def check_procurements(self):
+        procurements_running = self.sudo().search([('state', '=', 'running')])
+        _logger.warn('Check %s procurements', str(len(procurements_running)))
+        procurements_running.with_context(from_scheduler=True).check()
+        return {}
+    
 
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'

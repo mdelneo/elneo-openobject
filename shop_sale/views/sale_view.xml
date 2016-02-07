@@ -10,7 +10,8 @@
             		<field name="shop_sale"/>
             	</xpath>
             	<xpath expr="//form/header/button[@name='action_view_invoice']" position="after">
-            		<button name="print_invoice" string="Print Invoice (and Validate)" type="object" attrs="{'invisible': [('invoice_exists', '=', False)]}" class="oe_highlight" groups="base.group_user"/>
+            		<button name="action_print_delivery_note" string="Print delivery note" type="object" groups="base.group_user" attrs="{'invisible':['|',('shop_sale','=',False),('state','not in','progress')]}" class="oe_highlight" />
+            		<button name="action_print_confirm_invoice" string="Print invoice" type="object" groups="base.group_user" attrs="{'invisible':['|',('shop_sale','=',False),('state','not in','progress')]}" class="oe_highlight" />
             	</xpath>
             	<xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="attributes">
                 	<attribute name="context">{'shop_sale':parent.shop_sale,'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}</attribute>

@@ -10,9 +10,12 @@
     'depends': ['base','stock','purchase', 'sale_margin', 'maintenance_product','elneo_rights','elneo_serial_number','elneo_rights','maintenance_return_picking'],
     "data" : [
               'wizard/transfert_move_wizard_view.xml',
-              'wizard/stock_transfer_details.xml', 
+              'wizard/stock_transfer_details.xml',
+              'wizard/procurement_run_wizard.xml',
+              'wizard/procurement_check_wizard.xml',  
               'views/elneo_stock_view.xml',
               'views/user_view.xml',
+              'elneo_stock_data.xml',
               'security/ir.model.access.csv'
               ],
     'installable': True,

@@ -535,7 +535,7 @@ class maintenance_intervention(models.Model):
             if not account_id:
                 account_id = maintenance_product.categ_id.property_account_income_categ.id
             
-            partner=out_picking.sale_id.partner_invoice_id or False
+            partner=invoice.partner_id or False
             taxes = maintenance_product.taxes_id
             taxes_ids = [x.id for x in taxes]
             if partner:

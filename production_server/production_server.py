@@ -35,7 +35,7 @@ class ProductionServer(models.TransientModel):
             _logger.warn("=== PARAM :" + production_server)
             address = os.popen("cat /etc/network/interfaces | grep address","r").read()[8:]
             _logger.warn("=== ADDRESS :" + address)
-            if production_server in address:
+            if address in production_server:
                 return True
         _logger.warn("=== PARAM ADDRESS NOT FOUND ===")
         return False

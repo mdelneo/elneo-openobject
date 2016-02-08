@@ -104,7 +104,7 @@
             	
             	<xpath expr="//form/header/button[@name='action_button_confirm']" position="replace">
             		<button name="action_button_confirm_no_jit" states="draft,sent" string="Confirm" type="object" groups="base.group_user" class="oe_highlight" />
-            		<button name="action_button_confirm_jit" states="draft,sent" string="Confirm now" type="object" groups="base.group_user" attrs="{'invisible':['|',('shop_sale','=',True),('state','not in',['draft','sent'])]}" />
+            		<button name="action_button_confirm_jit" string="Confirm now" type="object" groups="base.group_user" attrs="{'invisible':['|',('shop_sale','=',True),('state','not in',['draft','sent'])]}" />
             	</xpath>
             
             	<field name="user_id" position="attributes">

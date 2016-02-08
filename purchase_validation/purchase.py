@@ -5,6 +5,7 @@ class purchase_order(models.Model):
     _inherit = 'purchase.order'
     
     validated = fields.Boolean("Validated",track_visibility='onchange')
+    date_validation = fields.Date('Validation date')
     
     _track = {
         'validated': {

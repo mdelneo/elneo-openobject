@@ -246,8 +246,9 @@ class purchase_validation_wizard(models.TransientModel):
         for sale_order_to_update in sale_orders_to_update:
             sale_order_to_update.write({})       
         
-        purchase_orders_to_update.validated=True
-        
+        for purchase in purchase_orders_to_update:
+            purchase.validated=True
+            purchase.date_validation=fields.Date.today()
         
         context = self._context.copy()
         

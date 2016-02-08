@@ -15,6 +15,9 @@
 				<field name="picking_type_id" position="after">
 					<field name="validated" />
 				</field>
+				<xpath expr="//field[@name='date_order']" position="after">
+            		<field name="date_validation" />
+            	</xpath>
 			</field>
 		</record>
 

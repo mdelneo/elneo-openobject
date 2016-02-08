@@ -61,6 +61,8 @@ class purchase_order(models.Model):
     purchase_type_id = fields.Many2one('purchase.order.type','Purchase Type')
     state = fields.Selection(STATE_SELECTION, 'Status', readonly=True)
     section_id = fields.Many2one('crm.case.section', string='Section', compute='get_section_id', store=True)
+    user_confirm = fields.Many2one('res.users')
+    date_confirm = fields.Date('Confirmation date')
     
     @api.returns('self')
     def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
@@ -72,11 +74,36 @@ class purchase_order(models.Model):
         return res
     
     @api.multi
-    @api.depends('create_uid')
+    def wkf_confirm_order(self):
+        res = super(purchase_order,self).wkf_confirm_order()
+        self.user_confirm = self._uid
+        self.date_confirm = fields.Date.today()
+        return res
+    
+    @api.multi
+    @api.depends('user_confirm','sale_ids')
     def get_section_id(self):
         for order in self:
-            create_user = self.env['res.users'].browse(self._uid)
-            order.section_id = create_user.default_section_id
+            if order.sale_ids:
+                order.section_id = order.sale_ids[0].section_id
+            elif self.user_confirm:
+                order.section_id = self.user_confirm.default_section_id
+            else:
+                order.section_id = self.create_uid.default_section_id
+                
+        '''Release : 
+        update purchase_order set section_id = null;
+update purchase_order set section_id = req.max from 
+(select p.id, max(s.section_id)
+from purchase_order p 
+left join purchase_sale_rel rel 
+left join sale_order s on s.id = rel.sale_id
+on p.id = rel.purchase_id
+group by p.id
+) req where req.id = purchase_order.id and purchase_order.section_id is null;
+update purchase_order set section_id = u.default_section_id from res_users u where user_confirm = u.id and section_id is null;
+update purchase_order set section_id = u.default_section_id from res_users u where purchase_order.create_uid = u.id and section_id is null;''' 
+                
             
     #super method is in old api so we can't browse res so I rewrite the method in new API    
     @api.multi

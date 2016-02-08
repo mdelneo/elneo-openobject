@@ -136,13 +136,7 @@ update purchase_order set section_id = u.default_section_id from res_users u whe
     def write(self,vals):
         if self.env.context.get('from_procurement',False):
             if 'origin' in vals:
-                position = vals['origin'].find(self.origin)
-                if position != -1:
-                    #If there is a trailing string
-                    if (len(vals['origin']) > len (self.origin)):
-                        if (vals['origin'][len(self.origin)+1:len(vals['origin'])]).find(self.origin) != -1:
-                            #If the trailing string is equals to the original string
-                            del vals['origin']
+                vals['origin'] = ', '.join(list(set(o.strip() for o in vals['origin'].split(','))))
                    
         return super(purchase_order,self).write(vals)
     

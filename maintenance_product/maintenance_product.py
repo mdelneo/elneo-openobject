@@ -115,7 +115,7 @@ class maintenance_intervention(models.Model):
     
     
     @api.one
-    @api.depends('state','intervention_products','sale_order_id.picking_ids.move_type','sale_order_id.picking_ids.move_lines.state','sale_order_id.picking_ids.move_lines.picking_id', 'sale_order_id.picking_ids.move_lines.partially_available')
+    @api.depends('state','intervention_products','sale_order_id.picking_ids.state','sale_order_id.picking_ids.move_type','sale_order_id.picking_ids.move_lines.state','sale_order_id.picking_ids.move_lines.picking_id', 'sale_order_id.picking_ids.move_lines.partially_available')
     def _get_available(self):
         if self.state != 'confirmed':
             self.available = False
@@ -124,7 +124,11 @@ class maintenance_intervention(models.Model):
                 # No spare parts to wait for
                 self.available = True
             else:
-                self.available = len([picking.id for picking in self.sale_order_id.picking_ids if ((picking.state == 'assigned' and picking.picking_type_id.code == 'outgoing') or not picking.move_lines)])>0
+                available_pickings = self.sale_order_id.picking_ids.filtered(lambda r:(r.state == 'assigned' and r.picking_type_id.code =='outgoing') or not r.move_lines)
+                
+                out_pickings = self.sale_order_id.picking_ids.filtered(lambda r:(r.state in ['waiting','confirmed','partially_available','assigned'] and r.picking_type_id.code =='outgoing') or not r.move_lines)
+                
+                self.available = len(available_pickings) > 0 and (len(available_pickings) == len(out_pickings))
     
     
     stock_pickings = fields.One2many(related='sale_order_id.picking_ids', relation='stock.picking', string="Pickings")

@@ -64,6 +64,17 @@
                 </p>
             </field>
         </record>
+        
+        <record id="purchase_order_tree_elneo" model="ir.ui.view">
+            <field name="name">purchase.order.tree.elneo</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="before">
+                	<field name="section_id" />
+                </xpath>
+            </field>
+        </record>
     
     
 		<record id="purchase_order_form_elneo" model="ir.ui.view">

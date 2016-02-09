@@ -172,7 +172,7 @@ msgstr "Montant HT"
 #. module: elneo_purchase
 #: field:purchase.order,user_confirm:0
 msgid "User confirm"
-msgstr "Confirmateur"
+msgstr "Confirmé par"
 
 #. module: elneo_purchase
 #: view:purchase.order.line:elneo_purchase.purchase_order_line_tree_elneo

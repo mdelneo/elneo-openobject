@@ -5,6 +5,7 @@ from openerp.exceptions import except_orm, AccessError, MissingError, Validation
 import logging
 import sys
 from operator import itemgetter, attrgetter
+from openerp.tools.translate import _
 
 class category_coefficientlist(models.Model):
     _name = "elneo_autocompute_saleprice.category_coefficientlist"
@@ -268,7 +269,7 @@ $$
                 pass
         return list(result)
     
-    @api.depends('categ_id','cost_price','sale_price_fixed','compute_sale_price','sale_price_seller')
+    @api.depends('categ_id','cost_price','sale_price_fixed','compute_sale_price','sale_price_seller','maximum_price')
     @api.one
     def _get_list_price(self):
         sale_price = self.get_sale_price()

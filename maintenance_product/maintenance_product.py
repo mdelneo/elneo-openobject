@@ -292,6 +292,11 @@ class maintenance_intervention(models.Model):
 
         order_line['discount'] = intervention_product.discount
         
+        
+        if order_line.has_key('tax_id'):
+            taxes = order_line['tax_id']
+            order_line['tax_id']=[(6,0,taxes)]
+        
         return order_line
     
     @api.multi

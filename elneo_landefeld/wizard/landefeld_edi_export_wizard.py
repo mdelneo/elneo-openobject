@@ -278,10 +278,13 @@ class LandefeldEdiExport(models.TransientModel):
             raise Warning(_('OPENTRANS ERROR'),_('Can\'t find delivery address for purchase. Maybe the address is not defined on the partner '))
         
         
-        if delivery_address.name:
-            party_delivery.address.name = delivery_address.name
+        if delivery_address.name and delivery_address.parent_id and delivery_address.parent_id.name:
+            party_delivery.address.name = delivery_address.parent_id.name + ' - ' + delivery_address.name
         elif delivery_address.parent_id and delivery_address.parent_id.name:
             party_delivery.address.name = delivery_address.parent_id.name
+        elif delivery_address.name :
+            # Delivery address == company
+            party_delivery.address.name = delivery_address.name
         else:
             raise Warning(_('The name of the delivery address is not defined!'))
         

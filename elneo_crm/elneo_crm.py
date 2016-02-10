@@ -219,12 +219,17 @@ class res_partner(models.Model):
                 name = name_add(name, partner.parent_name)
             name = name_add(name, partner.name)
             
-            if not partner.is_company or self._context.get('contact_display',False):
+            if not self.env.context.get('show_email',False) and not partner.is_company or self._context.get('contact_display',False):
                 name = name_add(name, partner.street)
                 name = name_add(name, partner.street2)
                 name = name_add(name, partner.zip)
                 name = name_add(name, partner.city, ' ')
                 name = name_add(name, partner.country_id.name)
+            elif self.env.context.get('show_email',False):
+                if not partner.is_company and partner.parent_id and partner.parent_id.name:
+                    name = name_add(name,partner.parent_id.name)
+                name += partner.email and ('<%s>' % partner.email) or '<%s>' % (_('NO EMAIL'))
+                
             else:
                 name = name_add(name, partner.city)
                 name = name_add(name, partner.vat)

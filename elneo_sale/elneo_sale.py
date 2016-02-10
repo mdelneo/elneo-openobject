@@ -199,7 +199,6 @@ class sale_order_line(models.Model):
             res['warning'] = {'title':'Unit price changed','message':_('Unit price has been changed from %s to %s.')%(old_price,new_price)}
         '''
         
-        
         #compute qty real/virtual stock    
         product_obj = self.env['product.product'].browse(product)
         warehouse = self.env['stock.warehouse'].browse(warehouse_id)

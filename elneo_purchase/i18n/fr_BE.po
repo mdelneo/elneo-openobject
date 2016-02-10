@@ -1,54 +1,31 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* elneo_purchase
+# 	* elneo_purchase
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-06 10:42+0000\n"
-"PO-Revision-Date: 2016-01-06 10:42+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2016-02-09 14:33+0000\n"
+"PO-Revision-Date: 2016-02-09 15:37+0100\n"
+"Last-Translator: Clément Thomas <clement.thomas@elneo.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
 
-#. module: elneo_purchase
-#: model:ir.actions.act_window,help:elneo_purchase.act_res_partner_2_purchase_order
-msgid "<p class=\"oe_view_nocontent_create\">\n"
-"                    This supplier has no purchase order. Click to create a new RfQ.\n"
-"                </p><p>\n"
-"                    The request for quotation is the first step of the purchases flow. Once\n"
-"                    converted into a purchase order, you will be able to control the receipt\n"
-"                    of the products and the supplier invoice.\n"
-"                </p>\n"
-"            "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
-"                    This supplier has no purchase order. Click to create a new RfQ.\n"
-"                </p><p>\n"
-"                    The request for quotation is the first step of the purchases flow. Once\n"
-"                    converted into a purchase order, you will be able to control the receipt\n"
-"                    of the products and the supplier invoice.\n"
-"                </p>\n"
-"            "
-
-#. module: elneo_purchase
-#: model:ir.actions.act_window,help:elneo_purchase.action_purchase_and_purchase_rfq
-msgid "<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a request for quotation.\n"
-"              </p>\n"
-"            "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a request for quotation.\n"
-"              </p>\n"
-"            "
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Accounting"
 msgstr "Comptabilité"
+
+#. module: elneo_purchase
+#: field:purchase.order,date_confirm:0
+msgid "Confirmation date"
+msgstr "Date d'achat"
 
 #. module: elneo_purchase
 #: field:purchase.order.type,create_uid:0
@@ -106,6 +83,12 @@ msgid "Miscellaneous"
 msgstr "Divers"
 
 #. module: elneo_purchase
+#: view:purchase.order:elneo_purchase.view_purchase_order_filter_elneo
+#: view:purchase.order:elneo_purchase.view_request_for_quotation_filter_elneo
+msgid "My Team"
+msgstr "Mon dpt"
+
+#. module: elneo_purchase
 #: field:purchase.order.type,name:0
 msgid "Name"
 msgstr "Nom"
@@ -119,6 +102,11 @@ msgstr "Notes..."
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "Pickings"
 msgstr "Pickings"
+
+#. module: elneo_purchase
+#: model:ir.model,name:elneo_purchase.model_procurement_order
+msgid "Procurement"
+msgstr "Approvisionnement"
 
 #. module: elneo_purchase
 #: model:ir.model,name:elneo_purchase.model_product_product
@@ -148,7 +136,12 @@ msgstr "Achats et demandes de prix"
 #. module: elneo_purchase
 #: model:ir.actions.act_window,name:elneo_purchase.act_res_partner_2_purchase_order
 msgid "RFQs and Purchases"
-msgstr "Achats et demandes de prix"
+msgstr "Demandes de devis et achats"
+
+#. module: elneo_purchase
+#: field:purchase.order,section_id:0
+msgid "Section"
+msgstr "Département"
 
 #. module: elneo_purchase
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
@@ -177,6 +170,11 @@ msgid "Untaxed Amount"
 msgstr "Montant HT"
 
 #. module: elneo_purchase
+#: field:purchase.order,user_confirm:0
+msgid "User confirm"
+msgstr "Confirmé par"
+
+#. module: elneo_purchase
 #: view:purchase.order.line:elneo_purchase.purchase_order_line_tree_elneo
 msgid "order_id"
 msgstr "order_id"
@@ -185,9 +183,3 @@ msgstr "order_id"
 #: view:purchase.order:elneo_purchase.purchase_order_form_elneo
 msgid "purchase_line_tree"
 msgstr "purchase_line_tree"
-
-#. module: purchase
-#: model:ir.actions.act_window,name:purchase.purchase_rfq
-#: model:ir.ui.menu,name:purchase.menu_purchase_rfq
-msgid "Requests for Quotation"
-msgstr "Demande de prix"

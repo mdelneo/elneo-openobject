@@ -236,7 +236,6 @@ class sale_order(models.Model):
         else:
             return super(sale_order,self).copy(default=default)
         
-    @api.constrains('carrier_id','shop_sale')
     @api.one
     def _check_carrier_id(self):
         if not self.env.context.get('from_intervention', False):

@@ -306,6 +306,9 @@ class sale_order(models.Model):
                 if categ.stat_on_invoice_date_default:
                     return True
                 categ = categ.parent_id
+        
+        #check delivery method      
+        self._check_carrier_id()
             
         result = super(sale_order,self).action_button_confirm() 
         #check sale order stat_on_invoice_date if needed
@@ -324,6 +327,7 @@ class sale_order(models.Model):
     @api.multi
     def print_quotation(self):
         assert len(self) == 1, 'This option should only be used for a single id at a time'
+        self._check_carrier_id()
         self.signal_workflow('quotation_sent')
         if self.state in ('draft','sent'):
             return self.env['report'].get_action(self,'sale.report_saleorder')
@@ -470,17 +474,22 @@ class sale_order(models.Model):
         
         return super(sale_order,self).write(values)
     
-    @api.constrains('carrier_id','shop_sale')
     @api.one
     def _check_carrier_id(self):
+        carrier_ok = False
+        if self.carrier_id:
+            for line in self.order_line:
+                if line.product_id.id == self.carrier_id.product_id.id:
+                    carrier_ok = True
+        
         from_opportunity = False
         if self._context and self._context.get('active_model',False) and self._context['active_model'] == 'crm.lead':
             from_opportunity = True
         if self._context.get('copy',False):
             return
         
-        if not self.shop_sale and not self.carrier_id and (not from_opportunity) and \
-            (not self.outgoing_picking_type or (self.outgoing_picking_type.need_carrier and not self.carrier_id)):
+        if not self.shop_sale and not carrier_ok and (not from_opportunity) and \
+            (not self.outgoing_picking_type or (self.outgoing_picking_type.need_carrier and not carrier_ok)):
             raise ValidationError("A delivery method has to be chosen")
     
     

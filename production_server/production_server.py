@@ -32,8 +32,10 @@ class ProductionServer(models.TransientModel):
         _logger = logging.getLogger(__name__)
         production_server = self.env['ir.config_parameter'].get_param('production_server.production.server.address')
         if production_server:
+            production_server = str(production_server)
             _logger.warn("=== PARAM :" + production_server)
             address = os.popen("cat /etc/network/interfaces | grep address","r").read()[8:]
+            address = address[:-1]
             _logger.warn("=== ADDRESS :" + address)
             if address in production_server:
                 return True

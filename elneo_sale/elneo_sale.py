@@ -194,8 +194,10 @@ class sale_order_line(models.Model):
         old_price = self._context.get('price_unit',0)
         new_price = res.get('value',{'price_unit':0}).get('price_unit',0)
         
+        ''' NO WARNING NEEDED ANYMORE
         if old_price and old_price != new_price:
             res['warning'] = {'title':'Unit price changed','message':_('Unit price has been changed from %s to %s.')%(old_price,new_price)}
+        '''
         
         #compute qty real/virtual stock    
         product_obj = self.env['product.product'].browse(product)

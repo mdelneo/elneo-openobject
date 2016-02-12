@@ -2,7 +2,6 @@
 from openerp import models, api, _
 from openerp.exceptions import Warning
 
-
 class res_partner(models.Model):
     _inherit = "res.partner"
 

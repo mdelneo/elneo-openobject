@@ -55,6 +55,8 @@ class sale_order(models.Model):
                     return drive_link
             return False
         
+        if not self.partner_id:
+            return
         
         if self.quotation_address_id and self.quotation_address_id.lang:
             lang = self.quotation_address_id.lang

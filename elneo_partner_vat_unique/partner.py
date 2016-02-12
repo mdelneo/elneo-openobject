@@ -14,6 +14,7 @@ class res_partner(models.Model):
         
         same_vat_companies = self.search([('vat','=',self.vat),
                     ('id','!=',self.commercial_partner_id.id),
+                    ('id','!=',self.id),# In the CREATE case - commercial_partner_id is not set
                      ('parent_id','=',False),
                      ('vat','!=',False),
                      ('company_id', '=', self.company_id.id)])

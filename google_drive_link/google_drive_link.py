@@ -4,6 +4,7 @@ import math
 from openerp import models,fields,api
 from operator import itemgetter
 import re
+from openerp import _
 
 
 class product_category_drive_link(models.Model):

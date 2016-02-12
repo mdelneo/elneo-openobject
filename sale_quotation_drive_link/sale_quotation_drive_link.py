@@ -4,6 +4,7 @@ import math
 from openerp import models,fields,api
 from operator import itemgetter
 import re
+from openerp import _
 
 
 class sale_drive_link(models.Model):
@@ -55,10 +56,21 @@ class sale_order(models.Model):
             return False
         
         
+        if self.quotation_address_id and self.quotation_address_id.lang:
+            lang = self.quotation_address_id.lang
+        else:
+            lang = self.partner_id.lang
+        
+        if not lang:
+            raise Warning(_('No language defined in quotation adress or customer.'))
+            
+            
         drive_links = []
         for order_line in self.order_line:
             #create drive links from product_drive_links
             for drive_link in order_line.product_id.drive_links:
+                if drive_link.lang != lang:
+                    continue
                 existing_drive_link = _drive_link_contains_prod(drive_link.id)
                 if not existing_drive_link:
                     drive_links.append(
@@ -75,6 +87,8 @@ class sale_order(models.Model):
                     
                 
             for drive_link in order_line.product_id.get_product_category_drive_links():
+                if drive_link.lang != lang:
+                    continue
                 existing_drive_link = _drive_link_contains_cat(drive_link.id)
                 if not existing_drive_link:
                     drive_links.append(

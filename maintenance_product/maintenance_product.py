@@ -422,7 +422,7 @@ class maintenance_intervention(models.Model):
                                          'partner_id':intervention.partner_id.id,
                                          'location_id':intervention.warehouse_id.maintenance_picking_type_id.default_location_src_id.id,
                                          'location_dest_id':intervention.warehouse_id.maintenance_picking_type_id.default_location_dest_id.id,
-                                         
+                                         'picking_type_id':intervention.warehouse_id.maintenance_picking_type_id.id
                                          }
                             out_picking = self.env['stock.picking'].create(pick_values)
                         values.update({
@@ -519,12 +519,13 @@ class maintenance_intervention(models.Model):
                 
                 #out_picking.do_transfer()
                 journal_id = self.env['ir.config_parameter'].get_param('maintenance_product.account_sale_journal',False)
+
                 if not journal_id:
                     raise Warning(_('Please configure default Sale Journal for Maintenance'))
                 invoice_ids = out_picking.action_invoice_create(journal_id=int(journal_id))
             
             # FROM SALE ORDER INVOICE GENERATION (THERE IS NO SPARE PARTS)
-            else:
+            if not out_picking or not invoice_ids:
                 invoice_ids=intervention.sale_order_id.action_invoice_create()
                 intervention.sale_order_id.order_line.write({'invoiced': False})
             
@@ -544,12 +545,13 @@ class maintenance_intervention(models.Model):
             if not account_id:
                 account_id = maintenance_product.categ_id.property_account_income_categ.id
             
-            partner=invoice.partner_id or False
+            partner=invoice.partner_id or intervention.sale_order_id.partner_invoice_id or intervention.installation_id.invoice_address_id or False
             taxes = maintenance_product.taxes_id
-            taxes_ids = [x.id for x in taxes]
             if partner:
                 account_id = partner.property_account_position.map_account(account_id)
                 taxes_ids = partner.property_account_position.map_tax(taxes)
+            else:
+                taxes_ids = taxes
     
             
             if not invoice_maintenance_lines:

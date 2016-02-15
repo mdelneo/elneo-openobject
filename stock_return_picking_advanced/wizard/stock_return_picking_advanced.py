@@ -93,7 +93,7 @@ class StockReturnPicking(models.TransientModel):
         
         return_create_invoice = self.env['ir.config_parameter'].get_param('stock_return_picking_advanced.return_create_invoice',False)
             
-        if return_create_invoice == "True":
+        if self.invoice_state == '2binvoiced' and return_create_invoice == "True":
             picking_id, pick_type_id = self._create_returns()
             wizard = self.env['stock.invoice.onshipping'].with_context(active_ids=[picking_id]).create({})
             invoice_id = wizard.create_invoice()

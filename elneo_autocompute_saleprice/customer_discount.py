@@ -57,7 +57,7 @@ class sale_order(models.Model):
     @api.one
     def update_all_prices(self):
         for line in self.order_line:
-            on_change_res = line.product_id_change_with_wh_discount_type(
+            on_change_res = line.product_id_change_with_wh_quotation_address_discount_type(
                 pricelist=self.pricelist_id.id, 
                 product=line.product_id.id, 
                 qty=line.product_uom_qty, 

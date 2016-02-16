@@ -26,8 +26,6 @@ class elneo_supplier_price_update(models.Model):
             context = {}
         default.update({
             'state':'draft',
-            'percent_operation_update':0,
-            'percent_operation_create':0,
         })
       
         return super(elneo_supplier_price_update, self).copy(cr, uid, id, default, context)
@@ -49,6 +47,7 @@ class elneo_supplier_price_update(models.Model):
         
         return res
           
+    state = fields.Selection([('draft','Draft'),('computing','Computing'),('computing_error','Computing Error'),('computed','Computed'),('updating_pps','Updating Purchase Prices'),('updated_pps','Purchase Prices Updated'),('updating','Updating'),('updating_error','Updating Error'),('done','Done'),('cancel','Canceled')],string='State',readonly=True, default='draft')
     code = fields.Char('Code',size=30,help='The Import Code',readonly=True)
     supplier_id = fields.Many2one('res.partner',string="Supplier",domain=[('supplier','=','True')],required=True)
     date = fields.Datetime('Date',help='Date of Import', default=lambda *a : datetime.today().strftime('%Y-%m-%d %H:%M:%S'))
@@ -56,7 +55,6 @@ class elneo_supplier_price_update(models.Model):
     save_in_sale_price_fixed = fields.Boolean('Save in Sale Price')
     complete_list_price = fields.Boolean('Complete Price List')
     pricelist_file = fields.Binary('Pricelist File')
-    state = fields.Selection([('draft','Draft'),('computing','Computing'),('computing_error','Computing Error'),('computed','Computed'),('updating_pps','Updating Purchase Prices'),('updated_pps','Purchase Prices Updated'),('updating','Updating'),('updating_error','Updating Error'),('done','Done'),('cancel','Canceled')],string='State',readonly=True, default='draft')
     line_ids = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines')
     lines_to_update = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines to Update',domain=[('state','in',('to_update','updating_error','updated_pp','updated'))])
     lines_to_create = fields.One2many('elneo.supplier.price.update.line','import_id',string='Lines to Create',domain=[('state','in',('to_create','error_create','created','create_cancel'))])
@@ -68,13 +66,49 @@ class elneo_supplier_price_update(models.Model):
     messages = fields.One2many('elneo.supplier.price.update.message','import_id',string='Import Messages')
     increase_price = fields.Float(string='Increase Percent',_compute='_get_increase_percent',help='This is the increase percent from product sold quantities',store=True)
     
-    percent_operation_update = fields.Float('Update Operation Progress', default=0.0)
-    percent_operation_create = fields.Float('Create Operation Progress', default=0.0)
+    begin_compute = fields.Datetime('Beginning of compute')
+    begin_update_purchase_price = fields.Datetime('Beginning of update purchase prices')
+    begin_update_sale_price = fields.Datetime('Beginning of update sale price')
+    begin_create = fields.Datetime('Beginning of create operation')
+    date_done = fields.Datetime('Date done')
+    
+    progress = fields.Float('Progress', compute='_get_progress')
+    time_remaining = fields.Float('Time remaining', compute='_get_time_remaining')
+    
     
     
     _rec_name = 'code'
     
     _order='date desc'
+    
+    @api.one
+    def _get_time_remaining(self):
+        if self.state == 'computing':
+            time_perform = datetime.now() - fields.Datetime.from_string(self.begin_compute)
+        elif self.state == 'updating_pps':
+            time_perform = datetime.now() - fields.Datetime.from_string(self.begin_update_purchase_price)
+        elif self.state == 'updating':
+            time_perform = datetime.now() - fields.Datetime.from_string(self.begin_update_sale_price)
+        else:
+            return
+        
+        if self.progress and time_perform:  
+            self.time_remaining = timedelta(seconds=time_perform.seconds / self.progress).seconds/60.
+        
+        
+    @api.one
+    def _get_progress(self):
+        nb = 0
+        total = self.env['elneo.supplier.price.update.line'].search([('import_id','=',self.id)], count=True)
+        if self.state == 'computing':
+            nb = self.env['elneo.supplier.price.update.line'].search([('import_id','=',self.id),('state','=','to_update')], count=True)
+        if self.state == 'updating_pps':
+            nb = self.env['elneo.supplier.price.update.line'].search([('import_id','=',self.id),('state','=','updated_pp')], count=True)
+        if self.state == 'updating':
+            nb = self.env['elneo.supplier.price.update.line'].search([('import_id','=',self.id),('state','=','updated')], count=True)
+        if total:
+            self.progress = float(nb)/float(total)
+        
     
     @api.one
     def action_draft(self):
@@ -91,6 +125,7 @@ class elneo_supplier_price_update(models.Model):
     @api.one
     def action_computing(self):
         self.state = 'computing'
+        self.begin_compute = datetime.now()
         self.compute_lines()
         return True
     
@@ -104,9 +139,11 @@ class elneo_supplier_price_update(models.Model):
         self.state = 'computed'
         return True
     
+    
     @api.one
     def action_updating_purchase_prices(self):
         self.state = 'updating_pps'
+        self.begin_update_purchase_price = datetime.now()
         self.update_price_lines()
         return True
     
@@ -118,6 +155,7 @@ class elneo_supplier_price_update(models.Model):
     @api.one
     def action_updating(self):
         self.state = 'updating'
+        self.begin_update_sale_price = datetime.now()
         self.update_sale_price_lines()
         return True
     
@@ -138,6 +176,7 @@ class elneo_supplier_price_update(models.Model):
             res=True
         if self._check_done():
             self.state = 'done'
+            self.date_done = datetime.now()
             res = True
         return res
     
@@ -505,7 +544,7 @@ from pricelist_landefeld_full;""")
             self.env.cr.commit()        
             
             return True
-                    
+        
         res = True
         cr2 = sql_db.db_connect(self.env.cr.dbname).cursor()
         uid, context = self.env.uid, self.env.context
@@ -514,6 +553,7 @@ from pricelist_landefeld_full;""")
             update = None
             try:
                 for update in self:
+                    update.begin_compute = datetime.now()
                     
                     all_line_ids = self.env["elneo.supplier.price.update.line"].search([('import_id','=',update.id),('state','=','draft')])
                     all_line_ids_len = len(all_line_ids)
@@ -521,6 +561,8 @@ from pricelist_landefeld_full;""")
                     while i < all_line_ids_len:
                         current_line_ids = all_line_ids[i:i+100]
                         compute_part(current_line_ids)
+                        if all_line_ids_len:
+                            update.percent_operation_compute = i*100./all_line_ids_len
                         i = i+100
     
                     self.action_computed()
@@ -564,7 +606,7 @@ from pricelist_landefeld_full;""")
         with api.Environment.manage():
             self.env = api.Environment(cr, uid, context)
             try:
-                self.write({'percent_operation_update':0.0})
+                self.begin_update = datetime.now()
                 i=0
                 complete = len(self.lines_to_update)
                 percent = 0.0
@@ -573,15 +615,28 @@ from pricelist_landefeld_full;""")
                 lines = self.lines_to_update[i:jump]
                 
                 while lines:
+                    #update pricelist_partnerinfo
                     self._cr.execute("""
-                        INSERT INTO pricelist_partnerinfo (min_quantity, price, suppinfo_id, brut_price, discount, update_methode, public_price, date) 
-                        SELECT quantity, net_price,sr.suppinfo_id, brut_price, discount, 'price_list_file', public_price, CURRENT_TIMESTAMP 
+                        update pricelist_partnerinfo set price = req.net_price, brut_price = req.brut_price, discount = req.discount, public_price = req.public_price
+                        from
+                        (
+                        SELECT quantity, net_price,sr.suppinfo_id, brut_price, discount, public_price, CURRENT_TIMESTAMP 
+                        FROM elneo_supplier_price_update_line ul 
+                        LEFT JOIN elneo_supplier_price_update_line_suppinfo_rel sr 
+                        ON ul.id=sr.update_line_id 
+                        WHERE ul.id in %s AND state='to_update'                        
+                        ) req
+                        where req.suppinfo_id = pricelist_partnerinfo.suppinfo_id and pricelist_partnerinfo.min_quantity = req.quantity""",(tuple([line.id for line in lines]),))
+                    
+                    #insert history line
+                    self._cr.execute("""
+                        INSERT INTO pricelist_partnerinfo_history (min_quantity, price, suppinfo_id, brut_price, discount, update_method, date) 
+                        SELECT quantity, net_price,sr.suppinfo_id, brut_price, discount, 'price_list_file', CURRENT_TIMESTAMP 
                         FROM elneo_supplier_price_update_line ul JOIN elneo_supplier_price_update_line_suppinfo_rel sr ON ul.id=sr.update_line_id 
                         WHERE ul.id in %s AND state='to_update'""",(tuple([line.id for line in lines]),))
                     lines.action_updated_purchase_price()
                     i=i+jump
                     percent = (i / complete) * 100.
-                    self.write({'percent_operation_update':percent})
                     cr.commit()
                     lines = self.lines_to_update[i:i+jump]
                     
@@ -621,7 +676,6 @@ from pricelist_landefeld_full;""")
         with api.Environment.manage():
             self.env = api.Environment(cr, uid, context)
             try:
-                self.write({'percent_operation_update':0.0})
                 i=0
                 complete = len(self.lines_to_update)
                 percent = 0.0
@@ -639,7 +693,6 @@ from pricelist_landefeld_full;""")
                     lines.action_updated()
                     i=i+jump
                     percent = (i / float(complete)) * 100.
-                    self.percent_operation_update = percent
                     cr.commit()
                     lines = self.lines_to_update[i:i+jump]
                 

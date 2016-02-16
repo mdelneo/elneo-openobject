@@ -3,6 +3,18 @@ from openerp.tools.float_utils import float_compare, float_round
 from datetime import datetime
 from openerp.exceptions import Warning
 
+
+class sale_global_discount_wizard(models.TransientModel):
+    _inherit = 'sale.global.discount.wizard'
+    
+    @api.multi
+    def process(self):
+        res = super(sale_global_discount_wizard, self).process()
+        sale = self.env['sale.order'].browse(self._context.get('active_id'))
+        sale._get_margin_elneo()
+        sale._get_margin_elneo_coeff()
+        return res
+        
 class purchase_order_line(models.Model):
     _inherit = 'purchase.order.line'
     

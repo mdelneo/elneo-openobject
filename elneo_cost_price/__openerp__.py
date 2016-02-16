@@ -29,7 +29,7 @@ add a cost price based on a pricelist
 """,
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ["sale_margin","product"],
+    'depends': ["sale_margin","product",'sale_global_discount'],
     'init_xml': [
     ],
 

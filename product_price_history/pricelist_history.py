@@ -21,6 +21,8 @@ class pricelist_history(models.Model):
     
     price = fields.Float('Unit Price', required=True, digits_compute=dp.get_precision('Product Price'), help="This price will be considered as a price for the supplier UoM if any or the default Unit of Measure of the product otherwise")
     
+    user_id = fields.Many2one('res.users', string="User")
+    
     #public_price = fields.Float('Unit Price', required=True, digits_compute=dp.get_precision('Product Price'), help="This price will be considered as a price for the supplier UoM if any or the default Unit of Measure of the product otherwise")
     
     
@@ -77,6 +79,8 @@ class pricelist_partnerinfo(models.Model):
             
             value.update({'update_method':'manual'})
             
+            value['user_id'] = self._uid
+            
             '''    
             if (vals.has_key('public_price')):
                 value.update({'public_price':vals['public_price']})
@@ -123,6 +127,8 @@ class pricelist_partnerinfo(models.Model):
                 
             value.update({'date':datetime.now()})
             value.update({'update_method':'manual'})
+            
+            value['user_id'] = self._uid
                 
             '''
             if (vals.has_key('public_price')):

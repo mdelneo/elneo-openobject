@@ -16,6 +16,7 @@
                             <field name="price"/>
                             <field name="discount"/>
                             <field name="update_method"/>
+                            <field name="user_id" />
                         </tree>
 	                </field>
                 </field>

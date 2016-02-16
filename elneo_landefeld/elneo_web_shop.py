@@ -5,7 +5,7 @@ import math
 import random
 
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 
 
 class ElneoWebshopAccount(models.Model):
@@ -62,7 +62,8 @@ class ResPartner(models.Model):
         
     @api.model
     def create(self,vals):
-        if not 'webshop_accounts' in vals or not vals['webshop_accounts']:
+        if ('type' in vals and vals['type'] not in ['invoice','delivery']) and (not 'webshop_accounts' in vals or not vals['webshop_accounts']):
+            
             #compose account
             account = {}
             

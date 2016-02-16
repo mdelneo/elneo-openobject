@@ -296,6 +296,8 @@
 					<field name="list_price" />
 					<field name="cost_price" />
 					<field name="default_supplier_id" />
+					<field name="stock_available_awans" />
+					<field name="stock_available_wetteren" />
 				</xpath>
             </field>
         </record>

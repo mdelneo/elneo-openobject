@@ -8,7 +8,18 @@ class product_product(models.Model):
     alias = fields.Char(string="Alias", size=255, translate=False)
     qty_available_text = fields.Char(compute='_product_available_text')
     barcode_number = fields.Char('Barcode number', size=7, default=lambda obj: obj.env['ir.sequence'].get('product.barcode'), groups='stock.group_stock_manager')
-
+    stock_available_awans = fields.Float('Stock available Awans', compute='_get_stock')
+    stock_available_wetteren = fields.Float('Stock available Wetteren', compute='_get_stock')
+    
+    
+    @api.multi
+    def _get_stock(self):
+        stock_awans = self.with_context({'location':15})._product_available()
+        stock_wetteren = self.with_context({'location':16})._product_available()
+        for product in self:
+            product.stock_available_awans = stock_awans[product.id]['qty_available']
+            product.stock_available_wetteren = stock_wetteren[product.id]['qty_available']
+    
     
     def check_seller_ids(self, vals):
         if not self._context.get('copy',False) and (vals and ((not 'seller_ids' in vals) or not vals['seller_ids'])) and not self.seller_ids:

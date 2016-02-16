@@ -24,9 +24,12 @@ from openerp.exceptions import Warning
 class maintenance_intervention_product(models.Model):
     _inherit = 'maintenance.intervention.product'
     
+    @api.onchange('product_id')
+    def _onchange_stock_product_id(self):
+        self._get_stock_quantity()
+    
     @api.one
-    def _qty_virtual_stock(self):
-        
+    def _get_stock_quantity(self):
         if self.product_id:
             if self.intervention_id and self.intervention_id.sale_order_id:
                 warehouse = self.intervention_id.sale_order_id.warehouse_id
@@ -35,26 +38,23 @@ class maintenance_intervention_product(models.Model):
             
             if warehouse:    
                 self.virtual_stock = self.product_id.with_context(location=warehouse.lot_stock_id.id).virtual_available
+                self.real_stock = self.product_id.with_context(location=warehouse.lot_stock_id.id).qty_available
             else:
                 self.virtual_stock = 0
+                self.real_stock = 0
         else:
             self.virtual_stock = 0
+            self.real_stock = 0
+        
+    
+    @api.one
+    def _qty_virtual_stock(self):
+        self._get_stock_quantity()
         
     
     @api.one
     def _qty_real_stock(self):
-        if self.product_id:
-            if self.intervention_id and self.intervention_id.sale_order_id:
-                warehouse = self.intervention_id.sale_order_id.warehouse_id
-            else:
-                warehouse = self.env.user.default_warehouse_id
-            
-            if warehouse:    
-                self.real_stock = self.product_id.with_context(location=warehouse.lot_stock_id.id).qty_available
-            else:
-                self.real_stock = 0
-        else:
-            self.real_stock = 0
+        self._get_stock_quantity()
             
     @api.model
     def create(self,vals):
@@ -81,8 +81,8 @@ class maintenance_intervention_product(models.Model):
             res['route_id'] = self._default_route()
         return res
    
-    virtual_stock = fields.Float(compute=_qty_virtual_stock,  string='Virtual stock')
-    real_stock = fields.Float(compute=_qty_real_stock,  string='Real stock')
+    virtual_stock = fields.Float(compute='_qty_virtual_stock',  string='Virtual stock')
+    real_stock = fields.Float(compute='_qty_real_stock',  string='Real stock')
     procurement_path = fields.Char(related='sale_order_line_id.procurement_path', string='Procurement path')
     
     

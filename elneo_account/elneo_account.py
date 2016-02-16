@@ -41,15 +41,6 @@ class account_period(models.Model):
     _inherit = 'account.period'
     period_closed_qlikview = fields.Boolean('Period closed (Qlikview')
 
-class account_move_line(models.Model):
-    _inherit = 'account.move.line'
-    
-    @api.multi
-    def reconcile(self, type='auto', writeoff_acc_id=False, writeoff_period_id=False, writeoff_journal_id=False):
-        res = super(account_move_line,self).reconcile(type, writeoff_acc_id, writeoff_period_id, writeoff_journal_id)
-        return res
-    
-account_move_line()
 
 class account_invoice_line(models.Model):
     _inherit = 'account.invoice.line'
@@ -228,4 +219,15 @@ class account_invoice(models.Model):
     
 account_invoice()
 
+
+class ResPartner(models.Model):
+    _inherit='res.partner'
+    
+    @api.model
+    def _commercial_fields(self):
+        res = super(ResPartner, self)._commercial_fields()
+        if 'last_reconciliation_date' in res:
+            res.remove('last_reconciliation_date')
+        
+        return res
     

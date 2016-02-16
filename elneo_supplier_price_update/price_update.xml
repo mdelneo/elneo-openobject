@@ -122,12 +122,17 @@
 	            		<field name="date"/>
 	            		<field name="type"/>
             		</group>
+            		<group string="State">
+            			<field name="state"/>
+            			<field name="progress" />
+            			<field name="time_remaining" widget="float_time" />
+            		</group>
             			<!-- <field name="pricelist_file"/> -->
-            			<group string="Action" attrs="{'invisible':[('state','=','done')]}">
-	            			<button name="import_lines" type="object" string="Import lines" icon="terp-mail-forward" states="draft" confirm="The import will erase existing lines. Do you want to continue?"/>
-	            			<button name="action_computing" string="Compute"  icon="gtk-execute" states="draft" type="object" />
-	            			<button name="action_draft" string="Set to Draft" type="object" icon="terp-stock_effects-object-colorize" states="computing,computing_error,computed,updating_error,updating_pp,updating_pps" />
-            			</group>
+           			<group string="Action" attrs="{'invisible':[('state','=','done')]}">
+            			<button name="import_lines" type="object" string="Import lines" icon="terp-mail-forward" states="draft" confirm="The import will erase existing lines. Do you want to continue?"/>
+            			<button name="action_computing" string="Compute"  icon="gtk-execute" states="draft" type="object" />
+            			<button name="action_draft" string="Set to Draft" type="object" icon="terp-stock_effects-object-colorize" states="computing,computing_error,computed,updating_error,updating_pp,updating_pps" />
+           			</group>
             		<notebook colspan="4">
             			<page string="Original Lines">
             				<field name="line_ids_display" nolabel="1" colspan="4">
@@ -151,7 +156,6 @@
             			<page string="To Update">
             				<button name="action_updating_purchase_prices" string="Update Purchase Prices" icon="gtk-ok" states="computed" type="object"/>
             				<button name="action_updating" string="Update Sale Prices" icon="gtk-ok" states="updated_pps" type="object"/>
-            				<field name="percent_operation_update" colspan="4" widget="progressbar"/>
             				<field name="lines_to_update_display" nolabel="1" colspan="4"/>
             			</page>
             			<page string="Products Sold Last Year">
@@ -159,7 +163,6 @@
             				<field name="lines_sold_display" nolabel="1" colspan="4"/>
             			</page>
             			<page string="To Create">
-            				<field name="percent_operation_create" colspan="4" widget="progressbar"/>
             				<field name="lines_to_create_display" nolabel="1" colspan="4">
             					<tree string="Supplier Price List History Lines" colors="blue:(state=='draft');darkgreen:(state=='created');red:(state=='error_create');grey:(state=='create_cancel'))">
 				            		<field name="product_code"/>
@@ -205,7 +208,6 @@
             				<label string="- pack" colspan="4"/>
             			</page>
             		</notebook>
-            		<field name="state"/>
 				</form>
             </field>
         </record>

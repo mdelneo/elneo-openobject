@@ -219,9 +219,6 @@ class account_invoice(models.Model):
     partner_id = fields.Many2one(string="Invoice Address",index=True)
     _partner_id = fields.Many2one('res.partner',string="Partner",required=True,index=True,help="Partner to help selection of invoice address")
     
-account_invoice()
-
-
 class ResPartner(models.Model):
     _inherit='res.partner'
     

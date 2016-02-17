@@ -100,6 +100,7 @@
             	<xpath expr="//field[@name='number']" position='after'>
             		<field name="origin" />
             		<field name="journal_id"/>
+            		<field name="internal_number" string="Internal number" />
             	</xpath>
             	<filter string="Period" position="before">
             		<filter string="Parent Partner" context="{'group_by':'commercial_partner_id'}"/>

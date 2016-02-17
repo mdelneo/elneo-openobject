@@ -36,6 +36,7 @@ class res_partner(models.Model):
 
 class maintenance_installation(models.Model):
     _name = 'maintenance.installation'
+    _description = 'Maintenance Installation'
     _order = 'name'
     _inherit=['mail.thread']
     
@@ -143,6 +144,7 @@ class maintenance_installation(models.Model):
 
 class intervention_type(models.Model):
     _name="maintenance.intervention.type"
+    _description = 'Maintenance Intervention Type'
     
     @api.one
     def _get_maintenance_count(self):
@@ -204,6 +206,7 @@ class intervention_type(models.Model):
     
 class maintenance_intervention(models.Model):
     _name = 'maintenance.intervention'
+    _description = 'Maintenance Intervention'
 
     _inherit = ['mail.thread','ir.needaction_mixin']
     
@@ -392,6 +395,7 @@ class maintenance_intervention(models.Model):
 
 class maintenance_element(models.Model):
     _name = 'maintenance.element'
+    _description = 'Maintenance Element'
     _inherit=['mail.thread']
     _order = 'name'
     
@@ -469,6 +473,7 @@ class maintenance_element(models.Model):
 
 class maintenance_intervention_task(models.Model):
     _name = 'maintenance.intervention.task'
+    _description = 'Maintenance Intervention Task'
     
     inherit = ['ir.needaction_mixin']
     

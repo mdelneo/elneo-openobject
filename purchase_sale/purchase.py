@@ -2,6 +2,18 @@ from openerp import models, fields, api
 
 class purchase_order(models.Model):
     _inherit='purchase.order'
+    
+    @api.multi
+    def do_merge(self):
+        res = super(purchase_order, self).do_merge()
+        for new_purchase_id in res:
+            sale_ids = []
+            for old_purchase_id in res[new_purchase_id]:
+                old_purchase = self.browse(old_purchase_id)
+                for sale in old_purchase.sale_ids:
+                    sale_ids.append(sale.id)
+            self.browse(new_purchase_id).sale_ids = sale_ids
+        return res
    
     @api.multi
     def copy(self, default=None):

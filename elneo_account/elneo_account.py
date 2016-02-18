@@ -128,6 +128,19 @@ class account_invoice_tax(models.Model):
 class account_invoice(models.Model):
     _inherit = 'account.invoice'
     
+    
+    @api.multi
+    def do_merge(self, keep_references=True, date_invoice=False):
+        #keep picking_ids link when merge invoices
+        res = super(account_invoice,self).do_merge(keep_references,date_invoice)
+        for new_invoice_id in res:
+            for old_invoice_id in res[new_invoice_id]:
+                pickings = self.env['stock.picking'].search([('invoice_id','=',old_invoice_id)])
+                for picking in pickings:
+                    picking.invoice_id = new_invoice_id
+        return res
+        
+    
     @api.multi
     def test_virtual(self):
         return False

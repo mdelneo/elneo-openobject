@@ -73,7 +73,8 @@ class elneo_supplier_price_update(models.Model):
     date_done = fields.Datetime('Date done')
     
     progress = fields.Float('Progress', compute='_get_progress')
-    time_remaining = fields.Float('Time remaining', compute='_get_time_remaining')
+    progress_str = fields.Char('Progress', compute='_get_progress')
+    time_remaining = fields.Float('Time remaining (h)', compute='_get_time_remaining')
     
     
     
@@ -93,8 +94,7 @@ class elneo_supplier_price_update(models.Model):
             return
         
         if self.progress and time_perform:  
-            self.time_remaining = timedelta(seconds=time_perform.seconds / self.progress).seconds/60.
-        
+            self.time_remaining = timedelta(seconds=time_perform.seconds / self.progress).seconds/60./60.
         
     @api.one
     def _get_progress(self):
@@ -108,6 +108,7 @@ class elneo_supplier_price_update(models.Model):
             nb = self.env['elneo.supplier.price.update.line'].search([('import_id','=',self.id),('state','=','updated')], count=True)
         if total:
             self.progress = float(nb)/float(total)
+            self.progress_str = str(float(nb))+'/'+str(float(total))+' ('+str(float(nb)/float(total))+'%)'
         
     
     @api.one

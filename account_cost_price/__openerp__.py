@@ -7,8 +7,8 @@
     'description': "Add Cost Price for Invoices",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['account','product'],
-    "data" : [
+    'depends': ['sale','account','product','stock_account'],
+    "data" : ['account_cost_price_view.xml'
         ],
     'installable': True,
     'auto_install': False,

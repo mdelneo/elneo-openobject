@@ -21,22 +21,30 @@
 
 from openerp import models, fields,api
 
+class sale_order_line(models.Model):
+    _inherit = 'sale.order.line'
+    
+    @api.model
+    def _prepare_order_line_invoice_line(self, line, account_id=False):
+        res = super(sale_order_line,self)._prepare_order_line_invoice_line(line, account_id)
+        res['cost_price'] = line.purchase_price
+        return res
+
+class stock_move(models.Model):
+    _inherit = 'stock.move'
+    
+    @api.model
+    def _create_invoice_line_from_vals(self, move, invoice_line_vals):
+        if move.procurement_id and move.procurement_id.sale_line_id:
+            invoice_line_vals['cost_price'] = move.procurement_id.sale_line_id.purchase_price
+        elif move.product_id:
+            invoice_line_vals['cost_price'] = move.product_id.standard_price
+            
+        res = super(stock_move,self)._create_invoice_line_from_vals(move, invoice_line_vals)
+        return res
+
 class account_invoice_line(models.Model):
     _inherit = "account.invoice.line"
     
     cost_price = fields.Float('Cost Price', digits=(16, 2))
     
-    @api.one
-    def write(self,vals):
-        if vals.get('product_id', False):
-            product = self.env['product.product'].browse(vals['product_id'])
-            self.cost_price = product.standard_price
-        
-        return super(account_invoice_line,self).write(vals)
-            
-    @api.model        
-    def create(self,vals):
-        if vals.get('product_id',False):
-            product = self.env['product.product'].browse(vals['product_id'])
-            vals['cost_price'] = product.standard_price
-        return super(account_invoice_line, self).create(vals)

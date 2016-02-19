@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="product.product_template_form_view"/>           
             <field name="arch" type="xml">
             	<field name="seller_ids" position="attributes">
-            		<attribute name="context">{'product_tmpl_id':id}</attribute>
+            		<attribute name="context">{'product_id':id}</attribute>
             	</field>
             		
                 

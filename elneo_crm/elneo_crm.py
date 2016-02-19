@@ -178,6 +178,7 @@ class res_partner(models.Model):
     corporation_type = fields.Many2one('res.partner.title', domain=[('domain','=','partner')])
     contact_title = fields.Many2one('res.partner.title', domain=[('domain','=','contact')])
     meeting_count = fields.Integer(compute='_meeting_count', string="# Meetings")
+    use_parent_name = fields.Boolean('Use parent name')
     
     @api.multi
     def _meeting_count(self):

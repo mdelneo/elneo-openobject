@@ -125,9 +125,7 @@ class maintenance_intervention(models.Model):
                 self.available = True
             else:
                 available_pickings = self.sale_order_id.picking_ids.filtered(lambda r:(r.state == 'assigned' and r.picking_type_id.code =='outgoing') or not r.move_lines)
-                
                 out_pickings = self.sale_order_id.picking_ids.filtered(lambda r:(r.state in ['waiting','confirmed','partially_available','assigned'] and r.picking_type_id.code =='outgoing') or not r.move_lines)
-                
                 self.available = len(available_pickings) > 0 and (len(available_pickings) == len(out_pickings))
     
     
@@ -165,7 +163,7 @@ class maintenance_intervention(models.Model):
     
     @api.multi
     def _update_sale_workforce_line(self,sale_order):
-        if (sale_order.order_line and sale_order.order_line.mapped('product_id') not in self.maint_type.workforce_product_id) or not sale_order.order_line:
+        if (sale_order.order_line and self.maint_type.workforce_product_id not in sale_order.order_line.mapped('product_id')) or not sale_order.order_line:
             order_line={}
             order_line['product_id'] = self.maint_type.workforce_product_id.id
             order_line['product_uom_qty'] = 0
@@ -255,7 +253,7 @@ class maintenance_intervention(models.Model):
                 #update intervention
                 intervention.sale_order_id = sale_order
                 
-            self._update_sale_workforce_line(sale_order)
+            self._update_sale_workforce_line(intervention.sale_order_id)
             
             #confirm sale order
             if not self._context.get("quotation",False):
@@ -358,9 +356,6 @@ class maintenance_intervention(models.Model):
         Add products to delivery order
         
         '''
-
-        
-        
         for intervention in self:
             order = intervention.sale_order_id
             pickings = intervention.sale_order_id.picking_ids
@@ -414,6 +409,12 @@ class maintenance_intervention(models.Model):
                         # There is no out picking (maybe a void spare part list)                                             
                         if not out_picking:
                             name = intervention.warehouse_id.maintenance_picking_type_id.sequence_id._next() or '/'
+                            
+                            
+                            if not intervention.sale_order_id.procurement_group_id:
+                                vals = self.env['sale.order']._prepare_procurement_group(intervention.sale_order_id)
+                                group_id = self.env['procurement.group'].create(vals)
+                                order.write({'procurement_group_id': group_id.id})
                             
                             pick_values={
                                          'name':name,
@@ -485,8 +486,6 @@ class maintenance_intervention(models.Model):
                 #self.env['stock.move'].action_done([move.id for move in int_picking.move_lines if move.id not in moves_todelete])
                 #self.env['stock.picking'].action_done([int_picking.id])
                 
-            
-            
             intervention.generate_invoice()
       
         return super(maintenance_intervention, self).action_done()
@@ -553,7 +552,6 @@ class maintenance_intervention(models.Model):
             else:
                 taxes_ids = taxes
     
-            
             if not invoice_maintenance_lines:
                 self.env['account.invoice.line'].create({
                     'name': maintenance_product.name,
@@ -666,33 +664,31 @@ class maintenance_intervention_product(models.Model):
             self.cost_price = sale_line_change_product['value'].get('purchase_price',0)
             self.route_id=sale_line_change_product['value'].get('route_id',False)
 
-    @api.multi
+    @api.one
     def _get_int_move_availability(self):
-        all_moves = self.env['stock.move'].search([('intervention_product_id','in',self.mapped('id')),('picking_id.picking_type_id.code','=','internal')])
-
-        for product in self:
-            moves = all_moves.filtered(lambda r:r.intervention_product_id==product)
-            if len(moves) == 1 :
-                product.int_move_availability = moves.state
+        moves = self.moves.filtered(lambda r:r.picking_id.picking_type_id.code == 'internal')
+        if len(moves) == 1 :
+            self.int_move_availability = moves.state
+        elif len(moves) > 1:
+            one_done = False
+            one_not_done = False
+            not_done_state = None
+            for move in moves:
+                if move.state == 'done':
+                    one_done = True
+                elif move.state != 'cancel':
+                    one_not_done = True
+                    not_done_state = move.state
+            if one_done and one_not_done:
+                self.int_move_availability = u'partial'
+            elif not one_done and one_not_done:
+                self.int_move_availability = not_done_state
             else:
-                one_done = False
-                one_not_done = False
-                not_done_state = None
-                for move in moves:
-                    if move.state == 'done':
-                        one_done = True
-                    elif move.state != 'cancel':
-                        one_not_done = True
-                        not_done_state = move.state
-                if one_done and one_not_done:
-                    product.int_move_availability = u'partial'
-                elif not one_done and one_not_done:
-                    product.int_move_availability = not_done_state
-                else:
-                    moves_to_get = moves.filtered(lambda r:r.product_id.id==product.product_id.id)
-                    if len(moves_to_get) > 0:
-                        product.int_move_availability = moves_to_get[0].state
-                
+                moves_to_get = moves.filtered(lambda r:r.product_id.id==self.product_id.id)
+                if len(moves_to_get) > 0:
+                    self.int_move_availability = moves_to_get[0].state
+        else:
+            self.int_move_availability = 'unknown'
 
     description= fields.Char(string="Description", size=255)
     product_id = fields.Many2one('product.product', string="Product", required=True)
@@ -701,12 +697,13 @@ class maintenance_intervention_product(models.Model):
     maintenance_element_id = fields.Many2one('maintenance.element', string="Maintenance element",index=True) 
     quantity = fields.Float("Quantity",default=1)
     intervention_date = fields.Datetime(related='intervention_id.date_start', string="Date")
-    int_move_availability = fields.Selection(compute=_get_int_move_availability, string="Reservation", selection=[('partial', 'Partial'), ('draft', 'Draft'), ('waiting', 'Waiting'), ('confirmed', 'Not Available'), ('assigned', 'Available'), ('done', 'Done'), ('cancel', 'Cancelled')])
+    int_move_availability = fields.Selection(compute='_get_int_move_availability', string="Reservation", selection=[('unknown','Unknown'),('partial', 'Partial'), ('draft', 'Draft'), ('waiting', 'Waiting'), ('confirmed', 'Not Available'), ('assigned', 'Available'), ('done', 'Done'), ('cancel', 'Cancelled')])
     sale_price = fields.Float("Sale price")
     cost_price = fields.Float("Cost price")
     discount = fields.Float("Discount (%)")
     delay = fields.Float("Delay")
     route_id = fields.Many2one('stock.location.route', 'Route', domain=[('sale_selectable', '=', True)])
+    moves = fields.One2many('stock.move','intervention_product_id', 'Moves linked')
     #type = fields.Selection([('make_to_stock', 'from stock'), ('make_to_order', 'on order'),('partial','Partial')], 'Procurement Method')
         
     
@@ -714,7 +711,6 @@ class maintenance_intervention_product(models.Model):
     @api.multi
     def update_values(self,vals):
         
-            
         #break infinite loop
         if self.env.context.get("update_from_order",False):
             return False
@@ -909,79 +905,7 @@ class sale_order(models.Model):
                 '''
         
         return result              
-    
-    '''
-    #link created stock_moves to intervention products
-    def action_ship_create(self, cr, uid, ids, *args):
-        result = super(sale_order, self).action_ship_create(cr, uid, ids, *args)
-        
-        wf_service = netsvc.LocalService("workflow")
-        move_pool = self.pool.get("stock.move")
-        picking_pool = self.pool.get("stock.picking")
-        intervention_pool = self.pool.get("maintenance.intervention")
-        
-        for order in self.browse(cr, uid, ids, context={}):
-            if order.intervention_id:
-                intervention_pool.write(cr, uid, [order.intervention_id.id], {'state':'confirmed'})
-                
-                #set intervention_product_id reference for stock_moves
-                for picking in order.picking_ids:
-                    picking_pool.write(cr, uid, picking.id, {'origin':str(picking.origin)+' '+picking.sale_id.intervention_id.code})
-                    if picking.state != 'cancel':
-                        for move in picking.move_lines:
-                            if move.sale_line_id:
-                                move_pool.write(cr, uid, [move.id], {'intervention_product_id':move.sale_line_id.intervention_product_id.id})
-                
-                #add picking out for maintenance order even if there is no order lines
-                int_picking = None
-                out_picking = None
-                for pick in order.picking_ids:
-                    if pick.type == 'internal':
-                        int_picking = pick
-                    elif pick.type == 'out':
-                        out_picking = pick 
-                
-                if order.intervention_id:
-                    if not int_picking:
-                        pick_int_name = self.pool.get('ir.sequence').get(cr, uid, 'stock.picking.internal')
-                        int_picking_id = self.pool.get('stock.picking').create(cr, uid, {
-                            'name': pick_int_name,
-                            'origin': order.name,
-                            'type': 'internal',
-                            'state': 'auto',
-                            'move_type': order.picking_policy,
-                            'sale_id': order.id,
-                            'address_id': order.partner_shipping_id.id,
-                            'note': order.note,
-                            'invoice_state': (order.order_policy=='picking' and '2binvoiced') or 'none',
-                            'company_id': order.company_id.id,
-                        })
-                        wf_service.trg_validate(uid, 'stock.picking', int_picking_id, 'button_confirm', cr)
-                        
-                    if not out_picking:
-                        pick_out_name = self.pool.get('ir.sequence').get(cr, uid, 'stock.picking.out')
-                        out_picking_id = self.pool.get('stock.picking').create(cr, uid, {
-                            'name': pick_out_name,
-                            'origin': order.name,
-                            'type': 'out',
-                            'state': 'auto',
-                            'move_type': order.picking_policy,
-                            'sale_id': order.id,
-                            'address_id': order.partner_shipping_id.id,
-                            'note': order.note,
-                            'invoice_state': (order.order_policy=='picking' and '2binvoiced') or 'none',
-                            'company_id': order.company_id.id,
-                        })
-                        wf_service.trg_validate(uid, 'stock.picking', out_picking_id, 'button_confirm', cr)
-        return result
-    '''    
-        
-    '''
-    #Simulate one2one relation between sale_order and maintenance_intervention
-    def _get_sale_by_intervention(self, cr, uid, ids, context={}):
-        return [inter.sale_order_id.id for inter in self.pool.get("maintenance.intervention").browse(cr, uid, ids, context=context)]
-    '''
-
+      
     @api.multi
     def _get_intervention(self):
         result = {}
@@ -1029,17 +953,9 @@ class maintenance_intervention_task(models.Model):
         
    
     to_plan = fields.Boolean(compute=_get_to_plan, string='To plan',default=False,store=True)
-    
-'''
-class old_stock_picking(osv.orm.Model):
-    _inherit='stock.picking'
-    
-'''    
-    
 
 class stock_picking(models.Model):
     _inherit = ['stock.picking']
-    
     
     @api.model
     def _install_sale_id(self):
@@ -1155,12 +1071,13 @@ class stock_picking(models.Model):
         return result
     '''
     
-    
+    '''
     @api.multi
     def action_cancel(self):
         for pick in self:
             pick.move_lines.action_cancel()
         return True
+    '''
           
     '''
     DEPRECATED
@@ -1178,19 +1095,19 @@ class stock_picking(models.Model):
         return result
     '''
     
-class stock_move(models.Model):
+class StockMove(models.Model):
     _inherit = 'stock.move'
     
     @api.model
     def _create_invoice_line_from_vals(self, move, invoice_line_vals):
         """ Update invoice line with intervention product
-            Deprecate the stock.picking._invoice_line_hook function
+            Deprecate (v6) the stock.picking._invoice_line_hook function
         @param move: Stock move
         @param invoice_line_vals: Values of the invoice line
         @return: The invoice line id
         """
         
-        invoice_line_id = super(stock_move,self)._create_invoice_line_from_vals(move,invoice_line_vals)
+        invoice_line_id = super(StockMove,self)._create_invoice_line_from_vals(move,invoice_line_vals)
         
         self.env['account.move.line'].browse(invoice_line_id).intervention_product_id = move.intervention_product_id.id
         
@@ -1198,3 +1115,25 @@ class stock_move(models.Model):
     
     intervention_product_id =fields.Many2one(comodel_name='maintenance.intervention.product', string="Maintenance intervention product")
     maint_element_id = fields.Many2one(comodel_name="maintenance.element", string="Maintenance element", )
+    
+    
+class ProcurementOrder(models.Model):
+    _inherit='procurement.order'
+    
+    @api.model
+    def _run_move_create(self,procurement):
+        '''
+        When interventions are confirmed (and sale_order), procurement are not always run.
+        So, the stock move is not always present.
+        When the procurement is run and create the move, we add the link with the intervention product
+        '''
+    
+        res = super(ProcurementOrder,self)._run_move_create(procurement)
+        
+        # We are looking if sale_order that generated this procurement is linked to an intervention and linke move to spare part
+        if 'group_id' in res and 'intervention_product_id' not in res:
+            
+            if procurement.sale_line_id and procurement.sale_line_id.intervention_product_id:
+                res.update({'intervention_product_id':procurement.sale_line_id.intervention_product_id.id})
+                        
+        return res

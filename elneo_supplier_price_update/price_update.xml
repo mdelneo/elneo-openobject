@@ -124,7 +124,7 @@
             		</group>
             		<group string="State">
             			<field name="state"/>
-            			<field name="progress" />
+            			<field name="progress_str" />
             			<field name="time_remaining" widget="float_time" />
             		</group>
             			<!-- <field name="pricelist_file"/> -->

@@ -70,49 +70,6 @@ class maintenance_intervention(models.Model):
             raise Warning(_('You can\'t delete intervention with confirmed sale order.\n\n Please cancel sale order before.'))
         return super(maintenance_intervention, self).unlink()
     
-    '''
-    @api.one
-    #@api.depends('stock_pickings.state','sale_order_id')
-    def _get_task_fields(self):
-        return super(maintenance_intervention, self)._get_task_fields()
-    '''
-    
-    '''
-    @api.multi
-    @api.depends('sale_order_id')
-    def _get_out_picking(self):
-        res = {} 
-        for intervention in self:
-            if intervention.sale_order_id and intervention.sale_order_id.picking_ids:
-                for pick in intervention.sale_order_id.picking_ids:
-                    if pick.type == 'out':
-                        res[intervention.id] = pick.id
-                        break;
-            if not res.has_key(intervention.id):
-                res[intervention.id] = None
-        return res
-    '''
-
-    '''
-    def find_interv_by_task(self, cr, uid, ids, context=None):
-        return [task.intervention_id.id for task in self.pool.get("maintenance.intervention.task").browse(cr, uid, ids, context)]
-    
-    def find_interv_by_picking(self, cr, uid, ids, context=None):
-        res = []
-        for pick in self.pool.get("stock.picking").browse(cr, uid, ids, context):
-            if pick.sale_id and pick.sale_id.intervention_id:
-                res.append(pick.sale_id.intervention_id.id)
-        return res
-    
-    def find_interv_by_sale(self, cr, uid, ids, context=None):
-        res = []
-        for sale in self.pool.get("sale.order").browse(cr, uid, ids, context):
-            if sale.intervention_id:
-                res.append(sale.intervention_id.id)
-        return res
-    '''
-    
-    
     
     @api.one
     @api.depends('state','intervention_products','sale_order_id.picking_ids.state','sale_order_id.picking_ids.move_type','sale_order_id.picking_ids.move_lines.state','sale_order_id.picking_ids.move_lines.picking_id', 'sale_order_id.picking_ids.move_lines.partially_available')
@@ -148,7 +105,6 @@ class maintenance_intervention(models.Model):
         for intervention_product in self.intervention_products:
             product = intervention_product.copy({'intervention_id':new_id.id})
             
-                
         return new_id
     
     @api.multi
@@ -328,28 +284,6 @@ class maintenance_intervention(models.Model):
     def manage_diff_qty(self,diff_qty): #function to override in other modules
         return True
     
-    '''
-    DEPRECATED : IN maintenance.intervention.product
-    
-    def get_move_location_id(self,intervention_products):
-        res = {}
-        for intervention_product in intervention_products:        
-            location_id = intervention_product.intervention_id.sale_order_id.warehouse_id.lot_stock_id.id
-            res[intervention_product.id] = location_id
-        return res
-    '''
-    
-    '''
-    DEPRECATED : IN maintenance.intervention.product
-    def get_move_location_dest_id(self, cr, uid, intervention_product_ids, context=None):
-        res = {}
-        for intervention_product in self.pool.get("maintenance.intervention.product").browse(cr, uid, intervention_product_ids):
-            location_dest_id = self.pool.get("stock.location").chained_location_get(cr, uid, intervention_product.intervention_id.sale_order_id.shop_id.warehouse_id.lot_output_id, intervention_product.intervention_id.sale_order_id.partner_id, intervention_product.product_id, context)[0].id
-            res[intervention_product.id] = location_dest_id
-        return res
-    '''    
-    
-    
     @api.multi
     def action_done(self):
         '''
@@ -365,7 +299,6 @@ class maintenance_intervention(models.Model):
             if order.state in ('draft', 'cancel'):
                 raise Warning(_('Please confirm sale order before closing intervention !'))
             
-                
             out_picking = False
             int_picking = False
             for picking in pickings:
@@ -496,7 +429,7 @@ class maintenance_intervention(models.Model):
         for intervention in self:
             
             out_picking = self.env['stock.picking']
-            out_picking = intervention.sale_order_id.picking_ids.filtered(lambda r:r.picking_type_id.code=='outgoing')
+            out_picking = intervention.sale_order_id.picking_ids.filtered(lambda r:r.picking_type_id.code=='outgoing' and r.state != 'cancel')
             
             if not out_picking and intervention.intervention_products:
                 raise Warning(_('The intervention spare parts is not void and there is no delivery order for this intervention.'))
@@ -512,8 +445,8 @@ class maintenance_intervention(models.Model):
             out_picking.mapped('sale_id').invoice_ids.filtered(lambda r:r.state == 'draft').unlink()
             
             # FROM PICKING INVOICE GENERATION BEHAVIOUR
-            if out_picking:
-                out_picking.invoice_state = '2binvoiced'
+            for o_picking in out_picking:
+                o_picking.invoice_state = '2binvoiced'
                 intervention.sale_order_id.order_line.write({'invoiced': False})
                 
                 #out_picking.do_transfer()
@@ -521,7 +454,7 @@ class maintenance_intervention(models.Model):
 
                 if not journal_id:
                     raise Warning(_('Please configure default Sale Journal for Maintenance'))
-                invoice_ids = out_picking.action_invoice_create(journal_id=int(journal_id))
+                invoice_ids = o_picking.action_invoice_create(journal_id=int(journal_id))
             
             # FROM SALE ORDER INVOICE GENERATION (THERE IS NO SPARE PARTS)
             if not out_picking or not invoice_ids:

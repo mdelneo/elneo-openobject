@@ -147,7 +147,7 @@ class procurement_order(models.Model):
     _inherit = 'procurement.order'
     
     def use_procure_method(self, product, procure_method, requested_quantity, qty_in_stock):
-        if procure_method.use_if_enough_stock and qty_in_stock > requested_quantity:
+        if procure_method.use_if_enough_stock and qty_in_stock >= requested_quantity:
             return True
 
     @api.model

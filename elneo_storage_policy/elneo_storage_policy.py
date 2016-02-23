@@ -14,7 +14,7 @@ class procurement_order(models.Model):
     def use_procure_method(self, product, procure_method, requested_quantity, qty_in_stock):
         res = super(procurement_order, self).use_procure_method(product, procure_method, requested_quantity, qty_in_stock)
         
-        if procure_method.use_if_enough_stock and qty_in_stock > requested_quantity:
+        if procure_method.use_if_enough_stock and qty_in_stock >= requested_quantity:
             return True
         
         if product:

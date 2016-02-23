@@ -119,15 +119,12 @@ class sale_order_line(models.Model):
     @api.multi
     def write(self, vals):
         res = super(sale_order_line,self).write(vals)
-        for line in self:
-            line.set_brut_price()
         return res
     
     @api.model
     @api.returns('self', lambda value:value.id)
     def create(self, vals):
         res = super(sale_order_line,self).create(vals)
-        res.set_brut_price()
         return res
     
     @api.one
@@ -171,10 +168,12 @@ class sale_order_line(models.Model):
         
         if product:
             res['value']['notes'] = product.description_sale
+            res['value']['brut_sale_price'] = self.product_id.list_price
         
         if updated:
             res['value']['name'] = name
-          
+            
+            
         
         return res
 
@@ -216,7 +215,7 @@ class sale_order_line(models.Model):
         
     virtual_stock = fields.Float('Virtual stock', compute=_qty_virtual_stock)
     real_stock = fields.Float('Real stock', compute=_qty_real_stock)
-    brut_sale_price = fields.Float(string="Brut sale price", readonly=True)
+    brut_sale_price = fields.Float(string="Brut sale price")
 
     purchase_line_ids = fields.Many2many('purchase.order.line', 'purchase_line_sale_line_rel', 'sale_line_id', 'purchase_line_id', 'Purchase lines')
     procurement_ids=fields.One2many(auto_join=True)
@@ -419,7 +418,16 @@ class sale_order(models.Model):
                 continue
             sale.out_picking_ids = self.env['stock.picking'].search([('group_id', '=', sale.procurement_group_id.id),('picking_type_id.code','!=','incoming')])
     
+    @api.multi
+    def get_section_short(self):
+        for sale in self:
+            sale.section_short = sale.section_id.code
+        
     
+    
+    
+    section_short = fields.Char('Section', compute='get_section_short')
+    description = fields.Char('Description')
     jit = fields.Boolean('Just in time ?')
     partner_name = fields.Char('Customer name', related="partner_id.name")
     sale_margin = fields.Float(compute='_sale_margin', string='Marge Coefficient', store=True, help="it gives a ratio representing the margin.")

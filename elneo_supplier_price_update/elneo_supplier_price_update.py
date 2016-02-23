@@ -101,14 +101,14 @@ class elneo_supplier_price_update(models.Model):
         nb = 0
         total = self.env['elneo.supplier.price.update.line'].search([('import_id','=',self.id)], count=True)
         if self.state == 'computing':
-            nb = self.env['elneo.supplier.price.update.line'].search([('import_id','=',self.id),('state','=','to_update')], count=True)
+            nb = self.env['elneo.supplier.price.update.line'].search([('import_id','=',self.id),('state','in',['to_update','to_create'])], count=True)
         if self.state == 'updating_pps':
             nb = self.env['elneo.supplier.price.update.line'].search([('import_id','=',self.id),('state','=','updated_pp')], count=True)
         if self.state == 'updating':
             nb = self.env['elneo.supplier.price.update.line'].search([('import_id','=',self.id),('state','=','updated')], count=True)
         if total:
             self.progress = float(nb)/float(total)
-            self.progress_str = str(float(nb))+'/'+str(float(total))+' ('+str(float(nb)/float(total))+'%)'
+            self.progress_str = str(float(nb))+'/'+str(float(total))+' ('+str(float(nb)*100/float(total))+'%)'
         
     
     @api.one
@@ -536,13 +536,17 @@ from pricelist_landefeld_full;""")
 
             
             line_obj = self.env['elneo.supplier.price.update.line']
-            lines_to_create = line_obj.search([('id','in',[line.id for line in line_ids]),('suppinfo_ids','=',False)])
-            lines_to_update = line_obj.search([('id','in',[line.id for line in line_ids]),('suppinfo_ids','!=',False)])
+            self._cr.execute('''update elneo_supplier_price_update_line set state = 'to_create' where id in (select l.id 
+from elneo_supplier_price_update_line l left join elneo_supplier_price_update_line_suppinfo_rel rel on l.id = rel.update_line_id 
+where l.id in %s
+and rel.suppinfo_id is null)''',(tuple(line_ids._ids),))
             
-            lines_to_update.action_to_update()
-            lines_to_create.action_to_create()
-            
-            self.env.cr.commit()        
+            self._cr.execute('''update elneo_supplier_price_update_line set state = 'to_update' where id in (select l.id 
+from elneo_supplier_price_update_line l left join elneo_supplier_price_update_line_suppinfo_rel rel on l.id = rel.update_line_id 
+where l.id in %s
+and rel.suppinfo_id is not null)''',(tuple(line_ids._ids),))
+                
+            self._cr.commit()        
             
             return True
         
@@ -560,11 +564,10 @@ from pricelist_landefeld_full;""")
                     all_line_ids_len = len(all_line_ids)
                     i = 0
                     while i < all_line_ids_len:
-                        current_line_ids = all_line_ids[i:i+100]
+                        current_line_ids = all_line_ids[i:i+10000]
                         compute_part(current_line_ids)
-                        if all_line_ids_len:
-                            update.percent_operation_compute = i*100./all_line_ids_len
-                        i = i+100
+                        i = i+10000
+                        _logger.warning('_compute : '+str(i)+'/'+str(all_line_ids_len))
     
                     self.action_computed()
                 
@@ -677,25 +680,65 @@ from pricelist_landefeld_full;""")
         with api.Environment.manage():
             self.env = api.Environment(cr, uid, context)
             try:
-                i=0
-                complete = len(self.lines_to_update)
-                percent = 0.0
-                
-                jump = 100
-                lines = self.lines_to_update[i:jump]
-                
-                while lines:
-                    #find all product_ids
-                    self._cr.execute("select product_id from elneo_supplier_price_update_line_product_rel rel left join elneo_supplier_price_update_line line on rel.update_line_id = line.id where line.id in %s and line.state = 'updated_pp'",(tuple([line.id for line in lines]),))
-                    product_ids = [product_id for (product_id,) in cr.fetchall()]
-                    #for each product, write it to compute sale price, and update line state
-                    for product in self.env['product.product'].browse(product_ids):
-                        product.product_tmpl_id._get_list_price()
-                    lines.action_updated()
-                    i=i+jump
-                    percent = (i / float(complete)) * 100.
-                    cr.commit()
-                    lines = self.lines_to_update[i:i+jump]
+                if self.type == 'landefeld':
+                    _logger.warning('sale price : Landefeld behaviour')
+                    i = 0
+                    jump = 1000
+                    complete = len(self.lines_to_update._ids)
+                    ids_to_update = self.lines_to_update._ids[i:jump]
+                    while ids_to_update:
+                        self._cr.execute('''
+                            update product_template set list_price = req.sale_price from 
+                            (
+                            select req.id, GREATEST(sale_price, min_price) sale_price
+                            from
+                            (
+                            select p.id, 
+                            case when g.web_shop_price_base = 'public_price' then pl.public_price * g.coeff_sale_price when g.web_shop_price_base = 'purchase_price' then pl.price * g.coeff_sale_price else 0 end sale_price, 
+                            pl.price*g.min_margin_coef min_price
+                            from elneo_supplier_price_update_line l 
+                            left join elneo_supplier_price_update_line_product_rel rel on rel.update_line_id = l.id 
+                            left join product_product pp on pp.id = rel.product_id 
+                            left join product_template p on p.id = pp.product_tmpl_id 
+                            left join product_supplierinfo ps 
+                                left join pricelist_partnerinfo pl on pl.suppinfo_id = ps.id 
+                            on ps.product_tmpl_id = p.id 
+                            left join (
+                            select p.id, min(pl.min_quantity) min_quantity
+                            from product_template p left join product_supplierinfo ps left join pricelist_partnerinfo pl on pl.suppinfo_id = ps.id on ps.product_tmpl_id = p.id 
+                            where ps.name = 4509
+                            group by p.id
+                            ) req on req.id = p.id
+                            left join product_group g on p.product_group_id = g.id
+                            where ps.name = 4509 and pl.min_quantity = req.min_quantity and l.id in %s
+                            ) req
+                            ) req
+                            where req.id = product_template.id''',(tuple(ids_to_update),))
+                        self._cr.execute('''update elneo_supplier_price_update_line set state = 'updated' where id in %s''',(tuple(ids_to_update),))
+                        self._cr.commit()
+                        i=i+jump
+                        ids_to_update = self.lines_to_update._ids[i:i+jump]
+                        _logger.warning('sale price : '+str(i)+'/'+str(complete))
+                else:
+                    i=0
+                    complete = len(self.lines_to_update)
+                    percent = 0.0
+                    
+                    jump = 100
+                    lines = self.lines_to_update[i:jump]
+                    
+                    while lines:
+                        #find all product_ids
+                        self._cr.execute("select product_id from elneo_supplier_price_update_line_product_rel rel left join elneo_supplier_price_update_line line on rel.update_line_id = line.id where line.id in %s and line.state = 'updated_pp'",(tuple([line.id for line in lines]),))
+                        product_ids = [product_id for (product_id,) in cr.fetchall()]
+                        #for each product, write it to compute sale price, and update line state
+                        for product in self.env['product.product'].browse(product_ids):
+                            product.product_tmpl_id._get_list_price()
+                        lines.action_updated()
+                        i=i+jump
+                        percent = (i / float(complete)) * 100.
+                        cr.commit()
+                        lines = self.lines_to_update[i:i+jump]
                 
                 #finally update import state
                 self.action_done()

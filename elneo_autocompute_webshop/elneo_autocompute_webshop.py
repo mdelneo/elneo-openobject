@@ -64,6 +64,8 @@ class product_template(models.Model):
     @api.one
     def get_sale_price(self, quantity=0):
         res = 0
+        if not quantity:
+            quantity = self._context.get('quantity',0)
         
         if self.web_shop_product and self.product_group_id:
             purchase_public_price = self.get_purchase_public_price(quantity)

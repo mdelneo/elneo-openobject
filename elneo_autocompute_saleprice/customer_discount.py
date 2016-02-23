@@ -163,8 +163,18 @@ class sale_order_line(models.Model):
         #don't change route type when change qty
         if res.get('value') and res['value'].get('route_id'):
             res['value'].pop('route_id')
+        
+        #if line already saved : don't change price
+        if self.id:
+            if res.get('value') and res['value'].get('price_unit'):
+                res['value'].pop('price_unit')
+            if res.get('value') and res['value'].get('discount'):
+                res['value'].pop('discount')
+            if res.get('value') and res['value'].get('brut_sale_price'):
+                res['value'].pop('brut_sale_price')
+            
                 
-        return {}
+        return res
       
 #BASE MODELS
 

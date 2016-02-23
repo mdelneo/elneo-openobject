@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="invoice_form_account_cost_price" model="ir.ui.view">
+			<field name="name">invoice.form.account.cost.price</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form" />
+			<field name="arch" type="xml">
+				<!-- Add cost_price on invoice lines -->
+				<xpath expr="//field[@name='invoice_line']/tree/field[@name='price_unit']" position="before">
+					<field name="cost_price" />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>
+        	

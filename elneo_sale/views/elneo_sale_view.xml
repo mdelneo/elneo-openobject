@@ -98,10 +98,21 @@
         
         
         <!-- 
-			Inherit of view sale_order_form to:
-				- add virtual and real stock
-				- add stat_on_invoice_date
+			Inherit of view sale_order_form
 		 -->
+		 
+		 <record model="ir.ui.view" id="view_order_form_sale_quotation_elneo_sale">
+			<field name="name">sale.order.form.sale.quotation.elneo.sale</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale_quotation.view_order_form_sale_quotation" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='quotation_address_id']" position="attributes">
+					<attribute name="context">{'contact_display':1,'default_parent_id':partner_id,'show_address':1,'show_ref_inline':1,'form_view_ref':'elneo_crm.view_partner_contact_form'}</attribute>
+				</xpath>
+			</field>
+		</record>
+		 
 		<record id="view_order_form_elneo_sale" model="ir.ui.view">
             <field name="name">view.sale.order.form.elneo.sale</field>
             <field name="model">sale.order</field>
@@ -148,7 +159,7 @@
             	<xpath expr="//field[@name='partner_shipping_id']" position="after">
             		<field name="partner_invoice_id" 
             			groups="sale.group_delivery_invoice_address" 
-            			context="{'default_type':'invoice','show_address':1,'show_ref_inline':1,'contact_display':1,'form_view_ref':'elneo_crm.view_partner_contact_form'}"
+            			context="{'default_type':'invoice','show_address':1,'show_ref_inline':1,'contact_display':1,'default_parent_id':partner_id,'form_view_ref':'elneo_crm.view_partner_contact_form'}"
             			options="{'always_reload': True}"
             			domain="['|',('id','=',partner_id),'&amp;',('parent_id','=',partner_id),('type','in',['default','invoice','other','contact'])]"
             			/>
@@ -160,7 +171,7 @@
             	<xpath expr="//field[@name='partner_shipping_id']" position="attributes">
             		<attribute name="attrs">{'readonly':[('state','=','done')]}</attribute>
             		<attribute name="options">{'always_reload': True}</attribute>
-            		<attribute name="context">{'contact_display':1,'show_address':1,'show_ref_inline':1,'form_view_ref':'elneo_crm.view_partner_contact_form'}</attribute>
+            		<attribute name="context">{'contact_display':1,'default_parent_id':partner_id,'show_address':1,'show_ref_inline':1,'form_view_ref':'elneo_crm.view_partner_contact_form'}</attribute>
             		<attribute name="domain">['|',('id','=',partner_id),'&amp;',('parent_id','=',partner_id),('type','in',['default','delivery','other','contact'])]</attribute>
             	</xpath>
             	

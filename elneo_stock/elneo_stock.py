@@ -99,6 +99,24 @@ class stock_picking(models.Model):
     section_id = fields.Many2one('crm.case.section', string="Sales team", compute="_get_section_id", store=True)
     reservation_name = fields.Char('Linked reservation', compute='_get_reservation_name')
     
+    @api.model
+    def check_availability(self):
+        self._cr.execute('''select distinct p.id 
+from stock_picking p 
+left join stock_move m on m.picking_id = p.id 
+where 
+p.state in ('waiting','confirmed','partially_available') 
+and m.state not in ('draft', 'cancel', 'done')
+group by p.id
+having
+count(m.id) > 0''')
+        res = self._cr.fetchall()
+        picking_ids = [r[0] for r in res]
+        pickings = self.browse(picking_ids)
+        _logger.warn('Check %s pickings', str(len(pickings)))
+        pickings.with_context(from_scheduler=True).recheck_availability()
+        return {}
+    
     @api.one
     def _get_reservation_name(self):
         if self.group_id:

@@ -7,7 +7,7 @@
 	        <field name="model">hr.equipment</field>
 	        <field name="arch" type="xml">
 	        	<field name="model" position="after">
-	        		<field name="purchase_date" />
+	        		<field name="purchase_date"/><label string="toto" />
 	        	</field>
 	        </field>
 	     </record>

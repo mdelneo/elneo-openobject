@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--  Compute Stock Minimum Rules Only -->
+
+        <record id="view_picking_check_availability_wizard" model="ir.ui.view">
+            <field name="name">check all confirmed procurements</field>
+            <field name="model">picking.check.availability.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Parameters">
+                    <group>
+                        <label string="Wizard will check all picking in Waiting, Confirmed, and Partially Available states"/>
+                    </group>
+                    <footer>
+                        <button name="check_availability" string="check" type="object"  class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Check availability"
+            res_model="picking.check.availability.wizard"
+            src_model="stock.picking"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_picking_check_availability"/>
+            
+		<menuitem action="action_picking_check_availability" id="menu_picking_check_availability" parent="stock.menu_stock_sched" />
+            
+
+    </data>
+</openerp>

@@ -40,6 +40,25 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 		
+		<record id="view_edi_message_search" model="ir.ui.view">
+			<field name="name">edi.message.search</field>
+			<field name="model">edi.message</field>
+			<field name="arch" type="xml">
+				<search string="EDI Messages">
+		          <field name="origin"/>
+		          <field name="name"/>
+		          <separator string ="Status"/>
+		          <filter string="Draft" domain="[('state','=','draft')]" help="Draft EDI"/>
+		          <filter string="Confirmed" domain="[('state','=','confirmed')]" help="Confirmed EDI"/>
+		          <filter string="Error" domain="[('state','=','error')]" help="Error EDI"/>
+		          <filter string="Done" domain="[('state','=','done')]" help="Done EDI"/>
+		          <group expand="0" string="Extended Filters...">
+		            <field name="type"/>
+		          </group>
+		        </search>
+			</field>
+		</record>
+		
 		<record id="view_edi_message_tree" model="ir.ui.view">
 			<field name="name">edi.message.tree</field>
 			<field name="model">edi.message</field>

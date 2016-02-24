@@ -223,12 +223,14 @@ class EDIProcessorLandefeld(models.TransientModel):
             for aoc in item.product_price_fix.allow_or_charge_fix.allow_or_charge:
                 if aoc.charge_type is not None and aoc.charge_type =='rebate':
                     if aoc.charge_value.percentage_factor:
-                        discount_relative = float(aoc.charge_value.percentage_factor)
+                        discount_relative += float(aoc.charge_value.percentage_factor)
                         discount_absolute += -((price_amount/price_quantity)*discount_relative)
             
             #discount_absolute = -((price_amount/price_quantity)*discount_relative)
+            '''
             if (price_amount != 0 or price_quantity != 0) and (price_amount/price_quantity) !=0:
-                discount_relative = (((price_amount/price_quantity)-discount_absolute)/(price_amount/price_quantity))/100
+                discount_relative = (1-((price_amount/price_quantity)-discount_absolute)/(price_amount/price_quantity))/100
+            '''
             if item.shop_price_amount is not None:
                 sale_unit_price = float(item.shop_price_amount)
                 sale_discount = float(item.shop_rebate_factor)
@@ -271,6 +273,83 @@ class EDIProcessorLandefeld(models.TransientModel):
                 return route_drop.id
         return res
     
+    '''
+        Process all lines in result xml to search for products beginning by underscore : '_XXX'
+        If there is another same _XXX with '_EK' at the end, copy the cost price in the _EK one
+        and suppress the other
+        If there is just a '_XXX' without the EK, do nothing
+    
+    '''
+    @api.model
+    def compute_landefeld_cost(self,xml_lines):
+        cost_lines=[]
+        final_lines = []
+        purchase_lines=[]
+        for xml_line in xml_lines:
+            if xml_line['product_supplier_code'] and xml_line['product_supplier_code'].strip()[0] == '_':
+                xml_line['service_product']=True
+                cost_lines.append(xml_line)
+            else:
+                xml_line['service_product']=False
+                final_lines.append(xml_line)
+                
+        
+        #cost_lines = (line for line in xml_lines if (line['product_supplier_code'] and line['product_supplier_code'].strip()[0] == '_'))
+        for cost_ek_line in cost_lines:
+            
+            for cost_line in cost_lines:
+                # If line is customer line and another cost line is found without _EK
+                if ((str(cost_ek_line['product_supplier_code'][-3:]) == '_EK' and str(cost_ek_line['product_supplier_code'][0:1]) == '_') and cost_ek_line['product_supplier_code'][0:-3] == cost_line['product_supplier_code'][0:]):
+                    cost_ek_line['price_unit']=cost_line['price_unit']
+                    cost_ek_line['update_purchase_price']=True
+                    purchase_lines.append(cost_line)
+                    
+                    break
+                
+            #Look for customer line that don't have supplier equivalent product
+            found = False
+            # If it is a customer line
+            if str(cost_ek_line['product_supplier_code'][-3:]) == '_EK':
+                for cost_line in cost_lines:
+                    if (str(cost_ek_line['product_supplier_code'][0:1]) == '_') and cost_ek_line['product_supplier_code'][0:-3] == cost_line['product_supplier_code'][0:]:
+                        found=True
+                        break
+                if not found:
+                    cost_ek_line['price_unit']=cost_ek_line['sale_unit_price']
+                    cost_ek_line['update_purchase_price']=True
+                
+            if not cost_ek_line['sequence'] in (seq['sequence'] for seq in purchase_lines):
+                final_lines.append(cost_ek_line)
+            else:
+                cost_ek_line['in_purchase_only']=True
+                final_lines.append(cost_ek_line)
+            
+        return final_lines
+    
+    @api.model
+    def _is_purchase_item(self,item):
+        res = False
+        if item.product_id.supplier_pid:
+            code = item.product_id.supplier_pid.strip()
+            if code[0] and code[0] == '_':
+                if (len(code) >=3 and code[-3:] != '_EK') or len(code)< 3:
+                    res = True
+        return res
+    
+    @api.model
+    def create_purchase_line(self,item,product_found,purchase_order):
+        purchase_line = self.env['purchase.order.line']
+        res = self.env['purchase.order.line'].onchange_product_id(purchase_order.pricelist_id.id, product_found.id, float(item.quantity), product_found.uom_id and product_found.uom_id.id or 1,
+            purchase_order.partner_id.id)
+        
+        if res.has_key('value'):
+            res['value'].update({'order_id':purchase_order.id,
+                                 })
+            purchase_line = self.env['purchase.order.line'].create(res['value'])
+        
+        return purchase_line
+        
+    
     @api.one
     def _process_purchase_from_response(self,document,purchase_order=None,sale_order=None):
                
@@ -290,10 +369,7 @@ class EDIProcessorLandefeld(models.TransientModel):
                         purchase_order.landefeld_ref = document.element.order_response_header.order_response_info.supplier_order_id
                         purchase_order.landefeld_customer_ref = document.element.order_response_header.order_response_info.order_id
                         purchase_order.invoice_method = 'order'
-                    
-                    
-                purchase_order.signal_workflow('purchase_confirm')
-                
+                        
                 new_purchase_validation_lines = []
                 
                 #index product_ids of xml lines
@@ -322,6 +398,8 @@ class EDIProcessorLandefeld(models.TransientModel):
                         if purchase_line :
                             purchase_line_id = purchase_line.id
                         if not purchase_line_id:
+                            if self._is_purchase_item(item):
+                                purchase_line = self.create_purchase_line(item,product_found,purchase_order)
                             self.warning_message += '\n WARNING : No purchase line found for product code : "'+item.product_id.supplier_pid+'"'
                     if purchase_line:
                         if self._is_item_service(item):
@@ -334,14 +412,20 @@ class EDIProcessorLandefeld(models.TransientModel):
                         #if absolute discount not specified : compute it from relative discount
                         if not prices['discount_absolute'] and prices['discount_relative'] and prices['price_unit']:
                             prices['discount_absolute'] = (1-prices['discount_relative'])*prices['price_unit']
+                        
+                        
+                        if prices['discount_relative']:
+                            net_price = prices['price_unit']-(prices['price_unit']*prices['discount_relative'])
+                        else:
+                            net_price = prices['price_unit']
                             
                         #if detail (discount, ...) of price is not specified, don't update price 
                         new_purchase_validation_lines.append((0,0,{
                                         'price_quantity':prices["price_quantity"], 
                                         'purchase_line':purchase_line.id,
                                         'update_product':update_product,
-                                        'new_price':prices['price_unit']+(prices['discount_absolute']),
-                                        'new_brut_price':prices['price_unit'], 
+                                        'new_price':net_price,
+                                        'new_brut_price':prices['price_unit'],
                                         'new_discount':prices['discount_relative']*100,  
                                         'new_date_planned':document.element.order_response_header.order_response_info.delivery_date.delivery_end_date or None
                         }))
@@ -352,11 +436,17 @@ class EDIProcessorLandefeld(models.TransientModel):
                         
                         
                 
+                purchase_order.signal_workflow('purchase_confirm')
+                
+                # Add origin to edi message
+                if not self.edi_message.origin:
+                    self.edi_message.origin = ''
+                self.edi_message.origin += purchase_order.name + ' '
                 
                 purchase_validation_id = self.env['purchase.validation.wizard'].create({
                         'purchase_validation_lines':new_purchase_validation_lines
                 })
-                    
+                
                 purchase_validation_id.update_purchase()
             except Exception,e:
                 self.error_message += '\n Warning : error when validate purchase "lines" : '+unicode(e)+'\n'
@@ -521,6 +611,8 @@ class EDIProcessorLandefeld(models.TransientModel):
                     print sale_order.id
                     
                     for item in document.element.item_list.order_items:
+                        if self._is_purchase_item(item):
+                            continue
                         
                         prices = self._get_prices(item)
                         
@@ -548,15 +640,21 @@ class EDIProcessorLandefeld(models.TransientModel):
                         partner_id=partner.id, lang=partner.lang, fiscal_position=sale_order.fiscal_position.id, update_tax=True)['value']
                         
                         new_order_line['tax_id'] = [(4,tax_id) for tax_id in new_order_line['tax_id']]
-                            
+                        
+                        if prices['sale_discount'] and prices['sale_discount'] != 0.0:
+                            net_price = prices['sale_unit_price'] - (prices['sale_unit_price'] * (prices['sale_discount'] / 100))
+                        else:
+                            net_price = prices['sale_unit_price']
+                        
                         new_order_line.update({
                               'order_id': sale_order.id, 
                               'product_id':product.id,
                               'route_id' : self._get_item_route('drop'),
                               #'type':'make_to_order',
                               'state':'draft',
-                              'sequence': self._get_item_sequence(item), 
-                              'price_unit': prices['sale_unit_price'],
+                              'sequence': self._get_item_sequence(item),
+                              'brut_sale_price':prices['sale_unit_price'],
+                              'price_unit': net_price,
                               'discount': prices['sale_discount'],
                               'product_uom': product.uom_id and product.uom_id.id or 1,
                               'product_uom_qty': float(item.quantity)})
@@ -570,7 +668,11 @@ class EDIProcessorLandefeld(models.TransientModel):
                         
                         #if not xml_line.has_key('in_purchase_only') or xml_line['in_purchase_only'] == False:
                             #self.pool.get('sale.order.line').create(cr, uid, new_order_line)
-                        self.env['sale.order.line'].create(new_order_line) 
+                        self.env['sale.order.line'].create(new_order_line)
+                        
+                    if not self.edi_message.origin:
+                        self.edi_message.origin = ''
+                    self.edi_message.origin += sale_order.name + ' '
                     
                     #validate sale order
                     sale_order.signal_workflow('order_confirm')
@@ -579,6 +681,8 @@ class EDIProcessorLandefeld(models.TransientModel):
                     #force availability of delivery order
                     sale_order.picking_ids.force_assign()
                     #self.pool.get("stock.picking").force_assign(cr, uid, [pick.id for pick in sale_order.picking_ids])
+                    
+                    
             
             
         if purchase_order:
@@ -900,7 +1004,9 @@ class EDIProcessorLandefeld(models.TransientModel):
             if purchase:
                     purchase.landefeld_dispatchnote_received=True
             
-        
+            
+            self.edi_message.origin = origin
+            
         except Exception as e:
             if e.message == 'source_type_error':
                 status = 'imported'

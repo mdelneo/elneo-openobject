@@ -7,7 +7,7 @@
     'description': "Module for outreach with Landefeld",
     'author': 'Elneo',
     'website': 'http://www.elneo.com',
-    'depends': ['purchase','elneo_stock','edi_simple','production_server','edi_opentrans','elneo_crm','partner_firstname','stock_dropshipping'],
+    'depends': ['purchase','elneo_stock','edi_simple','production_server','edi_opentrans','elneo_crm','partner_firstname','stock_dropshipping','elneo_purchase_validation'],
     "data" : ['views/sale_view.xml',
               'views/res_config.xml',
               'views/stock_view.xml',

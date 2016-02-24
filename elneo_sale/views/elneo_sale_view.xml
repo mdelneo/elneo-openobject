@@ -206,7 +206,7 @@
                 	<field name="brut_sale_price" />
                 	<label for="discount" />
                     <div name="discount">
-                        <field name="discount" class="oe_inline"/> %%
+                        <field name="discount" class="oe_inline"/> %
                     </div>
                 </xpath>
                 

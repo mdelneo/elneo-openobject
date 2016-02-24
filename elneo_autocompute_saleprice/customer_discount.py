@@ -97,7 +97,7 @@ class sale_order_line(models.Model):
         return line.price_unit
     
     @api.one
-    @api.onchange('discount')
+    @api.onchange('discount','brut_sale_price')
     def update_price_unit(self):
         #prevent loop
         if round(self.brut_sale_price - (self.brut_sale_price*self.discount/100)) == round(self.price_unit):

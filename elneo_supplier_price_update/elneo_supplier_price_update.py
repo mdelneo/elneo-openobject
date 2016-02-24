@@ -541,10 +541,16 @@ from elneo_supplier_price_update_line l left join elneo_supplier_price_update_li
 where l.id in %s
 and rel.suppinfo_id is null)''',(tuple(line_ids._ids),))
             
-            self._cr.execute('''update elneo_supplier_price_update_line set state = 'to_update' where id in (select l.id 
-from elneo_supplier_price_update_line l left join elneo_supplier_price_update_line_suppinfo_rel rel on l.id = rel.update_line_id 
+            self._cr.execute('''update elneo_supplier_price_update_line set state = 'to_update' where id in (select l.id
+from elneo_supplier_price_update_line l 
+left join elneo_supplier_price_update_line_suppinfo_rel rel 
+    left join product_supplierinfo ps on ps.id = rel.suppinfo_id
+on l.id = rel.update_line_id 
+left join pricelist_partnerinfo pl on (pl.suppinfo_id = ps.id and pl.min_quantity = l.quantity)
 where l.id in %s
-and rel.suppinfo_id is not null)''',(tuple(line_ids._ids),))
+and pl.id is not null
+and (pl.price != l.net_price or pl.brut_price != l.brut_price or pl.discount != l.discount or pl.public_price != l.public_price)
+)''',(tuple(line_ids._ids),))
                 
             self._cr.commit()        
             

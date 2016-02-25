@@ -48,8 +48,8 @@ class PaymentOrderCreate(models.TransientModel):
                                 AND po.state != 'cancel'
                                 ) > 0
                         '''
-            if order_create.due_date:
-                req = req + "and (date_maturity <= '"+order_create.due_date+"' or date_maturity is null) "
+            if order_create.duedate:
+                req = req + "and (date_maturity <= '"+order_create.duedate+"' or date_maturity is null) "
             if order_create.journal_id:
                 req = req + 'and line.journal_id = '+str(order_create.journal_id.id)+' '
             else:

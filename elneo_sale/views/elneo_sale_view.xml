@@ -210,6 +210,7 @@
                     </div>
                 </xpath>
                 
+                <xpath expr="//field[@name='order_line']/tree/field[@name='discount']" position="replace" />
                 <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">                
                 	<field name="brut_sale_price"/>
                 	<field name="discount" />

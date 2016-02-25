@@ -1,1 +1,1 @@
-import stock_return_picking_advanced
+import stock_return_picking_advanced_wizard

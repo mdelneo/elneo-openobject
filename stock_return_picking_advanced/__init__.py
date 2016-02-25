@@ -1,2 +1,3 @@
 import res_config
 import wizard
+import stock_return_picking_advanced

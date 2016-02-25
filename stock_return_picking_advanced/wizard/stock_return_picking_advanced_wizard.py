@@ -43,13 +43,9 @@ class StockReturnPicking(models.TransientModel):
            
             already=False
             for move in pick.move_lines:
-                
-                #Sum the quants in that location that can be returned (they should have been moved by the moves that were included in the returned picking)
                 qty = 0
-                quants = self.env['stock.quant'].search([('history_ids', 'in', move.id), ('qty', '>', 0.0), ('location_id', 'child_of', move.location_id.id)])
-                for quant in quants:
-                    qty += quant.qty
-                qty = self.env['product.uom']._compute_qty(move.product_id.uom_id.id, qty, move.product_uom.id)
+                for m in move.returned_moves:
+                    qty = qty + m.product_uom_qty
                 if qty > 0 :
                     already = True
                     
@@ -79,6 +75,15 @@ class StockReturnPicking(models.TransientModel):
         if return_valid_auto == 'True':
             new_picking_id, pick_type_id = super(StockReturnPicking,self.with_context(advanced_picking=True))._create_returns()
             picking =  self.env['stock.picking'].browse(new_picking_id)
+            picking_type =  self.env['stock.picking.type'].browse(pick_type_id)
+            
+            #set good location_id, location_dest_id to new_move according to new picking_type
+            for move in picking.move_lines:
+                if picking_type.default_location_src_id:
+                    move.location_id = picking_type.default_location_src_id.id
+                if picking_type.default_location_dest_id:
+                    move.location_dest_id = picking_type.default_location_dest_id.id
+            
             picking.force_assign()
             picking.action_done()
         else:

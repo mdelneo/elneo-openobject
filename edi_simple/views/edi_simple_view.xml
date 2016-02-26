@@ -81,6 +81,8 @@
 			<field name="arch" type="xml">
 				<form string="EDI Message">
 					<header>
+						<button name="action_confirm" type="object" string="Confirm" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+						<button name="action_draft" type="object" string="Set as Draft" class="oe_highlight" attrs="{'invisible':[('state','!=','error')]}"/>
 						<button name="process" type="object" string="Process" class="oe_highlight" attrs="{'invisible':[('state','not in','confirmed')]}"/>
 						<field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors='{"confirmed":"blue"}'/>
 					</header>

@@ -223,6 +223,14 @@ class EDIMessage(models.Model):
     '''
     
     @api.multi
+    def action_draft(self):
+        for message in self:
+            message.state = 'draft'
+        
+        return True
+            
+    
+    @api.multi
     def action_confirm(self):
         for message in self:
             message.state = 'confirmed'

@@ -15,7 +15,7 @@ class PurchaseValidationWizard(models.TransientModel):
         if not purchase_validation_line.new_discount:
             discount = pricelist.discount
         else:
-            purchase_validation_line.new_discount
+            discount = purchase_validation_line.new_discount
          
         res.update({'brut_price':brut_price,
                     'discount':discount

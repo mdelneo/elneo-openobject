@@ -181,7 +181,28 @@ class purchase_validation_wizard(models.TransientModel):
                     context['order_email'].append(sale_order.id)     
         
         return warning_message, delivery_date_changes_email, context
-                    
+    
+    @api.model
+    def _update_sale_line(self,purchase_validation_line):
+        '''
+        Update sale line depending to purchase validation line wizard values
+        Needed to be inherited
+        '''
+        if not purchase_validation_line:
+            return False
+        
+        return True
+    
+    @api.model
+    def _get_pricelist_values_to_update(self, purchase_validation_line,pricelist):
+        res={}
+        #compute new prices
+        price = purchase_validation_line.new_price
+        
+        res.update({'price':price})     
+         
+        return res
+    
     @api.multi         
     def update_purchase(self):
         # INIT #
@@ -207,15 +228,9 @@ class purchase_validation_wizard(models.TransientModel):
                 if not purchase_validation_line.update_product:
                     pricelist_to_update = pricelist_to_update.with_context(no_price_history=True)
                 
-                #compute new prices
-                net_price = purchase_validation_line.new_price
-                discount = pricelist_to_update.discount
-                brut_price = (100 * net_price) / (100-discount)
-                
-                #in all case begin to update product price
-                old_net_price = pricelist_to_update.price
-                old_brut_price = pricelist_to_update.brut_price
-                pricelist_to_update.write({'price':net_price, 'brut_price':brut_price})
+                if purchase_validation_line.update_product:
+                    vals = self._get_pricelist_values_to_update(purchase_validation_line,pricelist_to_update)
+                    pricelist_to_update.write(vals)
                 
                 
                 if purchase_validation_line._is_update_purchase_needed():
@@ -229,16 +244,13 @@ class purchase_validation_wizard(models.TransientModel):
                                 if purchase_invoice_line.product_id.id == purchase_validation_line.purchase_line.product_id.id and purchase_invoice_line.quantity == purchase_validation_line.purchase_line.product_qty:
                                     purchase_invoice_line.write({'price_unit':purchase_validation_line.new_price})
                                     purchase_invoice.button_reset_taxes()
-                    
-                
-                #reset all product price 
-                if not purchase_validation_line.update_product:
-                    pricelist_to_update.write({'price':old_net_price, 'brut_price':old_brut_price})
-                    
-                    
+
+   
                 sale_lines = self._get_sale_order_lines(purchase_validation_line)
                 sale_orders_to_update = sale_orders_to_update |  sale_lines.mapped('order_id')
                 old_dates, order_to_update = self._update_delivery_date(purchase_validation_line)
+                if not self._update_sale_line(purchase_validation_line):
+                    warning_message += _('Sale Order Line has not been updated')
                 sale_orders_to_update = sale_orders_to_update | order_to_update
                 old_sale_order_delivery_date.update(old_dates)
         

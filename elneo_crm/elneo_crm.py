@@ -4,6 +4,27 @@ from openerp.exceptions import ValidationError
 from openerp.exceptions import Warning
 #from openerp.addons.mail.mail_thread import mail_thread
 import re
+from datetime import datetime, timedelta
+import time
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
+
+'''
+!!! ATTENTION !!!
+dans module google_calendar : google_calendar.py
+Fonction update_events
+dans le paragraphe DO ACTION
+avant : new_google_event_id = event.GG.event['id'].rsplit('_', 1)[1]
+
+parfois event.GG.event['id'] ne contient pas '_' (notamment pour les evenements récurrents, chez certaines personnes
+
+il faut donc rajouter les lignes suivantes avant : 
+
+                        if '_' not in event.GG.event['id']:
+                            continue
+                        new_google_event_id = event.GG.event['id'].rsplit('_', 1)[1]
+                        
+(ligne 855)                        
+'''
 
 
 class mail_mail(models.Model):
@@ -91,11 +112,92 @@ class calendar_event_type(models.Model):
     _inherit = 'calendar.event.type'
     google_prefix = fields.Char('google_prefix')
      
+def calendar_id2real_id(calendar_id=None, with_date=False):
+    """
+    Convert a "virtual/recurring event id" (type string) into a real event id (type int).
+    E.g. virtual/recurring event id is 4-20091201100000, so it will return 4.
+    @param calendar_id: id of calendar
+    @param with_date: if a value is passed to this param it will return dates based on value of withdate + calendar_id
+    @return: real event id
+    """
+    if calendar_id and isinstance(calendar_id, (basestring)):
+        res = calendar_id.split('-')
+        if len(res) >= 2:
+            real_id = res[0]
+            if with_date:
+                real_date = time.strftime(DEFAULT_SERVER_DATETIME_FORMAT, time.strptime(res[1], "%Y%m%d%H%M%S"))
+                start = datetime.strptime(real_date, DEFAULT_SERVER_DATETIME_FORMAT)
+                end = start + timedelta(hours=with_date)
+                return (int(real_id), real_date, end.strftime(DEFAULT_SERVER_DATETIME_FORMAT))
+            return int(real_id)
+    return calendar_id and int(calendar_id) or calendar_id
 
 class calendar_event(models.Model):
     _inherit = 'calendar.event'
     
     validated = fields.Boolean('Validated')
+    
+    def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
+        if context is None:
+            context = {}
+        fields2 = fields and fields[:] or None
+        EXTRAFIELDS = ('class', 'user_id', 'duration', 'allday', 'start', 'start_date', 'start_datetime', 'rrule')
+        for f in EXTRAFIELDS:
+            if fields and (f not in fields):
+                fields2.append(f)
+        if isinstance(ids, (basestring, int, long)):
+            select = [ids]
+        else:
+            select = ids
+        select = map(lambda x: (x, calendar_id2real_id(x)), select)
+        result = []
+        real_data = super(models.Model, self).read(cr, uid, [real_id for calendar_id, real_id in select], fields=fields2, context=context, load=load)
+        real_data = dict(zip([x['id'] for x in real_data], real_data))
+
+        for calendar_id, real_id in select:
+            if real_id not in real_data:
+                continue
+            res = real_data[real_id].copy()
+            ls = calendar_id2real_id(calendar_id, with_date=res and res.get('duration', 0) > 0 and res.get('duration') or 1)
+            if not isinstance(ls, (basestring, int, long)) and len(ls) >= 2:
+                res['start'] = ls[1]
+                res['stop'] = ls[2]
+
+                if res['allday']:
+                    res['start_date'] = ls[1]
+                    res['stop_date'] = ls[2]
+                else:
+                    res['start_datetime'] = ls[1]
+                    res['stop_datetime'] = ls[2]
+
+                if 'display_time' in fields:
+                    res['display_time'] = self._get_display_time(cr, uid, ls[1], ls[2], res['duration'], res['allday'], context=context)
+
+            res['id'] = calendar_id
+            result.append(res)
+
+        for r in result:
+            if r['user_id']:
+                user_id = type(r['user_id']) in (tuple, list) and r['user_id'][0] or r['user_id']
+                if user_id == uid:
+                    continue
+            if r['class'] == 'private':
+                for f in r.keys():
+                    if f not in ('id', 'allday', 'start', 'stop', 'duration', 'user_id', 'state', 'interval', 'count', 'recurrent_id_date', 'rrule'):
+                        if isinstance(r[f], list):
+                            r[f] = []
+                        else:
+                            r[f] = False
+                    if f == 'name':
+                        r[f] = _('Busy')
+
+        for r in result:
+            for k in EXTRAFIELDS:
+                if (k in r) and (fields and (k not in fields)):
+                    del r[k]
+        if isinstance(ids, (basestring, int, long)):
+            return result and result[0] or False
+        return result
     
     
     @api.one

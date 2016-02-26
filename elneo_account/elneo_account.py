@@ -135,6 +135,8 @@ class account_invoice(models.Model):
         res = super(account_invoice,self).do_merge(keep_references,date_invoice)
         for new_invoice_id in res:
             for old_invoice_id in res[new_invoice_id]:
+                old_invoice = self.browse(old_invoice_id)
+                old_invoice.internal_number = None
                 pickings = self.env['stock.picking'].search([('invoice_id','=',old_invoice_id)])
                 for picking in pickings:
                     picking.invoice_id = new_invoice_id

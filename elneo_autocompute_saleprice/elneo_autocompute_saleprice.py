@@ -173,7 +173,7 @@ class product_template(models.Model):
   RETURNS trigger AS
 $BODY$    
     BEGIN            
-    update product_template set maximum_price = NEW.list_price where id = NEW.id;
+    update product_template set maximum_price = NEW.list_price where id = NEW.id and maximum_price < NEW.list_price;
     return NEW;
     END;
 $BODY$
@@ -243,7 +243,7 @@ $$
             
             if category_coefficientlist and category_coefficientlist.is_brutprice:
                 if quantity:
-                    pricelists = self.default_supplierinfo_id.pricelist_ids.filtered(key=lambda r:r.min_quantity == quantity)
+                    pricelists = self.default_supplierinfo_id.pricelist_ids.filtered(lambda r:r.min_quantity == quantity)
                 else:
                     pricelists = self.default_supplierinfo_id.pricelist_ids.sorted(key=lambda r:r.min_quantity)
                 if pricelists and pricelists[0].discount != 0:

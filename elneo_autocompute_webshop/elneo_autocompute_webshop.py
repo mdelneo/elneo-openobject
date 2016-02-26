@@ -85,13 +85,13 @@ class product_template(models.Model):
                     
             if computed_price and purchase_price:
                 min_price = purchase_price*self.product_group_id.min_margin_coef
-                return max(computed_price, min_price)
+                return max(computed_price, min_price, self.maximum_price)
         else:
             res = super(product_template, self).get_sale_price(quantity)
             
         return res
     
-    @api.depends('categ_id','standard_price','web_shop_product','product_group_id')
+    @api.depends('categ_id','cost_price','sale_price_fixed','compute_sale_price','sale_price_seller','maximum_price')
     @api.multi
     def _get_list_price(self):
         return super(product_template, self)._get_list_price()

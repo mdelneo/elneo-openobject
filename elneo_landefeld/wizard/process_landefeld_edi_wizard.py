@@ -327,6 +327,27 @@ class EDIProcessorLandefeld(models.TransientModel):
         return final_lines
     
     @api.model
+    def _get_service_cost_price(self,item,items):
+        '''
+        Return the service cost price
+        Landefeld send in OpenTrans two lines : one for the customer '..._EK'
+        and one for us
+        We look for a product with same code in items without _EK and return price
+        '''
+        res=0.0
+        code = item.product_id.supplier_pid.strip()
+        if code[-3:] == '_EK':
+            for cost_item in items:
+                cost_code = cost_item.product_id.supplier_pid.strip()
+                if cost_code and cost_code[0] == '_':
+                    if code[0:-3] == cost_code[0:]:
+                        prices = self._get_prices(cost_item)
+                        res = prices['price_unit'] + prices['discount_absolute']
+        
+        return res
+        
+    
+    @api.model
     def _is_purchase_item(self,item):
         res = False
         if item.product_id.supplier_pid:
@@ -343,6 +364,9 @@ class EDIProcessorLandefeld(models.TransientModel):
             purchase_order.partner_id.id)
         
         if res.has_key('value'):
+            if not res['value'].has_key('product_id'):
+                res['value'].update({'product_id':product_found.id,
+                                 })
             res['value'].update({'order_id':purchase_order.id,
                                  })
             purchase_line = self.env['purchase.order.line'].create(res['value'])
@@ -579,6 +603,12 @@ class EDIProcessorLandefeld(models.TransientModel):
                     raise Exception(error_msg)
                 else:
                     #Save sale_order
+                    
+                    if document.element.order_response_header.order_response_info.order_id:
+                        customer_ref = document.element.order_response_header.order_response_info.order_id + '-WEBSHOP'
+                    else:
+                        customer_ref = 'WEBSHOP'
+                    
                     sale_order = self.env['sale.order'].create({
                                                                              'date_confirm': document.element.order_response_header.order_response_info.order_response_date,
                                                                              'confirmed_delivery_date': document.element.order_response_header.order_response_info.delivery_date.delivery_end_date,
@@ -600,7 +630,7 @@ class EDIProcessorLandefeld(models.TransientModel):
                                                                               'landefeld_internet_sale':True, 
                                                                               'landefeld_automatic_purchase':False,
                                                                               'landefeld_ref':document.element.order_response_header.order_response_info.supplier_order_id, 
-                                                                              'client_order_ref':document.element.order_response_header.order_response_info.order_id, 
+                                                                              'client_order_ref':customer_ref, 
                                                                               'user_id':seller_id, 
                                                                               'section_id':section_id,
                                                                               'payment_term': partner.property_payment_term.id,
@@ -663,8 +693,12 @@ class EDIProcessorLandefeld(models.TransientModel):
                         if not prices['discount_absolute'] and prices['discount_relative'] and prices['price_unit']:
                             prices['discount_absolute'] = (1-prices['discount_relative'])*prices['price_unit']
                             
+                        purchase_price = prices['price_unit']+(prices['discount_absolute'])
+                        
+                        if self._is_item_service(item):
+                            purchase_price = self._get_service_cost_price(item, document.element.item_list.order_items)
                         new_order_line.update({
-                              'purchase_price': prices['price_unit']+(prices['discount_absolute']), })
+                              'purchase_price': purchase_price, })
                         
                         #if not xml_line.has_key('in_purchase_only') or xml_line['in_purchase_only'] == False:
                             #self.pool.get('sale.order.line').create(cr, uid, new_order_line)

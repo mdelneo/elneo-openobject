@@ -312,7 +312,7 @@ class ProcurementOrder(models.Model):
             partner = self.env['res.partner'].browse(self.env['product.product'].LANDEFELD_PARTNER_ID)
             return partner
         else:
-            return super(ProcurementOrder,self)._getproduct_supplier(procurement)
+            return super(ProcurementOrder,self)._get_product_supplier(procurement)
     
     @api.multi
     def make_po(self):

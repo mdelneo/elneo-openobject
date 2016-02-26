@@ -305,6 +305,15 @@ class StockMove(models.Model):
 class ProcurementOrder(models.Model):
     _inherit = 'procurement.order'
     
+    @api.model
+    def _get_product_supplier(self,procurement):
+        
+        if self.env.context.get('landefeld_internet_purchase',False):
+            partner = self.env['res.partner'].browse(self.env['product.product'].LANDEFELD_PARTNER_ID)
+            return partner
+        else:
+            return super(ProcurementOrder,self)._getproduct_supplier(procurement)
+    
     @api.multi
     def make_po(self):
         res={}

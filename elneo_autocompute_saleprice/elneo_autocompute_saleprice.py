@@ -173,7 +173,7 @@ class product_template(models.Model):
   RETURNS trigger AS
 $BODY$    
     BEGIN            
-    update product_template set maximum_price = NEW.list_price where id = NEW.id;
+    update product_template set maximum_price = NEW.list_price where id = NEW.id and maximum_price < NEW.list_price;
     return NEW;
     END;
 $BODY$

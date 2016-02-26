@@ -85,7 +85,7 @@ class product_template(models.Model):
                     
             if computed_price and purchase_price:
                 min_price = purchase_price*self.product_group_id.min_margin_coef
-                return max(computed_price, min_price)
+                return max(computed_price, min_price, self.maximum_price)
         else:
             res = super(product_template, self).get_sale_price(quantity)
             

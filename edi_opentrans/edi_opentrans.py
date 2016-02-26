@@ -1037,6 +1037,7 @@ class OpenTransDispatchNotificationItem(OpenTransElement):
         self.shop_rebate_factor = 0.0
         self.delivery_date=OpenTransDeliveryDate()
         self.item_udx = OpenTransItemUDX()
+        self.order_reference = None
     
     def createFromNode(self, node):
         
@@ -1050,6 +1051,11 @@ class OpenTransDispatchNotificationItem(OpenTransElement):
         product_price_fix = node.find('PRODUCT_PRICE_FIX')
         delivery_date = node.find('DELIVERY_DATE')
         item_udx = node.find('ITEM_UDX')
+        order_reference = node.find('ORDER_REFERENCE')
+        
+        if order_reference is not None:
+            self.order_reference = OpenTransOrderReference()
+            self.order_reference.createFromNode(order_reference)
         
         if item_id is not None:
             self.line_item_id = item_id.text

@@ -917,7 +917,7 @@ class EDIProcessorLandefeld(models.TransientModel):
                 self.state = 'error'
                 return True
             
-            purchase = self._search_order_ids_byref(document.element.item_list.items[0].item_udx.supplier_order_id,None)
+            purchase = self._search_order_ids_byref(document.element.item_list.items[0].item_udx.supplier_order_id,document.element.item_list.items[0].order_reference.order_id)
             
             order_id = document.element.item_list.items[0].order_reference.order_id
             

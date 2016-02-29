@@ -151,7 +151,7 @@ class maintenance_intervention(models.Model):
                     if not account_id:
                         account_id = travel_product.categ_id.property_account_income_categ.id
                     taxes=travel_product.taxes_id
-                    partner = invoice.partner_id and invoice.partner_id or False
+                    partner = invoice.partner_id and invoice.partner_id or intervention.sale_order_id.partner_invoice_id or intervention.installation_id.invoice_address_id or False
                     
                     account_id = partner.property_account_position.map_account(account_id)
                     taxes = travel_product.taxes_id

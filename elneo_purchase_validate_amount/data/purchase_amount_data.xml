@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data>
+	<data noupdate="1">
 		<record id="email_template_purchase_amount_validate" model="email.template">
 			<field name="name">Purchase Order Validation on Amount</field>
 			<field name="email_from">${(object.user_id.email or object.company_id.email or 'noreply@localhost')|safe}</field>

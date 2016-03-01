@@ -333,9 +333,10 @@ class account_invoice(models.Model):
     def _needaction_count(self, domain):
         res = super(account_invoice, self)._needaction_count(domain)
         return res
-    
-    def _refund_cleanup_lines(self, cr, uid, lines):
-        res = super(account_invoice, self)._refund_cleanup_lines(cr, uid, lines)
+
+    @api.model
+    def _refund_cleanup_lines(self,lines):
+        res = super(account_invoice, self)._refund_cleanup_lines(lines)
         for line in res:
             invoice_line = line[2]
             if invoice_line and invoice_line.has_key("intervention_product_id"):

@@ -128,12 +128,13 @@ class stock_transfer_details(models.TransientModel):
             new_item = item.copy()
             new_item['quantity'] = 1
             new_item['packop_id'] = False
-            maintenance_elt = new_item['maintenance_elements'].pop()
-            if maintenance_elt:
-                if maintenance_elt.lot_id:
-                    new_item['lot_id'] = maintenance_elt.lot_id.id
-                    new_item['serial_number'] = maintenance_elt.lot_id.name
-                new_item['maintenance_element_id'] = maintenance_elt.id
+            if new_item.has_key('maintenance_elements'):
+                maintenance_elt = new_item['maintenance_elements'].pop()
+                if maintenance_elt:
+                    if maintenance_elt.lot_id:
+                        new_item['lot_id'] = maintenance_elt.lot_id.id
+                        new_item['serial_number'] = maintenance_elt.lot_id.name
+                    new_item['maintenance_element_id'] = maintenance_elt.id
             res.append(new_item)
             res.extend(self._split_quantities(item))
         else:

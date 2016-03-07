@@ -694,7 +694,7 @@ class maintenance_intervention_product(models.Model):
         
         #sale_line_ids = [intervention_product.sale_order_line_id for intervention_product in self if (intervention_product.sale_order_line_id and intervention_product.intervention_id.state == 'draft')]
         if not self.env.context.get("from_sale_order_line",False):
-            sale_lines = self.filtered(lambda r:r.intervention_id == 'draft').mapped('sale_order_line_id')
+            sale_lines = self.filtered(lambda r:r.intervention_id.state == 'draft').mapped('sale_order_line_id')
             sale_lines.with_context(from_intervention=True).unlink()
         res = super(maintenance_intervention_product, self).unlink()
         return res

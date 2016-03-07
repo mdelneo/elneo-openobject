@@ -97,7 +97,7 @@
 				<tree position="inside">
 					<field name="blocked" invisible="1" />
 				</tree>
-				<tree position="attributes">
+				 <tree position="attributes">
 					<attribute name="colors">Magenta:blocked;</attribute>
 				</tree>
 				<field name="technicians" position="before">

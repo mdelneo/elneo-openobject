@@ -18,8 +18,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import datetime
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning
+from ZSI.TC import Nilled
 
 class maintenance_intervention_product(models.Model):
     _inherit = 'maintenance.intervention.product'
@@ -94,8 +96,6 @@ class maintenance_installation(models.Model):
 class maintenance_intervention(models.Model):
     _inherit='maintenance.intervention'
     
-  
-    
     @api.multi
     def write(self,vals):
         res = super(maintenance_intervention, self).write(vals)
@@ -141,11 +141,19 @@ class maintenance_intervention(models.Model):
     def action_create_update_sale_order(self):
         return super(maintenance_intervention,self.with_context(from_intervention=True)).action_create_update_sale_order()
         
-        
-    
+
     installation_zip = fields.Char(related='installation_id.address_id.zip', string="Zip", store=True)
     blocked = fields.Boolean(related='partner_id.blocked', string='Customer blocked')
-
+    
+    @api.one
+    def extract_date_from_datetime(self):
+        if self.date_start:
+            self.date_start_date = fields.Date.from_string(self.date_start)
+        else:
+            self.date_start_date = ''
+           
+    date_start_date = fields.Date(string="date_start_date", compute='extract_date_from_datetime')
+    
 class maintenance_element(models.Model):
     _inherit = 'maintenance.element'
     

@@ -156,7 +156,10 @@ class sale_order_line(models.Model):
         
         updated= False
         if not flag and product:
-            name = self.env['product.product'].browse(product).name_get()[0][1]
+            partner = self.env['res.partner'].browse(partner_id)
+            lang = partner.lang
+            
+            name = self.env['product.product'].with_context(lang=lang,partner_id=partner.id).browse(product).name_get()[0][1]
             flag = True
             updated=True
         
@@ -164,7 +167,7 @@ class sale_order_line(models.Model):
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
             lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag)
         
-        product = self.env['product.product'].browse(product)
+        product = self.with_context(lang=lang).env['product.product'].browse(product)
         
         if product:
             res['value']['notes'] = product.description_sale

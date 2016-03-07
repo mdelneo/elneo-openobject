@@ -27,16 +27,23 @@
 			<field name="inherit_id" ref="calendar.view_calendar_event_search" />
 			<field name="model">calendar.event</field>
 			<field name="arch" type="xml">
-
 				<xpath expr="//filter[@string='My Events']" position="attributes">
 					<attribute name="name">myevents</attribute>
 				</xpath>
 
 				<xpath expr="//filter[@name='mymeetings']" position="after">
+					<separator/>
+					<filter name="no_recurrency" string="No Recurrents" domain="[('recurrency','!=',True)]"/>
 					<group string="Classification">
 						<filter string="Unclassifieds events" domain="[('categ_ids','=',False)]" help="Events without tag" />
 					</group>
 				</xpath>
+				<filter string="Privacy" position="after">
+					<filter string="Month" name="start"
+                            context="{'group_by':'start:month'}"/>
+                    <filter string="Year" name="start"
+                            context="{'group_by':'start:year'}"/>
+				</filter>
 			</field>
 		</record>
 

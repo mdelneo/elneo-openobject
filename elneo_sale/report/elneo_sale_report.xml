@@ -52,8 +52,8 @@ waiting for your news, please accept, ${object.quotation_address_id.title.name o
 			</t>
 		</template>
 
-
-
+	</data>
+	<data noupdate="1">
 		<!--Email template to send order confirmation -->
 		<record id="email_template_sale_confirmation" model="email.template">
 			<field name="name">Order confirmation</field>

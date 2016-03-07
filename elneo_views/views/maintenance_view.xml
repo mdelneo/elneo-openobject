@@ -198,6 +198,7 @@
 				</form>
 			</field>
 		</record>
+		
 		<record id="elneo_views_maintenance_intervention_calendar" model="ir.ui.view">
             <field name="name">elneo.views.intervention.calendar</field>
             <field name="model">maintenance.intervention</field>

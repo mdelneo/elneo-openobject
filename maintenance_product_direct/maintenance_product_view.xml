@@ -23,7 +23,8 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<field name="route_id" position="after">
-					<field name="from_stock"/>
+					<field name="from_stock" attrs="{'readonly': [('allow_from_stock','=',False)]}" />
+					<field name="allow_from_stock" invisible="1" />
 				</field>
 			
 			</field>

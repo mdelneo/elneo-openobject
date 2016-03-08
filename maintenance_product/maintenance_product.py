@@ -332,11 +332,9 @@ class maintenance_intervention(models.Model):
                     #add new moves
                     if intervention_product not in products_of_moves.mapped('intervention_product_id'):
                         location_id = intervention_product.get_move_location_id()
-                        if location_id :
-                            location_id = location_id[0]
+                        
                         location_dest_id = intervention_product.get_move_location_dest_id()
-                        if location_dest_id:
-                            location_dest_id = location_dest_id[0]
+                        
                         values = self.env['stock.move'].onchange_product_id(prod_id=intervention_product.product_id.id, loc_id=location_id,
                                                                      loc_dest_id=location_dest_id, partner_id=order.partner_shipping_id.id)['value']
                         # There is no out picking (maybe a void spare part list)                                             
@@ -551,7 +549,7 @@ class maintenance_intervention_product(models.Model):
 
     _rec_name = 'description'
     
-    @api.one
+    @api.model
     def get_move_location_id(self):
         '''
         Get Intervention Product Move Location
@@ -561,7 +559,7 @@ class maintenance_intervention_product(models.Model):
         res = location_id
         return res
     
-    @api.one
+    @api.model
     def get_move_location_dest_id(self):
         '''
         Get Intervention Product Move Destination Location

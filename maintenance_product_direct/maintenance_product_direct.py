@@ -47,9 +47,9 @@ class MaintenanceInterventionProduct(models.Model):
     allow_from_stock = fields.Boolean(string='Allow From stock',compute='_get_allow_from_stock')
     from_stock = fields.Boolean(string='From stock directly',help='Allows to take the product directly from stock to the customer.')
 
-    @api.one
+    @api.model
     def get_move_location_id(self):
-        res = super(MaintenanceInterventionProduct,self).get_move_location_id
+        res = super(MaintenanceInterventionProduct,self).get_move_location_id()
         
         if self.from_stock:
             res = self.intervention_id.sale_order_id.warehouse_id.lot_stock_id.id

@@ -285,7 +285,8 @@ class stock_move(models.Model):
         message = ''
         for move in self:
             if move.product_uom_qty != new_val:
-                message += _('The quantity for the move %s has changed : %s -> %s <br/>') % (str(move.name), str(move.product_uom_qty),str(new_val))
+                name = move.name
+                message += _('The quantity for the move %s has changed : %s -> %s <br/>') % (name, str(move.product_uom_qty),str(new_val))
                 
         if message != '':
             move.picking_id.message_post(body=message)

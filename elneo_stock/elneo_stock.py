@@ -99,6 +99,7 @@ class stock_picking(models.Model):
     section_id = fields.Many2one('crm.case.section', string="Sales team", compute="_get_section_id", store=True)
     reservation_name = fields.Char('Linked reservation', compute='_get_reservation_name')
     
+    
     @api.model
     def check_availability(self):
         self._cr.execute('''select distinct p.id 
@@ -270,10 +271,24 @@ class stock_move(models.Model):
   
     @api.multi
     def write(self, vals):
+        if ('product_uom_qty' in vals):
+            self.notify_picking(vals['product_uom_qty'])
         res = super(stock_move,self).write(vals) 
         if ('state' in vals) or ('picking_id' in vals):
             self.state_change()
+            
+        
         return res
+    
+    @api.multi
+    def notify_picking(self,new_val):
+        message = ''
+        for move in self:
+            if move.product_uom_qty != new_val:
+                message += _('The quantity for the move %s has changed : %s -> %s <br/>') % (str(move.name), str(move.product_uom_qty),str(new_val))
+                
+        if message != '':
+            move.picking_id.message_post(body=message)
     
     @api.multi
     def state_change(self):

@@ -180,7 +180,7 @@
 		</record>
 
 		<!-- CONTACT FORM -->
-
+		<!-- 
 		<record id="view_partner_simple_form_firstname_elneo" model="ir.ui.view">
 			<field name="name">Add firstname and lastname Elneo</field>
 			<field name="model">res.partner</field>
@@ -211,6 +211,7 @@
 
 			</field>
 		</record>
+		 -->
 
 		<record id="view_partner_contact_form" model="ir.ui.view">
 			<field name="name">view.partner.contact.form</field>

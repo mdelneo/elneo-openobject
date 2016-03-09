@@ -213,6 +213,12 @@ class sale_order_line(models.Model):
         res['value']['real_stock'] = product_obj.with_context(location=warehouse.lot_stock_id.id).qty_available
         res['value']['brut_sale_price'] = product_obj.list_price
         
+        if product_obj:
+            if product_obj.seller_id and product_obj.seller_delay:
+                res['value'].update({
+                            'delay':product_obj.seller_delay
+                            }) 
+        
         return res
     
         

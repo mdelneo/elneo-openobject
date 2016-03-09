@@ -500,7 +500,7 @@ class maintenance_project(models.Model):
             #labor cost line
             self.env['maintenance.project.budget.line'].create({
                 'name':intervention.maint_type.workforce_product_id.name_get()[0][1],
-                'time_of_use':intervention.expected_time_of_use, 
+                #'time_of_use':intervention.expected_time_of_use, 
                 'project_id':self.id, 
                 'product_id':intervention.maint_type.workforce_product_id.id,
                 'sale_price':intervention.maint_type.workforce_product_id.list_price,
@@ -516,7 +516,7 @@ class maintenance_project(models.Model):
             if travel_cost_name and travel_cost_product:
                 self.env['maintenance.project.budget.line'].create({
                     'name':travel_cost_name,
-                    'time_of_use':intervention.expected_time_of_use, 
+                    #'time_of_use':intervention.expected_time_of_use, 
                     'project_id':self.id, 
                     'product_id':travel_cost_product.id,
                     'sale_price':travel_cost_product.list_price,
@@ -531,7 +531,7 @@ class maintenance_project(models.Model):
             #product lines
             for intervention_product in intervention.intervention_products:
                 self.env['maintenance.project.budget.line'].create({
-                    'time_of_use':intervention.expected_time_of_use, 
+                    #'time_of_use':intervention.expected_time_of_use, 
                     'project_id':self.id,
                     'name':intervention_product.description, 
                     'product_id':intervention_product.product_id.id,

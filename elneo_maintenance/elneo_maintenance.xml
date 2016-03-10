@@ -115,7 +115,7 @@
 				<field name="partner_id" position="attributes">
 					<attribute name="context">{'show_address':1,'show_ref_inline':1}</attribute>
 					<attribute name="options">{'always_reload': True}</attribute>
-					<attribute name="domain">[('parent_id','=',False)]</attribute>
+					<attribute name="domain">['&amp;',('is_company','=',True),('parent_id','=',False)]</attribute>
 				</field>
 				<field name="invoice_address_id" position="attributes">
 					<attribute name="context">{'default_type':'invoice','show_address':1,'show_ref_inline':1,'contact_display':1}</attribute>

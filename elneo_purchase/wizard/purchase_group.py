@@ -3,9 +3,8 @@ from openerp import models, fields, api
 class PurchaseOrderGroup(models.TransientModel):
     _inherit = "purchase.order.group"
     
-    @api.model
     def _get_payment_term(self):
-        res=False
+        res=self.env['account.payment.term']
         active_ids = self.env.context.get('active_ids',False)
         
         if active_ids:

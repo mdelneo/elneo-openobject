@@ -5,7 +5,7 @@ class PurchaseOrderGroup(models.TransientModel):
     
     @api.model
     def _get_payment_term(self):
-        res={}
+        res=False
         active_ids = self.env.context.get('active_ids',False)
         
         if active_ids:

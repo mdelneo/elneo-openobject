@@ -64,6 +64,13 @@ class maintenance_intervention_product(models.Model):
             default_route = self.env['ir.config_parameter'].get_param('sale_default_route.default_route',False)
             if default_route:
                 vals.update({'route_id':int(default_route)})
+        
+        if vals and 'product_id' in vals:
+            product = self.env['product.product'].browse(vals['product_id'])
+            if product.cost_price:
+                vals.update({
+                             'cost_price':product.cost_price
+                             })
                 
         return super(maintenance_intervention_product,self).create(vals)
             

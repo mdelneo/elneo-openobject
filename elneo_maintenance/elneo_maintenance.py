@@ -82,7 +82,13 @@ class maintenance_intervention_product(models.Model):
         if 'route_id' in fields_list:
             res['route_id'] = self._default_route()
         return res
-   
+    
+    
+    @api.onchange('product_id')
+    def onchange_product_id_elneo_maintenance(self):
+        if self.product_id and self.intervention_id.installation_id:
+            self.cost_price = self.product_id.cost_price
+
     virtual_stock = fields.Float(compute='_qty_virtual_stock',  string='Virtual stock')
     real_stock = fields.Float(compute='_qty_real_stock',  string='Real stock')
     procurement_path = fields.Char(related='sale_order_line_id.procurement_path', string='Procurement path')

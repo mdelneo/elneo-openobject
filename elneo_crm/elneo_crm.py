@@ -96,18 +96,21 @@ class mail_thread(models.AbstractModel):
     _inherit='mail.thread'
     """ Disable autofollow
     """
+    
     @api.cr_uid_ids_context
     def message_post(self, cr, uid, thread_id, body='', subject=None, type='notification',
                      subtype=None, parent_id=False, attachments=None, context=None,
                      content_subtype='html', **kwargs):
         if context is None:
             context = {}
-        context['mail_post_autofollow'] = False
-        context['mail_create_nosubscribe'] = True
+        new_context = context.copy()
+        new_context['mail_post_autofollow'] = False
+        new_context['mail_create_nosubscribe'] = True
         return super(mail_thread, self).message_post(cr, uid, thread_id, body=body, subject=subject, type=type,
-                     subtype=subtype, parent_id=parent_id, attachments=attachments, context=context,
+                     subtype=subtype, parent_id=parent_id, attachments=attachments, context=new_context,
                      content_subtype=content_subtype, **kwargs)
-
+    
+    
 class calendar_event_type(models.Model):
     _inherit = 'calendar.event.type'
     google_prefix = fields.Char('google_prefix')

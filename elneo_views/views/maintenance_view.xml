@@ -2,8 +2,7 @@
 <openerp>
 	<data>
 		<!-- Cleanup -->
-		<record id="elneo_views_maintenance_intervention_maintenance_product_tree"
-				model="ir.ui.view">
+		<record id="elneo_views_maintenance_intervention_maintenance_product_tree" model="ir.ui.view">
 			<field name="name">elneo.views.maintenance.intervention.maintenance.product.tree</field>
 			<field name="model">maintenance.intervention</field>
 			<field name="inherit_id" ref="maintenance_product.view_maintenance_intervention_maintenance_product_tree"/>
@@ -14,8 +13,7 @@
 			</field>
 		</record>
 		
-		<record id="elneo_views_maintenance_intervention_tree_inherit"
-				model="ir.ui.view">
+		<record id="elneo_views_maintenance_intervention_tree_inherit" model="ir.ui.view">
 			<field name="name">elneo.views.maintenance.intervention.tree.inherit</field>
 			<field name="model">maintenance.intervention</field>
 			<field name="inherit_id" ref="maintenance_model.view_maintenance_intervention_tree_inherit"/>
@@ -23,7 +21,94 @@
 				<field name="project_id" 	position="replace"/>
 			</field>		
 		</record>
-			
+		
+		<record id="elneo_views_view_maintenance_internal_search_elneo" model="ir.ui.view">
+			<field name="name">elneo.views.maintenance.intervention.internal.search</field>
+            <field name="model">maintenance.intervention</field>
+            <field name="inherit_id" ref="elneo_maintenance.view_maintenance_intervention_search_elneo"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//filter[@name='done']" position="replace"/>
+            	<xpath expr="//filter[@name='my_warehouse']" position="replace"/>
+            	<xpath expr="//group[@string='Elneo']" position="replace"/>
+            </field>
+        </record>
+        
+        <record id="elneo_views_view_maintenance_intervention_elneo_tree" model="ir.ui.view">
+        	<field name="name">elneo.views.maintenance.intervention.elneo.tree</field>
+        	<field name="model">maintenance.intervention</field>
+        	<field name="inherit_id" ref="elneo_maintenance.view_maintenance_intervention_elneo_tree"/>
+        	<field name="arch" type="xml">
+        		<field name="blocked" position="replace"/>
+        		<field name="installation_zip" position="replace"/>
+        		<xpath expr="//tree" position="attributes">
+        			<attribute name="colors"></attribute>
+        		</xpath>
+        	</field>
+        </record>
+		
+		<!-- <record id="elneo_views_maintenance_invervention_elneo" -->
+		
+ 	<!-- 	<record id="elneo_views_maintenance_intervention_form_elneo" model="ir.ui.view">
+			<field name="name">elneo.views.maintenance.intervention.form.elneo</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="inherit_id" ref="elneo_maintenance.view_maintenance_intervention_form_elneo"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='serial_number']" position="replace"/>
+				<xpath expr="//page[@string='Content']" position="replace"/>
+			</field>
+		</record>		 -->
+		
+		<record id="elneo_views_maintenance_invervention_form_elneo" model="ir.ui.view">
+			<field name="name">elneo.views.maintenance.invervention.form.elneo</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="inherit_id" ref="elneo_maintenance.view_maintenance_intervention_form_elneo"/>
+			<field name="arch" type="xml">
+				<field name="real_stock" position="replace"/>
+				<field name="virtual_stock" position="replace"/>
+				<field name="procurement_path" position="replace"/>
+			</field>
+		</record>
+		
+		<record id="elneo_views_maintenance_intervention_form_failure_type" model="ir.ui.view">
+			<field name="name">elneo.views.maintenance.invervention.form.failure.type</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="inherit_id" ref="maintenance_failure_type.view_maintenance_intervention_form_failure_type"/>
+			<field name="arch" type="xml">
+				<field name="is_reparation" position="replace"/>
+				<field name="failure_type_id" position="replace"/>
+				<field name="failure_element_id" position="replace"/>
+			</field>
+		</record>
+		
+		<record id="elneo_views_maintenance_todo_tree" model="ir.ui.view">
+			<field name="name">elneo.views.maintenance.todo.tree</field>
+			<field name="model">maintenance.todo</field>
+			<field name="inherit_id" ref="maintenance_todo.view_maintenance_todo_tree"/>
+			<field name="arch" type="xml">
+				<field name="code" position="replace"/>
+				<field name="installation_id" position="replace"/>
+				<field name="summary" position="replace"/>
+				<field name="ask_user_id" position="replace"/>
+				<field name="ask_date" position="replace"/>
+				<field name="assigned_user_id" position="replace"/>
+				<field name="done_date" position="replace"/>
+				<field name="state" position="replace"/>
+				<field name="intervention_assign_id" invisible="1" position="replace"/>				
+			</field>
+		</record>
+		
+		<record id="elneo_views_maintenance_intervention_todo_form" model="ir.ui.view">
+			<field name="name">elneo.views.maintenance.intervention.todo.form</field>
+			<field name="model">maintenance.intervention</field>
+			<field name="inherit_id" ref="maintenance_todo.view_maintenance_intervention_todo_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='todo_assigned_ids']/.." position="replace"/>
+				<!-- <field name="todo_ids" position="replace"/>
+				<field name="todo_assigned_ids" position="replace"/> -->
+			</field>
+		</record>
+		
 		<!-- Content -->
 		<record id="elneo_views_maintenance_intervention_search" model="ir.ui.view">
             <field name="name">elneo.views.maintenance.intervention.search</field>
@@ -33,6 +118,8 @@
             <field name="arch" type="xml">
             	<search position="replace">
 	                <search string="Interventions">
+	                	<filter name="my_warehouse" string="My Warehouse" domain="[('installation_id.warehouse_id.default_user_ids','in',uid)]"/>
+						<separator/>
 	                    <group col="8" colspan="4">
 	                        <field name="code" />
 							<field name="name" />
@@ -49,6 +136,10 @@
 	                    	<filter name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]" help="Interventions that have state in confirmed"/>
 	                        <filter name="done" string="Finished" domain="[('state','=','done')]" help="Interventions that have state in done"/>
 	                    </group>
+               			<group string="Elneo">
+               				<filter name="awans" string="Awans" domain="[('installation_id.warehouse_id','=',1)]" help="Awans Interventions"/>
+               				<filter name="wetteren" string="Wetteren" domain="[('installation_id.warehouse_id','=',2)]" help="Wetteren Interventions"/>
+               			</group>
 	                    <group expand="0" string="Group By...">
 	                        <filter string="Technician" icon="terp-personal" domain="[]" context="{'group_by':'technicians'}"/>
 	                        <filter string="Installation" icon="terp-product" domain="[]" context="{'group_by':'installation_id'}"/>
@@ -70,10 +161,6 @@
 			<field name="inherit_id" ref="elneo_maintenance.view_maintenance_intervention_elneo_tree"/>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree position="attributes">
-					<attribute name="colors">Magenta:blocked;blue:not blocked and state in ('draft');grey:not blocked and state in ('cancel');OrangeRed:not blocked and state not in ('cancel', 'done') and not date_start;red:not blocked and state not in ('cancel', 'done') and date_start &lt; current_date;DarkGreen:not blocked and state not in ('cancel', 'done') and date_start_date and date_start_date == current_date;</attribute>
-				</tree>
-				<!--  REPLACE -->
 				<field name="code" position="replace"/>
 				<field name="maint_type" position="replace"/>
 				<field name="time_planned" position="replace"/>
@@ -83,16 +170,20 @@
 				<field name="contact_phone" position="replace"/>
 				<field name="date_start" position="replace"/>
 				<field name="state" position="replace"/>
-				<field name="name" position="replace"/>
-				<field name="address_id" position="replace"/>
-				
-				<!--  ADD -->
+				<field name="name" position="replace"/>		 			
+				<field name="address_id" position="replace"/>			
+			
+				<tree position="attributes">
+					<attribute name="colors">Magenta:blocked;blue:not blocked and state in ('draft');grey:not blocked and state in ('cancel');OrangeRed:not blocked and state not in ('cancel', 'done') and not date_start;red:not blocked and state not in ('cancel', 'done') and date_start &lt; current_date;DarkGreen:not blocked and state not in ('cancel', 'done') and date_start_date and date_start_date == current_date;</attribute>
+					<attribute name="default_order">code desc</attribute>
+				</tree>			
+			
 				<tree position="inside">
 					<field name="code"/>
-					<field name="maint_type"/>
+				 	<field name="maint_type"/>
 					<field name="time_planned"/>
 					<field name="date_scheduled"/>
-					<field name="technicians"/> 
+					<field name="technicians"/>	
 					<field name="installation_id"/>
 					<field name="contact_phone"/>
 					<field name="date_start"/>
@@ -102,6 +193,7 @@
 					<field name="blocked" invisible="1"/>
 					<field name="date_start_date" invisible="1"/>
 				</tree>
+
 			</field>
 		</record>
         
@@ -135,19 +227,60 @@
 									<field name="date_start" />
 									<field name="date_end" />
 									<field name="time_planned" widget="float_time" />
+									<field name="task_state"/>
 									<field name="to_plan" invisible="1" />
 								</group>
 								<group>	
 									<field name="installation_id"/>
 									<field name="partner_id" invisible="1"/>
 									<field name="contact_address_id" context="{'search_default_parent_id':partner_id}"/>
+									<field name="sale_order_id"/>
+									<field name="is_reparation" invisible="1"/>
+									<field name="failure_type_id" attrs="{'readonly':[('is_reparation','=',False)]}"/>
+									<field name="failure_element_id" domain="[('installation_id','=',installation_id)]" attrs="{'readonly':[('is_reparation','=',False)]}"/>
+									
 								</group>
 								<group>
 									<separator string="Description" colspan="2"/>
 									<field name="name" nolabel="1"/>
 								</group>
 							</group>
-							<notebook colspan="4">
+							<notebook name="notebook" colspan="4">
+								<page string="Content">
+									<separator string="Spare parts" colspan="4" />
+									<field name="partner_id" invisible="True" />
+									<field name="intervention_products" colspan="4" nolabel="1">
+										<form>
+											<group>
+												<field name="product_id" colspan="4" />
+												<field name="description" colspan="4" />
+												<field name="quantity" />
+											</group>
+											<group>
+											<field name="maintenance_element_id"
+												domain="[('installation_id','=',parent.installation_id)]" />
+											</group>
+											<group>
+												<field name="sale_price" />
+												<field name="cost_price" />
+												<field name="discount" />
+												<field name="delay" />	
+												<field name="route_id" />
+											</group>
+										</form>
+										<tree string="Spare parts" >
+											<field name="description" />
+											<field name="product_id" />
+											<field name="quantity" />
+											<field name="int_move_availability" />
+											<field name="sale_price" />
+											<field name="cost_price" />
+											<field name="discount" />
+											<field name="delay" />
+											<field name="maintenance_element_id" />
+										</tree>
+									</field>
+								</page>							
 								<page string="Achievement">
 									<newline />
 									<separator string="Tasks" colspan="4" />
@@ -185,10 +318,25 @@
 										<field name="int_comment" colspan="2" nolabel="1"/>
 									</group>
 								</page>
+								<div class="oe_right oe_button_box" position="inside">
+                    				<button class="oe_inline oe_stat_button oe_right" name="add_todo" string="Add Todo" Help="Click if you want to ask a todo"
+                           				type="object" icon="fa-tasks" widget="statinfo"/>
+                				</div>
+								<page string="Todo's">
+									<separator string="Todo's assigned to this intervention"/>
+									<span class="oe_grey">Here are todo's that are assigned by manager to this intervention</span>
+									<field name="todo_assigned_ids" options="{'reload_on_button': true}"/>
+									<separator string="Other todo's for the installation"/>
+									<span class="oe_grey">Here are todo's that are linked to the installation</span>
+									<div class="oe_right">
+										<button class="oe_inline oe_stat_button oe_right" name="assign_todo" string="Assign Not Ready" Help="Click if you want to assign todo's that are not ready to this intervention"
+			                           type="object" icon="fa-reply" widget="statinfo"/>
+										<button class="oe_inline oe_stat_button oe_right" name="assign_all_todo" string="Assign All" Help="Click if you want to assign all todo's to this intervention"
+			                           type="object" icon="fa-reply-all" widget="statinfo"/>
+									</div>
+									<field name="todo_ids" options="{'reload_on_button': true}"/>
+								</page>								
 							</notebook>
-							<group>
-								<field name="task_state"/>
-							</group>
 							<div class="oe_chatter">
 			                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
 			                    <field name="message_ids" widget="mail_thread"/>

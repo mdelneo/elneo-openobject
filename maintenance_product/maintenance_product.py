@@ -332,11 +332,9 @@ class maintenance_intervention(models.Model):
                     #add new moves
                     if intervention_product not in products_of_moves.mapped('intervention_product_id'):
                         location_id = intervention_product.get_move_location_id()
-                        if location_id :
-                            location_id = location_id[0]
+                        
                         location_dest_id = intervention_product.get_move_location_dest_id()
-                        if location_dest_id:
-                            location_dest_id = location_dest_id[0]
+                        
                         values = self.env['stock.move'].onchange_product_id(prod_id=intervention_product.product_id.id, loc_id=location_id,
                                                                      loc_dest_id=location_dest_id, partner_id=order.partner_shipping_id.id)['value']
                         # There is no out picking (maybe a void spare part list)                                             
@@ -551,7 +549,7 @@ class maintenance_intervention_product(models.Model):
 
     _rec_name = 'description'
     
-    @api.one
+    @api.model
     def get_move_location_id(self):
         '''
         Get Intervention Product Move Location
@@ -561,7 +559,7 @@ class maintenance_intervention_product(models.Model):
         res = location_id
         return res
     
-    @api.one
+    @api.model
     def get_move_location_dest_id(self):
         '''
         Get Intervention Product Move Destination Location
@@ -694,7 +692,7 @@ class maintenance_intervention_product(models.Model):
         
         #sale_line_ids = [intervention_product.sale_order_line_id for intervention_product in self if (intervention_product.sale_order_line_id and intervention_product.intervention_id.state == 'draft')]
         if not self.env.context.get("from_sale_order_line",False):
-            sale_lines = self.filtered(lambda r:r.intervention_id == 'draft').mapped('sale_order_line_id')
+            sale_lines = self.filtered(lambda r:r.intervention_id.state == 'draft').mapped('sale_order_line_id')
             sale_lines.with_context(from_intervention=True).unlink()
         res = super(maintenance_intervention_product, self).unlink()
         return res

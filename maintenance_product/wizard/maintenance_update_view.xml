@@ -17,5 +17,13 @@
 			<field name="view_mode">form</field>
 			<field name="target">new</field>
 		</record>
+		<record id="action_maintenance_update_flows" model="ir.actions.act_window">
+			<field name="name">Update flows</field>
+			<field name="res_model">maintenance.product.flow.update</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
 	</data>
 </openerp>

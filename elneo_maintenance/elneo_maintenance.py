@@ -122,6 +122,14 @@ class maintenance_intervention(models.Model):
         #cancel interventions
         self.write({'state': 'cancel'})
         
+        for picking in self.sale_order_id.picking_ids.filtered(lambda r:(r.picking_type_id.code=='outgoing' and r.state not in ('done','cancel'))):
+            warehouse_id = self.env['stock.location'].get_warehouse(picking.location_id)
+            if warehouse_id:
+                warehouse = self.env['stock.warehouse'].browse(warehouse_id)
+                picking.picking_type_id = warehouse.out_type_id
+            
+        return True
+        
     @api.model
     def get_sale_order_line(self,sale_order, intervention_product, partner):
 

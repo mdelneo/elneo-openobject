@@ -61,36 +61,8 @@ class procurement_order(models.Model):
         return {}
     
 
-class sale_order_line(models.Model):
-    _inherit = 'sale.order.line'
 
-    @api.multi
-    def product_id_change_with_wh(self, pricelist=False, product=False, qty=0,
-            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
-            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False):
-        
-        res = super(sale_order_line, self).product_id_change_with_wh(pricelist, product, qty, uom, qty_uos, uos, name, partner_id, lang, update_tax, date_order, packaging, fiscal_position, flag, warehouse_id)
-        
-        product = self.env['product.product'].browse(product)
-        warehouse = self.env['stock.warehouse'].browse(warehouse_id)
-        
-        if product:
-            current_stock = product.with_context({'location':warehouse.lot_stock_id.id})._product_available()[product.id]
-            if current_stock and ('qty_available' in current_stock):
-                qty_in_stock = current_stock['qty_available']
-            else:
-                qty_in_stock = 0
-                
-            qty_other_wh = {}
-            for other_wh in warehouse.resupply_wh_ids:
-                qty_other_wh[other_wh] = product.with_context({'location':other_wh.lot_stock_id.id})._product_available()[product.id]['qty_available']
-            
-            if qty_in_stock <= 0:
-                ""
-        return res
     
-sale_order_line()
-
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
     
@@ -98,6 +70,7 @@ class stock_picking(models.Model):
     group_id = fields.Many2one(index=True)
     section_id = fields.Many2one('crm.case.section', string="Sales team", compute="_get_section_id", store=True)
     reservation_name = fields.Char('Linked reservation', compute='_get_reservation_name')
+    
     
     @api.model
     def check_availability(self):
@@ -270,10 +243,25 @@ class stock_move(models.Model):
   
     @api.multi
     def write(self, vals):
+        if ('product_uom_qty' in vals):
+            self.notify_picking(vals['product_uom_qty'])
         res = super(stock_move,self).write(vals) 
         if ('state' in vals) or ('picking_id' in vals):
             self.state_change()
+            
+        
         return res
+    
+    @api.multi
+    def notify_picking(self,new_val):
+        message = ''
+        for move in self:
+            if move.product_uom_qty != new_val:
+                name = move.name
+                message += _('The quantity for the move %s has changed : %s -> %s <br/>') % (name, str(move.product_uom_qty),str(new_val))
+                
+        if message != '':
+            move.picking_id.message_post(body=message)
     
     @api.multi
     def state_change(self):

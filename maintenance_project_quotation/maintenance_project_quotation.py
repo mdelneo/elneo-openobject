@@ -219,7 +219,7 @@ class maintenance_project(models.Model):
                     raise Warning(_('Please configure budget rule for project type "%s", intervention type "%s" and budget line type "%s".')%(project_type.name,budget_line.intervention_type_id.name,budget_line.budget_line_type_id.name))
             
             
-                if budget.mapped('budget_line_type_id'):
+                if budget.filtered(lambda r:r.budget_line_type_id==budget_line.budget_line_type_id and r.included):
                     total_cost_price = total_cost_price + budget_line.cost_price*budget_line.quantity
                     total_sale_price = total_sale_price + budget_line.sale_price*budget_line.quantity
             

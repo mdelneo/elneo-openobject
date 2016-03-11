@@ -35,7 +35,7 @@ class stock_picking(models.Model):
     def action_revert_done(self):
         for picking in self:
             
-            for move in picking.move_lines:
+            for move in picking.move_lines.filtered(lambda r:r.state == 'done'):
                 quants = self.env['stock.quant'].search([('history_ids','in',[move.id]),('location_id','=',move.location_dest_id.id)])
                 
                 if quants:

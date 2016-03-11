@@ -316,7 +316,7 @@ $$
     sale_price_seller = fields.Float('Sale price seller')
     compute_sale_price = fields.Boolean('Autocompute sale price', default=True, help="Sale price is always the highest price, between fixed, seller and cumputed price if checked, between fixed and seller if not checked")
     last_update_price_fixed = fields.Date('Date of last update of fixed price') #this field is updated by a psql trigger
-    maximum_price = fields.Float('Historical maximum price', readonly=1) #this field is filled by database trigger on list_price update
+    maximum_price = fields.Float('Historical maximum price', readonly=1, copy=False) #this field is filled by database trigger on list_price update
     
 product_template()
 

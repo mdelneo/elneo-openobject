@@ -140,6 +140,24 @@ class account_invoice(models.Model):
                 pickings = self.env['stock.picking'].search([('invoice_id','=',old_invoice_id)])
                 for picking in pickings:
                     picking.invoice_id = new_invoice_id
+            
+                    
+            if 'sale.order' in self.env.registry:
+                todos = self.env['sale.order'].search(
+                    [('invoice_ids', 'in', res[new_invoice_id])])
+                todos.write({'invoice_ids': [(4, new_invoice_id)]})
+                for org_so in todos:
+                    for so_line in org_so.order_line:
+                        invoice_line_ids = self.env['account.invoice.line'].search(
+                            [('product_id', '=', so_line.product_id.id),
+                             ('invoice_id', '=', new_invoice_id)])
+                        if invoice_line_ids:
+                            so_line.write(
+                                {'invoice_lines': [(6, 0, invoice_line_ids.mapped('id'))]})
+            if 'purchase.order' in self.env.registry:
+                todos = self.env['purchase.order'].search(
+                    [('invoice_ids', 'in', res[new_invoice_id])])
+                todos.write({'invoice_ids': [(4, new_invoice_id)]})
         return res
         
     

@@ -185,6 +185,8 @@ class sale_order_line(models.Model):
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, quotation_address_id=False):
         
+        
+        
         res = super(sale_order_line, self).product_id_change_with_wh_quotation_address(pricelist, product, qty=qty,
             uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
             lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, quotation_address_id=quotation_address_id)
@@ -218,6 +220,24 @@ class sale_order_line(models.Model):
                 res['value'].update({
                             'delay':product_obj.seller_delay
                             }) 
+                
+        # Sale Description depending quotation_address
+        if not flag and product and quotation_address_id:
+            partner = self.env['res.partner'].browse(quotation_address_id)
+            lang = partner.lang
+            
+            name = self.env['product.product'].with_context(lang=lang,partner_id=partner.id).browse(product).name_get()[0][1]
+            product_description = self.env['product.product'].with_context(lang=lang,partner_id=partner.id).browse(product)
+            sale_description = product_description.description_sale
+            
+            if name :
+                res['value'].update({
+                                     'name':name,
+                                     })
+            if sale_description:
+                res['value'].update({
+                                     'notes':sale_description
+                                     })
         
         return res
     

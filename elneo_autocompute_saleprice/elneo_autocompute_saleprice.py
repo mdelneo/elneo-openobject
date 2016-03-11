@@ -311,7 +311,7 @@ $$
         return super(product_product, self).copy(cr, uid, ids, default, context=context)
     
         
-    list_price = fields.Float('Sale Price', compute='_get_list_price', help="Base price for computing the customer price. Sometimes called the catalog price.", store=True, readonly=True)
+    list_price = fields.Float('Sale Price', compute='_get_list_price', help="Base price for computing the customer price. Sometimes called the catalog price.", store=True, readonly=True, copy=False)
     sale_price_fixed = fields.Float('Sale price fixed')
     sale_price_seller = fields.Float('Sale price seller')
     compute_sale_price = fields.Boolean('Autocompute sale price', default=True, help="Sale price is always the highest price, between fixed, seller and cumputed price if checked, between fixed and seller if not checked")

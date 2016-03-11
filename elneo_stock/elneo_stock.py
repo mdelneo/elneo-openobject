@@ -310,7 +310,6 @@ class stock_move(models.Model):
                 move.move_dest_id.action_done()
         return res
     
-    
     #reservation will be available when at least one product is available. for delivery order it depends on sale order.
     def _prepare_picking_assign(self, cr, uid, move, context=None):
         res = super(stock_move, self)._prepare_picking_assign(cr, uid, move, context=context)

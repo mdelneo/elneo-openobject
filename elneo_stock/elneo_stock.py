@@ -303,6 +303,10 @@ class stock_move(models.Model):
         res = super(stock_move, self).action_done()
         for move in self:
             if move.auto_validate_dest_move and move.move_dest_id:
+                if move.move_dest_id.product_uom_qty != move.product_uom_qty:
+                    rest = move.move_dest_id.product_uom_qty - move.product_uom_qty
+                    if rest > 0:
+                        move.move_dest_id.split(rest)
                 move.move_dest_id.action_done()
         return res
     

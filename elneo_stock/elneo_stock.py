@@ -306,7 +306,7 @@ class stock_move(models.Model):
                 if move.move_dest_id.product_uom_qty != move.product_uom_qty:
                     rest = move.move_dest_id.product_uom_qty - move.product_uom_qty
                     if rest > 0:
-                        move.move_dest_id.split(rest)
+                        self.env['stock.move'].split(move.move_dest_id,rest)
                 move.move_dest_id.action_done()
         return res
     

@@ -61,13 +61,12 @@ class sale_order_line(models.Model):
     procurement_path_backup = fields.Char('Procurement path (backup)')
 
 
-class procurement_rule(models.Model):
-    
+class ProcurementRule(models.Model):
     _inherit = 'procurement.rule'
     
     @api.model
     def _get_action(self):
-        result = super(procurement_rule, self)._get_action()
+        result = super(ProcurementRule, self)._get_action()
         return result + [('moves', _('Move from different locations'))]
     
     procure_methods = fields.One2many('procurement.rule.procure.method', 'rule_id', string='Procure methods')
@@ -104,7 +103,37 @@ class procurement_rule(models.Model):
         
         return path[3:]
     
-procurement_rule()
+    
+    @api.model
+    def get_procure_method_chain(self,product, quantity):
+        remaining_qty = quantity
+        
+        procure_methods = self.env['procurement.rule.procure.method']
+        
+        for procure_method in self.procure_methods:
+            purchase = False
+            if procure_method.procure_method == 'make_to_stock':
+                qty_in_stock = product.with_context({'location':procure_method.location_src_id.id})._product_available()[product.id]['virtual_available']
+            elif procure_method.procure_method == 'make_to_order' and procure_method.sub_route_quantity_check_location_id:
+                qty_in_stock = product.with_context({'location':procure_method.sub_route_quantity_check_location_id.id})._product_available()[product.id]['virtual_available']
+            else:
+                purchase = True
+            
+            #if remaining_qty > 0 and self.env['procurement.order'].use_procure_method(product, procure_method, remaining_qty+other_line_qty, qty_in_stock):
+            if remaining_qty > 0 and self.env['procurement.order'].use_procure_method(product, procure_method, remaining_qty, qty_in_stock):
+                if purchase: 
+                    move_qty = remaining_qty
+                else:
+                    move_qty = min(qty_in_stock,remaining_qty)
+                    
+                if move_qty <= 0:
+                    continue
+                
+                remaining_qty = remaining_qty - move_qty
+            
+                procure_methods += procure_method
+        
+        return procure_methods
 
 
 class procurement_rule_procure_method(models.Model):

@@ -5,7 +5,6 @@ from openerp import models,fields,api
 class sale_order(models.Model):
     _inherit = 'sale.order'
     
-    @api.depends('order_line.delay')
     @api.one
     def _get_delivery_date(self):
         dates_list = []
@@ -37,7 +36,7 @@ class sale_order(models.Model):
             self.effective_date = False
         return
     
-    delivery_date = fields.Date('Delivery Date', compute=_get_delivery_date, store=True, help="Date on which delivery of products is to be made.")
+    delivery_date = fields.Date('Delivery Date', compute=_get_delivery_date, help="Date on which delivery of products is to be made.")
     confirmed_delivery_date = fields.Date('Confirmed delivery date', help="Date confirmed to the client for the delivery of the order.")
     delivery_date_display = fields.Date('Confirmed delivery date', compute=_get_delivery_date_display, store=True, help="Confirmed delivery date, or if not filled, computed delivery date.")
     requested_date = fields.Date('Requested Date', help="Date on which customer has requested for sales.")

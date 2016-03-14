@@ -29,6 +29,24 @@ class stock_transfer_details(models.TransientModel):
             wizard.create_invoice()
         return res
     
+    
+class stock_move(models.Model):
+    _inherit = 'stock.move'
+    
+    @api.model
+    def _create_invoice_line_from_vals(self, move, invoice_line_vals):
+        
+            
+        res = super(stock_move,self)._create_invoice_line_from_vals(move, invoice_line_vals)
+        
+        if res:
+            invoice_line = self.env['account.invoice.line'].browse(res)
+        if move.procurement_id and move.procurement_id.sale_line_id:
+            invoice_line.cost_price = move.procurement_id.sale_line_id.purchase_price
+        elif move.product_id:
+            invoice_line.cost_price = move.product_id.cost_price
+        return res
+    
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
     

@@ -96,6 +96,45 @@ class sale_order_line(models.Model):
         #UPDATE DATABASE TO AVOID NULL PROBLEMS
         query="""UPDATE sale_order_line SET name = '.' WHERE name IS NULL"""
         cr.execute(query)
+        
+    
+    @api.model
+    def get_delay_from_route(self,product_id,qty,route_id,warehouse_id):
+        delay = 0
+        if product_id:
+            product = self.env['product.product'].browse(product_id)
+            if route_id and warehouse_id and qty:
+                warehouse = self.env['stock.warehouse'].browse(warehouse_id)
+                rule = self.env['procurement.rule'].search([('route_id','=',route_id),('location_id','=',warehouse.wh_output_stock_loc_id.id)])
+                
+                methods = rule.get_procure_method_chain(product,qty)
+                
+                if methods :
+                    for method in methods:
+                        # Buy case
+                        if method.procure_method == 'make_to_order':
+                            delay += product.seller_delay
+                            
+      
+                        delay += method.delay
+                else:
+                    rules = self.env['procurement.rule'].search([('route_id','=',route_id),('warehouse_id','=',warehouse_id)])
+                    # There is a rule with a buy method
+                      
+                    for rule in rules:
+                        delay += rule.delay
+                        if rule.action =='buy':
+                            delay += product.seller_delay
+
+                delay += product.sale_delay
+            else:
+                delay = product.sale_delay
+        return delay
+    
+    @api.onchange('route_id')
+    def _get_delay_from_route(self):
+        if self.product_id and self.route_id and self.product_uom_qty:
+            self.delay = self.get_delay_from_route(self.product_id.id, self.product_uom_qty, self.route_id.id,self.order_id.warehouse_id.id)
     
     def compute_stock(self):
         self._qty_virtual_stock()
@@ -175,9 +214,7 @@ class sale_order_line(models.Model):
         
         if updated:
             res['value']['name'] = name
-            
-            
-        
+       
         return res
 
     @api.multi    
@@ -216,11 +253,11 @@ class sale_order_line(models.Model):
         res['value']['brut_sale_price'] = product_obj.list_price
         
         if product_obj:
-            if product_obj.seller_id and product_obj.seller_delay:
+            if res['value'].has_key('route_id'):
+                delay = self.get_delay_from_route(product,qty,res['value']['route_id'],warehouse_id)
                 res['value'].update({
-                            'delay':product_obj.seller_delay
-                            }) 
-                
+                                     'delay':delay
+                                     })
         # Sale Description depending quotation_address
         if not flag and product and quotation_address_id:
             partner = self.env['res.partner'].browse(quotation_address_id)

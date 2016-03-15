@@ -72,7 +72,7 @@ class maintenance_intervention(models.Model):
     
     
     @api.one
-    @api.depends('state','intervention_products','sale_order_id.picking_ids.state','sale_order_id.picking_ids.move_type','sale_order_id.picking_ids.move_lines.state','sale_order_id.picking_ids.move_lines.picking_id', 'sale_order_id.picking_ids.move_lines.partially_available')
+    #@api.depends('state','intervention_products','sale_order_id.picking_ids.state','sale_order_id.picking_ids.move_type','sale_order_id.picking_ids.move_lines.state','sale_order_id.picking_ids.move_lines.picking_id', 'sale_order_id.picking_ids.move_lines.partially_available')
     def _get_available(self):
         if self.state != 'confirmed':
             self.available = False
@@ -91,7 +91,7 @@ class maintenance_intervention(models.Model):
     intervention_products = fields.One2many('maintenance.intervention.product', 'intervention_id', 'Maintenance intervention products',auto_join=True)
 
     #to_plan = fields.Boolean(compute=_get_task_fields,string="To plan", store=True,) #override to_plan cause when to_plan field of task was written, to_plan field of intervention was not re-computed.
-    available = fields.Boolean(compute=_get_available, string="Available", store=True)
+    available = fields.Boolean(compute=_get_available, string="Available")
     warehouse_id = fields.Many2one(related='sale_order_id.warehouse_id', string="Warehouse")
     #out_picking = fields.Many2one("stock.picking",compute=_get_out_picking, string="Out picking", store=True)
 

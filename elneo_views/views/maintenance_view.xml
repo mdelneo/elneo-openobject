@@ -10,9 +10,9 @@
 			<field name="mode">primary</field>
             <field name="arch" type="xml">
                 <search string="Interventions">
-                	<filter name="my_warehouse" string="My Warehouse" domain="[('installation_id.warehouse_id.default_user_ids','in',uid)]"/>
+               		<filter name="my_warehouse" string="My Warehouse" domain="[('installation_id.warehouse_id.default_user_ids','in',uid)]"/>
 					<separator/>
-                    <group col="8" colspan="4">
+                     <group col="8" colspan="4">
                         <field name="code"/>
 						<field name="name"/>
 						<field name="installation_id"/>
@@ -41,7 +41,7 @@
                         <filter string="States" domain="[]" context="{'group_by':'state'}"/>
                         <filter string="Type" domain="[]" context="{'group_by':'maint_type'}"/>
                         <filter string="Task state" domain="[]" context="{'group_by':'task_state'}"/>
-                    </group>
+                    </group> 
                 </search>
             </field>
         </record>
@@ -59,18 +59,19 @@
 					  colors="Magenta:blocked;blue:not blocked and state in ('draft');grey:not blocked and state in ('cancel');OrangeRed:not blocked and state not in ('cancel', 'done') and not date_start;red:not blocked and state not in ('cancel', 'done') and date_start &lt; current_date;DarkGreen:not blocked and state not in ('cancel', 'done') and date_start_date and date_start_date == current_date;">
 					<field name="code"/>
 				 	<field name="maint_type"/>
-					<field name="time_planned"/>
+ 					<field name="time_planned"/>
 					<field name="date_scheduled"/>
-					<!-- installation_zip -->
 					<field name="technicians"/>	
 					<field name="installation_id"/>
 					<field name="contact_phone"/>
-					<field name="date_start"/>
-					<!-- sale order id -->
+					<field name="date_start"/> 
 					<field name="state"/>
+					<field name="name"/>
+					<!-- Les 5 champs suivants étaient dans la vue initiale -->
+					<!-- installation_zip -->
+					<!-- sale order id -->					
 					<!-- available -->
 					<!-- task state -->
-					<field name="name"/>
 					<!-- project_id -->
 					<field name="address_id"/>
 					<field name="blocked" invisible="1"/>
@@ -107,7 +108,7 @@
 		                    <button class="oe_inline oe_stat_button oe_right" name="add_todo" string="Add Todo" Help="Click if you want to ask a todo"
         		                    type="object" icon="fa-tasks" widget="statinfo"/>
 	                    </div>
-						<group>
+ 						<group>
 							<group>
 								<field name="maint_type" widget="selection"/>
 								<field name="date_scheduled"/>

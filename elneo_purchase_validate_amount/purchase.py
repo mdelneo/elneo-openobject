@@ -6,6 +6,7 @@ class purchase_order(models.Model):
     
     _inherit='purchase.order'
     
+    amount_unblocked_warned = fields.Boolean(string='Users warned to unblock',default=False,copy=False,help='Users that are in the amount approval group are warned to approve this order.')
     user_amount_unblocked = fields.Many2one('res.users','Unblocked on Amount user',readonly=True)
     date_amount_unblocked=fields.Datetime('Unblocked on Amount date',readonly=True)
     
@@ -100,6 +101,22 @@ class purchase_order(models.Model):
         
         res = super(purchase_order,self).elneo_purchase_confirm()
 
-        return  self.warn_amount()
+        res = self.warn_amount()
+        
+        if not self.check_amount_low() and not self.amount_unblocked_warned:
+            # Users to warn is void, send mail to everyone in the group
+            purchase_validate_group = self.env['ir.config_parameter'].get_param('elneo_purchase_validate_amount.purchase_validate_group',False)
+        
+            group = self.env['res.groups'].browse(int(purchase_validate_group))
+            
+            if group.users:
+                email_template = self.env.ref('elneo_purchase_validate_amount.email_template_purchase_amount_validate')
+                values = self.env['email.template'].generate_email_batch(email_template.id, [self.id])
+                values[self.id]['email_to']=','.join(group.users.mapped('partner_id.email'))
+                values[self.id]['recipient_ids']=[(4, pid) for pid in group.users.mapped('partner_id.id')]
+                msg_id = self.env['mail.mail'].create(values[self.id])
+                self.amount_unblocked_warned = True
+        
+        return res
 
 purchase_order()

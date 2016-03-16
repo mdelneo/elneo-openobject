@@ -3,7 +3,7 @@
 	<data noupdate="1">
 		<record id="email_template_purchase_amount_validate" model="email.template">
 			<field name="name">Purchase Order Validation on Amount</field>
-			<field name="email_from">${(object.user_id.email or object.company_id.email or 'noreply@localhost')|safe}</field>
+			<field name="email_from">${(user.email or object.company_id.email or 'noreply@localhost')|safe}</field>
 			<field name="subject">Purchase Order Validation on Amount</field>
 			<field name="partner_to">${object.partner_id.id}</field>
 			<field name="model_id" ref="purchase.model_purchase_order"/>

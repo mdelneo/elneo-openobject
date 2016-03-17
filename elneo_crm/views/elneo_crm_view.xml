@@ -52,6 +52,18 @@
 			<field name="name">view.calendar.event.form.elneo.crm</field>
 			<field name="model">calendar.event</field>
 			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_ids']/../.." position="after">
+					<div>
+						<group>
+							<group>
+								<field name="partner_id"/>
+								<field name="partner_contact_id"/>
+							</group>
+							<group>
+							</group>
+						</group>
+					</div>
+				</xpath>
 				<xpath expr="//field[@name='alarm_ids']" position="after">
 					<field name="validated" />
 				</xpath>

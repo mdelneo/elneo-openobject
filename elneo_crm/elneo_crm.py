@@ -2,7 +2,7 @@
 from openerp import models,fields,api,_
 from openerp.exceptions import ValidationError
 from openerp.exceptions import Warning
-#from openerp.addons.mail.mail_thread import mail_thread
+from openerp.addons.mail.mail_thread import mail_thread
 import re
 from datetime import datetime, timedelta
 import time
@@ -96,19 +96,30 @@ class mail_thread(models.AbstractModel):
     _inherit='mail.thread'
     """ Disable autofollow
     """
+    '''
+    @api.multi
+    def message_post(self, body='', subject=None, type='notification',
+                     subtype=None, parent_id=False, attachments=None,
+                     content_subtype='html', **kwargs):
+        #if context is None:
+        #    context = {}
+        
+        return super(MailThread, self.with_context(mail_post_autofollow=False,mail_create_nosubscribe=True)).message_post( body=body, subject=subject, type=type,
+                     subtype=subtype, parent_id=parent_id, attachments=attachments,
+                     content_subtype=content_subtype, **kwargs)
+    '''
     
     @api.cr_uid_ids_context
-    def message_post(self, cr, uid, thread_id, body='', subject=None, type='notification',
-                     subtype=None, parent_id=False, attachments=None, context=None,
-                     content_subtype='html', **kwargs):
+    def message_post(self, cr, uid, thread_id, body='', subject=None, type='notification',subtype=None, parent_id=False, attachments=None, context=None,content_subtype='html', **kwargs):
         if context is None:
             context = {}
         new_context = context.copy()
         new_context['mail_post_autofollow'] = False
         new_context['mail_create_nosubscribe'] = True
-        return super(mail_thread, self).message_post(cr, uid, thread_id, body=body, subject=subject, type=type,
+        return super(mail_thread, self).message_post(cr, uid, thread_id,body=body, subject=subject, type=type,
                      subtype=subtype, parent_id=parent_id, attachments=attachments, context=new_context,
-                     content_subtype=content_subtype, **kwargs)
+                     content_subtype=content_subtype,**kwargs)
+    
     
     
 class calendar_event_type(models.Model):
@@ -139,6 +150,39 @@ class calendar_event(models.Model):
     _inherit = 'calendar.event'
     
     validated = fields.Boolean('Validated')
+    
+    partner_id = fields.Many2one('res.partner',string="Partner",domain="[('parent_id','=',False)]")
+    partner_contact_id = fields.Many2one('res.partner',string="Partner Contact",domain="['|','&',('parent_id','=',False),('id','=',partner_id),('parent_id','=',partner_id)]")
+    
+    
+    @api.onchange('partner_id')
+    def onchange_partner_id(self):
+        if self.partner_id and self.partner_contact_id:
+            if self.partner_contact_id.parent_id != self.partner_id.parent_id:
+                self.partner_contact_id = None
+                
+    @api.onchange('partner_contact_id')
+    def onchange_partner_contact_id(self):
+        if self.partner_contact_id and self.partner_contact_id.contact_address:
+            # We take the display address and remove the carriage returns
+            self.location = self.partner_contact_id.contact_address.replace('\n',' ')
+            
+            
+        # We update the name of the meeting
+        if self.partner_contact_id:
+            name = ''
+            if self.partner_contact_id.parent_id:
+                name = '['+ self.partner_contact_id.parent_id.name + ']'
+            if self.partner_contact_id.name:
+                name += '['+ self.partner_contact_id.name + ']'
+            if self.partner_contact_id.mobile:
+                name += '['+self.partner_contact_id.mobile + ']'
+            if self.partner_contact_id.phone:
+                name += '['+self.partner_contact_id.phone + ']'
+                
+            if name:
+                self.name = name
+            
     
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
         if context is None:
@@ -202,10 +246,21 @@ class calendar_event(models.Model):
             return result and result[0] or False
         return result
     
+    @api.one
+    def _remove_categs_in_name(self):
+        if self.name:
+            for categ in self.env['calendar.event.type'].search([('google_prefix','!=',False)]):
+                place = self.name.find('[' + categ.google_prefix + ']')
+                if place != -1:
+                    self.name = self.name.replace('['+categ.google_prefix+']','',1)
     
     @api.one
     @api.onchange('categ_ids')
     def update_name_categ(self):
+        
+        
+        self._remove_categs_in_name()
+        
         new_name = self.name
         for categ in self.categ_ids:
             if categ.google_prefix:
@@ -221,6 +276,8 @@ class calendar_event(models.Model):
     @api.one
     @api.onchange('validated')
     def update_name_validated(self):
+        if not self.name:
+            self.name = ''
         new_name = self.name
         #compute prefix
         if self.validated:
@@ -231,6 +288,7 @@ class calendar_event(models.Model):
                 new_name = ''.join(new_name.split('[V]'))
         self.name = prefix+new_name
     
+    '''
     @api.one
     @api.onchange('partner_ids')
     def update_name(self):
@@ -269,6 +327,7 @@ class calendar_event(models.Model):
         
         #add prefix
         self.name = prefix+name
+    '''
         
 
 class res_partner(models.Model):

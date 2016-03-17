@@ -15,10 +15,24 @@ class stock_move(models.Model):
 
     @api.model
     def _create_invoice_line_from_vals(self, move, invoice_line_vals):
-        if move.create_uid and move.create_uid.default_section_id and move.create_uid.default_section_id.purchase_account_id:
-            invoice_line_vals['account_id'] = move.create_uid.default_section_id.purchase_account_id.id
-        invoice_line_id = super(stock_move,self)._create_invoice_line_from_vals(move,invoice_line_vals)
-        return invoice_line_id
+        
+        # Sale Context
+        if self.env.context.get('inv_type') in ('out_invoice', 'out_refund') and move.procurement_id and move.procurement_id.sale_line_id and move.procurement_id.sale_line_id.order_id and move.procurement_id.sale_line_id.order_id.section_id and move.procurement_id.sale_line_id.order_id.section_id.sale_account_id:
+            invoice_line_vals.update({
+                                      'account_id':move.procurement_id.sale_line_id.order_id.section_id.sale_account_id.id
+                                      })
+            
+        
+        # Purchase Context
+        if self.env.context.get('inv_type') in ('in_invoice', 'in_refund') and move.procurement_id.group_id:
+            for sale_order in self.env['sale.order'].search([('procurement_group_id','=',move.procurement_id.group_id.id)]):
+                if sale_order.section_id and sale_order.section_id.purchase_account_id:
+                    invoice_line_vals.update({
+                                     'account_id':sale_order.section_id.purchase_account_id.id
+                                     })
+                    break
+
+        return super(stock_move,self)._create_invoice_line_from_vals(move,invoice_line_vals)
         
 
 class sale_order_line(models.Model):

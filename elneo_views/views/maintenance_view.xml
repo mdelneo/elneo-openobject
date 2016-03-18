@@ -93,6 +93,10 @@
 					<header>
 						<button name="action_cancel" type="object" string="Cancel" states="draft,confirmed" groups="maintenance.group_maintenance_manager"/>
 						<button name="action_confirm" type="object" string="Confirm" states="draft" groups="maintenance.group_maintenance_manager" class="oe_highlight"/>
+						
+						<button name="action_create_quotation" type='object' string='Create quotation' states='draft' attrs="{'invisible':['|',('sale_order_id','!=',False)]}" />
+						<button name="%(maintenance_product.action_maintenance_update_invoice)d" type='action' string='Update Invoice' states='done'/>
+						
 						<button name="action_done" type="object" string="Done" states="confirmed" class="oe_highlight"/>
 						<button name="print_intervention" string="Print" type="object" class="oe_highlight" groups="maintenance.group_maintenance_user"/>
 						<button name="print_installation" string="Print Installation" type="object" groups="maintenance.group_maintenance_user"/>
@@ -108,6 +112,11 @@
     	                            type="object"  icon="fa-truck" widget="statinfo"/>
 		                    <button class="oe_inline oe_stat_button oe_right" name="add_todo" string="Add Todo" Help="Click if you want to ask a todo"
         		                    type="object" icon="fa-tasks" widget="statinfo"/>
+							
+							<button class="oe_stat_button" name="%(maintenance_product.action_maintenance_update_flows)d" type='action'
+									string='Flows' states='confirmed' icon="fa-random" help="Update the Pickings and Sale Order according to changes you made"
+								 	groups="maintenance.group_maintenance_manager" />
+        		                    
 	                    </div>
  						<group>
 							<group>

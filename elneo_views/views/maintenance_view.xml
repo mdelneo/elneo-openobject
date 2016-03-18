@@ -26,6 +26,7 @@
                     	<filter name="message_unread" string="My Interventions confirmed" domain="['&amp;', ('tasks.user_id.id','=',uid),('state', '=', 'confirmed')]" help="Interventions that have tasks assigned to me and state in confirmed"/>
                     	<filter name="to_confirm" string="To confirm" domain="[('state','=','draft')]" help="Interventions that have state in draft"/>
                     	<filter name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]" help="Interventions that have state in confirmed"/>
+						<filter name="available" string="Available" domain="[('state','=', 'confirmed'),('available','=',True)]" help="Available Interventions"/>                    	
                         <filter name="done" string="Finished" domain="[('state','=','done')]" help="Interventions that have state in done"/>
                     </group>
               		<group string="Elneo">

@@ -209,11 +209,13 @@ class sale_order_line(models.Model):
         product = self.with_context(lang=lang).env['product.product'].browse(product)
         
         if product:
-            res['value']['notes'] = product.description_sale
             res['value']['brut_sale_price'] = self.product_id.list_price
         
+        #Update name, notes
         if updated:
             res['value']['name'] = name
+            if product:
+                res['value']['notes'] = product.description_sale
        
         return res
 
@@ -259,7 +261,7 @@ class sale_order_line(models.Model):
                                      'delay':delay
                                      })
         # Sale Description depending quotation_address
-        if not flag and product and quotation_address_id:
+        if product and quotation_address_id:
             partner = self.env['res.partner'].browse(quotation_address_id)
             lang = partner.lang
             
@@ -267,14 +269,19 @@ class sale_order_line(models.Model):
             product_description = self.env['product.product'].with_context(lang=lang,partner_id=partner.id).browse(product)
             sale_description = product_description.description_sale
             
-            if name :
-                res['value'].update({
-                                     'name':name,
-                                     })
-            if sale_description:
-                res['value'].update({
-                                     'notes':sale_description
-                                     })
+            # If flag => dont update descriptions
+            if not flag:
+                if name :
+                    res['value'].update({
+                                         'name':name,
+                                         })
+                    
+                if sale_description:
+                    res['value'].update({
+                                         'notes':sale_description
+                                         })
+                    
+                
         
         return res
     

@@ -9,7 +9,7 @@
 			<field name="priority">1</field>
 			<field name="mode">primary</field>
             <field name="arch" type="xml">
-                <search string="Interventions">
+				<search string="Interventions">
                		<filter name="my_warehouse" string="My Warehouse" domain="[('installation_id.warehouse_id.default_user_ids','in',uid)]"/>
 					<separator/>
                      <group col="8" colspan="4">
@@ -26,7 +26,7 @@
                     	<filter name="message_unread" string="My Interventions confirmed" domain="['&amp;', ('tasks.user_id.id','=',uid),('state', '=', 'confirmed')]" help="Interventions that have tasks assigned to me and state in confirmed"/>
                     	<filter name="to_confirm" string="To confirm" domain="[('state','=','draft')]" help="Interventions that have state in draft"/>
                     	<filter name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]" help="Interventions that have state in confirmed"/>
-						<filter name="available" string="Available" domain="[('state','=', 'confirmed'),('available','=',True)]" help="Available Interventions"/>                    	
+                        <filter name="available" string="Available" domain="[('state','=', 'confirmed'),('available','=',True)]" help="Available Interventions"/>
                         <filter name="done" string="Finished" domain="[('state','=','done')]" help="Interventions that have state in done"/>
                     </group>
               		<group string="Elneo">
@@ -48,6 +48,8 @@
         </record>
 		
 		<!-- List / Tree -->
+		
+		
 		<record id="elneo_views_maintenance_intervention_tree" model="ir.ui.view">
 			<field name="name">elneo.views.maintenance.intervention.tree</field>
 			<field name="model">maintenance.intervention</field>
@@ -55,8 +57,7 @@
 			<field name="priority">1</field>
 			<field name="mode">primary</field>
 			<field name="arch" type="xml">
-				<tree string="Maintenance intervention"
-					  default_order="code desc" 
+				<tree string="Maintenance intervention" default_order="code desc" 
 					  colors="Magenta:blocked;blue:not blocked and state in ('draft');grey:not blocked and state in ('cancel');OrangeRed:not blocked and state not in ('cancel', 'done') and not date_start;red:not blocked and state not in ('cancel', 'done') and date_start &lt; current_date;DarkGreen:not blocked and state not in ('cancel', 'done') and date_start_date and date_start_date == current_date;">
 					<field name="code"/>
 				 	<field name="maint_type"/>
@@ -91,16 +92,15 @@
 			<field name="arch" type="xml">
 				<form string="Intervention">
 					<header>
-						<button name="action_cancel" type="object" string="Cancel" states="draft,confirmed" groups="maintenance.group_maintenance_manager"/>
-						<button name="action_confirm" type="object" string="Confirm" states="draft" groups="maintenance.group_maintenance_manager" class="oe_highlight"/>
-						
+						<button name="action_cancel" type="object" string="Cancel" states="draft,confirmed" groups="maintenance.group_maintenance_user"/>
+						<button name="action_confirm" type="object" string="Confirm" states="draft" groups="maintenance.group_maintenance_user" class="oe_highlight"/>
 						<button name="action_create_quotation" type='object' string='Create quotation' states='draft' attrs="{'invisible':['|',('sale_order_id','!=',False)]}" />
 						<button name="%(maintenance_product.action_maintenance_update_invoice)d" type='action' string='Update Invoice' states='done'/>
-						
+
 						<button name="action_done" type="object" string="Done" states="confirmed" class="oe_highlight"/>
 						<button name="print_intervention" string="Print" type="object" class="oe_highlight" groups="maintenance.group_maintenance_user"/>
 						<button name="print_installation" string="Print Installation" type="object" groups="maintenance.group_maintenance_user"/>
-						<field  name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors='{"confirmed":"blue"}'/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors="{&quot;confirmed&quot;:&quot;blue&quot;}"/>
 					</header>
 					<sheet>
 						<h1>
@@ -108,10 +108,8 @@
 							<field name="code" class="oe_inline"/>
 						</h1>
 						<div class="oe_right oe_button_box">
-	                        <button class="oe_inline oe_stat_button oe_right" name="action_convert_delivery" string="Classic delivery" Help="Click if you want to convert intervention in classic delivery"
-    	                            type="object"  icon="fa-truck" widget="statinfo"/>
-		                    <button class="oe_inline oe_stat_button oe_right" name="add_todo" string="Add Todo" Help="Click if you want to ask a todo"
-        		                    type="object" icon="fa-tasks" widget="statinfo"/>
+	                        <button class="oe_inline oe_stat_button oe_right" name="action_convert_delivery" string="Classic delivery" Help="Click if you want to convert intervention in classic delivery" type="object" icon="fa-truck" widget="statinfo"/>
+		                    <button class="oe_inline oe_stat_button oe_right" name="add_todo" string="Add Todo" Help="Click if you want to ask a todo" type="object" icon="fa-tasks" widget="statinfo"/>
 							<button class="oe_stat_button" name="%(maintenance_product.action_maintenance_update_flows)d" type='action'
 									string='Flows' states='confirmed' icon="fa-random" help="Update the Pickings and Sale Order according to changes you made"
 								 	groups="maintenance.group_maintenance_manager" />
@@ -154,8 +152,7 @@
 											<field name="quantity"/>
 										</group>
 										<group>
-										<field name="maintenance_element_id"
-											domain="[('installation_id','=',parent.installation_id)]"/>
+										<field name="maintenance_element_id" domain="[('installation_id','=',parent.installation_id)]"/>
 										</group>
 										<group>
 											<field name="sale_price"/>
@@ -180,30 +177,30 @@
 								</field>
 							</page>							
 							<page string="Achievement">
-								<newline />
-								<separator string="Tasks" colspan="4" />
+								<newline/>
+								<separator string="Tasks" colspan="4"/>
 								<field name="tasks" colspan="4" nolabel="1">
 									<form>
-										<separator string="Task" colspan="4" />
+										<separator string="Task" colspan="4"/>
 										<group>
-											<field name="user_id" string="Technician" />
-											<field name="name" />
+											<field name="user_id" string="Technician"/>
+											<field name="name"/>
 										</group>
-										<separator string="Scheduling" colspan="4" />
+										<separator string="Scheduling" colspan="4"/>
 										<group>
-											<field name="date_start" string="Beginning of task" />
-											<field name="planned_hours" string="Planned/worked hours" widget="float_time" />
-											<field name="date_end" string="End of task" />
-											<field name="break_time" widget="float_time" />
+											<field name="date_start" string="Beginning of task"/>
+											<field name="planned_hours" string="Planned/worked hours" widget="float_time"/>
+											<field name="date_end" string="End of task"/>
+											<field name="break_time" widget="float_time"/>
 										</group>
 									</form>
 									<tree string="Tasks">
-										<field name="user_id" string="Technician" />
-										<field name="name" />
-										<field name="date_start" string="Beginning of task" />
-										<field name="date_end" string="End of task" />
-										<field name="break_time" widget="float_time" />
-										<field name="planned_hours" string="Planned/worked hours" widget="float_time" />
+										<field name="user_id" string="Technician"/>
+										<field name="name"/>
+										<field name="date_start" string="Beginning of task"/>
+										<field name="date_end" string="End of task"/>
+										<field name="break_time" widget="float_time"/>
+										<field name="planned_hours" string="Planned/worked hours" widget="float_time"/>
 									</tree>
 								</field>
 							</page>
@@ -218,8 +215,7 @@
 							</page>
 							<page string="Todo's">
 								<div class="oe_right oe_button_box" position="inside">
-	                   				<button class="oe_inline oe_stat_button oe_right" name="add_todo" string="Add Todo" Help="Click if you want to ask a todo"
-	                          				type="object" icon="fa-tasks" widget="statinfo"/>
+	                   				<button class="oe_inline oe_stat_button oe_right" name="add_todo" string="Add Todo" Help="Click if you want to ask a todo" type="object" icon="fa-tasks" widget="statinfo"/>
 	               				</div>							
 								<separator string="Todo's assigned to this intervention"/>
 								<span class="oe_grey">Here are todo's that are assigned by manager to this intervention</span>
@@ -227,17 +223,14 @@
 								<separator string="Other todo's for the installation"/>
 								<span class="oe_grey">Here are todo's that are linked to the installation</span>
 								<div class="oe_right">
-									<button class="oe_inline oe_stat_button oe_right" name="assign_todo" string="Assign Not Ready" Help="Click if you want to assign todo's that are not ready to this intervention"
-		                           type="object" icon="fa-reply" widget="statinfo"/>
-									<button class="oe_inline oe_stat_button oe_right" name="assign_all_todo" string="Assign All" Help="Click if you want to assign all todo's to this intervention"
-		                           type="object" icon="fa-reply-all" widget="statinfo"/>
+									<button class="oe_inline oe_stat_button oe_right" name="assign_todo" string="Assign Not Ready" Help="Click if you want to assign todo's that are not ready to this intervention" type="object" icon="fa-reply" widget="statinfo"/>
+									<button class="oe_inline oe_stat_button oe_right" name="assign_all_todo" string="Assign All" Help="Click if you want to assign all todo's to this intervention" type="object" icon="fa-reply-all" widget="statinfo"/>
 								</div>
 								<field name="todo_ids" options="{'reload_on_button': true}"/>
 							</page>	
 							<page string="Hour counters">
 								<div class="oe_right" position="inside">
-									<button class="oe_inline oe_stat_button oe_right" name="action_add_counter" string="Add Counter"  help="Add a counter to specific installation element"
-		                               type="object" icon="fa-plus" widget="statinfo"/>
+									<button class="oe_inline oe_stat_button oe_right" name="action_add_counter" string="Add Counter" help="Add a counter to specific installation element" type="object" icon="fa-plus" widget="statinfo"/>
 								</div>
 								<field name="intervention_timeofuse" nolabel="1">
 									<tree string="Hour counters" create="false" editable="bottom">
@@ -247,7 +240,7 @@
 									<form>
 										<group>
 											<field name="maintenance_element_id"/>
-											<field name="time_of_use" />
+											<field name="time_of_use"/>
 										</group>								
 									</form>
 								</field>

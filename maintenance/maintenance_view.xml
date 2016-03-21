@@ -615,9 +615,9 @@
 								<field name="contact_address_id" context="{'search_default_parent_id':partner_id}"/>
 							</group>
 							<group>
-									<separator string="Description" colspan="2"/>
-									<field name="name" nolabel="1"/>
-								</group>
+								<separator string="Description" colspan="2"/>
+								<field name="name" nolabel="1"/>
+							</group>
 						</group>
 						<notebook colspan="4">
 							<page string="Achievement">

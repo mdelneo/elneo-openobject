@@ -112,11 +112,9 @@
     	                            type="object"  icon="fa-truck" widget="statinfo"/>
 		                    <button class="oe_inline oe_stat_button oe_right" name="add_todo" string="Add Todo" Help="Click if you want to ask a todo"
         		                    type="object" icon="fa-tasks" widget="statinfo"/>
-							
 							<button class="oe_stat_button" name="%(maintenance_product.action_maintenance_update_flows)d" type='action'
 									string='Flows' states='confirmed' icon="fa-random" help="Update the Pickings and Sale Order according to changes you made"
 								 	groups="maintenance.group_maintenance_manager" />
-        		                    
 	                    </div>
  						<group>
 							<group>

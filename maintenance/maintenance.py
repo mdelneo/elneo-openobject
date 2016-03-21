@@ -48,6 +48,7 @@ class maintenance_installation(models.Model):
             installation.last_interventions = self.env['maintenance.intervention'].search([("installation_id",'=',installation.id),("state","=","done")], limit=2, order='date_start desc').mapped('id')
             
         return res
+    
     code = fields.Char("Reference", size=255, index=True,help="The Maintenance Installation Code",default=lambda obj: obj.env['ir.sequence'].get('maintenance.installation'))
     name = fields.Char("Identification", size=255)
     partner_id = fields.Many2one('res.partner', string='Customer',help="The partner linked to this maintenance installation")

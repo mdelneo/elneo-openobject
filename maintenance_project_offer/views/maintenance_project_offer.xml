@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Notation : record id = maintenance_project_offer_view_model_form -->
+		<!-- Name :  maintenance_project_offer.view_model_name_form-->
+		<!-- Model : maintenance_project_offer.model_name -->
+		
+		<menuitem id="project_offer_menu" name="Project Offers" parent="maintenance.menu_maintenance"/>	
+	
+		<!-- MaintenanceProject -->
+		<record	id="maintenance_project_offer_list_action" model="ir.actions.act_window">
+			<field name="name">Project Offers</field>
+			<field name="res_model">maintenance.project</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>			
+		</record>
+
+		<menuitem id="project_offer_list" name="List" parent="project_offer_menu" action="maintenance_project_offer_list_action" />
+		
+		<record id="maintenance_project_offer_view_project_offer_form" model="ir.ui.view">
+			<field name="name">maintenance_project_offer.view._project.offer_form</field>
+			<field name="model">maintenance.project</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="maintenance_project_quotation.view_maintenance_project_form_quotation"/>
+			<field name="arch" type="xml">
+				<xpath expr="//separator[@string='Status']" position="before">
+					<separator string="Display options"/>
+				<!-- 	<group>
+						<group>
+							<field name="display_quotation_text_elements"/>
+							<field name="display_discount"/>
+							<field name="display_total"/>
+							<field name="display_line_price"/>
+							<field name="display_payment_term"/>
+						</group>
+						<group>
+							<field name="display_delay"/>
+							<field name="display_descriptions"/>
+							<field name="display_invoice_address"/>
+							<field name="display_shipping_address"/>
+							<field name="delay_in_week"/>
+							<field name="quotation_validity"/>
+						</group>
+					</group>-->			
+					<separator string="Quotation text elements" colspan="4"/>
+				 	<field colspan="4" name="text_elements" nolabel="1">
+						<form string="Quotation text element">
+							<group>
+								<field name="text_element_id"/>
+								<field name="position"/>
+								<field name="sequence"/>
+								<field name="displayed"/>
+								<field name="page_break_before"/>
+								<field name="page_break_after"/>
+								<field name="content" widget="text_ckeditor4"/>
+							</group>
+						</form>
+						<tree string="Quotation text element">
+							<field name="displayed" string=""/>
+							<button name="show" string="Show" attrs="{'invisible':[('displayed','=',True)]}" type="object" icon="STOCK_APPLY" />
+							<button name="hide" string="Hide" attrs="{'invisible':[('displayed','!=',True)]}" type="object" icon="STOCK_CANCEL" />
+							<field name="text_element_id" invisible="True"/>
+							<field name="text_element_name"/>
+							<field name="position"/>
+							<field name="sequence"/>
+							<field name="page_break_before"/>
+							<field name="page_break_after"/>
+						</tree>						
+					</field>	 
+				</xpath>
+			</field>
+		</record>	
+		
+		<!-- TextElement -->
+		<record model="ir.ui.view" id="maintenance_project_offer_view_text_element_form">
+			<field name="name">maintenance_project_offer.view_text_element_form</field>
+			<field name="model">maintenance_project_offer.text_element</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Quotation text element">
+					<group>
+						<field name="code" />
+						<field name="lang"  />
+						<field name="content" widget="text_ckeditor4" />
+						<field name="default_sequence" />
+						<field name="default_displayed" />
+						<field name="default_position" />
+						<field name="default_page_break_before" />
+						<field name="default_page_break_after" />
+					</group>				
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="maintenance_project_offer_view_text_element_tree">
+			<field name="name">maintenance_project_offer.view_text_element_tree</field>
+			<field name="model">maintenance_project_offer.text_element</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Quotation text element">
+					<field name="code" />
+					<field name="lang" />
+					<field name="default_sequence" />
+					<field name="default_displayed" />
+					<field name="default_position" />
+					<field name="default_page_break_before" />
+					<field name="default_page_break_after" />		
+				</tree>
+			</field>
+		</record>		
+		
+		<record	id="maintenance_project_offer_text_element_list_action" model="ir.actions.act_window">
+			<field name="name">Project Offers Text Element</field>
+			<field name="res_model">maintenance_project_offer.text_element</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>			
+		</record>		
+		
+		<menuitem id="project_offer_text_element" name="Text elements" parent="project_offer_menu" action="maintenance_project_offer_text_element_list_action" />
+	</data>
+</openerp>
